@@ -1,0 +1,2783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEPLOYMENT</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+        'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+        'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+        'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+        'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+        'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+        'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+        'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+        'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>DEPLOYMENT</h3>
+        <div class="inner-border">
+            <div class="qee">
+                <div class="que">
+                    <p>1. What is the purpose of Virtual Environments in Python deployment?</p>
+                    <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+                </div>
+            
+                <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Virtual Environments help to create isolated environments for Python projects, allowing different dependencies to coexist.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Each project has its own set of dependencies.</li>
+                        <li>They prevent conflicts between dependencies of different projects.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+                    <label for="optionA0">A) To manage project dependencies separately</label><br>
+            
+                    <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+                    <label for="optionB0">B) To combine dependencies of all projects</label><br>
+            
+                    <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+                    <label for="optionC0">C) To deploy Python applications directly</label><br>
+            
+                    <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+                    <label for="optionD0">D) To optimize Python code performance</label><br>
+                </div>
+            
+                <div id="result0" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>2. What is the purpose of the `setup.py` file in Python projects?</p>
+                    <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+                </div>
+            
+                <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    The `setup.py` file is used for packaging Python projects and managing project dependencies.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It defines the project’s metadata and dependencies.</li>
+                        <li>It allows for easy installation and distribution of the package.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+                    <label for="optionA1">A) To package and distribute Python projects</label><br>
+            
+                    <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+                    <label for="optionB1">B) To define runtime configurations for the project</label><br>
+            
+                    <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+                    <label for="optionC1">C) To manage the version control of the project</label><br>
+            
+                    <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+                    <label for="optionD1">D) To optimize the Python code execution</label><br>
+                </div>
+            
+                <div id="result1" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>3. What is Docker used for in Python deployment?</p>
+                    <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+                </div>
+            
+                <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker is a platform used for developing, shipping, and running Python applications in containers.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It allows applications to be run consistently across different environments.</li>
+                        <li>Docker containers isolate dependencies and configurations for Python applications.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+                    <label for="optionA2">A) To containerize and isolate Python applications</label><br>
+            
+                    <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+                    <label for="optionB2">B) To host Python applications on cloud servers</label><br>
+            
+                    <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+                    <label for="optionC2">C) To improve the runtime performance of Python applications</label><br>
+            
+                    <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+                    <label for="optionD2">D) To manage database connections for Python applications</label><br>
+                </div>
+            
+                <div id="result2" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>4. What is Continuous Integration/Continuous Deployment (CI/CD)?</p>
+                    <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+                </div>
+            
+                <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    CI/CD is a set of practices for automating the process of integrating code changes and deploying applications.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>CI focuses on automating the integration and testing of code.</li>
+                        <li>CD automates the deployment of applications to production environments.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+                    <label for="optionA3">A) Automating code integration and deployment</label><br>
+            
+                    <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+                    <label for="optionB3">B) Automating database migrations and backups</label><br>
+            
+                    <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+                    <label for="optionC3">C) Optimizing server resource allocation</label><br>
+            
+                    <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+                    <label for="optionD3">D) Managing Python code dependencies in production</label><br>
+                </div>
+            
+                <div id="result3" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>5. What are the main benefits of deploying Python applications using containers?</p>
+                    <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+                </div>
+            
+                <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Containers help in ensuring consistency across different environments, reduce conflicts, and are easily scalable.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Containers package the application with all its dependencies.</li>
+                        <li>They ensure applications work the same way in development, testing, and production.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+                    <label for="optionA4">A) Ensuring consistency across environments</label><br>
+            
+                    <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+                    <label for="optionB4">B) Allowing easier code refactoring</label><br>
+            
+                    <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+                    <label for="optionC4">C) Simplifying the database design</label><br>
+            
+                    <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+                    <label for="optionD4">D) Reducing the need for version control</label><br>
+                </div>
+            
+                <div id="result4" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>6. What is the advantage of using Docker Compose in Python application deployment?</p>
+                    <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+                </div>
+            
+                <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker Compose allows you to define and manage multi-container applications for Python projects.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>You can define services, networks, and volumes in a single YAML file.</li>
+                        <li>It simplifies the management of multi-container applications.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+                    <label for="optionA5">A) Managing multi-container applications</label><br>
+            
+                    <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+                    <label for="optionB5">B) Providing automatic load balancing for containers</label><br>
+            
+                    <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+                    <label for="optionC5">C) Optimizing container memory usage</label><br>
+            
+                    <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+                    <label for="optionD5">D) Automatically updating Python dependencies</label><br>
+                </div>
+            
+                <div id="result5" class="result"></div>
+            </div>
+                                                                 
+            <!-- Continue adding the rest of the questions following the same structure. -->
+            
+            
+            <div class="qee">
+                <div class="que">
+                    <p>7. Which of the following is a popular cloud platform for deploying Python applications?</p>
+                    <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+                </div>
+            
+                <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Cloud platforms like AWS, GCP, and Azure offer managed services to deploy Python applications with scalability and high availability.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>These platforms provide services such as virtual machines, managed containers, and serverless functions.</li>
+                        <li>They help in deploying applications quickly without worrying about infrastructure management.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+                    <label for="optionA6">A) AWS, GCP, Azure</label><br>
+            
+                    <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+                    <label for="optionB6">B) Heroku and PythonAnywhere</label><br>
+            
+                    <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+                    <label for="optionC6">C) Local Servers</label><br>
+            
+                    <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+                    <label for="optionD6">D) Only Linux Servers</label><br>
+                </div>
+            
+                <div id="result6" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>8. What is the purpose of a WSGI server like Gunicorn or uWSGI?</p>
+                    <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+                </div>
+            
+                <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    WSGI servers like Gunicorn or uWSGI serve as the bridge between your Python application and the web server (e.g., Nginx or Apache). They ensure the application can handle HTTP requests.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>WSGI servers allow Python web applications to communicate with web servers.</li>
+                        <li>They handle concurrent requests efficiently.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+                    <label for="optionA7">A) To serve Python web applications over HTTP</label><br>
+            
+                    <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+                    <label for="optionB7">B) To manage the deployment of Python packages</label><br>
+            
+                    <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+                    <label for="optionC7">C) To run Python tests on a server</label><br>
+            
+                    <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+                    <label for="optionD7">D) To optimize the performance of the Python interpreter</label><br>
+                </div>
+            
+                <div id="result7" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>9. What is the role of Nginx in Python deployment?</p>
+                    <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+                </div>
+            
+                <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Nginx is commonly used as a reverse proxy in Python web application deployment. It forwards HTTP requests to the WSGI server, which serves the Python application.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It improves the performance of Python applications by handling static files.</li>
+                        <li>Nginx can also distribute traffic across multiple application instances (load balancing).</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+                    <label for="optionA8">A) Reverse proxy for Python applications</label><br>
+            
+                    <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+                    <label for="optionB8">B) To serve Python packages over the web</label><br>
+            
+                    <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+                    <label for="optionC8">C) To handle database connections for Python applications</label><br>
+            
+                    <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+                    <label for="optionD8">D) To optimize the Python code execution</label><br>
+                </div>
+            
+                <div id="result8" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>10. What does Docker Compose allow you to do in the context of Python deployments?</p>
+                    <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+                </div>
+            
+                <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker Compose helps you define and manage multi-container applications using a simple YAML configuration file.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It allows you to define multiple services (e.g., web server, database, cache) in a single file.</li>
+                        <li>It simplifies orchestration and management of Docker containers.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+                    <label for="optionA9">A) Define and manage multi-container applications</label><br>
+            
+                    <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+                    <label for="optionB9">B) Improve the performance of individual Docker containers</label><br>
+            
+                    <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+                    <label for="optionC9">C) Encrypt the Docker images</label><br>
+            
+                    <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+                    <label for="optionD9">D) Manage Python package dependencies in containers</label><br>
+                </div>
+            
+                <div id="result9" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>11. What is the primary use of Heroku in Python deployment?</p>
+                    <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+                </div>
+            
+                <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Heroku is a platform-as-a-service (PaaS) that enables developers to deploy, manage, and scale Python applications easily without having to manage the underlying infrastructure.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It simplifies application deployment with built-in support for various programming languages, including Python.</li>
+                        <li>Heroku manages scaling, infrastructure, and app monitoring automatically.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+                    <label for="optionA10">A) Platform-as-a-Service for deploying and scaling Python apps</label><br>
+            
+                    <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+                    <label for="optionB10">B) A tool for managing Docker containers in production</label><br>
+            
+                    <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+                    <label for="optionC10">C) A tool for optimizing Python performance in production</label><br>
+            
+                    <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+                    <label for="optionD10">D) A framework for building web applications in Python</label><br>
+                </div>
+            
+                <div id="result10" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>12. What is the main benefit of using DigitalOcean for Python application deployment?</p>
+                    <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+                </div>
+            
+                <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    DigitalOcean is a cloud infrastructure provider that offers a variety of services, including virtual machines (droplets), storage, and managed Kubernetes for Python app deployment.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It provides simplicity in setting up cloud instances (droplets) at affordable prices.</li>
+                        <li>DigitalOcean includes features like load balancing and databases that can easily integrate with Python applications.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+                    <label for="optionA11">A) Affordable and simple cloud infrastructure for deploying apps</label><br>
+            
+                    <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+                    <label for="optionB11">B) A specialized Python deployment tool</label><br>
+            
+                    <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+                    <label for="optionC11">C) A platform that only supports large-scale deployments</label><br>
+            
+                    <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+                    <label for="optionD11">D) A tool that only works with Docker containers</label><br>
+                </div>
+            
+                <div id="result11" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>13. Which of the following is a key advantage of using Kubernetes for Python application deployment?</p>
+                    <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+                </div>
+            
+                <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Kubernetes is an open-source platform for automating the deployment, scaling, and management of containerized applications.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It ensures automatic scaling, load balancing, and self-healing of containerized applications.</li>
+                        <li>Kubernetes makes it easier to manage complex application deployments, ensuring high availability and reliability.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+                    <label for="optionA12">A) Automates deployment and scaling of containerized applications</label><br>
+            
+                    <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+                    <label for="optionB12">B) A tool for packaging Python code into executable binaries</label><br>
+            
+                    <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+                    <label for="optionC12">C) A service for creating and managing virtual environments</label><br>
+            
+                    <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+                    <label for="optionD12">D) A cloud platform for serverless Python applications</label><br>
+                </div>
+            
+                <div id="result12" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>14. What does setting up SSL/TLS certificates for your Python application provide?</p>
+                    <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+                </div>
+            
+                <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    SSL/TLS certificates are essential for encrypting the data between the client and server, ensuring secure communication over HTTPS.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>They ensure the privacy and integrity of the data transmitted over the internet.</li>
+                        <li>SSL/TLS certificates help prevent man-in-the-middle attacks and eavesdropping.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+                    <label for="optionA13">A) Provides secure communication between client and server</label><br>
+            
+                    <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+                    <label for="optionB13">B) Enables fast delivery of static files</label><br>
+            
+                    <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+                    <label for="optionC13">C) Optimizes database queries in production</label><br>
+            
+                    <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+                    <label for="optionD13">D) Enables scaling of the Python app in production</label><br>
+                </div>
+            
+                <div id="result13" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>15. What is the primary benefit of using Docker for Python application deployment?</p>
+                    <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+                </div>
+            
+                <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker is a tool for creating and running containers. It allows packaging an application and all its dependencies into a container that can run anywhere.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Docker containers are portable, ensuring that an app works the same way in different environments.</li>
+                        <li>It helps to isolate the application from the host system, improving scalability and consistency in deployment.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+                    <label for="optionA14">A) It ensures consistent deployment across different environments</label><br>
+            
+                    <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+                    <label for="optionB14">B) It increases the size of the application for better security</label><br>
+            
+                    <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+                    <label for="optionC14">C) It speeds up database migration tasks in production</label><br>
+            
+                    <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+                    <label for="optionD14">D) It removes the need for version control in deployment</label><br>
+                </div>
+            
+                <div id="result14" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>16. What is the purpose of using Docker Compose in Python application deployment?</p>
+                    <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+                </div>
+            
+                <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker Compose is a tool for defining and running multi-container Docker applications. It allows you to define services, networks, and volumes for complex Python apps.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It simplifies the management of multiple containers needed for an application.</li>
+                        <li>Docker Compose allows you to define and start all the necessary components of an application in a single command.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+                    <label for="optionA15">A) It manages multi-container applications in Python deployment</label><br>
+            
+                    <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+                    <label for="optionB15">B) It packages Python code into a deployable unit</label><br>
+            
+                    <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+                    <label for="optionC15">C) It provides a tool for creating a virtual environment</label><br>
+            
+                    <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+                    <label for="optionD15">D) It automates database migration in deployment</label><br>
+                </div>
+            
+                <div id="result15" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>17. Which cloud platform provides a dedicated service for Python application deployment called Elastic Beanstalk?</p>
+                    <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+                </div>
+            
+                <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Elastic Beanstalk is a Platform-as-a-Service (PaaS) offered by AWS that simplifies the deployment of Python applications, automating infrastructure provisioning, load balancing, and scaling.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Elastic Beanstalk manages the underlying infrastructure while allowing developers to focus on their code.</li>
+                        <li>It supports multiple programming languages, including Python, and provides an easy interface for deployment.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+                    <label for="optionA16">A) Amazon Web Services (AWS)</label><br>
+            
+                    <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+                    <label for="optionB16">B) Google Cloud Platform (GCP)</label><br>
+            
+                    <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+                    <label for="optionC16">C) Microsoft Azure</label><br>
+            
+                    <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+                    <label for="optionD16">D) DigitalOcean</label><br>
+                </div>
+            
+                <div id="result16" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>18. What is the function of a WSGI server in Python web application deployment?</p>
+                    <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+                </div>
+            
+                <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    WSGI (Web Server Gateway Interface) is the specification that Python web servers use to communicate with web applications. WSGI servers like Gunicorn or uWSGI are used to serve Python applications.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>WSGI servers allow Python web applications to be served over HTTP, handling incoming requests and returning responses.</li>
+                        <li>They ensure that the application is properly connected to the web server like Nginx or Apache.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+                    <label for="optionA17">A) It allows Python applications to communicate with web servers</label><br>
+            
+                    <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+                    <label for="optionB17">B) It optimizes Python code for faster execution</label><br>
+            
+                    <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+                    <label for="optionC17">C) It provides a platform for deploying Python applications</label><br>
+            
+                    <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+                    <label for="optionD17">D) It secures communication between the client and server</label><br>
+                </div>
+            
+                <div id="result17" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>19. What is a key feature of using Continuous Integration (CI) in Python deployment?</p>
+                    <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+                </div>
+            
+                <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Continuous Integration (CI) is the practice of automatically integrating code changes into a shared repository frequently, followed by automated testing.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>CI helps catch integration issues early by testing code every time changes are made.</li>
+                        <li>It supports automation and ensures that every commit is verified by automated tests before merging.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+                    <label for="optionA18">A) Automates testing and integration of code changes</label><br>
+            
+                    <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+                    <label for="optionB18">B) Provides security testing for Python applications</label><br>
+            
+                    <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+                    <label for="optionC18">C) Helps with serverless deployment</label><br>
+            
+                    <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+                    <label for="optionD18">D) Creates Docker images for deployment</label><br>
+                </div>
+            
+                <div id="result18" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>20. How does Continuous Deployment (CD) enhance the Python deployment process?</p>
+                    <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+                </div>
+            
+                <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Continuous Deployment (CD) automates the release process so that the latest code changes are automatically deployed to production after passing tests.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>CD streamlines the deployment pipeline, allowing faster releases with reduced manual intervention.</li>
+                        <li>It ensures that the application in production is always up-to-date with the latest changes.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+                    <label for="optionA19">A) Automates deployment to production after tests pass</label><br>
+            
+                    <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+                    <label for="optionB19">B) Provides manual testing for every deployment</label><br>
+            
+                    <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+                    <label for="optionC19">C) Enhances performance tuning in production</label><br>
+            
+                    <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+                    <label for="optionD19">D) Increases deployment time to ensure quality</label><br>
+                </div>
+            
+                <div id="result19" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>21. What role does a production database, such as PostgreSQL or MySQL, play in Python application deployment?</p>
+                    <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+                </div>
+            
+                <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    A production database stores and manages the application's data in the live environment. PostgreSQL and MySQL are popular relational database systems used in production.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>The production database ensures the persistence of data and enables efficient querying and transaction management.</li>
+                        <li>It needs to be optimized and securely configured to handle the load of a live application.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+                    <label for="optionA20">A) It manages data persistence and transactions in a live environment</label><br>
+            
+                    <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+                    <label for="optionB20">B) It speeds up the deployment process by caching data</label><br>
+            
+                    <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+                    <label for="optionC20">C) It provides security features for encrypted communications</label><br>
+            
+                    <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+                    <label for="optionD20">D) It serves as a backup for application data</label><br>
+                </div>
+            
+                <div id="result20" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>22. Why is environment variable management crucial for Python application deployment?</p>
+                    <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+                </div>
+            
+                <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Environment variables store configuration settings, such as database credentials and API keys, that can vary between deployment environments.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Environment variables allow secure handling of sensitive data and configuration settings.</li>
+                        <li>They allow for easy configuration changes without modifying the codebase.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+                    <label for="optionA21">A) It securely manages sensitive information like credentials</label><br>
+            
+                    <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+                    <label for="optionB21">B) It increases the application’s startup speed</label><br>
+            
+                    <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+                    <label for="optionC21">C) It is used for managing user authentication</label><br>
+            
+                    <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+                    <label for="optionD21">D) It stores logs generated during application deployment</label><br>
+                </div>
+            
+                <div id="result21" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>23. What is the purpose of using Docker in Python application deployment?</p>
+                    <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+                </div>
+            
+                <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker is used to containerize applications, making it easier to deploy and run them in any environment, regardless of dependencies.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Docker containers package an application and its dependencies into a single unit that can be executed consistently across different environments.</li>
+                        <li>Docker provides isolation, ensuring that applications do not conflict with each other or the host system.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+                    <label for="optionA22">A) It containerizes applications for consistent deployment</label><br>
+            
+                    <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+                    <label for="optionB22">B) It automates server provisioning</label><br>
+            
+                    <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+                    <label for="optionC22">C) It simplifies the process of managing databases</label><br>
+            
+                    <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+                    <label for="optionD22">D) It is used for creating and running virtual machines</label><br>
+                </div>
+            
+                <div id="result22" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>24. What is the advantage of using Docker Compose for Python application deployment?</p>
+                    <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+                </div>
+            
+                <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker Compose is a tool used to define and run multi-container Docker applications. It simplifies the management of complex application stacks.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Docker Compose allows defining services, networks, and volumes in a single YAML file.</li>
+                        <li>It automates the process of starting up multiple Docker containers for an application.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+                    <label for="optionA23">A) It simplifies multi-container application management</label><br>
+            
+                    <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+                    <label for="optionB23">B) It provides a GUI for managing Docker containers</label><br>
+            
+                    <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+                    <label for="optionC23">C) It reduces the size of Docker images</label><br>
+            
+                    <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+                    <label for="optionD23">D) It speeds up the process of containerizing individual applications</label><br>
+                </div>
+            
+                <div id="result23" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>25. How does deployment on cloud platforms like AWS, GCP, or Azure benefit Python applications?</p>
+                    <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+                </div>
+            
+                <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Cloud platforms such as AWS, GCP, and Azure provide scalable infrastructure for hosting Python applications. These platforms offer services for computing, storage, and database management.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Cloud platforms offer on-demand scalability, allowing applications to handle varying loads.</li>
+                        <li>They provide managed services, ensuring reliability and high availability for production environments.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+                    <label for="optionA24">A) They offer scalable infrastructure and managed services</label><br>
+            
+                    <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+                    <label for="optionB24">B) They provide automated testing for all Python applications</label><br>
+            
+                    <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+                    <label for="optionC24">C) They eliminate the need for managing application security</label><br>
+            
+                    <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+                    <label for="optionD24">D) They limit the number of resources available for hosting Python apps</label><br>
+                </div>
+            
+                <div id="result24" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>26. Why is using Nginx with Gunicorn important for deploying Python web applications?</p>
+                    <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+                </div>
+            
+                <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Nginx is a web server that serves static files and acts as a reverse proxy to Gunicorn, which is a WSGI server that handles Python web requests.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Nginx is lightweight and performs well as a reverse proxy for Gunicorn.</li>
+                        <li>Gunicorn is a WSGI server that interfaces with Python applications, handling concurrent requests efficiently.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+                    <label for="optionA25">A) Nginx acts as a reverse proxy, and Gunicorn handles Python requests</label><br>
+            
+                    <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+                    <label for="optionB25">B) Nginx directly serves dynamic content while Gunicorn handles static files</label><br>
+            
+                    <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+                    <label for="optionC25">C) Nginx is used for managing databases, and Gunicorn serves the app</label><br>
+            
+                    <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+                    <label for="optionD25">D) Nginx and Gunicorn are interchangeable for handling web requests</label><br>
+                </div>
+            
+                <div id="result25" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>27. What is the purpose of using Kubernetes for Python application deployment?</p>
+                    <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+                </div>
+            
+                <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Kubernetes is a container orchestration tool used to automate the deployment, scaling, and management of containerized applications. It is widely used for large-scale Python applications in production.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Kubernetes helps to manage and scale containerized applications across multiple nodes.</li>
+                        <li>It automates the deployment process and ensures high availability and fault tolerance.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+                    <label for="optionA26">A) It automates the deployment and scaling of containerized applications</label><br>
+            
+                    <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+                    <label for="optionB26">B) It handles the management of databases only</label><br>
+            
+                    <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+                    <label for="optionC26">C) It provides a GUI for managing Python applications</label><br>
+            
+                    <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+                    <label for="optionD26">D) It is used for managing virtual machines</label><br>
+                </div>
+            
+                <div id="result26" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>28. What is a blue-green deployment strategy?</p>
+                    <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+                </div>
+            
+                <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    A blue-green deployment is a strategy that reduces downtime by running two identical production environments, referred to as "blue" and "green." One environment is live (blue), while the other (green) is prepared for deployment.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>The blue environment runs the current version of the application.</li>
+                        <li>The green environment is used to test the new version before switching traffic to it.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+                    <label for="optionA27">A) It uses two identical environments to reduce downtime</label><br>
+            
+                    <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+                    <label for="optionB27">B) It deploys updates in the background without any testing</label><br>
+            
+                    <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+                    <label for="optionC27">C) It deploys updates directly on the production environment</label><br>
+            
+                    <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+                    <label for="optionD27">D) It avoids downtime by having redundant servers for database management</label><br>
+                </div>
+            
+                <div id="result27" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>29. What is zero-downtime deployment?</p>
+                    <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+                </div>
+            
+                <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Zero-downtime deployment is a deployment strategy aimed at ensuring no service interruptions while new versions of an application are deployed to production.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It is achieved by using techniques like load balancing, rolling updates, and traffic routing to ensure that users experience no downtime.</li>
+                        <li>Zero-downtime deployment is crucial for high-availability systems, especially in production environments.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+                    <label for="optionA28">A) It ensures no downtime during application deployment</label><br>
+            
+                    <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+                    <label for="optionB28">B) It schedules maintenance downtime for application updates</label><br>
+            
+                    <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+                    <label for="optionC28">C) It deploys only minor updates to reduce downtime</label><br>
+            
+                    <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+                    <label for="optionD28">D) It ensures that application traffic is blocked during deployment</label><br>
+                </div>
+            
+                <div id="result28" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>30. What role does SSL/TLS certificates play in Python application deployment?</p>
+                    <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+                </div>
+            
+                <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    SSL/TLS certificates are used to secure data transmitted over the network by encrypting the communication between the client and the server. It is essential for securing Python applications, particularly web apps.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>SSL/TLS ensures that sensitive data such as login credentials, payment information, and personal data is transmitted securely.</li>
+                        <li>It is also critical for SEO rankings and building trust with users.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+                    <label for="optionA29">A) SSL/TLS certificates encrypt data for secure transmission</label><br>
+            
+                    <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+                    <label for="optionB29">B) SSL/TLS certificates are only used for securing database connections</label><br>
+            
+                    <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+                    <label for="optionC29">C) SSL/TLS certificates are used for performance optimization</label><br>
+            
+                    <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+                    <label for="optionD29">D) SSL/TLS certificates help in compressing application data</label><br>
+                </div>
+            
+                <div id="result29" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>31. What is the primary function of Docker in Python application deployment?</p>
+                    <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+                </div>
+            
+                <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker allows you to package an application and its dependencies into a container, ensuring the application runs consistently across different environments, from development to production.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Docker containers encapsulate the app and its dependencies, ensuring consistent behavior regardless of where the app is deployed.</li>
+                        <li>It makes the deployment process more efficient and reliable.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+                    <label for="optionA30">A) It packages applications into containers for consistent deployment</label><br>
+            
+                    <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+                    <label for="optionB30">B) It manages the source code for Python applications</label><br>
+            
+                    <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+                    <label for="optionC30">C) It is used to build graphical user interfaces for Python apps</label><br>
+            
+                    <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+                    <label for="optionD30">D) It monitors system performance during deployment</label><br>
+                </div>
+            
+                <div id="result30" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>32. What is the role of environment variables in Python application deployment?</p>
+                    <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+                </div>
+            
+                <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Environment variables are used to configure and store application settings and secrets (e.g., API keys, database credentials) outside the codebase.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>They allow for configuration without hardcoding sensitive information into the source code.</li>
+                        <li>They ensure that settings are appropriately managed for different environments (development, testing, production).</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+                    <label for="optionA31">A) They store configuration settings and secrets outside the codebase</label><br>
+            
+                    <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+                    <label for="optionB31">B) They are used only to store the source code</label><br>
+            
+                    <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+                    <label for="optionC31">C) They provide real-time debugging information</label><br>
+            
+                    <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+                    <label for="optionD31">D) They are used to monitor CPU usage during deployment</label><br>
+                </div>
+            
+                <div id="result31" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>33. What is Continuous Integration (CI) in the context of Python application deployment?</p>
+                    <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+                </div>
+            
+                <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Continuous Integration (CI) is a practice where code changes are automatically built and tested in a shared repository, ensuring that new changes integrate smoothly with the existing codebase.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>CI helps detect integration issues early, improving collaboration among developers.</li>
+                        <li>It reduces the risk of bugs and conflicts in the deployment process.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+                    <label for="optionA32">A) CI automates the process of building and testing code changes</label><br>
+            
+                    <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+                    <label for="optionB32">B) CI is used to manually test code changes before integration</label><br>
+            
+                    <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+                    <label for="optionC32">C) CI is a tool for monitoring production environments</label><br>
+            
+                    <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+                    <label for="optionD32">D) CI stores sensitive data in the codebase</label><br>
+                </div>
+            
+                <div id="result32" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>34. What is Continuous Deployment (CD) in Python application deployment?</p>
+                    <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+                </div>
+            
+                <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Continuous Deployment (CD) is a practice where every change that passes automated tests is automatically deployed to production, ensuring that the latest version of the application is always available.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>CD automates the deployment process and reduces manual intervention.</li>
+                        <li>It ensures that users always have access to the latest features and fixes.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+                    <label for="optionA33">A) CD automatically deploys code changes that pass tests to production</label><br>
+            
+                    <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+                    <label for="optionB33">B) CD manually tests code changes before deployment</label><br>
+            
+                    <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+                    <label for="optionC33">C) CD is used to backup database data</label><br>
+            
+                    <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+                    <label for="optionD33">D) CD ensures that the code is debugged automatically before deployment</label><br>
+                </div>
+            
+                <div id="result33" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>35. How does version control assist in Python application deployment?</p>
+                    <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+                </div>
+            
+                <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Version control systems (e.g., Git) help track and manage changes to the application's source code. It ensures that developers can collaborate and deploy the correct version of the code in production.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Version control helps manage code changes, enabling easy rollback and traceability of issues.</li>
+                        <li>It ensures that the deployed application uses the latest stable version of the code.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+                    <label for="optionA34">A) Version control tracks and manages code changes for easy deployment</label><br>
+            
+                    <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+                    <label for="optionB34">B) Version control helps manage deployment pipelines</label><br>
+            
+                    <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+                    <label for="optionC34">C) Version control only manages database changes</label><br>
+            
+                    <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+                    <label for="optionD34">D) Version control automatically deploys code to production</label><br>
+                </div>
+            
+                <div id="result34" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>36. What is the purpose of the `setup.py` file in Python application deployment?</p>
+                    <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+                </div>
+            
+                <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    The `setup.py` file is used for packaging Python projects. It defines how the application is structured, the dependencies, and provides metadata about the project.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It is essential for distributing Python packages and managing dependencies.</li>
+                        <li>It helps in installing and configuring the Python application for deployment.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+                    <label for="optionA35">A) It is used to define dependencies and packaging configurations for Python projects</label><br>
+            
+                    <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+                    <label for="optionB35">B) It is used to monitor the application performance in production</label><br>
+            
+                    <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+                    <label for="optionC35">C) It is used to back up the Python application data during deployment</label><br>
+            
+                    <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+                    <label for="optionD35">D) It is used to configure system environment variables</label><br>
+                </div>
+            
+                <div id="result35" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>37. What is the role of Docker Compose in Python application deployment?</p>
+                    <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+                </div>
+            
+                <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker Compose is a tool for defining and running multi-container Docker applications. It allows you to manage services, networks, and volumes for Python applications deployed in containers.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It defines multiple Docker containers in a single file, allowing easy orchestration of services.</li>
+                        <li>It is particularly useful for managing complex applications with multiple microservices.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+                    <label for="optionA36">A) It helps define and manage multi-container Docker applications</label><br>
+            
+                    <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+                    <label for="optionB36">B) It is used to monitor the performance of a Python web application</label><br>
+            
+                    <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+                    <label for="optionC36">C) It is used to configure Python dependencies for production</label><br>
+            
+                    <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+                    <label for="optionD36">D) It is used to store backup data in the cloud</label><br>
+                </div>
+            
+                <div id="result36" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>38. What is the significance of using Kubernetes in Python application deployment?</p>
+                    <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+                </div>
+            
+                <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Kubernetes is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications, such as Python applications.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It simplifies deployment and scaling of Python apps across multiple servers.</li>
+                        <li>Kubernetes handles container management, load balancing, and automated scaling.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+                    <label for="optionA37">A) Kubernetes automates the deployment and scaling of containerized applications</label><br>
+            
+                    <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+                    <label for="optionB37">B) Kubernetes is used for managing Python dependencies in production</label><br>
+            
+                    <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+                    <label for="optionC37">C) Kubernetes stores backup data for Python applications</label><br>
+            
+                    <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+                    <label for="optionD37">D) Kubernetes provides graphical user interfaces for Python applications</label><br>
+                </div>
+            
+                <div id="result37" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>39. How does SSL/TLS certification contribute to the secure deployment of Python applications?</p>
+                    <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+                </div>
+            
+                <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    SSL/TLS certificates ensure that data transmitted between users and your Python application is encrypted and secure. They are essential for protecting sensitive information like passwords and personal data.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>SSL/TLS ensures secure communication over the network (HTTPS).</li>
+                        <li>They are necessary for preventing man-in-the-middle attacks and securing sensitive data during deployment.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+                    <label for="optionA38">A) SSL/TLS certificates encrypt data, ensuring secure communication between users and the app</label><br>
+            
+                    <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+                    <label for="optionB38">B) SSL/TLS certificates improve application speed by reducing latency</label><br>
+            
+                    <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+                    <label for="optionC38">C) SSL/TLS certificates are used to back up application data</label><br>
+            
+                    <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+                    <label for="optionD38">D) SSL/TLS certificates are used to deploy Python apps on mobile devices</label><br>
+                </div>
+            
+                <div id="result38" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>40. What is the role of a load balancer in Python application deployment?</p>
+                    <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+                </div>
+            
+                <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    A load balancer is used to distribute incoming network traffic across multiple servers or instances of a Python application. It ensures high availability, fault tolerance, and scalability.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Load balancing helps to prevent server overload and ensures efficient resource utilization.</li>
+                        <li>It improves performance and redundancy by redirecting traffic to healthy servers.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+                    <label for="optionA39">A) Load balancers distribute incoming traffic across multiple servers for better performance</label><br>
+            
+                    <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+                    <label for="optionB39">B) Load balancers monitor database performance during deployment</label><br>
+            
+                    <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+                    <label for="optionC39">C) Load balancers automatically deploy applications to multiple servers</label><br>
+            
+                    <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+                    <label for="optionD39">D) Load balancers ensure that server errors are automatically fixed</label><br>
+                </div>
+            
+                <div id="result39" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>41. What is the role of Continuous Integration (CI) in Python application deployment?</p>
+                    <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+                </div>
+            
+                <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Continuous Integration (CI) is a software development practice where code changes are automatically built and tested in an integrated environment. In deployment, CI ensures that code is always in a deployable state.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>CI helps catch bugs early and ensures that the application is always ready for deployment.</li>
+                        <li>It automates testing, builds, and deployments to speed up the delivery pipeline.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+                    <label for="optionA40">A) CI automates the building, testing, and integration of code changes</label><br>
+            
+                    <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+                    <label for="optionB40">B) CI helps manage application deployments across multiple servers</label><br>
+            
+                    <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+                    <label for="optionC40">C) CI manages the performance tuning of Python applications</label><br>
+            
+                    <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+                    <label for="optionD40">D) CI is used to configure application security in production</label><br>
+                </div>
+            
+                <div id="result40" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>42. What is the importance of using a Virtual Environment in Python deployment?</p>
+                    <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+                </div>
+            
+                <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    A Virtual Environment is a self-contained directory that contains Python and its dependencies, allowing you to manage project-specific dependencies without interfering with global Python installations.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Virtual environments ensure consistency across development, testing, and production environments.</li>
+                        <li>They help in isolating dependencies specific to each project.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+                    <label for="optionA41">A) Virtual environments isolate project dependencies from global Python installations</label><br>
+            
+                    <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+                    <label for="optionB41">B) Virtual environments help automate the scaling of applications in production</label><br>
+            
+                    <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+                    <label for="optionC41">C) Virtual environments are used to monitor application performance in production</label><br>
+            
+                    <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+                    <label for="optionD41">D) Virtual environments are used to configure server firewalls for Python applications</label><br>
+                </div>
+            
+                <div id="result41" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>43. What is the purpose of using Git in Python application deployment?</p>
+                    <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+                </div>
+            
+                <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Git is a version control system that helps track changes in the application code. It allows collaboration among developers and ensures that the deployment process is reproducible.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Git enables easy rollback to previous versions of the application in case of deployment failures.</li>
+                        <li>It is used to manage code across different environments, such as development, testing, and production.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+                    <label for="optionA42">A) Git tracks and manages changes to the application code, aiding deployment</label><br>
+            
+                    <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+                    <label for="optionB42">B) Git automatically deploys the Python application to servers</label><br>
+            
+                    <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+                    <label for="optionC42">C) Git is used to scale the application across multiple servers</label><br>
+            
+                    <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+                    <label for="optionD42">D) Git is used to store database backups during deployment</label><br>
+                </div>
+            
+                <div id="result42" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>44. What is the benefit of using Docker in the deployment of Python applications?</p>
+                    <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+                </div>
+            
+                <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker allows developers to package applications and their dependencies into containers, ensuring consistency across different environments. It simplifies deployment by removing environment-related issues.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Docker containers are lightweight and portable, making it easier to deploy Python applications across different platforms.</li>
+                        <li>It ensures that the application will run consistently on any system, regardless of differences in OS or environment.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+                    <label for="optionA43">A) Docker provides a consistent environment for Python applications across different systems</label><br>
+            
+                    <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+                    <label for="optionB43">B) Docker automatically scales Python applications based on demand</label><br>
+            
+                    <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+                    <label for="optionC43">C) Docker helps automate database backups during Python application deployment</label><br>
+            
+                    <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+                    <label for="optionD43">D) Docker ensures the Python application runs with better security features</label><br>
+                </div>
+            
+                <div id="result43" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>45. What is the purpose of `setup.py` in Python project deployment?</p>
+                    <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+                </div>
+            
+                <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    `setup.py` is the build script for setuptools, a tool to package Python projects. It defines the metadata, dependencies, and installation instructions for the project.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It enables easy distribution of Python projects to users and PyPI (Python Package Index).</li>
+                        <li>It is used to automate the packaging and installation process of the Python project.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+                    <label for="optionA44">A) `setup.py` defines the metadata and installation instructions for the Python project</label><br>
+            
+                    <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+                    <label for="optionB44">B) `setup.py` is used to scale the Python project in production</label><br>
+            
+                    <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+                    <label for="optionC44">C) `setup.py` is used to automate database backups during deployment</label><br>
+            
+                    <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+                    <label for="optionD44">D) `setup.py` ensures security for the Python application during deployment</label><br>
+                </div>
+            
+                <div id="result44" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>46. What is the role of Cloud Platforms like AWS, GCP, or Azure in Python deployment?</p>
+                    <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+                </div>
+            
+                <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Cloud platforms such as AWS, GCP, and Azure provide scalable infrastructure and services to deploy Python applications. They offer computing resources, databases, storage, and networking services that can handle large-scale applications.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Cloud platforms provide easy-to-use tools for hosting, scaling, and maintaining applications.</li>
+                        <li>They allow deployment with minimal hardware management, improving flexibility and efficiency.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+                    <label for="optionA45">A) Cloud platforms provide scalable infrastructure for deploying Python applications</label><br>
+            
+                    <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+                    <label for="optionB45">B) Cloud platforms provide a framework for Python application development</label><br>
+            
+                    <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+                    <label for="optionC45">C) Cloud platforms help optimize Python code for performance</label><br>
+            
+                    <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+                    <label for="optionD45">D) Cloud platforms manage database backups for Python applications</label><br>
+                </div>
+            
+                <div id="result45" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>47. What is the advantage of using Docker Compose in Python application deployment?</p>
+                    <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+                </div>
+            
+                <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker Compose is a tool that helps you define and manage multi-container Docker applications. It allows you to configure the services your Python application needs (like databases, caches, etc.) in a single YAML file.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It simplifies the process of setting up and managing multi-container environments for Python applications.</li>
+                        <li>Docker Compose automates the configuration and deployment of interconnected services.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+                    <label for="optionA46">A) Docker Compose helps manage multi-container Docker applications</label><br>
+            
+                    <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+                    <label for="optionB46">B) Docker Compose automates the scaling of Python applications in production</label><br>
+            
+                    <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+                    <label for="optionC46">C) Docker Compose manages Python application security in production</label><br>
+            
+                    <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+                    <label for="optionD46">D) Docker Compose automates database backup during deployment</label><br>
+                </div>
+            
+                <div id="result46" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>48. How does Nginx and Gunicorn work together to deploy Python web applications?</p>
+                    <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+                </div>
+            
+                <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Nginx acts as a reverse proxy server, handling incoming HTTP requests and forwarding them to Gunicorn, a WSGI server, which serves the Python web application. This setup improves the performance and scalability of Python web applications.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Gunicorn is a Python WSGI server that runs the application code, while Nginx serves as a proxy to forward requests to Gunicorn.</li>
+                        <li>This combination improves concurrency, request handling, and security for Python web apps.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+                    <label for="optionA47">A) Nginx forwards requests to Gunicorn, which runs the Python application</label><br>
+            
+                    <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+                    <label for="optionB47">B) Nginx handles database queries and forwards them to Gunicorn</label><br>
+            
+                    <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+                    <label for="optionC47">C) Gunicorn manages static files while Nginx serves dynamic content</label><br>
+            
+                    <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+                    <label for="optionD47">D) Gunicorn handles all the incoming HTTP requests for Python applications</label><br>
+                </div>
+            
+                <div id="result47" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>49. What is the purpose of using `Dockerfile` in Python application deployment?</p>
+                    <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+                </div>
+            
+                <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    A `Dockerfile` is a script used by Docker to build a container image. It defines the environment and instructions on how to install and configure dependencies for the Python application.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>The `Dockerfile` provides a way to automate the creation of a Docker image with the necessary dependencies.</li>
+                        <li>It ensures consistent deployment across different environments by specifying all necessary components.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+                    <label for="optionA48">A) `Dockerfile` automates the creation of a Docker image for the Python application</label><br>
+            
+                    <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+                    <label for="optionB48">B) `Dockerfile` manages database migrations in Python applications</label><br>
+            
+                    <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+                    <label for="optionC48">C) `Dockerfile` is used to deploy the application to cloud platforms</label><br>
+            
+                    <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+                    <label for="optionD48">D) `Dockerfile` optimizes the Python application's performance</label><br>
+                </div>
+            
+                <div id="result48" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>50. What is the purpose of Continuous Integration (CI) and Continuous Deployment (CD) in Python deployment?</p>
+                    <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+                </div>
+            
+                <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    CI/CD are practices that ensure frequent and reliable software delivery. CI involves integrating code changes into a shared repository frequently, while CD automates the deployment process to production after passing tests.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>CI ensures that new code is integrated into the codebase smoothly.</li>
+                        <li>CD automates the deployment process, ensuring faster delivery to production.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+                    <label for="optionA49">A) CI/CD automates the testing and deployment of Python applications</label><br>
+            
+                    <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+                    <label for="optionB49">B) CI/CD ensures that Python applications are manually tested before deployment</label><br>
+            
+                    <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+                    <label for="optionC49">C) CI/CD is used for managing version control in Python applications</label><br>
+            
+                    <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+                    <label for="optionD49">D) CI/CD optimizes Python application performance during deployment</label><br>
+                </div>
+            
+                <div id="result49" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>51. How does Heroku simplify Python application deployment?</p>
+                    <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+                </div>
+            
+                <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Heroku is a platform-as-a-service (PaaS) that simplifies the deployment of Python applications by abstracting away the infrastructure and providing a user-friendly environment for managing and scaling apps.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Heroku allows easy deployment using Git and automatically handles scaling and resource management.</li>
+                        <li>It provides built-in services such as databases, caches, and logging that can be easily integrated with Python apps.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+                    <label for="optionA50">A) Heroku simplifies deployment by abstracting away infrastructure and managing resources</label><br>
+            
+                    <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+                    <label for="optionB50">B) Heroku requires you to manually manage the infrastructure and scale the application</label><br>
+            
+                    <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+                    <label for="optionC50">C) Heroku deploys Python applications only on AWS infrastructure</label><br>
+            
+                    <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+                    <label for="optionD50">D) Heroku automatically handles all aspects of database backup during deployment</label><br>
+                </div>
+            
+                <div id="result50" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>52. What is the importance of Load Balancing in Python application deployment?</p>
+                    <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+                </div>
+            
+                <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Load balancing distributes incoming network traffic across multiple servers to ensure no single server is overwhelmed, improving performance, availability, and redundancy in Python applications.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It helps to prevent downtime and ensures high availability by spreading the load across multiple servers.</li>
+                        <li>Load balancing can handle spikes in traffic and ensures that the application remains responsive.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+                    <label for="optionA51">A) Load balancing distributes incoming traffic to multiple servers for better availability and performance</label><br>
+            
+                    <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+                    <label for="optionB51">B) Load balancing ensures that all servers run the same Python code for improved efficiency</label><br>
+            
+                    <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+                    <label for="optionC51">C) Load balancing encrypts traffic for secure transmission of Python applications</label><br>
+            
+                    <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+                    <label for="optionD51">D) Load balancing handles database migrations during Python application deployment</label><br>
+                </div>
+            
+                <div id="result51" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>53. What is the purpose of using Gunicorn with Nginx for Python web apps?</p>
+                    <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+                </div>
+            
+                <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Gunicorn is a WSGI server that serves Python web applications, while Nginx is a web server used as a reverse proxy to handle incoming HTTP requests. Together, they allow handling of multiple client requests efficiently and ensure proper load balancing.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Gunicorn serves the Python application while Nginx acts as a reverse proxy to distribute traffic to Gunicorn.</li>
+                        <li>Nginx can handle static files and provide SSL/TLS termination, improving performance and security.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+                    <label for="optionA52">A) Gunicorn serves Python apps, and Nginx handles traffic and static files</label><br>
+            
+                    <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+                    <label for="optionB52">B) Gunicorn handles traffic and Nginx serves Python apps</label><br>
+            
+                    <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+                    <label for="optionC52">C) Gunicorn and Nginx work together for database management</label><br>
+            
+                    <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+                    <label for="optionD52">D) Gunicorn and Nginx handle continuous integration in Python applications</label><br>
+                </div>
+            
+                <div id="result52" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>54. What is the purpose of a `requirements.txt` file in Python project deployment?</p>
+                    <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+                </div>
+            
+                <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    The `requirements.txt` file is used to list all the dependencies for a Python project. It allows you to easily install the necessary packages using `pip`, ensuring that the project has the correct dependencies for deployment.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It helps to ensure consistent environments across different deployment stages by listing the exact versions of required packages.</li>
+                        <li>To install the dependencies, you can run `pip install -r requirements.txt`.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+                    <label for="optionA53">A) It lists all dependencies required for the Python project</label><br>
+            
+                    <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+                    <label for="optionB53">B) It stores the source code for the Python project</label><br>
+            
+                    <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+                    <label for="optionC53">C) It handles the database migrations for the Python project</label><br>
+            
+                    <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+                    <label for="optionD53">D) It optimizes the Python project for better performance</label><br>
+                </div>
+            
+                <div id="result53" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>55. What are the advantages of using Docker in Python application deployment?</p>
+                    <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+                </div>
+            
+                <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker allows for containerizing Python applications, ensuring that the application runs consistently across all environments. It provides isolation, dependency management, and scalability, making deployments easier and more reliable.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Docker containers package the application and all its dependencies into a single image, ensuring that it runs consistently on any platform.</li>
+                        <li>It simplifies scaling, resource management, and improves the portability of Python applications.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+                    <label for="optionA54">A) Docker provides isolation, scalability, and consistent environments for Python apps</label><br>
+            
+                    <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+                    <label for="optionB54">B) Docker is used only for scaling Python applications in production</label><br>
+            
+                    <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+                    <label for="optionC54">C) Docker is only for packaging Python dependencies and does not support application deployment</label><br>
+            
+                    <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+                    <label for="optionD54">D) Docker is used for debugging Python code in production environments</label><br>
+                </div>
+            
+                <div id="result54" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>56. What is the role of the `setup.py` file in Python project deployment?</p>
+                    <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+                </div>
+            
+                <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    The `setup.py` file is used for packaging Python projects. It defines the metadata, dependencies, and entry points, and helps in distributing the application to users or uploading it to repositories like PyPI.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It contains metadata about the project, such as the name, version, and dependencies.</li>
+                        <li>The `setup.py` file is crucial for creating Python packages and distributing them through the Python Package Index (PyPI).</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+                    <label for="optionA55">A) It is used for packaging and distributing Python projects</label><br>
+            
+                    <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+                    <label for="optionB55">B) It defines how to scale Python applications in production</label><br>
+            
+                    <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+                    <label for="optionC55">C) It contains the logic for database migrations in Python projects</label><br>
+            
+                    <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+                    <label for="optionD55">D) It is used for writing automated tests for Python projects</label><br>
+                </div>
+            
+                <div id="result55" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>57. What is the purpose of using a `.env` file in a Python project deployment?</p>
+                    <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+                </div>
+            
+                <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    The `.env` file is used to store environment variables, such as configuration settings and secret keys, outside the codebase. This helps to manage configurations securely and allows for easier management of different environments (e.g., development, staging, production).<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It is important for keeping sensitive information, like API keys, out of the codebase.</li>
+                        <li>Environment variables from the `.env` file can be accessed using libraries like `python-dotenv`.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+                    <label for="optionA56">A) It stores environment variables like configuration settings and secret keys</label><br>
+            
+                    <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+                    <label for="optionB56">B) It is used to store the Python application code</label><br>
+            
+                    <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+                    <label for="optionC56">C) It is used to store database migrations for the project</label><br>
+            
+                    <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+                    <label for="optionD56">D) It is used for testing Python applications in different environments</label><br>
+                </div>
+            
+                <div id="result56" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>58. How does Continuous Integration (CI) help in Python deployment?</p>
+                    <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+                </div>
+            
+                <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Continuous Integration (CI) is a development practice where code changes are automatically built and tested before being merged into the main branch. This ensures that new changes don’t break the application and helps maintain high code quality in the deployment process.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>CI tools, such as Jenkins or Travis CI, automate the build and testing process to catch issues early.</li>
+                        <li>It promotes fast feedback loops for developers and reduces integration problems.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+                    <label for="optionA57">A) CI automates build and testing to maintain code quality in deployment</label><br>
+            
+                    <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+                    <label for="optionB57">B) CI only helps in code deployment without testing</label><br>
+            
+                    <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+                    <label for="optionC57">C) CI is used to monitor the server’s performance in production</label><br>
+            
+                    <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+                    <label for="optionD57">D) CI deploys Python applications without testing for bugs</label><br>
+                </div>
+            
+                <div id="result57" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>59. What is the role of Docker Compose in deploying Python applications?</p>
+                    <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+                </div>
+            
+                <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker Compose is a tool for defining and running multi-container Docker applications. It allows you to define services, networks, and volumes in a single YAML file and then use simple commands to manage the lifecycle of the containers.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It is useful when deploying Python applications that depend on multiple services, such as databases or message brokers.</li>
+                        <li>With Docker Compose, you can spin up all the containers with a single command.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+                    <label for="optionA58">A) Docker Compose helps manage multi-container Docker applications</label><br>
+            
+                    <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+                    <label for="optionB58">B) Docker Compose is only used for database management in Python apps</label><br>
+            
+                    <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+                    <label for="optionC58">C) Docker Compose deploys a single container Python app without dependencies</label><br>
+            
+                    <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+                    <label for="optionD58">D) Docker Compose provides monitoring tools for deployed applications</label><br>
+                </div>
+            
+                <div id="result58" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>60. What is the importance of scaling when deploying Python applications?</p>
+                    <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+                </div>
+            
+                <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Scaling ensures that your Python application can handle increased traffic and demand. It is crucial for maintaining performance and availability in production environments.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Scaling can be achieved vertically (by upgrading server resources) or horizontally (by adding more servers or containers).</li>
+                        <li>Scaling ensures that the application remains responsive even during peak usage periods.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+                    <label for="optionA59">A) Scaling ensures your application can handle increased traffic and maintain performance</label><br>
+            
+                    <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+                    <label for="optionB59">B) Scaling only ensures that the application runs on multiple servers</label><br>
+            
+                    <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+                    <label for="optionC59">C) Scaling is important for improving the development speed of Python applications</label><br>
+            
+                    <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+                    <label for="optionD59">D) Scaling helps in reducing the need for automated testing in Python deployment</label><br>
+                </div>
+            
+                <div id="result59" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>61. What is the role of Nginx in deploying Python web applications?</p>
+                    <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+                </div>
+            
+                <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Nginx is a web server that is commonly used as a reverse proxy for Python web applications. It handles client requests, forwards them to the appropriate backend application (e.g., a Flask or Django app), and returns the response.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It improves the performance of Python applications by handling static file serving and load balancing.</li>
+                        <li>Nginx is often used in combination with WSGI servers like Gunicorn for optimal performance.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+                    <label for="optionA60">A) Nginx acts as a reverse proxy and handles static file serving for Python web apps</label><br>
+            
+                    <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+                    <label for="optionB60">B) Nginx is used for database management in Python deployments</label><br>
+            
+                    <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+                    <label for="optionC60">C) Nginx is used to deploy Python applications in a virtual environment</label><br>
+            
+                    <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+                    <label for="optionD60">D) Nginx handles database migrations for Python web apps</label><br>
+                </div>
+            
+                <div id="result60" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>62. What is Gunicorn in the context of Python deployment?</p>
+                    <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+                </div>
+            
+                <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Gunicorn is a Python WSGI (Web Server Gateway Interface) HTTP server that serves Python web applications. It is commonly used in production to serve web apps built with frameworks like Flask or Django.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Gunicorn is designed for high concurrency and can handle multiple requests at once.</li>
+                        <li>It works well with web servers like Nginx, which acts as a reverse proxy to forward requests to Gunicorn.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+                    <label for="optionA61">A) Gunicorn is a WSGI server that serves Python web applications</label><br>
+            
+                    <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+                    <label for="optionB61">B) Gunicorn is a Python framework used for web development</label><br>
+            
+                    <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+                    <label for="optionC61">C) Gunicorn is a deployment tool for managing cloud services</label><br>
+            
+                    <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+                    <label for="optionD61">D) Gunicorn is a tool for testing Python applications before deployment</label><br>
+                </div>
+            
+                <div id="result61" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>63. What is the purpose of using a virtual environment in Python deployment?</p>
+                    <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+                </div>
+            
+                <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    A virtual environment is an isolated environment in which you can install Python dependencies without affecting the global Python installation. It helps manage dependencies and avoid version conflicts.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Virtual environments ensure that each project has its own dependencies, making the deployment process cleaner and more predictable.</li>
+                        <li>Tools like `virtualenv` or `venv` are commonly used to create and manage virtual environments.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+                    <label for="optionA62">A) Virtual environments isolate project dependencies to avoid conflicts</label><br>
+            
+                    <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+                    <label for="optionB62">B) Virtual environments are used for database management in Python deployment</label><br>
+            
+                    <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+                    <label for="optionC62">C) Virtual environments are used to deploy applications in cloud services</label><br>
+            
+                    <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+                    <label for="optionD62">D) Virtual environments are used to deploy Python applications directly without a web server</label><br>
+                </div>
+            
+                <div id="result62" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>64. What is the purpose of setting up a `setup.py` file for Python deployment?</p>
+                    <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+                </div>
+            
+                <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    The `setup.py` file is used to define the metadata and dependencies for a Python package or application. It enables easy installation and distribution of the application through tools like `pip`.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It allows the packaging and distribution of Python applications as installable packages.</li>
+                        <li>The file includes information like the package name, version, dependencies, and entry points.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+                    <label for="optionA63">A) The `setup.py` file is used to define metadata and dependencies for Python applications</label><br>
+            
+                    <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+                    <label for="optionB63">B) The `setup.py` file is used to configure cloud services for deployment</label><br>
+            
+                    <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+                    <label for="optionC63">C) The `setup.py` file is used to manage virtual environments for Python projects</label><br>
+            
+                    <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+                    <label for="optionD63">D) The `setup.py` file is used to configure a web server for Python deployment</label><br>
+                </div>
+            
+                <div id="result63" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>65. What is Docker's role in deploying Python applications?</p>
+                    <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+                </div>
+            
+                <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker is a platform that allows developers to package applications and their dependencies into a container. This ensures that the application runs consistently across different environments, from local development to production.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Docker containers encapsulate everything needed to run the application, including Python dependencies, libraries, and environment variables.</li>
+                        <li>Docker simplifies deployment, scaling, and versioning of applications.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+                    <label for="optionA64">A) Docker packages Python applications and their dependencies into containers for consistent deployment</label><br>
+            
+                    <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+                    <label for="optionB64">B) Docker is used to manage databases in Python deployment environments</label><br>
+            
+                    <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+                    <label for="optionC64">C) Docker helps to build web servers for Python applications</label><br>
+            
+                    <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+                    <label for="optionD64">D) Docker helps to create virtual environments in Python deployments</label><br>
+                </div>
+            
+                <div id="result64" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>66. What is the role of Docker Compose in Python deployment?</p>
+                    <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+                </div>
+            
+                <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker Compose is a tool for defining and running multi-container Docker applications. It allows you to configure all application services (such as web servers, databases, etc.) using a YAML file, making it easier to manage complex deployments.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Docker Compose simplifies the deployment of multi-service applications, such as those with a web application, database, and caching service.</li>
+                        <li>It allows you to start, stop, and scale services with a single command.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+                    <label for="optionA65">A) Docker Compose helps manage multi-container applications and services</label><br>
+            
+                    <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+                    <label for="optionB65">B) Docker Compose is used for Python version management in deployments</label><br>
+            
+                    <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+                    <label for="optionC65">C) Docker Compose is used for configuring cloud services for deployment</label><br>
+            
+                    <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+                    <label for="optionD65">D) Docker Compose is used to set up virtual environments for Python applications</label><br>
+                </div>
+            
+                <div id="result65" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>67. What is Continuous Integration/Continuous Deployment (CI/CD) in the context of Python deployment?</p>
+                    <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+                </div>
+            
+                <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    CI/CD is a set of practices that allow for frequent code changes to be integrated, tested, and deployed automatically. Continuous Integration (CI) refers to automatically building and testing code changes, while Continuous Deployment (CD) focuses on automatically deploying code to production after testing.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>CI/CD automates the testing and deployment process, reducing errors and improving the speed of delivery.</li>
+                        <li>Popular CI/CD tools include Jenkins, GitHub Actions, and GitLab CI/CD.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+                    <label for="optionA66">A) CI/CD automates the process of testing and deploying code to production</label><br>
+            
+                    <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+                    <label for="optionB66">B) CI/CD is used for setting up cloud services for Python deployment</label><br>
+            
+                    <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+                    <label for="optionC66">C) CI/CD is a tool for managing Python dependencies in production</label><br>
+            
+                    <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+                    <label for="optionD66">D) CI/CD is used for monitoring the performance of Python applications after deployment</label><br>
+                </div>
+            
+                <div id="result66" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>68. What is the role of Heroku in Python deployment?</p>
+                    <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+                </div>
+            
+                <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Heroku is a platform-as-a-service (PaaS) that allows developers to deploy, manage, and scale Python applications quickly. It abstracts away much of the complexity of server management and focuses on the application code itself.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Heroku supports easy deployment via Git, with automated build and deployment processes.</li>
+                        <li>It provides integrations with databases, caching, and other services commonly used in Python web applications.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+                    <label for="optionA67">A) Heroku is a platform-as-a-service (PaaS) that simplifies Python application deployment</label><br>
+            
+                    <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+                    <label for="optionB67">B) Heroku is a tool used for setting up continuous integration in Python projects</label><br>
+            
+                    <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+                    <label for="optionC67">C) Heroku is a version control system for Python applications</label><br>
+            
+                    <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+                    <label for="optionD67">D) Heroku is a deployment tool for managing Python virtual environments</label><br>
+                </div>
+            
+                <div id="result67" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>69. How does PythonAnywhere simplify deployment for Python applications?</p>
+                    <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+                </div>
+            
+                <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    PythonAnywhere is a cloud-based platform that simplifies the process of deploying Python web applications. It provides an environment where you can easily host and run Python code without worrying about the underlying infrastructure.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>PythonAnywhere supports popular frameworks like Flask and Django for easy Python web application deployment.</li>
+                        <li>It offers simple integrations with databases and allows easy scaling of applications.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+                    <label for="optionA68">A) PythonAnywhere is a cloud-based platform that simplifies deploying Python web applications</label><br>
+            
+                    <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+                    <label for="optionB68">B) PythonAnywhere is a tool for building Python virtual environments in production</label><br>
+            
+                    <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+                    <label for="optionC68">C) PythonAnywhere is used to automate the creation of Docker containers</label><br>
+            
+                    <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+                    <label for="optionD68">D) PythonAnywhere is used for managing Python code version control</label><br>
+                </div>
+            
+                <div id="result68" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>70. What is DigitalOcean's role in Python deployment?</p>
+                    <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+                </div>
+            
+                <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    DigitalOcean is a cloud infrastructure provider that offers affordable and scalable cloud computing resources for hosting Python applications. It is widely used to deploy applications due to its simplicity and cost-effectiveness.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>DigitalOcean provides "Droplets" (virtual private servers) that can be used to host Python web applications.</li>
+                        <li>It offers easy deployment options for Django and Flask apps, and integrations with databases like PostgreSQL and MySQL.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+                    <label for="optionA69">A) DigitalOcean provides cloud infrastructure for hosting Python applications on scalable virtual machines</label><br>
+            
+                    <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+                    <label for="optionB69">B) DigitalOcean is used to build Docker containers for Python applications</label><br>
+            
+                    <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+                    <label for="optionC69">C) DigitalOcean is a tool for automating deployment pipelines for Python projects</label><br>
+            
+                    <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+                    <label for="optionD69">D) DigitalOcean is used to manage version control for Python deployments</label><br>
+                </div>
+            
+                <div id="result69" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>71. How do Nginx and Gunicorn work together for Python web applications?</p>
+                    <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+                </div>
+            
+                <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Nginx is a high-performance web server that can be used as a reverse proxy, while Gunicorn is a WSGI server that runs Python web applications. Together, they work to efficiently serve Python applications in production by handling HTTP requests and forwarding them to the application.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Gunicorn serves the Python application, while Nginx handles incoming HTTP requests and forwards them to Gunicorn.</li>
+                        <li>Nginx provides additional functionality, such as load balancing, SSL termination, and serving static files.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+                    <label for="optionA70">A) Nginx acts as a reverse proxy and Gunicorn serves the Python web application</label><br>
+            
+                    <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+                    <label for="optionB70">B) Nginx and Gunicorn are both used to handle database connections in Python web applications</label><br>
+            
+                    <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+                    <label for="optionC70">C) Nginx is used to manage Python dependencies, while Gunicorn runs the application</label><br>
+            
+                    <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+                    <label for="optionD70">D) Nginx and Gunicorn both serve as load balancers for Python applications</label><br>
+                </div>
+            
+                <div id="result70" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>72. What is the purpose of WSGI in Python web deployment?</p>
+                    <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+                </div>
+            
+                <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    WSGI (Web Server Gateway Interface) is the specification that defines how web servers communicate with Python web applications. It allows web servers like Nginx or Apache to forward HTTP requests to Python applications that are capable of handling them (e.g., Flask or Django apps).<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>WSGI serves as the bridge between the web server and Python applications in a web deployment environment.</li>
+                        <li>It allows web servers to pass requests to Python applications and get responses back to send to the client.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+                    <label for="optionA71">A) WSGI defines how web servers interact with Python web applications in a deployment environment</label><br>
+            
+                    <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+                    <label for="optionB71">B) WSGI is a Python tool for managing environment variables in production</label><br>
+            
+                    <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+                    <label for="optionC71">C) WSGI is used for configuring Docker containers for Python applications</label><br>
+            
+                    <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+                    <label for="optionD71">D) WSGI is used to set up database connections in Python web applications</label><br>
+                </div>
+            
+                <div id="result71" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>73. What is SSL/TLS used for in Python deployment?</p>
+                    <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+                </div>
+            
+                <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    SSL/TLS (Secure Sockets Layer / Transport Layer Security) is used to encrypt communication between the client and the server. It ensures secure transmission of sensitive data (like passwords) over the web. It is essential for securing Python applications deployed over the internet.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>SSL/TLS certificates encrypt the connection between the user and the server, preventing eavesdropping and tampering.</li>
+                        <li>SSL/TLS is critical for web applications that handle sensitive data, such as login credentials or payment information.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+                    <label for="optionA72">A) SSL/TLS encrypts communication between the client and the server to ensure data security</label><br>
+            
+                    <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+                    <label for="optionB72">B) SSL/TLS is used to compress data sent from the server to the client</label><br>
+            
+                    <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+                    <label for="optionC72">C) SSL/TLS is used for managing user authentication in Python applications</label><br>
+            
+                    <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+                    <label for="optionD72">D) SSL/TLS is used to configure and manage database connections in Python applications</label><br>
+                </div>
+            
+                <div id="result72" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>74. What is the purpose of Docker in Python deployment?</p>
+                    <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+                </div>
+            
+                <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker is a platform used to containerize applications, allowing them to be packaged along with their dependencies and environment into a single container. This ensures that Python applications can run consistently across different environments (development, testing, production).<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Docker helps package Python applications along with all dependencies, ensuring consistent deployment across environments.</li>
+                        <li>It allows the easy creation and management of containers that isolate applications and their environments.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+                    <label for="optionA73">A) Docker is used to containerize Python applications, ensuring consistent deployment across environments</label><br>
+            
+                    <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+                    <label for="optionB73">B) Docker is used to manage Python web server configurations</label><br>
+            
+                    <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+                    <label for="optionC73">C) Docker is used for monitoring application performance in production</label><br>
+            
+                    <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+                    <label for="optionD73">D) Docker is used for database management in Python applications</label><br>
+                </div>
+            
+                <div id="result73" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>75. What is Docker Compose used for in Python deployments?</p>
+                    <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+                </div>
+            
+                <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker Compose is a tool used for defining and running multi-container Docker applications. In Python deployments, it helps manage services such as the web application, database, and caching systems, ensuring they all run in the correct environment with the correct dependencies.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Docker Compose allows you to define multiple Docker containers (e.g., web server, database) in a single YAML file.</li>
+                        <li>It simplifies the orchestration of various services required by Python applications.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+                    <label for="optionA74">A) Docker Compose is used to define and run multi-container applications for Python deployments</label><br>
+            
+                    <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+                    <label for="optionB74">B) Docker Compose is used to manage the Python codebase version control</label><br>
+            
+                    <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+                    <label for="optionC74">C) Docker Compose is used to automate database backups in production</label><br>
+            
+                    <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+                    <label for="optionD74">D) Docker Compose is used for continuous integration of Python applications</label><br>
+                </div>
+            
+                <div id="result74" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>76. How does Continuous Integration (CI) help in Python deployment?</p>
+                    <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+                </div>
+            
+                <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Continuous Integration (CI) is the practice of automatically integrating code changes into a shared repository and running automated tests to ensure that the code works correctly. CI helps in Python deployment by ensuring that new code does not break the application and is thoroughly tested before deployment.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>CI tools like Jenkins, GitLab CI, and Travis CI automate the build and testing process.</li>
+                        <li>CI ensures that Python applications are consistently tested and integrated into the main codebase before deployment.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+                    <label for="optionA75">A) Continuous Integration ensures code is tested and integrated before deployment to avoid issues in production</label><br>
+            
+                    <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+                    <label for="optionB75">B) Continuous Integration is used to build Docker containers for Python applications</label><br>
+            
+                    <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+                    <label for="optionC75">C) Continuous Integration automates the setup of cloud infrastructure for Python deployment</label><br>
+            
+                    <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+                    <label for="optionD75">D) Continuous Integration helps in creating backups and disaster recovery for Python applications</label><br>
+                </div>
+            
+                <div id="result75" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>77. What is the role of `setup.py` in Python project deployment?</p>
+                    <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+                </div>
+            
+                <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    `setup.py` is the script used to package and distribute Python projects. It contains metadata about the project, such as its name, version, dependencies, and entry points. It is also used for installation via `pip`.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>It defines the dependencies, version, and distribution method of a Python project.</li>
+                        <li>It is used by Python's package management system to install packages and libraries.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+                    <label for="optionA76">A) `setup.py` defines the metadata, dependencies, and installation method of a Python project</label><br>
+            
+                    <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+                    <label for="optionB76">B) `setup.py` is used for defining the server environment for deployment</label><br>
+            
+                    <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+                    <label for="optionC76">C) `setup.py` is used to configure the Docker container for Python applications</label><br>
+            
+                    <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+                    <label for="optionD76">D) `setup.py` is used for configuring cloud services like AWS for deployment</label><br>
+                </div>
+            
+                <div id="result76" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>78. What is the Python Package Index (PyPI)?</p>
+                    <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+                </div>
+            
+                <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    PyPI (Python Package Index) is a repository of software for the Python programming language. It is the default source for Python packages and libraries that can be installed using the `pip` command.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>PyPI allows developers to share and distribute Python software.</li>
+                        <li>Packages can be installed and managed using the `pip` tool, which retrieves packages from PyPI.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+                    <label for="optionA77">A) PyPI is a repository for Python packages that can be installed using `pip`</label><br>
+            
+                    <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+                    <label for="optionB77">B) PyPI is a cloud service for deploying Python applications</label><br>
+            
+                    <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+                    <label for="optionC77">C) PyPI is a tool for managing Python's virtual environments</label><br>
+            
+                    <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+                    <label for="optionD77">D) PyPI is a version control system for Python code</label><br>
+                </div>
+            
+                <div id="result77" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>79. What is Docker's role in Python application deployment?</p>
+                    <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+                </div>
+            
+                <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker is used to create isolated environments for running Python applications. By containerizing the application and its dependencies, Docker ensures that Python apps can run in any environment without compatibility issues.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Docker allows packaging Python applications and their dependencies into containers.</li>
+                        <li>Containers ensure that Python applications run consistently across different environments (development, testing, production).</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+                    <label for="optionA78">A) Docker allows creating isolated environments for Python applications</label><br>
+            
+                    <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+                    <label for="optionB78">B) Docker is used for managing Python package dependencies only</label><br>
+            
+                    <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+                    <label for="optionC78">C) Docker is used for managing server load balancing in Python applications</label><br>
+            
+                    <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+                    <label for="optionD78">D) Docker is used for automating database migrations in Python applications</label><br>
+                </div>
+            
+                <div id="result78" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>80. What is the significance of using environment variables in Python deployment?</p>
+                    <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+                </div>
+            
+                <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Environment variables allow you to store configuration settings such as database credentials, API keys, and deployment-specific values outside the codebase. This provides a secure and flexible way to manage settings without hardcoding them into the application.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>Environment variables provide a way to securely store sensitive information like API keys or database credentials.</li>
+                        <li>They allow easy configuration changes without modifying the application code directly.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+                    <label for="optionA79">A) Environment variables store sensitive information and configuration settings outside the codebase</label><br>
+            
+                    <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+                    <label for="optionB79">B) Environment variables are used to configure Python testing environments only</label><br>
+            
+                    <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+                    <label for="optionC79">C) Environment variables are used for managing database connections in Python applications</label><br>
+            
+                    <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+                    <label for="optionD79">D) Environment variables are used for managing Python package dependencies</label><br>
+                </div>
+            
+                <div id="result79" class="result"></div>
+            </div>
+                                                                                                                                                                                                                        
+                                                                                                                                                                                                            
+<!-- Repeat similar code for more questions... -->
+
+<div class="navigation-buttons">
+    <button id="prevButton" onclick="previousQuestion()">Previous</button>
+    <button id="nextButton" onclick="nextQuestion()">Next</button>
+</div>
+</div>
+</div> 
+</body>
+</html>

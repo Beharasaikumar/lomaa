@@ -1,0 +1,2235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MACHINE LEARNING</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'A', 'A', 'A', 'B', 'A', 'B', 'A', 'B',
+            'B', 'B', 'B', 'B', 'C', 'B', 'A', 'B', 'B', 'B',
+            'A', 'B', 'B', 'A', 'B', 'A', 'B', 'B', 'B', 'B',
+            'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'A', 'B', 'B', 'B',
+            'C', 'B', 'B', 'A', 'B', 'A', 'B', 'A', 'B', 'A', 'C'
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>MACHINE LEARNING</h3>
+        <div class="inner-border">
+
+<!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is supervised learning in machine learning?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Supervised learning is a type of machine learning where a model learns from labeled training data. The algorithm maps input data to the correct output based on example data.<br><br>
+        <strong>Key Features:</strong>
+        <ol>
+            <li><strong>Labeled Data:</strong> Requires input-output pairs for training.</li>
+            <li><strong>Training and Testing:</strong> Splits data into training and testing sets.</li>
+            <li><strong>Regression & Classification:</strong> Used for both regression and classification tasks.</li>
+        </ol>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) Learning without labeled data</label><br>
+
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) Learning from labeled training data</label><br>
+
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) Clustering data into groups</label><br>
+
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) Reinforcement learning</label><br>
+    </div>
+
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. Which algorithm is commonly used for classification problems?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Classification algorithms are used to categorize data points. Common algorithms include Decision Trees,
+         Support Vector Machines (SVM), and Logistic Regression.<br><br>
+        <strong>Popular Classification Algorithms:</strong>
+        <ol>
+            <li><strong>Decision Trees:</strong> Uses a tree-like structure for decision making.</li>
+            <li><strong>Support Vector Machine (SVM):</strong> Finds a hyperplane to separate classes.</li>
+            <li><strong>Logistic Regression:</strong> Estimates probabilities for classification tasks.</li>
+        </ol>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) K-Means Clustering</label><br>
+
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Decision Tree</label><br>
+
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) Principal Component Analysis (PCA)</label><br>
+
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Reinforcement Learning</label><br>
+    </div>
+
+    <div id="result1" class="result"></div>
+</div>
+
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What is overfitting in machine learning?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Overfitting occurs when a model learns the training data too well, including noise and irrelevant details,
+         reducing its performance on new data.<br><br>
+        <strong>Ways to prevent overfitting:</strong>
+        <ol>
+            <li><strong>Regularization:</strong> Techniques like L1/L2 regularization help control complexity.</li>
+            <li><strong>Cross-validation:</strong> Helps ensure the model generalizes well.</li>
+            <li><strong>Dropout:</strong> Randomly drops neurons during training to prevent dependency on specific features.</li>
+        </ol>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) Poor model generalization</label><br>
+
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) Model trains too slowly</label><br>
+
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) Model is too simple</label><br>
+
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) Model performs well on test data</label><br>
+    </div>
+
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. What is the purpose of the activation function in a neural network?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The activation function introduces non-linearity into the neural network, allowing it to learn and model complex patterns.<br><br>
+        <strong>Common Activation Functions:</strong>
+        <ol>
+            <li><strong>ReLU:</strong> Helps prevent vanishing gradients.</li>
+            <li><strong>Sigmoid:</strong> Used for binary classification tasks.</li>
+            <li><strong>Softmax:</strong> Used in multi-class classification problems.</li>
+        </ol>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) Introduces non-linearity</label><br>
+
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) Stores the weights of a neural network</label><br>
+
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) Reduces model complexity</label><br>
+
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) Determines the learning rate</label><br>
+    </div>
+
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. What is the difference between batch gradient descent and stochastic gradient descent?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Gradient descent is an optimization algorithm used to minimize loss functions. Batch gradient
+         descent updates weights using the entire dataset, while stochastic gradient descent (SGD) updates weights after each training example.<br><br>
+        <strong>Key Differences:</strong>
+        <ol>
+            <li><strong>Batch Gradient Descent:</strong> More stable but slower.</li>
+            <li><strong>Stochastic Gradient Descent:</strong> Faster updates but higher variance.</li>
+            <li><strong>Mini-batch Gradient Descent:</strong> A compromise between the two.</li>
+        </ol>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) Batch GD updates per dataset, SGD updates per example</label><br>
+
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) SGD is slower than batch GD</label><br>
+
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) Batch GD leads to high variance</label><br>
+
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) SGD is more stable than batch GD</label><br>
+    </div>
+
+    <div id="result4" class="result"></div>
+</div>
+<!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is the role of a loss function in machine learning?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        A loss function measures how well the model's predictions match the actual values. It helps guide optimization algorithms like gradient descent.<br><br>
+        <strong>Types of Loss Functions:</strong>
+        <ol>
+            <li><strong>Mean Squared Error (MSE):</strong> Used for regression tasks.</li>
+            <li><strong>Cross-Entropy Loss:</strong> Used for classification problems.</li>
+            <li><strong>Hinge Loss:</strong> Common in SVMs.</li>
+        </ol>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) Measures prediction accuracy</label><br>
+
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) Helps in optimizing the model</label><br>
+
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) Reduces data overfitting</label><br>
+
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) Increases training speed</label><br>
+    </div>
+
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. What is the difference between supervised and unsupervised learning?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Supervised learning involves labeled data where the model learns from input-output pairs, while unsupervised learning works with unlabeled data to find patterns.<br><br>
+        <strong>Examples:</strong>
+        <ol>
+            <li><strong>Supervised Learning:</strong> Classification, regression.</li>
+            <li><strong>Unsupervised Learning:</strong> Clustering, anomaly detection.</li>
+        </ol>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Supervised has labeled data; unsupervised does not</label><br>
+
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Supervised learns from unlabeled data</label><br>
+
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Unsupervised uses labeled data</label><br>
+
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Both require labeled data</label><br>
+    </div>
+
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What is the purpose of feature scaling in machine learning?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Feature scaling ensures that all features contribute equally to the model, improving convergence in gradient-based optimization.<br><br>
+        <strong>Types:</strong>
+        <ol>
+            <li><strong>Normalization:</strong> Scales values between 0 and 1.</li>
+            <li><strong>Standardization:</strong> Transforms data to have mean 0 and variance 1.</li>
+        </ol>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) Speeds up model training</label><br>
+
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) Ensures equal feature contribution</label><br>
+
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) Reduces data dimensionality</label><br>
+
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) Removes irrelevant features</label><br>
+    </div>
+
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. What is the purpose of cross-validation in machine learning?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Cross-validation helps evaluate model performance by splitting data into training and validation sets, reducing overfitting.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) Prevents overfitting</label><br>
+
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) Increases training time significantly</label><br>
+
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) Reduces dataset size</label><br>
+
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) Eliminates the need for a test set</label><br>
+    </div>
+
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. What is overfitting in machine learning?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Overfitting occurs when a machine learning model learns the noise in the training data instead of the underlying pattern, leading to poor generalization on new data.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) When the model performs well on both training and test data</label><br>
+
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) When the model memorizes the training data instead of learning patterns</label><br>
+
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) When the model performs better on test data than on training data</label><br>
+
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) When the model fails to learn any pattern</label><br>
+    </div>
+
+    <div id="result9" class="result"></div>
+</div>
+
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is the purpose of a validation set in machine learning?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The validation set is used to tune hyperparameters and select the best model to prevent overfitting on the training data.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) To train the model</label><br>
+
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) To fine-tune hyperparameters</label><br>
+
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) To test model performance after training</label><br>
+
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) To store data for future use</label><br>
+    </div>
+
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. What is a confusion matrix in classification problems?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        A confusion matrix is a table used to evaluate the performance of a classification model by showing the actual vs. predicted classifications.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) A matrix used for storing model parameters</label><br>
+
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) A table used to describe the performance of a classification algorithm</label><br>
+
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) A tool for feature selection</label><br>
+
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) A technique used for data normalization</label><br>
+    </div>
+
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What is the purpose of feature scaling in machine learning?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Feature scaling ensures that all features have the same scale, improving the performance of gradient descent and distance-based algorithms.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) To increase the number of features</label><br>
+
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) To normalize or standardize feature values</label><br>
+
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) To remove outliers from the dataset</label><br>
+
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) To convert categorical features into numerical values</label><br>
+    </div>
+
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. What is the main advantage of using ensemble learning?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Ensemble learning improves the accuracy and robustness of models by combining multiple models to make better predictions.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) It reduces the dataset size</label><br>
+
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) It combines multiple models to improve accuracy</label><br>
+
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) It eliminates the need for feature engineering</label><br>
+
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) It speeds up the training process</label><br>
+    </div>
+
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What is the difference between supervised and unsupervised learning?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Supervised learning uses labeled data for training, whereas unsupervised learning finds patterns in unlabeled data.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) Supervised learning does not require labeled data</label><br>
+
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) Unsupervised learning requires labeled data</label><br>
+
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) Supervised learning uses labeled data, while unsupervised learning finds patterns in unlabeled data</label><br>
+
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) Both require labeled data</label><br>
+    </div>
+
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. What is the purpose of dropout in neural networks?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Dropout is a regularization technique used to prevent overfitting by randomly deactivating neurons during training.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) To increase the number of neurons in the network</label><br>
+
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) To randomly deactivate neurons and prevent overfitting</label><br>
+
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) To enhance the activation functions</label><br>
+
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) To reduce the learning rate</label><br>
+    </div>
+
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. What is the function of an activation function in a neural network?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        An activation function introduces non-linearity to the network, allowing it to learn complex patterns.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) To introduce non-linearity to the network</label><br>
+
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) To normalize data</label><br>
+
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) To initialize weights</label><br>
+
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) To reduce computation time</label><br>
+    </div>
+
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. What is the main goal of Principal Component Analysis (PCA) in machine learning?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        PCA is used for dimensionality reduction by transforming correlated variables into a smaller number of uncorrelated variables called principal components.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) To increase the number of features</label><br>
+
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) To reduce dimensionality while preserving variance</label><br>
+
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) To remove outliers</label><br>
+
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) To improve model accuracy by adding more features</label><br>
+    </div>
+
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What is the difference between supervised and unsupervised learning?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Supervised learning uses labeled data for training, while unsupervised learning finds patterns in unlabeled data.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) Supervised learning finds patterns, unsupervised learning predicts values</label><br>
+
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) Supervised learning uses labeled data, unsupervised learning does not</label><br>
+
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) Supervised learning is always better than unsupervised learning</label><br>
+
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) There is no difference</label><br>
+    </div>
+
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. What is the purpose of dropout in a neural network?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Dropout is a regularization technique that randomly drops neurons during training to prevent overfitting.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) To increase the size of the neural network</label><br>
+
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) To prevent overfitting by randomly deactivating neurons</label><br>
+
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) To reduce the number of layers</label><br>
+
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) To make the model deterministic</label><br>
+    </div>
+
+    <div id="result19" class="result"></div>
+</div>
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. What is the difference between bagging and boosting in ensemble learning?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Bagging reduces variance by training multiple models independently, while boosting reduces bias by sequentially adjusting weak models.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) Bagging reduces variance, while boosting reduces bias.</label><br>
+
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) Boosting reduces variance, while bagging reduces bias.</label><br>
+
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) Both are the same and used interchangeably.</label><br>
+
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) Bagging always outperforms boosting.</label><br>
+    </div>
+
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. What is the primary purpose of Principal Component Analysis (PCA)?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        PCA is used to reduce the dimensionality of a dataset while retaining maximum variance, improving efficiency without significant information loss.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) To increase the number of features in a dataset</label><br>
+
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) To reduce the dimensionality of the dataset while retaining maximum variance</label><br>
+
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) To replace missing values in a dataset</label><br>
+
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) To improve accuracy without changing the number of features</label><br>
+    </div>
+
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. In deep learning, what is the purpose of dropout?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Dropout is a regularization technique that randomly deactivates neurons during training to prevent overfitting and improve generalization.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) To increase model complexity</label><br>
+
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) To prevent overfitting by randomly deactivating neurons during training</label><br>
+
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) To increase the learning rate dynamically</label><br>
+
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) To reduce the number of layers in a neural network</label><br>
+    </div>
+
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. What is the role of the activation function in a neural network?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The activation function introduces non-linearity to the model, allowing it to learn complex patterns in data.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) To introduce non-linearity to the model</label><br>
+
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) To increase the number of layers in the network</label><br>
+
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) To convert categorical data into numerical format</label><br>
+
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) To adjust the learning rate dynamically</label><br>
+    </div>
+
+    <div id="result23" class="result"></div>
+</div>
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. What is the main advantage of using transfer learning?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Transfer learning allows models to leverage knowledge from previously trained models on related tasks, reducing training time and improving performance.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) It helps train models from scratch faster</label><br>
+
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) It allows models to leverage knowledge from previously trained models on related tasks</label><br>
+
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) It reduces the number of layers in a neural network</label><br>
+
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) It completely replaces the need for training new models</label><br>
+    </div>
+
+    <div id="result24" class="result"></div>
+</div>
+
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. Which of the following is true about the k-nearest neighbors (KNN) algorithm?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        KNN is a supervised learning algorithm that classifies data points based on the majority class of their nearest neighbors.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) KNN is a supervised learning algorithm that classifies data points based on the majority class of their nearest neighbors.</label><br>
+
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) KNN requires extensive training before making predictions.</label><br>
+
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) KNN is mainly used for feature selection rather than classification or regression.</label><br>
+
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) KNN works best with high-dimensional data.</label><br>
+    </div>
+
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. What is the purpose of a confusion matrix in classification problems?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        A confusion matrix shows the performance of a classification model by displaying true positives, false positives, true negatives, and false negatives.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) It is used to visualize clustering results.</label><br>
+
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) It shows the performance of a classification model by displaying true positives, false positives, true negatives, and false negatives.</label><br>
+
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) It is used to optimize hyperparameters of a neural network.</label><br>
+
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) It provides the loss function for training deep learning models.</label><br>
+    </div>
+
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. What does the term "epoch" refer to in deep learning?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        An epoch refers to the number of times the entire training dataset is passed through the model during training.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) The total number of hidden layers in a neural network.</label><br>
+
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) The number of times the entire training dataset is passed through the model during training.</label><br>
+
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) The number of neurons activated during forward propagation.</label><br>
+
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) The total number of data samples used in a mini-batch.</label><br>
+    </div>
+
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. What is the vanishing gradient problem in deep learning?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The vanishing gradient problem occurs when gradients become too small during backpropagation, causing deep networks to stop learning effectively.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) When gradient updates become excessively large, preventing model convergence.</label><br>
+
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) When the gradients become too small during backpropagation, causing deep networks to stop learning.</label><br>
+
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) When a model overfits due to excessive feature engineering.</label><br>
+
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) When a model fails to generalize due to insufficient data.</label><br>
+    </div>
+
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. What is the key advantage of batch normalization in neural networks?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Batch normalization helps stabilize and speed up training by normalizing layer inputs.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) It reduces the number of layers required in a deep learning model.</label><br>
+
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) It helps stabilize and speed up training by normalizing layer inputs.</label><br>
+
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) It increases the number of trainable parameters.</label><br>
+
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) It removes the need for an activation function.</label><br>
+    </div>
+
+    <div id="result29" class="result"></div>
+</div>
+
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. What is the purpose of dropout in neural networks?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Dropout is a regularization technique that randomly deactivates neurons during training to prevent overfitting.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) It randomly deactivates neurons during training to prevent overfitting.</label><br>
+
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) It increases the number of layers in a deep neural network.</label><br>
+
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) It removes low-importance neurons permanently.</label><br>
+
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) It reduces the size of training data for faster convergence.</label><br>
+    </div>
+
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. What is the function of an activation function in a neural network?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        An activation function introduces non-linearity into the neural network, enabling it to learn complex patterns.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) It removes unimportant neurons from the network.</label><br>
+
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) It introduces non-linearity into the network to enable learning complex patterns.</label><br>
+
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) It increases the number of connections between layers.</label><br>
+
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) It determines the optimal learning rate for training.</label><br>
+    </div>
+
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. What is the primary goal of reinforcement learning?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Reinforcement learning focuses on training agents to make sequential decisions by maximizing cumulative rewards.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) To classify data into predefined categories.</label><br>
+
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) To train agents to make sequential decisions by maximizing cumulative rewards.</label><br>
+
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) To cluster data into groups without predefined labels.</label><br>
+
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) To improve the efficiency of data preprocessing in machine learning.</label><br>
+    </div>
+
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. Which algorithm is commonly used for optimizing neural network weights?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The gradient descent algorithm is commonly used for optimizing neural network weights by minimizing the loss function.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) K-Nearest Neighbors (KNN)</label><br>
+
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) Gradient Descent</label><br>
+
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) Principal Component Analysis (PCA)</label><br>
+
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) Naive Bayes</label><br>
+    </div>
+
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. What is the primary benefit of using early stopping in deep learning?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Early stopping prevents overfitting by stopping training when validation loss stops improving.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) It increases the learning rate dynamically.</label><br>
+
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) It prevents overfitting by stopping training when validation loss stops improving.</label><br>
+
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) It increases the size of the training dataset.</label><br>
+
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) It ensures all model layers are fully trained.</label><br>
+    </div>
+
+    <div id="result34" class="result"></div>
+</div>
+
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. What is the primary advantage of using convolutional neural networks (CNNs) for image processing?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        CNNs efficiently detect spatial patterns and features like edges, textures, and objects in images.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) They require less labeled data for training.</label><br>
+
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) They detect spatial patterns and features like edges, textures, and objects.</label><br>
+
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) They eliminate the need for optimization techniques.</label><br>
+
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) They do not require activation functions.</label><br>
+    </div>
+
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. What is a key characteristic of recurrent neural networks (RNNs)?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        RNNs are designed to handle sequential data by maintaining hidden states that store past information.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) They only work with non-sequential data.</label><br>
+
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) They maintain hidden states to store past information, making them suitable for sequential data.</label><br>
+
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) They are mainly used for image recognition.</label><br>
+
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) They do not use activation functions.</label><br>
+    </div>
+
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. What is the main purpose of an autoencoder?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Autoencoders are used for unsupervised learning to encode and reconstruct input data, often used for dimensionality reduction and anomaly detection.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) To classify input data into predefined categories.</label><br>
+
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) To encode and reconstruct input data for dimensionality reduction and anomaly detection.</label><br>
+
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) To replace traditional supervised learning techniques.</label><br>
+
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) To generate completely new data samples.</label><br>
+    </div>
+
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. What is the main objective of a Generative Adversarial Network (GAN)?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        GANs are designed to generate realistic synthetic data by training a generator and a discriminator in competition.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) To classify data into multiple categories.</label><br>
+
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) To generate realistic synthetic data by training a generator and a discriminator.</label><br>
+
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) To reduce the number of neurons in a deep learning model.</label><br>
+
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) To improve the speed of training deep learning models.</label><br>
+    </div>
+
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. What is the primary purpose of a Transformer model in deep learning?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Transformer models are designed to handle sequential data efficiently using self-attention mechanisms, making them effective for NLP tasks.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) To optimize gradient descent.</label><br>
+
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) To handle sequential data efficiently using self-attention mechanisms.</label><br>
+
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) To replace all traditional machine learning algorithms.</label><br>
+
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) To remove the need for activation functions in deep learning.</label><br>
+    </div>
+
+    <div id="result39" class="result"></div>
+</div>
+
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. What is the primary function of the self-attention mechanism in a Transformer model?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The self-attention mechanism allows the model to weigh the importance of different words in a sequence to improve context understanding.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) To remove stop words from a sentence.</label><br>
+
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) To weigh the importance of different words in a sequence to improve context understanding.</label><br>
+
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) To translate text from one language to another.</label><br>
+
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) To generate entirely new datasets.</label><br>
+    </div>
+
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. What is a major benefit of using word embeddings in NLP?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Word embeddings capture semantic relationships between words, improving the ability of models to understand language.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) They remove all stop words from text.</label><br>
+
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) They capture semantic relationships between words, improving language understanding.</label><br>
+
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) They make text processing faster by converting words into numbers.</label><br>
+
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) They replace all machine learning algorithms in NLP.</label><br>
+    </div>
+
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. What is the main advantage of using the Adam optimizer in deep learning?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The Adam optimizer combines momentum and adaptive learning rates to improve convergence speed and stability.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) It eliminates the need for batch normalization.</label><br>
+
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) It combines momentum and adaptive learning rates for better convergence.</label><br>
+
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) It only works for small datasets.</label><br>
+
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) It requires manual tuning for every layer.</label><br>
+    </div>
+
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. Why is dropout used in neural networks?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Dropout randomly disables neurons during training to reduce overfitting and improve generalization.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) To completely stop training when loss is low.</label><br>
+
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) To randomly disable neurons during training to reduce overfitting.</label><br>
+
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) To increase the number of layers in the network.</label><br>
+
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) To improve training speed by skipping certain layers.</label><br>
+    </div>
+
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. What is a key advantage of using attention mechanisms in deep learning?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Attention mechanisms allow models to focus on the most relevant parts of input sequences, improving accuracy.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) They replace activation functions in neural networks.</label><br>
+
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) They help models focus on the most relevant parts of input sequences.</label><br>
+
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) They eliminate the need for feature engineering.</label><br>
+
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) They improve model training speed but reduce accuracy.</label><br>
+    </div>
+
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. What is the purpose of the softmax function in neural networks?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The softmax function converts logits into probabilities, making it useful for multi-class classification tasks.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) It normalizes input values to be between -1 and 1.</label><br>
+
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) It converts logits into probabilities for multi-class classification.</label><br>
+
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) It speeds up training by reducing computational complexity.</label><br>
+
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) It removes unnecessary neurons from a network.</label><br>
+    </div>
+
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. What is the main advantage of using a convolutional neural network (CNN) for image processing?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        CNNs efficiently capture spatial hierarchies and patterns in images through convolutional layers.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) They use fully connected layers to process images.</label><br>
+
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) They efficiently capture spatial hierarchies and patterns in images.</label><br>
+
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) They eliminate the need for any feature extraction.</label><br>
+
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) They are only effective for black-and-white images.</label><br>
+    </div>
+
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. What is the key difference between RNNs and CNNs?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        RNNs process sequential data, while CNNs are designed for spatial data like images.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) RNNs are better for image classification.</label><br>
+
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) RNNs process sequential data, while CNNs process spatial data.</label><br>
+
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) CNNs are slower than RNNs in all cases.</label><br>
+
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) RNNs require fewer training data than CNNs.</label><br>
+    </div>
+
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. What is gradient clipping in deep learning?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Gradient clipping prevents exploding gradients by limiting the maximum gradient value during backpropagation.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) It increases the learning rate to improve convergence.</label><br>
+
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) It limits the maximum gradient value to prevent exploding gradients.</label><br>
+
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) It prevents vanishing gradients by increasing their magnitude.</label><br>
+
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) It removes neurons from deep networks.</label><br>
+    </div>
+
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. What is the main purpose of an activation function in neural networks?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Activation functions introduce non-linearity, allowing neural networks to model complex relationships.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) It removes unnecessary layers from the network.</label><br>
+
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) It introduces non-linearity to model complex relationships.</label><br>
+
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) It reduces overfitting by dropping connections.</label><br>
+
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) It converts neural networks into linear models.</label><br>
+    </div>
+
+    <div id="result49" class="result"></div>
+</div>
+
+<!-- Question 51 -->
+<div class="qee">
+    <div class="que">
+        <p>51. What is the primary function of dropout in a neural network?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Dropout is a regularization technique that prevents overfitting by randomly deactivating neurons during training.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) It increases the number of neurons in each layer.</label><br>
+
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) It prevents overfitting by randomly deactivating neurons during training.</label><br>
+
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) It speeds up the training process by reducing complexity.</label><br>
+
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) It converts a neural network into a linear model.</label><br>
+    </div>
+
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee">
+    <div class="que">
+        <p>52. What is the role of the ReLU activation function in deep learning?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        ReLU (Rectified Linear Unit) introduces non-linearity and helps mitigate the vanishing gradient problem.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) It normalizes input values to a specific range.</label><br>
+
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) It introduces non-linearity and mitigates the vanishing gradient problem.</label><br>
+
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) It replaces softmax in multi-class classification problems.</label><br>
+
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) It decreases the learning rate dynamically.</label><br>
+    </div>
+
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee">
+    <div class="que">
+        <p>53. What is the primary goal of data augmentation in deep learning?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Data augmentation artificially increases the training dataset by applying transformations, improving model generalization.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) It reduces the number of training samples needed.</label><br>
+
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) It artificially increases the dataset size to improve generalization.</label><br>
+
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) It eliminates noise from the dataset.</label><br>
+
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) It replaces the need for hyperparameter tuning.</label><br>
+    </div>
+
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee">
+    <div class="que">
+        <p>54. What is the main benefit of using an LSTM over a traditional RNN?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        LSTMs handle long-range dependencies better than traditional RNNs by using memory cells.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) LSTMs require less training data than RNNs.</label><br>
+
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) LSTMs handle long-range dependencies better using memory cells.</label><br>
+
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) LSTMs eliminate the need for an activation function.</label><br>
+
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) LSTMs are primarily used for image classification tasks.</label><br>
+    </div>
+
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee">
+    <div class="que">
+        <p>55. What is the purpose of an embedding layer in NLP models?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        An embedding layer converts words into dense vector representations, capturing semantic relationships.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) It converts words into one-hot encoded vectors.</label><br>
+
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) It converts words into dense vector representations, capturing semantic relationships.</label><br>
+
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) It increases the number of layers in the neural network.</label><br>
+
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) It removes stopwords from text data.</label><br>
+    </div>
+
+    <div id="result54" class="result"></div>
+</div>
+
+<!-- Question 56 -->
+<div class="qee">
+    <div class="que">
+        <p>56. What is the purpose of attention mechanisms in deep learning?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Attention mechanisms help models focus on relevant parts of input sequences, improving performance in tasks like NLP.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) They reduce the need for large training datasets.</label><br>
+
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) They help models focus on relevant parts of input sequences.</label><br>
+
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) They eliminate the need for recurrent layers.</label><br>
+
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) They replace convolutional layers in image processing.</label><br>
+    </div>
+
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee">
+    <div class="que">
+        <p>57. What is a key advantage of using transformers in NLP?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Transformers process input sequences in parallel, leading to faster training and better long-range dependencies.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) They process input sequences in parallel, improving training efficiency.</label><br>
+
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) They require fewer parameters than RNNs.</label><br>
+
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) They do not require attention mechanisms.</label><br>
+
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) They are only useful for machine translation tasks.</label><br>
+    </div>
+
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee">
+    <div class="que">
+        <p>58. What is a convolutional neural network (CNN) primarily used for?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        CNNs are primarily used for image processing tasks such as classification, object detection, and segmentation.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) Natural language processing tasks.</label><br>
+
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) Image processing tasks like classification and object detection.</label><br>
+
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) Reinforcement learning problems.</label><br>
+
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) Statistical analysis of structured data.</label><br>
+    </div>
+
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee">
+    <div class="que">
+        <p>59. What is the purpose of max pooling in CNNs?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Max pooling reduces the spatial dimensions of feature maps while retaining important information, improving computational efficiency.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) It increases the resolution of feature maps.</label><br>
+
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) It reduces the spatial dimensions of feature maps while retaining important information.</label><br>
+
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) It replaces convolutional layers in deep learning models.</label><br>
+
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) It normalizes pixel values in an image.</label><br>
+    </div>
+
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee">
+    <div class="que">
+        <p>60. What is the role of an optimizer in neural networks?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        An optimizer updates model parameters to minimize the loss function during training.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) It initializes neural network weights.</label><br>
+
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) It updates model parameters to minimize the loss function.</label><br>
+
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) It transforms input data into feature maps.</label><br>
+
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) It normalizes input data.</label><br>
+    </div>
+
+    <div id="result59" class="result"></div>
+</div>
+
+<!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+        <p>61. What is the primary function of the Rectified Linear Unit (ReLU) activation function?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        ReLU introduces non-linearity by outputting the input directly if it is positive, and zero otherwise, helping to avoid the vanishing gradient problem.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) It ensures all neurons are always active.</label><br>
+
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) It allows only negative values to pass through.</label><br>
+
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) It outputs the input directly if positive; otherwise, it returns zero.</label><br>
+
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) It normalizes the input data.</label><br>
+    </div>
+
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee">
+    <div class="que">
+        <p>62. What does the term "dropout" refer to in deep learning?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Dropout is a regularization technique that randomly disables neurons during training to prevent overfitting and improve model generalization.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) A method for increasing the number of neurons in a network.</label><br>
+
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) A technique that randomly disables neurons during training to prevent overfitting.</label><br>
+
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) A method to increase the learning rate dynamically.</label><br>
+
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) A technique to remove irrelevant data before training.</label><br>
+    </div>
+
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee">
+    <div class="que">
+        <p>63. What is the purpose of weight initialization in neural networks?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Proper weight initialization helps prevent issues like vanishing and exploding gradients, leading to faster and more stable training.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) To ensure all neurons have the same initial values.</label><br>
+
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) To prevent vanishing or exploding gradient problems.</label><br>
+
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) To reduce the number of trainable parameters.</label><br>
+
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) To make the model overfit faster.</label><br>
+    </div>
+
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee">
+    <div class="que">
+        <p>64. What is the main goal of the Softmax activation function?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The Softmax function converts logits into probability distributions, making it useful for multi-class classification problems.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) To normalize the input values between 0 and 1 for multi-class classification.</label><br>
+
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) To randomly disable neurons during training.</label><br>
+
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) To improve training speed in deep networks.</label><br>
+
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) To increase the model's accuracy in regression tasks.</label><br>
+    </div>
+
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee">
+    <div class="que">
+        <p>65. What is the primary advantage of using a convolutional neural network (CNN) for image processing?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        CNNs use convolutional layers to automatically extract spatial features from images, reducing the need for manual feature engineering.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) It requires less data for training.</label><br>
+
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) It automatically extracts spatial features from images.</label><br>
+
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) It only works with grayscale images.</label><br>
+
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) It eliminates the need for activation functions.</label><br>
+    </div>
+
+    <div id="result64" class="result"></div>
+</div>
+
+<!-- Question 66 -->
+<div class="qee">
+    <div class="que">
+        <p>66. What is the function of the ReLU activation in deep learning?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The Rectified Linear Unit (ReLU) activation function helps deep networks train efficiently by introducing non-linearity and reducing the vanishing gradient problem.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) It replaces negative values with zero, improving training efficiency.</label><br>
+
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) It converts logits into probability distributions.</label><br>
+
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) It prevents overfitting by randomly disabling neurons.</label><br>
+
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) It normalizes input features to have zero mean and unit variance.</label><br>
+    </div>
+
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee">
+    <div class="que">
+        <p>67. What is the primary purpose of dropout in a neural network?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Dropout is a regularization technique that randomly disables neurons during training to prevent overfitting.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) It speeds up training by reducing the number of neurons.</label><br>
+
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) It prevents overfitting by randomly disabling neurons during training.</label><br>
+
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) It normalizes feature values for better training.</label><br>
+
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) It ensures all neurons contribute equally to training.</label><br>
+    </div>
+
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee">
+    <div class="que">
+        <p>68. What is a loss function in deep learning?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        A loss function measures how well a model’s predictions match the actual values and helps in updating model parameters during training.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) A function that evaluates model performance by comparing predicted and actual values.</label><br>
+
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) A method used to adjust learning rates dynamically.</label><br>
+
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) A way to initialize neural network weights.</label><br>
+
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) A function that converts logits into probabilities.</label><br>
+    </div>
+
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee">
+    <div class="que">
+        <p>69. What is overfitting in machine learning?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Overfitting happens when a model learns the training data too well, including noise, and fails to generalize to new data.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) When a model performs well on both training and test data.</label><br>
+
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) When a model learns the training data too well, including noise, and fails to generalize.</label><br>
+
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) When a model has too few parameters and cannot learn the data well.</label><br>
+
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) When a model is undertrained and does not capture data patterns effectively.</label><br>
+    </div>
+
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee">
+    <div class="que">
+        <p>70. What is the purpose of early stopping in training neural networks?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Early stopping is a regularization technique that stops training when the validation loss stops improving to prevent overfitting.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) It prevents overfitting by stopping training when validation loss stops improving.</label><br>
+
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) It reduces the number of hidden layers in a network.</label><br>
+
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) It ensures that all neurons are used during training.</label><br>
+
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) It increases the learning rate dynamically.</label><br>
+    </div>
+
+    <div id="result69" class="result"></div>
+</div>
+
+
+<!-- Repeat similar code for more questions... -->
+
+<div class="navigation-buttons">
+    <button id="prevButton" onclick="previousQuestion()">Previous</button>
+    <button id="nextButton" onclick="nextQuestion()">Next</button>
+</div>
+</div>
+</div> 
+</body>
+</html>

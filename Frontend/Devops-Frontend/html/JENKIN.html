@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JENKINS</title>
+    <link rel="stylesheet" href="../css/paper.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'A', 'A', 'A', 'D', 'A', 'B', 'A', 'C', 'C',
+            'B', 'B', 'A', 'B', 'B', 'B', 'C', 'A', 'D', 'D',
+            'B', 'B', 'C', 'A', 'D', 'C', 'B', 'A', 'A', 'A',
+            'A', 'D', 'D', 'A', 'A', 'A', 'C', 'D', 'A', 'A',
+            'A', 'D', 'A', 'D', 'A', 'A', 'A', 'A', 'A', 'D','C'
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>JENKINS</h3>
+        <div class="inner-border">
+<!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is Cl in Jenkins?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        CI stands for Continuous Integration, an automated process of planning, coding, building, and testing.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) CI stands for Continuous Interaction, a manual process of checking code.</label><br>
+
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) CI stands for Continuous Integration, an automated process of planning, coding, building, and testing.</label><br>
+
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) CI stands for Continuous Involvement, where multiple developers manually review the code.</label><br>
+
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) CI stands for Continuous Inspection, which only focuses on testing the code.</label><br>
+    </div>
+
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. Which of the following is a CI/CD tool?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Jenkins is a popular CI/CD tool used for automating the integration and deployment of code.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Jenkins</label><br>
+
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Kubernetes</label><br>
+
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) SonarQube</label><br>
+
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Terraform</label><br>
+    </div>
+
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What is the primary difference between Continuous Delivery (CD) and Continuous Deployment?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Continuous Delivery automates the testing process, while Continuous Deployment automates all stages including deployment.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) Continuous Delivery only automates the testing process, while Continuous Deployment automates all stages.</label><br>
+
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) Continuous Delivery does not involve releasing the code, whereas Continuous Deployment skips testing.</label><br>
+
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) Continuous Delivery is focused on coding, and Continuous Deployment is focused on planning.</label><br>
+    </div>
+
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. Why is Jenkins' master-slave architecture used?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Jenkins' master-slave architecture is used to distribute builds across multiple machines, enabling parallel execution of tasks.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) To distribute builds across multiple machines</label><br>
+
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) To allow for multiple builds at the same time</label><br>
+
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) To separate deployment and testing</label><br>
+
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) To ensure builds happen in a sequential order</label><br>
+    </div>
+
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. Which plugins in Jenkins integrate tools like SonarQube, Nexus, OWASP, AWS, Kubernetes, and Terraform?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Jenkins has several plugins such as SonarQube Plugin, AWS, Nexus, Kubernetes, and Terraform Plugins to integrate various tools.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) SonarQube Plugin</label><br>
+
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) AWS, Nexus, and Kubernetes Plugins</label><br>
+
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) OWASP and Terraform Plugins</label><br>
+
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) All of the above</label><br>
+    </div>
+
+    <div id="result4" class="result"></div>
+</div>
+    
+   <!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is RBAC (Role-Based Access Control) in Jenkins?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        RBAC (Role-Based Access Control) is a method to restrict user access to specific areas in Jenkins based on roles.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) A method to restrict user access to specific areas</label><br>
+
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) A plugin to manage build jobs</label><br>
+
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) A Jenkins feature to track pipeline stages</label><br>
+
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) A setting to enable periodic builds</label><br>
+    </div>
+
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. What should be done when a build fails suddenly in Jenkins?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The best course of action is to check the logs for errors and troubleshoot the issue.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Restart the Jenkins server</label><br>
+
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Check logs for errors and troubleshoot</label><br>
+
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Reconfigure the job</label><br>
+
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Disable the plugin causing the issue</label><br>
+    </div>
+
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What happens if an upstream job in Jenkins fails?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        If an upstream job fails, the downstream job will not trigger, and the pipeline execution stops.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) The downstream job will not trigger</label><br>
+
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) The downstream job will still execute</label><br>
+
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) Jenkins will skip the upstream job and run the next one</label><br>
+
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) The entire pipeline will pause</label><br>
+    </div>
+
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. Which Jenkins job types allow for multibranch builds?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Multibranch Pipeline Jobs are specifically designed for multibranch builds, enabling Jenkins to automatically create jobs for different branches.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) Freestyle Jobs</label><br>
+
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) Pipeline Jobs</label><br>
+
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) Multibranch Pipeline Jobs</label><br>
+
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) All of the above</label><br>
+    </div>
+
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. Which feature in Jenkins allows you to integrate Slack or email notifications?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Jenkins allows integration with Slack or email through the Post-build Actions feature, enabling notifications after a build finishes.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) Notification Plugin</label><br>
+
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) Email and Slack Integrator</label><br>
+
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) Post-build Actions</label><br>
+
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) Jenkins Settings</label><br>
+    </div>
+
+    <div id="result9" class="result"></div>
+</div>
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. Which JDK version does Jenkins use by default?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Jenkins uses JDK 11 by default for running its jobs and pipelines.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) JDK8</label><br>
+
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) JDK 11</label><br>
+
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) JDK 14</label><br>
+
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) JDK 17</label><br>
+    </div>
+
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. What is a pre-build action in Jenkins?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        A pre-build action in Jenkins is an action executed before the actual build starts. This can include tasks like preparing the environment.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) An action executed after the build</label><br>
+
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) An action executed before the build</label><br>
+
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) An action executed during the build</label><br>
+
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) None of the above</label><br>
+    </div>
+
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. How are secrets managed securely in Jenkins pipelines?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Secrets in Jenkins pipelines can be securely managed using environment variables or the Jenkins Vault Plugin to store and access sensitive data.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) Using environment variables</label><br>
+
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) Using Jenkins Vault Plugin</label><br>
+
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) Using only plain text files</label><br>
+
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) None of the above</label><br>
+    </div>
+
+    <div id="result12" class="result"></div>
+</div>
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. Which JDK version does Jenkins use by default?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Jenkins uses JDK 11 by default for running its jobs and pipelines.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) JDK8</label><br>
+
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) JDK 11</label><br>
+
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) JDK 14</label><br>
+
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) JDK 17</label><br>
+    </div>
+
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What is a pre-build action in Jenkins?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        A pre-build action in Jenkins is an action that is executed before the actual build starts. It can include tasks like preparing the environment.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) An action executed after the build</label><br>
+
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) An action executed before the build</label><br>
+
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) An action executed during the build</label><br>
+
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) None of the above</label><br>
+    </div>
+
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. How are secrets managed securely in Jenkins pipelines?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Secrets in Jenkins pipelines are securely managed using environment variables or the Jenkins Vault Plugin.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) Using environment variables</label><br>
+
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) Using Jenkins Vault Plugin</label><br>
+
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) Using only plain text files</label><br>
+
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) None of the above</label><br>
+    </div>
+
+    <div id="result15" class="result"></div>
+</div>
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. What is the purpose of Jenkins agents?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Jenkins agents are used to execute jobs on remote machines, allowing distributed builds.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) To manage user authentication</label><br>
+
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) To store job configurations</label><br>
+
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) To execute jobs on remote machines</label><br>
+
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) To monitor pipeline execution</label><br>
+    </div>
+
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. Which Jenkins plugin is used for integrating with Slack?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The Slack Notification Plugin is used to send notifications from Jenkins to Slack channels.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) Slack Notification Plugin</label><br>
+
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) Slack Integration Plugin</label><br>
+
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) Slack Alert Plugin</label><br>
+
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) Notification Plugin</label><br>
+    </div>
+
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What can cause a Jenkins build to stop suddenly?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        A Jenkins build can stop due to outdated plugins, Jenkins master outages, or insufficient disk space.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) Outdated plugins</label><br>
+
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) Jenkins master outage</label><br>
+
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) Insufficient disk space</label><br>
+
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) All of the above</label><br>
+    </div>
+
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. Which of the following is a default plugin in Jenkins?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The Pipeline Plugin is included by default with Jenkins to support pipeline functionality.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) Pipeline Plugin</label><br>
+
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) Maven Plugin</label><br>
+
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) SonarQube Plugin</label><br>
+
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) All of the above</label><br>
+    </div>
+
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. What action is required if a downstream job is not triggered?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        If a downstream job is not triggered, check the upstream job configuration and ensure the necessary conditions are met.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) Restart the Jenkins master</label><br>
+
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) Check the upstream job configuration</label><br>
+
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) Re-run the downstream job manually</label><br>
+
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) Check job permissions</label><br>
+    </div>
+
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. Which CI/CD tool is most similar to Jenkins?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Travis CI is most similar to Jenkins as it also provides CI/CD pipeline services.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) Docker</label><br>
+
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) Travis CI</label><br>
+
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) Kubernetes</label><br>
+
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) Terraform</label><br>
+    </div>
+
+    <div id="result21" class="result"></div>
+</div>
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. What is the purpose of Jenkins agents?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Jenkins agents are used to execute jobs on remote machines, enabling distributed builds.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) To manage user authentication</label><br>
+
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) To store job configurations</label><br>
+
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) To execute jobs on remote machines</label><br>
+
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) To monitor pipeline execution</label><br>
+    </div>
+
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. Which Jenkins plugin is used for integrating with Slack?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The Slack Notification Plugin is used to integrate Jenkins with Slack for notifications.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) Slack Notification Plugin</label><br>
+
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) Slack Integration Plugin</label><br>
+
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) Slack Alert Plugin</label><br>
+
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) Notification Plugin</label><br>
+    </div>
+
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. What can cause a Jenkins build to stop suddenly?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        A Jenkins build can stop due to outdated plugins, Jenkins master outage, or insufficient disk space.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) Outdated plugins</label><br>
+
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) Jenkins master outage</label><br>
+
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) Insufficient disk space</label><br>
+
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) All of the above</label><br>
+    </div>
+
+    <div id="result24" class="result"></div>
+</div>
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. Which of the following can be used to store Jenkins build artifacts?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Jenkins build artifacts can be stored on AWS S3, the local file system, or other external storage systems.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) AWS S3</label><br>
+
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) Local file system</label><br>
+
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) All of the above</label><br>
+    </div>
+
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. How does Jenkins define a multibranch pipeline?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        A multibranch pipeline allows Jenkins to automatically create and manage a pipeline for each branch in a repository.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) A pipeline that runs on multiple agents</label><br>
+
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) A pipeline that runs on multiple branches</label><br>
+
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) A pipeline that runs on multiple stages</label><br>
+
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) A pipeline that runs across multiple jobs</label><br>
+    </div>
+
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. Which Jenkins plugin integrates with SonarQube?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The SonarQube Scanner Plugin integrates Jenkins with SonarQube for continuous code quality analysis.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) SonarQube Scanner Plugin</label><br>
+
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) SonarQube Lint Plugin</label><br>
+
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) Quality Analysis Plugin</label><br>
+
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) Scanner Integration Plugin</label><br>
+    </div>
+
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. How do you configure Jenkins to run builds periodically?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Jenkins can be configured to run builds periodically using the cron syntax in the build triggers.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) Use the cron syntax in build triggers</label><br>
+
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) Manually trigger the build every hour</label><br>
+
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) Use Jenkins' auto-scheduler plugin</label><br>
+
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) Set build frequency in job configuration</label><br>
+    </div>
+
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. What are upstream jobs in Jenkins?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Upstream jobs are those that trigger another job in Jenkins, typically in a pipeline sequence.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) Jobs that trigger another job</label><br>
+
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) Jobs that are triggered by another job</label><br>
+
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) Jobs that execute first in a pipeline</label><br>
+
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) Jobs that run concurrently with others</label><br>
+    </div>
+
+    <div id="result29" class="result"></div>
+</div>
+
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. How can you configure a Jenkins build to run only on Linux nodes?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        You can use a label expression to specify that the job should run on nodes with a specific label, such as "linux".<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) Use a label expression</label><br>
+
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) Use a node filter</label><br>
+
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) Configure the job in the Jenkinsfile</label><br>
+
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) Select Linux in job configuration</label><br>
+    </div>
+
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. What is the benefit of using shared libraries in Jenkins pipelines?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Shared libraries allow you to reuse code across multiple pipelines, making the configuration easier and more maintainable.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) To reuse code across multiple pipelines</label><br>
+
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) To simplify the configuration of pipeline stages</label><br>
+
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) To create a central store of pipeline scripts</label><br>
+
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) All of the above</label><br>
+    </div>
+
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. How can you check for pipeline errors in Jenkins?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        You can check the build logs, enable verbose mode, or run the pipeline in debug mode to check for errors.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) Check the build logs</label><br>
+
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) Enable verbose mode</label><br>
+
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) Run the pipeline in debug mode</label><br>
+
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) All of the above</label><br>
+    </div>
+
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. What are post-build actions in Jenkins?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Post-build actions are tasks or steps that Jenkins executes after the build completes, such as sending notifications or archiving artifacts.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) Actions that run after the build completes</label><br>
+
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) Actions that run before the build starts</label><br>
+
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) Actions that run during the build</label><br>
+
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) Actions that trigger another build</label><br>
+    </div>
+
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. What is the purpose of pipeline stages in Jenkins?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Pipeline stages help break the build process into logical steps, which makes it easier to manage and debug.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) To break the build process into logical steps</label><br>
+
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) To execute jobs on multiple agents</label><br>
+
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) To run jobs concurrently</label><br>
+
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) To store build artifacts</label><br>
+    </div>
+
+    <div id="result34" class="result"></div>
+</div>
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. What is the function of an upstream job in Jenkins?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        An upstream job in Jenkins is a job that triggers another job, known as the downstream job, once it completes successfully.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) To trigger a downstream job</label><br>
+
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) To be triggered by another job</label><br>
+    </div>
+
+    <div id="result35" class="result"></div>
+</div>
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. What is the purpose of pipeline stages in Jenkins?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Pipeline stages in Jenkins are used to break the build process into logical steps, such as build, test, and deploy.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) To break the build process into logical steps</label><br>
+
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) To execute jobs on multiple agents</label><br>
+
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) To run jobs concurrently</label><br>
+
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) To store build artifacts</label><br>
+    </div>
+
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. What is the function of an upstream job in Jenkins?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        An upstream job in Jenkins is a job that triggers a downstream job once it is completed.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) To trigger a downstream job</label><br>
+
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) To be triggered by another job</label><br>
+    </div>
+
+    <div id="result37" class="result"></div>
+</div>
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. What happens when a Jenkins master node goes down?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        When a Jenkins master node goes down, jobs that were scheduled on the master will either be queued or executed on available slave nodes, depending on the configuration.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) All jobs stop</label><br>
+
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) Jobs continue on slave nodes</label><br>
+
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) Jobs are queued</label><br>
+
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) Jobs automatically fail</label><br>
+    </div>
+
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. Which of the following is a Jenkins build trigger?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Jenkins build triggers can include polling SCM, periodic builds, and manual triggers to start the build process.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) Poll SCM</label><br>
+
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) Periodic build</label><br>
+
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) Manual trigger</label><br>
+
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) All of the above</label><br>
+    </div>
+
+    <div id="result39" class="result"></div>
+</div>
+
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. How do you configure microservices in a Jenkins pipeline?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Microservices in Jenkins can be configured in the Jenkinsfile, defining each service and its deployment steps in the pipeline.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) By defining services in the Jenkinsfile</label><br>
+
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) By creating a new project</label><br>
+
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) By running a manual job for each microservice</label><br>
+
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) By configuring the master node</label><br>
+    </div>
+
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. What is the role of the Credential Manager in Jenkins?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The Credential Manager in Jenkins securely stores secrets, such as passwords and private keys, used for jobs and integrations.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) It stores secret files and passwords for jobs</label><br>
+
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) It configures email notifications</label><br>
+
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) It schedules builds for deployment</label><br>
+
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) It manages Jenkins agent nodes</label><br>
+    </div>
+
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. How can you automatically delete previous builds in Jenkins?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        You can configure Jenkins to automatically delete previous builds by setting up a build discarding policy in the job configuration.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) By configuring build discarding policy</label><br>
+
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) By manually deleting old builds</label><br>
+
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) By scheduling a cron job</label><br>
+
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) By clearing the workspace after each build</label><br>
+    </div>
+
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. Which of the following is a default Jenkins environment variable?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Jenkins automatically sets several environment variables, such as <strong>BUILD_ID</strong>, <strong>BUILD_NUMBER</strong>, and more, to help manage and track the build process.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) BUILD_ID</label><br>
+
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) BUILD_STATUS</label><br>
+
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) JOB_ID</label><br>
+
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) JOB_NAME</label><br>
+    </div>
+
+    <div id="result43" class="result"></div>
+</div>
+        <!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. How can you automatically delete previous builds in Jenkins?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        In Jenkins, you can automatically delete previous builds by configuring the <strong>build discarding policy</strong> in the job configuration. This allows you to specify when and which builds should be deleted based on conditions like the number of builds or the retention time.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) By configuring build discarding policy</label><br>
+
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) By manually deleting old builds</label><br>
+
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) By scheduling a cron job</label><br>
+
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) By clearing the workspace after each build</label><br>
+    </div>
+
+    <div id="result44" class="result"></div>
+</div>
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. What is the key difference between a project and a job in Jenkins?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        In Jenkins, a project can be seen as a template or container for jobs. Jobs are the specific tasks that Jenkins executes.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) Projects are containers for jobs</label><br>
+
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) Jobs can run in parallel, projects cannot</label><br>
+
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) Projects are part of upstream jobs</label><br>
+
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) Jobs can contain multiple projects</label><br>
+    </div>
+
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. How can you configure Jenkins to run parallel builds?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The "parallel" block in the Jenkinsfile allows the configuration of parallel execution of builds.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) Using the "parallel" block in the Jenkinsfile</label><br>
+
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) Scheduling jobs at different times</label><br>
+
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) Using separate agents for each build</label><br>
+
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) Running builds one after another</label><br>
+    </div>
+
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. How would you deploy a Kubernetes YAML file to an EKS cluster in Jenkins?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        To deploy a Kubernetes YAML file to an EKS cluster, you would typically configure the agent and use the Kubernetes plugin for deployment.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) Configure the agent where EKS is installed, then run the deployment</label><br>
+
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) Upload the YAML file to Jenkins</label><br>
+
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) Use the Kubernetes Plugin</label><br>
+
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) Jenkins cannot deploy to EKS</label><br>
+    </div>
+
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. What is a parameterized build in Jenkins?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        A parameterized build in Jenkins allows users to pass specific input parameters, which can control various parts of the build process.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) A build that accepts user input parameters</label><br>
+
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) A build that runs based on a cron trigger</label><br>
+
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) A build that runs on multiple agents</label><br>
+
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) A build that automatically deploys to production</label><br>
+    </div>
+
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. Which of the following is a valid build parameter in Jenkins?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Jenkins supports several types of parameters, including String, File, and Boolean.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) String Parameter</label><br>
+
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) File Parameter</label><br>
+
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Boolean Parameter</label><br>
+
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) All of the above</label><br>
+    </div>
+
+    <div id="result49" class="result"></div>
+</div>
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

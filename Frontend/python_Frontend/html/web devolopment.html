@@ -1,0 +1,3049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB DEVELOPMENT</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'A', 'A', 'A', 'A', 'B', 'A', 'B', 'A',
+            'B', 'A', 'A', 'B', 'A', 'B', 'B', 'A', 'A', 'B',
+            'B', 'A', 'B', 'A', 'A', 'B', 'B', 'A', 'A', 'B',
+            'A', 'B', 'B', 'A', 'B', 'A', 'B', 'A', 'A', 'B',
+            'A', 'B', 'A', 'B', 'A', 'A', 'A', 'B', 'B', 'A',
+            'B', 'A', 'A', 'A', 'B', 'B', 'A', 'A', 'B', 'A',
+            'A', 'A', 'B', 'A', 'B', 'A', 'B', 'A', 'A', 'B',
+            'A', 'B', 'A', 'B', 'A', 'B', 'A', 'A', 'B', 'A',
+            'A', 'B', 'A', 'B', 'A', 'B', 'A', 'B', 'A', 'B',
+            'A', 'A', 'B', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'C'
+                 
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>WEB DEVELOPMENT</h3>
+        <div class="inner-border">
+
+<!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is Flask in Python?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Flask is a lightweight and flexible web framework for Python, often used for small to medium-sized applications.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) Flask is a database management system in Python.</label><br>
+
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) Flask is a lightweight and flexible web framework for Python.</label><br>
+
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) Flask is used for machine learning in Python.</label><br>
+
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) Flask is an advanced data analysis library for Python.</label><br>
+    </div>
+
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. What is Django in Python?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Django is a data science library for Python.</label><br>
+
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Django is a high-level Python web framework for rapid development.</label><br>
+
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) Django is a front-end framework for JavaScript applications.</label><br>
+
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Django is used exclusively for building APIs in Python.</label><br>
+    </div>
+
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What is the main advantage of RESTful APIs in web development?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        RESTful APIs provide a simple, stateless, and standardized way for systems to communicate over HTTP.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) RESTful APIs use complex protocols to exchange data.</label><br>
+
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) RESTful APIs allow stateless communication using HTTP methods like GET, POST, PUT, DELETE.</label><br>
+
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) RESTful APIs are only used in Flask applications.</label><br>
+
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) RESTful APIs are used exclusively for mobile applications.</label><br>
+    </div>
+
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. What is Jinja2 in Flask?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Jinja2 is a templating engine used in Flask for rendering dynamic HTML content with Python code.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) Jinja2 is a front-end JavaScript library used with Flask.</label><br>
+
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) Jinja2 is a Python-based templating engine used in Flask to render HTML with dynamic data.</label><br>
+
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) Jinja2 is a database management system in Flask.</label><br>
+
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) Jinja2 is a library used for handling authentication in Flask.</label><br>
+    </div>
+
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. What is the purpose of WebSockets in Python web applications?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        WebSockets allow bi-directional, real-time communication between the client and server, useful for applications like chat or live updates.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) WebSockets enable real-time, bidirectional communication in web applications.</label><br>
+
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) WebSockets allow for only one-way communication from the client to the server.</label><br>
+
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) WebSockets are used to manage static files in web applications.</label><br>
+
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) WebSockets are used only in Django for real-time communication.</label><br>
+    </div>
+
+    <div id="result4" class="result"></div>
+</div>
+
+<!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is the purpose of ORM (Object-Relational Mapping) in Django?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        ORM in Django allows developers to interact with databases using Python objects rather than SQL queries.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) ORM allows developers to use SQL directly in Python code.</label><br>
+
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) ORM allows the conversion of Python objects to SQL queries automatically.</label><br>
+
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) ORM in Django is used exclusively for managing file uploads.</label><br>
+
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) ORM is used for session management in Django applications.</label><br>
+    </div>
+
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. What is JWT (JSON Web Token) used for in web applications?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        JWT is a compact, URL-safe means of representing claims to be transferred between two parties, commonly used for authentication and authorization.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) JWT is used to securely store files in a web application.</label><br>
+
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) JWT is used for secure authentication and authorization in web applications.</label><br>
+
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) JWT is used for front-end routing in web applications.</label><br>
+
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) JWT is used for session management in Flask applications.</label><br>
+    </div>
+
+    <div id="result6" class="result"></div>
+</div>
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What is the use of AsyncIO in Python web development?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        AsyncIO is a library that allows for asynchronous programming, enabling non-blocking code execution, which is useful in I/O-bound applications.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) AsyncIO is used for managing synchronous database queries.</label><br>
+
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) AsyncIO is used for writing non-blocking, asynchronous code for I/O-bound tasks.</label><br>
+
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) AsyncIO is used for CPU-intensive task processing.</label><br>
+
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) AsyncIO is used exclusively for front-end development in Python.</label><br>
+    </div>
+
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. How does BeautifulSoup help in web scraping with Python?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        BeautifulSoup is a Python library used to parse HTML and XML documents, making it easier to extract data from web pages.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) BeautifulSoup is used for managing cookies in web scraping.</label><br>
+
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) BeautifulSoup helps in parsing HTML and XML documents to extract data from websites.</label><br>
+
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) BeautifulSoup is used to handle session management during web scraping.</label><br>
+
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) BeautifulSoup is a tool for generating APIs from HTML data.</label><br>
+    </div>
+
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. What is the purpose of Django REST Framework (DRF)?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Django REST Framework (DRF) is a powerful toolkit for building Web APIs in Django, providing tools for authentication, serialization, and view management.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) DRF is a front-end framework for building web interfaces.</label><br>
+
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) DRF is used to build web APIs in Django by handling serialization, views, and authentication.</label><br>
+
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) DRF is a tool for managing databases in Django applications.</label><br>
+
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) DRF is used for integrating Python web applications with social media platforms.</label><br>
+    </div>
+
+    <div id="result9" class="result"></div>
+</div>
+
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is the function of Gunicorn in deploying Python web applications?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Gunicorn is a Python WSGI HTTP server used for running Python web applications, offering concurrency and scalability.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) Gunicorn is used for managing authentication in web applications.</label><br>
+
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) Gunicorn is a WSGI server that runs Python web applications, enhancing concurrency.</label><br>
+
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) Gunicorn is used to build APIs in Python applications.</label><br>
+
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) Gunicorn is a front-end JavaScript library used in Python applications.</label><br>
+    </div>
+
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. What is Redis used for in Python web applications?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Redis is an in-memory data structure store used for caching and session management, enhancing the performance of web applications.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) Redis is a file storage system for Python web applications.</label><br>
+
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) Redis is used for caching and session management to improve application performance.</label><br>
+
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) Redis is a web framework used to build Python applications.</label><br>
+
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) Redis is used to handle asynchronous tasks in Python applications.</label><br>
+    </div>
+
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What is the purpose of session management in Flask/Django?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Session management allows the storage of user-specific data across requests, helping maintain user states like login information and preferences.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) Session management is used to store static files in Flask/Django.</label><br>
+
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) Session management stores user-specific data between requests, like login details.</label><br>
+
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) Session management handles real-time communication between users.</label><br>
+
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) Session management is used for database migration in Flask/Django.</label><br>
+    </div>
+
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. What does CSRF stand for in web security, and how is it mitigated?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        CSRF (Cross-Site Request Forgery) is a security vulnerability where an attacker tricks a user into making an unwanted request. It is mitigated by using tokens (e.g., CSRF tokens) to verify that requests come from trusted sources.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) CSRF is a security vulnerability that can be mitigated using encryption keys.</label><br>
+
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) CSRF is mitigated using tokens like CSRF tokens to verify requests.</label><br>
+
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) CSRF can be prevented using firewalls only.</label><br>
+
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) CSRF can be mitigated by disabling cookies in the application.</label><br>
+    </div>
+
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What is the purpose of the Django middleware?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Middleware in Django processes requests and responses, allowing for functionality such as authentication, logging, and modifying HTTP headers.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) Middleware is used to manage front-end user interfaces in Django applications.</label><br>
+
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) Middleware processes requests and responses, handling functionality like authentication and logging.</label><br>
+
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) Middleware is used exclusively for managing session data in Django applications.</label><br>
+
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) Middleware is used for creating database queries in Django applications.</label><br>
+    </div>
+
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. How do webhooks work in Python web applications?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Webhooks are HTTP callbacks that trigger an action when a specified event occurs. They are used for real-time communication between systems, where an external system sends an HTTP request to a specified URL.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) Webhooks are used to fetch data from external APIs at regular intervals.</label><br>
+
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) Webhooks are used to send HTTP requests in real time when an event occurs in an external system.</label><br>
+
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) Webhooks are used to store incoming data in a database.</label><br>
+
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) Webhooks are used to prevent users from submitting forms on web pages.</label><br>
+    </div>
+
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. How do AJAX and Fetch API improve frontend-backend communication in web development?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        AJAX and the Fetch API allow asynchronous communication between the frontend and backend, enabling data exchange without reloading the entire page, improving user experience.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) AJAX and Fetch API are used for server-side rendering of HTML content.</label><br>
+
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) AJAX and Fetch API are used to send and receive data asynchronously without page reloads.</label><br>
+
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) AJAX and Fetch API are used for building server-side web applications.</label><br>
+
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) AJAX and Fetch API are used to handle real-time web socket connections.</label><br>
+    </div>
+
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. What is the purpose of GraphQL in Python web applications?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        GraphQL is a query language for APIs that allows clients to request only the data they need. It provides more flexibility than RESTful APIs by enabling clients to specify the structure of the response.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) GraphQL is a static site generator for Python web applications.</label><br>
+
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) GraphQL is a query language for APIs that allows clients to specify the structure of the response.</label><br>
+
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) GraphQL is a middleware used for user authentication in Python web applications.</label><br>
+
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) GraphQL is a form handling library for Python web applications.</label><br>
+    </div>
+
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. How do rate limiting and throttling help in web API development?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Rate limiting and throttling are techniques used to control the amount of traffic or requests sent to an API. This prevents abuse, protects resources, and ensures fair usage by limiting the number of requests a client can make within a specified time.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) Rate limiting and throttling are used to optimize database queries.</label><br>
+
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) Rate limiting and throttling help prevent abuse and control the number of requests sent to an API.</label><br>
+
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) Rate limiting and throttling are used for securing user authentication.</label><br>
+
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) Rate limiting and throttling are techniques used for database migrations.</label><br>
+    </div>
+
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. What is the role of an Application Performance Monitoring (APM) tool in Python web applications?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        An APM tool helps monitor the performance of a web application by providing insights into response times, errors, and bottlenecks. It helps identify areas that need optimization and improve user experience.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) APM tools monitor user sessions and store session data.</label><br>
+
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) APM tools help monitor the performance of a web application by identifying bottlenecks and errors.</label><br>
+
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) APM tools are used for real-time communication between the frontend and backend.</label><br>
+
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) APM tools manage the deployment of Python web applications.</label><br>
+    </div>
+
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. What is the difference between static and dynamic file handling in Flask/Django?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Static files are served as-is, without modification, typically for resources like images and CSS. Dynamic files are generated or processed based on request data, such as HTML pages rendered with templates.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) Static files are generated dynamically by the server, while dynamic files are served as-is.</label><br>
+
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) Static files are served as-is, while dynamic files are generated based on request data.</label><br>
+
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) Static files are used for database management, while dynamic files are used for rendering templates.</label><br>
+
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) Static and dynamic files are identical in Flask/Django applications.</label><br>
+    </div>
+
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. What is the purpose of a Content Management System (CMS) like Wagtail or Mezzanine in Python web development?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        A CMS like Wagtail or Mezzanine is used to manage website content easily through an admin interface. It helps in creating, editing, and organizing content dynamically without the need for extensive technical knowledge.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) A CMS like Wagtail is used to manage server configurations and performance.</label><br>
+
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) A CMS like Wagtail or Mezzanine helps manage content on websites via an admin interface.</label><br>
+
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) A CMS like Wagtail is used for managing API requests and responses.</label><br>
+
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) A CMS like Wagtail or Mezzanine is used for building microservices in Python applications.</label><br>
+    </div>
+
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. How does a multi-tenant architecture benefit Python web applications?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        A multi-tenant architecture allows a single instance of an application to serve multiple clients (tenants) while keeping their data isolated. This is efficient for scaling applications and reducing operational overhead.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) Multi-tenant architecture is used to improve the performance of database queries.</label><br>
+
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) Multi-tenant architecture allows a single instance to serve multiple clients while isolating their data.</label><br>
+
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) Multi-tenant architecture is used for handling server load balancing.</label><br>
+
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) Multi-tenant architecture is only useful in large-scale Python applications with a single database.</label><br>
+    </div>
+
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. What is the purpose of form handling and validation in Flask/Django web applications?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Form handling and validation allow a web application to securely process user input, ensuring that the data is in the correct format, meets required criteria, and prevents malicious content.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) Form handling and validation help ensure the proper formatting and security of user input.</label><br>
+
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) Form handling and validation are used to generate dynamic HTML content in Flask/Django.</label><br>
+
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) Form handling and validation are used to manage user sessions in Flask/Django.</label><br>
+
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) Form handling and validation are used to optimize database queries in Flask/Django.</label><br>
+    </div>
+
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. How does file upload and download functionality work in Flask/Django web applications?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        File upload and download functionality in web applications allows users to send or retrieve files. In Flask/Django, this can be done through handling file objects and using libraries to manage file storage and download responses.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) File upload and download functionality is used to handle user authentication in web applications.</label><br>
+
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) File upload and download functionality allows users to send or retrieve files in web applications.</label><br>
+
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) File upload and download functionality is used to handle database migrations in web applications.</label><br>
+
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) File upload and download functionality is used for session management in web applications.</label><br>
+    </div>
+
+    <div id="result24" class="result"></div>
+</div>
+
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. What is the purpose of Django REST Framework (DRF) in Python web development?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Django REST Framework (DRF) is used to build RESTful APIs easily with Django. It provides tools for serialization, authentication, permissions, and view sets, making it simpler to create API endpoints.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) DRF is used to manage user authentication in Django applications.</label><br>
+
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) DRF is used to build RESTful APIs by providing tools for serialization, authentication, and view sets.</label><br>
+
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) DRF is used for file storage and media management in Django applications.</label><br>
+
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) DRF is used to optimize database queries in Django applications.</label><br>
+    </div>
+
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. How do Python-based web servers like Gunicorn and uWSGI support Flask/Django applications?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Gunicorn and uWSGI are WSGI-compliant servers that serve Flask and Django applications in a production environment. They act as intermediaries between the web server (e.g., Nginx) and the Python application, handling multiple requests concurrently.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) Gunicorn and uWSGI are used to deploy Python web applications on cloud platforms.</label><br>
+
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) Gunicorn and uWSGI are WSGI-compliant servers that handle requests and serve Flask/Django applications.</label><br>
+
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) Gunicorn and uWSGI are used to manage user authentication in web applications.</label><br>
+
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) Gunicorn and uWSGI are used to handle API request routing in Flask/Django.</label><br>
+    </div>
+
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. How is caching implemented in Python web applications using Redis or Memcached?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Redis and Memcached are in-memory data stores used to cache data, reducing the need to access a database for frequently requested information. In Flask/Django, these can be integrated to improve performance and response times.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) Redis and Memcached are used to store large files in Flask/Django web applications.</label><br>
+
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) Redis and Memcached are in-memory data stores used to cache frequently accessed data for faster response times.</label><br>
+
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) Redis and Memcached are used to manage user authentication in Flask/Django applications.</label><br>
+
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) Redis and Memcached are used to handle asynchronous tasks in Flask/Django applications.</label><br>
+    </div>
+
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. How does session management work in Flask/Django applications?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Session management in Flask/Django allows you to store user-specific data across requests. In Flask, it is handled through secure cookies, while Django uses its built-in session framework to store data in the database or cache.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) Session management in Flask/Django allows storing user data across requests, using secure cookies or the database.</label><br>
+
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) Session management in Flask/Django is used for managing database migrations.</label><br>
+
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) Session management in Flask/Django is only used for user authentication.</label><br>
+
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) Session management in Flask/Django is used to improve database performance.</label><br>
+    </div>
+
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. What are common web security threats in Python web applications, and how can they be mitigated?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Common web security threats include Cross-Site Scripting (XSS), Cross-Site Request Forgery (CSRF), and SQL Injection. These can be mitigated by validating and sanitizing user input, using security headers, and employing ORM for database interactions.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) Common web security threats include XSS, CSRF, and SQL Injection. They can be mitigated by validating user input and using security headers.</label><br>
+
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) Web security threats can be avoided by using a Content Management System (CMS) like Wagtail.</label><br>
+
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) Web security threats can be mitigated by optimizing database queries and improving server performance.</label><br>
+
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) Web security threats can be avoided by using cloud platforms like AWS or Heroku for deployment.</label><br>
+    </div>
+
+    <div id="result29" class="result"></div>
+</div>
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. What is the role of unit testing in web development, and which tools can be used for unit testing in Flask/Django?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Unit testing ensures that individual components of a web application work as expected. In Flask/Django, tools like Pytest and Unittest are commonly used to write and execute unit tests to verify functionality.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) Unit testing ensures that individual components work correctly, and tools like Pytest and Unittest can be used for testing Flask/Django applications.</label><br>
+
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) Unit testing ensures that the user interface of the web application is fully responsive across all devices.</label><br>
+
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) Unit testing is only used for testing database queries and performance in Flask/Django applications.</label><br>
+
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) Unit testing is used for testing third-party libraries and APIs integrated into Flask/Django applications.</label><br>
+    </div>
+
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. What is the process of deploying Python web apps on cloud platforms like Heroku or AWS?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Deploying Python web apps involves setting up the cloud platform, configuring a web server like Gunicorn, and managing resources like databases and storage. Platforms like Heroku and AWS provide services for seamless deployment.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) Deploying Python web apps involves setting up the cloud platform, configuring web servers, and managing resources like databases and storage.</label><br>
+
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) Deploying Python web apps only involves uploading static files to the cloud platform.</label><br>
+
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) Deploying Python web apps requires manual setup of every individual server on cloud platforms.</label><br>
+
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) Deploying Python web apps on cloud platforms like Heroku or AWS doesn't require a web server configuration.</label><br>
+    </div>
+
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. What is Continuous Integration (CI) and Continuous Deployment (CD), and how can they be implemented in Python web apps?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Continuous Integration (CI) is the practice of automatically testing and merging code changes into the main branch. Continuous Deployment (CD) automates the process of deploying code to production. These practices can be implemented using tools like Jenkins, GitHub Actions, or GitLab CI.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) CI and CD are practices of automatically testing, merging, and deploying code using tools like Jenkins, GitHub Actions, or GitLab CI.</label><br>
+
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) CI/CD is used to reduce the load on servers during high traffic periods.</label><br>
+
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) CI/CD is used only for frontend development and doesn't apply to backend applications like Flask/Django.</label><br>
+
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) CI/CD tools automatically handle web security and authentication for Python web applications.</label><br>
+    </div>
+
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. What is the role of data validation and serialization in APIs?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Data validation ensures that the data received in requests is accurate and conforms to expected formats. Serialization converts complex data types, like Python objects, into formats (JSON, XML) that can be easily transmitted over the network.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) Data validation ensures data accuracy, while serialization converts complex data types into a transmittable format like JSON or XML.</label><br>
+
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) Data validation and serialization are used to store API responses in a database.</label><br>
+
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) Data validation and serialization only apply to file uploads in web APIs.</label><br>
+
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) Data validation and serialization help with API request routing and performance optimization.</label><br>
+    </div>
+
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. What is middleware in Flask/Django, and how is it used?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Middleware is a layer of processing between the request and response cycle in Flask/Django. It is used for tasks like handling sessions, modifying request/response objects, or logging requests.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) Middleware is a layer of processing that allows you to modify request and response objects, and is used for logging, sessions, and other tasks.</label><br>
+
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) Middleware is used to handle the frontend assets like CSS and JavaScript in Flask/Django.</label><br>
+
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) Middleware is used to define API routes and manage database migrations in Flask/Django.</label><br>
+
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) Middleware is a tool used to manage session data across Flask/Django applications.</label><br>
+    </div>
+
+    <div id="result34" class="result"></div>
+</div>
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. What is the purpose of webhooks and how are they used in web development?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Webhooks are HTTP callbacks that allow one system to notify another system of events in real time. They are used for integrations and triggering actions automatically when specific events occur, such as sending a message or updating a database.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) Webhooks are HTTP callbacks used to notify systems of events in real-time and trigger automatic actions.</label><br>
+
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) Webhooks are only used for sending emails in web development.</label><br>
+
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) Webhooks allow direct communication between frontend and backend of a web application.</label><br>
+
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) Webhooks are used to run unit tests for APIs.</label><br>
+    </div>
+
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. How is frontend-backend communication handled in web development using AJAX or Fetch API?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Frontend-backend communication is handled using asynchronous JavaScript technologies like AJAX or the Fetch API. These allow the frontend to send HTTP requests to the backend without reloading the page, enabling smooth and dynamic user experiences.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) Frontend-backend communication is handled using AJAX or Fetch API, enabling dynamic requests without reloading the page.</label><br>
+
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) Frontend-backend communication is handled by submitting data to the backend through form submissions.</label><br>
+
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) Frontend-backend communication is limited to using WebSockets only.</label><br>
+
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) Frontend-backend communication is achieved through synchronous JavaScript calls only.</label><br>
+    </div>
+
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. What is file storage and media management in Python web applications?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        File storage and media management involve handling files (images, videos, etc.) in web applications. It includes saving, serving, and managing files either locally or in cloud storage services like AWS S3.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) File storage and media management involve saving, serving, and managing files, often using cloud services like AWS S3.</label><br>
+
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) File storage and media management only apply to static files like CSS and JavaScript.</label><br>
+
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) File storage and media management deal exclusively with database management in web applications.</label><br>
+
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) File storage and media management handle the security and encryption of user data only.</label><br>
+    </div>
+
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. What is GraphQL in Python, and how is it implemented using libraries like Graphene or Ariadne?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        GraphQL is a query language for APIs that allows clients to request only the data they need. It is implemented in Python using libraries like Graphene or Ariadne to build GraphQL APIs with flexibility and ease.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) GraphQL is a query language for APIs, implemented in Python using libraries like Graphene and Ariadne to build flexible APIs.</label><br>
+
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) GraphQL is a static site generator, and Graphene is used for web scraping.</label><br>
+
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) GraphQL is used to manage static files, and Ariadne is used for file encryption.</label><br>
+
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) GraphQL is a replacement for the Django ORM in Python.</label><br>
+    </div>
+
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. What is rate limiting and throttling in web APIs, and how can they be implemented in Python?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Rate limiting and throttling are techniques used to control the number of requests a user can make to an API in a given time period. These techniques help prevent abuse and overload on servers. In Python, libraries like Flask-Limiter or Django Ratelimit can be used for implementation.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) Rate limiting and throttling control the number of API requests made in a specific time, and are implemented using libraries like Flask-Limiter or Django Ratelimit.</label><br>
+
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) Rate limiting and throttling help optimize database queries and data fetching in Python APIs.</label><br>
+
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) Rate limiting and throttling only apply to frontend JavaScript code in web applications.</label><br>
+
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) Rate limiting and throttling are used to handle session management and security in APIs.</label><br>
+    </div>
+
+    <div id="result39" class="result"></div>
+</div>
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. How is application performance monitoring (APM) handled in Python web applications?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Application Performance Monitoring (APM) is used to monitor and optimize the performance of web applications. In Python, tools like New Relic, Datadog, or Sentry can be integrated to track errors, performance bottlenecks, and analyze traffic patterns.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) APM is used to monitor and optimize application performance using tools like New Relic, Datadog, or Sentry in Python.</label><br>
+
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) APM is only used to handle user authentication and authorization in web applications.</label><br>
+
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) APM is only useful in frontend JavaScript applications and does not apply to Python web apps.</label><br>
+
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) APM is used to monitor hardware performance in Python applications.</label><br>
+    </div>
+
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. What is the purpose of static and dynamic file handling in Flask or Django?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Static files like CSS, JavaScript, and images are handled separately from dynamic files in Flask and Django. Static files are served directly by the server, while dynamic files are typically generated through templates or views and returned as HTTP responses.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) Static files are served directly by the server, and dynamic files are generated through templates or views and returned as responses.</label><br>
+
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) Static and dynamic files are handled the same way, without any differentiation in Flask or Django.</label><br>
+
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) Static files are only used for data storage in Flask and Django.</label><br>
+
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) Dynamic files are handled as static files in Flask and Django applications.</label><br>
+    </div>
+
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. What are Python-based content management systems like Wagtail and Mezzanine, and how do they help in web development?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Python-based CMS like Wagtail and Mezzanine provide frameworks for building content-heavy websites. They offer built-in tools for managing content, templating, and creating dynamic pages, making web development faster and easier.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) Wagtail and Mezzanine are Python-based content management systems that provide tools for building dynamic websites.</label><br>
+
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) Wagtail and Mezzanine are used only for database management in Python applications.</label><br>
+
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) Wagtail and Mezzanine are used exclusively for handling file uploads in Python applications.</label><br>
+
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) Wagtail and Mezzanine are front-end JavaScript libraries used for building websites in Python.</label><br>
+    </div>
+
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. How can multi-tenant web applications be implemented in Python using frameworks like Django or Flask?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Multi-tenant applications allow multiple customers to use a single instance of a web application while keeping their data separate. In Django or Flask, this can be achieved using database schemas, separate databases, or shared database tables with tenant identifiers.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) Multi-tenant web applications allow multiple customers to share an app while keeping data separate, using strategies like separate databases or tenant identifiers.</label><br>
+
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) Multi-tenant web applications allow only one customer per instance of the app.</label><br>
+
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) Multi-tenant web applications are implemented by using a single database for all customers without any separation.</label><br>
+
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) Multi-tenant web applications only apply to database-driven apps and cannot be implemented in Flask or Django.</label><br>
+    </div>
+
+    <div id="result43" class="result"></div>
+</div>
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. How does rate limiting and throttling work in web APIs using Flask or Django?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Rate limiting and throttling are used to control the amount of traffic to an API. This ensures fair usage and prevents abuse. In Flask or Django, tools like Flask-Limiter or Django Ratelimit can be used to limit requests based on IP or user authentication.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) Rate limiting and throttling are used to control API traffic, preventing abuse by limiting requests based on IP or authentication.</label><br>
+
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) Rate limiting and throttling are used only for handling user authentication in web APIs.</label><br>
+
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) Rate limiting is used to optimize database queries, not to control API traffic.</label><br>
+
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) Rate limiting and throttling are used for managing file uploads in web applications.</label><br>
+    </div>
+
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. How can application performance monitoring (APM) be implemented in a Python web application?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        APM can be implemented by integrating tools like New Relic, Datadog, or Sentry into your Python web application. These tools help track performance bottlenecks, errors, and traffic patterns, providing insights into application health and performance.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) APM can be implemented by using tools like New Relic, Datadog, or Sentry to track errors, performance, and traffic patterns in Python web applications.</label><br>
+
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) APM is only used to monitor database performance in Python applications.</label><br>
+
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) APM is a tool used exclusively for frontend performance monitoring, not applicable to Python web apps.</label><br>
+
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) APM is used for backend testing, and is not involved in performance monitoring.</label><br>
+    </div>
+
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. What is the role of file storage and media management in Python web applications like Flask or Django?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        File storage and media management involve handling user-uploaded files such as images, videos, and documents. In Flask and Django, this can be managed using built-in tools or third-party libraries like Flask-Uploads, Django-Storages, or cloud storage solutions.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) File storage and media management handle user-uploaded files like images and documents in web applications, using tools like Flask-Uploads or Django-Storages.</label><br>
+
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) File storage and media management is only relevant for static files in a Flask or Django application.</label><br>
+
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) File storage in Python applications is only handled by cloud providers and not by the frameworks themselves.</label><br>
+
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) File storage and media management are not necessary for most web applications.</label><br>
+    </div>
+
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. How does GraphQL work with Python using frameworks like Graphene or Ariadne?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        GraphQL is a query language for APIs that allows clients to request exactly the data they need. In Python, GraphQL APIs can be created using libraries like Graphene or Ariadne. These libraries help define schemas and resolvers to handle GraphQL queries.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) GraphQL allows clients to request only the data they need and can be implemented in Python using libraries like Graphene or Ariadne.</label><br>
+
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) GraphQL is used to manage static files in Python web applications.</label><br>
+
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) GraphQL is only supported in JavaScript applications and cannot be used in Python.</label><br>
+
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) GraphQL is used to convert Python objects into HTML templates for web apps.</label><br>
+    </div>
+
+    <div id="result47" class="result"></div>
+</div>
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. What is rate limiting, and how is it implemented in web APIs in Flask or Django?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Rate limiting is a technique used to limit the number of requests a user can make to an API in a given period. In Flask or Django, this can be implemented using packages like Flask-Limiter or Django Ratelimit to prevent abuse and ensure fair usage.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) Rate limiting restricts the number of requests a user can make to an API in a specific time period to prevent overuse and abuse.</label><br>
+
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) Rate limiting is only used to manage file uploads in web applications.</label><br>
+
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) Rate limiting applies only to static content and does not affect dynamic API requests.</label><br>
+
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) Rate limiting is a feature of the frontend framework, not applicable to Flask or Django APIs.</label><br>
+    </div>
+
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. What is the role of middleware in Flask and Django?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Middleware in Flask and Django is a layer that sits between the request and response cycle. It is used to process requests before they reach the view functions, as well as to modify responses before sending them back to the client.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Middleware is used to process requests before they reach the view functions and modify responses before sending them back to the client.</label><br>
+
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Middleware is only used in Django to handle database queries.</label><br>
+
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Middleware in Flask is used to handle frontend tasks, like rendering HTML.</label><br>
+
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) Middleware in Flask and Django is used exclusively for managing static files.</label><br>
+    </div>
+
+    <div id="result49" class="result"></div>
+</div>
+
+<!-- Question 51 -->
+<div class="qee">
+    <div class="que">
+        <p>51. What is the difference between synchronous and asynchronous programming in web development with Python?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Synchronous programming waits for each task to finish before starting the next, while asynchronous programming allows multiple tasks to run concurrently, improving performance in I/O-bound operations. Frameworks like FastAPI use asynchronous programming for faster performance in web APIs.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) Synchronous programming waits for each task to finish, while asynchronous programming allows multiple tasks to run concurrently for faster performance.</label><br>
+
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) Synchronous programming allows multiple tasks to run at once, while asynchronous programming only runs one task at a time.</label><br>
+
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) Asynchronous programming is not supported in Python web development frameworks.</label><br>
+
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) Synchronous programming is used in frontend development, while asynchronous programming is used only in backend tasks.</label><br>
+    </div>
+
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee">
+    <div class="que">
+        <p>52. How does WebSockets work in Python web development (e.g., using Flask-SocketIO or Django Channels)?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        WebSockets enable real-time communication between the client and server. In Python, Flask-SocketIO and Django Channels provide support for WebSocket connections, allowing applications to push data to clients in real-time without needing to refresh the page.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) WebSockets enable real-time communication, and Flask-SocketIO or Django Channels can be used to implement them in Python web development.</label><br>
+
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) WebSockets are not supported in Python web frameworks like Flask or Django.</label><br>
+
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) WebSockets are only used for server-side communication in Python web applications.</label><br>
+
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) WebSockets are used exclusively for file upload tasks in Python web apps.</label><br>
+    </div>
+
+    <div id="result51" class="result"></div>
+</div>
+<!-- Question 53 -->
+<div class="qee">
+    <div class="que">
+        <p>53. What is the purpose of caching in Python web applications, and how can Redis or Memcached be used?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Caching stores frequently accessed data in memory to improve performance. Redis and Memcached are popular caching solutions used to store key-value pairs in memory, which reduces the need to fetch data from the database repeatedly, thus speeding up web applications.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) Caching stores frequently accessed data in memory to reduce database load, and Redis or Memcached are used for in-memory caching.</label><br>
+
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) Caching stores data in flat files, and Redis or Memcached are used for file-based storage.</label><br>
+
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) Caching is used to manage static files and templates in web applications.</label><br>
+
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) Caching is not relevant in modern web applications.</label><br>
+    </div>
+
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee">
+    <div class="que">
+        <p>54. How do you handle session management in Flask or Django?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Session management in Flask and Django allows tracking user-specific data across multiple requests. Flask uses secure cookies or server-side storage, while Django uses middleware and database-backed sessions to store user data securely.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) Session management in Flask and Django stores user data across requests using secure cookies or server-side storage in Flask and database-backed sessions in Django.</label><br>
+
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) Flask does not support session management, while Django handles it through local storage.</label><br>
+
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) Session management is done exclusively using JavaScript in both Flask and Django.</label><br>
+
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) Session management in Flask and Django only works with Redis.</label><br>
+    </div>
+
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee">
+    <div class="que">
+        <p>55. What is CSRF protection, and how can it be implemented in Flask and Django?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Cross-Site Request Forgery (CSRF) is an attack that tricks a user into performing unwanted actions on a web application. Flask and Django provide CSRF protection through middleware, where Django uses `CsrfViewMiddleware` and Flask can use the `Flask-WTF` extension.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) CSRF protection prevents unauthorized actions by using tokens that verify requests are legitimate. Flask and Django provide this protection via middleware or extensions like Flask-WTF and `CsrfViewMiddleware` in Django.</label><br>
+
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) CSRF protection is irrelevant for modern web applications.</label><br>
+
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) CSRF protection in Flask and Django is only provided through user authentication systems.</label><br>
+
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) CSRF protection is implemented by adding custom JavaScript to the frontend, not the backend.</label><br>
+    </div>
+
+    <div id="result54" class="result"></div>
+</div>
+
+<!-- Question 56 -->
+<div class="qee">
+    <div class="que">
+        <p>56. What is the importance of XSS protection in Flask and Django, and how is it implemented?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Cross-Site Scripting (XSS) attacks allow attackers to inject malicious scripts into a web application. Flask and Django help prevent XSS by automatically escaping data in templates (e.g., Jinja2 in Flask) and using built-in mechanisms to sanitize input.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) XSS protection prevents malicious scripts from being injected into web pages. Flask and Django prevent XSS by escaping data in templates and using built-in sanitization mechanisms.</label><br>
+
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) XSS protection is only relevant for backend systems and not for frontend security.</label><br>
+
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) XSS attacks can only be prevented with user authentication and authorization.</label><br>
+
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) Flask and Django do not provide any protection against XSS attacks.</label><br>
+    </div>
+
+    <div id="result55" class="result"></div>
+</div>
+<!-- Question 57 -->
+<div class="qee">
+    <div class="que">
+        <p>57. How do you handle file uploads and downloads in Flask and Django?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Flask and Django provide mechanisms for handling file uploads through forms. Flask uses `request.files` to access uploaded files, while Django handles file uploads via `request.FILES` and can save them in the server or cloud storage.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) Flask and Django handle file uploads through forms by using `request.files` in Flask and `request.FILES` in Django to save files in the server or cloud storage.</label><br>
+
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) Flask and Django do not support file uploads and rely on external libraries for file handling.</label><br>
+
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) File uploads in Flask and Django are handled solely through AJAX requests.</label><br>
+
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) Flask and Django require custom middleware to handle file uploads and downloads.</label><br>
+    </div>
+
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee">
+    <div class="que">
+        <p>58. What is the Django REST Framework (DRF), and how does it simplify API development?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The Django REST Framework (DRF) is a powerful toolkit for building Web APIs in Django. It simplifies API development by providing tools like serializers for data validation and conversion, authentication, and viewsets for handling CRUD operations.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) The Django REST Framework (DRF) simplifies API development by providing serializers, authentication, and viewsets for CRUD operations.</label><br>
+
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) DRF is used to enhance the performance of web applications, not for API development.</label><br>
+
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) DRF provides a library for designing user interfaces, not APIs.</label><br>
+
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) DRF is used only for real-time communication and WebSockets.</label><br>
+    </div>
+
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee">
+    <div class="que">
+        <p>59. What is the role of middleware in Flask and Django?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Middleware is a layer of processing that occurs between the request and the response in Flask and Django. It allows for modifications to the request or response, such as adding headers, logging, authentication, or handling errors.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) Middleware in Flask and Django is used to process requests and responses, such as adding headers, logging, or handling errors.</label><br>
+
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) Middleware is not supported in Flask or Django.</label><br>
+
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) Middleware is used only in Flask to modify the database queries.</label><br>
+
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) Middleware can only be used for handling file uploads in Flask and Django.</label><br>
+    </div>
+
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee">
+    <div class="que">
+        <p>60. How do you deploy a Python web application to production using Docker?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Docker allows you to package your application and its dependencies into a container, ensuring consistency across development and production environments. To deploy a Python web application, you create a `Dockerfile`, build the container, and run it on a server.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) Docker packages your application into a container, and to deploy a Python web application, you create a `Dockerfile`, build the image, and run it in production.</label><br>
+
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) Docker is only useful for development environments and not for production deployment.</label><br>
+
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) To deploy Python web applications, Docker requires a virtual machine in the cloud.</label><br>
+
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) Docker requires manual installation of dependencies for deployment.</label><br>
+    </div>
+
+    <div id="result59" class="result"></div>
+</div>
+<!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+        <p>61. What is the purpose of AJAX in frontend-backend communication?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        AJAX (Asynchronous JavaScript and XML) allows for asynchronous communication between the client and server. This means that data can be sent and received from the server without reloading the entire webpage, improving the user experience.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) AJAX enables asynchronous communication between the frontend and backend, allowing data exchange without reloading the page.</label><br>
+
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) AJAX is only used for sending large file uploads to the backend.</label><br>
+
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) AJAX replaces the need for a backend by handling everything on the frontend.</label><br>
+
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) AJAX is used to automatically restart the server in case of errors.</label><br>
+    </div>
+
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee">
+    <div class="que">
+        <p>62. What is the role of WebSockets in real-time communication in web applications?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        WebSockets enable two-way, persistent communication between the client and server. Unlike traditional HTTP requests, WebSockets keep the connection open, allowing real-time data exchange, which is essential for applications like live chats or gaming.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) WebSockets allow for persistent, two-way communication between the client and server, enabling real-time data exchange.</label><br>
+
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) WebSockets are used only for sending files from the client to the server.</label><br>
+
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) WebSockets are mainly used for one-way communication from the server to the client.</label><br>
+
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) WebSockets are not suitable for real-time applications and should be avoided.</label><br>
+    </div>
+
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee">
+    <div class="que">
+        <p>63. What is the main advantage of using Redis or Memcached for caching in Python web applications?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Redis and Memcached are fast, in-memory caching systems that can be used to store frequently accessed data, reducing database load and speeding up response times for applications. Redis supports more data structures compared to Memcached, making it more flexible.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) Redis and Memcached are in-memory caching systems that store frequently accessed data to reduce database load and improve application performance.</label><br>
+
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) Redis and Memcached store data in external databases and do not offer in-memory caching.</label><br>
+
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) Redis and Memcached are used to store user authentication information only.</label><br>
+
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) Redis and Memcached do not support caching and are only used for storing files in web applications.</label><br>
+    </div>
+
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee">
+    <div class="que">
+        <p>64. What is the role of JWT in authentication and authorization for web applications?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        JWT (JSON Web Tokens) is a compact, URL-safe means of representing claims between two parties. It is used for authentication and authorization, allowing users to securely log in and access protected resources in web applications.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) JWT (JSON Web Tokens) are used for securely transmitting information between parties, typically for authentication and authorization purposes in web applications.</label><br>
+
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) JWT is used only for encryption of data and not for authentication or authorization.</label><br>
+
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) JWT is used to monitor user activity, not for authentication or authorization.</label><br>
+
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) JWT is used only in Flask and not in Django.</label><br>
+    </div>
+
+    <div id="result63" class="result"></div>
+</div>
+<!-- Question 65 -->
+<div class="qee">
+    <div class="que">
+        <p>65. What is the primary function of Django's 'migrations' in the ORM?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Django migrations are used to handle changes to the database schema. They allow you to apply or roll back changes to the database in a structured and versioned way without directly writing SQL queries.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) Migrations are used to handle changes to the database schema, applying or rolling back changes without SQL queries.</label><br>
+
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) Migrations are used to manage static files in a Django project.</label><br>
+
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) Migrations help in managing user sessions in Django.</label><br>
+
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) Migrations are only used for data validation in Django applications.</label><br>
+    </div>
+
+    <div id="result64" class="result"></div>
+</div>
+
+<!-- Question 66 -->
+<div class="qee">
+    <div class="que">
+        <p>66. How does caching improve the performance of a Python web application?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Caching stores frequently accessed data in memory, which reduces the need for repeated database queries or expensive computations, thereby speeding up the application and reducing load on the server.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) Caching stores frequently accessed data in memory, reducing database load and speeding up response times.</label><br>
+
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) Caching improves the performance of Python web applications by running background processes only.</label><br>
+
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) Caching helps by storing web application data in external files, instead of memory.</label><br>
+
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) Caching prevents SQL queries from being executed, but does not speed up response times.</label><br>
+    </div>
+
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee">
+    <div class="que">
+        <p>67. How does JWT improve security in web applications?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        JWT improves security by providing a compact, self-contained token that includes all the necessary information for authentication and authorization. Since the token is signed, it ensures data integrity and prevents tampering.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) JWT provides a compact and self-contained token with signed data, ensuring data integrity and preventing tampering.</label><br>
+
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) JWT is used to encrypt all web application traffic, including images and static files.</label><br>
+
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) JWT improves security by storing sensitive user data in plain text in the client-side browser.</label><br>
+
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) JWT prevents all types of attacks in web applications by encrypting the entire web application.</label><br>
+    </div>
+
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee">
+    <div class="que">
+        <p>68. What is the purpose of Django's 'signals' in application development?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Django signals allow decoupled applications to get notified when certain actions occur in the system. This is useful for triggering side effects or actions, such as sending an email when a new user is created.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) Signals in Django allow different parts of the application to get notified about specific actions, enabling decoupled architecture.</label><br>
+
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) Signals are used to secure the database against SQL injection in Django.</label><br>
+
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) Signals allow Django to track user activity in real-time.</label><br>
+
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) Signals are used for managing forms and user input validation in Django.</label><br>
+    </div>
+
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee">
+    <div class="que">
+        <p>69. What is the purpose of 'render_template' in Flask?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        In Flask, 'render_template' is used to render HTML templates with dynamic data. It allows you to send context (like variables) to the template to be displayed in the HTML page.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) The 'render_template' function renders an HTML template with dynamic data and returns it as a response.</label><br>
+
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) The 'render_template' function is used to compile Python code into executable scripts.</label><br>
+
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) The 'render_template' function is used for handling database migrations in Flask.</label><br>
+
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) The 'render_template' function is used to encrypt and store passwords securely.</label><br>
+    </div>
+
+    <div id="result68" class="result"></div>
+</div>
+<!-- Question 70 -->
+<div class="qee">
+    <div class="que">
+        <p>70. What is the purpose of the 'csrf_token' in Django?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The 'csrf_token' in Django is used to prevent Cross-Site Request Forgery (CSRF) attacks by ensuring that requests made by a user are intentional and not malicious.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) The 'csrf_token' is used to prevent Cross-Site Request Forgery (CSRF) attacks.</label><br>
+
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) The 'csrf_token' is used to encrypt sensitive data in Django.</label><br>
+
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) The 'csrf_token' is used for managing user authentication in Django.</label><br>
+
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) The 'csrf_token' is used for generating random passwords in Django.</label><br>
+    </div>
+
+    <div id="result69" class="result"></div>
+</div>
+
+<!-- Question 71 -->
+<div class="qee">
+    <div class="que">
+        <p>71. What is the purpose of Flask's 'Blueprint' feature?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Flask's 'Blueprint' feature allows you to organize your application into reusable components. It helps in modularizing the code and separating different parts of the application into distinct sections.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) Flask's 'Blueprint' feature allows organizing the application into reusable components.</label><br>
+
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) Flask's 'Blueprint' feature is used for database management.</label><br>
+
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) Flask's 'Blueprint' feature is used to create AJAX requests in the application.</label><br>
+
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) Flask's 'Blueprint' feature is used for user authentication.</label><br>
+    </div>
+
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee">
+    <div class="que">
+        <p>72. What does the 'login_required' decorator do in Django?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The 'login_required' decorator in Django ensures that the view it is applied to can only be accessed by authenticated users. If a user is not logged in, they are redirected to the login page.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) The 'login_required' decorator ensures that only authenticated users can access a view, redirecting unauthenticated users to the login page.</label><br>
+
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) The 'login_required' decorator manages the user roles and permissions in Django.</label><br>
+
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) The 'login_required' decorator encrypts user passwords for security.</label><br>
+
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) The 'login_required' decorator is used to log user activity in Django.</label><br>
+    </div>
+
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee">
+    <div class="que">
+        <p>73. What does the 'Session' object store in Flask applications?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The 'Session' object in Flask is used to store data across requests for a specific user, such as user preferences, authentication status, or temporary information.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) The 'Session' object in Flask is used to store data across requests, such as user preferences and authentication status.</label><br>
+
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) The 'Session' object in Flask is used to manage database migrations.</label><br>
+
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) The 'Session' object in Flask is used for managing email notifications.</label><br>
+
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) The 'Session' object in Flask is used for storing large data files in the application.</label><br>
+    </div>
+
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee">
+    <div class="que">
+        <p>74. How do you handle file uploads in Flask?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        In Flask, file uploads can be handled using the 'request.files' object. This allows you to access files uploaded through a form, validate them, and save them to the server.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) File uploads in Flask can be handled using the 'request.files' object to access and save files.</label><br>
+
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) File uploads in Flask are handled through JavaScript and the Fetch API.</label><br>
+
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) File uploads in Flask require external libraries like Celery.</label><br>
+
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) Flask automatically handles file uploads without any additional configuration.</label><br>
+    </div>
+
+    <div id="result73" class="result"></div>
+</div>
+<!-- Question 75 -->
+<div class="qee">
+    <div class="que">
+        <p>75. What is the purpose of 'Flask-SQLAlchemy' in Flask applications?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        'Flask-SQLAlchemy' is an extension for Flask that adds support for SQLAlchemy, an Object-Relational Mapping (ORM) library, making it easier to work with databases in Flask applications.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) 'Flask-SQLAlchemy' adds support for SQLAlchemy ORM, making database interactions easier in Flask.</label><br>
+
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) 'Flask-SQLAlchemy' is used for handling user authentication in Flask applications.</label><br>
+
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) 'Flask-SQLAlchemy' is used for managing session data in Flask applications.</label><br>
+
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) 'Flask-SQLAlchemy' is used for routing and URL management in Flask applications.</label><br>
+    </div>
+
+    <div id="result74" class="result"></div>
+</div>
+
+<!-- Question 76 -->
+<div class="qee">
+    <div class="que">
+        <p>76. What is 'Django's migrations' used for?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Django's migrations are used to manage changes to the database schema. They allow developers to apply, rollback, and track database changes over time.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) Django's migrations are used to manage changes to the database schema over time.</label><br>
+
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) Django's migrations are used to manage static files and templates in the application.</label><br>
+
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) Django's migrations are used for user authentication management.</label><br>
+
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) Django's migrations are used for managing email notifications in the application.</label><br>
+    </div>
+
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee">
+    <div class="que">
+        <p>77. What does the 'url_for()' function do in Flask?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The 'url_for()' function in Flask generates a URL for a given view function, helping to avoid hardcoding URLs and making the application more flexible.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) The 'url_for()' function generates a URL for a given view function in Flask.</label><br>
+
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) The 'url_for()' function is used to route requests to the correct view function.</label><br>
+
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) The 'url_for()' function helps in managing database migrations in Flask.</label><br>
+
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) The 'url_for()' function is used to fetch user authentication data in Flask.</label><br>
+    </div>
+
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee">
+    <div class="que">
+        <p>78. How do you protect against SQL injection attacks in Django?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        In Django, SQL injection attacks are prevented by using the ORM (Object-Relational Mapping), which automatically escapes user input in queries.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) Django uses the ORM to prevent SQL injection attacks by escaping user input in queries.</label><br>
+
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) SQL injection attacks are prevented by manually sanitizing user inputs before use.</label><br>
+
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) Django requires the use of stored procedures to protect against SQL injection.</label><br>
+
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) SQL injection attacks are prevented by using SQLAlchemy as the database ORM in Django.</label><br>
+    </div>
+
+    <div id="result77" class="result"></div>
+</div>
+
+<!-- Question 79 -->
+<div class="qee">
+    <div class="que">
+        <p>79. How do you implement AJAX in a Django application?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        AJAX in Django can be implemented using JavaScript (usually with jQuery) to make asynchronous requests to Django views, which return JSON data for dynamic updates on the page.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) AJAX in Django is implemented using JavaScript (with jQuery) to make asynchronous requests to Django views returning JSON data.</label><br>
+
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) AJAX in Django is handled automatically without requiring any additional code.</label><br>
+
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) AJAX in Django requires integrating Flask as a micro-framework.</label><br>
+
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) AJAX in Django requires using external libraries like React or Vue.js.</label><br>
+    </div>
+
+    <div id="result78" class="result"></div>
+</div>
+<!-- Question 80 -->
+<div class="qee">
+    <div class="que">
+        <p>80. What is the role of WebSockets in Python web applications?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        WebSockets enable real-time, bidirectional communication between the server and the client, commonly used for applications that require live updates, such as chat apps or live notifications.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) WebSockets enable real-time, bidirectional communication between the server and the client.</label><br>
+
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) WebSockets are used to manage database queries in real-time applications.</label><br>
+
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) WebSockets are used to handle large file uploads in Python web applications.</label><br>
+
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) WebSockets are used exclusively for server-side processing in Python web apps.</label><br>
+    </div>
+
+    <div id="result79" class="result"></div>
+</div>
+
+<!-- Question 81 -->
+<div class="qee">
+    <div class="que">
+        <p>81. How do you implement JWT-based authentication in a Flask application?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>
+
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        JWT (JSON Web Tokens) can be used in Flask for stateless authentication. You can use the PyJWT library to create and validate tokens, and send them in HTTP headers for authorization.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) JWTs are used for stateless authentication in Flask, where tokens are created and validated using PyJWT.</label><br>
+
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) JWTs are used for server-side session management in Flask.</label><br>
+
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) JWTs are used for real-time communication with WebSockets in Flask.</label><br>
+
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) JWTs are used for database migration purposes in Flask.</label><br>
+    </div>
+
+    <div id="result80" class="result"></div>
+</div>
+
+<!-- Question 82 -->
+<div class="qee">
+    <div class="que">
+        <p>82. What is the purpose of Flask’s 'session' object?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>
+
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Flask’s 'session' object is used to store user-specific data on the server between requests. It is commonly used for storing login information or user preferences.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) The 'session' object is used to store user-specific data between requests in Flask.</label><br>
+
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) The 'session' object is used to manage database migrations in Flask applications.</label><br>
+
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) The 'session' object is used for routing and URL management in Flask.</label><br>
+
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) The 'session' object is used to handle real-time communication in Flask applications.</label><br>
+    </div>
+
+    <div id="result81" class="result"></div>
+</div>
+
+<!-- Question 83 -->
+<div class="qee">
+    <div class="que">
+        <p>83. What is the primary use of Flask's 'Blueprints'?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>
+
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Flask's 'Blueprints' are used to organize Flask applications into reusable components, making it easier to manage routes, templates, and static files.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) Blueprints are used to organize Flask applications into reusable components.</label><br>
+
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) Blueprints are used for managing user authentication in Flask applications.</label><br>
+
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) Blueprints are used for file upload management in Flask applications.</label><br>
+
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) Blueprints are used for WebSocket communication in Flask applications.</label><br>
+    </div>
+
+    <div id="result82" class="result"></div>
+</div>
+
+<!-- Question 84 -->
+<div class="qee">
+    <div class="que">
+        <p>84. How do you enable CSRF protection in Flask?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>
+
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        CSRF protection in Flask is typically enabled using the Flask-WTF extension, which provides a CSRF token to be included in forms to prevent unauthorized form submissions.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) CSRF protection is enabled in Flask using the Flask-WTF extension.</label><br>
+
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) CSRF protection is enabled by manually checking request headers in Flask views.</label><br>
+
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) CSRF protection is automatically enabled in Flask.</label><br>
+
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) CSRF protection is not supported in Flask.</label><br>
+    </div>
+
+    <div id="result83" class="result"></div>
+</div>
+<!-- Question 85 -->
+<div class="qee">
+    <div class="que">
+        <p>85. What is Flask-WTF and how is it used in Flask applications?</p>
+        <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+    </div>
+
+    <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Flask-WTF is an extension that simplifies form handling in Flask applications, including features such as CSRF protection, form validation, and rendering.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+        <label for="optionA84">A) Flask-WTF is an extension that provides features like CSRF protection and form validation in Flask applications.</label><br>
+
+        <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+        <label for="optionB84">B) Flask-WTF is a template engine used in Flask applications.</label><br>
+
+        <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+        <label for="optionC84">C) Flask-WTF is used for real-time communication in Flask applications.</label><br>
+
+        <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+        <label for="optionD84">D) Flask-WTF is used to handle database migrations in Flask applications.</label><br>
+    </div>
+
+    <div id="result84" class="result"></div>
+</div>
+
+<!-- Question 86 -->
+<div class="qee">
+    <div class="que">
+        <p>86. How do you implement JWT authentication in Django applications?</p>
+        <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+    </div>
+
+    <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        JWT authentication in Django can be implemented using libraries such as Django REST Framework (DRF) and the Simple JWT package, which enables token-based authentication for API endpoints.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+        <label for="optionA85">A) JWT authentication in Django can be implemented using the Simple JWT package along with Django REST Framework.</label><br>
+
+        <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+        <label for="optionB85">B) JWT authentication is built into Django by default and does not require any external packages.</label><br>
+
+        <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+        <label for="optionC85">C) JWT authentication in Django is used for managing static files.</label><br>
+
+        <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+        <label for="optionD85">D) JWT authentication is not supported in Django.</label><br>
+    </div>
+
+    <div id="result85" class="result"></div>
+</div>
+
+<!-- Question 87 -->
+<div class="qee">
+    <div class="que">
+        <p>87. What is Django’s 'migrations' system and why is it important?</p>
+        <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+    </div>
+
+    <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Django’s migration system allows you to manage changes to your database schema over time. It helps in keeping the database in sync with the models by applying incremental updates.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+        <label for="optionA86">A) Django's migration system allows you to track and apply database schema changes over time.</label><br>
+
+        <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+        <label for="optionB86">B) Django's migration system is used to handle data validation.</label><br>
+
+        <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+        <label for="optionC86">C) Django's migration system is used to validate user authentication.</label><br>
+
+        <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+        <label for="optionD86">D) Django's migration system is used for handling session management.</label><br>
+    </div>
+
+    <div id="result86" class="result"></div>
+</div>
+
+<!-- Question 88 -->
+<div class="qee">
+    <div class="que">
+        <p>88. How can you use Redis for caching in a Flask application?</p>
+        <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+    </div>
+
+    <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Redis can be integrated with Flask using Flask-Caching to provide caching solutions, speeding up data retrieval by storing frequently accessed data in memory.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+        <label for="optionA87">A) Redis is integrated with Flask using Flask-Caching to speed up data retrieval.</label><br>
+
+        <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+        <label for="optionB87">B) Redis is used for data validation in Flask applications.</label><br>
+
+        <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+        <label for="optionC87">C) Redis is used exclusively for database management in Flask applications.</label><br>
+
+        <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+        <label for="optionD87">D) Redis is not compatible with Flask applications.</label><br>
+    </div>
+
+    <div id="result87" class="result"></div>
+</div>
+
+<!-- Question 89 -->
+<div class="qee">
+    <div class="que">
+        <p>89. How can you implement WebSockets in a Django application?</p>
+        <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+    </div>
+
+    <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        WebSockets can be implemented in Django using Django Channels, which extends Django to handle asynchronous protocols like WebSockets for real-time communication.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+        <label for="optionA88">A) WebSockets in Django can be implemented using Django Channels for real-time communication.</label><br>
+
+        <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+        <label for="optionB88">B) WebSockets are built into Django by default without requiring any external libraries.</label><br>
+
+        <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+        <label for="optionC88">C) WebSockets are not supported in Django.</label><br>
+
+        <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+        <label for="optionD88">D) WebSockets are used exclusively for server-side processing in Django applications.</label><br>
+    </div>
+
+    <div id="result88" class="result"></div>
+</div>
+<!-- Question 90 -->
+<div class="qee">
+    <div class="que">
+        <p>90. What is the purpose of Flask’s 'Blueprints'?</p>
+        <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+    </div>
+
+    <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Flask Blueprints allow you to organize your application into modules, making it easier to structure and manage large applications.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+        <label for="optionA89">A) Blueprints in Flask are used to structure large applications into smaller, reusable components.</label><br>
+
+        <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+        <label for="optionB89">B) Blueprints are used for creating database migrations in Flask.</label><br>
+
+        <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+        <label for="optionC89">C) Blueprints in Flask are used for session management.</label><br>
+
+        <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+        <label for="optionD89">D) Blueprints in Flask are used for form validation.</label><br>
+    </div>
+
+    <div id="result89" class="result"></div>
+</div>
+
+<!-- Question 91 -->
+<div class="qee">
+    <div class="que">
+        <p>91. What is the main difference between Flask and FastAPI?</p>
+        <button id="hintButton90" class="hint-button" type="button" onclick="showHint('hint91')">Show Hint</button>
+    </div>
+
+    <div id="hint91" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        FastAPI is designed for building APIs with fast performance and automatic validation, while Flask is a micro-framework that is more flexible but requires additional setup for API-specific features.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA90" name="answer90" value="A" onclick="checkAnswer(90)">
+        <label for="optionA90">A) FastAPI is faster for building APIs and provides automatic validation and type checking.</label><br>
+
+        <input type="radio" id="optionB90" name="answer90" value="B" onclick="checkAnswer(90)">
+        <label for="optionB90">B) Flask is faster than FastAPI in building APIs.</label><br>
+
+        <input type="radio" id="optionC90" name="answer90" value="C" onclick="checkAnswer(90)">
+        <label for="optionC90">C) Flask provides automatic validation and type checking for APIs.</label><br>
+
+        <input type="radio" id="optionD90" name="answer90" value="D" onclick="checkAnswer(90)">
+        <label for="optionD90">D) FastAPI is a template engine, while Flask is a full-stack framework.</label><br>
+    </div>
+
+    <div id="result90" class="result"></div>
+</div>
+
+<!-- Question 92 -->
+<div class="qee">
+    <div class="que">
+        <p>92. What is the role of the Django 'admin' interface?</p>
+        <button id="hintButton91" class="hint-button" type="button" onclick="showHint('hint92')">Show Hint</button>
+    </div>
+
+    <div id="hint92" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The Django admin interface is a built-in web-based interface for managing and interacting with your application’s data models.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA91" name="answer91" value="A" onclick="checkAnswer(91)">
+        <label for="optionA91">A) The Django admin interface allows for easy management of data models through a web-based interface.</label><br>
+
+        <input type="radio" id="optionB91" name="answer91" value="B" onclick="checkAnswer(91)">
+        <label for="optionB91">B) The Django admin interface is used for handling user authentication and authorization.</label><br>
+
+        <input type="radio" id="optionC91" name="answer91" value="C" onclick="checkAnswer(91)">
+        <label for="optionC91">C) The Django admin interface is a tool for managing static files in Django projects.</label><br>
+
+        <input type="radio" id="optionD91" name="answer91" value="D" onclick="checkAnswer(91)">
+        <label for="optionD91">D) The Django admin interface is used exclusively for debugging purposes.</label><br>
+    </div>
+
+    <div id="result91" class="result"></div>
+</div>
+
+<!-- Question 93 -->
+<div class="qee">
+    <div class="que">
+        <p>93. How do you implement a custom user model in Django?</p>
+        <button id="hintButton92" class="hint-button" type="button" onclick="showHint('hint93')">Show Hint</button>
+    </div>
+
+    <div id="hint93" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        In Django, you can implement a custom user model by subclassing `AbstractBaseUser` and `PermissionsMixin`, then specifying your custom model in the `AUTH_USER_MODEL` setting.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA92" name="answer92" value="A" onclick="checkAnswer(92)">
+        <label for="optionA92">A) You can create a custom user model in Django by subclassing AbstractBaseUser and defining a custom model in the AUTH_USER_MODEL setting.</label><br>
+
+        <input type="radio" id="optionB92" name="answer92" value="B" onclick="checkAnswer(92)">
+        <label for="optionB92">B) Custom user models are not supported in Django.</label><br>
+
+        <input type="radio" id="optionC92" name="answer92" value="C" onclick="checkAnswer(92)">
+        <label for="optionC92">C) You can create a custom user model by overriding the `User` model directly.</label><br>
+
+        <input type="radio" id="optionD92" name="answer92" value="D" onclick="checkAnswer(92)">
+        <label for="optionD92">D) Custom user models are created using Django's `models.Model` class without any additional settings.</label><br>
+    </div>
+
+    <div id="result92" class="result"></div>
+</div>
+
+<!-- Question 94 -->
+<div class="qee">
+    <div class="que">
+        <p>94. What is the purpose of Flask’s 'session' object?</p>
+        <button id="hintButton93" class="hint-button" type="button" onclick="showHint('hint94')">Show Hint</button>
+    </div>
+
+    <div id="hint94" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Flask's session object is used to store data that is specific to a user's session, such as authentication details or temporary preferences.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA93" name="answer93" value="A" onclick="checkAnswer(93)">
+        <label for="optionA93">A) Flask's session object is used to store data specific to the user's session, such as authentication details.</label><br>
+
+        <input type="radio" id="optionB93" name="answer93" value="B" onclick="checkAnswer(93)">
+        <label for="optionB93">B) Flask's session object is used to store configuration settings for the application.</label><br>
+
+        <input type="radio" id="optionC93" name="answer93" value="C" onclick="checkAnswer(93)">
+        <label for="optionC93">C) Flask's session object is used for storing static files in the application.</label><br>
+
+        <input type="radio" id="optionD93" name="answer93" value="D" onclick="checkAnswer(93)">
+        <label for="optionD93">D) Flask's session object is used to define global variables in the application.</label><br>
+    </div>
+
+    <div id="result93" class="result"></div>
+</div>
+
+<!-- Question 95 -->
+<div class="qee">
+    <div class="que">
+        <p>95. What is the purpose of Django's 'migrations'?</p>
+        <button id="hintButton94" class="hint-button" type="button" onclick="showHint('hint95')">Show Hint</button>
+    </div>
+
+    <div id="hint95" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Django migrations are used to manage changes to the database schema over time, allowing you to easily update and maintain your database structure.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA94" name="answer94" value="A" onclick="checkAnswer(94)">
+        <label for="optionA94">A) Migrations in Django are used to update the database schema based on changes made to models.</label><br>
+
+        <input type="radio" id="optionB94" name="answer94" value="B" onclick="checkAnswer(94)">
+        <label for="optionB94">B) Migrations in Django are used to perform data backups.</label><br>
+
+        <input type="radio" id="optionC94" name="answer94" value="C" onclick="checkAnswer(94)">
+        <label for="optionC94">C) Migrations in Django are used for deploying the application.</label><br>
+
+        <input type="radio" id="optionD94" name="answer94" value="D" onclick="checkAnswer(94)">
+        <label for="optionD94">D) Migrations in Django are used to store data in the database.</label><br>
+    </div>
+
+    <div id="result94" class="result"></div>
+</div>
+
+<!-- Question 96 -->
+<div class="qee">
+    <div class="que">
+        <p>96. How does Flask handle requests and responses?</p>
+        <button id="hintButton95" class="hint-button" type="button" onclick="showHint('hint96')">Show Hint</button>
+    </div>
+
+    <div id="hint96" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Flask handles HTTP requests by mapping URLs to view functions, and it responds by returning an HTTP response (usually with HTML content or JSON).<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA95" name="answer95" value="A" onclick="checkAnswer(95)">
+        <label for="optionA95">A) Flask handles requests by mapping URLs to view functions, and returns HTTP responses with data.</label><br>
+
+        <input type="radio" id="optionB95" name="answer95" value="B" onclick="checkAnswer(95)">
+        <label for="optionB95">B) Flask handles requests by returning static HTML files as responses.</label><br>
+
+        <input type="radio" id="optionC95" name="answer95" value="C" onclick="checkAnswer(95)">
+        <label for="optionC95">C) Flask handles requests by using predefined APIs for HTTP responses.</label><br>
+
+        <input type="radio" id="optionD95" name="answer95" value="D" onclick="checkAnswer(95)">
+        <label for="optionD95">D) Flask handles requests by using a global session object to store and retrieve responses.</label><br>
+    </div>
+
+    <div id="result95" class="result"></div>
+</div>
+
+<!-- Question 97 -->
+<div class="qee">
+    <div class="que">
+        <p>97. What is Django’s 'signals' feature used for?</p>
+        <button id="hintButton96" class="hint-button" type="button" onclick="showHint('hint97')">Show Hint</button>
+    </div>
+
+    <div id="hint97" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Django signals allow decoupled applications to get notified when certain actions occur elsewhere in the application, such as saving a model or user login.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA96" name="answer96" value="A" onclick="checkAnswer(96)">
+        <label for="optionA96">A) Django signals allow decoupled applications to be notified of events or actions in the application.</label><br>
+
+        <input type="radio" id="optionB96" name="answer96" value="B" onclick="checkAnswer(96)">
+        <label for="optionB96">B) Django signals are used to implement user authentication in the application.</label><br>
+
+        <input type="radio" id="optionC96" name="answer96" value="C" onclick="checkAnswer(96)">
+        <label for="optionC96">C) Django signals are used to create database migrations automatically.</label><br>
+
+        <input type="radio" id="optionD96" name="answer96" value="D" onclick="checkAnswer(96)">
+        <label for="optionD96">D) Django signals are used for managing static file storage.</label><br>
+    </div>
+
+    <div id="result96" class="result"></div>
+</div>
+
+<!-- Question 98 -->
+<div class="qee">
+    <div class="que">
+        <p>98. What is the difference between 'url_for' in Flask and Django’s 'reverse'?</p>
+        <button id="hintButton97" class="hint-button" type="button" onclick="showHint('hint98')">Show Hint</button>
+    </div>
+
+    <div id="hint98" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Both `url_for` (Flask) and `reverse` (Django) are used to generate URLs for view functions dynamically, but they are specific to their respective frameworks.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA97" name="answer97" value="A" onclick="checkAnswer(97)">
+        <label for="optionA97">A) Both `url_for` (Flask) and `reverse` (Django) dynamically generate URLs for view functions in their respective frameworks.</label><br>
+
+        <input type="radio" id="optionB97" name="answer97" value="B" onclick="checkAnswer(97)">
+        <label for="optionB97">B) `url_for` in Flask is used for routing, while `reverse` in Django is used for creating database migrations.</label><br>
+
+        <input type="radio" id="optionC97" name="answer97" value="C" onclick="checkAnswer(97)">
+        <label for="optionC97">C) `url_for` in Flask is used for URL generation, while `reverse` is used for static file management in Django.</label><br>
+
+        <input type="radio" id="optionD97" name="answer97" value="D" onclick="checkAnswer(97)">
+        <label for="optionD97">D) `url_for` and `reverse` are used only for debugging in Flask and Django.</label><br>
+    </div>
+
+    <div id="result97" class="result"></div>
+</div>
+
+<!-- Question 99 -->
+<div class="qee">
+    <div class="que">
+        <p>99. How does Flask handle static files?</p>
+        <button id="hintButton98" class="hint-button" type="button" onclick="showHint('hint99')">Show Hint</button>
+    </div>
+
+    <div id="hint99" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Flask automatically serves static files like CSS, JavaScript, and images from a folder called 'static' by default.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA98" name="answer98" value="A" onclick="checkAnswer(98)">
+        <label for="optionA98">A) Flask automatically serves static files like CSS, JavaScript, and images from the 'static' folder.</label><br>
+
+        <input type="radio" id="optionB98" name="answer98" value="B" onclick="checkAnswer(98)">
+        <label for="optionB98">B) Flask serves static files by embedding them directly into the HTML response.</label><br>
+
+        <input type="radio" id="optionC98" name="answer98" value="C" onclick="checkAnswer(98)">
+        <label for="optionC98">C) Flask does not handle static files by default and requires third-party libraries.</label><br>
+
+        <input type="radio" id="optionD98" name="answer98" value="D" onclick="checkAnswer(98)">
+        <label for="optionD98">D) Flask requires a special server configuration to handle static files.</label><br>
+    </div>
+
+    <div id="result98" class="result"></div>
+</div>
+
+<!-- Question 100 -->
+<div class="qee">
+    <div class="que">
+        <p>100. What is the purpose of Django's 'middleware'?</p>
+        <button id="hintButton99" class="hint-button" type="button" onclick="showHint('hint100')">Show Hint</button>
+    </div>
+
+    <div id="hint100" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Django middleware is used to process requests and responses globally, allowing you to add custom behavior like authentication, logging, or modifying requests before reaching the view.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA99" name="answer99" value="A" onclick="checkAnswer(99)">
+        <label for="optionA99">A) Django middleware allows you to process requests and responses globally, adding behavior like logging or authentication.</label><br>
+
+        <input type="radio" id="optionB99" name="answer99" value="B" onclick="checkAnswer(99)">
+        <label for="optionB99">B) Django middleware is used for rendering HTML templates in Django.</label><br>
+
+        <input type="radio" id="optionC99" name="answer99" value="C" onclick="checkAnswer(99)">
+        <label for="optionC99">C) Django middleware is used for interacting with databases.</label><br>
+
+        <input type="radio" id="optionD99" name="answer99" value="D" onclick="checkAnswer(99)">
+        <label for="optionD99">D) Django middleware is used for managing static files.</label><br>
+    </div>
+
+    <div id="result99" class="result"></div>
+</div>
+
+
+
+
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS</title>
+    <link rel="stylesheet" href="../css/paper.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'A', 'C', 'A', 'B', 'A', 'B', 'A', 'B',
+            'A', 'A', 'A', 'A', 'A', 'B', 'B', 'D', 'C', 'D',
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>NEXUS</h3>
+        <div class="inner-border">
+         <!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is Nexus, and why is it important in a DevOps pipeline?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Nexus manages and stores build artifacts and dependencies, playing a crucial role in the DevOps pipeline.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) It manages source code</label><br>
+
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) It stores and manages artifacts and dependencies</label><br>
+
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) It automates infrastructure provisioning</label><br>
+
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) It is a testing framework</label><br>
+    </div>
+
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. How does Nexus Repository Manager help in managing dependencies in a DevOps environment?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Nexus caches, stores, and manages build artifacts and dependencies, ensuring smooth continuous integration and delivery.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) It integrates with Git to manage code</label><br>
+
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) It caches, stores, and manages build artifacts and dependencies</label><br>
+
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) It automatically scales the application</label><br>
+
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) It automates software testing</label><br>
+    </div>
+
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What are the key differences between Nexus Repository Manager OSS and Nexus Repository Manager Pro?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The OSS version is free, while the Pro version offers more enterprise features.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) OSS version is free, Pro offers more enterprise features</label><br>
+
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) OSS is for Docker images, Pro for Maven dependencies</label><br>
+
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) OSS is cloud-based, Pro is on-premise only</label><br>
+
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) OSS doesn’t support integration with CI/CD tools</label><br>
+    </div>
+
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. What types of artifacts can Nexus store and manage?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Nexus can store and manage a variety of artifacts like Java, npm, Python, and Docker images.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) Only Java artifacts</label><br>
+
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) Any type of source code</label><br>
+
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) Artifacts like Java, npm, Python, Docker images</label><br>
+
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) Only Docker images</label><br>
+    </div>
+
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. How does Nexus support popular build tools like Maven, Gradle, and npm?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Nexus provides package management functionality for popular build tools like Maven, Gradle, and npm.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) By providing package management functionality</label><br>
+
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) By deploying source code to production</label><br>
+
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) By storing and caching dependencies</label><br>
+
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) By handling source code versioning</label><br>
+    </div>
+
+    <div id="result4" class="result"></div>
+</div>
+ 
+<!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. How do you install and configure Nexus Repository Manager in a CI/CD pipeline?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Nexus Repository Manager can be installed through a binary package and set up as a service in the CI/CD pipeline.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) Using a cloud provider service</label><br>
+
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) Through a binary package and setting up as a service</label><br>
+
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) Through Git integration</label><br>
+
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) By configuring SSL certificates only</label><br>
+    </div>
+
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. What steps are required to configure Nexus as a Docker registry?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        To configure Nexus as a Docker registry, you need to configure Docker repositories and integrate with the Docker client.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Configure Docker repositories and integrate with Docker client</label><br>
+
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Install Docker Daemon in Nexus</label><br>
+
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Use Git hooks to push Docker images</label><br>
+
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Run Nexus as a Docker container only</label><br>
+    </div>
+
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. How can you integrate Nexus with Jenkins for artifact storage and retrieval?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Nexus can be integrated with Jenkins through Jenkins plugins for uploading and downloading artifacts.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) By configuring Nexus as a build tool</label><br>
+
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) Using Jenkins plugins to upload and download artifacts</label><br>
+
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) By creating custom Jenkins jobs only</label><br>
+
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) Nexus is not compatible with Jenkins</label><br>
+    </div>
+
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. How do you set up a private Maven repository using Nexus?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        To set up a private Maven repository, you need to set up a hosted Maven repository in Nexus.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) By setting up a hosted Maven repository in Nexus</label><br>
+
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) By configuring a Git repository</label><br>
+
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) By installing Maven on Nexus</label><br>
+
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) Nexus does not support Maven</label><br>
+    </div>
+
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. What is the process to configure proxy repositories in Nexus to cache dependencies from public repositories?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        To configure proxy repositories, you need to set up proxy repositories for public mirrors to cache dependencies.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) Setting up hosted repositories</label><br>
+
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) Setting up proxy repositories for public mirrors</label><br>
+
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) Configuring the build pipeline</label><br>
+
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) Creating Docker proxy only</label><br>
+    </div>
+
+    <div id="result9" class="result"></div>
+</div>
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. How does Nexus handle access control and security in a DevOps pipeline?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Nexus handles access control using role-based access control (RBAC) to manage user permissions and security.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) Using role-based access control</label><br>
+
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) By integrating with SSL only</label><br>
+
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) By providing admin-only access</label><br>
+
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) Nexus does not provide security features</label><br>
+    </div>
+
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. What are Nexus roles and privileges, and how do they affect user management?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Nexus roles and privileges define access levels for different users, affecting what they can access or modify within the repository.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) They define access levels for different users</label><br>
+
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) They handle artifact versioning</label><br>
+
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) They manage the repository size</label><br>
+
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) They enforce SSL encryption</label><br>
+    </div>
+
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. How can you enforce security policies, such as vulnerability scanning, in Nexus?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Nexus can integrate with external tools like Nexus Firewall or 3Q Server to enforce security policies such as vulnerability scanning.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) By using Nexus Firewall or 3Q Server</label><br>
+
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) By integrating with Git</label><br>
+
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) By configuring SSL certificates</label><br>
+
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) Nexus does not support security policies</label><br>
+    </div>
+
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. What is the significance of SSL in securing Nexus Repository Manager?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        SSL encrypts communications between clients and Nexus Repository Manager to prevent data breaches and unauthorized access.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) SSL encrypts communications to prevent data breaches</label><br>
+
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) SSL only handles user login security</label><br>
+
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) SSL ensures only specific file types are downloaded</label><br>
+
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) SSL is optional and not needed for Nexus</label><br>
+    </div>
+
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What are the benefits of using Nexus in a CI/CD pipeline for continuous integration and delivery?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Nexus helps automate artifact storage and ensures traceability in the CI/CD pipeline, improving the overall development workflow.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) Nexus automates code reviews</label><br>
+
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) Nexus stores and manages artifacts, ensuring traceability</label><br>
+
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) Nexus automatically scales infrastructure</label><br>
+
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) Nexus manages database migrations</label><br>
+    </div>
+
+    <div id="result14" class="result"></div>
+</div>
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. How can you automate artifact versioning in Nexus?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Artifact versioning in Nexus can be automated by configuring version control in build tools, allowing Nexus to manage versions based on the user roles.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) By configuring version control in build tools</label><br>
+
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) Nexus assigns versions based on user roles</label><br>
+
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) Versioning is done manually only</label><br>
+
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) Nexus does not support versioning</label><br>
+    </div>
+
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. Explain how artifact promotion can be managed in Nexus through different environments like dev, test, and production.</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Artifact promotion in Nexus can be managed through repository group production strategies to ensure artifacts move across different environments like dev, test, and production.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) By manually moving files</label><br>
+
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) Using repository group production strategies</label><br>
+
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) By renaming artifacts for each environment</label><br>
+
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) Using Docker images only</label><br>
+    </div>
+
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. How does Nexus ensure the availability and reliability of artifacts during deployments?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Nexus ensures availability and reliability by providing distributed storage solutions, allowing artifacts to be available across multiple locations.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) By providing distributed storage solutions</label><br>
+
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) By using single-node architecture</label><br>
+
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) By scheduling backups during deployments</label><br>
+
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) Nexus doesn't manage deployment reliability</label><br>
+    </div>
+
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What is the purpose of Nexus Staging, and how does it help in release management?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Nexus Staging holds artifacts until they are approved for release, helping to manage staged deployments to different environments.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) It stages artifacts for rollback</label><br>
+
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) It allows staged deployments to environments</label><br>
+
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) It holds artifacts until approved for release</label><br>
+
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) Nexus does not support artifact staging</label><br>
+    </div>
+
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. How can you use Nexus with container orchestration platforms like Kubernetes for managing container images?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Nexus can be integrated with Kubernetes by storing Docker images and connecting Kubernetes to Nexus for image management.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) By configuring Nexus as a Helm chart</label><br>
+
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) By storing Docker images and connecting Kubernetes to Nexus</label><br>
+
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) Nexus does not support Kubernetes</label><br>
+
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) By deploying Kubernetes on Nexus</label><br>
+    </div>
+
+    <div id="result19" class="result"></div>
+</div>
+
+
+
+          
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

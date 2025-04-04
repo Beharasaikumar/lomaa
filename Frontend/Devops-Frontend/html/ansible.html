@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANSIBLE QUIZ</title>
+    <link rel="stylesheet" href="../css/paper.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'A', 'B', 'C', 'A', 'A', 'B', 'A', 'A','B', 'A',
+            'B', 'B', 'A', 'B', 'A', 'A', 'B', 'A', 'A', 'A',
+            'A', 'A', 'A', 'A', 'B', 'B', 'A', 'A', 'A', 'A',
+            'A', 'A', 'A', 'B', 'A', 'B', 'C', 'C', 'A', 'B', '',
+
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>ANSIBLE QUIZ</h3>
+        <div class="inner-border">
+     <!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What type of tool is Ansible?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Ansible is a <strong>Configuration Management Tool</strong>, used for automating infrastructure management.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) Configuration Management Tool</label><br>
+
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) Containerization Tool</label><br>
+
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) Monitoring Tool</label><br>
+
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) Virtualization Tool</label><br>
+    </div>
+
+    <div id="result0" class="result"></div>
+</div> 
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. Which language is used for writing Ansible playbooks?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Ansible playbooks are written in <strong>YAML</strong>, a human-readable data serialization language.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) XML</label><br>
+
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) YAML</label><br>
+
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) JSON</label><br>
+
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) INI</label><br>
+    </div>
+
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. Which of the following is the core component of Ansible?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The core component of Ansible is the <strong>Ansible Engine</strong>, which performs the automation tasks.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) Ansible Tower</label><br>
+
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) Ansible Playbook</label><br>
+
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) Ansible Engine</label><br>
+
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) Ansible Vault</label><br>
+    </div>
+
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. How does Ansible primarily connect to nodes?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Ansible connects to nodes primarily via <strong>SSH</strong>, which is a secure network protocol.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) SSH</label><br>
+
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) FTP</label><br>
+
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) HTTP</label><br>
+
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) Telnet</label><br>
+    </div>
+
+    <div id="result3" class="result"></div>
+</div>
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. What command is used to check the Ansible version?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        To check the Ansible version, you can use the command <strong>ansible --version</strong>.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) ansible --version</label><br>
+
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) ansible --info</label><br>
+
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) ansible --check</label><br>
+
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) ansible version</label><br>
+    </div>
+
+    <div id="result4" class="result"></div>
+</div> 
+
+<!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is an Ansible playbook?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        An Ansible playbook is a <strong>YAML file containing tasks</strong> that automate configuration management.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) A script to execute commands</label><br>
+
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) A YAML file containing tasks</label><br>
+
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) A configuration file</label><br>
+
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) A plugin for Ansible</label><br>
+    </div>
+
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. What are Ansible modules?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Ansible modules are <strong>executable programs or scripts</strong> for automating tasks.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Executable programs</label><br>
+
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Scripts for automating tasks</label><br>
+
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Packages of Ansible commands</label><br>
+
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Standalone code snippets</label><br>
+    </div>
+
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What are Ansible facts?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Ansible facts are <strong>system properties or information</strong> gathered from managed nodes.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) System properties</label><br>
+
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) Configuration variables</label><br>
+
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) Tasks that are executed</label><br>
+
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) Playbook commands</label><br>
+    </div>
+
+    <div id="result7" class="result"></div>
+</div>
+
+ 
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. Which module is used to manage packages in Debian-based systems?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The <strong>apt</strong> module is used to manage packages in Debian-based systems like Ubuntu.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) yum</label><br>
+
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) apt</label><br>
+
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) dnf</label><br>
+
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) zypper</label><br>
+    </div>
+
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. What does the 'ansible-playbook' command do?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The <strong>ansible-playbook</strong> command is used to run an Ansible playbook, which contains tasks and configurations to be applied to nodes.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) Runs an Ansible playbook</label><br>
+
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) Displays playbook syntax</label><br>
+
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) Lists all available playbooks</label><br>
+
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) Executes a configuration command</label><br>
+    </div>
+
+    <div id="result9" class="result"></div>
+</div>
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is the purpose of the Ansible inventory file?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The Ansible inventory file is used <strong>to list managed nodes</strong> that Ansible will manage and interact with.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) To store module definitions</label><br>
+
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) To list managed nodes</label><br>
+
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) To define roles</label><br>
+
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) To manage playbooks</label><br>
+    </div>
+
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. Which of the following is a valid inventory file format for Ansible?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Ansible supports several file formats for its inventory, including <strong>YAML, JSON, and INI</strong> formats.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) INI</label><br>
+
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) YAML</label><br>
+
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) JSON</label><br>
+
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) All of the above</label><br>
+    </div>
+
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What is the role of handlers in Ansible?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Handlers in Ansible execute tasks only when they are notified by other tasks.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) To execute tasks only when notified</label><br>
+
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) To manage error handling</label><br>
+
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) To define variables</label><br>
+
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) To manage inventory</label><br>
+    </div>
+
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. Which command is used to view the current Ansible configuration?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The <strong>ansible-config</strong> command is used to view and manage the current Ansible configuration.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) ansible-config view</label><br>
+
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) ansible --config</label><br>
+
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) ansible-config show</label><br>
+
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) ansible view-config</label><br>
+    </div>
+
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What is the purpose of Ansible Vault?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Ansible Vault is used to <strong>encrypt sensitive data</strong>, such as passwords or keys, within playbooks and variables.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) To encrypt sensitive data</label><br>
+
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) To manage inventory</label><br>
+
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) To store configuration files</label><br>
+
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) To run playbooks</label><br>
+    </div>
+
+    <div id="result14" class="result"></div>
+</div>
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. What is the Ansible Galaxy?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Ansible Galaxy is a <strong>repository of Ansible roles</strong> that users can share, reuse, and download.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) A repository of Ansible roles</label><br>
+
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) A module for managing packages</label><br>
+
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) A command-line tool</label><br>
+
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) A web interface for Ansible</label><br>
+    </div>
+
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. Which Ansible command is used to run ad-hoc commands?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The <strong>ansible</strong> command is used for running ad-hoc commands on managed hosts.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) ansible-playbook</label><br>
+
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) ansible</label><br>
+
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) ansible-galaxy</label><br>
+
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) ansible-vault</label><br>
+    </div>
+
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. How can you limit the execution of a playbook to a specific group of hosts?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        You can limit execution to specific hosts by using the <strong>--limit flag</strong> or by specifying hosts in the playbook.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) By using the --limit flag</label><br>
+
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) By specifying hosts in the playbook</label><br>
+
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) By modifying the inventory file</label><br>
+
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) All of the above</label><br>
+    </div>
+
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What is a task in an Ansible playbook?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        A task in an Ansible playbook is <strong>a unit of work</strong> that is executed on the managed hosts.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) A unit of work</label><br>
+
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) A configuration file</label><br>
+
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) A command-line argument</label><br>
+
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) A script</label><br>
+    </div>
+
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. Which command is used to encrypt files with Ansible Vault?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The <strong>ansible-vault encrypt</strong> command is used to encrypt files within Ansible Vault.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) ansible-vault encrypt</label><br>
+
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) ansible-vault lock</label><br>
+
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) ansible-vault secure</label><br>
+
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) ansible-vault protect</label><br>
+    </div>
+
+    <div id="result19" class="result"></div>
+</div>
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. How do you declare variables in an Ansible playbook?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Variables in an Ansible playbook are declared under the <strong>vars</strong> section.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) vars:</label><br>
+
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) variables:</label><br>
+
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) config:</label><br>
+
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) settings:</label><br>
+    </div>
+
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. What is a play in Ansible?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        A play in Ansible is <strong>a group of tasks</strong> that are executed on a set of hosts.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) A group of tasks</label><br>
+
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) A command</label><br>
+
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) A variable</label><br>
+
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) A module</label><br>
+    </div>
+
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. Which Ansible module is used to manage system users?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The <strong>user</strong> module is used to manage system users in Ansible.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) user</label><br>
+
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) account</label><br>
+
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) passwd</label><br>
+
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) manage_user</label><br>
+    </div>
+
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. What is the default inventory file location for Ansible?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The default inventory file location for Ansible is <strong>/etc/ansible/hosts</strong>.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) /etc/ansible/hosts</label><br>
+
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) /usr/local/ansible/hosts</label><br>
+
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) /home/user/ansible/hosts</label><br>
+
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) /etc/ansible/inventory</label><br>
+    </div>
+
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. What is the 'gather_facts' directive used for?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The <strong>gather_facts</strong> directive is used to <strong>collect system information</strong> from the hosts.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) To skip host checking</label><br>
+
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) To collect system information</label><br>
+
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) To define host variables</label><br>
+
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) To execute commands</label><br>
+    </div>
+
+    <div id="result24" class="result"></div>
+</div>
+
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. How can you run a playbook with increased verbosity?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        You can run a playbook with increased verbosity by using the <strong>--verbose</strong> flag.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) ansible-playbook playbook.yml -u</label><br>
+
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) ansible-playbook playbook.yml --verbose</label><br>
+
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) ansible-playbook playbook.yml --detail</label><br>
+
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) ansible playbook playbook.yml -d</label><br>
+    </div>
+
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. What does the 'ansible-pull' command do?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The <strong>ansible-pull</strong> command is used to pull configuration from a remote repository.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) Pulls configuration from a remote repository</label><br>
+
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) Creates playbooks on remote hosts</label><br>
+
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) Manages remote users</label><br>
+
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) Retrieves facts from remote hosts</label><br>
+    </div>
+
+    <div id="result26" class="result"></div>
+</div>
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. What is the purpose of 'when' statements in Ansible?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        'When' statements in Ansible are used to execute tasks conditionally.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) To execute tasks conditionally</label><br>
+
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) To loop through items</label><br>
+
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) To define variables</label><br>
+
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) To skip tasks</label><br>
+    </div>
+
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. Which command can be used to validate an Ansible playbook syntax?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        You can use the <strong>--syntax-check</strong> flag to validate the syntax of an Ansible playbook.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) ansible-playbook --syntax-check</label><br>
+
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) ansible-playbook --validate</label><br>
+
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) ansible --check</label><br>
+
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) ansible-playbook validate</label><br>
+    </div>
+
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. Which directive is used to include other playbooks in Ansible?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The <strong>include</strong> directive is used to include other playbooks in Ansible.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) include:</label><br>
+
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) import_playbook:</label><br>
+
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) import:</label><br>
+
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) include_playbook:</label><br>
+    </div>
+
+    <div id="result29" class="result"></div>
+</div>
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. Which module is used in the following Ansible playbook to manage the installation of a package?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The <strong>apt</strong> module is used to manage packages on Debian-based systems.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) apt</label><br>
+
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) yum</label><br>
+
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) file</label><br>
+
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) service</label><br>
+    </div>
+
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. In the following playbook, what does the debug module do?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The <strong>debug</strong> module is used to print the value of a variable or message.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) Outputs the contents of the result variable</label><br>
+
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) Prints the status of the nginx installation</label><br>
+
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) Installs the nginx package</label><br>
+
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) Both A and B</label><br>
+    </div>
+
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. In the following playbook, what is the purpose of the 'when' condition?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The 'when' condition ensures that the task runs only on Debian-based systems.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) To ensure the playbook only runs on Debian-based systems</label><br>
+
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) To install the Apache package regardless of the operating system</label><br>
+
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) To skip the task on non-Debian systems</label><br>
+
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) Both A and C</label><br>
+    </div>
+
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. What is the purpose of the following Ansible Playbook?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        This playbook installs multiple packages from a list.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) To install a single package</label><br>
+
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) To install multiple packages from a list</label><br>
+
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) To uninstall packages</label><br>
+
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) To create a directory</label><br>
+    </div>
+
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. Which Ansible module is used in the following playbook to create a file?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The <strong>copy</strong> module is used to create files with specific content.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) copy</label><br>
+
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) file</label><br>
+
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) template</label><br>
+
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) lineinfile</label><br>
+    </div>
+
+    <div id="result34" class="result"></div>
+</div>
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. What does the following Ansible playbook do?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        This playbook creates a MySQL database named `example_db`.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) It deletes a MySQL database</label><br>
+
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) It creates a MySQL database</label><br>
+
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) It updates a MySQL database</label><br>
+
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) It lists all MySQL databases</label><br>
+    </div>
+
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. Which package manager is used in the following Ansible playbook?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The `yum` package manager is used to install packages on systems like CentOS or RedHat.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) apt</label><br>
+
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) dnf</label><br>
+
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) yum</label><br>
+
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) pacman</label><br>
+    </div>
+
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. What does the following Ansible playbook do?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        This playbook creates a new user with a hashed password using Ansible.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) It deletes a user</label><br>
+
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) It creates a new user with a hashed password</label><br>
+
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) It updates the password of an existing user</label><br>
+
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) It lists all users</label><br>
+    </div>
+
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. What is the purpose of the following Ansible playbook?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        This playbook launches a new EC2 instance using AWS.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) To delete an EC2 instance</label><br>
+
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) To launch a new EC2 instance</label><br>
+
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) To stop an EC2 instance</label><br>
+
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) To list all EC2 instances</label><br>
+    </div>
+
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. What is the purpose of the following Ansible playbook?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        This playbook installs Apache, installs multiple packages, creates a directory, and registers results.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) To install Apache and create a directory for logs</label><br>
+
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) To install Apache and multiple packages from a list</label><br>
+
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) To install Apache and debug the installation result</label><br>
+
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) To install Apache, create logs, and install packages without error handling</label><br>
+    </div>
+
+    <div id="result39" class="result"></div>
+</div>
+
+
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

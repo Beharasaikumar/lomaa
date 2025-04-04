@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try HTML & JavaScript</title>
+    <style>
+        /* Base styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #4CAF50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        p {
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        /* Textarea and Button styling */
+        textarea {
+            width: 99%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            background-color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            resize: none; /* Disable resizing */
+            min-height: 180px; /* Set a minimum height */
+            max-height: 300px; /* Set a maximum height */
+        }
+        textarea:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+            outline: none;
+        }
+        button {
+            padding: 12px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 1rem;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.01);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Output iframe styling */
+        #output {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Console output area styling */
+        #consoleOutput {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            height: 150px;
+            overflow-y: auto;
+            font-family: monospace;
+            white-space: pre-wrap; /* Preserve line breaks */
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            p {
+                font-size: 0.9rem;
+            }
+            textarea {
+                width: 90%;
+                min-height: 150px;
+                font-size: 0.9rem;
+            }
+            button {
+                padding: 10px 20px;
+            }
+            #output {
+                height: 250px;
+            }
+        }
+        @media (max-width: 1024px) {
+            textarea{
+                width: 98%;
+            }
+        }
+
+        /* Tablet-specific styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+            textarea {
+                width: 97%;
+                min-height: 200px;
+            }
+            button {
+                padding: 11px 22px;
+            }
+            #output {
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Try HTML & JavaScript</h1>
+    <p>Write your HTML and JavaScript code below and click "Run" to see the result:</p>
+
+    <!-- HTML and JavaScript input areas -->
+    <textarea id="htmlCode" placeholder="Enter HTML code here..."></textarea>
+    <textarea id="jsCode" placeholder="Enter JavaScript code here..."></textarea>
+
+    <button onclick="runCode()">Run</button>
+
+    <h2>Output:</h2>
+    <iframe id="output" sandbox="allow-scripts allow-same-origin"></iframe>
+
+    <!-- Separate div to display console.log() output -->
+    <h2>Console Output:</h2>
+    <div id="consoleOutput"></div> 
+
+    <script>
+        // Override the console.log to capture the output
+        (function() {
+            var originalLog = console.log;
+            console.log = function(message) {
+                // Append the log message to the console output div
+                var outputDiv = document.getElementById('consoleOutput');
+                outputDiv.innerText += message + "\n";
+                
+                // Call the original console.log as well, to display in browser's console
+                originalLog.apply(console, arguments);
+            };
+        })();
+
+        // Function to run the code and capture console.log output
+        function runCode() {
+            var html = document.getElementById('htmlCode').value;
+            var js = document.getElementById('jsCode').value;
+
+            // Combine the HTML and JS code
+            var code = html + "<script>" + js + "<\/script>";
+            var outputFrame = document.getElementById('output');
+            var doc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+
+            // Write the code into the iframe
+            doc.open();
+            doc.write(code);
+            doc.close();
+
+            // Execute the JavaScript code inside the main page's context (not inside iframe)
+            try {
+                eval(js); // Execute JS code in the main page's context
+            } catch (e) {
+                console.log("Error: " + e.message); // Display any errors in consoleOutput
+            }
+        }
+    </script>
+
+</body>
+</html>

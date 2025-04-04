@@ -1,0 +1,2305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMPUTER VISION</title>
+    <link rel="stylesheet" href="../css/AI.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'B', 'B', 'A', 'B', 'A', 'B', 'B', 'A',
+            'B', 'C', 'B', 'A', 'A', 'B', 'C', 'A', 'B', 'B',
+            'C', 'D', 'A', 'C', 'A', 'B', 'B', 'C', 'B', 'A',
+            'A', 'B', 'A', 'B', 'C', 'C', 'B', 'D', 'B', 'A',
+            'A', 'C', 'B', 'A', 'D', 'B', 'A', 'D', 'C', 'B',
+            'A', 'B', 'D', 'C', 'B', 'A', 'B', 'C', 'B', 'D',   
+            'C', 'B', 'A', 'A', 'C', 'B', 'C', 'B', 'D', 'C',
+            'D', 'B', 'D', 'C', 'D', 'B', 'A', 'C', 'B', 'A'
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>COMPUTER VISION</h3>
+        <div class="inner-border">
+            <div class="qee">
+                <!-- Question 1 -->
+                <div class="que">
+                    <p>1. What is the purpose of edge detection in computer vision?</p>
+                    <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+                </div>
+                <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To detect boundaries and contours of objects in an image.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Edge detection identifies the boundaries in an image. The edges mark the transitions between different regions in an image and are useful in object detection, segmentation, and tracking.<br><br>
+                    **Steps in Edge Detection**:<br>
+                    1. Convert the image to grayscale.<br>
+                    2. Apply a filter (Sobel, Canny) to identify intensity changes.<br>
+                    3. Localize edges and highlight them.<br>
+                    4. Final result is a map of detected edges.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+                    <label for="optionA0">A) To highlight the brightest parts of an image.</label><br>
+                    <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+                    <label for="optionB0">B) To detect boundaries and contours of objects in an image.</label><br>
+                    <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+                    <label for="optionC0">C) To apply a blur effect to the image.</label><br>
+                    <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+                    <label for="optionD0">D) To reduce the noise in an image.</label><br>
+                </div>
+                <div id="result0" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 2 -->
+                <div class="que">
+                    <p>2. Which of the following is the most commonly used edge detection algorithm in Python?</p>
+                    <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+                </div>
+                <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Canny edge detection</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **Canny edge detection** algorithm is widely used due to its effectiveness in detecting edges while suppressing noise.<br><br>
+                    **Steps in Canny Edge Detection**:<br>
+                    1. Apply Gaussian filter to remove noise.<br>
+                    2. Calculate gradient using Sobel operators.<br>
+                    3. Apply non-maximum suppression to thin edges.<br>
+                    4. Trace edges using hysteresis and connect weak edges.<br>
+                    5. Final output is an edge map of the image.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+                    <label for="optionA1">A) Sobel edge detection</label><br>
+                    <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+                    <label for="optionB1">B) Canny edge detection</label><br>
+                    <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+                    <label for="optionC1">C) Prewitt edge detection</label><br>
+                    <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+                    <label for="optionD1">D) Laplacian of Gaussian (LoG)</label><br>
+                </div>
+                <div id="result1" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 3 -->
+                <div class="que">
+                    <p>3. What is the role of the Sobel operator in edge detection?</p>
+                    <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+                </div>
+                <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) It detects edges by calculating the gradient of the image intensity.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The Sobel operator is used to find edges by calculating the intensity gradient in horizontal and vertical directions.<br><br>
+                    **Steps in Sobel Edge Detection**:<br>
+                    1. Apply Sobel kernels for horizontal and vertical gradient calculation.<br>
+                    2. Calculate the gradient magnitude at each pixel.<br>
+                    3. The result highlights regions with rapid intensity changes (edges).<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+                    <label for="optionA2">A) It detects high-frequency noise in the image.</label><br>
+                    <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+                    <label for="optionB2">B) It detects edges by calculating the gradient of the image intensity.</label><br>
+                    <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+                    <label for="optionC2">C) It blurs the image to reduce noise.</label><br>
+                    <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+                    <label for="optionD2">D) It sharpens the image by increasing the contrast.</label><br>
+                </div>
+                <div id="result2" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 4 -->
+                <div class="que">
+                    <p>4. In Python, which library is most commonly used to implement edge detection algorithms like Canny and Sobel?</p>
+                    <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+                </div>
+                <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) OpenCV</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **OpenCV** is the most popular library used for image processing tasks, including edge detection.<br><br>
+                    **Steps in Using OpenCV for Edge Detection**:<br>
+                    1. Import OpenCV: `import cv2`.<br>
+                    2. Read the image: `image = cv2.imread('image.jpg')`.<br>
+                    3. Convert to grayscale: `gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)`.<br>
+                    4. Apply edge detection (e.g., `cv2.Canny()`, `cv2.Sobel()`).<br>
+                    5. Display or save the output edge-detected image.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+                    <label for="optionA3">A) Pillow</label><br>
+                    <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+                    <label for="optionB3">B) OpenCV</label><br>
+                    <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+                    <label for="optionC3">C) Scikit-learn</label><br>
+                    <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+                    <label for="optionD3">D) Matplotlib</label><br>
+                </div>
+                <div id="result3" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 5 -->
+                <div class="que">
+                    <p>5. What is the primary advantage of using edge detection in object recognition?</p>
+                    <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+                </div>
+                <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) It simplifies the image by highlighting key features such as boundaries.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Edge detection simplifies the image and makes it easier for object recognition algorithms to identify key features such as boundaries and shapes.<br><br>
+                    **Steps**:<br>
+                    1. Detect edges to reduce image complexity.<br>
+                    2. Focus on regions of interest (edges) for better object recognition.<br>
+                    3. Enhance the accuracy of detection by ignoring non-essential areas.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+                    <label for="optionA4">A) It simplifies the image by highlighting key features such as boundaries.</label><br>
+                    <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+                    <label for="optionB4">B) It applies a filter to smooth the image.</label><br>
+                    <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+                    <label for="optionC4">C) It enhances the color contrast in the image.</label><br>
+                    <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+                    <label for="optionD4">D) It reduces the image size for faster processing.</label><br>
+                </div>
+                <div id="result4" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 6 -->
+                <div class="que">
+                    <p>6. What is the purpose of the Hough Transform in computer vision?</p>
+                    <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+                </div>
+                <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To detect geometric shapes like lines and circles in an image.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The Hough Transform is a technique used to detect shapes in an image, such as lines, circles, and other parametric curves. It converts the problem of detecting shapes into a problem of finding peaks in a parameter space.<br><br>
+                    **Steps in Hough Transform for Line Detection**:<br>
+                    1. Convert the image to edge-detected form (e.g., using Canny or Sobel).<br>
+                    2. Represent each point in the edge-detected image as a line in the parameter space.<br>
+                    3. Use a voting mechanism to find intersections or peaks in the parameter space.<br>
+                    4. The lines corresponding to these peaks represent the detected lines in the image.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+                    <label for="optionA5">A) To blur the image for better contrast.</label><br>
+                    <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+                    <label for="optionB5">B) To detect geometric shapes like lines and circles in an image.</label><br>
+                    <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+                    <label for="optionC5">C) To enhance image colors.</label><br>
+                    <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+                    <label for="optionD5">D) To reduce image noise.</label><br>
+                </div>
+                <div id="result5" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 7 -->
+                <div class="que">
+                    <p>7. In the Hough Transform, what does the parameter space represent?</p>
+                    <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+                </div>
+                <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) The set of possible parameters (e.g., angle and distance) for lines in the image.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The parameter space is a conceptual space where each point represents a possible line, described by parameters such as the angle and distance from the origin (ρ, θ) in polar coordinates.<br><br>
+                    **How it works**:<br>
+                    - For each edge point in the image, a line in the parameter space is plotted.<br>
+                    - The Hough Transform algorithm identifies lines by detecting peaks (intersections) in this space.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+                    <label for="optionA6">A) The set of possible parameters (e.g., angle and distance) for lines in the image.</label><br>
+                    <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+                    <label for="optionB6">B) The intensity values of each pixel in the image.</label><br>
+                    <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+                    <label for="optionC6">C) The brightness of the edges in the image.</label><br>
+                    <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+                    <label for="optionD6">D) The color values of the image.</label><br>
+                </div>
+                <div id="result6" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 8 -->
+                <div class="que">
+                    <p>8. Which of the following is true about the standard Hough Transform for line detection?</p>
+                    <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+                </div>
+                <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) The transform uses a polar coordinate system (ρ, θ) to represent lines.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The Hough Transform for line detection typically uses a polar coordinate system, where each line in the image is represented by two parameters: the distance from the origin (ρ) and the angle (θ) of the line.<br><br>
+                    **Why Polar Coordinates?**<br>
+                    - Polar coordinates are used because they are more robust in detecting lines at any angle and allow lines to be uniquely represented.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+                    <label for="optionA7">A) The transform uses Cartesian coordinates (x, y) to represent lines.</label><br>
+                    <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+                    <label for="optionB7">B) The transform uses a polar coordinate system (ρ, θ) to represent lines.</label><br>
+                    <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+                    <label for="optionC7">C) The transform detects only vertical lines in an image.</label><br>
+                    <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+                    <label for="optionD7">D) The transform does not work for diagonal lines.</label><br>
+                </div>
+                <div id="result7" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 9 -->
+                <div class="que">
+                    <p>9. Which Python library is commonly used to implement the Hough Transform for line detection?</p>
+                    <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+                </div>
+                <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) OpenCV</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **OpenCV** provides an efficient implementation of the Hough Transform for detecting lines in images through functions like `cv2.HoughLines()` and `cv2.HoughLinesP()`. These functions are used to find straight lines in an image using the Hough Transform technique.<br><br>
+                    **Steps to use in OpenCV**:<br>
+                    1. Convert the image to grayscale.<br>
+                    2. Apply edge detection (e.g., using Canny).<br>
+                    3. Use `cv2.HoughLines()` to detect the lines.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+                    <label for="optionA8">A) Matplotlib</label><br>
+                    <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+                    <label for="optionB8">B) OpenCV</label><br>
+                    <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+                    <label for="optionC8">C) Scikit-learn</label><br>
+                    <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+                    <label for="optionD8">D) TensorFlow</label><br>
+                </div>
+                <div id="result8" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 10 -->
+                <div class="que">
+                    <p>10. What is the primary advantage of using the Hough Transform for line detection?</p>
+                    <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+                </div>
+                <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) It can detect lines even in the presence of noise and incomplete edges.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The Hough Transform is robust to noise and can detect lines in an image even if the edges are not complete or are interrupted by noise. It works by finding peaks in the parameter space, making it less sensitive to outliers.<br><br>
+                    **Key Benefit**:<br>
+                    - It transforms the problem of detecting lines into one of finding peaks in a parameter space, which is much more stable under noisy conditions.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+                    <label for="optionA9">A) It can detect lines even in the presence of noise and incomplete edges.</label><br>
+                    <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+                    <label for="optionB9">B) It is faster than other edge detection methods.</label><br>
+                    <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+                    <label for="optionC9">C) It automatically adjusts to the color of the image.</label><br>
+                    <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+                    <label for="optionD9">D) It can detect circles and other complex shapes.</label><br>
+                </div>
+                <div id="result9" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 11 -->
+                <div class="que">
+                    <p>11. What is the main difference between the standard Hough Transform and the Probabilistic Hough Transform?</p>
+                    <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+                </div>
+                <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) The Probabilistic Hough Transform detects fewer points for line detection, making it faster and more efficient.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The Probabilistic Hough Transform is a variation of the standard Hough Transform, where instead of considering all edge points in the image, only a random subset is selected for voting in the parameter space. This reduces computational cost and speeds up the process while still detecting lines accurately.<br><br>
+                    **Key Differences**:<br>
+                    - The standard Hough Transform evaluates all edge points.<br>
+                    - The Probabilistic Hough Transform evaluates a random subset of edge points, making it faster.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+                    <label for="optionA10">A) The Probabilistic Hough Transform uses a different coordinate system.</label><br>
+                    <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+                    <label for="optionB10">B) The Probabilistic Hough Transform detects fewer points for line detection, making it faster and more efficient.</label><br>
+                    <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+                    <label for="optionC10">C) The Probabilistic Hough Transform does not detect lines at all.</label><br>
+                    <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+                    <label for="optionD10">D) The Probabilistic Hough Transform only works for detecting circles.</label><br>
+                </div>
+                <div id="result10" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 12 -->
+                <div class="que">
+                    <p>12. How does the Probabilistic Hough Transform improve the speed of line detection?</p>
+                    <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+                </div>
+                <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) It reduces the number of edge points considered by randomly selecting a subset.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The Probabilistic Hough Transform improves the speed of line detection by randomly selecting a subset of edge points instead of using all of them. This reduces the number of points that need to be processed, resulting in faster computation while still achieving high accuracy in line detection.<br><br>
+                    **Steps**:<br>
+                    1. A random subset of edge points is selected.<br>
+                    2. The lines corresponding to these points are detected.<br>
+                    3. The process is repeated, and the final result is a set of detected lines.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+                    <label for="optionA11">A) It reduces the number of edge points considered by randomly selecting a subset.</label><br>
+                    <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+                    <label for="optionB11">B) It processes the image at a lower resolution.</label><br>
+                    <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+                    <label for="optionC11">C) It only detects straight lines.</label><br>
+                    <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+                    <label for="optionD11">D) It uses a different algorithm for edge detection.</label><br>
+                </div>
+                <div id="result11" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 13 -->
+                <div class="que">
+                    <p>13. Which function in OpenCV is used to implement the Probabilistic Hough Transform?</p>
+                    <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+                </div>
+                <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) `cv2.HoughLinesP()`</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    In OpenCV, the Probabilistic Hough Transform is implemented using the function `cv2.HoughLinesP()`. This function is used to detect lines in a binary image (typically obtained through edge detection like the Canny algorithm). It allows for more efficient line detection compared to the standard Hough Transform.<br><br>
+                    **Example Usage**:<br>
+                    ```python<br>
+                    lines = cv2.HoughLinesP(edges, 1, np.pi/180, threshold=100, minLineLength=50, maxLineGap=10)<br>
+                    ```
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+                    <label for="optionA12">A) `cv2.findContours()`</label><br>
+                    <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+                    <label for="optionB12">B) `cv2.HoughLinesP()`</label><br>
+                    <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+                    <label for="optionC12">C) `cv2.Canny()`</label><br>
+                    <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+                    <label for="optionD12">D) `cv2.Sobel()`</label><br>
+                </div>
+                <div id="result12" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 14 -->
+                <div class="que">
+                    <p>14. What is a primary advantage of using the Probabilistic Hough Transform in real-time applications?</p>
+                    <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+                </div>
+                <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) It is faster and requires less computational power, making it suitable for real-time processing.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The Probabilistic Hough Transform is particularly useful in real-time applications because it processes fewer edge points and is computationally more efficient compared to the standard Hough Transform. This allows for faster processing times, which is crucial in applications such as robotics and video analysis.<br><br>
+                    **Key Benefit**:<br>
+                    - Faster line detection in real-time scenarios where processing speed is critical.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+                    <label for="optionA13">A) It is faster and requires less computational power, making it suitable for real-time processing.</label><br>
+                    <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+                    <label for="optionB13">B) It can detect more complex shapes than standard line detection.</label><br>
+                    <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+                    <label for="optionC13">C) It works better in detecting circles than lines.</label><br>
+                    <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+                    <label for="optionD13">D) It is more accurate than the standard Hough Transform.</label><br>
+                </div>
+                <div id="result13" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 15 -->
+                <div class="que">
+                    <p>15. What is the main advantage of using Line Segment Detection (LSD) over traditional edge detection methods?</p>
+                    <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+                </div>
+                <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) LSD detects individual line segments rather than just edges, providing more precise information about the structure of objects.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    LSD is a robust technique for detecting straight lines in an image. Unlike traditional edge detection, which can produce noisy edges, LSD directly detects line segments, making it more suitable for applications that require precise geometric information, such as in robotics and architectural design.<br><br>
+                    **Key Benefit**:<br>
+                    - LSD provides more accurate and structured line segment data, useful in tasks such as scene reconstruction and object recognition.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+                    <label for="optionA14">A) LSD detects individual line segments rather than just edges, providing more precise information about the structure of objects.</label><br>
+                    <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+                    <label for="optionB14">B) LSD is faster than other edge detection algorithms.</label><br>
+                    <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+                    <label for="optionC14">C) LSD detects curved edges better than straight lines.</label><br>
+                    <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+                    <label for="optionD14">D) LSD is used exclusively for detecting circles in images.</label><br>
+                </div>
+                <div id="result14" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 16 -->
+                <div class="que">
+                    <p>16. In which scenarios is Line Segment Detection (LSD) most useful?</p>
+                    <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+                </div>
+                <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) In robotics and computer vision applications where precise geometric information about straight lines is required.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    LSD is particularly useful in fields like robotics, autonomous vehicles, and industrial automation where understanding the geometry of the environment (including straight lines) is critical for navigation, object recognition, and mapping.<br><br>
+                    **Applications**:<br>
+                    - In autonomous driving, LSD can help detect lane boundaries.<br>
+                    - In robotics, it aids in map generation and object detection.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+                    <label for="optionA15">A) In medical imaging to detect tumors.</label><br>
+                    <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+                    <label for="optionB15">B) In robotics and computer vision applications where precise geometric information about straight lines is required.</label><br>
+                    <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+                    <label for="optionC15">C) In analyzing natural scenes with complex curves.</label><br>
+                    <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+                    <label for="optionD15">D) In detecting color-based objects in images.</label><br>
+                </div>
+                <div id="result15" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 17 -->
+                <div class="que">
+                    <p>17. Which method is commonly used to implement Line Segment Detection (LSD) in computer vision?</p>
+                    <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+                </div>
+                <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) The LSD algorithm based on the LSD operator is implemented in OpenCV.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    In OpenCV, the LSD (Line Segment Detector) is a function `cv2.createLineSegmentDetector()` that detects line segments in an image. This method is highly efficient for detecting straight line segments and is widely used for tasks such as lane detection in autonomous vehicles.<br><br>
+                    **Example**:<br>
+                    ```python<br>
+                    ls = cv2.createLineSegmentDetector()<br>
+                    lines = ls.detect(image)[0]<br>
+                    ```
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+                    <label for="optionA16">A) Canny edge detection algorithm</label><br>
+                    <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+                    <label for="optionB16">B) Sobel edge detection operator</label><br>
+                    <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+                    <label for="optionC16">C) The LSD algorithm based on the LSD operator is implemented in OpenCV.</label><br>
+                    <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+                    <label for="optionD16">D) Hough Transform for line detection</label><br>
+                </div>
+                <div id="result16" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 18 -->
+                <div class="que">
+                    <p>18. What is the concept of vanishing point in computer vision?</p>
+                    <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+                </div>
+                <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) The point where parallel lines in 3D space appear to converge in a 2D image.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The vanishing point is a key concept in perspective geometry. In an image, parallel lines that are not parallel to the image plane converge towards a single point, called the vanishing point. This point provides important information for understanding the 3D structure of the scene from a 2D image.<br><br>
+                    **Use Case**:<br>
+                    - Vanishing point detection is crucial in tasks like camera calibration, perspective correction, and 3D reconstruction.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+                    <label for="optionA17">A) The point where parallel lines in 3D space appear to converge in a 2D image.</label><br>
+                    <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+                    <label for="optionB17">B) The point where all objects in the image are centered.</label><br>
+                    <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+                    <label for="optionC17">C) The point where the camera lens is located.</label><br>
+                    <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+                    <label for="optionD17">D) The point that marks the origin of the image coordinates.</label><br>
+                </div>
+                <div id="result17" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 19 -->
+                <div class="que">
+                    <p>19. Which method is commonly used to detect vanishing points in an image?</p>
+                    <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+                </div>
+                <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Using the intersection of multiple lines detected in the image.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Vanishing points can be detected by finding the intersection of lines that are assumed to be parallel in the real world. In computer vision, the Hough Transform or LSD is often used to detect these lines. Once the lines are detected, the vanishing point is found by identifying where the lines converge.<br><br>
+                    **Method**:<br>
+                    1. Detect parallel lines in the scene.<br>
+                    2. Find the intersection of these lines.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+                    <label for="optionA18">A) By finding the point with the maximum color intensity in the image.</label><br>
+                    <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+                    <label for="optionB18">B) Using the intersection of multiple lines detected in the image.</label><br>
+                    <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+                    <label for="optionC18">C) By using the center of the image.</label><br>
+                    <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+                    <label for="optionD18">D) By applying edge detection and finding the edge's midpoint.</label><br>
+                </div>
+                <div id="result18" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 20 -->
+                <div class="que">
+                    <p>20. What is the primary difference between traditional Hough Transform and Line Segment Detection (LSD)?</p>
+                    <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+                </div>
+                <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) LSD directly detects line segments, while Hough Transform detects entire lines, which may not correspond to segments in the image.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    LSD is more focused on detecting finite line segments, making it more efficient for applications like lane detection or object detection in urban environments. In contrast, the traditional Hough Transform detects full lines, which might not always correspond to meaningful segments.<br><br>
+                    **Use Case**:<br>
+                    LSD is more suitable for scenarios where you need specific, isolated line segments, like detecting road lanes, whereas the Hough Transform might be used for global detection of lines in the image.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+                    <label for="optionA19">A) LSD detects curves, while Hough Transform detects only straight lines.</label><br>
+                    <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+                    <label for="optionB19">B) LSD directly detects line segments, while Hough Transform detects entire lines, which may not correspond to segments in the image.</label><br>
+                    <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+                    <label for="optionC19">C) Hough Transform is better at detecting small line segments than LSD.</label><br>
+                    <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+                    <label for="optionD19">D) LSD requires more computational power than Hough Transform.</label><br>
+                </div>
+                <div id="result19" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 21 -->
+                <div class="que">
+                    <p>21. What type of images is Line Segment Detection (LSD) best suited for?</p>
+                    <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+                </div>
+                <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Images with distinct, straight edges or lines, such as architectural or road images.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    LSD performs best on images where there are clear, distinguishable line segments, such as architectural photographs, street views, and scenes with well-defined geometric shapes.<br><br>
+                    **Example**:<br>
+                    - Detecting road lanes in self-driving car applications.<br>
+                    - Detecting edges of buildings in cityscapes.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+                    <label for="optionA20">A) Images with random shapes and textures.</label><br>
+                    <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+                    <label for="optionB20">B) Images containing mainly curves or non-linear objects.</label><br>
+                    <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+                    <label for="optionC20">C) Images with distinct, straight edges or lines, such as architectural or road images.</label><br>
+                    <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+                    <label for="optionD20">D) Images with high levels of noise or blurry content.</label><br>
+                </div>
+                <div id="result20" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 22 -->
+                <div class="que">
+                    <p>22. Which of the following is a limitation of Line Segment Detection (LSD)?</p>
+                    <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+                </div>
+                <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) LSD can struggle with detecting line segments in cluttered or noisy environments.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    LSD relies on clean, well-defined line segments for optimal performance. In noisy or cluttered environments, such as dense urban scenes, it can struggle to detect the true line segments.<br><br>
+                    **Common Limitations**:<br>
+                    - Sensitive to noise and clutter.<br>
+                    - Less effective on curved objects.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+                    <label for="optionA21">A) LSD cannot detect curves in the image.</label><br>
+                    <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+                    <label for="optionB21">B) LSD requires very high-quality images to function.</label><br>
+                    <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+                    <label for="optionC21">C) LSD is computationally expensive for real-time applications.</label><br>
+                    <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+                    <label for="optionD21">D) LSD can struggle with detecting line segments in cluttered or noisy environments.</label><br>
+                </div>
+                <div id="result21" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 23 -->
+                <div class="que">
+                    <p>23. Why is Vanishing Point Detection important in camera calibration?</p>
+                    <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+                </div>
+                <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) It helps estimate the camera’s intrinsic parameters, such as focal length and optical center.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Vanishing points provide clues about the camera's geometry, which is essential for understanding the camera's perspective. This information can be used to compute intrinsic camera parameters, like the focal length and the optical center, which are crucial for accurate 3D reconstruction or augmented reality applications.<br><br>
+                    **Applications**:<br>
+                    - Camera calibration for accurate 3D mapping.<br>
+                    - Augmented reality systems.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+                    <label for="optionA22">A) It helps estimate the camera’s intrinsic parameters, such as focal length and optical center.</label><br>
+                    <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+                    <label for="optionB22">B) It enhances the image quality for better feature extraction.</label><br>
+                    <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+                    <label for="optionC22">C) It improves the accuracy of edge detection algorithms.</label><br>
+                    <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+                    <label for="optionD22">D) It corrects color distortions in images.</label><br>
+                </div>
+                <div id="result22" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 24 -->
+                <div class="que">
+                    <p>24. What is a common challenge in Vanishing Point Detection for urban scenes?</p>
+                    <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+                </div>
+                <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Distorted or obstructed lines due to occlusions, perspective distortions, or varying line orientations.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    In urban environments, buildings and roads often occlude each other, causing distortions in the lines that can lead to incorrect vanishing point detection. Additionally, varying line orientations and perspective distortions can make it difficult to accurately identify the correct vanishing point.<br><br>
+                    **Challenges**:<br>
+                    - Occlusion and complex scenes.<br>
+                    - Perspective distortions in images.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+                    <label for="optionA23">A) The complexity of detecting curved lines instead of straight lines.</label><br>
+                    <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+                    <label for="optionB23">B) Limited computational resources to process large urban datasets.</label><br>
+                    <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+                    <label for="optionC23">C) Distorted or obstructed lines due to occlusions, perspective distortions, or varying line orientations.</label><br>
+                    <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+                    <label for="optionD23">D) Inability to process multiple vanishing points in the scene.</label><br>
+                </div>
+                <div id="result23" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 25 -->
+                <div class="que">
+                    <p>25. What is the purpose of perspective correction in computer vision?</p>
+                    <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+                </div>
+                <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To transform an image to a more accurate or standard perspective, removing distortion caused by camera angle.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Perspective correction is used to adjust images where the camera angle causes distortion, such as in images of buildings or roads. This can be useful for applications like document scanning, architecture, and robot vision where accurate perspectives are crucial.<br><br>
+                    **Techniques**:<br>
+                    - Homography transformation.<br>
+                    - Projective geometry corrections.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+                    <label for="optionA24">A) To transform an image to a more accurate or standard perspective, removing distortion caused by camera angle.</label><br>
+                    <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+                    <label for="optionB24">B) To enhance the color saturation in an image.</label><br>
+                    <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+                    <label for="optionC24">C) To sharpen the image and make features more distinguishable.</label><br>
+                    <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+                    <label for="optionD24">D) To reduce the image size for faster processing.</label><br>
+                </div>
+                <div id="result24" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 26 -->
+                <div class="que">
+                    <p>26. Which transformation is commonly used for perspective correction?</p>
+                    <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+                </div>
+                <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Homography transformation</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Homography is a transformation that maps points from one perspective to another. It's used to correct perspective distortions, aligning points from a planar surface with the camera’s view, which is especially useful for tasks like rectifying images taken at an angle.<br><br>
+                    **Example**:<br>
+                    - Correcting the perspective of a photograph taken from an angle.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+                    <label for="optionA25">A) Gaussian Blur transformation</label><br>
+                    <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+                    <label for="optionB25">B) Homography transformation</label><br>
+                    <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+                    <label for="optionC25">C) Sobel edge detection</label><br>
+                    <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+                    <label for="optionD25">D) Canny edge detection</label><br>
+                </div>
+                <div id="result25" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 27 -->
+                <div class="que">
+                    <p>27. What is the role of a homography matrix in perspective correction?</p>
+                    <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+                </div>
+                <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) It maps points from one plane to another to correct perspective distortions in an image.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The homography matrix is used to perform a projective transformation that adjusts the perspective of points in the image. This is crucial for correcting distortions that arise from photographing planar objects at an angle.<br><br>
+                    **Formula**:<br>
+                    Homography is typically represented as a 3x3 matrix that, when applied to points in the image, transforms their coordinates to a corrected perspective.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+                    <label for="optionA26">A) It reduces noise in an image.</label><br>
+                    <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+                    <label for="optionB26">B) It enhances the edges in an image.</label><br>
+                    <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+                    <label for="optionC26">C) It converts the image to grayscale.</label><br>
+                    <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+                    <label for="optionD26">D) It maps points from one plane to another to correct perspective distortions in an image.</label><br>
+                </div>
+                <div id="result26" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 28 -->
+                <div class="que">
+                    <p>28. Why is camera calibration essential in computer vision?</p>
+                    <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+                </div>
+                <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) It allows the correction of lens distortion and helps convert 2D image points to 3D world coordinates.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Camera calibration is crucial to compensate for distortions like barrel or pincushion distortion in lenses. It enables accurate mapping of real-world coordinates (3D) to image coordinates (2D), which is necessary for 3D reconstruction and object tracking.<br><br>
+                    **Applications**:<br>
+                    - 3D reconstruction.<br>
+                    - Augmented reality (AR).
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+                    <label for="optionA27">A) To enhance the color and contrast of the image.</label><br>
+                    <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+                    <label for="optionB27">B) To smooth out the noise in images.</label><br>
+                    <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+                    <label for="optionC27">C) It allows the correction of lens distortion and helps convert 2D image points to 3D world coordinates.</label><br>
+                    <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+                    <label for="optionD27">D) It reduces the image resolution for faster processing.</label><br>
+                </div>
+                <div id="result27" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 29 -->
+                <div class="que">
+                    <p>29. What method is commonly used for camera calibration using lines in the environment?</p>
+                    <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+                </div>
+                <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Using straight lines in the scene, often with a calibration pattern (like a checkerboard) for precise alignment.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Camera calibration using lines typically involves detecting straight lines in the scene, which can help estimate the camera’s intrinsic and extrinsic parameters. A calibration pattern like a checkerboard is often used to ensure precise alignment and minimize error.<br><br>
+                    **Steps**:<br>
+                    - Detect straight lines in the scene.<br>
+                    - Use a known calibration pattern (e.g., checkerboard).<br>
+                    - Estimate intrinsic parameters like focal length and distortion coefficients.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+                    <label for="optionA28">A) Using curved lines in the environment for better accuracy.</label><br>
+                    <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+                    <label for="optionB28">B) Using straight lines in the scene, often with a calibration pattern (like a checkerboard) for precise alignment.</label><br>
+                    <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+                    <label for="optionC28">C) Using depth sensors to measure distances to objects.</label><br>
+                    <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+                    <label for="optionD28">D) Using feature points in a sequence of images for calibration.</label><br>
+                </div>
+                <div id="result28" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 30 -->
+                <div class="que">
+                    <p>30. How does the use of lines in camera calibration help to improve the accuracy of the results?</p>
+                    <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+                </div>
+                <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Straight lines provide known geometric constraints that help in precise calibration of the camera’s internal parameters.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Using straight lines in the scene provides well-defined geometric relationships that can be used to calculate the camera’s intrinsic parameters with high precision. These lines serve as reliable features that help reduce errors in calibration.<br><br>
+                    **Benefits**:<br>
+                    - Reduces errors caused by lens distortion.<br>
+                    - Improves alignment of the camera model with real-world coordinates.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+                    <label for="optionA29">A) Straight lines provide known geometric constraints that help in precise calibration of the camera’s internal parameters.</label><br>
+                    <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+                    <label for="optionB29">B) Lines are used to blur the edges for better detection of features.</label><br>
+                    <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+                    <label for="optionC29">C) Lines are only used for image registration, not calibration.</label><br>
+                    <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+                    <label for="optionD29">D) Lines help in reducing the computational load during calibration.</label><br>
+                </div>
+                <div id="result29" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 31 -->
+                <div class="que">
+                    <p>31. What is the goal of line fitting in computer vision?</p>
+                    <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+                </div>
+                <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To find the best-fitting line that represents a set of data points in a 2D plane.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Line fitting involves finding a straight line that best represents a set of data points. This is essential for tasks such as curve fitting, pattern recognition, and simplifying complex data. The most common method used for line fitting is the least squares method.<br><br>
+                    **Techniques:**<br>
+                    - Least squares method.<br>
+                    - RANSAC for robust fitting in the presence of noise.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+                    <label for="optionA30">A) To find the best-fitting line that represents a set of data points in a 2D plane.</label><br>
+                    <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+                    <label for="optionB30">B) To identify the points where the line intersects the axes.</label><br>
+                    <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+                    <label for="optionC30">C) To detect the angle between two lines in an image.</label><br>
+                    <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+                    <label for="optionD30">D) To apply a transformation to align two lines in an image.</label><br>
+                </div>
+                <div id="result30" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 32 -->
+                <div class="que">
+                    <p>32. What is the least squares method used for in line fitting?</p>
+                    <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+                </div>
+                <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To minimize the sum of the squared differences between the observed points and the predicted points on the line.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The least squares method minimizes the sum of the squared vertical distances (errors) between the observed data points and the corresponding points on the fitted line. This approach is widely used in regression analysis and line fitting tasks.<br><br>
+                    **Key Concept:**<br>
+                    The method assumes that the errors are normally distributed, and it seeks to minimize the overall error, making the fitted line as close as possible to the data points.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+                    <label for="optionA31">A) To find the average of the data points.</label><br>
+                    <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+                    <label for="optionB31">B) To minimize the sum of the squared differences between the observed points and the predicted points on the line.</label><br>
+                    <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+                    <label for="optionC31">C) To eliminate the outliers in the data points.</label><br>
+                    <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+                    <label for="optionD31">D) To detect the slope of the line.</label><br>
+                </div>
+                <div id="result31" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 33 -->
+                <div class="que">
+                    <p>33. In which scenario is the RANSAC algorithm particularly useful for line fitting?</p>
+                    <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+                </div>
+                <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) When the data contains a significant amount of outliers.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The RANSAC (Random Sample Consensus) algorithm is robust to outliers. It works by iteratively selecting random subsets of the data and fitting a model to each subset. It then evaluates how well the model fits the entire dataset. RANSAC helps to ignore outliers that would otherwise distort the fitting process.<br><br>
+                    **Key Feature:**<br>
+                    RANSAC is especially useful in noisy environments where outliers are common.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+                    <label for="optionA32">A) When the data contains a significant amount of outliers.</label><br>
+                    <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+                    <label for="optionB32">B) When the data is perfectly linear and has no noise.</label><br>
+                    <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+                    <label for="optionC32">C) When the data is uniform and the line is clear.</label><br>
+                    <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+                    <label for="optionD32">D) When the data points are densely packed and linearly distributed.</label><br>
+                </div>
+                <div id="result32" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 34 -->
+                <div class="que">
+                    <p>34. How can lines be used in object recognition?</p>
+                    <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+                </div>
+                <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Lines can define object boundaries and structural features that help distinguish objects in an image.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Lines often correspond to significant object boundaries or key structural features in an image. By detecting and analyzing these lines, an algorithm can recognize and classify objects based on their shape, structure, and geometry.<br><br>
+                    **Application:**<br>
+                    - Detecting edges and shapes in object recognition tasks.
+                    - Identifying geometric patterns and contours that define objects.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+                    <label for="optionA33">A) Lines are used only to enhance the visual appeal of an object.</label><br>
+                    <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+                    <label for="optionB33">B) Lines help to reduce the size of objects for faster processing.</label><br>
+                    <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+                    <label for="optionC33">C) Lines can define object boundaries and structural features that help distinguish objects in an image.</label><br>
+                    <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+                    <label for="optionD33">D) Lines are primarily used for color segmentation in object recognition.</label><br>
+                </div>
+                <div id="result33" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 35 -->
+                <div class="que">
+                    <p>35. What is a common method for detecting lines for object recognition?</p>
+                    <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+                </div>
+                <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) The Hough Transform is commonly used for detecting lines in images.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The Hough Transform is a popular method for detecting lines in an image. It works by transforming points in the image space to a parameter space and identifying peaks that represent lines in the image. This is essential for tasks like edge detection and object recognition based on geometric features.<br><br>
+                    **Applications:**<br>
+                    - Line detection for geometric feature extraction.
+                    - Object shape recognition based on line features.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+                    <label for="optionA34">A) The Hough Transform is commonly used for detecting lines in images.</label><br>
+                    <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+                    <label for="optionB34">B) Edge detection algorithms are used exclusively for line detection in object recognition.</label><br>
+                    <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+                    <label for="optionC34">C) Lines are detected using machine learning techniques alone.</label><br>
+                    <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+                    <label for="optionD34">D) Lines are detected by applying thresholding techniques to edges in the image.</label><br>
+                </div>
+                <div id="result34" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 36 -->
+                <div class="que">
+                    <p>36. What is the primary disadvantage of using least squares fitting for line detection?</p>
+                    <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+                </div>
+                <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) It is sensitive to outliers, which can distort the fitted line.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The least squares method minimizes the squared error, which means it is highly sensitive to outliers. If there are data points far from the line, they can significantly impact the model, leading to an inaccurate fit.<br><br>
+                    **Alternative Approaches:**<br>
+                    - RANSAC (Random Sample Consensus) is often used to handle outliers.
+                    - Robust regression techniques are available to reduce the influence of outliers.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+                    <label for="optionA35">A) It requires a large amount of data for accurate results.</label><br>
+                    <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+                    <label for="optionB35">B) It does not work well for high-dimensional data.</label><br>
+                    <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+                    <label for="optionC35">C) It is sensitive to outliers, which can distort the fitted line.</label><br>
+                    <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+                    <label for="optionD35">D) It cannot handle noisy data effectively.</label><br>
+                </div>
+                <div id="result35" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 37 -->
+                <div class="que">
+                    <p>37. Which of the following is a common application of line fitting in image processing?</p>
+                    <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+                </div>
+                <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Detecting edges and boundaries of objects in an image.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Line fitting can be used to identify edges and boundaries of objects in images by fitting lines to detected edges. This is useful in tasks such as object recognition and segmentation.<br><br>
+                    **Applications:**<br>
+                    - Edge detection using Hough Transform.<br>
+                    - Object boundary recognition based on geometric shapes.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+                    <label for="optionA36">A) Segmenting an image based on color.</label><br>
+                    <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+                    <label for="optionB36">B) Detecting edges and boundaries of objects in an image.</label><br>
+                    <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+                    <label for="optionC36">C) Analyzing texture features in an image.</label><br>
+                    <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+                    <label for="optionD36">D) Matching objects in an image based on color histograms.</label><br>
+                </div>
+                <div id="result36" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 38 -->
+                <div class="que">
+                    <p>38. What is the main advantage of using robust regression techniques over least squares for line fitting?</p>
+                    <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+                </div>
+                <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) They reduce the influence of outliers on the fitted line.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Robust regression techniques are designed to reduce the influence of outliers on the line fitting process. This is achieved by giving less weight to outlier data points during the fitting process.<br><br>
+                    **Common Methods:**<br>
+                    - Huber regression.<br>
+                    - Theil-Sen estimator.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+                    <label for="optionA37">A) They are computationally simpler than least squares fitting.</label><br>
+                    <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+                    <label for="optionB37">B) They can handle high-dimensional data more effectively.</label><br>
+                    <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+                    <label for="optionC37">C) They always provide more accurate results than least squares.</label><br>
+                    <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+                    <label for="optionD37">D) They reduce the influence of outliers on the fitted line.</label><br>
+                </div>
+                <div id="result37" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 39 -->
+                <div class="que">
+                    <p>39. How does the Hough Transform help in line-based object recognition?</p>
+                    <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+                </div>
+                <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) It identifies straight lines by transforming points from image space to parameter space.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The Hough Transform maps points in the image to a parameter space, where straight lines correspond to peaks in the transformed space. This method allows the detection of lines, which can be used for object recognition by analyzing the geometric features of detected lines.<br><br>
+                    **Key Points:**<br>
+                    - Detects straight lines in an image.
+                    - Useful in applications like road detection, building detection, and other structural analysis.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+                    <label for="optionA38">A) It helps in detecting circular objects in an image.</label><br>
+                    <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+                    <label for="optionB38">B) It identifies straight lines by transforming points from image space to parameter space.</label><br>
+                    <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+                    <label for="optionC38">C) It recognizes complex shapes by clustering pixels in the image.</label><br>
+                    <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+                    <label for="optionD38">D) It applies edge detection algorithms to detect object boundaries.</label><br>
+                </div>
+                <div id="result38" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 40 -->
+                <div class="que">
+                    <p>40. What is a key advantage of line-based object recognition over pixel-based recognition?</p>
+                    <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+                </div>
+                <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) It is more robust to noise and changes in lighting conditions.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Line-based recognition focuses on detecting geometric features such as lines, which are more stable and robust compared to raw pixel-based methods. These features are less sensitive to noise, and changes in lighting or object position, making them ideal for tasks like road and building detection.<br><br>
+                    **Applications:**<br>
+                    - Object recognition in varying conditions (e.g., outdoor environments).
+                    - Tracking and identifying structural features in images.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+                    <label for="optionA39">A) It is more robust to noise and changes in lighting conditions.</label><br>
+                    <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+                    <label for="optionB39">B) It uses more computational resources compared to pixel-based methods.</label><br>
+                    <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+                    <label for="optionC39">C) It requires high-resolution images for accurate results.</label><br>
+                    <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+                    <label for="optionD39">D) It can detect textures more accurately than pixel-based methods.</label><br>
+                </div>
+                <div id="result39" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 41 -->
+                <div class="que">
+                    <p>41. How do geometric context features derived from lines help in object recognition?</p>
+                    <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+                </div>
+                <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) They provide structural information about the arrangement of objects in an image.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Geometric context features like the arrangement and intersection of lines provide valuable structural information about objects. This helps to recognize the relative positions and shapes of objects in an image.<br><br>
+                    **Key Points:**<br>
+                    - Structural context helps with object identification even in cluttered environments.<br>
+                    - Useful for recognizing architectural features, road signs, and other line-based structures.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+                    <label for="optionA40">A) They provide structural information about the arrangement of objects in an image.</label><br>
+                    <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+                    <label for="optionB40">B) They are only used for detecting object boundaries.</label><br>
+                    <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+                    <label for="optionC40">C) They help with texture recognition in images.</label><br>
+                    <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+                    <label for="optionD40">D) They help to segment an image based on color intensity.</label><br>
+                </div>
+                <div id="result40" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 42 -->
+                <div class="que">
+                    <p>42. What is the role of line intersections in extracting geometric context features?</p>
+                    <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+                </div>
+                <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) They provide key points that represent the structural layout of the scene.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Line intersections represent points of significant structural change in the image, such as corners or junctions. These intersections are crucial for identifying specific regions and interpreting the arrangement of objects.<br><br>
+                    **Applications:**<br>
+                    - Detecting corners and junctions in road networks.<br>
+                    - Identifying key structural points in architectural designs.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+                    <label for="optionA41">A) They provide textures in the image.</label><br>
+                    <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+                    <label for="optionB41">B) They help identify color patterns in an image.</label><br>
+                    <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+                    <label for="optionC41">C) They provide key points that represent the structural layout of the scene.</label><br>
+                    <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+                    <label for="optionD41">D) They represent the texture gradient of the image.</label><br>
+                </div>
+                <div id="result41" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 43 -->
+                <div class="que">
+                    <p>43. In which scenario is the use of geometric context features most beneficial in computer vision?</p>
+                    <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+                </div>
+                <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) When detecting objects in complex or cluttered environments.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Geometric context features like lines and intersections help detect objects and interpret their spatial relationships in complex environments with many objects. These features help differentiate and identify objects even when they are partially occluded or in cluttered scenes.<br><br>
+                    **Applications:**<br>
+                    - Road sign detection in traffic images.<br>
+                    - Object recognition in crowded or disorganized environments.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+                    <label for="optionA42">A) When detecting objects in uniform, simple environments.</label><br>
+                    <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+                    <label for="optionB42">B) When detecting objects in complex or cluttered environments.</label><br>
+                    <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+                    <label for="optionC42">C) When analyzing textures and surface properties.</label><br>
+                    <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+                    <label for="optionD42">D) When recognizing human faces in an image.</label><br>
+                </div>
+                <div id="result42" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 44 -->
+                <div class="que">
+                    <p>44. What is the main advantage of shape approximation using lines in object recognition?</p>
+                    <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+                </div>
+                <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) It simplifies complex shapes by representing them with fewer geometric primitives.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Shape approximation reduces the complexity of the object by representing it with lines or other simple geometric primitives. This allows for easier recognition and matching of objects in various orientations.<br><br>
+                    **Applications:**<br>
+                    - Object recognition in CAD systems.<br>
+                    - Shape-based image retrieval systems.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+                    <label for="optionA43">A) It simplifies complex shapes by representing them with fewer geometric primitives.</label><br>
+                    <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+                    <label for="optionB43">B) It increases the computational cost of recognition.</label><br>
+                    <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+                    <label for="optionC43">C) It is mainly used for color-based object recognition.</label><br>
+                    <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+                    <label for="optionD43">D) It is used to detect edges and boundaries in images.</label><br>
+                </div>
+                <div id="result43" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 45 -->
+                <div class="que">
+                    <p>45. What method is commonly used for approximating shapes using lines?</p>
+                    <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+                </div>
+                <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) The Ramer-Douglas-Peucker algorithm.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The Ramer-Douglas-Peucker algorithm is commonly used to approximate a curve by reducing the number of points while maintaining the overall shape. This technique is often applied to simplify shapes represented by a series of points.<br><br>
+                    **Steps in Ramer-Douglas-Peucker Algorithm**:<br>
+                    1. Identify the curve's endpoints.<br>
+                    2. Find the point farthest from the line segment joining the endpoints.<br>
+                    3. If the distance is greater than a threshold, include the point; otherwise, discard it.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+                    <label for="optionA44">A) Hough Transform.</label><br>
+                    <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+                    <label for="optionB44">B) K-means clustering.</label><br>
+                    <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+                    <label for="optionC44">C) Principal Component Analysis (PCA).</label><br>
+                    <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+                    <label for="optionD44">D) The Ramer-Douglas-Peucker algorithm.</label><br>
+                </div>
+                <div id="result44" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 46 -->
+                <div class="que">
+                    <p>46. What is the significance of optical flow along lines in computer vision?</p>
+                    <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+                </div>
+                <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) It helps track the motion of objects based on the movement of lines in the image.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Optical flow along lines focuses on tracking the motion of key line features in a scene. These line features are often more stable than individual pixels, especially in dynamic scenes, providing better motion tracking results.<br><br>
+                    **Key Applications:**<br>
+                    - Vehicle tracking in traffic monitoring systems.<br>
+                    - Motion detection in video surveillance.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+                    <label for="optionA45">A) It tracks pixel-based intensity changes in the image.</label><br>
+                    <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+                    <label for="optionB45">B) It helps track the motion of objects based on the movement of lines in the image.</label><br>
+                    <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+                    <label for="optionC45">C) It detects sudden changes in image brightness.</label><br>
+                    <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+                    <label for="optionD45">D) It is used for depth estimation in stereo images.</label><br>
+                </div>
+                <div id="result45" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 47 -->
+                <div class="que">
+                    <p>47. Which method is commonly used to estimate optical flow along line features in an image?</p>
+                    <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+                </div>
+                <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) The Horn-Schunck method.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The Horn-Schunck method is a popular technique for optical flow estimation that works by assuming the flow is smooth across the image. When applied to line features, this method can help track motion by utilizing both brightness constancy and smoothness constraints.<br><br>
+                    **Steps in Horn-Schunck Method:**<br>
+                    1. Calculate the image gradient in both the x and y directions.<br>
+                    2. Use the optical flow equation to estimate the velocity of each pixel.<br>
+                    3. Apply smoothness constraints to ensure the flow is consistent across neighboring pixels.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+                    <label for="optionA46">A) The Horn-Schunck method.</label><br>
+                    <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+                    <label for="optionB46">B) Lucas-Kanade method.</label><br>
+                    <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+                    <label for="optionC46">C) Kalman filtering.</label><br>
+                    <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+                    <label for="optionD46">D) Optical flow with feature matching.</label><br>
+                </div>
+                <div id="result46" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 48 -->
+                <div class="que">
+                    <p>48. How does optical flow along lines improve the accuracy of motion tracking?</p>
+                    <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+                </div>
+                <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Lines are more stable features, making them less susceptible to noise and changes in lighting.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Line features, such as edges and contours, are more stable across frames compared to individual pixels. This stability allows for more reliable motion tracking, especially in dynamic scenes where texture and lighting may change rapidly.<br><br>
+                    **Advantages:**<br>
+                    - Robust tracking in noisy environments.<br>
+                    - Reduced sensitivity to lighting changes.<br>
+                    - Suitable for long-term tracking of objects.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+                    <label for="optionA47">A) It tracks only the motion of the background.</label><br>
+                    <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+                    <label for="optionB47">B) It uses pixel-based matching for faster computation.</label><br>
+                    <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+                    <label for="optionC47">C) It tracks features across color channels.</label><br>
+                    <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+                    <label for="optionD47">D) Lines are more stable features, making them less susceptible to noise and changes in lighting.</label><br>
+                </div>
+                <div id="result47" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 49 -->
+                <div class="que">
+                    <p>49. What is the primary advantage of tracking with line features instead of point features?</p>
+                    <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+                </div>
+                <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Line features provide better stability and are less affected by noise or occlusion.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Tracking with line features allows for more robust tracking in scenes where point features might be occluded, disappear, or be affected by noise. Lines are stable, continuous structures that provide valuable geometric information over time.<br><br>
+                    **Applications:**<br>
+                    - Tracking objects in video surveillance.<br>
+                    - Autonomous vehicle navigation, where road lines are tracked.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+                    <label for="optionA48">A) Line features are easier to detect in low-resolution images.</label><br>
+                    <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+                    <label for="optionB48">B) Line features provide more information about the object's color.</label><br>
+                    <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+                    <label for="optionC48">C) Line features provide better stability and are less affected by noise or occlusion.</label><br>
+                    <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+                    <label for="optionD48">D) Line features require less computational power than point-based tracking.</label><br>
+                </div>
+                <div id="result48" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 50 -->
+                <div class="que">
+                    <p>50. What is a common method used for tracking line features over time in a video?</p>
+                    <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+                </div>
+                <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Line tracking via the Kalman filter.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The Kalman filter is a recursive algorithm that can predict the position of moving objects based on previous measurements. When applied to line features, it helps maintain consistent tracking even when there is noise or uncertainty in the detection process.<br><br>
+                    **Steps in Kalman Filtering for Line Tracking:**<br>
+                    1. Predict the next position of the line.<br>
+                    2. Update the prediction with new observations from the video frames.<br>
+                    3. Repeat the process for continuous tracking.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+                    <label for="optionA49">A) Line matching based on image correlation.</label><br>
+                    <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+                    <label for="optionB49">B) Line tracking via the Kalman filter.</label><br>
+                    <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+                    <label for="optionC49">C) Optical flow applied to line features.</label><br>
+                    <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+                    <label for="optionD49">D) Feature tracking using the Lucas-Kanade method.</label><br>
+                </div>
+                <div id="result49" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 51 -->
+                <div class="que">
+                    <p>51. What is the primary goal of road lane detection in autonomous vehicles?</p>
+                    <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+                </div>
+                <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To detect the boundaries of the lanes on the road for safe navigation.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Lane detection enables autonomous vehicles to understand the road layout and their position relative to the lanes. This helps with lane-keeping and ensures that the vehicle stays within the lanes while driving.<br><br>
+                    **Key Challenges:**<br>
+                    - Changing road conditions.<br>
+                    - Lane markings fading over time.<br>
+                    - Illumination changes in different environments.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+                    <label for="optionA50">A) To detect the boundaries of the lanes on the road for safe navigation.</label><br>
+                    <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+                    <label for="optionB50">B) To detect objects in the surrounding environment.</label><br>
+                    <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+                    <label for="optionC50">C) To estimate the speed of the vehicle on the road.</label><br>
+                    <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+                    <label for="optionD50">D) To recognize traffic signals and signs.</label><br>
+                </div>
+                <div id="result50" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 52 -->
+                <div class="que">
+                    <p>52. Which technique is commonly used for lane detection in autonomous vehicles?</p>
+                    <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+                </div>
+                <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Hough Transform for line detection.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The Hough Transform is a popular technique used for detecting straight lines in images. It can be applied to detect the lane markings in road images captured by the vehicle’s camera.<br><br>
+                    **Steps in Hough Transform for Lane Detection:**<br>
+                    1. Convert the image to grayscale.<br>
+                    2. Apply edge detection to detect road boundaries.<br>
+                    3. Use the Hough Transform to detect lane lines.<br>
+                    4. Track the lane lines over multiple frames.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+                    <label for="optionA51">A) Convolutional Neural Networks (CNN).</label><br>
+                    <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+                    <label for="optionB51">B) Hough Transform for line detection.</label><br>
+                    <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+                    <label for="optionC51">C) Optical flow tracking.</label><br>
+                    <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+                    <label for="optionD51">D) K-means clustering.</label><br>
+                </div>
+                <div id="result51" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 53 -->
+                <div class="que">
+                    <p>53. What is a major challenge in road lane detection for autonomous vehicles?</p>
+                    <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+                </div>
+                <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Lane markings may be damaged or faded over time.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Lane detection systems must deal with challenges such as faded or incomplete lane markings, occlusion by other vehicles, and changing road conditions. These factors can make it difficult for the vehicle to reliably detect lanes.<br><br>
+                    **Approaches to Handle Challenges:**<br>
+                    - Using machine learning to recognize lane features beyond painted lines.<br>
+                    - Combining sensor data from cameras, LiDAR, and radar.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+                    <label for="optionA52">A) The road always has clear lane markings.</label><br>
+                    <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+                    <label for="optionB52">B) Lane markings are always visible in all weather conditions.</label><br>
+                    <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+                    <label for="optionC52">C) Roads are free from any vehicles or obstacles.</label><br>
+                    <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+                    <label for="optionD52">D) Lane markings may be damaged or faded over time.</label><br>
+                </div>
+                <div id="result52" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 54 -->
+                <div class="que">
+                    <p>54. How is line detection used in industrial inspection?</p>
+                    <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+                </div>
+                <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) To detect defects, cracks, or misalignment in manufactured parts.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Line detection is used in industrial inspection to analyze the shapes and contours of objects during the manufacturing process. Defects such as cracks, scratches, or misalignment can be detected by analyzing the line features on the surface of the products.<br><br>
+                    **Common Industrial Applications:**<br>
+                    - Quality control in assembly lines.<br>
+                    - Inspection of metal surfaces for cracks.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+                    <label for="optionA53">A) To measure the temperature of objects.</label><br>
+                    <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+                    <label for="optionB53">B) To inspect the color of materials.</label><br>
+                    <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+                    <label for="optionC53">C) To detect defects, cracks, or misalignment in manufactured parts.</label><br>
+                    <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+                    <label for="optionD53">D) To measure the weight of the products.</label><br>
+                </div>
+                <div id="result53" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 55 -->
+                <div class="que">
+                    <p>55. Which algorithm is commonly used for line detection in industrial inspection applications?</p>
+                    <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+                </div>
+                <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) The Hough Transform.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The Hough Transform is widely used in industrial inspection because of its robustness in detecting lines and curves. It is effective for detecting edges and boundaries, which are critical for identifying defects on product surfaces.<br><br>
+                    **Steps in Using the Hough Transform for Inspection:**<br>
+                    1. Apply edge detection to the image.<br>
+                    2. Use the Hough Transform to detect lines.<br>
+                    3. Identify possible defects based on the deviation from expected line shapes.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+                    <label for="optionA54">A) K-means clustering.</label><br>
+                    <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+                    <label for="optionB54">B) The Hough Transform.</label><br>
+                    <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+                    <label for="optionC54">C) Optical flow analysis.</label><br>
+                    <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+                    <label for="optionD54">D) Mean shift tracking.</label><br>
+                </div>
+                <div id="result54" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 56 -->
+                <div class="que">
+                    <p>56. What is the main advantage of using stereo images for 3D line reconstruction?</p>
+                    <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+                </div>
+                <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Stereo images provide depth information to reconstruct 3D coordinates of points on a line.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Stereo vision works by capturing two images from different viewpoints. By comparing the disparity (difference) between corresponding points in the images, depth information is computed, enabling the reconstruction of 3D lines and structures in the scene.<br><br>
+                    **Key Steps in 3D Line Reconstruction from Stereo Images:**<br>
+                    1. Capture two images from different viewpoints.<br>
+                    2. Find corresponding points in both images.<br>
+                    3. Compute the disparity between the points.<br>
+                    4. Reconstruct the 3D coordinates of the points on the line.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+                    <label for="optionA55">A) Stereo images provide depth information to reconstruct 3D coordinates of points on a line.</label><br>
+                    <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+                    <label for="optionB55">B) Stereo images provide only color information for line detection.</label><br>
+                    <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+                    <label for="optionC55">C) Stereo images can be used for motion detection only.</label><br>
+                    <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+                    <label for="optionD55">D) Stereo images are not useful in 3D reconstruction.</label><br>
+                </div>
+                <div id="result55" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 57 -->
+                <div class="que">
+                    <p>57. Which algorithm is commonly used for disparity map generation in stereo vision systems?</p>
+                    <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+                </div>
+                <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Block matching algorithm.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The block matching algorithm is one of the most widely used techniques for computing disparity maps. It compares small blocks of pixels in the left and right images to determine the disparity (shift) between them, which is essential for 3D reconstruction.<br><br>
+                    **Steps in Block Matching:**<br>
+                    1. Divide the image into small blocks.<br>
+                    2. Compare the corresponding blocks in both images.<br>
+                    3. Calculate the disparity based on pixel shifts.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+                    <label for="optionA56">A) K-means clustering.</label><br>
+                    <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+                    <label for="optionB56">B) Block matching algorithm.</label><br>
+                    <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+                    <label for="optionC56">C) Optical flow algorithm.</label><br>
+                    <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+                    <label for="optionD56">D) Hough Transform.</label><br>
+                </div>
+                <div id="result56" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 58 -->
+                <div class="que">
+                    <p>58. What is the role of epipolar geometry in 3D line reconstruction?</p>
+                    <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+                </div>
+                <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Epipolar geometry defines the constraints for finding corresponding points in stereo images.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Epipolar geometry provides a mathematical framework that allows for the matching of corresponding points in stereo images. It defines epipolar lines, which constrain where the corresponding points must lie, simplifying the process of matching points between images.<br><br>
+                    **Key Concept:**<br>
+                    - Epipolar lines are projections of 3D points onto the image planes of the cameras.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+                    <label for="optionA57">A) It defines the shape of 3D objects.</label><br>
+                    <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+                    <label for="optionB57">B) It determines the orientation of the stereo camera system.</label><br>
+                    <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+                    <label for="optionC57">C) Epipolar geometry defines the constraints for finding corresponding points in stereo images.</label><br>
+                    <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+                    <label for="optionD57">D) It is used to compute the depth map directly.</label><br>
+                </div>
+                <div id="result57" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 59 -->
+                <div class="que">
+                    <p>59. What is the main goal of line segmentation in 3D point clouds?</p>
+                    <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+                </div>
+                <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To extract linear structures from 3D point cloud data for further analysis.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Line segmentation in 3D point clouds involves identifying and isolating the linear structures present in a 3D dataset, such as edges, walls, or other man-made features. This step is crucial for tasks like 3D reconstruction and object recognition.<br><br>
+                    **Steps in Line Segmentation:**<br>
+                    1. Acquire 3D point cloud data (e.g., via LiDAR or depth sensors).<br>
+                    2. Use algorithms to detect and segment straight lines in the point cloud.<br>
+                    3. Extract the linear features for further processing.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+                    <label for="optionA58">A) To classify objects in a 3D point cloud.</label><br>
+                    <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+                    <label for="optionB58">B) To extract linear structures from 3D point cloud data for further analysis.</label><br>
+                    <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+                    <label for="optionC58">C) To remove noise from the 3D point cloud data.</label><br>
+                    <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+                    <label for="optionD58">D) To detect the surface curvature in a point cloud.</label><br>
+                </div>
+                <div id="result58" class="result"></div>
+            </div>
+              <!-- Question 60 -->
+            <div class="qee">
+                <div class="que">
+                    <p>60. Which algorithm is commonly used for line segmentation in 3D point clouds?</p>
+                    <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+                </div>
+                <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) RANSAC (Random Sample Consensus) algorithm.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The RANSAC algorithm is widely used for robust line fitting in 3D point clouds. It is capable of handling outliers by iteratively selecting random subsets of points and fitting a line model to them.<br><br>
+                    **Steps in RANSAC Line Fitting:**<br>
+                    1. Randomly sample points from the point cloud.<br>
+                    2. Fit a line to the sample points.<br>
+                    3. Evaluate how many points fit the line model.<br>
+                    4. Repeat the process and select the best-fitting model.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+                    <label for="optionA59">A) K-means clustering.</label><br>
+                    <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+                    <label for="optionB59">B) Principal Component Analysis (PCA).</label><br>
+                    <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+                    <label for="optionC59">C) Gaussian Mixture Models.</label><br>
+                    <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+                    <label for="optionD59">D) RANSAC (Random Sample Consensus) algorithm.</label><br>
+                </div>
+                <div id="result59" class="result"></div>
+            </div>
+            <!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+        <p>61. Which algorithm is commonly used for object detection in computer vision?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) YOLO (You Only Look Once) algorithm.</strong><br><br>
+        **Solution and Explanation:**<br>
+        The YOLO (You Only Look Once) algorithm is widely used for real-time object detection. Unlike traditional object detection algorithms, YOLO detects objects in one forward pass through the network, making it fast and efficient.<br><br>
+        **How YOLO works:**<br>
+        1. The image is divided into a grid.<br>
+        2. Each grid cell predicts bounding boxes and class probabilities.<br>
+        3. The final output is a set of bounding boxes, confidence scores, and class labels for each object detected.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) SIFT (Scale Invariant Feature Transform).</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) HOG (Histogram of Oriented Gradients).</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) YOLO (You Only Look Once) algorithm.</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) R-CNN (Region-based Convolutional Neural Networks).</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee">
+    <div class="que">
+        <p>62. Which technique is commonly used for image segmentation in deep learning?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) U-Net architecture.</strong><br><br>
+        **Solution and Explanation:**<br>
+        The U-Net architecture is specifically designed for image segmentation tasks. It uses an encoder-decoder structure with skip connections to effectively capture spatial information at multiple scales.<br><br>
+        **How U-Net works:**<br>
+        1. The encoder reduces the image dimensions through convolution and pooling layers.<br>
+        2. The decoder gradually reconstructs the image with upsampling and convolution.<br>
+        3. Skip connections link corresponding encoder and decoder layers to preserve fine-grained spatial features.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) ResNet architecture.</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) U-Net architecture.</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) VGGNet architecture.</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) AlexNet architecture.</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee">
+    <div class="que">
+        <p>63. What is the primary function of a Convolutional Neural Network (CNN) in computer vision?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Feature extraction from images.</strong><br><br>
+        **Solution and Explanation:**<br>
+        The primary function of CNNs is to automatically learn and extract relevant features from images. CNNs use convolutional layers to apply filters (kernels) and detect various image features such as edges, textures, and shapes.<br><br>
+        **How CNNs work:**<br>
+        1. The input image is passed through convolutional layers to extract features.<br>
+        2. Pooling layers reduce the spatial dimensions, preserving the most important information.<br>
+        3. Fully connected layers classify the extracted features to make predictions.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) Feature extraction from images.</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) Image enhancement using histogram equalization.</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) Edge detection using Sobel operator.</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) Object tracking in video sequences.</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+            <div class="qee">
+                <!-- Question 64 -->
+                <div class="que">
+                    <p>64. What is the primary benefit of using RANSAC for line detection in 3D point clouds?</p>
+                    <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+                </div>
+                <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) RANSAC is robust to outliers, allowing it to detect lines even in noisy point clouds.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The Random Sample Consensus (RANSAC) algorithm is widely used for fitting lines in 3D point clouds because it can handle a significant number of outliers. It works by randomly sampling subsets of points and fitting a line model, then iterating to find the best-fitting model that minimizes the impact of outliers.<br><br>
+                    **Steps in RANSAC for Line Detection:**<br>
+                    1. Randomly sample a subset of points.<br>
+                    2. Fit a line model to the sample.<br>
+                    3. Determine how many other points fit the model.<br>
+                    4. Repeat to find the model with the most inliers.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+                    <label for="optionA63">A) RANSAC is robust to outliers, allowing it to detect lines even in noisy point clouds.</label><br>
+                    <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+                    <label for="optionB63">B) RANSAC is only useful for detecting curved structures.</label><br>
+                    <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+                    <label for="optionC63">C) RANSAC requires all points to be accurately aligned.</label><br>
+                    <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+                    <label for="optionD63">D) RANSAC is slower than other algorithms for line detection.</label><br>
+                </div>
+                <div id="result63" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 65 -->
+                <div class="que">
+                    <p>65. In the context of line detection with RANSAC, what is considered an "inlier"?</p>
+                    <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+                </div>
+                <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Points that fit the model within a predefined tolerance.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Inliers are points that lie within a certain distance (tolerance) from the line model. These points are considered part of the line, while points that deviate significantly are considered outliers.<br><br>
+                    **Concept of Inliers in RANSAC:**<br>
+                    - Inliers: Points that are close to the estimated model (line).
+                    - Outliers: Points that deviate far from the model and are excluded from the fitting process.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+                    <label for="optionA64">A) Points that are randomly selected for the fitting process.</label><br>
+                    <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+                    <label for="optionB64">B) Points that fall outside of the point cloud.</label><br>
+                    <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+                    <label for="optionC64">C) Points that fit the model within a predefined tolerance.</label><br>
+                    <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+                    <label for="optionD64">D) Points that lie on the boundary of the point cloud.</label><br>
+                </div>
+                <div id="result64" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 66 -->
+                <div class="que">
+                    <p>66. What is the main advantage of RANSAC over traditional least squares fitting methods for line detection?</p>
+                    <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+                </div>
+                <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) RANSAC can fit a line even when a significant portion of the points are outliers.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Traditional least squares fitting methods are highly sensitive to outliers, which can severely distort the line model. RANSAC, however, iteratively fits models to subsets of data and is able to robustly detect the true line even when many of the points are outliers.<br><br>
+                    **Key Feature of RANSAC:**<br>
+                    - Random sampling from the dataset allows RANSAC to ignore outliers and focus on inliers to generate a more accurate model.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+                    <label for="optionA65">A) RANSAC always requires fewer data points for line fitting.</label><br>
+                    <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+                    <label for="optionB65">B) RANSAC can fit a line even when a significant portion of the points are outliers.</label><br>
+                    <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+                    <label for="optionC65">C) RANSAC works only for detecting circular shapes, not lines.</label><br>
+                    <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+                    <label for="optionD65">D) RANSAC always provides an optimal solution with minimal errors.</label><br>
+                </div>
+                <div id="result65" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 67 -->
+                <div class="que">
+                    <p>67. How does RANSAC decide whether a point is an inlier or outlier during line fitting?</p>
+                    <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+                </div>
+                <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By calculating the perpendicular distance of the point from the model line and comparing it with a predefined threshold.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    In RANSAC, a point is considered an inlier if its distance from the model line (or plane) is less than a predefined threshold. This threshold helps to distinguish between points that lie on the line and points that are far away and thus should be excluded as outliers.<br><br>
+                    **Perpendicular Distance Formula:**<br>
+                    - The distance between a point and a line is computed using the perpendicular distance formula, and if the distance is less than a certain threshold, the point is labeled as an inlier.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+                    <label for="optionA66">A) By calculating the angle between the point and the line.</label><br>
+                    <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+                    <label for="optionB66">B) By applying a Gaussian filter to smooth out point variations.</label><br>
+                    <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+                    <label for="optionC66">C) By calculating the perpendicular distance of the point from the model line and comparing it with a predefined threshold.</label><br>
+                    <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+                    <label for="optionD66">D) By checking if the point is located within a predefined radius of the line.</label><br>
+                </div>
+                <div id="result66" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 68 -->
+                <div class="que">
+                    <p>68. How does the graph-based approach handle large-scale 3D point clouds for line segmentation?</p>
+                    <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+                </div>
+                <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By using efficient graph partitioning algorithms like spectral clustering or min-cut to reduce computational complexity.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    For large-scale 3D point clouds, the graph-based approach can be computationally expensive. Efficient graph partitioning algorithms such as spectral clustering or min-cut help to speed up the segmentation by reducing the problem size and grouping points into segments more effectively.<br><br>
+                    **Techniques Used:**<br>
+                    - Spectral clustering: Reduces dimensionality and performs the segmentation based on the eigenvectors of the similarity matrix.
+                    - Min-cut algorithms: Partition the graph into subgraphs that correspond to distinct line segments.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+                    <label for="optionA67">A) By applying a k-means clustering approach to group points.</label><br>
+                    <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+                    <label for="optionB67">B) By using efficient graph partitioning algorithms like spectral clustering or min-cut to reduce computational complexity.</label><br>
+                    <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+                    <label for="optionC67">C) By reducing the number of points using voxelization or downsampling techniques.</label><br>
+                    <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+                    <label for="optionD67">D) By applying a hierarchical clustering approach to divide the graph.</label><br>
+                </div>
+                <div id="result67" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 69 -->
+                <div class="que">
+                    <p>69. What type of graph algorithm is commonly used for graph-based line segmentation?</p>
+                    <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+                </div>
+                <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Spectral clustering.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Spectral clustering is widely used in graph-based segmentation due to its ability to efficiently partition points in high-dimensional spaces. By using the eigenvalues of the graph Laplacian, spectral clustering can effectively segment the graph into meaningful line segments based on point similarity.<br><br>
+                    **Steps in Spectral Clustering for Line Segmentation:**<br>
+                    1. Construct a similarity graph between points.<br>
+                    2. Compute the Laplacian matrix.<br>
+                    3. Perform eigenvalue decomposition to obtain clusters.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+                    <label for="optionA68">A) Dijkstra’s algorithm.</label><br>
+                    <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+                    <label for="optionB68">B) Prim’s algorithm.</label><br>
+                    <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+                    <label for="optionC68">C) Bellman-Ford algorithm.</label><br>
+                    <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+                    <label for="optionD68">D) Spectral clustering.</label><br>
+                </div>
+                <div id="result68" class="result"></div>
+            </div>
+                                                                                                                                                                                                                                                      
+            <div class="qee">
+                <!-- Question 70 -->
+                <div class="que">
+                    <p>70. What is the role of edge detection in graph-based line segmentation?</p>
+                    <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+                </div>
+                <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Edge detection helps to identify important boundaries in the graph that define the line segments.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    In graph-based line segmentation, edge detection plays a crucial role in identifying significant boundaries or transitions between different regions. These boundaries help to define where the line segments start and end within the graph.<br><br>
+                    **Edge Detection for Line Segmentation:**<br>
+                    - The graph's edges are formed based on the intensity changes in the data, guiding the segmentation process.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+                    <label for="optionA69">A) Edge detection is not necessary for graph-based segmentation.</label><br>
+                    <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+                    <label for="optionB69">B) Edge detection is used to smooth the data before segmentation.</label><br>
+                    <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+                    <label for="optionC69">C) Edge detection helps to identify important boundaries in the graph that define the line segments.</label><br>
+                    <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+                    <label for="optionD69">D) Edge detection is used to filter out noisy data points.</label><br>
+                </div>
+                <div id="result69" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 71 -->
+                <div class="que">
+                    <p>71. Which of the following is a challenge in graph-based line segmentation for large datasets?</p>
+                    <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+                </div>
+                <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) High computational complexity due to the large number of points and connections in the graph.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Graph-based line segmentation relies on constructing a graph where each point is connected to others, which can lead to high computational complexity, especially for large datasets. This can result in longer processing times.<br><br>
+                    **Challenges in Large Datasets:**<br>
+                    - As the number of points increases, the graph's size grows exponentially, increasing the number of edges and nodes, which makes the segmentation process slower.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+                    <label for="optionA70">A) Difficulty in identifying the starting point of segmentation.</label><br>
+                    <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+                    <label for="optionB70">B) The need for manual intervention to adjust parameters during segmentation.</label><br>
+                    <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+                    <label for="optionC70">C) Low accuracy in segmenting complex shapes.</label><br>
+                    <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+                    <label for="optionD70">D) High computational complexity due to the large number of points and connections in the graph.</label><br>
+                </div>
+                <div id="result70" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 72 -->
+                <div class="que">
+                    <p>72. What is the significance of the "threshold" parameter in RANSAC line fitting?</p>
+                    <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+                </div>
+                <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) The threshold defines the maximum allowed distance between a point and the model to be considered an inlier.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The threshold is a key parameter in RANSAC. It determines how close a point must be to the fitted line in order to be considered an inlier. Points within this distance are considered to belong to the line, while points outside are treated as outliers.<br><br>
+                    **Threshold Influence:**<br>
+                    - A small threshold might exclude points that are part of the true line, while a large threshold might include too many outliers.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+                    <label for="optionA71">A) The threshold determines how many iterations RANSAC will run.</label><br>
+                    <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+                    <label for="optionB71">B) The threshold defines the maximum allowed distance between a point and the model to be considered an inlier.</label><br>
+                    <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+                    <label for="optionC71">C) The threshold determines the number of points required to fit the model.</label><br>
+                    <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+                    <label for="optionD71">D) The threshold adjusts the probability of selecting an outlier during the fitting process.</label><br>
+                </div>
+                <div id="result71" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 73 -->
+                <div class="que">
+                    <p>73. What is the primary limitation of RANSAC for line detection in noisy datasets?</p>
+                    <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+                </div>
+                <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) RANSAC may fail to detect a line if the number of inliers is too small relative to the outliers.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    RANSAC performs well when there are a sufficient number of inliers compared to outliers. However, if the number of inliers is too small or the outliers dominate the dataset, RANSAC may struggle to find the correct line model.<br><br>
+                    **Limitation in Noisy Datasets:**<br>
+                    - If the dataset contains too many outliers or the inliers are not well distributed, the random sampling process may repeatedly select outliers and fail to converge on the correct model.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+                    <label for="optionA72">A) RANSAC requires the entire dataset to be cleaned before running.</label><br>
+                    <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+                    <label for="optionB72">B) RANSAC requires a very high number of iterations for noisy data.</label><br>
+                    <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+                    <label for="optionC72">C) RANSAC is unable to detect lines in datasets with varying noise levels.</label><br>
+                    <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+                    <label for="optionD72">D) RANSAC may fail to detect a line if the number of inliers is too small relative to the outliers.</label><br>
+                </div>
+                <div id="result72" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 74 -->
+                <div class="que">
+                    <p>74. What is the role of line segment graphs in scene representation?</p>
+                    <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+                </div>
+                <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Line segment graphs represent relationships between structural elements in a scene, facilitating geometric analysis.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Line segment graphs are used to represent structural relationships between different elements in a scene, such as walls, objects, or edges. The nodes represent key points, and the edges represent the relationship between these points.<br><br>
+                    **Use in Scene Representation:**<br>
+                    - Line segment graphs allow for easier extraction of geometric features, aiding tasks like object recognition, scene reconstruction, and path planning.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+                    <label for="optionA73">A) Line segment graphs simplify the image by converting it into a grid representation.</label><br>
+                    <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+                    <label for="optionB73">B) Line segment graphs are used to enhance the contrast in an image.</label><br>
+                    <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+                    <label for="optionC73">C) Line segment graphs represent relationships between structural elements in a scene, facilitating geometric analysis.</label><br>
+                    <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+                    <label for="optionD73">D) Line segment graphs are used for image compression purposes.</label><br>
+                </div>
+                <div id="result73" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 75 -->
+                <div class="que">
+                    <p>75. In line segment graphs, what is the significance of edges between nodes?</p>
+                    <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+                </div>
+                <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Edges represent the geometric relationship between the line segments, such as proximity or parallelism.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    In a line segment graph, edges between nodes indicate a relationship between the respective line segments in the scene. These relationships can represent geometric properties like proximity, parallelism, or intersection.<br><br>
+                    **Edge Significance:**<br>
+                    - By analyzing these relationships, line segment graphs help detect patterns or structures, useful in tasks like scene analysis, robot navigation, or object recognition.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+                    <label for="optionA74">A) Edges connect random points in the image for segmentation.</label><br>
+                    <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+                    <label for="optionB74">B) Edges help reduce the image size for faster processing.</label><br>
+                    <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+                    <label for="optionC74">C) Edges represent the intensity of colors in the image.</label><br>
+                    <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+                    <label for="optionD74">D) Edges represent the geometric relationship between the line segments, such as proximity or parallelism.</label><br>
+                </div>
+                <div id="result74" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 76 -->
+                <div class="que">
+                    <p>76. Which type of data can line segment graphs help analyze in a scene?</p>
+                    <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+                </div>
+                <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Geometric and structural data, including shapes, lines, and spatial relationships.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Line segment graphs are particularly effective for analyzing geometric and structural data in a scene. By representing lines and their relationships, these graphs can assist in tasks like shape recognition, structural analysis, and spatial reasoning.<br><br>
+                    **Applications:**<br>
+                    - Used in fields like robotics, computer vision, and augmented reality, line segment graphs are key to understanding the layout and features of a scene.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+                    <label for="optionA75">A) Pixel-based data for image segmentation.</label><br>
+                    <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+                    <label for="optionB75">B) Geometric and structural data, including shapes, lines, and spatial relationships.</label><br>
+                    <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+                    <label for="optionC75">C) Color distribution data for image enhancement.</label><br>
+                    <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+                    <label for="optionD75">D) Temporal data for motion analysis.</label><br>
+                </div>
+                <div id="result75" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 77 -->
+                <div class="que">
+                    <p>77. What is the primary advantage of using line segment graphs for scene representation?</p>
+                    <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+                </div>
+                <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) They allow for a simplified and structured representation of complex scenes, aiding in analysis and understanding.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Line segment graphs help reduce the complexity of a scene by breaking it down into manageable line segments and their relationships. This simplification enables more efficient analysis, such as detecting geometric patterns, estimating scene layout, and identifying objects.<br><br>
+                    **Advantages:**<br>
+                    - Line segment graphs provide a clear structure that makes it easier to identify key features and their interconnections.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+                    <label for="optionA76">A) They allow for a simplified and structured representation of complex scenes, aiding in analysis and understanding.</label><br>
+                    <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+                    <label for="optionB76">B) They enhance the image contrast to highlight boundaries.</label><br>
+                    <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+                    <label for="optionC76">C) They provide a pixel-by-pixel representation of the scene.</label><br>
+                    <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+                    <label for="optionD76">D) They help in the noise reduction of image data.</label><br>
+                </div>
+                <div id="result76" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 78 -->
+                <div class="que">
+                    <p>78. How can line segment graphs be used in robot navigation?</p>
+                    <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+                </div>
+                <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Line segment graphs represent obstacles and paths, helping robots navigate through environments.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Line segment graphs can be used in robot navigation by modeling the environment as a graph where nodes represent key points in the scene, and edges represent paths or obstacles. This graph can guide the robot through the environment, allowing it to avoid obstacles and follow a clear path.<br><br>
+                    **Applications in Robotics:**<br>
+                    - Pathfinding algorithms can use line segment graphs to find the most efficient route for the robot to navigate from one point to another.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+                    <label for="optionA77">A) Line segment graphs are used to reduce the image size for processing.</label><br>
+                    <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+                    <label for="optionB77">B) Line segment graphs help in enhancing the colors of the image.</label><br>
+                    <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+                    <label for="optionC77">C) Line segment graphs represent obstacles and paths, helping robots navigate through environments.</label><br>
+                    <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+                    <label for="optionD77">D) Line segment graphs simplify image data for object recognition.</label><br>
+                </div>
+                <div id="result77" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 79 -->
+                <div class="que">
+                    <p>79. What type of applications can benefit from line segment graphs in computer vision?</p>
+                    <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+                </div>
+                <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Applications such as scene reconstruction, object recognition, and augmented reality.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Line segment graphs are useful for various computer vision applications, including reconstructing scenes from images, recognizing objects based on their geometric features, and enabling augmented reality by identifying structures in the environment.<br><br>
+                    **Applications:**<br>
+                    - These graphs help identify spatial relationships and features of objects, enhancing the accuracy of scene analysis and 3D reconstruction.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+                    <label for="optionA78">A) Applications focused on image compression.</label><br>
+                    <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+                    <label for="optionB78">B) Applications such as scene reconstruction, object recognition, and augmented reality.</label><br>
+                    <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+                    <label for="optionC78">C) Applications that focus on color enhancement in images.</label><br>
+                    <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+                    <label for="optionD78">D) Applications focused on noise removal and image smoothing.</label><br>
+                </div>
+                <div id="result78" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 80 -->
+                <div class="que">
+                    <p>80. How can line segment graphs be used in autonomous vehicle navigation?</p>
+                    <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+                </div>
+                <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) They model the road network, enabling path planning and obstacle avoidance in autonomous vehicles.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    In autonomous vehicles, line segment graphs represent the road network by modeling key segments of the road as edges and intersections as nodes. This graph helps the vehicle plan routes, avoid obstacles, and follow safe and efficient paths.<br><br>
+                    **Applications in Autonomous Vehicles:**<br>
+                    - Line segment graphs assist in the navigation system by helping the vehicle detect road boundaries, intersections, and lanes, ensuring smooth and safe driving.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+                    <label for="optionA79">A) They model the road network, enabling path planning and obstacle avoidance in autonomous vehicles.</label><br>
+                    <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+                    <label for="optionB79">B) They are used to calculate the color gradients of road surfaces for better traction.</label><br>
+                    <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+                    <label for="optionC79">C) They represent the vehicle's internal components for diagnostic purposes.</label><br>
+                    <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+                    <label for="optionD79">D) They are used for controlling the vehicle's speed based on road conditions.</label><br>
+                </div>
+                <div id="result79" class="result"></div>
+            </div>
+                                                                                                                                                                                                                                                                                                                  
+            
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

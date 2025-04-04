@@ -1,0 +1,2432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotics</title>
+    <link rel="stylesheet" href="../css/AI.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'C', 'A', 'D', 'A', 'C', 'B', 'A', 'C', 'D',
+            'A', 'D', 'C', 'B', 'D', 'B', 'A', 'C', 'B', 'A',
+            'B', 'D', 'A', 'B', 'A', 'B', 'A', 'C', 'D', 'A',
+            'D', 'B', 'C', 'A', 'A', 'B', 'A', 'C', 'B', 'A',
+            'B', 'A', 'C', 'B', 'A', 'B', 'A', 'B', 'C', 'D',
+            'A', 'B', 'A', 'D', 'A', 'B', 'A', 'C', 'A', 'B',   
+            'C', 'D', 'A', 'B', 'C', 'D', 'B', 'A', 'B', 'A',
+            'A', 'C', 'A', 'B', 'C', 'A', 'C', 'D', 'A', 'B',
+            'C', 'A', 'D', 'B'
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>ROBOTICS</h3>
+        <div class="inner-border">
+<!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is the primary goal of autonomous navigation in robotics?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To enable robots to move from one point to another without human intervention.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Autonomous navigation allows robots to determine their position and plan a path to reach a destination without external control.<br><br>
+        **Key Components of Autonomous Navigation:**<br>
+        1. Localization<br>
+        2. Mapping<br>
+        3. Path Planning<br>
+        4. Obstacle Avoidance<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) To improve the robot's battery life.</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) To enable robots to move from one point to another without human intervention.</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) To enhance the robot's speed.</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) To reduce the robot's operational cost.</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. Which algorithm is commonly used for path planning in robotics?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) A* (A-Star) algorithm</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **A* algorithm** is widely used for path planning because it finds the shortest path efficiently while avoiding obstacles.<br><br>
+        **Steps in A* Algorithm:**<br>
+        1. Initialize the open and closed lists.<br>
+        2. Evaluate the cost (g) and heuristic (h) for each node.<br>
+        3. Select the node with the lowest total cost (f = g + h).<br>
+        4. Repeat until the goal is reached.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Dijkstra’s Algorithm</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Breadth-First Search (BFS)</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) A* (A-Star) algorithm</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Depth-First Search (DFS)</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What is the purpose of Simultaneous Localization and Mapping (SLAM) in robotics?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To help robots create a map of an unknown environment while tracking their location within it.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **SLAM** is crucial for autonomous robots to navigate unfamiliar environments by building a map and locating themselves within it.<br><br>
+        **Key Components of SLAM:**<br>
+        1. Sensor data acquisition (LIDAR, cameras).<br>
+        2. Data processing to detect features.<br>
+        3. Map creation and localization.<br>
+        4. Continuous updating as the robot moves.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) To help robots create a map of an unknown environment while tracking their location within it.</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) To improve the speed of the robot.</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) To enhance the robot's battery efficiency.</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) To simplify the robot's control system.</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. Which sensor is commonly used for obstacle detection in autonomous robots?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) LIDAR (Light Detection and Ranging)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **LIDAR** is commonly used in robotics for precise distance measurements and creating 3D maps of the environment for obstacle detection.<br><br>
+        **How LIDAR Works:**<br>
+        1. Emits laser beams to scan the surroundings.<br>
+        2. Measures the time it takes for the light to reflect back.<br>
+        3. Creates a high-resolution map of the environment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) Ultrasonic Sensor</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) Infrared Sensor</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) Camera Sensor</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) LIDAR (Light Detection and Ranging)</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. What is the main advantage of using path planning algorithms in robotics?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To ensure robots follow the most efficient and safe path to their destination.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Path planning algorithms optimize the robot's route, considering factors like obstacles, energy consumption, and time efficiency.<br><br>
+        **Benefits:**<br>
+        1. Efficient movement.<br>
+        2. Collision avoidance.<br>
+        3. Energy conservation.<br>
+        4. Improved autonomy.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) To ensure robots follow the most efficient and safe path to their destination.</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) To increase the robot’s processing speed.</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) To reduce the size of the robot.</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) To enhance the robot’s color detection capabilities.</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+        
+               <!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. Which technique is commonly used to estimate the motion of objects in a video?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Optical Flow</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Optical Flow** is a method used to detect motion by analyzing the apparent movement of objects between consecutive frames in a video.<br><br>
+        **Key Concepts:**<br>
+        1. Motion estimation based on changes in pixel intensity.<br>
+        2. Used in object tracking, navigation, and video stabilization.<br>
+        3. Algorithms include Lucas-Kanade and Horn-Schunck methods.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) Histogram Equalization</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) Hough Transform</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) Optical Flow</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) Fourier Transform</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. What does the term "depth estimation" refer to in computer vision?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Determining the distance of objects from the camera.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Depth estimation allows computers to understand the 3D structure of a scene by calculating how far objects are from the camera.<br><br>
+        **Methods of Depth Estimation:**<br>
+        1. Stereo vision (using two cameras)<br>
+        2. Structure from motion (SfM)<br>
+        3. LIDAR and time-of-flight sensors<br>
+        4. Monocular depth estimation using deep learning<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Identifying the color of objects.</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Determining the distance of objects from the camera.</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Enhancing image sharpness.</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Converting images to grayscale.</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. Which of the following is a common challenge in robotic perception?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Handling varying lighting conditions and occlusions.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Robotic perception faces challenges due to environmental factors like changes in lighting, object occlusions, and sensor noise.<br><br>
+        **Common Challenges:**<br>
+        1. Variations in lighting and shadows<br>
+        2. Occlusion of objects<br>
+        3. Sensor limitations and noise<br>
+        4. Real-time processing requirements<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) Handling varying lighting conditions and occlusions.</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) Reducing the robot's size.</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) Increasing the robot's weight.</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) Making robots more colorful.</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. What is the purpose of using convolutional layers in neural networks for computer vision?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To automatically learn spatial hierarchies of features from images.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Convolutional Layers** help neural networks detect patterns like edges, textures, and shapes at different scales.<br><br>
+        **Why They Are Important:**<br>
+        1. Reduce the number of parameters compared to fully connected layers.<br>
+        2. Preserve spatial relationships in the image.<br>
+        3. Capture hierarchical features from low-level to high-level.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) To increase the network's memory capacity.</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) To make the network faster.</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) To automatically learn spatial hierarchies of features from images.</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) To convert images into sound waves.</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. Which technique is used to improve the accuracy of object detection models?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Data Augmentation</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Data Augmentation** increases the diversity of training data by applying transformations like rotation, flipping, scaling, etc.<br><br>
+        **Benefits:**<br>
+        1. Prevents overfitting.<br>
+        2. Enhances model generalization.<br>
+        3. Provides more varied training scenarios.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) Reducing the model size.</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) Decreasing the training data.</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) Using simpler algorithms.</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) Data Augmentation</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is the primary goal of Human-Robot Interaction (HRI)?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To enable effective and intuitive communication between humans and robots.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        HRI focuses on designing robots that can understand, interpret, and respond to human behaviors effectively.<br><br>
+        **Key Aspects of HRI:**<br>
+        1. Communication (verbal and non-verbal)<br>
+        2. Collaboration in shared environments<br>
+        3. Adaptability to human emotions and actions<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) To enable effective and intuitive communication between humans and robots.</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) To make robots look more human-like.</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) To reduce the size of robots.</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) To make robots work without any human supervision.</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. Which of the following is NOT a common method for robots to perceive human emotions?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Using GPS signals</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Robots perceive human emotions through visual, auditory, and physiological cues.<br><br>
+        **Common Methods:**<br>
+        1. Facial expression recognition<br>
+        2. Voice tone analysis<br>
+        3. Body language interpretation<br>
+        **NOT Common:** GPS signals are used for location tracking, not emotion detection.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) Facial expression recognition</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) Voice tone analysis</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) Body language interpretation</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) Using GPS signals</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What is the concept of "affective computing" in HRI?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The development of systems that can recognize, interpret, and respond to human emotions.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Affective Computing** enables robots to process emotional information to improve interaction with humans.<br><br>
+        **Key Features:**<br>
+        1. Emotion recognition from facial expressions, voice, and body language<br>
+        2. Emotional response generation<br>
+        3. Enhances human-robot empathy and understanding<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) Programming robots to perform complex calculations.</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) Developing robots that can fly autonomously.</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) The development of systems that can recognize, interpret, and respond to human emotions.</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) Making robots more energy-efficient.</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. Which of the following is a key factor in designing socially interactive robots?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Natural communication abilities, including speech and gestures.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Socially interactive robots need to communicate naturally to build trust and effective interaction with humans.<br><br>
+        **Key Factors:**<br>
+        1. Speech recognition and natural language processing<br>
+        2. Gesture recognition<br>
+        3. Emotional expression capabilities<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) Having advanced mechanical arms.</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) Natural communication abilities, including speech and gestures.</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) Using large batteries for longer operation.</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) Being designed with metallic exteriors.</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What type of learning allows robots to improve their performance through interactions with humans?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Human-in-the-loop learning</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Human-in-the-loop learning** enables robots to learn from human feedback in real-time, improving their capabilities.<br><br>
+        **Key Aspects:**<br>
+        1. Continuous learning through interaction<br>
+        2. Adaptation to human preferences<br>
+        3. Real-time correction and feedback mechanisms<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) Supervised learning</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) Unsupervised learning</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) Reinforcement learning</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) Human-in-the-loop learning</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+
+
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. Which of the following is a common example of swarm robotics in nature?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Ant colonies.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Nature’s Swarm Examples:**<br>
+        Ant colonies, bee hives, and flocks of birds display collective behaviors without centralized control.<br><br>
+        **Key Features:**<br>
+        1. Self-organization<br>
+        2. Adaptation to environmental changes<br>
+        3. Simple rules for complex outcomes<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) Single large robots.</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) Ant colonies.</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) Human-designed robots only.</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) Individual robots with no communication.</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. What is a key advantage of using swarm robotics in real-world applications?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Robustness to individual robot failures.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Advantages of Swarm Robotics:**<br>
+        - High fault tolerance due to decentralized control.<br>
+        - Scalability for large-scale tasks.<br>
+        - Flexibility in dynamic environments.<br><br>
+        **Robustness:** If one robot fails, others continue the task without disruption.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) Robustness to individual robot failures.</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) Higher cost of deployment.</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) Complete reliance on a central controller.</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) Limited ability to adapt to changes.</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. Which algorithm is commonly used in swarm robotics for path planning?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Ant Colony Optimization (ACO)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Ant Colony Optimization (ACO):**<br>
+        Inspired by the foraging behavior of ants, ACO helps in finding optimal paths in dynamic environments.<br><br>
+        **Key Features:**<br>
+        - Simulates pheromone trails to guide agents.<br>
+        - Adapts to environmental changes.<br>
+        - Effective in solving routing and pathfinding problems.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) Dijkstra’s Algorithm</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) A* Algorithm</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) Ant Colony Optimization (ACO)</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) Breadth-First Search (BFS)</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What is the primary disadvantage of swarm robotics?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Difficulty in coordinating large numbers of robots.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        While swarm robotics offers many advantages, it can be challenging to coordinate and manage large groups of robots effectively.<br><br>
+        **Challenges:**<br>
+        - Communication congestion in large swarms.<br>
+        - Complexity in algorithm design.<br>
+        - Unpredictable behaviors in dynamic environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) High energy consumption.</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) Difficulty in coordinating large numbers of robots.</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) Limited to indoor environments only.</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) Requires a human operator for every robot.</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. What is the main goal of reinforcement learning in robotics?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To learn optimal actions through trial and error to maximize rewards.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Reinforcement Learning (RL)** focuses on teaching robots to make decisions by interacting with their environment and learning from feedback.<br><br>
+        **Key Components:**<br>
+        1. Agent (robot)<br>
+        2. Environment (task or surroundings)<br>
+        3. Actions (moves or decisions)<br>
+        4. Rewards (feedback signals)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) To learn optimal actions through trial and error to maximize rewards.</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) To memorize specific tasks without adaptation.</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) To eliminate the need for feedback from the environment.</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) To perform tasks without any learning process.</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. Which of the following is a common algorithm used in reinforcement learning?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Q-learning</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Q-learning** is a model-free RL algorithm used to find the optimal action-selection policy for a given environment.<br><br>
+        **How It Works:**<br>
+        1. Maintains a Q-table with state-action values.<br>
+        2. Updates values based on received rewards.<br>
+        3. Chooses actions to maximize future rewards.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) Dijkstra's Algorithm</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) Q-learning</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) A* Algorithm</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) Breadth-First Search (BFS)</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. What type of feedback does reinforcement learning primarily rely on?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Rewards and penalties based on actions taken.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        RL depends on feedback from the environment in the form of rewards or penalties to guide the learning process.<br><br>
+        **Example:**<br>
+        - A robot receives a positive reward for reaching a target and a penalty for hitting obstacles.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) Only supervised learning data.</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) Predefined rules without environmental interaction.</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) Unsupervised clustering data.</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) Rewards and penalties based on actions taken.</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. What does the term "exploration vs. exploitation" refer to in reinforcement learning?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Balancing the choice between trying new actions and using known rewards.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Exploration:** Trying new actions to discover their potential.<br>
+        **Exploitation:** Choosing actions known to yield the best rewards.<br><br>
+        **Challenge:** Striking the right balance between these two strategies for optimal learning.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) Balancing the choice between trying new actions and using known rewards.</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) Choosing the easiest task every time.</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) Avoiding all new experiences.</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) Focusing only on known strategies.</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. In the context of RL, what is a "reward signal"?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A numerical value given as feedback after an action is taken.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A **reward signal** guides the learning process by indicating the success or failure of an action.<br><br>
+        **Example:**<br>
+        - A robot receives +10 for reaching a goal and -5 for hitting an obstacle.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) A text description of an action.</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) A numerical value given as feedback after an action is taken.</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) A graphical representation of the environment.</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) A type of hardware used in robotics.</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. What is the primary goal of robotic manipulation?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To enable robots to interact with and control objects in their environment.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Robotic Manipulation** involves the ability of robots to perform tasks such as picking, holding, and moving objects.<br><br>
+        **Key Aspects:**<br>
+        1. Sensing the object.<br>
+        2. Planning the movement.<br>
+        3. Grasping and applying force.<br>
+        4. Handling dynamic changes in the environment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) To enable robots to interact with and control objects in their environment.</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) To enhance the visual display of robotic systems.</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) To improve the battery life of robots.</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) To reduce the size of robotic arms.</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. Which of the following is a common type of robotic gripper?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Parallel gripper</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Parallel Grippers** are widely used for picking up objects because they can apply equal force on both sides of an object.<br><br>
+        **Other Types:**<br>
+        - Vacuum grippers for smooth surfaces.<br>
+        - Magnetic grippers for metal objects.<br>
+        - Soft grippers for delicate items.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) Hydraulic gripper</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) Parallel gripper</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) Pneumatic pump</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) Robotic wheel</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. What is the main challenge in robotic grasping?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Dealing with variability in object shapes, sizes, and surface properties.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Challenges in Robotic Grasping:**<br>
+        1. Detecting and identifying objects accurately.<br>
+        2. Adapting to different object shapes and materials.<br>
+        3. Applying the right amount of force to prevent slipping or damage.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) Dealing with variability in object shapes, sizes, and surface properties.</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) Reducing the cost of robotic parts.</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) Enhancing the color recognition of robots.</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) Improving the robot's speed in motion.</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. Which sensor is commonly used to detect the presence and shape of objects for robotic manipulation?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) 3D camera or depth sensor</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **3D Cameras or Depth Sensors** help robots perceive the environment in three dimensions, allowing them to detect object shapes and distances.<br><br>
+        **Examples:**<br>
+        - RGB-D cameras (e.g., Microsoft Kinect)<br>
+        - LiDAR sensors for precise mapping<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) Infrared thermometer</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) Accelerometer</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) 3D camera or depth sensor</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) Barometer</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. What is "inverse kinematics" in robotic manipulation?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) The process of calculating joint angles to achieve a desired end-effector position.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Inverse Kinematics (IK)** helps robots determine the necessary joint angles to place the end-effector (like a hand) at a specific point in space.<br><br>
+        **Applications:**<br>
+        - Robotic arms in manufacturing<br>
+        - Surgical robots<br>
+        - Automated assembly lines<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) The process of controlling the robot's speed.</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) A method to improve battery efficiency.</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) A technique for obstacle avoidance.</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) The process of calculating joint angles to achieve a desired end-effector position.</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. What is the main concept behind learning from demonstration (LfD) in robotics?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Teaching robots new tasks by showing them how to perform them.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Learning from Demonstration (LfD)** allows robots to learn behaviors by observing demonstrations performed by humans or other robots.<br><br>
+        **Key Steps:**<br>
+        1. Capture demonstrations (e.g., using sensors, cameras).<br>
+        2. Process the data to extract patterns.<br>
+        3. Generate control policies based on the observed behavior.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) Teaching robots new tasks by showing them how to perform them.</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) Programming robots with complex algorithms manually.</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) Reducing the size of robotic components.</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) Enhancing the visual display of robots.</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. Which of the following is NOT a common technique used in learning from demonstration?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Using manual coding for all robot behaviors.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Common techniques include:<br>
+        - **Imitation Learning:** Robots mimic the demonstrated actions.<br>
+        - **Behavior Cloning:** Robots learn from recorded demonstrations.<br>
+        - **Inverse Reinforcement Learning:** Robots infer the underlying goals of the demonstrator.<br><br>
+        Manual coding is not part of LfD since the focus is on learning through observation.  
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) Imitation Learning</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) Behavior Cloning</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) Inverse Reinforcement Learning</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) Using manual coding for all robot behaviors</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. What type of data is typically used in learning from demonstration?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Sensor data, including video, force, and positional information.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Robots rely on various sensors to capture the demonstrations:<br>
+        - **Cameras and Videos:** For visual data.<br>
+        - **Force Sensors:** To measure interactions.<br>
+        - **Positional Sensors:** To track joint angles and movements.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) Only audio recordings</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) Sensor data, including video, force, and positional information</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) Textual descriptions of tasks</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) Only temperature readings</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. Which algorithm is commonly used for behavior cloning in LfD?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Supervised Learning algorithms</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Behavior Cloning** treats the problem like a supervised learning task:<br>
+        - **Input:** Demonstration data (e.g., images, sensor readings).<br>
+        - **Output:** Corresponding actions.<br><br>
+        Algorithms like **neural networks** are often used to map observations to actions.  
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) Genetic Algorithms</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) Reinforcement Learning</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) Supervised Learning algorithms</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) Unsupervised Learning algorithms</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. What is one key advantage of learning from demonstration?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It reduces the need for complex programming.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Advantages:**<br>
+        - Robots can learn complex tasks without explicit programming.<br>
+        - It’s easier to teach new skills quickly.<br>
+        - Adaptable to dynamic environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) It reduces the need for complex programming.</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) It increases the robot’s battery life.</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) It improves the robot’s hardware performance.</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) It enhances the robot’s color recognition.</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. What is the primary goal of using AI in industrial automation?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To improve efficiency, reduce costs, and enhance productivity.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **AI in Industrial Automation** aims to:<br>
+        - Optimize processes for better efficiency.<br>
+        - Reduce human error and operational costs.<br>
+        - Improve decision-making through data-driven insights.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) To improve efficiency, reduce costs, and enhance productivity.</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) To replace all human workers completely.</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) To make machines more colorful and visually appealing.</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) To increase the manual effort in operations.</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. Which of the following is a common AI technology used in industrial automation?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Machine Learning</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Machine Learning (ML)** enables systems to learn from data and improve over time.<br>
+        - **Predictive Maintenance:** Detects potential equipment failures before they occur.<br>
+        - **Quality Control:** Analyzes products for defects in real-time.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) Manual Assembly Lines</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) Machine Learning</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) Mechanical Engineering</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) Basic Programming</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. What is the role of predictive analytics in industrial automation?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To forecast equipment failures and optimize maintenance schedules.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Predictive Analytics** uses historical data to predict future outcomes, such as:<br>
+        - **Predictive Maintenance:** Identifies potential equipment issues before they cause downtime.<br>
+        - **Production Optimization:** Adjusts processes based on predicted demand.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) To forecast equipment failures and optimize maintenance schedules.</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) To design new machinery from scratch.</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) To manually adjust production lines.</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) To remove all automation from industrial processes.</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. Which AI-powered technology helps robots recognize objects and navigate their environments?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Computer Vision</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Computer Vision** enables machines to interpret and make decisions based on visual data.<br>
+        - **Object Detection:** Identifies objects within images or videos.<br>
+        - **Navigation:** Helps robots understand their surroundings for safe movement.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) Natural Language Processing</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) Speech Recognition</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) Computer Vision</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) Text Analysis</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. What is one major benefit of AI in predictive maintenance for industrial equipment?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Reducing unplanned downtime and maintenance costs.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Predictive Maintenance** uses AI to:<br>
+        - **Predict failures** before they happen.<br>
+        - **Optimize maintenance schedules** to prevent unnecessary downtime.<br>
+        - **Reduce operational costs** by minimizing disruptions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) Increasing the frequency of equipment failures.</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) Reducing unplanned downtime and maintenance costs.</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) Making machines more complex and harder to maintain.</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) Replacing all human operators with robots.</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. What is the primary purpose of SLAM in mobile robots?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To help robots navigate and map unknown environments simultaneously.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **SLAM (Simultaneous Localization and Mapping)** allows robots to:<br>
+        - **Build a map** of an unknown environment.<br>
+        - **Track their own location** within that map.<br>
+        - Essential for autonomous navigation in dynamic environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) To help robots navigate and map unknown environments simultaneously.</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) To make robots fly in the air.</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) To connect robots to the internet.</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) To control robot temperature settings.</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. Which sensor is commonly used for SLAM in mobile robots?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) LIDAR (Light Detection and Ranging)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **LIDAR** is widely used in SLAM because it provides accurate distance measurements and environmental mapping.<br>
+        - **LIDAR** scans the surroundings with laser beams.<br>
+        - Creates precise 3D maps for navigation and obstacle detection.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) GPS</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) LIDAR (Light Detection and Ranging)</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) Microphone</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) Camera Flash</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. What is the key challenge of SLAM in dynamic environments?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Handling moving objects and dynamic changes in the environment.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Challenges in Dynamic Environments:**<br>
+        - **Moving obstacles** can confuse SLAM algorithms.<br>
+        - **Environmental changes** can lead to incorrect mapping.<br>
+        - Requires advanced algorithms to adapt in real-time.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) Handling moving objects and dynamic changes in the environment.</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) Making robots faster than human speed.</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) Making robots talk like humans.</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) Reducing battery consumption to zero.</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. Which algorithm is commonly used for data association in SLAM?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The Extended Kalman Filter (EKF)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Extended Kalman Filter (EKF):**<br>
+        - Used to **estimate the robot’s state** (position, velocity, etc.).<br>
+        - Helps in **associating sensor measurements** with known landmarks.<br>
+        - Essential for accurate SLAM performance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) Dijkstra’s Algorithm</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) A* Algorithm</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) The Extended Kalman Filter (EKF)</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) Binary Search</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. What is a key advantage of using visual SLAM (vSLAM) over traditional SLAM?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It uses camera images, making it more cost-effective and versatile.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Visual SLAM (vSLAM):**<br>
+        - Uses **cameras** instead of expensive sensors like LIDAR.<br>
+        - Can be used in **compact and low-cost robots**.<br>
+        - Suitable for indoor and outdoor environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) It requires no sensors at all.</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) It uses camera images, making it more cost-effective and versatile.</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) It only works in complete darkness.</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) It replaces all human operators.</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. What is the primary role of AI-driven robotics in healthcare?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To assist in medical procedures, improve diagnostics, and enhance patient care.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **AI-driven robotics** in healthcare help to:<br>
+        - **Assist in surgeries** with precision.<br>
+        - **Enhance diagnostics** using AI algorithms.<br>
+        - **Improve patient care** through rehabilitation robots and monitoring systems.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) To assist in medical procedures, improve diagnostics, and enhance patient care.</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) To replace all doctors and nurses.</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) To perform all surgeries without human supervision.</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) To diagnose mental health disorders without human interaction.</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. Which type of AI technology is commonly used in robotic surgery systems?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Machine Learning (ML) algorithms</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Machine Learning (ML)** algorithms help robotic surgery systems:<br>
+        - **Enhance precision** in complex procedures.<br>
+        - **Adapt to different patient conditions** by learning from data.<br>
+        - **Improve outcomes** through continuous learning.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) Neural Networks</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) Machine Learning (ML) algorithms</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) Genetic Algorithms</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) Expert Systems</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. What is a key benefit of using robots for patient rehabilitation?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) They provide consistent and personalized therapy sessions.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Robotic rehabilitation** offers benefits like:<br>
+        - **Consistency** in therapy sessions.<br>
+        - **Personalization** based on patient progress.<br>
+        - **Reduced strain** on healthcare professionals.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) They provide consistent and personalized therapy sessions.</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) They replace all human therapists.</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) They diagnose diseases without any human input.</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) They conduct medical surgeries without supervision.</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. How do AI-powered robots assist in remote healthcare?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By enabling telemedicine, remote diagnostics, and patient monitoring.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **AI-powered robots** assist remotely by:<br>
+        - **Telemedicine** for virtual doctor visits.<br>
+        - **Remote diagnostics** using sensors and AI algorithms.<br>
+        - **Patient monitoring** for continuous health tracking.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) They replace all hospital staff.</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) By enabling telemedicine, remote diagnostics, and patient monitoring.</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) They perform complex surgeries without human intervention.</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) They manage hospital billing systems.</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. What type of AI algorithm is commonly used for medical image analysis?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Convolutional Neural Networks (CNNs)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Convolutional Neural Networks (CNNs)** are powerful for:<br>
+        - **Detecting patterns** in medical images (e.g., X-rays, MRIs).<br>
+        - **Automated diagnosis** of diseases.<br>
+        - **Enhancing accuracy** in radiology and pathology.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) Decision Trees</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) K-Nearest Neighbors (KNN)</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) Convolutional Neural Networks (CNNs)</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) Support Vector Machines (SVM)</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. Which of the following is NOT a key advantage of AI-driven robotics in healthcare?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Reduced human interaction in patient care.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **AI-driven robotics** offer advantages like:<br>
+        - **Improved efficiency** in medical procedures.<br>
+        - **Enhanced precision** in surgeries.<br>
+        - **Better patient monitoring** and diagnostics.<br>
+        **However, reduced human interaction** can be a drawback in emotional and mental health care.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Improved efficiency in medical procedures.</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Enhanced precision in surgeries.</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Better patient monitoring and diagnostics.</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) Reduced human interaction in patient care.</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+<!-- Question 51 -->
+<div class="qee">
+    <div class="que">
+        <p>51. What is the main focus of cognitive robotics?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To enable robots to perform tasks using human-like reasoning and learning capabilities.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Cognitive robotics** aims to:<br>
+        - **Simulate human cognitive processes** such as perception, reasoning, and learning.<br>
+        - **Enable adaptive behavior** in dynamic environments.<br>
+        - **Improve decision-making** through learning from experiences.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) To enable robots to perform tasks using human-like reasoning and learning capabilities.</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) To restrict robots to simple, repetitive tasks.</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) To make robots completely autonomous without any human interaction.</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) To eliminate the need for AI in robotics.</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee">
+    <div class="que">
+        <p>52. Which AI technique is commonly used in cognitive robotics for decision-making?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Reinforcement Learning (RL)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Reinforcement Learning (RL)** is widely used because it enables robots to:<br>
+        - **Learn from trial and error** in dynamic environments.<br>
+        - **Improve decision-making** over time by maximizing rewards.<br>
+        - **Adapt to new situations** without reprogramming.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) Supervised Learning</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) Reinforcement Learning (RL)</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) Genetic Algorithms</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) K-Means Clustering</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee">
+    <div class="que">
+        <p>53. What is the role of perception in cognitive robotics?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To interpret sensor data and provide meaningful information for decision-making.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Perception** allows cognitive robots to:<br>
+        - **Process sensory data** from cameras, microphones, etc.<br>
+        - **Recognize objects, people, and environments**.<br>
+        - **Make informed decisions** based on real-world data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) To interpret sensor data and provide meaningful information for decision-making.</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) To perform complex mathematical calculations.</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) To replace the need for AI algorithms.</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) To limit the robot’s ability to interact with its environment.</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee">
+    <div class="que">
+        <p>54. Which of the following is NOT a characteristic of cognitive robotics?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Operating without any human input.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Cognitive robots** are designed to:<br>
+        - **Learn from experience**.<br>
+        - **Adapt to new environments**.<br>
+        - **Make independent decisions**.<br>
+        However, they often still require **human input** for tasks like initial training and supervision.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) Learning from experience</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) Adapting to new environments</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) Making independent decisions</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) Operating without any human input</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+<!-- Question 55 -->
+<div class="qee">
+    <div class="que">
+        <p>55. What is the primary ethical concern in AI robotics?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Ensuring robots do not harm humans or make unethical decisions.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Ethical concerns in AI robotics** focus on:<br>
+        - **Safety and reliability** of robotic systems.<br>
+        - **Moral decision-making** in critical situations.<br>
+        - **Privacy and data security** when robots collect personal information.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) Ensuring robots do not harm humans or make unethical decisions.</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) Making robots as expensive as possible.</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) Replacing all human jobs with robots.</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) Ensuring robots can make decisions without any supervision.</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+
+<!-- Question 56 -->
+<div class="qee">
+    <div class="que">
+        <p>56. Which principle is central to ensuring the safety of AI robots?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Designing robots to prevent harm to humans and ensure reliability.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Safety principles in AI robotics** include:<br>
+        - **Fail-safe mechanisms** to prevent accidents.<br>
+        - **Robustness** against unpredictable environments.<br>
+        - **Continuous monitoring** to detect and correct errors.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) Making robots perform tasks faster than humans.</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) Designing robots to prevent harm to humans and ensure reliability.</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) Ensuring robots are always autonomous without checks.</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) Allowing robots to make decisions without ethical guidelines.</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee">
+    <div class="que">
+        <p>57. What is a key concern regarding data privacy in AI robotics?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The risk of unauthorized access to sensitive personal data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Data privacy issues** arise because:<br>
+        - **Robots collect vast amounts of data** about individuals.<br>
+        - **Lack of secure storage** can lead to breaches.<br>
+        - **Ethical dilemmas** occur when data is used without consent.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) The risk of unauthorized access to sensitive personal data.</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) Making robots more expensive to produce.</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) Reducing the battery life of robots.</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) Ensuring robots can never be turned off.</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee">
+    <div class="que">
+        <p>58. Which of the following is an ethical guideline for AI robotics?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Robots should be designed to prioritize human safety and well-being.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Ethical guidelines** focus on:<br>
+        - **Human-centric design** to enhance safety.<br>
+        - **Transparency** in AI decision-making.<br>
+        - **Accountability** for robot actions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) Prioritizing robot efficiency over human needs.</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) Allowing robots to make decisions without human supervision.</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) Robots should be designed to prioritize human safety and well-being.</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) Making robots capable of self-replication without regulations.</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+<!-- Question 59 -->
+<div class="qee">
+    <div class="que">
+        <p>59. What is the primary advantage of using robots in disaster response?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Robots can access dangerous environments without risking human lives.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Robots in disaster response** are valuable because they:<br>
+        - **Navigate hazardous areas** like collapsed buildings or toxic environments.<br>
+        - **Provide real-time data** for better decision-making.<br>
+        - **Perform search and rescue tasks** faster and more efficiently than humans.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) Robots can access dangerous environments without risking human lives.</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) Robots are cheaper than human rescue teams.</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) Robots can replace all human responders in any disaster.</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) Robots do not require any power source to operate.</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee">
+    <div class="que">
+        <p>60. Which of the following technologies is commonly used in robots for search and rescue operations?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Lidar (Light Detection and Ranging)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Lidar technology** helps robots by:<br>
+        - **Mapping environments** in 3D for better navigation.<br>
+        - **Detecting obstacles** and identifying safe paths.<br>
+        - **Assisting in debris analysis** to locate survivors.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) Infrared cameras</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) Lidar (Light Detection and Ranging)</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) Bluetooth connectivity</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) Traditional GPS without any sensors</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+
+<!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+        <p>61. What type of robot is commonly used for underwater search and rescue operations?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Remotely Operated Vehicles (ROVs)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **ROVs** are preferred because:<br>
+        - **Designed to withstand extreme underwater conditions.**<br>
+        - **Operated remotely** for safety in dangerous situations.<br>
+        - **Equipped with cameras and sensors** for real-time data collection.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) Autonomous drones</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) Land-based robots</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) Remotely Operated Vehicles (ROVs)</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) Human-controlled submarines</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee">
+    <div class="que">
+        <p>62. Which of the following is NOT a key feature of search and rescue robots?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Ability to make complex moral decisions independently</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Key features** of search and rescue robots include:<br>
+        - **Mobility in rough terrain**<br>
+        - **Real-time communication** with human teams<br>
+        - **Advanced sensors** for detecting survivors<br>
+        - **Limited capability** for moral decision-making, as this is a human trait.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) Ability to navigate rough terrain</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) Equipped with real-time sensors</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) Remote communication capabilities</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) Ability to make complex moral decisions independently</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+<!-- Question 63 -->
+<div class="qee">
+    <div class="que">
+        <p>63. What is the primary purpose of robotic exoskeletons?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To enhance or restore human mobility and strength.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Robotic exoskeletons** are wearable devices designed to:<br>
+        - **Assist individuals with mobility impairments.**<br>
+        - **Enhance strength and endurance** for tasks that require heavy lifting.<br>
+        - **Aid in rehabilitation** for patients recovering from injuries.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) To enhance or restore human mobility and strength.</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) To replace human muscles entirely.</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) To provide entertainment through physical activities.</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) To control robotic devices remotely.</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee">
+    <div class="que">
+        <p>64. Which of the following is a key application of assistive robotic devices?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Helping individuals with physical disabilities perform daily tasks.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Assistive robotic devices** are designed to:<br>
+        - **Improve quality of life** for individuals with disabilities.<br>
+        - **Assist with mobility**, communication, and daily activities.<br>
+        - **Enhance independence** for people with physical challenges.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) To perform complex calculations faster than humans.</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) Helping individuals with physical disabilities perform daily tasks.</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) Replacing human caregivers completely.</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) Enhancing virtual reality experiences.</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee">
+    <div class="que">
+        <p>65. What type of sensors are commonly used in robotic exoskeletons to detect human movement?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Inertial Measurement Units (IMUs)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **IMUs** are critical because they:<br>
+        - **Measure acceleration and rotation**, tracking body movement.<br>
+        - **Provide real-time data** for responsive control of the exoskeleton.<br>
+        - **Enhance accuracy** in detecting user intentions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) Thermometers</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) Infrared sensors</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) Inertial Measurement Units (IMUs)</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) Barometers</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+
+<!-- Question 66 -->
+<div class="qee">
+    <div class="que">
+        <p>66. Which of the following is NOT a common feature of assistive robots?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Full independence from human supervision.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Assistive robots** are designed to:<br>
+        - **Support human capabilities** rather than replace them.<br>
+        - **Require human supervision** for safety and efficiency.<br>
+        - **Assist in specific tasks**, but not operate without human input.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) Ability to assist with mobility</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) User-friendly controls for easy operation</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) Adaptability to different environments</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) Full independence from human supervision</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee">
+    <div class="que">
+        <p>67. What is one of the major challenges in developing robotic exoskeletons?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Balancing between strength, weight, and comfort.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Challenges include:**<br>
+        - **Achieving optimal balance** to prevent fatigue.<br>
+        - **Designing for lightweight mobility** while maintaining strength.<br>
+        - **Ensuring user comfort** during prolonged use.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) Making them completely waterproof</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) Balancing between strength, weight, and comfort</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) Ensuring they can fly</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) Reducing the cost of electricity</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee">
+    <div class="que">
+        <p>68. What is the primary goal of predictive maintenance in robotics?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To predict and prevent equipment failures before they occur.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Predictive maintenance** uses AI to:<br>
+        - **Analyze data from sensors** to predict potential failures.<br>
+        - **Schedule maintenance** before breakdowns occur.<br>
+        - **Reduce downtime** and **optimize operational efficiency**.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) To predict and prevent equipment failures before they occur.</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) To perform maintenance only when the robot breaks down.</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) To replace human workers with robots.</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) To increase the speed of robotic operations without monitoring.</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee">
+    <div class="que">
+        <p>69. Which AI technique is commonly used for predictive maintenance in robotics?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Machine Learning (ML)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Machine Learning (ML)** helps by:<br>
+        - **Analyzing historical data** to detect patterns.<br>
+        - **Predicting future failures** based on trends.<br>
+        - **Improving accuracy** with continuous data learning.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) Genetic Algorithms</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) Machine Learning (ML)</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) Quantum Computing</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) Blockchain Technology</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee">
+    <div class="que">
+        <p>70. Which of the following is an example of data used in predictive maintenance?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Vibration and temperature data from sensors.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Predictive maintenance relies on real-time data, such as:**<br>
+        - **Vibration sensors** to detect mechanical issues.<br>
+        - **Temperature data** to identify overheating.<br>
+        - **Pressure levels** to monitor hydraulic systems.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) Vibration and temperature data from sensors.</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) The robot's color preferences.</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) The number of software updates installed.</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) The robot's favorite operating system.</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+
+<!-- Question 71 -->
+<div class="qee">
+    <div class="que">
+        <p>71. What is one of the main benefits of predictive maintenance in robotics?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Reducing unexpected equipment downtime.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Predictive maintenance helps by:**<br>
+        - **Identifying potential issues early**, reducing unexpected breakdowns.<br>
+        - **Lowering maintenance costs** through targeted repairs.<br>
+        - **Improving operational efficiency** and reliability.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) Reducing unexpected equipment downtime.</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) Replacing all human workers with robots.</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) Making robots immune to all failures.</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) Increasing the robot's speed at all costs.</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee">
+    <div class="que">
+        <p>72. Which of the following is a common method used in AI for predictive maintenance?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Predictive analytics using historical data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Predictive analytics** works by:<br>
+        - **Analyzing historical performance data** to identify trends.<br>
+        - **Forecasting potential failures** based on past patterns.<br>
+        - **Optimizing maintenance schedules** to prevent downtime.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) Randomly guessing when a failure will happen.</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) Replacing parts without analysis.</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) Predictive analytics using historical data.</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) Ignoring sensor data completely.</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+<!-- Question 73 -->
+<div class="qee">
+    <div class="que">
+        <p>73. What is one of the main advantages of using robotics in agriculture?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Increased efficiency in farming operations.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Robotics enhances agriculture by:**<br>
+        - **Automating repetitive tasks** like planting, weeding, and harvesting.<br>
+        - **Improving efficiency** and reducing the need for manual labor.<br>
+        - **Optimizing resource use**, such as water and fertilizers.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) Increased efficiency in farming operations.</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) Making crops grow without sunlight.</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) Replacing all farmers completely.</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) Eliminating the need for soil in agriculture.</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee">
+    <div class="que">
+        <p>74. Which type of robot is commonly used for precision farming?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Autonomous tractors and drones.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Precision farming uses robots like:**<br>
+        - **Autonomous tractors** for accurate plowing, planting, and harvesting.<br>
+        - **Drones** for monitoring crop health and mapping fields.<br>
+        - **Robotic harvesters** for picking fruits and vegetables with precision.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) Manual laborers with farming tools.</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) Autonomous tractors and drones.</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) Traditional horse-drawn plows.</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) Manual irrigation systems.</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<!-- Question 75 -->
+<div class="qee">
+    <div class="que">
+        <p>75. What role does artificial intelligence (AI) play in agricultural robotics?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Analyzing data to optimize farming practices.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **AI in agricultural robotics helps by:**<br>
+        - **Processing data** from sensors, drones, and robots.<br>
+        - **Optimizing crop management** through predictive analytics.<br>
+        - **Improving automation** with smart decision-making algorithms.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) Replacing all farm workers with robots.</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) Making robots immune to weather conditions.</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) Analyzing data to optimize farming practices.</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) Automatically increasing crop growth speed without care.</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+<!-- Question 76 -->
+<div class="qee">
+    <div class="que">
+        <p>76. What is the primary goal of path planning algorithms in robotics?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Finding the optimal path from a start to a goal location.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **The key objective of path planning algorithms is:**<br>
+        - **To calculate the best possible path** from the robot's current position to the target.<br>
+        - **Minimizing obstacles** and energy consumption while ensuring efficiency.<br>
+        - **Ensuring safety and accuracy** in navigation.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) Finding the optimal path from a start to a goal location.</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) Determining the speed of the robot.</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) Estimating the robot's battery life.</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) Avoiding obstacles without any consideration for the path efficiency.</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee">
+    <div class="que">
+        <p>77. Which AI algorithm is commonly used for path planning in robotics?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) A* (A-star) algorithm.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **The A* (A-star) algorithm** is widely used for path planning due to its efficiency and optimality.<br>
+        - It finds the **shortest path** by combining both the **cost of reaching a node** and the **estimated cost to the goal**.<br>
+        - It is well-suited for real-time path planning tasks in dynamic environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) Genetic algorithm.</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) K-means clustering.</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) A* (A-star) algorithm.</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) Support vector machine.</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee">
+    <div class="que">
+        <p>78. What is the main advantage of using the A* algorithm in path planning?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It guarantees finding the shortest path efficiently.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **The A* algorithm is advantageous because:**<br>
+        - It combines **cost** and **heuristic estimates**, which helps find the **optimal path** quickly.<br>
+        - It is both **optimal** and **complete**, meaning it will always find the best solution if one exists.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) It does not require any memory.</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) It guarantees finding the shortest path efficiently.</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) It works only for static environments.</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) It requires no computational resources.</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+<!-- Question 79 -->
+<div class="qee">
+    <div class="que">
+        <p>79. What is a major security challenge for robotics in terms of data transmission?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Ensuring secure communication between robots and control systems.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Secure communication is essential in robotics due to:**<br>
+        - The potential for **eavesdropping** or **tampering** during data transmission.<br>
+        - Ensuring **data integrity** and preventing unauthorized access.<br>
+        - Using encryption techniques to protect communication between robots and remote systems.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) Ensuring secure communication between robots and control systems.</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) Increasing the robot’s speed of operation.</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) Reducing the robot’s energy consumption.</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) Allowing the robot to work without internet connection.</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee">
+    <div class="que">
+        <p>80. Which of the following is a potential privacy risk related to robotics?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Unauthorized access to personal data collected by robots.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Robots often collect sensitive data** during their operation, such as: <br>
+        - **Personal data** (e.g., facial recognition, speech, and location).<br>
+        - **Behavioral patterns** that could be exploited if not securely stored.<br>
+        - Ensuring **data encryption** and **secure access control** is crucial to protect privacy.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) Robots automatically detect environmental changes.</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) Unauthorized access to personal data collected by robots.</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) Robots are able to generate more data than human workers.</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) Robots require no maintenance for long periods of time.</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+<!-- Question 81 -->
+<div class="qee">
+    <div class="que">
+        <p>81. What is one way to improve the security of robots in a networked environment?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Implementing strong authentication and encryption protocols.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Securing robots in a networked environment requires:**<br>
+        - **Authentication mechanisms** to ensure only authorized users and devices can access robots.<br>
+        - **Encryption protocols** to protect the data exchanged between robots and control systems.<br>
+        - **Regular software updates** to fix vulnerabilities and prevent attacks.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) Allowing robots to operate without any software updates.</label><br>
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) Disabling robots from interacting with humans.</label><br>
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) Implementing strong authentication and encryption protocols.</label><br>
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) Making robots fully autonomous without monitoring.</label><br>
+    </div>
+    <div id="result80" class="result"></div>
+</div>
+<!-- Question 82 -->
+<div class="qee">
+    <div class="que">
+        <p>82. What is the main advantage of collaborative robots (cobots) over traditional industrial robots?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) They can work safely alongside humans without the need for safety barriers.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Cobots are designed to work in close proximity to humans** by being equipped with advanced sensors and safety features, allowing them to share workspaces without the need for physical barriers. This makes them more flexible and safer for human-robot collaboration.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) They can work safely alongside humans without the need for safety barriers.</label><br>
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) They are capable of performing only simple tasks.</label><br>
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) They require no programming or setup.</label><br>
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) They are only used in automotive industries.</label><br>
+    </div>
+    <div id="result81" class="result"></div>
+</div>
+
+<!-- Question 83 -->
+<div class="qee">
+    <div class="que">
+        <p>83. Which of the following is a key feature of a collaborative robot (cobot)?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Human-robot interaction through sensors and advanced safety mechanisms.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Cobots rely on sensors** and **advanced safety mechanisms** to detect and respond to human movements, ensuring that the robot stops or adjusts its actions if it comes into contact with a person. This allows them to operate safely in environments with human workers.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) They require no programming or supervision.</label><br>
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) They can only work in isolation without human interaction.</label><br>
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) They are fully autonomous with no need for human oversight.</label><br>
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) Human-robot interaction through sensors and advanced safety mechanisms.</label><br>
+    </div>
+    <div id="result82" class="result"></div>
+</div>
+
+<!-- Question 84 -->
+<div class="qee">
+    <div class="que">
+        <p>84. How do collaborative robots (cobots) enhance productivity in manufacturing?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By automating repetitive tasks while working alongside human operators.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Cobots help improve productivity** by taking over repetitive or strenuous tasks, allowing human workers to focus on more complex, value-added work. They increase operational efficiency and reduce the risk of human error.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) By completely replacing human workers in manufacturing environments.</label><br>
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) By automating repetitive tasks while working alongside human operators.</label><br>
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) By requiring fewer workers in a factory to operate machinery.</label><br>
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) By reducing the speed of production to prevent accidents.</label><br>
+    </div>
+    <div id="result83" class="result"></div>
+</div>
+
+    <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

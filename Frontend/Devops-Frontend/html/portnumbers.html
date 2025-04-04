@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Port Numbers</title>
+    <link rel="stylesheet" href="../css/paper.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'A', 'B', 'A', 'A', 'B', 'C', 'B', 'B', 'B',
+            'A', 'A', 'B', 'A', 'A', 'B', 'C', 'C', 'B', 'A','C'
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>Unit 1: Physical Chemistry</h3>
+        <div class="inner-border">
+           <!-- Question 1 -->
+    <div class="qee">
+        <div class="que">
+            <p>1. What is the default port number for SonarQube?</p>
+            <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+        </div>
+
+        <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+            <strong>Solution and Explanation:</strong><br>
+            SonarQube's default port is <strong>8080</strong>, commonly used for web applications.<br>
+        </div>
+
+        <div class="options" style="margin-top: 10px;">
+            <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+            <label for="optionA0">A) 09000</label><br>
+
+            <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+            <label for="optionB0">B) 8080</label><br>
+
+            <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+            <label for="optionC0">C) 5432</label><br>
+
+            <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+            <label for="optionD0">D) 3000</label><br>
+        </div>
+
+        <div id="result0" class="result"></div>
+    </div> 
+
+    <!-- Question 2 -->
+    <div class="qee">
+        <div class="que">
+            <p>2. Which port is used by Nexus Repository Manager by default?</p>
+            <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+        </div>
+
+        <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+            <strong>Solution and Explanation:</strong><br>
+            Nexus Repository Manager uses port <strong>8081</strong> by default for accessing its web interface.<br>
+        </div>
+
+        <div class="options" style="margin-top: 10px;">
+            <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+            <label for="optionA1">A) 08081</label><br>
+
+            <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+            <label for="optionB1">B) 5000</label><br>
+
+            <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+            <label for="optionC1">C) 01443</label><br>
+
+            <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+            <label for="optionD1">D) 3000</label><br>
+        </div>
+
+        <div id="result1" class="result"></div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="qee">
+        <div class="que">
+            <p>3. Apache Tomcat listens on which default port for HTTP?</p>
+            <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+        </div>
+
+        <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+            <strong>Solution and Explanation:</strong><br>
+            The default HTTP port for Apache Tomcat is <strong>8080</strong>, often used for web servers.<br>
+        </div>
+
+        <div class="options" style="margin-top: 10px;">
+            <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+            <label for="optionA2">A) 80</label><br>
+
+            <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+            <label for="optionB2">B) 08080</label><br>
+
+            <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+            <label for="optionC2">C) 9000</label><br>
+
+            <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+            <label for="optionD2">D) 5000</label><br>
+        </div>
+
+        <div id="result2" class="result"></div>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="qee">
+        <div class="que">
+            <p>4. What is the default port for the Kubernetes API Server?</p>
+            <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+        </div>
+
+        <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+            <strong>Solution and Explanation:</strong><br>
+            The Kubernetes API Server uses port <strong>6443</strong> for secure communications.<br>
+        </div>
+
+        <div class="options" style="margin-top: 10px;">
+            <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+            <label for="optionA3">A) 06443</label><br>
+
+            <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+            <label for="optionB3">B) 10250</label><br>
+
+            <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+            <label for="optionC3">C) 08080</label><br>
+
+            <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+            <label for="optionD3">D) 0443</label><br>
+        </div>
+
+        <div id="result3" class="result"></div>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="qee">
+        <div class="que">
+            <p>5. Which port does Prometheus use by default?</p>
+            <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+        </div>
+
+        <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+            <strong>Solution and Explanation:</strong><br>
+            Prometheus, a monitoring system, uses port <strong>9090</strong> by default.<br>
+        </div>
+
+        <div class="options" style="margin-top: 10px;">
+            <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+            <label for="optionA4">A) 9090</label><br>
+
+            <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+            <label for="optionB4">B) 3000</label><br>
+
+            <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+            <label for="optionC4">C) 05000</label><br>
+
+            <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+            <label for="optionD4">D) 08080</label><br>
+        </div>
+
+        <div id="result4" class="result"></div>
+    </div> 
+    <!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is the default port for Elasticsearch in the ELK stack?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Elasticsearch, a key component of the ELK stack, uses port <strong>9200</strong> by default for HTTP communication. This port is essential for sending search and indexing requests.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA6" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA6">A) 5601</label><br>
+
+        <input type="radio" id="optionB6" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB6">B) 9200</label><br>
+
+        <input type="radio" id="optionC6" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC6">C) 5044</label><br>
+
+        <input type="radio" id="optionD6" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD6">D) 3306</label><br>
+    </div>
+
+    <div id="result5" class="result"></div>
+</div> 
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. Which port is commonly used for HTTPS?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        HTTPS (HyperText Transfer Protocol Secure) uses port <strong>443</strong> by default, providing encrypted communication over the web.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA7" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA7">A) 22</label><br>
+
+        <input type="radio" id="optionB7" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB7">B) 80</label><br>
+
+        <input type="radio" id="optionC7" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC7">C) 443</label><br>
+
+        <input type="radio" id="optionD7" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD7">D) 8081</label><br>
+    </div>
+
+    <div id="result6" class="result"></div>
+</div> 
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What is the default port for SSH?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Secure Shell (SSH) uses port <strong>22</strong> by default, allowing secure remote login to systems.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA8" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA8">A) 80</label><br>
+
+        <input type="radio" id="optionB8" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB8">B) 22</label><br>
+
+        <input type="radio" id="optionC8" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC8">C) 3000</label><br>
+
+        <input type="radio" id="optionD8" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD8">D) 5432</label><br>
+    </div>
+
+    <div id="result7" class="result"></div>
+</div> 
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. Which port is used by PostgreSQL by default?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        PostgreSQL, a powerful database system, runs on port <strong>5432</strong> by default.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA9" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA9">A) 3306</label><br>
+
+        <input type="radio" id="optionB9" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB9">B) 5432</label><br>
+
+        <input type="radio" id="optionC9" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC9">C) 8080</label><br>
+
+        <input type="radio" id="optionD9" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD9">D) 9000</label><br>
+    </div>
+
+    <div id="result8" class="result"></div>
+</div> 
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. Node.js applications commonly use which default port?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Many Node.js applications run on port <strong>3000</strong> by default, though it can be configured differently.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA10" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA10">A) 8080</label><br>
+
+        <input type="radio" id="optionB10" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB10">B) 3000</label><br>
+
+        <input type="radio" id="optionC10" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC10">C) 9000</label><br>
+
+        <input type="radio" id="optionD10" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD10">D) 5000</label><br>
+    </div>
+
+    <div id="result9" class="result"></div>
+</div>
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is the default port for etcd in Kubernetes?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        etcd, the key-value store used in Kubernetes, primarily communicates over port <strong>2379</strong> by default.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA11" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA11">A) 2379</label><br>
+
+        <input type="radio" id="optionB11" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB11">B) 2380</label><br>
+
+        <input type="radio" id="optionC11" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC11">C) 6443</label><br>
+
+        <input type="radio" id="optionD11" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD11">D) 10250</label><br>
+    </div>
+
+    <div id="result10" class="result"></div>
+</div> 
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. Which port is used by the Kubernetes scheduler by default?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The Kubernetes scheduler listens on port <strong>10251</strong> by default for internal communication.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA12" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA12">A) 10251</label><br>
+
+        <input type="radio" id="optionB12" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB12">B) 10252</label><br>
+
+        <input type="radio" id="optionC12" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC12">C) 6443</label><br>
+
+        <input type="radio" id="optionD12" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD12">D) 2379</label><br>
+    </div>
+
+    <div id="result11" class="result"></div>
+</div> 
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What is the default port for the Kubernetes API proxy?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The Kubernetes API proxy typically listens on port <strong>10256</strong> by default.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA13" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA13">A) 443</label><br>
+
+        <input type="radio" id="optionB13" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB13">B) 10256</label><br>
+
+        <input type="radio" id="optionC13" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC13">C) 6443</label><br>
+
+        <input type="radio" id="optionD13" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD13">D) 8080</label><br>
+    </div>
+
+    <div id="result12" class="result"></div>
+</div> 
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. What is the default service port range for Kubernetes services?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The default service port range in Kubernetes spans from <strong>30000-32767</strong>, used for NodePort services.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA14" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA14">A) 30000-32767</label><br>
+
+        <input type="radio" id="optionB14" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB14">B) 650000-55000</label><br>
+
+        <input type="radio" id="optionC14" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC14">C) 8000-9000</label><br>
+
+        <input type="radio" id="optionD14" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD14">D) 10000-11000</label><br>
+    </div>
+
+    <div id="result13" class="result"></div>
+</div> 
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What is the default port range for Kibana in ELK stack?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        Kibana, the visualization tool in the ELK stack, listens on port <strong>5601</strong> by default.<br>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA15" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA15">A) 5601</label><br>
+
+        <input type="radio" id="optionB15" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB15">B) 5602</label><br>
+
+        <input type="radio" id="optionC15" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC15">C) 5603</label><br>
+
+        <input type="radio" id="optionD15" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD15">D) 5604</label><br>
+    </div>
+
+    <div id="result14" class="result"></div>
+</div> 
+
+
+
+
+
+          
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

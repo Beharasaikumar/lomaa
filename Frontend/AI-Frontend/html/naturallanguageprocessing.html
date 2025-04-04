@@ -1,0 +1,3289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NATURAL LANGUAGE PROCESSING</title>
+    <link rel="stylesheet" href="../css/AI.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'C', 'D', 'C', 'B', 'B', 'C', 'A', 'D', 'A',
+            'B', 'C', 'A', 'D', 'B', 'C', 'D', 'C', 'B', 'C',
+            'B', 'C', 'A', 'D', 'A', 'D', 'B', 'C', 'B', 'C',
+            'B', 'A', 'C', 'B', 'A', 'C', 'B', 'C', 'A', 'D',
+            'B', 'C', 'B', 'A', 'C', 'B', 'C', 'B', 'A', 'C',
+            'B', 'C', 'D', 'A', 'C', 'B', 'A', 'C', 'C', 'D',
+            'C', 'D', 'B', 'D', 'C', 'B', 'C', 'B', 'A', 'A',
+            'C', 'A', 'C', 'A', 'C', 'B', 'C', 'B', 'B', 'C',
+            'B', 'A', 'C', 'A', 'D', 'B', 'C', 'A', 'B', 'D',
+           
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>NATURAL LANGUAGE PROCESSING</h3>
+        <div class="inner-border">
+<!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is the main objective of text classification in Natural Language Processing (NLP)?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) To categorize text into predefined labels or classes.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Text classification involves assigning predefined labels to text data based on its content.</li>
+            <li><strong>Step 2:</strong> Common tasks include spam detection, sentiment analysis, and document categorization.</li>
+            <li><strong>Step 3:</strong> This process helps computers understand and organize unstructured text data into useful categories.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) To translate text into different languages.</label><br>
+
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) To categorize text into predefined labels or classes.</label><br>
+
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) To generate text summaries from large documents.</label><br>
+
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) To convert text into images or graphical content.</label><br>
+    </div>
+
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. Which of the following techniques is commonly used to represent text data for classification?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) TF-IDF (Term Frequency-Inverse Document Frequency).</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> TF-IDF is a statistical measure used to evaluate how important a word is in a document relative to the entire corpus.</li>
+            <li><strong>Step 2:</strong> This technique helps convert text into numerical vectors that can be fed into machine learning algorithms.</li>
+            <li><strong>Step 3:</strong> It is effective in text classification tasks like document categorization and spam detection.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) One-hot encoding.</label><br>
+
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Word2Vec embeddings.</label><br>
+
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) TF-IDF (Term Frequency-Inverse Document Frequency).</label><br>
+
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Principal Component Analysis (PCA).</label><br>
+    </div>
+
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What is the primary challenge in text classification tasks?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>D) Handling the variability and ambiguity of language.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Natural language is complex, with multiple meanings for words and phrases depending on context.</li>
+            <li><strong>Step 2:</strong> Identifying the correct label for a given piece of text requires understanding these nuances and variations.</li>
+            <li><strong>Step 3:</strong> Effective text classification models must handle these challenges by leveraging techniques such as context understanding and word embeddings.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) Lack of available data for training the model.</label><br>
+
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) Identifying the optimal algorithm for the classification task.</label><br>
+
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) Scaling the model to handle large amounts of text data.</label><br>
+
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) Handling the variability and ambiguity of language.</label><br>
+    </div>
+
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. Which model is commonly used for text classification in NLP?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) Support Vector Machines (SVM).</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Support Vector Machines (SVM) are widely used for text classification tasks, particularly for binary classification.</li>
+            <li><strong>Step 2:</strong> SVMs work by finding the hyperplane that maximizes the margin between classes.</li>
+            <li><strong>Step 3:</strong> SVMs are robust and effective in high-dimensional feature spaces, making them ideal for text data.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) Linear Regression.</label><br>
+
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) Decision Trees.</label><br>
+
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) Support Vector Machines (SVM).</label><br>
+
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) Random Forest.</label><br>
+    </div>
+
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. What is the role of word embeddings in text classification tasks?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) Word embeddings convert words into dense vector representations that capture semantic relationships.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Word embeddings map words to dense vectors in a high-dimensional space.</li>
+            <li><strong>Step 2:</strong> These vectors capture semantic similarities between words, which helps in text classification tasks.</li>
+            <li><strong>Step 3:</strong> Popular embeddings like Word2Vec and GloVe enable the model to learn more effectively by leveraging relationships between words.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) Word embeddings help in feature selection during training.</label><br>
+
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) Word embeddings convert words into dense vector representations that capture semantic relationships.</label><br>
+
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) Word embeddings are used to detect named entities in text.</label><br>
+
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) Word embeddings are used to remove stop words from text.</label><br>
+    </div>
+
+    <div id="result4" class="result"></div>
+</div>
+
+<!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is Named Entity Recognition (NER) in Natural Language Processing (NLP)?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) The task of identifying and classifying entities (such as names, dates, and locations) in text.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> NER is a fundamental NLP task that involves detecting specific entities in text.</li>
+            <li><strong>Step 2:</strong> The goal is to extract entities such as people’s names, locations, dates, organizations, etc.</li>
+            <li><strong>Step 3:</strong> These entities can then be used for various applications, such as information retrieval, question answering, and document classification.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) The process of categorizing text based on sentiment.</label><br>
+
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) The task of identifying and classifying entities (such as names, dates, and locations) in text.</label><br>
+
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) The process of transforming text into numerical data for machine learning tasks.</label><br>
+
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) The method of clustering words based on similarity.</label><br>
+    </div>
+
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. Which of the following is an example of a named entity that could be identified in a text?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) "Barack Obama".</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Named entities typically include proper nouns such as names of people, organizations, locations, and dates.</li>
+            <li><strong>Step 2:</strong> "Barack Obama" is an example of a named entity referring to a person.</li>
+            <li><strong>Step 3:</strong> Identifying such entities is a key task of Named Entity Recognition (NER).</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) "love"</label><br>
+
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) "happy"</label><br>
+
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) "Barack Obama"</label><br>
+
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) "running"</label><br>
+    </div>
+
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What is the main challenge of Named Entity Recognition (NER)?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) Ambiguity in the interpretation of entities in different contexts.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> NER systems often struggle with ambiguous entities, where the same word or phrase could represent different things depending on context.</li>
+            <li><strong>Step 2:</strong> For instance, "Apple" can refer to the fruit or the company, and the system needs to determine which one is meant.</li>
+            <li><strong>Step 3:</strong> Handling this ambiguity requires sophisticated contextual understanding and often domain-specific knowledge.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) Ambiguity in the interpretation of entities in different contexts.</label><br>
+
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) The lack of available labeled data for training NER models.</label><br>
+
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) Difficulty in extracting non-noun entities such as actions.</label><br>
+
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) High computational cost of training NER models.</label><br>
+    </div>
+
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. Which of the following techniques is often used in Named Entity Recognition (NER)?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>D) Conditional Random Fields (CRF).</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Conditional Random Fields (CRF) are widely used for sequence labeling tasks like NER.</li>
+            <li><strong>Step 2:</strong> CRFs model the conditional probability of a sequence of labels given a sequence of input features, making them suitable for NER tasks.</li>
+            <li><strong>Step 3:</strong> CRFs can incorporate context from neighboring words, making them effective in identifying entities in sentences.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) K-means clustering.</label><br>
+
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) Naive Bayes classifier.</label><br>
+
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) Random Forest.</label><br>
+
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) Conditional Random Fields (CRF).</label><br>
+    </div>
+
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. What is the typical output of a Named Entity Recognition (NER) system?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) A list of identified entities with their associated labels.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> A typical NER system outputs a list of entities such as names, dates, and locations, along with their categories (e.g., PERSON, DATE, LOCATION).</li>
+            <li><strong>Step 2:</strong> For example, the sentence "Barack Obama was born on August 4, 1961, in Honolulu" would be processed to extract entities like "Barack Obama" (PERSON), "August 4, 1961" (DATE), and "Honolulu" (LOCATION).</li>
+            <li><strong>Step 3:</strong> These outputs are used for various downstream NLP tasks such as information extraction, question answering, and more.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) A list of identified entities with their associated labels.</label><br>
+
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) A vector representation of the input text.</label><br>
+
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) A binary classification label for the overall sentiment of the text.</label><br>
+
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) A summary of the text’s main points.</label><br>
+    </div>
+
+    <div id="result9" class="result"></div>
+</div>
+
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is Part-of-Speech (POS) Tagging in Natural Language Processing (NLP)?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) The process of identifying the grammatical categories of words in a sentence.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> POS tagging involves assigning a tag to each word in a sentence based on its syntactic category (e.g., noun, verb, adjective).</li>
+            <li><strong>Step 2:</strong> These tags help in understanding the role of each word in the sentence and contribute to deeper syntactic analysis.</li>
+            <li><strong>Step 3:</strong> POS tagging is essential for many NLP tasks such as parsing, named entity recognition, and information extraction.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) The process of categorizing sentences into positive or negative sentiment.</label><br>
+
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) The process of identifying the grammatical categories of words in a sentence.</label><br>
+
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) The method of extracting named entities from text.</label><br>
+
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) The process of extracting the most important keywords from a document.</label><br>
+    </div>
+
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. Which of the following is an example of a POS tag in English?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) VB (Verb, Base Form).</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> POS tags are shorthand labels used to identify the part of speech of a word.</li>
+            <li><strong>Step 2:</strong> "VB" refers to the base form of a verb, such as "run" or "eat."</li>
+            <li><strong>Step 3:</strong> Common POS tags include NN (Noun, Singular), VB (Verb, Base form), JJ (Adjective), and RB (Adverb).</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) NNP (Noun, Proper Singular).</label><br>
+
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) JJ (Adjective).</label><br>
+
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) VB (Verb, Base Form).</label><br>
+
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) RB (Adverb).</label><br>
+    </div>
+
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. Why is Part-of-Speech (POS) Tagging important for NLP tasks?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) It helps in understanding the syntactic structure of a sentence, which is essential for many downstream tasks.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> POS tagging assigns each word in a sentence a specific grammatical role, which aids in understanding the sentence structure.</li>
+            <li><strong>Step 2:</strong> This syntactic structure is crucial for tasks like parsing, translation, and sentiment analysis.</li>
+            <li><strong>Step 3:</strong> It enables better disambiguation of words and understanding of their relationships, making it easier for machines to process text.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) It helps in understanding the syntactic structure of a sentence, which is essential for many downstream tasks.</label><br>
+
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) It speeds up the text classification process by simplifying word meanings.</label><br>
+
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) It is only useful for machine translation tasks.</label><br>
+
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) It reduces the complexity of training neural networks for NLP tasks.</label><br>
+    </div>
+
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. Which of the following methods can be used for POS tagging?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>D) All of the above.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> POS tagging can be performed using rule-based methods, statistical models, and machine learning algorithms like Hidden Markov Models (HMM) and Conditional Random Fields (CRF).</li>
+            <li><strong>Step 2:</strong> These methods vary in complexity, with machine learning-based approaches generally yielding better results.</li>
+            <li><strong>Step 3:</strong> Recent deep learning approaches, including neural networks, have also been used for POS tagging tasks.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) Rule-based methods.</label><br>
+
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) Statistical models like Hidden Markov Models (HMM).</label><br>
+
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) Machine learning models like Conditional Random Fields (CRF).</label><br>
+
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) All of the above.</label><br>
+    </div>
+
+    <div id="result13" class="result"></div>
+</div>
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What is Sentiment Analysis in Natural Language Processing (NLP)?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) Sentiment Analysis is the process of determining the sentiment or emotion expressed in a text.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Sentiment Analysis aims to classify text into categories such as positive, negative, or neutral based on the expressed sentiment.</li>
+            <li><strong>Step 2:</strong> It is commonly used in analyzing social media, reviews, and customer feedback.</li>
+            <li><strong>Step 3:</strong> Sentiment Analysis helps businesses understand customer opinions, improve products, and make data-driven decisions.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) Sentiment Analysis is used to extract named entities from text.</label><br>
+
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) Sentiment Analysis is the process of determining the sentiment or emotion expressed in a text.</label><br>
+
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) Sentiment Analysis categorizes words into parts of speech.</label><br>
+
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) Sentiment Analysis is only applicable to text in the English language.</label><br>
+    </div>
+
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. Which of the following techniques is commonly used in Sentiment Analysis?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) Lexicon-based and machine learning approaches.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Sentiment Analysis uses various approaches, including lexicon-based methods and machine learning techniques.</li>
+            <li><strong>Step 2:</strong> Lexicon-based methods rely on predefined lists of words that are classified by sentiment, while machine learning models can be trained to classify sentiment based on labeled data.</li>
+            <li><strong>Step 3:</strong> Machine learning models, such as Naive Bayes, Support Vector Machines (SVM), or deep learning, can yield high accuracy for sentiment classification.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) Part-of-Speech Tagging.</label><br>
+
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) Named Entity Recognition (NER).</label><br>
+
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) Lexicon-based and machine learning approaches.</label><br>
+
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) Clustering techniques.</label><br>
+    </div>
+
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. What is the main challenge in Sentiment Analysis?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>D) Sarcasm and irony can often confuse sentiment classification systems.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Sentiment Analysis systems often struggle with understanding sarcasm, irony, and context, which can lead to misclassification.</li>
+            <li><strong>Step 2:</strong> For example, the sentence "I absolutely love waiting in long lines" is a negative sentiment but might be misclassified as positive by a basic sentiment classifier.</li>
+            <li><strong>Step 3:</strong> Advanced models attempt to account for these challenges, but it remains a significant issue in the field.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) Language variety, such as slang, has no impact on sentiment analysis.</label><br>
+
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) Sentiment analysis systems struggle with non-English languages.</label><br>
+
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) Identifying positive words is the biggest challenge.</label><br>
+
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) Sarcasm and irony can often confuse sentiment classification systems.</label><br>
+    </div>
+
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. What is Machine Translation in Natural Language Processing?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) The automatic translation of text from one language to another using computer algorithms.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Machine Translation (MT) involves using algorithms to automatically translate text from one language to another.</li>
+            <li><strong>Step 2:</strong> MT has evolved significantly with the use of statistical models and neural networks, offering better translations over time.</li>
+            <li><strong>Step 3:</strong> Popular examples of machine translation include Google Translate, DeepL, and other language translation systems.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) The process of identifying named entities in a text.</label><br>
+
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) The method for extracting keywords from text.</label><br>
+
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) The automatic translation of text from one language to another using computer algorithms.</label><br>
+
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) The process of classifying sentences as positive, negative, or neutral.</label><br>
+    </div>
+
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. Which of the following is a challenge in Machine Translation?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) Handling idiomatic expressions and context-specific meanings.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Machine translation systems can struggle with translating idiomatic expressions or phrases that depend on cultural or contextual understanding.</li>
+            <li><strong>Step 2:</strong> For instance, the phrase "kick the bucket" may be translated literally, leading to an incorrect meaning.</li>
+            <li><strong>Step 3:</strong> Modern MT models are improving at handling context, but challenges with idioms, slang, and cultural references remain.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) The lack of computational power for language translation.</label><br>
+
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) Handling idiomatic expressions and context-specific meanings.</label><br>
+
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) Limiting the translations to only two languages.</label><br>
+
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) Translating the text word by word without considering sentence structure.</label><br>
+    </div>
+
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. What is the purpose of Word Embeddings in Natural Language Processing?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) Word embeddings map words to dense vectors that capture semantic relationships between words.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Word embeddings are dense vector representations of words in a continuous vector space, where similar words are represented by similar vectors.</li>
+            <li><strong>Step 2:</strong> These embeddings capture semantic relationships, such as "king" and "queen" being closer in vector space than "king" and "apple".</li>
+            <li><strong>Step 3:</strong> Word2Vec and GloVe are popular methods for generating word embeddings.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) Word embeddings are only used for text classification.</label><br>
+
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) Word embeddings are used to create one-hot encoded vectors.</label><br>
+
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) Word embeddings map words to dense vectors that capture semantic relationships between words.</label><br>
+
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) Word embeddings are used to remove punctuation from text.</label><br>
+    </div>
+
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. Which of the following is a method used to generate Word Embeddings?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) Word2Vec and GloVe are methods used to generate word embeddings.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Word2Vec (Skip-Gram and CBOW) and GloVe are two popular models used to create word embeddings.</li>
+            <li><strong>Step 2:</strong> Word2Vec works by predicting surrounding words for a given word (Skip-Gram) or predicting the central word from surrounding words (CBOW).</li>
+            <li><strong>Step 3:</strong> GloVe (Global Vectors for Word Representation) captures word co-occurrence information from the entire corpus to generate embeddings.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) Hidden Markov Models.</label><br>
+
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) Word2Vec and GloVe are methods used to generate word embeddings.</label><br>
+
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) Recurrent Neural Networks (RNN) are used for word embedding generation.</label><br>
+
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) Random forests are used to generate word embeddings.</label><br>
+    </div>
+
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. What is the key difference between Word2Vec and GloVe?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) Word2Vec is based on local context (window of words), while GloVe uses global co-occurrence statistics of words.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Word2Vec focuses on predicting words based on their context, using either the Skip-Gram or CBOW methods.</li>
+            <li><strong>Step 2:</strong> GloVe, on the other hand, uses the entire global co-occurrence matrix of words to generate word vectors that represent the overall corpus statistics.</li>
+            <li><strong>Step 3:</strong> Word2Vec is better at capturing local word relationships, while GloVe provides a broader understanding of word associations across the entire corpus.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) Word2Vec uses a different language model compared to GloVe.</label><br>
+
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) GloVe is better for syntactic tasks, while Word2Vec is better for semantic tasks.</label><br>
+
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) Word2Vec is based on local context (window of words), while GloVe uses global co-occurrence statistics of words.</label><br>
+
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) Word2Vec uses unsupervised learning, while GloVe is a supervised learning algorithm.</label><br>
+    </div>
+
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. What is the key innovation introduced by Transformer Models in NLP?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) Self-attention mechanism that allows the model to weigh the importance of different words in a sentence.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> The Transformer model introduced the self-attention mechanism, which enables the model to focus on different words in a sequence when making predictions.</li>
+            <li><strong>Step 2:</strong> This mechanism allows the model to capture long-range dependencies in text, unlike earlier models such as RNNs or LSTMs that processed text sequentially.</li>
+            <li><strong>Step 3:</strong> The Transformer has become the foundation for many state-of-the-art models, including BERT, GPT, and T5.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) Self-attention mechanism that allows the model to weigh the importance of different words in a sentence.</label><br>
+
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) Recurrent processing of each word in a sentence.</label><br>
+
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) A focus on sequential input processing to maintain context.</label><br>
+
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) A hierarchical structure to understand sentence meaning.</label><br>
+    </div>
+
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. Which model is built on top of the Transformer architecture?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>D) BERT, GPT, and T5 are all built on top of the Transformer architecture.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> BERT (Bidirectional Encoder Representations from Transformers), GPT (Generative Pretrained Transformer), and T5 (Text-to-Text Transfer Transformer) are all based on the Transformer model.</li>
+            <li><strong>Step 2:</strong> These models leverage the attention mechanism to understand and generate human language effectively.</li>
+            <li><strong>Step 3:</strong> BERT is particularly designed for understanding context, GPT for text generation, and T5 for converting all NLP tasks into text-to-text problems.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) Word2Vec.</label><br>
+
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) GloVe.</label><br>
+
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) Naive Bayes.</label><br>
+
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) BERT, GPT, and T5 are all built on top of the Transformer architecture.</label><br>
+    </div>
+
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. What makes BERT (Bidirectional Encoder Representations from Transformers) different from traditional Transformer models?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) BERT is bidirectional, meaning it considers the context from both the left and the right side of a word during training.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Unlike traditional Transformer models, which process input text in a left-to-right or right-to-left fashion, BERT processes text bidirectionally, understanding the full context of a word.</li>
+            <li><strong>Step 2:</strong> This bidirectional approach allows BERT to capture deeper semantic meaning compared to unidirectional models.</li>
+            <li><strong>Step 3:</strong> BERT has shown superior performance on a variety of NLP tasks, including question answering and sentence classification.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) BERT is bidirectional, meaning it considers the context from both the left and the right side of a word during training.</label><br>
+
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) BERT is unidirectional and reads text left-to-right only.</label><br>
+
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) BERT is a generative model, designed to generate text.</label><br>
+
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) BERT does not use the Transformer architecture.</label><br>
+    </div>
+
+    <div id="result24" class="result"></div>
+</div>
+
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. What is the primary feature of GPT (Generative Pretrained Transformer) models?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>D) GPT is a generative model that generates text based on a given prompt or context.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> GPT is a generative model, meaning it is designed to generate text rather than simply understanding it.</li>
+            <li><strong>Step 2:</strong> GPT uses a unidirectional Transformer architecture, processing input text from left to right.</li>
+            <li><strong>Step 3:</strong> The model is pre-trained on a massive amount of text and fine-tuned for various downstream tasks, including text generation and completion.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) GPT is primarily designed for classification tasks.</label><br>
+
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) GPT is a bidirectional model, similar to BERT.</label><br>
+
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) GPT only processes text from the right to left.</label><br>
+
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) GPT is a generative model that generates text based on a given prompt or context.</label><br>
+    </div>
+
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. What is the primary use case of Sequence-to-Sequence (Seq2Seq) models?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) Seq2Seq models are primarily used for tasks like machine translation, where an input sequence (like a sentence) is transformed into an output sequence (another language).</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Seq2Seq models are designed to handle variable-length input and output sequences.</li>
+            <li><strong>Step 2:</strong> They consist of an encoder-decoder architecture where the encoder processes the input sequence, and the decoder generates the output sequence.</li>
+            <li><strong>Step 3:</strong> These models have been widely used in machine translation, speech-to-text, and text summarization tasks.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) Seq2Seq models are used only for text classification tasks.</label><br>
+
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) Seq2Seq models are primarily used for tasks like machine translation, where an input sequence (like a sentence) is transformed into an output sequence (another language).</label><br>
+
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) Seq2Seq models are used for image classification tasks.</label><br>
+
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) Seq2Seq models are mainly used for detecting sentiment in text.</label><br>
+    </div>
+
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. What is the primary goal of language modeling in NLP?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) To predict the next word or sequence of words in a sentence based on the previous words.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> A language model is designed to estimate the probability of a sequence of words occurring in a sentence.</li>
+            <li><strong>Step 2:</strong> It is trained to predict the next word in a sequence given the preceding words, thereby capturing the syntactic and semantic structure of the language.</li>
+            <li><strong>Step 3:</strong> Language models are essential for various NLP tasks like text generation, machine translation, and speech recognition.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) To detect the sentiment of a sentence.</label><br>
+
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) To classify a sentence into predefined categories.</label><br>
+
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) To predict the next word or sequence of words in a sentence based on the previous words.</label><br>
+
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) To extract named entities from the text.</label><br>
+    </div>
+
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. What is the primary advantage of Neural Machine Translation (NMT) over traditional rule-based or statistical methods?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) NMT learns the translation patterns directly from large datasets, improving accuracy and fluency in translation.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> NMT models are trained on vast amounts of bilingual text, allowing them to learn translation patterns automatically.</li>
+            <li><strong>Step 2:</strong> Unlike traditional methods, NMT can generate more fluent and contextually appropriate translations.</li>
+            <li><strong>Step 3:</strong> NMT models also improve as they are exposed to more data, making them more flexible and accurate over time.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) NMT uses predefined translation rules for every language pair.</label><br>
+
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) NMT learns the translation patterns directly from large datasets, improving accuracy and fluency in translation.</label><br>
+
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) NMT relies on linguistic rules rather than large datasets for translation.</label><br>
+
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) NMT can only translate between two languages at a time.</label><br>
+    </div>
+
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. What is the main advantage of using transfer learning in NLP?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) It allows models to leverage pre-trained knowledge on large datasets, reducing training time and improving performance.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Transfer learning allows models to use pre-trained weights from large datasets like BERT or GPT.</li>
+            <li><strong>Step 2:</strong> The model is then fine-tuned on a specific task with a smaller dataset, saving time and computational resources.</li>
+            <li><strong>Step 3:</strong> It enables models to perform better even with limited labeled data for a specific task.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) Transfer learning allows models to train without any labeled data.</label><br>
+
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) Transfer learning is only useful for image processing tasks, not NLP.</label><br>
+
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) It allows models to leverage pre-trained knowledge on large datasets, reducing training time and improving performance.</label><br>
+
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) Transfer learning only works for sequence-to-sequence models.</label><br>
+    </div>
+
+    <div id="result29" class="result"></div>
+</div>
+
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. What is the main objective of a question answering (QA) system in NLP?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) To automatically answer questions posed in natural language based on a given text or knowledge base.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> QA systems are designed to understand the user's question and search for the most relevant answer in a corpus of text.</li>
+            <li><strong>Step 2:</strong> They may use techniques like information retrieval, text classification, or generative models to find or generate answers.</li>
+            <li><strong>Step 3:</strong> QA systems are commonly used in virtual assistants, customer support, and search engines.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) To classify text into predefined categories.</label><br>
+
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) To automatically answer questions posed in natural language based on a given text or knowledge base.</label><br>
+
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) To detect sentiment in a given text.</label><br>
+
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) To generate text based on given prompts.</label><br>
+    </div>
+
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. What does zero-shot learning mean in the context of NLP?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) A model can make predictions for tasks it has never seen during training, based on its general understanding of the world.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Zero-shot learning allows models to perform tasks without task-specific training data.</li>
+            <li><strong>Step 2:</strong> It leverages general knowledge learned from large datasets to apply to new tasks.</li>
+            <li><strong>Step 3:</strong> This is particularly useful in cases where annotated data for specific tasks is scarce or unavailable.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) A model can make predictions for tasks it has never seen during training, based on its general understanding of the world.</label><br>
+
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) Zero-shot learning only applies to computer vision tasks, not NLP.</label><br>
+
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) A model needs labeled data for each task to perform well in zero-shot learning.</label><br>
+
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) Zero-shot learning requires using a separate model for each task.</label><br>
+    </div>
+
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Attention Mechanisms -->
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. What is the purpose of the attention mechanism in neural networks?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) Attention mechanisms allow the model to focus on relevant parts of the input sequence when making predictions.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Attention mechanisms help models to weigh different parts of the input sequence differently.</li>
+            <li><strong>Step 2:</strong> This is especially useful in tasks like machine translation, where some words in the input may be more important than others for generating the correct output.</li>
+            <li><strong>Step 3:</strong> Attention enables models to focus on specific context or words, improving performance on long or complex sequences.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) Attention mechanisms focus on every word in the input sequence equally.</label><br>
+
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) Attention mechanisms help speed up training by reducing the number of layers in the network.</label><br>
+
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) Attention mechanisms allow the model to focus on relevant parts of the input sequence when making predictions.</label><br>
+
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) Attention mechanisms are only useful in convolutional neural networks (CNNs).</label><br>
+    </div>
+
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Self-Attention Mechanism -->
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. What is the role of the self-attention mechanism in models like Transformers?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) Self-attention allows each token in the input sequence to attend to every other token, capturing dependencies across the sequence.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> In self-attention, each token (word) attends to all other tokens in the sequence, enabling the model to capture long-range dependencies.</li>
+            <li><strong>Step 2:</strong> This is different from traditional sequential models that process the sequence step-by-step.</li>
+            <li><strong>Step 3:</strong> Self-attention is the key mechanism behind Transformer-based models like BERT and GPT.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) Self-attention helps the model focus only on the first token in the sequence.</label><br>
+
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) Self-attention allows each token in the input sequence to attend to every other token, capturing dependencies across the sequence.</label><br>
+
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) Self-attention focuses only on adjacent tokens in the input sequence.</label><br>
+
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) Self-attention is mainly used for visual tasks like object detection.</label><br>
+    </div>
+
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Text Generation -->
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. What is the main challenge of text generation in natural language processing?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) Ensuring coherence and consistency in long sequences of generated text.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> While generating text, models may struggle to maintain coherence over long sequences, leading to disjointed or nonsensical outputs.</li>
+            <li><strong>Step 2:</strong> Ensuring that the generated text maintains logical consistency and relevance to the context is a critical challenge.</li>
+            <li><strong>Step 3:</strong> Advanced models like GPT-3 improve upon this by using large-scale training data and sophisticated techniques like attention and transformers.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) Ensuring coherence and consistency in long sequences of generated text.</label><br>
+
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) Ensuring that the model generates text in a different language.</label><br>
+
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) Minimizing the training time of the model.</label><br>
+
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) Making the model generate only factual and accurate information.</label><br>
+    </div>
+
+    <div id="result34" class="result"></div>
+</div>
+
+<!-- Language Models in Text Generation -->
+
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. How do large pre-trained language models like GPT-3 improve text generation?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) They are trained on massive datasets, enabling them to generate highly coherent and contextually appropriate text across a variety of topics.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> GPT-3 is trained on vast amounts of text data, allowing it to learn diverse language patterns and contextual information.</li>
+            <li><strong>Step 2:</strong> This large-scale training allows GPT-3 to generate fluent, coherent text on a wide range of topics, even when given minimal prompts.</li>
+            <li><strong>Step 3:</strong> The model's deep understanding of language helps it generate text that often appears indistinguishable from human-written content.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) They are trained on small datasets for quick generation.</label><br>
+
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) They generate text based only on predefined templates.</label><br>
+
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) They are trained on massive datasets, enabling them to generate highly coherent and contextually appropriate text across a variety of topics.</label><br>
+
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) They can only generate short, simple sentences and cannot handle complex language generation.</label><br>
+    </div>
+
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question Answering Systems -->
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. What is the primary purpose of a Question Answering (QA) system?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) To automatically provide relevant answers to user queries based on a given context or dataset.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> QA systems are designed to extract answers from a large corpus or dataset in response to specific user queries.</li>
+            <li><strong>Step 2:</strong> These systems leverage natural language processing (NLP) techniques, such as information retrieval, classification, and deep learning models, to identify the most relevant answers.</li>
+            <li><strong>Step 3:</strong> Popular examples include systems like Google's search engine and customer support chatbots.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) To categorize data into predefined labels.</label><br>
+
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) To automatically provide relevant answers to user queries based on a given context or dataset.</label><br>
+
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) To summarize large documents into short summaries.</label><br>
+
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) To translate text from one language to another.</label><br>
+    </div>
+
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Machine Reading Comprehension (MRC) -->
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. What does Machine Reading Comprehension (MRC) test in a Question Answering system?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) It tests the model’s ability to understand and extract information from a given passage of text to answer questions.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> MRC is a key aspect of QA systems where the model is given a passage of text and must extract the answer to a specific question based on that text.</li>
+            <li><strong>Step 2:</strong> This tests both comprehension (understanding the text) and information retrieval (extracting relevant details).</li>
+            <li><strong>Step 3:</strong> MRC is often used in tasks like reading comprehension exams or automated customer support systems.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) It tests how well a model can translate text into different languages.</label><br>
+
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) It tests how fast a model can process large amounts of text.</label><br>
+
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) It tests the model’s ability to understand and extract information from a given passage of text to answer questions.</label><br>
+
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) It tests how accurately a model can classify text into predefined categories.</label><br>
+    </div>
+
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Extractive vs Abstractive QA -->
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. What is the difference between extractive and abstractive Question Answering (QA) models?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) Extractive QA models select a direct answer from the provided text, while abstractive QA models generate an answer that may not be directly found in the text.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Extractive QA involves identifying a portion of the text (e.g., a sentence or phrase) that directly answers the question.</li>
+            <li><strong>Step 2:</strong> Abstractive QA generates new sentences that convey the answer, which might not be present in the exact form in the text.</li>
+            <li><strong>Step 3:</strong> Abstractive QA is more complex but provides more natural and flexible answers, as it can paraphrase the information.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) Extractive QA models select a direct answer from the provided text, while abstractive QA models generate an answer that may not be directly found in the text.</label><br>
+
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) Extractive QA models generate new answers, while abstractive QA models select answers from the provided text.</label><br>
+
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) Extractive QA is more flexible than abstractive QA because it can paraphrase text.</label><br>
+
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) There is no difference between extractive and abstractive QA models.</label><br>
+    </div>
+
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Open-Domain vs Closed-Domain QA -->
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. What is the difference between open-domain and closed-domain Question Answering (QA)?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>D) Open-domain QA can answer questions on any topic, while closed-domain QA is limited to a specific domain or subject.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Open-domain QA models are designed to answer a wide variety of questions on any topic using general knowledge.</li>
+            <li><strong>Step 2:</strong> Closed-domain QA models are trained and optimized to answer questions within a specific field, such as medical or legal topics.</li>
+            <li><strong>Step 3:</strong> Closed-domain systems often provide more precise and specialized answers compared to open-domain systems.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) Open-domain QA systems are limited to a specific subject, while closed-domain QA systems can answer any question.</label><br>
+
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) Open-domain QA systems can only answer factual questions, while closed-domain systems can handle opinion-based questions.</label><br>
+
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) There is no difference between open-domain and closed-domain QA models.</label><br>
+
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) Open-domain QA can answer questions on any topic, while closed-domain QA is limited to a specific domain or subject.</label><br>
+    </div>
+
+    <div id="result39" class="result"></div>
+</div>
+
+<!-- Information Retrieval -->
+
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. What is the main objective of Information Retrieval (IR) systems?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) To search and retrieve relevant documents from a large collection based on a user's query.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> IR systems are designed to help users find relevant documents or information from large databases or collections of text.</li>
+            <li><strong>Step 2:</strong> The system takes a user's query and compares it against indexed documents to find the most relevant matches.</li>
+            <li><strong>Step 3:</strong> Popular examples include search engines like Google or databases like PubMed for academic articles.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) To generate new content based on existing documents.</label><br>
+
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) To search and retrieve relevant documents from a large collection based on a user's query.</label><br>
+
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) To process large amounts of data into a structured database.</label><br>
+
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) To classify documents into different categories based on their content.</label><br>
+    </div>
+
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Indexing in Information Retrieval -->
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. What is the purpose of indexing in Information Retrieval?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) To organize documents in a way that allows for efficient searching and retrieval.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Indexing involves creating a data structure (often an inverted index) that maps terms or keywords to the documents that contain them.</li>
+            <li><strong>Step 2:</strong> This makes it easier and faster to locate relevant documents when a query is issued.</li>
+            <li><strong>Step 3:</strong> Without indexing, the system would have to scan every document for each query, which would be inefficient.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) To convert documents into a readable format for humans.</label><br>
+
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) To rank documents based on their length and size.</label><br>
+
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) To organize documents in a way that allows for efficient searching and retrieval.</label><br>
+
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) To categorize documents into different types based on content.</label><br>
+    </div>
+
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Query Expansion in IR -->
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. What is the purpose of query expansion in Information Retrieval?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) To improve the recall of the system by adding related terms to the original query.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Query expansion involves adding synonyms, related terms, or different forms of the query terms to improve search results.</li>
+            <li><strong>Step 2:</strong> This technique is especially useful for ensuring that relevant documents are not missed during retrieval.</li>
+            <li><strong>Step 3:</strong> For example, a user querying "car" might also retrieve documents containing "automobile" through query expansion.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) To limit the search results to only documents that contain the exact query terms.</label><br>
+
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) To improve the recall of the system by adding related terms to the original query.</label><br>
+
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) To refine the search by focusing on the most popular documents in the collection.</label><br>
+
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) To filter the documents that are irrelevant to the user's query.</label><br>
+    </div>
+
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Precision and Recall in IR -->
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. What is the relationship between precision and recall in Information Retrieval?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) Precision measures the relevance of the retrieved documents, while recall measures the completeness of the retrieval.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Precision is the fraction of relevant documents among the retrieved documents. It answers the question: "Of the documents retrieved, how many are relevant?"</li>
+            <li><strong>Step 2:</strong> Recall is the fraction of relevant documents that have been retrieved. It answers the question: "Of all the relevant documents, how many were retrieved?"</li>
+            <li><strong>Step 3:</strong> Both metrics are important for evaluating the performance of an IR system.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) Precision measures the relevance of the retrieved documents, while recall measures the completeness of the retrieval.</label><br>
+
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) Precision and recall are the same metric in Information Retrieval.</label><br>
+
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) Precision measures the speed of retrieval, while recall measures the accuracy.</label><br>
+
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) Precision measures the completeness of the retrieval, while recall measures the relevance of the retrieved documents.</label><br>
+    </div>
+
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Text Summarization (Extractive and Abstractive) -->
+
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. What is the key difference between extractive and abstractive text summarization?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) Extractive summarization selects portions of the original text, while abstractive summarization generates new sentences to convey the main ideas.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Extractive summarization identifies and extracts key phrases or sentences from the original document.</li>
+            <li><strong>Step 2:</strong> Abstractive summarization, on the other hand, paraphrases or generates new sentences to summarize the document's content.</li>
+            <li><strong>Step 3:</strong> While extractive methods are easier to implement, abstractive methods are more complex but provide more human-like summaries.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) Extractive summarization only summarizes specific topics, while abstractive summarization does not focus on topics.</label><br>
+
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) Extractive summarization creates new content, while abstractive summarization only selects text directly from the source.</label><br>
+
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) Extractive summarization selects portions of the original text, while abstractive summarization generates new sentences to convey the main ideas.</label><br>
+
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) Extractive summarization involves summarizing by shortening sentences, while abstractive summarization focuses on extracting key sentences only.</label><br>
+    </div>
+
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Dependency Parsing -->
+
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. What is the primary purpose of dependency parsing in Natural Language Processing (NLP)?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) To identify the syntactic relationships between words in a sentence and represent them in a tree structure.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Dependency parsing analyzes the grammatical structure of a sentence by establishing relationships between words.</li>
+            <li><strong>Step 2:</strong> Each word is linked to another word that governs its syntactic role, and these relationships form a tree-like structure.</li>
+            <li><strong>Step 3:</strong> Dependency parsing is useful for tasks like machine translation, question answering, and information extraction.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) To categorize words into different parts of speech such as nouns and verbs.</label><br>
+
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) To identify the syntactic relationships between words in a sentence and represent them in a tree structure.</label><br>
+
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) To convert a sentence into a set of logical propositions for reasoning tasks.</label><br>
+
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) To determine the sentiment of each word in a sentence based on context.</label><br>
+    </div>
+
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Coreference Resolution -->
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. What is the purpose of coreference resolution in Natural Language Processing?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) To determine which words or phrases refer to the same entity in a sentence or text.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Coreference resolution identifies which words (typically pronouns) or phrases (like "the president") refer to the same entity.</li>
+            <li><strong>Step 2:</strong> It is crucial for tasks like question answering, text summarization, and machine translation where understanding entity relationships is essential.</li>
+            <li><strong>Step 3:</strong> Without coreference resolution, a sentence like "John went to the store. He bought milk." would be ambiguous if "He" is not resolved to "John".</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) To classify the entities mentioned in a text.</label><br>
+
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) To identify the sentiment of the text.</label><br>
+
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) To determine which words or phrases refer to the same entity in a sentence or text.</label><br>
+
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) To extract numerical data from the text.</label><br>
+    </div>
+
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Semantic Role Labeling (SRL) -->
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. What does Semantic Role Labeling (SRL) involve in NLP?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) SRL involves identifying the predicate-argument structures in a sentence and labeling the roles of entities in relation to the predicate.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> SRL focuses on understanding the roles played by different entities (like the agent, object, or goal) in a sentence's action.</li>
+            <li><strong>Step 2:</strong> For example, in the sentence "John gave Mary a book," SRL identifies "John" as the agent, "Mary" as the recipient, and "a book" as the theme.</li>
+            <li><strong>Step 3:</strong> SRL is crucial for deep semantic understanding, enhancing tasks like machine translation and information extraction.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) SRL is used to classify words into their part-of-speech categories.</label><br>
+
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) SRL involves identifying the predicate-argument structures in a sentence and labeling the roles of entities in relation to the predicate.</label><br>
+
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) SRL focuses on finding the sentiment expressed in a sentence.</label><br>
+
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) SRL is a technique used for named entity recognition in text.</label><br>
+    </div>
+
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- More Questions on NLP -->
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. What is the role of pre-trained models like BERT and GPT in NLP?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) Pre-trained models like BERT and GPT provide a rich understanding of language patterns and can be fine-tuned for specific NLP tasks.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Pre-trained models like BERT and GPT are trained on large corpora of text and learn general language representations.</li>
+            <li><strong>Step 2:</strong> These models capture semantic and syntactic patterns in text, which can then be fine-tuned for specific tasks like text classification, sentiment analysis, and question answering.</li>
+            <li><strong>Step 3:</strong> They provide high accuracy and efficiency by leveraging knowledge learned from massive datasets.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) Pre-trained models like BERT and GPT provide a rich understanding of language patterns and can be fine-tuned for specific NLP tasks.</label><br>
+
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) Pre-trained models like BERT and GPT are designed to analyze only specific languages like English.</label><br>
+
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) Pre-trained models like BERT and GPT are only useful for sentence-level classification tasks.</label><br>
+
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) Pre-trained models like BERT and GPT cannot be fine-tuned for specific NLP tasks.</label><br>
+    </div>
+
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. What is a common method to evaluate the performance of an NLP model?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) Accuracy, Precision, Recall, and F1-Score are common evaluation metrics in NLP tasks.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Accuracy is the proportion of correct predictions out of total predictions.</li>
+            <li><strong>Step 2:</strong> Precision measures how many of the predicted positive labels are actually positive.</li>
+            <li><strong>Step 3:</strong> Recall measures how many actual positive labels were correctly identified.</li>
+            <li><strong>Step 4:</strong> F1-Score is the harmonic mean of precision and recall and provides a balanced measure of performance.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Only Accuracy is used to evaluate NLP models.</label><br>
+
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Precision and Recall are only used in image classification tasks.</label><br>
+
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Accuracy, Precision, Recall, and F1-Score are common evaluation metrics in NLP tasks.</label><br>
+
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) Only F1-Score is used to evaluate NLP models.</label><br>
+    </div>
+
+    <div id="result49" class="result"></div>
+</div>
+
+<!-- Named Entity Linking -->
+
+<!-- Question 51 -->
+<div class="qee">
+    <div class="que">
+        <p>51. What is the purpose of Named Entity Linking (NEL) in NLP?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) To link named entities in the text to specific entries in a knowledge base or external resources.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Named Entity Linking (NEL) goes a step beyond Named Entity Recognition (NER) by linking identified entities to structured data sources like Wikipedia, Freebase, or other knowledge graphs.</li>
+            <li><strong>Step 2:</strong> For example, the text "Barack Obama was born in Hawaii." might link "Barack Obama" to his Wikipedia page.</li>
+            <li><strong>Step 3:</strong> This process helps disambiguate between different entities with similar names and provides rich contextual information.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) To extract numerical data from named entities in the text.</label><br>
+
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) To link named entities in the text to specific entries in a knowledge base or external resources.</label><br>
+
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) To translate the names of entities in one language to another.</label><br>
+
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) To classify named entities into general categories like person, location, or organization.</label><br>
+    </div>
+
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Language Generation (e.g., Text-to-Speech) -->
+
+<!-- Question 52 -->
+<div class="qee">
+    <div class="que">
+        <p>52. What is the role of Language Generation (e.g., Text-to-Speech) in NLP?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) Language Generation involves producing human-readable text or speech from structured data or input text.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Text-to-Speech (TTS) is an example of language generation where a system converts written text into spoken words.</li>
+            <li><strong>Step 2:</strong> Language Generation (LG) tasks include creating dialogues, descriptions, and responses in natural language.</li>
+            <li><strong>Step 3:</strong> This technology is critical for virtual assistants, accessibility tools, and automated content creation.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) Language Generation is used to perform speech recognition on audio input.</label><br>
+
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) Language Generation only deals with generating text from images.</label><br>
+
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) Language Generation involves producing human-readable text or speech from structured data or input text.</label><br>
+
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) Language Generation is a technique used to identify entities in a text.</label><br>
+    </div>
+
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Additional NLP Questions -->
+
+<!-- Question 53 -->
+<div class="qee">
+    <div class="que">
+        <p>53. What is the main purpose of Text-to-Speech (TTS) systems?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>D) To convert written text into spoken audio that sounds natural to humans.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Text-to-Speech (TTS) systems take input text and generate human-like speech from it.</li>
+            <li><strong>Step 2:</strong> TTS has applications in virtual assistants, accessibility devices, and systems requiring voice interaction.</li>
+            <li><strong>Step 3:</strong> TTS aims to make generated speech sound natural, including proper intonation and rhythm.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) To convert speech into text that can be processed by a computer.</label><br>
+
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) To generate random text based on a given topic.</label><br>
+
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) To extract meaning from text and summarize it in spoken form.</label><br>
+
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) To convert written text into spoken audio that sounds natural to humans.</label><br>
+    </div>
+
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee">
+    <div class="que">
+        <p>54. What is the key difference between Text-to-Speech (TTS) and Speech-to-Text (STT) systems?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) TTS converts text to speech, while STT converts spoken language into written text.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> TTS is used to generate speech from text input, such as virtual assistants or audiobook narration.</li>
+            <li><strong>Step 2:</strong> STT systems, on the other hand, transcribe spoken language into text, used in speech recognition applications.</li>
+            <li><strong>Step 3:</strong> Both systems are essential components of voice-enabled technologies.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) TTS converts text to speech, while STT converts spoken language into written text.</label><br>
+
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) TTS is used for language translation, while STT is for voice recognition.</label><br>
+
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) TTS and STT are both used for generating text in multiple languages.</label><br>
+
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) TTS and STT both perform text analysis but have no connection to speech generation or recognition.</label><br>
+    </div>
+
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Dialogue Systems (Chatbots) -->
+
+<!-- Question 55 -->
+<div class="qee">
+    <div class="que">
+        <p>55. What is the main goal of a Dialogue System (Chatbot) in NLP?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) To engage in conversation with users, providing responses based on input data or predefined rules.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Dialogue systems (or chatbots) are designed to simulate conversations with users, either through text or speech.</li>
+            <li><strong>Step 2:</strong> These systems can be rule-based, using predefined responses, or use machine learning techniques to generate responses based on the context.</li>
+            <li><strong>Step 3:</strong> Chatbots are used in customer service, virtual assistants, and automated conversational agents.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) To extract meaning from images and display it in a text format.</label><br>
+
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) To identify entities in spoken text and categorize them.</label><br>
+
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) To engage in conversation with users, providing responses based on input data or predefined rules.</label><br>
+
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) To generate random text based on a set of keywords.</label><br>
+    </div>
+
+    <div id="result54" class="result"></div>
+</div>
+
+<!-- Question 56 -->
+<div class="qee">
+    <div class="que">
+        <p>56. What distinguishes rule-based chatbots from AI-driven chatbots?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) Rule-based chatbots follow predefined scripts, while AI-driven chatbots use machine learning to generate responses.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Rule-based chatbots rely on a fixed set of rules and can only provide answers based on pre-written scripts.</li>
+            <li><strong>Step 2:</strong> AI-driven chatbots, on the other hand, use machine learning and NLP techniques to generate more dynamic and context-aware responses.</li>
+            <li><strong>Step 3:</strong> AI-driven chatbots are generally more flexible and capable of handling a broader range of queries than rule-based ones.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) Rule-based chatbots are more flexible and learn from conversations over time.</label><br>
+
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) Rule-based chatbots follow predefined scripts, while AI-driven chatbots use machine learning to generate responses.</label><br>
+
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) Rule-based chatbots are used for complex conversations, while AI-driven chatbots are for simple tasks.</label><br>
+
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) There is no difference between rule-based and AI-driven chatbots.</label><br>
+    </div>
+
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Speech Recognition -->
+
+<!-- Question 57 -->
+<div class="qee">
+    <div class="que">
+        <p>57. What is the main function of Speech Recognition in NLP?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) To convert spoken language into text that a machine can process and understand.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Speech recognition involves converting audio signals into text, allowing machines to interpret spoken language.</li>
+            <li><strong>Step 2:</strong> It is used in virtual assistants, transcription services, and voice-controlled systems.</li>
+            <li><strong>Step 3:</strong> Speech recognition systems use techniques like acoustic models and language models to improve accuracy and handle different accents or speech patterns.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) To convert spoken language into text that a machine can process and understand.</label><br>
+
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) To generate spoken language from written text.</label><br>
+
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) To translate spoken language into another language.</label><br>
+
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) To convert audio signals into images.</label><br>
+    </div>
+
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee">
+    <div class="que">
+        <p>58. What is the challenge in speech recognition for diverse languages and accents?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) Variations in pronunciation, accent, and regional dialects make it difficult to accurately transcribe speech.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Speech recognition systems must deal with different pronunciations and intonations of words depending on the speaker’s accent.</li>
+            <li><strong>Step 2:</strong> Regional dialects may also lead to recognition errors due to the diversity in language usage.</li>
+            <li><strong>Step 3:</strong> To overcome these challenges, speech recognition systems must be trained on diverse speech data from multiple accents and dialects.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) Speech recognition is easier when the speaker is using a microphone.</label><br>
+
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) The system has difficulty handling noise but is accurate with accents.</label><br>
+
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) Variations in pronunciation, accent, and regional dialects make it difficult to accurately transcribe speech.</label><br>
+
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) All languages sound the same to a speech recognition system, so no specific challenges exist.</label><br>
+    </div>
+
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Multi-modal NLP (Combining text and other modalities like images) -->
+
+<!-- Question 59 -->
+<div class="qee">
+    <div class="que">
+        <p>59. What is the purpose of multi-modal NLP?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) To combine different types of data, such as text and images, to improve the understanding and generation of information.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Multi-modal NLP aims to integrate information from multiple sources, such as text, images, and video, to provide a more comprehensive understanding of the context.</li>
+            <li><strong>Step 2:</strong> By using both text and images together, models can make more informed predictions or generate more relevant responses.</li>
+            <li><strong>Step 3:</strong> An example is models like CLIP, which combine text and images to perform tasks like image captioning and image-based search.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) To analyze text data alone without considering images or other types of data.</label><br>
+
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) To combine text data with audio for voice-based systems only.</label><br>
+
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) To combine different types of data, such as text and images, to improve the understanding and generation of information.</label><br>
+
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) To process only image data using natural language processing techniques.</label><br>
+    </div>
+
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee">
+    <div class="que">
+        <p>60. Which of the following is an example of a multi-modal NLP model?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>D) CLIP (Contrastive Language-Image Pre-training), which learns visual representations from text and images.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> CLIP is a multi-modal model that understands both images and text by learning their joint representation.</li>
+            <li><strong>Step 2:</strong> It can be used for tasks like image captioning, zero-shot image classification, and visual question answering.</li>
+            <li><strong>Step 3:</strong> By combining text and images, CLIP has demonstrated remarkable performance on multiple vision tasks without task-specific fine-tuning.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) GPT-3, which is primarily a text-based model.</label><br>
+
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) BERT, which processes only text data.</label><br>
+
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) T5, a text-to-text model.</label><br>
+
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) CLIP (Contrastive Language-Image Pre-training), which learns visual representations from text and images.</label><br>
+    </div>
+
+    <div id="result59" class="result"></div>
+</div>
+
+<!-- Zero-shot Learning in NLP -->
+
+<!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+        <p>61. What is Zero-shot Learning in NLP?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) The ability of a model to perform tasks it has not been explicitly trained on, using its understanding of other tasks.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Zero-shot learning enables a model to generalize its knowledge to new tasks without the need for further training.</li>
+            <li><strong>Step 2:</strong> It works by leveraging pre-existing knowledge and can be used for tasks like classification and translation without task-specific labeled data.</li>
+            <li><strong>Step 3:</strong> An example of zero-shot learning is GPT-3, which can perform various tasks, such as text summarization, question answering, and more, without explicit fine-tuning for each task.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) A model trained specifically for one task only.</label><br>
+
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) A model that can only perform tasks it has been explicitly trained on.</label><br>
+
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) The ability of a model to perform tasks it has not been explicitly trained on, using its understanding of other tasks.</label><br>
+
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) A model that needs new labeled data to handle unseen tasks.</label><br>
+    </div>
+
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee">
+    <div class="que">
+        <p>62. Which of the following is an example of Zero-shot Learning in NLP?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>D) GPT-3, which can perform various NLP tasks without explicit fine-tuning for each one.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> GPT-3 can perform a wide range of tasks, such as translation, summarization, and question answering, without needing task-specific training data.</li>
+            <li><strong>Step 2:</strong> It uses its pre-trained knowledge from vast amounts of text data to generalize and handle unseen tasks.</li>
+            <li><strong>Step 3:</strong> This is a hallmark of zero-shot learning in NLP.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) A model that requires retraining for each specific task.</label><br>
+
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) A model that only performs text classification tasks.</label><br>
+
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) A model that performs tasks within a limited set of categories.</label><br>
+
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) GPT-3, which can perform various NLP tasks without explicit fine-tuning for each one.</label><br>
+    </div>
+
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Transfer Learning for NLP -->
+
+<!-- Question 63 -->
+<div class="qee">
+    <div class="que">
+        <p>63. What is the main advantage of transfer learning in NLP?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) It allows a pre-trained model to be adapted for a specific task with less data.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Transfer learning leverages the knowledge from a model trained on a large dataset to fine-tune it for specific tasks with less labeled data.</li>
+            <li><strong>Step 2:</strong> This technique is particularly useful in NLP, as labeled data for many tasks may be scarce.</li>
+            <li><strong>Step 3:</strong> Examples include using pre-trained models like BERT or GPT-3 and adapting them for downstream tasks like sentiment analysis or question answering.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) It requires a large amount of labeled data for each new task.</label><br>
+
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) It allows a pre-trained model to be adapted for a specific task with less data.</label><br>
+
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) It does not require pre-trained models and starts from scratch.</label><br>
+
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) It is only applicable to computer vision tasks.</label><br>
+    </div>
+
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee">
+    <div class="que">
+        <p>64. Which of the following is a commonly used pre-trained model for transfer learning in NLP?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>D) BERT (Bidirectional Encoder Representations from Transformers), which is widely used for transfer learning in NLP.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> BERT is pre-trained on a large corpus of text data and can be fine-tuned for specific tasks like question answering, text classification, and sentiment analysis.</li>
+            <li><strong>Step 2:</strong> Its bidirectional nature allows it to capture context from both the left and right of a given word.</li>
+            <li><strong>Step 3:</strong> Other popular models for transfer learning in NLP include GPT-3 and RoBERTa.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) Random Forest</label><br>
+
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) Support Vector Machine (SVM)</label><br>
+
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) k-Nearest Neighbors (k-NN)</label><br>
+
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) BERT (Bidirectional Encoder Representations from Transformers)</label><br>
+    </div>
+
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Document Classification -->
+
+<!-- Question 65 -->
+<div class="qee">
+    <div class="que">
+        <p>65. What is the primary goal of document classification in NLP?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) To assign a document to one or more predefined categories based on its content.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Document classification is a supervised learning task where a model is trained to predict the category or label of a document.</li>
+            <li><strong>Step 2:</strong> This is used in various applications such as spam detection, topic modeling, and sentiment analysis.</li>
+            <li><strong>Step 3:</strong> The model typically analyzes the text of the document and outputs the appropriate class label (e.g., "Sports," "Politics," etc.).</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) To extract named entities from the document.</label><br>
+
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) To perform sentiment analysis on the document.</label><br>
+
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) To assign a document to one or more predefined categories based on its content.</label><br>
+
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) To generate a summary of the document.</label><br>
+    </div>
+
+    <div id="result64" class="result"></div>
+</div>
+
+<!-- Question 66 -->
+<div class="qee">
+    <div class="que">
+        <p>66. Which of the following algorithms is commonly used for document classification?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) Naive Bayes, a popular algorithm for text classification tasks, including document classification.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Naive Bayes is based on applying Bayes' theorem with strong (naive) independence assumptions between features (e.g., words in the document).</li>
+            <li><strong>Step 2:</strong> This algorithm is simple, fast, and works well for text classification tasks, especially in cases where the data is high-dimensional.</li>
+            <li><strong>Step 3:</strong> Other algorithms like Support Vector Machines (SVM) and Logistic Regression are also commonly used for document classification tasks.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) k-Nearest Neighbors (k-NN)</label><br>
+
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) Naive Bayes</label><br>
+
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) Decision Trees</label><br>
+
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) Gradient Boosting</label><br>
+    </div>
+
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Cross-lingual NLP -->
+
+<!-- Question 67 -->
+<div class="qee">
+    <div class="que">
+        <p>67. What is the main goal of Cross-lingual NLP?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) To enable models to perform tasks across multiple languages.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Cross-lingual NLP involves creating models and techniques that work across multiple languages without needing large amounts of data for each individual language.</li>
+            <li><strong>Step 2:</strong> It leverages shared linguistic features and transfers knowledge from one language to another.</li>
+            <li><strong>Step 3:</strong> Applications include machine translation, multilingual text classification, and cross-lingual retrieval.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) To train models in a single language.</label><br>
+
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) To translate text between multiple languages.</label><br>
+
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) To enable models to perform tasks across multiple languages.</label><br>
+
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) To translate images into text.</label><br>
+    </div>
+
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee">
+    <div class="que">
+        <p>68. Which model is commonly used for Cross-lingual NLP tasks?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) mBERT (Multilingual BERT).</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> mBERT is a variant of BERT that has been pre-trained on a large multilingual corpus, making it suitable for cross-lingual tasks.</li>
+            <li><strong>Step 2:</strong> It is able to handle multiple languages in one model, making it effective for cross-lingual transfer learning.</li>
+            <li><strong>Step 3:</strong> Other models include XLM and XLM-R, which are designed specifically for cross-lingual tasks.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) GPT-3</label><br>
+
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) mBERT (Multilingual BERT)</label><br>
+
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) Transformer-XL</label><br>
+
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) ELMo</label><br>
+    </div>
+
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Topic Modeling -->
+
+<!-- Question 69 -->
+<div class="qee">
+    <div class="que">
+        <p>69. What is the primary purpose of Topic Modeling in NLP?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) To discover the latent topics that exist in a collection of text documents.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Topic modeling is an unsupervised learning technique used to identify topics present in a large collection of text documents.</li>
+            <li><strong>Step 2:</strong> Each document can be represented as a mixture of topics, where topics are typically described by a set of words.</li>
+            <li><strong>Step 3:</strong> Common techniques for topic modeling include Latent Dirichlet Allocation (LDA) and Non-negative Matrix Factorization (NMF).</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) To discover the latent topics that exist in a collection of text documents.</label><br>
+
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) To predict the sentiment of a text document.</label><br>
+
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) To identify named entities in a document.</label><br>
+
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) To summarize the content of a document.</label><br>
+    </div>
+
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee">
+    <div class="que">
+        <p>70. Which algorithm is most commonly used for Topic Modeling?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) Latent Dirichlet Allocation (LDA).</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> LDA is a generative probabilistic model that assumes documents are a mixture of topics, and each topic is a mixture of words.</li>
+            <li><strong>Step 2:</strong> LDA is widely used for topic modeling because it efficiently discovers hidden thematic structures in a collection of text documents.</li>
+            <li><strong>Step 3:</strong> Other models like Non-negative Matrix Factorization (NMF) can also be used, but LDA is more common.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) Latent Dirichlet Allocation (LDA)</label><br>
+
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) k-means Clustering</label><br>
+
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) Decision Trees</label><br>
+
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) Random Forest</label><br>
+    </div>
+
+    <div id="result69" class="result"></div>
+</div>
+
+<!-- Speech-to-Text -->
+
+<!-- Question 71 -->
+<div class="qee">
+    <div class="que">
+        <p>71. What is the main challenge in Speech-to-Text systems?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) Accurately transcribing spoken language into written text.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Speech-to-text systems aim to convert spoken language into text, but they struggle with issues like accents, background noise, and homophones.</li>
+            <li><strong>Step 2:</strong> The accuracy of transcription can be affected by how well the system handles different speaking styles, environmental noise, and mispronunciations.</li>
+            <li><strong>Step 3:</strong> Advanced models use techniques like deep learning and acoustic modeling to improve transcription accuracy.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) Identifying the speaker in the audio.</label><br>
+
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) Understanding the context of the spoken words.</label><br>
+
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) Accurately transcribing spoken language into written text.</label><br>
+
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) Generating speech from written text.</label><br>
+    </div>
+
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee">
+    <div class="que">
+        <p>72. Which technique is most commonly used in modern Speech-to-Text systems?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) Deep learning-based acoustic models.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Modern speech recognition systems use deep learning models such as convolutional neural networks (CNNs) and recurrent neural networks (RNNs) to learn from large datasets of speech.</li>
+            <li><strong>Step 2:</strong> These models help in extracting features from raw audio and transcribing it to text with high accuracy.</li>
+            <li><strong>Step 3:</strong> End-to-end models such as Transformer-based architectures are also used to handle speech-to-text tasks more efficiently.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) Deep learning-based acoustic models</label><br>
+
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) Hidden Markov Models (HMM)</label><br>
+
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) Support Vector Machines (SVM)</label><br>
+
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) Decision Trees</label><br>
+    </div>
+
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Word Sense Disambiguation -->
+
+<!-- Question 73 -->
+<div class="qee">
+    <div class="que">
+        <p>73. What is the primary goal of Word Sense Disambiguation (WSD)?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) To determine which meaning of a word is used in a given context.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Word Sense Disambiguation (WSD) is the task of identifying the correct sense or meaning of a word when it has multiple meanings (e.g., "bank" as a financial institution or the side of a river).</li>
+            <li><strong>Step 2:</strong> WSD can be done using various approaches, including supervised, unsupervised, and knowledge-based methods.</li>
+            <li><strong>Step 3:</strong> The goal is to improve the accuracy of NLP systems by resolving word ambiguities in context.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) To find synonyms for a word in a given context.</label><br>
+
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) To detect the part of speech of a word.</label><br>
+
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) To determine which meaning of a word is used in a given context.</label><br>
+
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) To detect named entities in text.</label><br>
+    </div>
+
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee">
+    <div class="que">
+        <p>74. Which of the following methods is commonly used for Word Sense Disambiguation?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) Lesk Algorithm.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> The Lesk Algorithm is a classic knowledge-based method for word sense disambiguation.</li>
+            <li><strong>Step 2:</strong> It disambiguates words by comparing their contexts (such as definitions) in a dictionary or thesaurus.</li>
+            <li><strong>Step 3:</strong> The method selects the sense of the word that shares the most common words with its surrounding context.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) Lesk Algorithm</label><br>
+
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) K-means Clustering</label><br>
+
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) Naive Bayes Classifier</label><br>
+
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) Hidden Markov Model (HMM)</label><br>
+    </div>
+
+    <div id="result73" class="result"></div>
+</div>
+
+
+<!-- Text Similarity -->
+
+<!-- Question 75 -->
+<div class="qee">
+    <div class="que">
+        <p>75. Which of the following methods is commonly used to measure Text Similarity?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) Cosine Similarity.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Cosine similarity measures the cosine of the angle between two vectors in a vector space. It is commonly used to determine the similarity between two texts.</li>
+            <li><strong>Step 2:</strong> The text is often represented as vectors using methods like TF-IDF or Word2Vec, and cosine similarity quantifies the closeness between the two vectors.</li>
+            <li><strong>Step 3:</strong> A higher cosine value indicates a greater similarity between the two texts.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) Euclidean Distance</label><br>
+
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) Jaccard Similarity</label><br>
+
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) Cosine Similarity</label><br>
+
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) Levenshtein Distance</label><br>
+    </div>
+
+    <div id="result74" class="result"></div>
+</div>
+
+<!-- Question 76 -->
+<div class="qee">
+    <div class="que">
+        <p>76. What is the main goal of Text Similarity?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) To determine the degree of similarity between two pieces of text.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Text similarity aims to find how similar or dissimilar two pieces of text are, based on their content, meaning, or structure.</li>
+            <li><strong>Step 2:</strong> It is useful in tasks such as document clustering, information retrieval, and paraphrase detection.</li>
+            <li><strong>Step 3:</strong> The methods used can vary, from basic techniques like keyword overlap to more advanced models such as BERT embeddings.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) To calculate the difference in length between two texts.</label><br>
+
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) To determine the degree of similarity between two pieces of text.</label><br>
+
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) To identify the main topic of the text.</label><br>
+
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) To break the text into smaller chunks.</label><br>
+    </div>
+
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Machine Reading Comprehension -->
+
+<!-- Question 77 -->
+<div class="qee">
+    <div class="que">
+        <p>77. What is the main goal of Machine Reading Comprehension (MRC)?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) To understand and answer questions about a given text.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Machine Reading Comprehension involves teaching machines to understand a passage of text and answer specific questions about it.</li>
+            <li><strong>Step 2:</strong> It often involves models like BERT or other transformer-based architectures that can process and extract information from the text to answer the question.</li>
+            <li><strong>Step 3:</strong> MRC is widely used in tasks like question answering, document summarization, and educational systems.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) To classify the text into predefined categories.</label><br>
+
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) To generate a summary of the text.</label><br>
+
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) To understand and answer questions about a given text.</label><br>
+
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) To translate the text into another language.</label><br>
+    </div>
+
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee">
+    <div class="que">
+        <p>78. Which of the following tasks is closely related to Machine Reading Comprehension?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) Question Answering.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Question Answering (QA) systems aim to find answers to questions based on a given text or knowledge base.</li>
+            <li><strong>Step 2:</strong> Machine Reading Comprehension is a subset of QA, where the system is specifically trained to comprehend and answer questions about a reading passage.</li>
+            <li><strong>Step 3:</strong> QA and MRC share common approaches, especially when using models like BERT that excel in both tasks.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) Document Classification</label><br>
+
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) Question Answering</label><br>
+
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) Text Summarization</label><br>
+
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) Named Entity Recognition</label><br>
+    </div>
+
+    <div id="result77" class="result"></div>
+</div>
+
+<!-- Recurrent Neural Networks (RNNs) in NLP -->
+
+<!-- Question 79 -->
+<div class="qee">
+    <div class="que">
+        <p>79. Which of the following is a key advantage of using Recurrent Neural Networks (RNNs) in NLP tasks?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) RNNs are capable of handling sequential data and maintaining contextual information across time steps.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> RNNs are designed to process sequences of data, making them ideal for tasks where the order of elements matters (e.g., language, speech).</li>
+            <li><strong>Step 2:</strong> RNNs retain information from previous time steps in their hidden states, allowing them to capture context and dependencies in the input sequence.</li>
+            <li><strong>Step 3:</strong> This ability makes RNNs highly effective for tasks such as text generation, language modeling, and machine translation.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) RNNs can process data in parallel for faster computation.</label><br>
+
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) RNNs are capable of handling sequential data and maintaining contextual information across time steps.</label><br>
+
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) RNNs are simpler to implement compared to other deep learning models.</label><br>
+
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) RNNs can only be used for text-based tasks.</label><br>
+    </div>
+
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee">
+    <div class="que">
+        <p>80. What is the primary limitation of traditional Recurrent Neural Networks (RNNs) in NLP tasks?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) RNNs struggle to capture long-term dependencies due to the vanishing gradient problem.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Traditional RNNs are prone to the vanishing gradient problem, where gradients become extremely small during backpropagation, preventing them from learning long-range dependencies.</li>
+            <li><strong>Step 2:</strong> This limitation makes RNNs ineffective for tasks that require understanding of long-term relationships in data, such as long sentence structure or long-term context.</li>
+            <li><strong>Step 3:</strong> Variants like LSTMs (Long Short-Term Memory) and GRUs (Gated Recurrent Units) were developed to mitigate this problem.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) RNNs cannot be used with large datasets.</label><br>
+
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) RNNs require large amounts of labeled data to train effectively.</label><br>
+
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) RNNs struggle to capture long-term dependencies due to the vanishing gradient problem.</label><br>
+
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) RNNs require highly complex architectures to function well.</label><br>
+    </div>
+
+    <div id="result79" class="result"></div>
+</div>
+
+<!-- Question 81 -->
+<div class="qee">
+    <div class="que">
+        <p>81. How does a Gated Recurrent Unit (GRU) differ from a Long Short-Term Memory (LSTM) in handling RNN tasks?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>
+
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) GRUs are simpler than LSTMs, with fewer gates and parameters.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Both GRUs and LSTMs are designed to solve the vanishing gradient problem in traditional RNNs.</li>
+            <li><strong>Step 2:</strong> GRUs are simpler than LSTMs, with only two gates (reset and update) compared to LSTM's three gates (input, output, and forget). This reduces the number of parameters in GRUs.</li>
+            <li><strong>Step 3:</strong> Despite being simpler, GRUs can achieve similar performance to LSTMs in many tasks, making them more efficient in terms of computation and memory.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) GRUs use three gates, whereas LSTMs use two gates.</label><br>
+
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) GRUs are simpler than LSTMs, with fewer gates and parameters.</label><br>
+
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) LSTMs require less computational power than GRUs.</label><br>
+
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) LSTMs have a higher memory capacity than GRUs, making them more efficient in NLP tasks.</label><br>
+    </div>
+
+    <div id="result80" class="result"></div>
+</div>
+
+<!-- Question 82 -->
+<div class="qee">
+    <div class="que">
+        <p>82. In an RNN, what is the role of the hidden state at each time step?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>
+
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) The hidden state captures the context or memory of the previous time steps and passes it to the next time step.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> In RNNs, the hidden state at each time step is a vector that contains information about the current and past inputs.</li>
+            <li><strong>Step 2:</strong> The hidden state is updated at each time step based on the previous hidden state and the current input, allowing the RNN to "remember" past information.</li>
+            <li><strong>Step 3:</strong> This memory is passed along to the next time step, allowing the RNN to maintain sequential dependencies.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) The hidden state captures the context or memory of the previous time steps and passes it to the next time step.</label><br>
+
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) The hidden state stores the final output of the network for decision making.</label><br>
+
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) The hidden state computes the initial weights of the network.</label><br>
+
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) The hidden state determines the learning rate for gradient descent.</label><br>
+    </div>
+
+    <div id="result81" class="result"></div>
+</div>
+
+<!-- Long Short-Term Memory Networks (LSTMs) in NLP -->
+
+<!-- Question 83 -->
+<div class="qee">
+    <div class="que">
+        <p>83. What is the main purpose of the "forget gate" in an LSTM?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>
+
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) The forget gate determines which information from the previous cell state should be discarded.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> In LSTMs, the forget gate controls how much of the previous cell state should be kept or discarded.</li>
+            <li><strong>Step 2:</strong> It helps the model forget irrelevant information and prevents overfitting.</li>
+            <li><strong>Step 3:</strong> The forget gate is critical for maintaining long-term dependencies and preventing the vanishing gradient problem that can occur in traditional RNNs.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) The forget gate decides how much of the input at the current time step should be added to the output.</label><br>
+
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) The forget gate determines how much of the current input should be passed to the next time step.</label><br>
+
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) The forget gate determines which information from the previous cell state should be discarded.</label><br>
+
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) The forget gate decides how much of the hidden state should be used for prediction.</label><br>
+    </div>
+
+    <div id="result82" class="result"></div>
+</div>
+
+<!-- Question 84 -->
+<div class="qee">
+    <div class="que">
+        <p>84. In LSTMs, what does the "cell state" represent?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>
+
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) The cell state represents the long-term memory of the network, carrying relevant information through time.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> The cell state acts as the memory in an LSTM, allowing it to carry important information over time.</li>
+            <li><strong>Step 2:</strong> The cell state is modified by the gates (forget, input, and output gates) at each time step to retain or update relevant information.</li>
+            <li><strong>Step 3:</strong> It allows LSTMs to avoid the vanishing gradient problem, making them effective for long-term dependencies.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) The cell state represents the long-term memory of the network, carrying relevant information through time.</label><br>
+
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) The cell state stores the output of the model at each time step.</label><br>
+
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) The cell state stores the weights and biases used for computation.</label><br>
+
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) The cell state determines the model's learning rate at each time step.</label><br>
+    </div>
+
+    <div id="result83" class="result"></div>
+</div>
+
+<!-- Question 85 -->
+<div class="qee">
+    <div class="que">
+        <p>85. Why are LSTMs better suited for capturing long-range dependencies compared to traditional RNNs?</p>
+        <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+    </div>
+
+    <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>D) LSTMs use a combination of gates (input, forget, and output) that allow them to better maintain and update the cell state, avoiding the vanishing gradient problem.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> Traditional RNNs suffer from the vanishing gradient problem, where the gradients become too small for long-term dependencies.</li>
+            <li><strong>Step 2:</strong> LSTMs use a memory cell and three gates (input, forget, and output) to selectively store, forget, or update information, helping them retain relevant information over longer time periods.</li>
+            <li><strong>Step 3:</strong> This enables LSTMs to capture long-range dependencies more effectively compared to traditional RNNs.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+        <label for="optionA84">A) LSTMs can process sequences faster than traditional RNNs, enabling them to capture long-range dependencies more easily.</label><br>
+
+        <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+        <label for="optionB84">B) LSTMs use a deeper architecture than traditional RNNs, which helps them capture long-range dependencies.</label><br>
+
+        <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+        <label for="optionC84">C) LSTMs are simpler to train compared to RNNs, making them better for long-range dependencies.</label><br>
+
+        <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+        <label for="optionD84">D) LSTMs use a combination of gates (input, forget, and output) that allow them to better maintain and update the cell state, avoiding the vanishing gradient problem.</label><br>
+    </div>
+
+    <div id="result84" class="result"></div>
+</div>
+
+<!-- Question 86 -->
+<div class="qee">
+    <div class="que">
+        <p>86. How does the output gate in an LSTM affect the final output at each time step?</p>
+        <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+    </div>
+
+    <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) The output gate decides which parts of the cell state should be output to the hidden state, influencing the final prediction.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> The output gate in LSTMs controls how much of the cell state is passed to the hidden state.</li>
+            <li><strong>Step 2:</strong> The hidden state at each time step is used to compute the output of the LSTM at that time step, which is passed to the next layer or the final output.</li>
+            <li><strong>Step 3:</strong> The output gate helps determine which parts of the memory should be used for the current time step's output, ensuring that the model only uses relevant information.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+        <label for="optionA85">A) The output gate determines the learning rate for the LSTM.</label><br>
+
+        <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+        <label for="optionB85">B) The output gate decides which parts of the cell state should be output to the hidden state, influencing the final prediction.</label><br>
+
+        <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+        <label for="optionC85">C) The output gate directly computes the output of the LSTM.</label><br>
+
+        <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+        <label for="optionD85">D) The output gate modifies the cell state by adding the current input.</label><br>
+    </div>
+
+    <div id="result85" class="result"></div>
+</div>
+
+<!-- Gated Recurrent Units (GRUs) in NLP -->
+
+<!-- Question 87 -->
+<div class="qee">
+    <div class="que">
+        <p>87. What is the primary difference between a GRU and an LSTM?</p>
+        <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+    </div>
+
+    <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>C) GRUs combine the forget and input gates into a single update gate, making them simpler than LSTMs.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> LSTMs have three gates: input, forget, and output gates, while GRUs combine the forget and input gates into a single update gate.</li>
+            <li><strong>Step 2:</strong> GRUs also do not have a separate memory cell like LSTMs, making them simpler and computationally less expensive.</li>
+            <li><strong>Step 3:</strong> Both LSTMs and GRUs are designed to address the vanishing gradient problem, but GRUs are typically faster to train due to their simpler structure.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+        <label for="optionA86">A) GRUs have a more complex structure than LSTMs.</label><br>
+
+        <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+        <label for="optionB86">B) GRUs have an additional output gate compared to LSTMs.</label><br>
+
+        <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+        <label for="optionC86">C) GRUs combine the forget and input gates into a single update gate, making them simpler than LSTMs.</label><br>
+
+        <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+        <label for="optionD86">D) GRUs have a separate memory cell like LSTMs.</label><br>
+    </div>
+
+    <div id="result86" class="result"></div>
+</div>
+
+<!-- Question 88 -->
+<div class="qee">
+    <div class="que">
+        <p>88. In a GRU, which gate is responsible for controlling how much of the previous hidden state should be carried over to the next time step?</p>
+        <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+    </div>
+
+    <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>A) The update gate.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> The GRU has two main gates: the update gate and the reset gate.</li>
+            <li><strong>Step 2:</strong> The update gate controls how much of the previous hidden state is retained or updated at each time step.</li>
+            <li><strong>Step 3:</strong> The reset gate, on the other hand, controls how much of the previous hidden state is reset before the update step.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+        <label for="optionA87">A) The update gate.</label><br>
+
+        <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+        <label for="optionB87">B) The reset gate.</label><br>
+
+        <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+        <label for="optionC87">C) The output gate.</label><br>
+
+        <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+        <label for="optionD87">D) The input gate.</label><br>
+    </div>
+
+    <div id="result87" class="result"></div>
+</div>
+
+<!-- Question 89 -->
+<div class="qee">
+    <div class="que">
+        <p>89. Why are GRUs considered more computationally efficient than LSTMs?</p>
+        <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+    </div>
+
+    <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>B) GRUs have fewer gates and no separate memory cell, making them less computationally expensive than LSTMs.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> LSTMs have three gates (input, forget, output) and a separate memory cell, making them more complex and computationally expensive.</li>
+            <li><strong>Step 2:</strong> GRUs combine the forget and input gates into a single update gate and do not have a separate memory cell, reducing the number of computations needed per time step.</li>
+            <li><strong>Step 3:</strong> As a result, GRUs are faster to train and require fewer resources compared to LSTMs.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+        <label for="optionA88">A) GRUs use a simpler neural network structure that allows for faster training and prediction.</label><br>
+
+        <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+        <label for="optionB88">B) GRUs have fewer gates and no separate memory cell, making them less computationally expensive than LSTMs.</label><br>
+
+        <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+        <label for="optionC88">C) GRUs can handle longer sequences more efficiently than LSTMs.</label><br>
+
+        <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+        <label for="optionD88">D) GRUs use a simpler loss function, making them more computationally efficient than LSTMs.</label><br>
+    </div>
+
+    <div id="result88" class="result"></div>
+</div>
+
+<!-- Question 90 -->
+<div class="qee">
+    <div class="que">
+        <p>90. What is the role of the reset gate in a GRU?</p>
+        <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+    </div>
+
+    <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The correct answer is <strong>D) The reset gate controls how much of the previous hidden state should be forgotten.</strong><br>
+        <ul>
+            <li><strong>Step 1:</strong> The reset gate in a GRU determines how much of the previous hidden state should be reset before the current input is processed.</li>
+            <li><strong>Step 2:</strong> If the reset gate has a value close to 0, it effectively "forgets" the previous hidden state, allowing the network to focus on the current input.</li>
+            <li><strong>Step 3:</strong> The reset gate works in combination with the update gate to control the flow of information through the GRU.</li>
+        </ul>
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+        <label for="optionA89">A) The reset gate controls how much of the current input should be used to update the hidden state.</label><br>
+
+        <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+        <label for="optionB89">B) The reset gate controls how much of the output should be included in the final hidden state.</label><br>
+
+        <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+        <label for="optionC89">C) The reset gate determines the learning rate during training.</label><br>
+
+        <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+        <label for="optionD89">D) The reset gate controls how much of the previous hidden state should be forgotten.</label><br>
+    </div>
+
+    <div id="result89" class="result"></div>
+</div>
+
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

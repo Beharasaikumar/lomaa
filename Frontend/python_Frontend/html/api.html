@@ -1,0 +1,2520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API's</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'A', 'A', 'A', 'A', 'C', 'A', 'A', 'A', 'A', 'A',
+            'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+            'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+            'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+            'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+            'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+            'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+ 
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>API's</h3>
+        <div class="inner-border">
+            <div class="qee">
+                <div class="que">
+                    <p>1. What is an API?</p>
+                    <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+                </div>
+            
+                <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    API stands for <strong>Application Programming Interface</strong>. It’s a set of rules that allows one piece of software to interact with another. APIs define how requests and responses should be formatted and processed.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>APIs enable communication between different applications.</li>
+                        <li>They can be used for accessing web services, databases, etc.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+                    <label for="optionA0">A) Application Programming Interface</label><br>
+            
+                    <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+                    <label for="optionB0">B) Advanced Processing Interface</label><br>
+            
+                    <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+                    <label for="optionC0">C) Application Process Integration</label><br>
+            
+                    <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+                    <label for="optionD0">D) Advanced Programming Interface</label><br>
+                </div>
+            
+                <div id="result0" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>2. What are the main types of APIs?</p>
+                    <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+                </div>
+            
+                <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    APIs can be categorized into different types based on their architecture and use cases.<br><br>
+                    <strong>Types of APIs:</strong>
+                    <ul>
+                        <li><strong>REST APIs:</strong> Use HTTP requests and are stateless.</li>
+                        <li><strong>SOAP APIs:</strong> Use XML-based messages and are more rigid.</li>
+                        <li><strong>GraphQL APIs:</strong> Allow clients to request specific data.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+                    <label for="optionA1">A) REST, SOAP, GraphQL</label><br>
+            
+                    <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+                    <label for="optionB1">B) HTTP, FTP, SMTP</label><br>
+            
+                    <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+                    <label for="optionC1">C) JSON, XML, CSV</label><br>
+            
+                    <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+                    <label for="optionD1">D) SQL, NoSQL, GraphDB</label><br>
+                </div>
+            
+                <div id="result1" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>3. Which Python framework is commonly used for building RESTful APIs?</p>
+                    <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+                </div>
+            
+                <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Python offers several frameworks for building RESTful APIs, with Flask being one of the most popular due to its simplicity and flexibility.<br><br>
+                    <strong>Popular Frameworks:</strong>
+                    <ul>
+                        <li><strong>Flask:</strong> Lightweight and easy to get started with.</li>
+                        <li><strong>FastAPI:</strong> High-performance and supports asynchronous programming.</li>
+                        <li><strong>Django REST Framework:</strong> Robust and ideal for large applications.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+                    <label for="optionA2">A) Flask</label><br>
+            
+                    <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+                    <label for="optionB2">B) TensorFlow</label><br>
+            
+                    <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+                    <label for="optionC2">C) NumPy</label><br>
+            
+                    <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+                    <label for="optionD2">D) Matplotlib</label><br>
+                </div>
+            
+                <div id="result2" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>4. What is the purpose of API versioning?</p>
+                    <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+                </div>
+            
+                <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    API versioning helps manage changes and updates to APIs without disrupting existing clients.<br><br>
+                    <strong>Key Reasons for API Versioning:</strong>
+                    <ul>
+                        <li>Ensures backward compatibility with older clients.</li>
+                        <li>Allows gradual rollout of new features.</li>
+                        <li>Helps maintain API stability over time.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+                    <label for="optionA3">A) Manage changes without breaking existing clients</label><br>
+            
+                    <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+                    <label for="optionB3">B) To make APIs faster</label><br>
+            
+                    <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+                    <label for="optionC3">C) To reduce server load</label><br>
+            
+                    <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+                    <label for="optionD3">D) To eliminate the need for authentication</label><br>
+                </div>
+            
+                <div id="result3" class="result"></div>
+            </div>
+            
+            <!-- Continue adding the rest of the questions following the same structure. -->
+            
+            <div class="qee">
+                <div class="que">
+                    <p>5. What is OAuth used for?</p>
+                    <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+                </div>
+            
+                <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    OAuth is an open standard for access delegation commonly used for token-based authentication.<br><br>
+                    <strong>Key Features:</strong>
+                    <ul>
+                        <li>Allows third-party applications to access user data without exposing credentials.</li>
+                        <li>Uses tokens to grant access to resources.</li>
+                        <li>Supports secure authorization workflows.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+                    <label for="optionA4">A) Secure authorization for third-party apps</label><br>
+            
+                    <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+                    <label for="optionB4">B) Encrypting data at rest</label><br>
+            
+                    <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+                    <label for="optionC4">C) Managing API rate limits</label><br>
+            
+                    <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+                    <label for="optionD4">D) Compressing API responses</label><br>
+                </div>
+            
+                <div id="result4" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>6. What is JSON used for in APIs?</p>
+                    <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+                </div>
+            
+                <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    JSON (JavaScript Object Notation) is a lightweight data-interchange format that's easy for humans to read and write, and easy for machines to parse and generate.<br><br>
+                    <strong>JSON Characteristics:</strong>
+                    <ul>
+                        <li>Used to send and receive data between client and server.</li>
+                        <li>Supports key-value pairs and arrays.</li>
+                        <li>Language-independent, widely used in APIs.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+                    <label for="optionA5">A) Data format for exchanging information</label><br>
+            
+                    <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+                    <label for="optionB5">B) A type of API authentication</label><br>
+            
+                    <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+                    <label for="optionC5">C) A web server protocol</label><br>
+            
+                    <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+                    <label for="optionD5">D) A database management system</label><br>
+                </div>
+            
+                <div id="result5" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>7. What is the purpose of rate limiting in APIs?</p>
+                    <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+                </div>
+            
+                <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Rate limiting controls the number of requests a user can make to an API in a specific time period to prevent abuse and ensure fair usage.<br><br>
+                    <strong>Benefits of Rate Limiting:</strong>
+                    <ul>
+                        <li>Protects APIs from overuse and potential DDoS attacks.</li>
+                        <li>Ensures stable performance for all users.</li>
+                        <li>Helps manage server load effectively.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+                    <label for="optionA6">A) Prevent API abuse and manage server load</label><br>
+            
+                    <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+                    <label for="optionB6">B) Encrypt API data</label><br>
+            
+                    <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+                    <label for="optionC6">C) Increase API response speed</label><br>
+            
+                    <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+                    <label for="optionD6">D) Remove unnecessary API endpoints</label><br>
+                </div>
+            
+                <div id="result6" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>8. What is the purpose of Swagger in API development?</p>
+                    <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+                </div>
+            
+                <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Swagger is a tool for designing, building, and documenting RESTful APIs using the OpenAPI Specification.<br><br>
+                    <strong>Key Features:</strong>
+                    <ul>
+                        <li>Generates interactive API documentation.</li>
+                        <li>Helps with API testing and development.</li>
+                        <li>Supports code generation for client libraries.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+                    <label for="optionA7">A) API design, documentation, and testing tool</label><br>
+            
+                    <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+                    <label for="optionB7">B) A data encryption library</label><br>
+            
+                    <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+                    <label for="optionC7">C) A database management system</label><br>
+            
+                    <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+                    <label for="optionD7">D) A type of API gateway</label><br>
+                </div>
+            
+                <div id="result7" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>9. What is the purpose of using JWT in API security?</p>
+                    <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+                </div>
+            
+                <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    JWT (JSON Web Token) is used for secure information exchange between parties. It’s commonly used for authentication and authorization in APIs.<br><br>
+                    <strong>Key Features:</strong>
+                    <ul>
+                        <li>Compact, URL-safe tokens.</li>
+                        <li>Can be signed and optionally encrypted.</li>
+                        <li>Ensures data integrity and authenticity.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+                    <label for="optionA8">A) Secure user authentication and data integrity</label><br>
+            
+                    <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+                    <label for="optionB8">B) Encrypting API responses only</label><br>
+            
+                    <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+                    <label for="optionC8">C) Managing API rate limits</label><br>
+            
+                    <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+                    <label for="optionD8">D) Data storage in APIs</label><br>
+                </div>
+            
+                <div id="result8" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>10. Which Python library is commonly used for making HTTP requests to APIs?</p>
+                    <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+                </div>
+            
+                <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    The `requests` library in Python is widely used to make HTTP requests to RESTful APIs. It simplifies sending HTTP/1.1 requests.<br><br>
+                    <strong>Key Features:</strong>
+                    <ul>
+                        <li>Supports GET, POST, PUT, DELETE methods.</li>
+                        <li>Handles JSON and form-encoded data.</li>
+                        <li>Easy to use with simple syntax.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+                    <label for="optionA9">A) requests</label><br>
+            
+                    <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+                    <label for="optionB9">B) BeautifulSoup</label><br>
+            
+                    <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+                    <label for="optionC9">C) NumPy</label><br>
+            
+                    <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+                    <label for="optionD9">D) Matplotlib</label><br>
+                </div>
+            
+                <div id="result9" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>11. What does load balancing help achieve in API deployment?</p>
+                    <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+                </div>
+            
+                <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Load balancing distributes incoming API traffic across multiple servers to ensure reliability, performance, and scalability.<br><br>
+                    <strong>Benefits of Load Balancing:</strong>
+                    <ul>
+                        <li>Improves application availability and fault tolerance.</li>
+                        <li>Distributes traffic efficiently to prevent server overload.</li>
+                        <li>Enhances response times and resource utilization.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+                    <label for="optionA10">A) Distribute API traffic for performance and reliability</label><br>
+            
+                    <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+                    <label for="optionB10">B) Encrypt API requests</label><br>
+            
+                    <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+                    <label for="optionC10">C) Manage API versioning</label><br>
+            
+                    <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+                    <label for="optionD10">D) Optimize database queries</label><br>
+                </div>
+            
+                <div id="result10" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>12. Which Python framework is known for its high-performance API development?</p>
+                    <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+                </div>
+            
+                <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    FastAPI is a modern, high-performance web framework for building APIs with Python 3.6+ based on standard Python type hints.<br><br>
+                    <strong>Key Features of FastAPI:</strong>
+                    <ul>
+                        <li>Fast performance, comparable to Node.js and Go.</li>
+                        <li>Automatic API documentation with Swagger and ReDoc.</li>
+                        <li>Easy to use with Python's type hints.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+                    <label for="optionA11">A) FastAPI</label><br>
+            
+                    <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+                    <label for="optionB11">B) Flask</label><br>
+            
+                    <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+                    <label for="optionC11">C) Django</label><br>
+            
+                    <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+                    <label for="optionD11">D) Bottle</label><br>
+                </div>
+            
+                <div id="result11" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>13. What is the purpose of API versioning?</p>
+                    <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+                </div>
+            
+                <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    API versioning allows developers to manage changes in API functionality without disrupting existing clients. It helps maintain backward compatibility.<br><br>
+                    <strong>Benefits of API Versioning:</strong>
+                    <ul>
+                        <li>Allows smooth updates and feature additions.</li>
+                        <li>Ensures legacy clients continue working.</li>
+                        <li>Improves API lifecycle management.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+                    <label for="optionA12">A) Manage API changes without breaking existing clients</label><br>
+            
+                    <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+                    <label for="optionB12">B) Reduce server load</label><br>
+            
+                    <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+                    <label for="optionC12">C) Increase API response time</label><br>
+            
+                    <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+                    <label for="optionD12">D) Enable offline API access</label><br>
+                </div>
+            
+                <div id="result12" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>14. Which HTTP method is used to update an existing resource in an API?</p>
+                    <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+                </div>
+            
+                <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    The HTTP PUT method is used to update an existing resource. It replaces the current representation of the resource with the provided data.<br><br>
+                    <strong>HTTP Methods Overview:</strong>
+                    <ul>
+                        <li>GET - Retrieve data</li>
+                        <li>POST - Create new data</li>
+                        <li>PUT - Update existing data</li>
+                        <li>DELETE - Remove data</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+                    <label for="optionA13">A) PUT</label><br>
+            
+                    <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+                    <label for="optionB13">B) GET</label><br>
+            
+                    <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+                    <label for="optionC13">C) POST</label><br>
+            
+                    <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+                    <label for="optionD13">D) DELETE</label><br>
+                </div>
+            
+                <div id="result13" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>15. What is the main advantage of using Docker for API deployment?</p>
+                    <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+                </div>
+            
+                <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker allows you to package applications and their dependencies into a container, ensuring consistent performance across different environments.<br><br>
+                    <strong>Key Benefits of Docker:</strong>
+                    <ul>
+                        <li>Easy deployment across multiple environments.</li>
+                        <li>Improves scalability and isolation.</li>
+                        <li>Simplifies CI/CD pipelines.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+                    <label for="optionA14">A) Ensures consistent deployment across environments</label><br>
+            
+                    <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+                    <label for="optionB14">B) Provides advanced data analysis tools</label><br>
+            
+                    <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+                    <label for="optionC14">C) Manages API versioning</label><br>
+            
+                    <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+                    <label for="optionD14">D) Only supports Python applications</label><br>
+                </div>
+            
+                <div id="result14" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>16. What does JWT stand for in API security?</p>
+                    <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+                </div>
+            
+                <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    JWT stands for <strong>JSON Web Token</strong>. It’s a compact, URL-safe token used to securely transmit information between parties as a JSON object.<br><br>
+                    <strong>Key Features of JWT:</strong>
+                    <ul>
+                        <li>Stateless authentication mechanism.</li>
+                        <li>Data integrity through digital signatures.</li>
+                        <li>Commonly used in OAuth 2.0 and API security.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+                    <label for="optionA15">A) JSON Web Token</label><br>
+            
+                    <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+                    <label for="optionB15">B) Java Web Technology</label><br>
+            
+                    <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+                    <label for="optionC15">C) JavaScript Web Tools</label><br>
+            
+                    <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+                    <label for="optionD15">D) JSON Web Transfer</label><br>
+                </div>
+            
+                <div id="result15" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>17. Which Python library is commonly used to consume APIs?</p>
+                    <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+                </div>
+            
+                <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    The <strong>requests</strong> library is widely used in Python to make HTTP requests for consuming APIs. It simplifies sending HTTP requests and handling responses.<br><br>
+                    <strong>Features of Requests Library:</strong>
+                    <ul>
+                        <li>Simple syntax for making HTTP requests.</li>
+                        <li>Handles JSON and other data formats easily.</li>
+                        <li>Supports authentication, sessions, and cookies.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+                    <label for="optionA16">A) requests</label><br>
+            
+                    <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+                    <label for="optionB16">B) Flask</label><br>
+            
+                    <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+                    <label for="optionC16">C) Django</label><br>
+            
+                    <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+                    <label for="optionD16">D) FastAPI</label><br>
+                </div>
+            
+                <div id="result16" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>18. What is the main purpose of API rate limiting?</p>
+                    <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+                </div>
+            
+                <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    API rate limiting controls the number of requests a client can make to an API within a specific time period to prevent abuse and ensure fair usage.<br><br>
+                    <strong>Why Rate Limiting is Important:</strong>
+                    <ul>
+                        <li>Protects against DoS (Denial of Service) attacks.</li>
+                        <li>Prevents server overload.</li>
+                        <li>Ensures fair resource distribution among users.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+                    <label for="optionA17">A) Control the number of API requests to prevent abuse</label><br>
+            
+                    <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+                    <label for="optionB17">B) Increase API response speed</label><br>
+            
+                    <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+                    <label for="optionC17">C) Enable real-time data updates</label><br>
+            
+                    <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+                    <label for="optionD17">D) Allow unlimited API usage</label><br>
+                </div>
+            
+                <div id="result17" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>19. What is the purpose of using Swagger/OpenAPI in API development?</p>
+                    <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+                </div>
+            
+                <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Swagger/OpenAPI is used to design, build, document, and consume APIs. It provides a standard way to describe API endpoints, data models, and operations.<br><br>
+                    <strong>Benefits of Swagger/OpenAPI:</strong>
+                    <ul>
+                        <li>Automated API documentation generation.</li>
+                        <li>Improves API discoverability and usability.</li>
+                        <li>Facilitates client SDK generation.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+                    <label for="optionA18">A) To document and describe APIs in a standardized way</label><br>
+            
+                    <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+                    <label for="optionB18">B) To manage database migrations</label><br>
+            
+                    <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+                    <label for="optionC18">C) To optimize API performance</label><br>
+            
+                    <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+                    <label for="optionD18">D) To handle API rate limiting</label><br>
+                </div>
+            
+                <div id="result18" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>20. Which Python framework is known for building high-performance APIs?</p>
+                    <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+                </div>
+            
+                <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    <strong>FastAPI</strong> is a modern, fast (high-performance) web framework for building APIs with Python 3.7+ based on standard Python type hints.<br><br>
+                    <strong>Why FastAPI is Popular:</strong>
+                    <ul>
+                        <li>High performance due to asynchronous support.</li>
+                        <li>Automatic generation of API documentation (Swagger/OpenAPI).</li>
+                        <li>Easy to learn with strong type support.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+                    <label for="optionA19">A) FastAPI</label><br>
+            
+                    <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+                    <label for="optionB19">B) Flask</label><br>
+            
+                    <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+                    <label for="optionC19">C) Django</label><br>
+            
+                    <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+                    <label for="optionD19">D) Tornado</label><br>
+                </div>
+            
+                <div id="result19" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>21. What is the purpose of using WebSockets in API development?</p>
+                    <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+                </div>
+            
+                <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    WebSockets provide full-duplex communication channels over a single TCP connection. They are used for real-time communication, enabling instant data exchange.<br><br>
+                    <strong>Common Use Cases for WebSockets:</strong>
+                    <ul>
+                        <li>Real-time chat applications.</li>
+                        <li>Live notifications and updates.</li>
+                        <li>Online gaming and collaborative tools.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+                    <label for="optionA20">A) To enable real-time, bidirectional communication</label><br>
+            
+                    <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+                    <label for="optionB20">B) To secure API endpoints</label><br>
+            
+                    <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+                    <label for="optionC20">C) To manage API versioning</label><br>
+            
+                    <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+                    <label for="optionD20">D) To improve database performance</label><br>
+                </div>
+            
+                <div id="result20" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>22. What is the main advantage of serverless functions in API deployment?</p>
+                    <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+                </div>
+            
+                <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Serverless functions allow you to run code without managing servers. The cloud provider automatically handles infrastructure, scaling, and maintenance.<br><br>
+                    <strong>Benefits of Serverless Functions:</strong>
+                    <ul>
+                        <li>Automatic scaling based on demand.</li>
+                        <li>Reduced operational overhead.</li>
+                        <li>Cost-effective since you pay only for usage.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+                    <label for="optionA21">A) Automatic scaling and reduced infrastructure management</label><br>
+            
+                    <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+                    <label for="optionB21">B) Requires manual server management</label><br>
+            
+                    <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+                    <label for="optionC21">C) Limited to specific programming languages</label><br>
+            
+                    <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+                    <label for="optionD21">D) Only suitable for small applications</label><br>
+                </div>
+            
+                <div id="result21" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>23. Which of the following is a common method to secure an API?</p>
+                    <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+                </div>
+            
+                <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Securing an API involves implementing authentication, authorization, encryption, and other security measures to protect data and resources.<br><br>
+                    <strong>Common API Security Methods:</strong>
+                    <ul>
+                        <li>OAuth 2.0 for secure authorization.</li>
+                        <li>JWT for stateless authentication.</li>
+                        <li>Rate limiting to prevent abuse.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+                    <label for="optionA22">A) Using OAuth 2.0 and JWT for authentication</label><br>
+            
+                    <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+                    <label for="optionB22">B) Allowing unrestricted API access</label><br>
+            
+                    <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+                    <label for="optionC22">C) Disabling HTTPS for faster requests</label><br>
+            
+                    <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+                    <label for="optionD22">D) Ignoring error handling mechanisms</label><br>
+                </div>
+            
+                <div id="result22" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>24. What is the primary function of API versioning?</p>
+                    <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+                </div>
+            
+                <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    API versioning allows developers to make changes to an API without breaking existing clients. It helps manage updates, backward compatibility, and feature additions.<br><br>
+                    <strong>Benefits of API Versioning:</strong>
+                    <ul>
+                        <li>Maintains backward compatibility for existing users.</li>
+                        <li>Supports incremental updates and improvements.</li>
+                        <li>Improves API lifecycle management.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+                    <label for="optionA23">A) To manage API changes without affecting existing users</label><br>
+            
+                    <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+                    <label for="optionB23">B) To eliminate the need for API documentation</label><br>
+            
+                    <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+                    <label for="optionC23">C) To reduce server load</label><br>
+            
+                    <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+                    <label for="optionD23">D) To speed up API requests</label><br>
+                </div>
+            
+                <div id="result23" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>25. Which of the following is NOT a valid HTTP method?</p>
+                    <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+                </div>
+            
+                <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    HTTP methods are used to perform actions on resources. Common methods include GET, POST, PUT, DELETE, PATCH, and OPTIONS.<br><br>
+                    <strong>Invalid HTTP Methods:</strong>
+                    <ul>
+                        <li>Methods that are not standard like "FETCH" or "UPDATE" are invalid.</li>
+                        <li>Only well-defined methods are supported by HTTP specifications.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+                    <label for="optionA24">A) PATCH</label><br>
+            
+                    <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+                    <label for="optionB24">B) GET</label><br>
+            
+                    <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+                    <label for="optionC24">C) UPDATE</label><br>
+            
+                    <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+                    <label for="optionD24">D) DELETE</label><br>
+                </div>
+            
+                <div id="result24" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>26. What is the purpose of rate limiting in APIs?</p>
+                    <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+                </div>
+            
+                <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Rate limiting controls the number of requests a client can make to an API within a specific time frame. It helps prevent abuse, ensures fair usage, and protects API resources.<br><br>
+                    <strong>Benefits of Rate Limiting:</strong>
+                    <ul>
+                        <li>Prevents DDoS attacks and API abuse.</li>
+                        <li>Ensures stability and performance under load.</li>
+                        <li>Improves security and resource management.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+                    <label for="optionA25">A) To prevent API abuse and ensure fair usage</label><br>
+            
+                    <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+                    <label for="optionB25">B) To increase the API response time</label><br>
+            
+                    <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+                    <label for="optionC25">C) To allow unlimited API requests</label><br>
+            
+                    <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+                    <label for="optionD25">D) To make API data more complex</label><br>
+                </div>
+            
+                <div id="result25" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>27. Which Python library is commonly used to consume third-party APIs?</p>
+                    <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+                </div>
+            
+                <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    The `requests` library is widely used in Python to send HTTP requests and consume third-party APIs. It simplifies making GET, POST, PUT, DELETE requests, and handling responses.<br><br>
+                    <strong>Features of the `requests` Library:</strong>
+                    <ul>
+                        <li>Simple syntax for HTTP requests.</li>
+                        <li>Supports JSON handling and authentication.</li>
+                        <li>Easy integration with RESTful APIs.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+                    <label for="optionA26">A) requests</label><br>
+            
+                    <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+                    <label for="optionB26">B) NumPy</label><br>
+            
+                    <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+                    <label for="optionC26">C) Pandas</label><br>
+            
+                    <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+                    <label for="optionD26">D) Matplotlib</label><br>
+                </div>
+            
+                <div id="result26" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>28. What is the key difference between HTTP and WebSocket?</p>
+                    <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+                </div>
+            
+                <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    HTTP is a stateless protocol used for request-response communication, while WebSocket enables full-duplex, real-time communication over a single connection.<br><br>
+                    <strong>Key Differences:</strong>
+                    <ul>
+                        <li>HTTP is one-way (client sends request, server responds).</li>
+                        <li>WebSocket allows two-way communication without repeatedly opening new connections.</li>
+                        <li>WebSocket is ideal for real-time applications like chats, live feeds, and online games.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+                    <label for="optionA27">A) WebSocket enables real-time, two-way communication</label><br>
+            
+                    <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+                    <label for="optionB27">B) HTTP supports continuous data streaming</label><br>
+            
+                    <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+                    <label for="optionC27">C) WebSocket requires frequent new connections</label><br>
+            
+                    <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+                    <label for="optionD27">D) HTTP is designed for real-time updates</label><br>
+                </div>
+            
+                <div id="result27" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>29. What does JWT stand for in API security?</p>
+                    <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+                </div>
+            
+                <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    JWT stands for JSON Web Token. It is a compact, URL-safe token used for secure information exchange between parties, often for authentication and authorization in APIs.<br><br>
+                    <strong>Key Features of JWT:</strong>
+                    <ul>
+                        <li>Stateless and self-contained (stores all user information).</li>
+                        <li>Used for securely transmitting information.</li>
+                        <li>Supports both symmetric and asymmetric encryption.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+                    <label for="optionA28">A) JSON Web Token</label><br>
+            
+                    <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+                    <label for="optionB28">B) Java Web Token</label><br>
+            
+                    <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+                    <label for="optionC28">C) JavaScript Web Tools</label><br>
+            
+                    <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+                    <label for="optionD28">D) JSON Web Tools</label><br>
+                </div>
+            
+                <div id="result28" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>30. Which of the following is NOT a feature of FastAPI?</p>
+                    <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+                </div>
+            
+                <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    FastAPI is a modern, fast (high-performance) web framework for building APIs with Python. It supports asynchronous programming, automatic docs, and type checking.<br><br>
+                    <strong>Key Features of FastAPI:</strong>
+                    <ul>
+                        <li>Asynchronous support with `async` and `await`.</li>
+                        <li>Automatic API documentation with Swagger/OpenAPI.</li>
+                        <li>Type validation and data serialization using Pydantic.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+                    <label for="optionA29">A) Automatic API documentation</label><br>
+            
+                    <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+                    <label for="optionB29">B) Built-in support for WebSockets</label><br>
+            
+                    <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+                    <label for="optionC29">C) Synchronous-only operations</label><br>
+            
+                    <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+                    <label for="optionD29">D) Type validation with Pydantic</label><br>
+                </div>
+            
+                <div id="result29" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>31. What is the purpose of using Docker in API deployment?</p>
+                    <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+                </div>
+            
+                <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Docker is used to create, deploy, and run applications inside lightweight, portable containers. In API deployment, it ensures consistent environments, easy scaling, and simplified dependency management.<br><br>
+                    <strong>Benefits of Docker for API Deployment:</strong>
+                    <ul>
+                        <li>Environment consistency across development, testing, and production.</li>
+                        <li>Simplified scaling and load balancing.</li>
+                        <li>Easy integration with CI/CD pipelines.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+                    <label for="optionA30">A) To create portable, consistent environments for APIs</label><br>
+            
+                    <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+                    <label for="optionB30">B) To replace APIs with serverless functions</label><br>
+            
+                    <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+                    <label for="optionC30">C) To increase API response times</label><br>
+            
+                    <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+                    <label for="optionD30">D) To eliminate the need for API authentication</label><br>
+                </div>
+            
+                <div id="result30" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>32. What is a serverless function?</p>
+                    <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+                </div>
+            
+                <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    A serverless function is a cloud-based compute service that automatically manages the infrastructure required to run code. Developers focus solely on writing code without worrying about servers.<br><br>
+                    <strong>Characteristics of Serverless Functions:</strong>
+                    <ul>
+                        <li>Event-driven and stateless.</li>
+                        <li>Scales automatically based on demand.</li>
+                        <li>Billing based on actual usage.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+                    <label for="optionA31">A) A cloud function that runs without managing servers</label><br>
+            
+                    <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+                    <label for="optionB31">B) A traditional server running an API</label><br>
+            
+                    <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+                    <label for="optionC31">C) A server that requires manual scaling</label><br>
+            
+                    <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+                    <label for="optionD31">D) A type of database server</label><br>
+                </div>
+            
+                <div id="result31" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>33. Which of the following is a key advantage of asynchronous APIs?</p>
+                    <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+                </div>
+            
+                <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Asynchronous APIs allow non-blocking communication, enabling multiple tasks to be processed simultaneously. This improves performance and scalability, especially in high-load environments.<br><br>
+                    <strong>Advantages of Asynchronous APIs:</strong>
+                    <ul>
+                        <li>Efficient resource usage under heavy load.</li>
+                        <li>Real-time data processing capabilities.</li>
+                        <li>Improved response times for long-running operations.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+                    <label for="optionA32">A) Allows non-blocking, simultaneous task processing</label><br>
+            
+                    <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+                    <label for="optionB32">B) Requires synchronous requests for faster results</label><br>
+            
+                    <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+                    <label for="optionC32">C) Only supports real-time applications</label><br>
+            
+                    <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+                    <label for="optionD32">D) Blocks all requests until the API responds</label><br>
+                </div>
+            
+                <div id="result32" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>34. What is the primary purpose of Swagger in API development?</p>
+                    <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+                </div>
+            
+                <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Swagger is a framework for designing, building, documenting, and consuming RESTful APIs. It generates interactive API documentation and helps with API testing and visualization.<br><br>
+                    <strong>Key Features of Swagger:</strong>
+                    <ul>
+                        <li>Interactive API documentation.</li>
+                        <li>Easy integration with development tools.</li>
+                        <li>Supports API testing and mock responses.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+                    <label for="optionA33">A) To design, document, and test RESTful APIs</label><br>
+            
+                    <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+                    <label for="optionB33">B) To replace API security mechanisms</label><br>
+            
+                    <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+                    <label for="optionC33">C) To create database schemas</label><br>
+            
+                    <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+                    <label for="optionD33">D) To automate API deployment</label><br>
+                </div>
+            
+                <div id="result33" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>35. Which Python framework is optimized for building high-performance APIs?</p>
+                    <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+                </div>
+            
+                <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    FastAPI is designed for building high-performance APIs with Python. It supports asynchronous programming, automatic documentation, and type validation.<br><br>
+                    <strong>Key Features of FastAPI:</strong>
+                    <ul>
+                        <li>Fast performance with async support.</li>
+                        <li>Automatic API documentation with OpenAPI.</li>
+                        <li>Type checking with Pydantic models.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+                    <label for="optionA34">A) FastAPI</label><br>
+            
+                    <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+                    <label for="optionB34">B) Flask</label><br>
+            
+                    <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+                    <label for="optionC34">C) Django REST Framework</label><br>
+            
+                    <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+                    <label for="optionD34">D) Pyramid</label><br>
+                </div>
+            
+                <div id="result34" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>36. What does JWT stand for in API security?</p>
+                    <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+                </div>
+            
+                <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    JWT stands for <strong>JSON Web Token</strong>. It’s a compact, URL-safe token used for secure data transmission, often in authentication and authorization processes.<br><br>
+                    <strong>Key Features of JWT:</strong>
+                    <ul>
+                        <li>Stateless and self-contained tokens.</li>
+                        <li>Supports claims for user identity and permissions.</li>
+                        <li>Signed to ensure data integrity.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+                    <label for="optionA35">A) JSON Web Token</label><br>
+            
+                    <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+                    <label for="optionB35">B) Java Web Token</label><br>
+            
+                    <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+                    <label for="optionC35">C) JavaScript Web Tool</label><br>
+            
+                    <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+                    <label for="optionD35">D) JSON Web Transport</label><br>
+                </div>
+            
+                <div id="result35" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>37. What is rate limiting in API management?</p>
+                    <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+                </div>
+            
+                <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Rate limiting is a technique used to control the amount of incoming requests to an API over a specified period. It helps prevent abuse, ensure fair usage, and maintain API performance.<br><br>
+                    <strong>Common Rate Limiting Strategies:</strong>
+                    <ul>
+                        <li>Fixed window counter</li>
+                        <li>Sliding window log</li>
+                        <li>Token bucket algorithm</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+                    <label for="optionA36">A) Limiting the number of requests within a time window</label><br>
+            
+                    <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+                    <label for="optionB36">B) Increasing API response speed</label><br>
+            
+                    <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+                    <label for="optionC36">C) Encrypting API requests</label><br>
+            
+                    <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+                    <label for="optionD36">D) Caching API responses</label><br>
+                </div>
+            
+                <div id="result36" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>38. Which HTTP status code indicates a successful request?</p>
+                    <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+                </div>
+            
+                <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    HTTP status codes indicate the result of a server's response to a client request. A successful request typically returns a 2xx status code, with <strong>200 OK</strong> being the most common.<br><br>
+                    <strong>Common 2xx Status Codes:</strong>
+                    <ul>
+                        <li>200 OK – Request succeeded.</li>
+                        <li>201 Created – Resource created successfully.</li>
+                        <li>204 No Content – Request succeeded, but no content returned.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+                    <label for="optionA37">A) 200 OK</label><br>
+            
+                    <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+                    <label for="optionB37">B) 404 Not Found</label><br>
+            
+                    <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+                    <label for="optionC37">C) 500 Internal Server Error</label><br>
+            
+                    <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+                    <label for="optionD37">D) 403 Forbidden</label><br>
+                </div>
+            
+                <div id="result37" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>39. What is the purpose of mock APIs in testing?</p>
+                    <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+                </div>
+            
+                <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Mock APIs simulate the behavior of real APIs without requiring access to the actual backend. They are useful for testing frontend applications, validating API requests, and handling edge cases.<br><br>
+                    <strong>Benefits of Mock APIs:</strong>
+                    <ul>
+                        <li>Enable frontend development without a working backend.</li>
+                        <li>Test error handling and edge cases.</li>
+                        <li>Simulate various API response scenarios.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+                    <label for="optionA38">A) Simulate API behavior for testing purposes</label><br>
+            
+                    <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+                    <label for="optionB38">B) Authenticate API requests</label><br>
+            
+                    <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+                    <label for="optionC38">C) Secure API endpoints with encryption</label><br>
+            
+                    <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+                    <label for="optionD38">D) Monitor API performance in production</label><br>
+                </div>
+            
+                <div id="result38" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>40. What is the purpose of API versioning?</p>
+                    <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+                </div>
+            
+                <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    API versioning is used to manage changes in an API without breaking existing client applications. It allows developers to introduce new features while maintaining backward compatibility.<br><br>
+                    <strong>Common API Versioning Strategies:</strong>
+                    <ul>
+                        <li>URI versioning (e.g., /v1/users)</li>
+                        <li>Header versioning (e.g., Accept: application/vnd.api.v1+json)</li>
+                        <li>Query parameter versioning (e.g., ?version=1)</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+                    <label for="optionA39">A) Manage changes without breaking client applications</label><br>
+            
+                    <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+                    <label for="optionB39">B) Improve API performance</label><br>
+            
+                    <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+                    <label for="optionC39">C) Encrypt API data</label><br>
+            
+                    <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+                    <label for="optionD39">D) Optimize API caching mechanisms</label><br>
+                </div>
+            
+                <div id="result39" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>41. What does CORS stand for in API security?</p>
+                    <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+                </div>
+            
+                <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    CORS stands for <strong>Cross-Origin Resource Sharing</strong>. It’s a security feature implemented by browsers to restrict web pages from making requests to a different domain than the one that served the web page.<br><br>
+                    <strong>Key Points About CORS:</strong>
+                    <ul>
+                        <li>Helps prevent cross-site request forgery (CSRF) attacks.</li>
+                        <li>Controlled via HTTP headers by the server.</li>
+                        <li>Allows secure sharing of resources across different origins.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+                    <label for="optionA40">A) Cross-Origin Resource Sharing</label><br>
+            
+                    <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+                    <label for="optionB40">B) Cross-Origin Request Security</label><br>
+            
+                    <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+                    <label for="optionC40">C) Cross-Origin Routing System</label><br>
+            
+                    <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+                    <label for="optionD40">D) Centralized Operations for Remote Servers</label><br>
+                </div>
+            
+                <div id="result40" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>42. What is the main purpose of OAuth in API security?</p>
+                    <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+                </div>
+            
+                <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    OAuth (Open Authorization) is a protocol that allows third-party applications to access user data without exposing their credentials. It enables secure delegated access, typically used in API authentication and authorization.<br><br>
+                    <strong>Key Features of OAuth:</strong>
+                    <ul>
+                        <li>Provides token-based authentication.</li>
+                        <li>Supports authorization codes, implicit grants, client credentials, etc.</li>
+                        <li>Widely used with social media logins and API access.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+                    <label for="optionA41">A) Secure delegated access to APIs without exposing credentials</label><br>
+            
+                    <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+                    <label for="optionB41">B) Encrypt data during transmission</label><br>
+            
+                    <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+                    <label for="optionC41">C) Monitor API performance metrics</label><br>
+            
+                    <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+                    <label for="optionD41">D) Secure APIs with SSL certificates</label><br>
+                </div>
+            
+                <div id="result41" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>43. What is the primary purpose of API Gateway?</p>
+                    <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+                </div>
+            
+                <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    An API Gateway acts as an intermediary between client applications and backend services. It handles tasks like request routing, authentication, rate limiting, and analytics.<br><br>
+                    <strong>Key Functions of an API Gateway:</strong>
+                    <ul>
+                        <li>Centralizes traffic management for APIs.</li>
+                        <li>Provides security features like authentication and rate limiting.</li>
+                        <li>Handles cross-cutting concerns like logging and caching.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+                    <label for="optionA42">A) Manage and route API requests to backend services</label><br>
+            
+                    <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+                    <label for="optionB42">B) Provide database connections for APIs</label><br>
+            
+                    <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+                    <label for="optionC42">C) Directly execute business logic for APIs</label><br>
+            
+                    <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+                    <label for="optionD42">D) Handle front-end rendering of API responses</label><br>
+                </div>
+            
+                <div id="result42" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>44. What is the purpose of API throttling?</p>
+                    <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+                </div>
+            
+                <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    API throttling is a technique used to control the rate at which clients can send requests to an API. It helps prevent abuse, ensure fair usage, and protect system resources.<br><br>
+                    <strong>Key Aspects of Throttling:</strong>
+                    <ul>
+                        <li>Limits the number of requests per second/minute/hour.</li>
+                        <li>Used alongside rate limiting for granular control.</li>
+                        <li>Helps maintain API performance under high load.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+                    <label for="optionA43">A) Control the rate of API requests to prevent overload</label><br>
+            
+                    <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+                    <label for="optionB43">B) Encrypt API requests for security</label><br>
+            
+                    <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+                    <label for="optionC43">C) Cache API responses for faster retrieval</label><br>
+            
+                    <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+                    <label for="optionD43">D) Allow unlimited access to API resources</label><br>
+                </div>
+            
+                <div id="result43" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>45. What is the role of Swagger in API development?</p>
+                    <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+                </div>
+            
+                <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Swagger is a framework for designing, building, documenting, and consuming RESTful APIs. It provides a user-friendly interface for exploring API endpoints and generating API documentation.<br><br>
+                    <strong>Key Features of Swagger:</strong>
+                    <ul>
+                        <li>Automatic API documentation generation.</li>
+                        <li>Interactive API testing through the Swagger UI.</li>
+                        <li>Supports OpenAPI Specification for standardization.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+                    <label for="optionA44">A) Generate interactive API documentation and test endpoints</label><br>
+            
+                    <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+                    <label for="optionB44">B) Secure API requests with encryption</label><br>
+            
+                    <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+                    <label for="optionC44">C) Optimize API performance for high traffic</label><br>
+            
+                    <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+                    <label for="optionD44">D) Deploy APIs to cloud servers</label><br>
+                </div>
+            
+                <div id="result44" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>46. What is the purpose of mocking external APIs during testing?</p>
+                    <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+                </div>
+            
+                <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Mocking external APIs during testing helps simulate API responses without making real requests. This ensures tests are fast, reliable, and independent of external service availability.<br><br>
+                    <strong>Key Benefits of Mocking:</strong>
+                    <ul>
+                        <li>Isolates tests from real external dependencies.</li>
+                        <li>Improves test speed and reduces flakiness.</li>
+                        <li>Allows testing edge cases and error conditions easily.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+                    <label for="optionA45">A) Simulate API responses for reliable and fast testing</label><br>
+            
+                    <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+                    <label for="optionB45">B) Encrypt sensitive data during API tests</label><br>
+            
+                    <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+                    <label for="optionC45">C) Replace API requests with real-time data fetching</label><br>
+            
+                    <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+                    <label for="optionD45">D) Limit API access to authorized users only</label><br>
+                </div>
+            
+                <div id="result45" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>47. What is the primary difference between synchronous and asynchronous APIs?</p>
+                    <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+                </div>
+            
+                <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Synchronous APIs block the client until the server responds, while asynchronous APIs allow clients to continue processing without waiting for a response, often using callbacks or promises.<br><br>
+                    <strong>Key Differences:</strong>
+                    <ul>
+                        <li>Synchronous APIs are simple but can lead to delays.</li>
+                        <li>Asynchronous APIs improve performance, especially under heavy load.</li>
+                        <li>Asynchronous APIs are commonly used in real-time applications.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+                    <label for="optionA46">A) Synchronous APIs block the client, while asynchronous do not</label><br>
+            
+                    <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+                    <label for="optionB46">B) Asynchronous APIs require manual data serialization</label><br>
+            
+                    <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+                    <label for="optionC46">C) Synchronous APIs are faster than asynchronous APIs</label><br>
+            
+                    <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+                    <label for="optionD46">D) Asynchronous APIs can’t handle real-time data</label><br>
+                </div>
+            
+                <div id="result46" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>48. Which of the following is a common method for securing APIs?</p>
+                    <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+                </div>
+            
+                <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Securing APIs involves methods like authentication, encryption, rate limiting, and input validation to protect data and prevent unauthorized access.<br><br>
+                    <strong>Common API Security Methods:</strong>
+                    <ul>
+                        <li>OAuth 2.0 for secure authentication.</li>
+                        <li>JWT (JSON Web Tokens) for token-based security.</li>
+                        <li>HTTPS to encrypt data in transit.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+                    <label for="optionA47">A) Authentication and encryption techniques</label><br>
+            
+                    <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+                    <label for="optionB47">B) Using plain text for API requests</label><br>
+            
+                    <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+                    <label for="optionC47">C) Ignoring user authentication for simplicity</label><br>
+            
+                    <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+                    <label for="optionD47">D) Disabling HTTPS for faster data transmission</label><br>
+                </div>
+            
+                <div id="result47" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>49. What is the main advantage of using FastAPI over Flask?</p>
+                    <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+                </div>
+            
+                <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    FastAPI is a modern, high-performance web framework for building APIs with Python. It’s faster than Flask due to its asynchronous capabilities and automatic generation of API docs.<br><br>
+                    <strong>Key Advantages of FastAPI:</strong>
+                    <ul>
+                        <li>Automatic OpenAPI documentation.</li>
+                        <li>Support for asynchronous programming.</li>
+                        <li>Built-in validation and type checking.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+                    <label for="optionA48">A) Asynchronous support and automatic API docs generation</label><br>
+            
+                    <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+                    <label for="optionB48">B) Only supports synchronous requests</label><br>
+            
+                    <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+                    <label for="optionC48">C) Requires manual API documentation</label><br>
+            
+                    <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+                    <label for="optionD48">D) Slower performance compared to Flask</label><br>
+                </div>
+            
+                <div id="result48" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>50. What is the purpose of using OAuth for API authentication?</p>
+                    <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+                </div>
+            
+                <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    OAuth is a protocol that allows secure authorization for accessing resources without sharing credentials. It’s often used for delegated access, enabling third-party apps to access a user’s resources without needing the user’s password.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>OAuth enables secure, token-based access.</li>
+                        <li>It prevents sharing of sensitive credentials like passwords.</li>
+                        <li>Commonly used in services like Google, Facebook login integration.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+                    <label for="optionA49">A) Token-based access without sharing credentials</label><br>
+            
+                    <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+                    <label for="optionB49">B) Provides direct user credentials to third-party apps</label><br>
+            
+                    <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+                    <label for="optionC49">C) Allows unlimited API access without restrictions</label><br>
+            
+                    <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+                    <label for="optionD49">D) Uses password-based authentication for security</label><br>
+                </div>
+            
+                <div id="result49" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>51. What is a primary advantage of using JSON over XML for API data transfer?</p>
+                    <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+                </div>
+            
+                <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    JSON (JavaScript Object Notation) is simpler and lighter than XML, making it more efficient for data exchange in APIs. JSON is easier to parse and often results in smaller data sizes, leading to faster response times.<br><br>
+                    <strong>Advantages of JSON:</strong>
+                    <ul>
+                        <li>Lightweight and easy to read/write.</li>
+                        <li>More compact than XML, reducing bandwidth usage.</li>
+                        <li>Native support in JavaScript, making it ideal for web applications.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+                    <label for="optionA50">A) JSON is more compact and easier to parse</label><br>
+            
+                    <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+                    <label for="optionB50">B) XML is easier to parse than JSON</label><br>
+            
+                    <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+                    <label for="optionC50">C) JSON requires more bandwidth compared to XML</label><br>
+            
+                    <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+                    <label for="optionD50">D) XML is better for mobile applications than JSON</label><br>
+                </div>
+            
+                <div id="result50" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>52. What is the purpose of versioning APIs?</p>
+                    <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+                </div>
+            
+                <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    API versioning allows developers to make backward-compatible changes without breaking existing clients that rely on an older version of the API. It helps ensure that API consumers can continue to use previous versions while developers implement new features or make improvements.<br><br>
+                    <strong>Benefits of Versioning:</strong>
+                    <ul>
+                        <li>Ensures backward compatibility.</li>
+                        <li>Allows gradual migration of clients to newer versions.</li>
+                        <li>Prevents breaking changes that disrupt service.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+                    <label for="optionA51">A) Allowing clients to continue using older versions while migrating</label><br>
+            
+                    <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+                    <label for="optionB51">B) Ensuring that all API clients are updated immediately</label><br>
+            
+                    <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+                    <label for="optionC51">C) Preventing API calls from being made by clients</label><br>
+            
+                    <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+                    <label for="optionD51">D) Ensuring that only one version of the API exists at a time</label><br>
+                </div>
+            
+                <div id="result51" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>53. Which Python library is commonly used for creating RESTful APIs?</p>
+                    <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+                </div>
+            
+                <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Flask and FastAPI are two popular Python libraries for building RESTful APIs. Flask is lightweight and simple, while FastAPI is designed for performance with asynchronous support and automatic documentation.<br><br>
+                    <strong>Common Libraries:</strong>
+                    <ul>
+                        <li>Flask - simple and flexible.</li>
+                        <li>FastAPI - fast and modern with async support.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+                    <label for="optionA52">A) Flask and FastAPI</label><br>
+            
+                    <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+                    <label for="optionB52">B) Django only</label><br>
+            
+                    <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+                    <label for="optionC52">C) Pandas</label><br>
+            
+                    <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+                    <label for="optionD52">D) Numpy</label><br>
+                </div>
+            
+                <div id="result52" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>54. Which of the following is an example of a stateless API?</p>
+                    <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+                </div>
+            
+                <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Stateless APIs do not store any information about the client’s state between requests. Each request is treated independently, with all the necessary information included in the request.<br><br>
+                    <strong>Key Characteristics of Stateless APIs:</strong>
+                    <ul>
+                        <li>Each request is independent.</li>
+                        <li>The server does not store information about the client session.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+                    <label for="optionA53">A) REST</label><br>
+            
+                    <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+                    <label for="optionB53">B) SOAP</label><br>
+            
+                    <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+                    <label for="optionC53">C) GraphQL</label><br>
+            
+                    <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+                    <label for="optionD53">D) WebSockets</label><br>
+                </div>
+            
+                <div id="result53" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>55. What is the primary benefit of using GraphQL over REST APIs?</p>
+                    <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+                </div>
+            
+                <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    GraphQL allows clients to request exactly the data they need, unlike REST which might send unnecessary data. This can significantly reduce data transfer and improve performance.<br><br>
+                    <strong>Advantages of GraphQL:</strong>
+                    <ul>
+                        <li>Clients request only the data they need.</li>
+                        <li>Single endpoint for all queries and mutations.</li>
+                        <li>More flexible and efficient for complex data structures.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+                    <label for="optionA54">A) Clients can specify exactly which data they need</label><br>
+            
+                    <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+                    <label for="optionB54">B) REST is more efficient for querying specific data</label><br>
+            
+                    <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+                    <label for="optionC54">C) GraphQL only works with XML data</label><br>
+            
+                    <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+                    <label for="optionD54">D) GraphQL requires multiple endpoints</label><br>
+                </div>
+            
+                <div id="result54" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>56. What is the purpose of using JSON Web Tokens (JWT) in API authentication?</p>
+                    <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+                </div>
+            
+                <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    JSON Web Tokens (JWT) are used to securely transmit information between parties, particularly for authentication. JWTs contain claims, which are statements about an entity (typically the user) and additional metadata.<br><br>
+                    <strong>Key Features of JWT:</strong>
+                    <ul>
+                        <li>Stateless authentication</li>
+                        <li>Encrypted data transmission</li>
+                        <li>Used to verify the identity of the user and ensure data integrity</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+                    <label for="optionA55">A) To transmit user authentication and authorization information securely</label><br>
+            
+                    <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+                    <label for="optionB55">B) To allow unlimited access to API resources</label><br>
+            
+                    <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+                    <label for="optionC55">C) To provide a centralized authentication server for all clients</label><br>
+            
+                    <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+                    <label for="optionD55">D) To secure all HTTP methods in an API</label><br>
+                </div>
+            
+                <div id="result55" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>57. What is the role of rate limiting in API security?</p>
+                    <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+                </div>
+            
+                <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Rate limiting is a technique used to control the number of requests that a client can make to an API within a specified time window. This helps prevent abuse of resources and protects against Denial of Service (DoS) attacks.<br><br>
+                    <strong>Benefits of Rate Limiting:</strong>
+                    <ul>
+                        <li>Protects API resources from overuse or abuse.</li>
+                        <li>Mitigates the risk of DoS attacks.</li>
+                        <li>Helps maintain fair usage among all users.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+                    <label for="optionA56">A) To limit the number of API calls and prevent abuse</label><br>
+            
+                    <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+                    <label for="optionB56">B) To increase the number of requests allowed per user</label><br>
+            
+                    <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+                    <label for="optionC56">C) To ensure that only authenticated users can make requests</label><br>
+            
+                    <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+                    <label for="optionD56">D) To encrypt all API requests for security</label><br>
+                </div>
+            
+                <div id="result56" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>58. What is the purpose of using Swagger or OpenAPI for API documentation?</p>
+                    <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+                </div>
+            
+                <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Swagger/OpenAPI is a tool for automatically generating interactive API documentation. It allows developers to describe API endpoints, request/response formats, and other details in a machine-readable format.<br><br>
+                    <strong>Advantages of Swagger/OpenAPI:</strong>
+                    <ul>
+                        <li>Automatic generation of API documentation.</li>
+                        <li>Interactive UI for testing APIs directly from the docs.</li>
+                        <li>Ensures consistency and clarity in API descriptions.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+                    <label for="optionA57">A) To automatically generate interactive API documentation</label><br>
+            
+                    <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+                    <label for="optionB57">B) To prevent unauthorized API access</label><br>
+            
+                    <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+                    <label for="optionC57">C) To encrypt the API responses for security</label><br>
+            
+                    <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+                    <label for="optionD57">D) To handle API rate limiting</label><br>
+                </div>
+            
+                <div id="result57" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>59. What is the role of JSON in APIs?</p>
+                    <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+                </div>
+            
+                <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    JSON (JavaScript Object Notation) is the most commonly used data format for sending and receiving data in APIs, especially in REST APIs. It is lightweight, easy to read, and widely supported by many programming languages.<br><br>
+                    <strong>Advantages of JSON:</strong>
+                    <ul>
+                        <li>Lightweight and easy to parse.</li>
+                        <li>Widely used and supported across different languages and platforms.</li>
+                        <li>Readable and easily understandable format for humans.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+                    <label for="optionA58">A) It is a data format used to send and receive data in APIs</label><br>
+            
+                    <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+                    <label for="optionB58">B) It encrypts data transmitted in APIs</label><br>
+            
+                    <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+                    <label for="optionC58">C) It handles authentication in APIs</label><br>
+            
+                    <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+                    <label for="optionD58">D) It limits the number of requests an API can handle</label><br>
+                </div>
+            
+                <div id="result58" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>60. How does OAuth work in API authentication?</p>
+                    <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+                </div>
+            
+                <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    OAuth is an authorization framework that allows third-party services to exchange user data without exposing passwords. OAuth uses tokens to authorize API access, where the user grants access, and the third-party service is provided with an access token.<br><br>
+                    <strong>OAuth Workflow:</strong>
+                    <ul>
+                        <li>The user authenticates with the service (e.g., Google, Facebook).</li>
+                        <li>A token is granted to the third-party app for API access.</li>
+                        <li>The app uses the token to make authorized API requests on behalf of the user.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+                    <label for="optionA59">A) OAuth allows third-party apps to access APIs using tokens</label><br>
+            
+                    <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+                    <label for="optionB59">B) OAuth requires the third-party app to store user passwords</label><br>
+            
+                    <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+                    <label for="optionC59">C) OAuth only works with REST APIs</label><br>
+            
+                    <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+                    <label for="optionD59">D) OAuth is a way of encrypting API requests</label><br>
+                </div>
+            
+                <div id="result59" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>61. What is an API Gateway, and why is it useful?</p>
+                    <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+                </div>
+            
+                <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    An API Gateway is a server that acts as a reverse proxy to route requests from clients to appropriate backend services. It simplifies client interaction with APIs by providing a single entry point for multiple services.<br><br>
+                    <strong>Advantages of Using an API Gateway:</strong>
+                    <ul>
+                        <li>Centralized management of authentication, rate limiting, logging, etc.</li>
+                        <li>Improved performance through request routing and load balancing.</li>
+                        <li>Simplifies client-side development by aggregating backend responses.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+                    <label for="optionA60">A) An API Gateway acts as a single entry point for multiple services</label><br>
+            
+                    <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+                    <label for="optionB60">B) An API Gateway only routes requests to the database</label><br>
+            
+                    <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+                    <label for="optionC60">C) An API Gateway handles internal data encryption</label><br>
+            
+                    <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+                    <label for="optionD60">D) An API Gateway is only used for authentication purposes</label><br>
+                </div>
+            
+                <div id="result60" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>62. How does WebSocket differ from HTTP in terms of API communication?</p>
+                    <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+                </div>
+            
+                <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    WebSocket is a protocol that allows for persistent, two-way communication between the client and server. Unlike HTTP, which is stateless and unidirectional, WebSockets enable real-time communication without the overhead of continuously opening and closing connections.<br><br>
+                    <strong>Key Differences:</strong>
+                    <ul>
+                        <li>WebSocket maintains an open connection for real-time communication.</li>
+                        <li>HTTP is request-response based and does not support two-way communication.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+                    <label for="optionA61">A) WebSocket allows two-way communication, while HTTP is unidirectional</label><br>
+            
+                    <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+                    <label for="optionB61">B) WebSocket is a type of HTTP request</label><br>
+            
+                    <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+                    <label for="optionC61">C) WebSocket is used only for secure API communication</label><br>
+            
+                    <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+                    <label for="optionD61">D) WebSocket is only used for static content delivery</label><br>
+                </div>
+            
+                <div id="result61" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>63. What is the purpose of API versioning?</p>
+                    <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+                </div>
+            
+                <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    API versioning allows the API developers to make changes and improvements without breaking existing applications that depend on the API. It provides a way to manage changes and ensure backward compatibility for clients using older versions of the API.<br><br>
+                    <strong>Methods of API Versioning:</strong>
+                    <ul>
+                        <li>Path Versioning (e.g., /v1/endpoint)</li>
+                        <li>Query Parameter Versioning (e.g., /endpoint?version=1)</li>
+                        <li>Header Versioning (using custom headers for versioning)</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+                    <label for="optionA62">A) It allows developers to maintain compatibility with older versions of the API</label><br>
+            
+                    <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+                    <label for="optionB62">B) It ensures that all API requests are encrypted</label><br>
+            
+                    <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+                    <label for="optionC62">C) It limits the number of API requests a user can make</label><br>
+            
+                    <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+                    <label for="optionD62">D) It helps monitor the performance of APIs in real-time</label><br>
+                </div>
+            
+                <div id="result62" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>64. What is an API client, and how does it interact with APIs?</p>
+                    <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+                </div>
+            
+                <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    An API client is a software or tool that makes requests to an API. It sends data to the API and receives responses. API clients can be command-line tools, libraries in programming languages like Python, or even web-based interfaces.<br><br>
+                    <strong>Key Points:</strong>
+                    <ul>
+                        <li>An API client can be used to interact with APIs to fetch or send data.</li>
+                        <li>It is responsible for sending requests and handling the responses returned by the API.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+                    <label for="optionA63">A) An API client sends requests to APIs and handles responses</label><br>
+            
+                    <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+                    <label for="optionB63">B) An API client manages the API server</label><br>
+            
+                    <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+                    <label for="optionC63">C) An API client stores data for APIs</label><br>
+            
+                    <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+                    <label for="optionD63">D) An API client only validates API responses</label><br>
+                </div>
+            
+                <div id="result63" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>65. How do you handle errors in an API?</p>
+                    <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+                </div>
+            
+                <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Error handling in an API is crucial to provide meaningful feedback to users or clients when something goes wrong. A well-designed API will return appropriate HTTP status codes and error messages in case of an issue.<br><br>
+                    <strong>Common Error Codes:</strong>
+                    <ul>
+                        <li>400: Bad Request</li>
+                        <li>401: Unauthorized</li>
+                        <li>404: Not Found</li>
+                        <li>500: Internal Server Error</li>
+                    </ul>
+                    The error messages should be clear and give enough information to troubleshoot.
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+                    <label for="optionA64">A) Use proper HTTP status codes and descriptive error messages</label><br>
+            
+                    <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+                    <label for="optionB64">B) Ignore errors and let users figure out what went wrong</label><br>
+            
+                    <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+                    <label for="optionC64">C) Always return a 200 status code, even for errors</label><br>
+            
+                    <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+                    <label for="optionD64">D) Use random error codes to confuse attackers</label><br>
+                </div>
+            
+                <div id="result64" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>66. What is rate limiting in API usage?</p>
+                    <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+                </div>
+            
+                <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    Rate limiting is the process of limiting the number of requests a client can make to an API within a given period. It is implemented to prevent abuse of the API and to ensure fair usage for all clients.<br><br>
+                    <strong>Methods of Rate Limiting:</strong>
+                    <ul>
+                        <li>Requests per minute (e.g., 1000 requests per minute)</li>
+                        <li>Requests per hour</li>
+                        <li>Global request limits</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+                    <label for="optionA65">A) Limiting the number of requests a user can make to the API in a certain time period</label><br>
+            
+                    <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+                    <label for="optionB65">B) Restricting the number of users accessing the API at the same time</label><br>
+            
+                    <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+                    <label for="optionC65">C) Allowing unlimited API usage</label><br>
+            
+                    <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+                    <label for="optionD65">D) Blocking API requests from specific IP addresses</label><br>
+                </div>
+            
+                <div id="result65" class="result"></div>
+            </div>
+            <div class="qee">
+                <div class="que">
+                    <p>67. What is OAuth and how does it work in API security?</p>
+                    <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+                </div>
+            
+                <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    OAuth (Open Authorization) is an authorization framework that allows third-party applications to access a user’s data without exposing the user’s credentials. It allows users to approve application access to their data without sharing their passwords.<br><br>
+                    <strong>OAuth Flow:</strong>
+                    <ol>
+                        <li>The user is redirected to an OAuth provider (like Google or Facebook).</li>
+                        <li>The user approves or denies the request.</li>
+                        <li>The application receives an access token to interact with the user’s data.</li>
+                    </ol>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+                    <label for="optionA66">A) A protocol for granting third-party applications limited access to user data</label><br>
+            
+                    <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+                    <label for="optionB66">B) A method to encrypt all data transferred through APIs</label><br>
+            
+                    <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+                    <label for="optionC66">C) A system for generating user passwords</label><br>
+            
+                    <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+                    <label for="optionD66">D) A tool for monitoring the performance of API requests</label><br>
+                </div>
+            
+                <div id="result66" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>68. What is JWT (JSON Web Token) and how is it used in API authentication?</p>
+                    <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+                </div>
+            
+                <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    JWT (JSON Web Token) is a compact and self-contained way to represent information between two parties. It is commonly used for securely transmitting information such as user authentication data between a client and a server.<br><br>
+                    <strong>How it works:</strong>
+                    <ul>
+                        <li>The server generates a JWT after user authentication.</li>
+                        <li>The client includes the JWT in subsequent API requests for authentication.</li>
+                        <li>JWT contains encoded user information and is signed, ensuring the integrity of the data.</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+                    <label for="optionA67">A) A method for securely transmitting user authentication data</label><br>
+            
+                    <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+                    <label for="optionB67">B) A way to encrypt API requests and responses</label><br>
+            
+                    <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+                    <label for="optionC67">C) A type of API error handling system</label><br>
+            
+                    <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+                    <label for="optionD67">D) A tool for converting XML data to JSON</label><br>
+                </div>
+            
+                <div id="result67" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>69. What are WebSockets, and how are they useful in API design?</p>
+                    <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+                </div>
+            
+                <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    WebSockets provide full-duplex communication channels over a single, long-lived connection. Unlike traditional HTTP, which is request-response-based, WebSockets allow bi-directional communication between a client and server in real-time.<br><br>
+                    <strong>Advantages of WebSockets:</strong>
+                    <ul>
+                        <li>Real-time communication</li>
+                        <li>Reduced overhead compared to HTTP polling</li>
+                        <li>Ideal for applications requiring live data (e.g., chat apps, stock tickers)</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+                    <label for="optionA68">A) Provides real-time, two-way communication over a single connection</label><br>
+            
+                    <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+                    <label for="optionB68">B) Only allows one-way communication from client to server</label><br>
+            
+                    <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+                    <label for="optionC68">C) Increases the overhead of API requests</label><br>
+            
+                    <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+                    <label for="optionD68">D) Used for syncing data between multiple servers</label><br>
+                </div>
+            
+                <div id="result68" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <div class="que">
+                    <p>70. What is the role of the OpenAPI Specification (Swagger) in API documentation?</p>
+                    <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+                </div>
+            
+                <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Solution and Explanation:</strong><br>
+                    The OpenAPI Specification (formerly Swagger) is a framework for defining, documenting, and visualizing RESTful APIs. It allows you to describe the structure of your API and generate interactive documentation.<br><br>
+                    <strong>Key Features:</strong>
+                    <ul>
+                        <li>Standardizes API documentation</li>
+                        <li>Allows interactive exploration of API endpoints</li>
+                        <li>Can be used to generate client libraries and server stubs</li>
+                    </ul>
+                </div>
+            
+                <div class="options" style="margin-top: 10px;">
+                    <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+                    <label for="optionA69">A) A framework for defining, documenting, and visualizing RESTful APIs</label><br>
+            
+                    <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+                    <label for="optionB69">B) A protocol for encrypting API communication</label><br>
+            
+                    <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+                    <label for="optionC69">C) A method for securing API authentication</label><br>
+            
+                    <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+                    <label for="optionD69">D) A tool for monitoring API performance</label><br>
+                </div>
+            
+                <div id="result69" class="result"></div>
+            </div>
+                                                                                                                                                            
+<!-- Repeat similar code for more questions... -->
+
+<div class="navigation-buttons">
+    <button id="prevButton" onclick="previousQuestion()">Previous</button>
+    <button id="nextButton" onclick="nextQuestion()">Next</button>
+</div>
+</div>
+</div> 
+</body>
+</html>

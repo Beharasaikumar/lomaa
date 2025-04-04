@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHELL SCRIPT</title>
+    <link rel="stylesheet" href="../css/paper.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            '', 'C', 'C', 'A', 'A', 'A', 'C', 'A', 'A', 'B',
+            'A', 'A', 'A', 'A', 'A', 'A', 'A', 'B', 'B', 'A',
+           'C','A','A','A','A','A'       
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>SHELL SCRIPT</h3>
+        <div class="inner-border">
+ <!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. Mhal is the output when the user enters "10" as first and "-10" as second number:</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter the first number"
+            read num1
+            echo "Enter the Second number'"
+            read num2
+            echo "Entered first number:$num1"
+            echo "Entered second number:$num2"
+            # Compare the numbers
+            if [ $num1 -gt $num2 ]; then
+                echo "The greater number is: $num1"
+            elif [ $num2 -gt $num1 ]; then
+                echo "The greater number is:$num2"
+            else
+                echo "Both numbers are equal"
+            fi
+        </pre>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The above code cannot handle cases where one number is positive and the other is negative.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Both numbers are equal</label><br>
+
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) The greater number is: 10</label><br>
+
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) The above code cannot handle this case</label><br>
+
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) None of the above</label><br>
+    </div>
+
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. What is the output when the user enters "10" as first, "9" as second, and "10" as third number:</p>
+        <pre>
+            #!/bin/bash
+            # Prompt user for the first number
+            echo "Enter the first number:"
+            read num1
+            # Prompt user for the second number
+            echo "Enter the second number:"
+            read num2
+            # Prompt user for the third number
+            echo "Enter the third number:"
+            read num3
+            # Display the entered numbers
+            echo "Entered first number: $num1"
+            echo "Entered second number:$num2"
+            echo "Entered third number:$num3"
+            # Compare the numbers
+            if [ "$num1" -gt "$num2" ] && [ "$num1" -gt "$num3" ]; then
+                echo "The greater number is: $num1"
+            elif [ "$num2" -gt "$num1" ] && [ "$num2" -gt "$num3" ]; then
+                echo "The greater number is: $num2"
+            elif [ "$num1" -eq "$num2" ] && [ "$num1" -gt "$num3" ]; then
+                echo "num1 and num2 are equal and greater than num3:$num1"
+            elif [ "$num2" -eq "$num3" ] && [ "$num2" -gt "$num1" ]; then
+                echo "num2 and num3 are equal and greater than num1:$num2"
+            elif [ "$num1" -eq "$num3" ] && [ "$num1" -gt "$num2" ]; then
+                echo "num1 and num3 are equal and greater than num2: $num1"
+            elif [ "$num1" -eq "$num3" ] && [ "$num1" -eq "$num2" ]; then
+                echo "All numbers are equal: $num1"
+            else
+                echo "The greatest number is: $num3"
+            fi
+        </pre>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The above code cannot handle this scenario correctly due to several syntax errors and improper logic.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) num1 and num2 are equal and greater than num3</label><br>
+
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) The greater number is: 10</label><br>
+
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) The above code cannot handle this case</label><br>
+
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) None of the above</label><br>
+    </div>
+
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What will be the output if the user enters "hello" for both inputs in the following script?</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter the first string:"
+            read str1
+            echo "Enter the second string:"
+            read str2
+            if [ "$str1" == "$str2" ]; then
+                echo "The strings are equal"
+            else
+                echo "The strings are not equal"
+            fi
+        </pre>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script compares two strings. Since both inputs are the same, it will output that the strings are equal.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) The strings are equal</label><br>
+
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) The strings are not equal</label><br>
+
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) The script will not work</label><br>
+
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) None of the above</label><br>
+    </div>
+
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. What will be the output of the following script when a user enters a number below zero?</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter a number:"
+            read num
+            if [ $num -lt 0 ]; then
+                echo "The number is negative"
+            elif [ $num -eq 0 ]; then
+                echo "The number is zero"
+            else
+                echo "The number is positive"
+            fi
+        </pre>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script checks if the entered number is less than, equal to, or greater than zero, and then provides an appropriate message.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) The number is negative</label><br>
+
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) The number is zero</label><br>
+
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) The number is positive</label><br>
+
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) The script will not work</label><br>
+    </div>
+
+    <div id="result4" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. What will the following script output if the user enters "Hello World" as input?</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter a string:"
+            read str
+            if [[ $str == *"World"* ]]; then
+                echo "The string contains 'World'"
+            else
+                echo "The string does not contain 'World'"
+            fi
+        </pre>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script uses pattern matching to check if the input contains the substring "World."
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) The string contains 'World'</label><br>
+
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) The string does not contain 'World'</label><br>
+
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) The script will not run</label><br>
+
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) None of the above</label><br>
+    </div>
+
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What will the output be when the user enters "5" as input in the following script?</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter a number:"
+            read num
+            case $num in
+                1)
+                    echo "One"
+                    ;;
+                2)
+                    echo "Two"
+                    ;;
+                3)
+                    echo "Three"
+                    ;;
+                *)
+                    echo "Other"
+                    ;;
+            esac
+        </pre>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script uses a case statement to match the input number and print the corresponding output.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) One</label><br>
+
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Two</label><br>
+
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Other</label><br>
+
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) The script will not run</label><br>
+    </div>
+
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. What will be the result of the following script if the user inputs "true"?</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter a boolean value:"
+            read bool
+            if [ "$bool" == "true" ]; then
+                echo "The value is true"
+            else
+                echo "The value is false"
+            fi
+        </pre>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script compares the user input with the string "true" and prints the corresponding message.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) The value is true</label><br>
+
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) The value is false</label><br>
+
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) The script will not work</label><br>
+
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) None of the above</label><br>
+    </div>
+
+    <div id="result7" class="result"></div>
+</div>
+
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What will the following script output if the user enters "3" as input?</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter a number:"
+            read num
+            if [ $num -eq 3 ]; then
+                echo "The number is three"
+            else
+                echo "The number is not three"
+            fi
+        </pre>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script checks if the input is exactly 3 and prints the corresponding message.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) The number is three</label><br>
+
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) The number is not three</label><br>
+
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) The script will not work</label><br>
+
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) None of the above</label><br>
+    </div>
+
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. What will be the output of the following script when the user enters "10" as input?</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter a number:"
+            read num
+            case $num in
+                5)
+                    echo "Five"
+                    ;;
+                10)
+                    echo "Ten"
+                    ;;
+                *)
+                    echo "Other"
+                    ;;
+            esac
+        </pre>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script uses a case statement to match the input number and prints the corresponding output.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) Five</label><br>
+
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) Ten</label><br>
+
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) Other</label><br>
+
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) The script will not run</label><br>
+    </div>
+
+    <div id="result9" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. What will be the output of the following script when the user enters "5" as input?</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter a number:"
+            read num
+            if [ $num -ge 5 ]; then
+                echo "The number is greater than or equal to five"
+            else
+                echo "The number is less than five"
+            fi
+        </pre>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script checks if the input is greater than or equal to 5 and outputs a corresponding message.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) The number is greater than or equal to five</label><br>
+
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) The number is less than five</label><br>
+
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) The script will not work</label><br>
+
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) None of the above</label><br>
+    </div>
+
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What will be the output of the following script if the user enters "2" as input?</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter a number:"
+            read num
+            if [ $num -eq 2 ]; then
+                echo "The number is two"
+            elif [ $num -eq 3 ]; then
+                echo "The number is three"
+            else
+                echo "The number is neither two nor three"
+            fi
+        </pre>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script uses if-elif-else statements to check the input and provide the appropriate message.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) The number is two</label><br>
+
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) The number is three</label><br>
+
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) The number is neither two nor three</label><br>
+
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) The script will not work</label><br>
+    </div>
+
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. What will be the output of the following script if the user enters "Hello" as input?</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter a string:"
+            read str
+            if [[ $str =~ ^[A-Za-z]+$ ]]; then
+                echo "The string contains only letters"
+            else
+                echo "The string contains non-letter characters"
+            fi
+        </pre>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script uses regular expression matching to check if the input contains only alphabetic letters.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) The string contains only letters</label><br>
+
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) The string contains non-letter characters</label><br>
+
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) The script will not work</label><br>
+
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) None of the above</label><br>
+    </div>
+
+    <div id="result12" class="result"></div>
+</div>
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What will be the output of the following script when the user enters "Hello World" as input?</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter a string:"
+            read str
+            if [[ $str == *"World"* ]]; then
+                echo "The string contains the word World"
+            else
+                echo "The string does not contain the word World"
+            fi
+        </pre>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script checks if the input string contains the word "World" using a pattern matching operator.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) The string contains the word World</label><br>
+
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) The string does not contain the word World</label><br>
+
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) The script will fail</label><br>
+
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) None of the above</label><br>
+    </div>
+
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. What will the following script output when the user enters "10" as input?</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter a number:"
+            read num
+            while [ $num -gt 0 ]; do
+                echo "The number is positive"
+                ((num--))
+            done
+        </pre>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script will repeatedly print "The number is positive" while the number is greater than 0 and decrease the value of `num` in each iteration.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) The number is positive (repeated 10 times)</label><br>
+
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) The number is positive (repeated 5 times)</label><br>
+
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) The script will not work</label><br>
+
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) None of the above</label><br>
+    </div>
+
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What will be the output of the following script when the user enters "yes" as input?</p>
+        <pre>
+            #!/bin/bash
+            echo "Do you want to continue? (yes/no)"
+            read answer
+            case $answer in
+                yes)
+                    echo "You chose yes"
+                    ;;
+                no)
+                    echo "You chose no"
+                    ;;
+                *)
+                    echo "Invalid choice"
+                    ;;
+            esac
+        </pre>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script uses a case statement to handle the user's choice and print the corresponding output.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) You chose yes</label><br>
+
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) You chose no</label><br>
+
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) Invalid choice</label><br>
+
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) The script will not run</label><br>
+    </div>
+
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. What will be the output of the following script when the user enters "5" as input?</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter a number:"
+            read num
+            until [ $num -le 0 ]; do
+                echo "The number is positive"
+                ((num--))
+            done
+        </pre>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script uses an until loop to repeatedly print "The number is positive" while the number is greater than 0, decreasing the number each time.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) The number is positive (repeated 5 times)</label><br>
+
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) The number is positive (repeated 0 times)</label><br>
+
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) The script will not run</label><br>
+
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) None of the above</label><br>
+    </div>
+
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. What will be the output of the following script when the user enters "4" as input?</p>
+        <pre>
+            #!/bin/bash
+            echo "Enter a number:"
+            read num
+            case $num in
+                1|2|3)
+                    echo "The number is less than 4"
+                    ;;
+                4)
+                    echo "The number is exactly 4"
+                    ;;
+                *)
+                    echo "The number is greater than 4"
+                    ;;
+            esac
+        </pre>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script uses a case statement with multiple pattern matches to print the appropriate message for the entered number.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) The number is less than 4</label><br>
+
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) The number is exactly 4</label><br>
+
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) The number is greater than 4</label><br>
+
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) The script will not run</label><br>
+    </div>
+
+    <div id="result17" class="result"></div>
+</div>
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. What will the following script output when run?</p>
+        <pre>
+            #!/bin/bash
+            arr=(1 2 3 4 5)
+            echo ${arr[2]}
+        </pre>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script defines an array and accesses the third element, which is indexed as 2 (Bash arrays are 0-indexed).
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) 1</label><br>
+
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) 3</label><br>
+
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) 4</label><br>
+
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) 5</label><br>
+    </div>
+
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What does the following script do?</p>
+        <pre>
+            #!/bin/bash
+            function greet {
+                echo "Hello, $1!"
+            }
+            greet "Alice"
+        </pre>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The script defines a function named `greet` that takes a parameter and prints a greeting message using that parameter.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) Prints "Hello, Alice!"</label><br>
+
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) Prints "Hello, World!"</label><br>
+
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) Prints nothing</label><br>
+
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) The script will not work</label><br>
+    </div>
+
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. What is the correct syntax to redirect the output of a command to a file in Bash?</p>
+        <pre>
+            #!/bin/bash
+            echo "Hello World" > output.txt
+        </pre>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The `>` operator is used to redirect the output of a command to a file. In this case, the output will be written to `output.txt`.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) `>` redirects the output to a file</label><br>
+
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) `>>` appends the output to a file</label><br>
+
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) Both A and B are correct</label><br>
+
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) Output cannot be redirected in Bash</label><br>
+    </div>
+
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. What will be the result of running the following command?</p>
+        <pre>
+            # ls | grep "file"
+        </pre>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The `ls` command lists the files in the current directory, and `grep "file"` filters the output to only show filenames that contain the string "file".
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) Lists files containing the word "file"</label><br>
+
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) Lists all files in the directory</label><br>
+
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) No output</label><br>
+
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) The command will fail</label><br>
+    </div>
+
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. What does the following command do?</p>
+        <pre>
+            # ps aux | grep "bash"
+        </pre>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The `ps aux` command lists all the currently running processes, and `grep "bash"` filters that list to show only processes related to "bash".
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) Lists all processes related to bash</label><br>
+
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) Lists all running processes</label><br>
+
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) Kills all bash processes</label><br>
+
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) The command will fail</label><br>
+    </div>
+
+    <div id="result22" class="result"></div>
+</div>
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. What does the following command do?</p>
+        <pre>
+            # mkdir new_directory && cd new_directory
+        </pre>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The command first creates a new directory named `new_directory` using `mkdir`. Then, it immediately changes into that directory using `cd`.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) Creates a directory and moves into it</label><br>
+
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) Only creates the directory</label><br>
+
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) Only moves into the directory</label><br>
+
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) The command will fail</label><br>
+    </div>
+
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. Which of the following will execute a script called `script.sh` with superuser privileges?</p>
+        <pre>
+            # ./script.sh
+        </pre>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        To execute a script with superuser privileges, you can use `sudo` before the command.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) sudo ./script.sh</label><br>
+
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) ./script.sh</label><br>
+
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) run sudo script.sh</label><br>
+
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) sudo execute ./script.sh</label><br>
+    </div>
+
+    <div id="result24" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. Which of the following is used to check if a file exists in Bash?</p>
+        <pre>
+            # if [ -f "file.txt" ]; then echo "File exists"; fi
+        </pre>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Solution and Explanation:</strong><br>
+        The `-f` option checks if a file exists and is a regular file.
+    </div>
+
+    <div class="options" style="margin-top: 10px;">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) `-f` checks for the existence of a file</label><br>
+
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) `-e` checks for the existence of a file</label><br>
+
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) `-d` checks if a directory exists</label><br>
+
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) None of the above</label><br>
+    </div>
+
+    <div id="result25" class="result"></div>
+</div>
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

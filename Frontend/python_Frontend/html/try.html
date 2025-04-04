@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try Python with Pyodide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        textarea {
+            width: 98%;
+            height: 200px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #output {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            min-height: 150px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.24.0/full/pyodide.js"></script>
+</head>
+<body>
+
+    <h1>Try Python with Pyodide</h1>
+    <textarea id="pythonCode" placeholder="Enter Python code here..."></textarea>
+    <button onclick="runPython()">Run</button>
+    <h2>Output:</h2>
+    <div id="output">Loading Pyodide...</div>
+
+    <script>
+        let pyodideReady = false;
+        let pyodide;
+
+        async function initializePyodide() {
+            pyodide = await loadPyodide();
+            document.getElementById('output').innerText = "Pyodide is ready. Enter Python code and click Run.";
+            pyodideReady = true;
+        }
+
+        async function runPython() {
+            let outputDiv = document.getElementById('output');
+            if (!pyodideReady) {
+                outputDiv.innerText = "Pyodide is still loading...";
+                return;
+            }
+
+            let code = document.getElementById('pythonCode').value;
+
+            // Handle input() by replacing it with JavaScript's prompt()
+            function customInput(promptText) {
+                return prompt(promptText);
+            }
+
+            try {
+                // Redirect stdout and stderr to capture all output and errors
+                pyodide.runPython(`
+                    import sys
+                    from io import StringIO
+                    sys.stdout = StringIO()
+                    sys.stderr = sys.stdout  # Capture errors too
+                `);
+
+                // Set up input handling
+                pyodide.globals.set("input", customInput);
+
+                // Handle file operations safely using Pyodide's FS
+                pyodide.runPython(`
+                    import pyodide
+                    def write_file(filename, content):
+                        pyodide.FS.writeFile(filename, content)
+                    
+                    def read_file(filename):
+                        return pyodide.FS.readFile(filename, encoding="utf-8")
+                `);
+
+                // Execute the user's Python code
+                pyodide.runPython(code);
+
+                // Get both standard output and error output
+                let result = pyodide.runPython("sys.stdout.getvalue()");
+                
+                outputDiv.innerText = result.trim() || "No output";
+            } catch (error) {
+                outputDiv.innerText = "Error: " + error.message;
+            }
+        }
+
+        // Load Pyodide when the page loads
+        initializePyodide();
+    </script>
+
+</body>
+</html>
