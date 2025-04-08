@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, '../Frontend')));
 
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../Frontend/home-page/index.html'));
+    res.sendFile(path.join(__dirname, '../Frontend'));
 
 });
 
@@ -168,14 +168,14 @@ app.post("/send-code", async (req, res) => {
         let transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user:process.env.EMAIL_USER , // Your email address
-                pass: process.env.EMAIL_PASS // Your email password or app password
+                user:process.env.EMAIL_USERs , // Your email address
+                pass: process.env.EMAIL_PASSs // Your email password or app password
             }
         });
 
         // 🔹 Email content
         let mailOptions = {
-            from: process.env.EMAIL_USER,
+            from: process.env.EMAIL_USERs,
             to: email,
             subject: "Password Reset Code",
             text: `Your verification code is: ${code}`
@@ -406,15 +406,15 @@ app.post("/p-register", async (req, res) => {
             (err, results) => {
                 if (err) {
                          if (err.code === 'ER_DUP_ENTRY') {
-                            return res.status(400).send('<script>alert("Email already registered."); window.location.href = "./python_Frontend/html/registration.html";</script>');                           } 
+                            return res.status(400).send('<script>alert("Email already registered."); window.location.href = "./python_Frontend/html/register.html";</script>');                           } 
                            
-                            return res.status(500).send('<script>alert("Database error."); window.location.href = "./python_Frontend/html/registration.html";</script>');
+                            return res.status(500).send('<script>alert("Database error."); window.location.href = "./python_Frontend/html/register.html";</script>');
                         }
                         res.status(200).send('<script>alert("Registration successful! Redirecting to login page..."); window.location.href = "./python_Frontend/html/login.html";</script>');
                     }
                 );
             } catch (error) {
-                res.status(500).send('<script>alert("Server error."); window.location.href = "./python_Frontend/html/registration.html";</script>');
+                res.status(500).send('<script>alert("Server error."); window.location.href = "./python_Frontend/html/register.html";</script>');
             }
    });
 // Login  for python
@@ -560,15 +560,15 @@ app.post("/ai-register", async (req, res) => {
             (err, results) => {
                 if (err) {
                          if (err.code === 'ER_DUP_ENTRY') {
-                            return res.status(400).send('<script>alert("Email already registered."); window.location.href = "./AI-Frontend/html/registration.html";</script>');                           } 
+                            return res.status(400).send('<script>alert("Email already registered."); window.location.href = "./AI-Frontend/html/register.html";</script>');                           } 
                            
-                            return res.status(500).send('<script>alert("Database error."); window.location.href = "./AI-Frontend/html/registration.html";</script>');
+                            return res.status(500).send('<script>alert("Database error."); window.location.href = "./AI-Frontend/html/register.html";</script>');
                         }
                         res.status(200).send('<script>alert("Registration successful! Redirecting to login page..."); window.location.href = "./AI-Frontend/html/login.html";</script>');
                     }
                 );
             } catch (error) {
-                res.status(500).send('<script>alert("Server error."); window.location.href = "./AI-Frontend/html/registration.html";</script>');
+                res.status(500).send('<script>alert("Server error."); window.location.href = "./AI-Frontend/html/register.html";</script>');
             }
    });
 // Login  for AI
@@ -694,6 +694,161 @@ app.post("/ai-reset-password", async (req, res) => {
         }
     );
 });
+
+
+//-------AZURE BACKEND CODE-------------------------------------------------
+
+// Registration for AZURE
+app.post("/azu-register", async (req, res) => {
+     const { user_name, email, password } = req.body;
+    if (!user_name || !password || !email) {
+        return res.status(400).send('Please fill in all fields.');
+    }
+
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        connection.query(
+            'INSERT INTO azure_users (user_name, email, password) VALUES (?, ?, ?)',
+            [user_name, email, hashedPassword],
+            (err, results) => {
+                if (err) {
+                         if (err.code === 'ER_DUP_ENTRY') {
+                            return res.status(400).send('<script>alert("Email already registered."); window.location.href = "./azure_Frontend/index.html";</script>');                           } 
+                           
+                            return res.status(500).send('<script>alert("Database error."); window.location.href = "./azure_Frontend/index.html";</script>');
+                        }
+                        res.status(200).send('<script>alert("Registration successful! Redirecting to login page..."); window.location.href = "./azure_Frontend/html/login.html";</script>');
+                    }
+                );
+            } catch (error) {
+                res.status(500).send('<script>alert("Server error."); window.location.href = "./azure_Frontend/index.html";</script>');
+            }
+   });
+// Login  for AZURE
+app.post("/azu-login", async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).send('<script>alert("Please enter email and password.");</script>');
+    }
+
+    try {
+        connection.query("SELECT * FROM azure_users WHERE email = ?", [email], async (err, results) => {
+            if (err) {
+                console.error(err.message);
+                return res.status(500).send('<script>alert("DataBase error.");</script>');
+            }
+
+            if (results.length === 0) {
+                return res.status(400).send('<script>alert("user not found"); window.location.href = "./azure_Frontend/html/login.html";</script>');
+            }
+
+            const user = results[0];
+
+            // Compare passwords
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return res.status(401).send('<script>alert("invalid credentials"); window.location.href = "./azure_Frontend/html/login.html";</script>');
+            }
+            
+            res.send('<script>alert("Login successful!");window.location.href = "./azure_Frontend/html/index.html";</script>');
+        });
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
+});
+
+
+//-------AZURE FORGOT PASSWORD-------------------------------------------------
+
+
+let verificationC = {}; // Store temporary verification codes 
+
+// 📧 1️⃣ Send Verification Code via Email
+app.post("/azu-send-code", async (req, res) => {
+    const { email } = req.body;
+
+    connection.query("SELECT * FROM azure_users WHERE email = ?", [email], async (err, results) => {
+        if (err) {
+            console.error("Database error:", err);
+            return res.status(500).json({ success: false, message: "Database error." });
+        }
+        if (results.length === 0) {
+            return res.status(400).json({ success: false, message: "Email not found!" });
+        }
+
+        // Generate a 4-digit verification code
+        const code = Math.floor(1000 + Math.random() * 9000).toString();
+        verificationC[email] = code;
+
+        // 🔹 Set up Nodemailer transporter
+        let transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user:process.env.EMAIL_USERs , // Your email address
+                pass: process.env.EMAIL_PASSs // Your email password or app password
+            }
+        });
+
+        // 🔹 Email content
+        let mailOptions = {
+            from: process.env.EMAIL_USERs,
+            to: email,
+            subject: "Password Reset Code",
+            text: `Your verification code is: ${code}`
+        };
+
+        // 🔹 Send email
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error("Error sending email:", error);
+                return res.status(500).json({ success: false, message: "Failed to send email." });
+            }
+            console.log("Email sent:", info.response);
+            res.json({ success: true, message: "Verification code sent to email!" });
+        });
+    });
+});
+
+// ✅ 2️⃣ Verify Code
+app.post("/azu-verify-code", (req, res) => {
+    const { email, code } = req.body;
+
+    if (verificationC[email] === code) {
+        res.json({ success: true, message: "Code verified!" });
+    } else {
+        res.status(400).json({ success: false, message: "Invalid code!" });
+    }
+});
+
+// 🔐 3️⃣ Reset Password
+app.post("/azu-reset-password", async (req, res) => {
+    const { email, newPassword } = req.body;
+
+    if (!verificationC[email]) {
+        return res.status(400).json({ success: false, message: "Verification required!" });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    connection.query(
+        "UPDATE azure_users SET password = ? WHERE email = ?",
+        [hashedPassword, email],
+        (err, results) => {
+            if (err) {
+                console.error("Database error:", err);
+                return res.status(500).json({ success: false, message: "Database error." });
+            }
+
+            delete verificationC[email]; // Remove used code
+            res.json({ success: true, message: "Password reset successful!" });
+        }
+    );
+});
+
+
 
 const port = 4000;
 app.listen(port, () => {

@@ -1,0 +1,2581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure devops Cli</title>
+    <link rel="stylesheet" href="../css/Azure Devops.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'A', 'B', 'C', 'D', 'B', 'A', 'B', 'C', 'D', 'A',
+            'B', 'A', 'D', 'B', 'C', 'A', 'C', 'B', 'D', 'A',
+            'B', 'A', 'C', 'D', 'B', 'A', 'C', 'B', 'D', 'A',
+            'A', 'B', 'C', 'D', 'A', 'B', 'A', 'C', 'B', 'D',
+            'A', 'B', 'D', 'C', 'A', 'C', 'A', 'B', 'C', 'D',
+
+            'A', 'B', 'C', 'A', 'D', 'A', 'B', 'C', 'D', 'B',   
+            'A', 'C', 'D', 'A', 'B', 'A', 'B', 'C', 'D', 'B',
+            'A', 'C', 'B', 'D', 'A', 'B', 'C', 'A', 'B', 'C',
+            'A', 'C', 'B', 'D', 'A', 'C', 'D', 'B', 'A', 'C',
+            'B', 'C', 'A', 'B', 'D', 'A', 'B', 'C', 'A', 'D',   
+
+
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>Azure devops Cli</h3>
+        <div class="inner-border">
+<!-- Question 1 -->
+<div class="qee">               
+    <div class="que">
+        <p>1. Which Azure CLI command group is used to manage Azure DevOps organizations and projects?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>   
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) az devops</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops</code> command group is used to manage Azure DevOps organizations and projects. It is part of the Azure CLI and enables automation and configuration through scripting.<br><br>
+        **Key Features**:<br>
+        1. Manage organizations and projects.<br>
+        2. Set defaults like project and organization.<br>
+        3. Used as a foundation for other DevOps subcommands.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) az devops</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) az project</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) az org</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) az manage</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">               
+    <div class="que">
+        <p>2. What command sets the default Azure DevOps organization for subsequent CLI commands?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>   
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) az devops configure --defaults organization=&lt;URL&gt;</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can set a default Azure DevOps organization using the <code>az devops configure --defaults</code> command. This reduces the need to specify it in every CLI call.<br><br>
+        **Usage Example**:<br>
+        <code>az devops configure --defaults organization=https://dev.azure.com/YourOrg</code>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) az devops default --org</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) az devops configure --defaults organization=&lt;URL&gt;</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) az configure --org</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) az devops set-org</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">               
+    <div class="que">
+        <p>3. Which flag is commonly used with az devops commands to specify the project?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>   
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) --project</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--project</code> flag is used with Azure DevOps CLI commands to specify which project the command should operate on. It helps target specific project contexts.<br><br>
+        **Example**:<br>
+        <code>az pipelines list --project "MyProject"</code>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) --name</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) --scope</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) --project</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) --repo</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">               
+    <div class="que">
+        <p>4. What is the purpose of the 'az devops login' command?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>   
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Authenticate to Azure DevOps with a personal access token (PAT)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops login</code> command is used to authenticate the CLI with Azure DevOps using a personal access token (PAT), enabling secure command execution.<br><br>
+        **Usage**:<br>
+        <code>az devops login --token YOUR_PAT</code>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) Create a new DevOps project</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) Reset your Azure login</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) Configure user permissions</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) Authenticate to Azure DevOps with a personal access token (PAT)</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">               
+    <div class="que">
+        <p>5. What must be installed to use the Azure DevOps CLI commands like az pipelines and az repos?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>   
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure DevOps CLI extension</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps CLI features like <code>az pipelines</code>, <code>az repos</code>, etc., require the Azure DevOps CLI extension to be installed using:<br><br>
+        <code>az extension add --name azure-devops</code><br>
+        Without this extension, the commands are not available.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) Azure DevOps agent</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) Azure DevOps CLI extension</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) Visual Studio</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) Azure AD Connect</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+                            
+<!-- Question 6 -->
+<div class="qee">               
+    <div class="que">
+        <p>6. What is the primary purpose of the 'az devops configure' command?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>   
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Set default values for the Azure DevOps CLI context</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops configure</code> command sets default values like organization, project, or output format. This avoids the need to pass them repeatedly in commands.<br><br>
+        **Example**:<br>
+        <code>az devops configure --defaults project=MyProject organization=https://dev.azure.com/MyOrg</code>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) Set default values for the Azure DevOps CLI context</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) Install DevOps extensions</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) Connect to Azure services</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) Run build pipelines</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">               
+    <div class="que">
+        <p>7. Which of the following is a valid key used with 'az devops configure --defaults'?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>   
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) project</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Valid keys for <code>--defaults</code> include <code>organization</code>, <code>project</code>, and <code>output</code>. These streamline CLI usage by setting them globally.<br><br>
+        Example:<br>
+        <code>az devops configure --defaults project=MyProject</code>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) devops</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) project</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) token</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) login</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">               
+    <div class="que">
+        <p>8. What happens when you use 'az devops configure --list-defaults'?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>   
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It displays the currently set default values</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Using <code>--list-defaults</code> with <code>az devops configure</code> will show you all current default settings applied to your CLI session.<br><br>
+        Helpful for verifying current config values like organization or project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) It resets all settings</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) It opens a settings editor</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) It displays the currently set default values</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) It connects to Azure DevOps</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">               
+    <div class="que">
+        <p>9. How do you reset all Azure DevOps CLI default settings?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>   
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) az devops configure --defaults {}</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To clear all configured defaults in the Azure DevOps CLI, pass an empty JSON object:<br>
+        <code>az devops configure --defaults {}</code><br><br>
+        This removes all previously set defaults.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) az devops reset-defaults</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) az devops configure --reset</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) az configure clear</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) az devops configure --defaults {}</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">               
+    <div class="que">
+        <p>10. Which of the following settings is NOT configurable using 'az devops configure --defaults'?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>   
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Agent Pool</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops configure --defaults</code> command only allows configuring project, organization, and output settings. Agent pool settings are managed differently, typically via <code>az pipelines pool</code> or the portal.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) Agent Pool</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) organization</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) output</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) project</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+
+<!-- Question 11 -->
+<div class="qee">               
+    <div class="que">
+        <p>11. What is the primary function of the 'az devops feedback' command?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>   
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Submit feedback about Azure DevOps CLI</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops feedback</code> command allows users to send feedback to the Azure DevOps CLI team. This can include suggestions, bugs, or usability issues.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) Check DevOps project status</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) Submit feedback about Azure DevOps CLI</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) Open a support ticket</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) Restart a DevOps service</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">               
+    <div class="que">
+        <p>12. What happens when you run 'az devops feedback' with no parameters?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>   
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It opens the default browser with the feedback form</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Running <code>az devops feedback</code> without any arguments launches a browser window directed to the Azure DevOps CLI feedback page.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) It opens the default browser with the feedback form</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) It prints feedback instructions to the console</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) It sends an email</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) It creates a GitHub issue</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">               
+    <div class="que">
+        <p>13. How can users suggest improvements or report bugs for the Azure DevOps CLI?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>   
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using 'az devops feedback'</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Microsoft provides the <code>az devops feedback</code> command as the preferred method for submitting suggestions or bug reports.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) Through the Azure portal only</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) By contacting support via phone</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) Opening a Stack Overflow ticket</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) By using 'az devops feedback'</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">               
+    <div class="que">
+        <p>14. Which URL does the 'az devops feedback' command redirect to by default?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>   
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) https://github.com/Azure/azure-devops-cli-extension/issues</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        When you run <code>az devops feedback</code>, it opens your default browser and redirects you to the GitHub issues page of the Azure DevOps CLI extension, where users can report issues or suggest features.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) https://feedback.azure.com</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) https://github.com/Azure/azure-devops-cli-extension/issues</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) https://dev.azure.com/support</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) https://docs.microsoft.com/azure/devops</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">               
+    <div class="que">
+        <p>15. Is authentication required to use 'az devops feedback'?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>   
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) No, it opens a browser to submit feedback</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops feedback</code> command does not require Azure DevOps authentication. It simply launches a browser window and redirects to a GitHub feedback page, making it accessible without sign-in to Azure DevOps.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) Yes, using a PAT is mandatory</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) Yes, login via Azure AD is required</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) No, it opens a browser to submit feedback</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) No, but it stores feedback locally</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee">               
+    <div class="que">
+        <p>16. What is the purpose of the 'az devops project create' command?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>   
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To create a new Azure DevOps project</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops project create</code> command is used to create a new project within an Azure DevOps organization, specifying attributes like project name, visibility, and description.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) To create a new Azure DevOps project</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) To create a new repository</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) To clone a Git project</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) To launch Azure portal</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">               
+    <div class="que">
+        <p>17. Which parameter is used to set project visibility in 'az devops project create'?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>   
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) --visibility</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--visibility</code> parameter is used to determine whether a new project will be private or public when it's created.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) --public</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) --access</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) --visibility</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) --secure</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">               
+    <div class="que">
+        <p>18. What does the 'az devops project delete' command do?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>   
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Deletes an existing Azure DevOps project</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        This command is used to permanently delete a project from an Azure DevOps organization. It requires confirmation or the <code>--yes</code> flag.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) Deletes a Git repository</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) Deletes an existing Azure DevOps project</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) Deletes a user from a project</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) Deletes all build pipelines</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">               
+    <div class="que">
+        <p>19. What flag must be used with 'az devops project delete' to avoid confirmation prompt?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>   
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) --yes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--yes</code> flag is used to bypass the interactive confirmation prompt when deleting a project via CLI.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) --confirm</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) --force</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) --quiet</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) --yes</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">               
+    <div class="que">
+        <p>20. How can you list all projects in an Azure DevOps organization?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>   
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) az devops project list</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops project list</code> command retrieves a list of all projects in the current or specified Azure DevOps organization.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) az devops project list</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) az project show-all</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) az devops show projects</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) az list projects</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee">               
+    <div class="que">
+        <p>21. What is the purpose of the 'az devops security group list' command?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>   
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Lists all security groups in an organization</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops security group list</code> command retrieves all security groups within an Azure DevOps organization, allowing you to manage access and permissions.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) Lists all users in a project</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) Lists all security groups in an organization</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) Lists all pipelines with restricted access</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) Lists group members only</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">               
+    <div class="que">
+        <p>22. Which command is used to add a user to a security group in Azure DevOps?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>   
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) az devops security group membership add</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To add a user to a group, the command <code>az devops security group membership add</code> is used with appropriate parameters such as group-id and member-id.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) az devops security group membership add</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) az devops group user add</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) az devops group assign</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) az devops security add-user</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">               
+    <div class="que">
+        <p>23. Which command removes a member from a security group?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>   
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) az devops security group membership remove</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops security group membership remove</code> command is used to remove users or groups from an existing security group.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) az devops security remove user</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) az devops group unassign</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) az devops security group membership remove</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) az devops security group clear</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">               
+    <div class="que">
+        <p>24. What does the 'az devops security permission list' command do?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>   
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Lists permissions for a specific security namespace and token</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        This command shows detailed permissions for a specific security namespace, like Git repos or pipelines, based on the provided token.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) Lists group members</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) Lists global permissions</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) Lists admin users</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) Lists permissions for a specific security namespace and token</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">               
+    <div class="que">
+        <p>25. To modify a specific permission, which command should be used?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>   
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) az devops security permission update</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops security permission update</code> command allows you to set or update permissions for groups or users in Azure DevOps.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) az devops group update</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) az devops security permission update</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) az devops access update</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) az devops permission modify</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+
+<!-- Question 26 -->
+<div class="qee">               
+    <div class="que">
+        <p>26. What is the primary function of the 'az devops service-endpoint list' command?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>   
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Lists all service endpoints in a project</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops service-endpoint list</code> command retrieves all service connections that are configured in a given Azure DevOps project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) Lists all service endpoints in a project</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) Lists available services in Azure</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) Lists pipeline tasks using endpoints</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) Lists all service hooks</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">               
+    <div class="que">
+        <p>27. Which command allows you to create a new service endpoint in Azure DevOps?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>   
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) az devops service-endpoint create</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Use <code>az devops service-endpoint create</code> to define and configure a new service connection with required parameters like service type, auth, and project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) az devops service-endpoint set</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) az devops connection create</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) az devops service-endpoint create</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) az devops service connect</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">               
+    <div class="que">
+        <p>28. Which option is needed with 'az devops service-endpoint delete' to successfully delete a service endpoint?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>   
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) --id</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--id</code> parameter is required to specify which service endpoint to delete using <code>az devops service-endpoint delete</code>.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) --name</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) --id</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) --type</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) --force</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">               
+    <div class="que">
+        <p>29. How can you authorize a service endpoint for use in all pipelines?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>   
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) az devops service-endpoint update --enable-for-all</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Using <code>--enable-for-all</code> with <code>az devops service-endpoint update</code> allows the endpoint to be used across all pipelines without manual authorization.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) az devops authorize service-endpoint</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) az devops service-endpoint allow-all</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) az devops pipeline service-connect</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) az devops service-endpoint update --enable-for-all</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">               
+    <div class="que">
+        <p>30. Which of the following commands shows the details of a specific service endpoint?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>   
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) az devops service-endpoint show</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        <code>az devops service-endpoint show</code> retrieves full information on a single service connection using its ID.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) az devops service-endpoint show</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) az devops connection get</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) az devops service-endpoint info</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) az devops endpoint fetch</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+
+<!-- Question 31 -->
+<div class="qee">               
+    <div class="que">
+        <p>31. What does the 'az devops team list' command do?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>   
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Lists all teams in a project</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops team list</code> command is used to retrieve and display all teams that exist within a specified Azure DevOps project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) Lists all teams in a project</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) Lists users in a team</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) Lists team boards</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) Lists permissions for a team</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">               
+    <div class="que">
+        <p>32. Which command creates a new team in Azure DevOps?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>   
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) az devops team create</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Use <code>az devops team create</code> to create a new team under a specific Azure DevOps project, specifying the name and optional description.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) az devops add team</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) az devops team create</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) az devops project team-add</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) az devops team init</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">               
+    <div class="que">
+        <p>33. How can you show details about a specific team?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>   
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) az devops team show</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        <code>az devops team show</code> provides information about a specified team, including name, description, and ID.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) az devops team get</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) az devops team describe</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) az devops team show</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) az devops team list --verbose</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">               
+    <div class="que">
+        <p>34. Which command allows you to list members of a team?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>   
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) az devops team list-member</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops team list-member</code> command returns the list of users who are part of a specific team.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) az devops team get-users</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) az devops users list</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) az devops members show</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) az devops team list-member</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">               
+    <div class="que">
+        <p>35. Which flag is required with 'az devops team create' to specify the team name?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>   
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) --name</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--name</code> flag is required to specify the name of the team when using the <code>az devops team create</code> command.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) --name</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) --team</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) --title</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) --display-name</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+
+<!-- Question 36 -->
+<div class="qee">               
+    <div class="que">
+        <p>36. What is the function of 'az devops user list'?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>   
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Lists all users in the organization</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops user list</code> command retrieves a list of all users associated with the specified Azure DevOps organization.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) Lists users in a project</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) Lists all users in the organization</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) Lists service accounts</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) Lists users in a team</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">               
+    <div class="que">
+        <p>37. Which command adds a new user to an Azure DevOps organization?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>   
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) az devops user add</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az devops user add</code> command is used to add a new user to an organization and assign them a license and access level.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) az devops user add</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) az devops add-user</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) az devops user invite</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) az devops organization user-add</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">               
+    <div class="que">
+        <p>38. What is required to add a user using 'az devops user add'?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>   
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) User email address and access level</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Adding a user requires their email address and the level of access (e.g., Basic, Stakeholder). These are specified using flags like <code>--user</code> and <code>--license-type</code>.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) Username and project name</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) Email and project ID</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) User email address and access level</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) User ID and license key</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">               
+    <div class="que">
+        <p>39. Which flag is used with 'az devops user add' to assign the access level?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>   
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) --license-type</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--license-type</code> flag is used to specify the access level of a user when they are being added to an organization.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) --access-level</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) --license-type</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) --role</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) --user-type</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">               
+    <div class="que">
+        <p>40. What output format is supported by 'az devops user list' for automation?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>   
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) JSON</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--output json</code> or <code>-o json</code> option formats the output for automation or scripting purposes.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) CSV only</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) PDF</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) XML</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) JSON</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+
+<!-- Question 41 -->
+<div class="qee">               
+    <div class="que">
+        <p>41. What does the 'az repos list' command do?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>   
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Lists all repositories in a project</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az repos list</code> command retrieves a list of all repositories available in the specified Azure DevOps project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) Lists all repositories in a project</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) Lists branches in a repository</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) Lists commit history</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) Lists all users in a repository</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">               
+    <div class="que">
+        <p>42. Which command creates a new repository in Azure Repos?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>   
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) az repos create</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az repos create</code> command is used to create a new Git repository within the specified project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) az repos init</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) az repos create</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) az repos new</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) az create-repo</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">               
+    <div class="que">
+        <p>43. How do you show details of a specific repository?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>   
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) az repos show</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az repos show</code> command provides metadata and configuration information for a specific Azure DevOps Git repository.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) az show repo</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) az repos info</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) az get-repo</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) az repos show</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">               
+    <div class="que">
+        <p>44. Which parameter is used with 'az repos create' to specify the name of the new repository?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>   
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) --name</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--name</code> parameter is used to specify the name of the new repository when creating it with <code>az repos create</code>.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) --repo-name</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) --repository</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) --name</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) --title</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee">               
+    <div class="que">
+        <p>45. Which command deletes a repository in Azure Repos?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>   
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) az repos delete</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az repos delete</code> command deletes a specified Git repository from Azure DevOps.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) az repos delete</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) az delete-repo</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) az repos remove</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) az remove-repository</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Question 46 -->
+<div class="qee">               
+    <div class="que">
+        <p>46. What is the purpose of repository policies in Azure Repos?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>   
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To enforce rules on pull requests and branches</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Repository policies help enforce standards and control code quality by applying rules such as requiring reviewers or build validations on pull requests.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) To configure CI/CD triggers</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) To schedule backups of repositories</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) To enforce rules on pull requests and branches</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) To grant repository access to users</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">               
+    <div class="que">
+        <p>47. Which command is used to list all repository policies in a project?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>   
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) az repos policy list</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Use <code>az repos policy list</code> to display all configured policies within a specified repository or project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) az repos policy list</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) az policy get</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) az repos get-policy</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) az show-policy</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">               
+    <div class="que">
+        <p>48. What is the use of 'az repos policy create'?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>   
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It creates a new policy for a repository</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az repos policy create</code> command is used to define and apply new rules, such as requiring a build or code reviewer, to a repo.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) It deletes an existing policy</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) It creates a new policy for a repository</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) It lists all policies</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) It assigns permissions to users</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">               
+    <div class="que">
+        <p>49. Which parameter defines the branch a policy will apply to?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>   
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) --branch</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        When applying a policy, the <code>--branch</code> parameter allows targeting a specific branch such as 'main' or 'develop'.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) --target</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) --repo-branch</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) --branch</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) --branch-name</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">               
+    <div class="que">
+        <p>50. How can you remove an existing repository policy?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>   
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) az repos policy delete</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az repos policy delete</code> command removes a previously applied repository policy by specifying its ID.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) az delete-policy</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) az remove-policy</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) az repos policy remove</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) az repos policy delete</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+
+<!-- Question 51 -->
+<div class="qee">               
+    <div class="que">
+        <p>51. What is the primary use of the 'az repos pr create' command?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>   
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To create a new pull request in a repository</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az repos pr create</code> command initiates a new pull request between two branches in a repository, allowing code review and merging.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) To create a new pull request in a repository</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) To delete a pull request</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) To approve a pull request</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) To reject a pull request</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee">               
+    <div class="que">
+        <p>52. Which flag is used to specify the target branch in a PR using CLI?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>   
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) --target-branch</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--target-branch</code> option in <code>az repos pr create</code> defines which branch the changes will be merged into.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) --branch</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) --target-branch</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) --merge-branch</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) --into</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee">               
+    <div class="que">
+        <p>53. How do you approve a pull request using Azure CLI?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>   
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) az repos pr update --id &lt;PR_ID&gt; --status approve</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can approve a pull request by using the <code>--status approve</code> option with <code>az repos pr update</code>.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) az repos pr approve --id</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) az repos pr status --approve</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) az repos pr update --id &lt;PR_ID&gt; --status approve</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) az pr approve</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee">               
+    <div class="que">
+        <p>54. What does the 'az repos pr list' command do?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>   
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Lists all pull requests in a project or repository</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        This command returns a list of pull requests including their status, creator, and target branch.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) Lists all pull requests in a project or repository</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) Lists all policies applied to PRs</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) Shows merged PRs only</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) Shows PR merge conflicts</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee">               
+    <div class="que">
+        <p>55. How can you set auto-complete for a pull request via CLI?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>   
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) az repos pr update --id &lt;PR_ID&gt; --auto-complete true</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--auto-complete</code> flag enables auto-complete so the PR merges automatically once all policies and approvals are met.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) az repos pr complete --auto</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) az pr set-automerge</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) az repos pr merge --auto-complete</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) az repos pr update --id &lt;PR_ID&gt; --auto-complete true</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+
+<!-- Question 56 -->
+<div class="qee">               
+    <div class="que">
+        <p>56. What is the purpose of the 'az repos ref list' command?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>   
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To list all references (branches/tags) in a repository</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az repos ref list</code> command displays all references, including branches and tags, in the specified repository.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) To list all references (branches/tags) in a repository</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) To clone all branches locally</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) To delete a remote reference</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) To create a new reference</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee">               
+    <div class="que">
+        <p>57. How do you create a new branch using the Azure CLI?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>   
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) az repos ref create --name refs/heads/&lt;branch&gt;</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To create a branch, use <code>az repos ref create</code> with the reference name format <code>refs/heads/&lt;branch&gt;</code>.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) az repos branch create --name &lt;branch&gt;</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) az repos ref create --name refs/heads/&lt;branch&gt;</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) az ref create --branch &lt;branch&gt;</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) az repos tag create --branch &lt;branch&gt;</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee">               
+    <div class="que">
+        <p>58. What does the 'refs/heads/' prefix signify when creating a reference?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>   
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It indicates the reference is a branch</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Git, <code>refs/heads/</code> denotes a branch, while <code>refs/tags/</code> refers to a tag. This is important when managing references.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) It is a required prefix for Azure CLI</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) It signifies a remote branch</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) It indicates the reference is a branch</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) It means the branch is locked</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee">               
+    <div class="que">
+        <p>59. Which command is used to delete a reference from a repository?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>   
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) az repos ref delete</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az repos ref delete</code> command removes a specified reference (branch or tag) from the repo.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) az repos delete-ref</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) az ref remove</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) az repos branch delete</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) az repos ref delete</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee">               
+    <div class="que">
+        <p>60. Which parameter is essential when creating a reference using the Azure CLI?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>   
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) --object-id</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--object-id</code> parameter is used to specify the commit SHA the new reference will point to.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) --project-id</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) --object-id</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) --source-branch</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) --ref-id</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+
+<!-- Question 61 -->
+<div class="qee">               
+    <div class="que">
+        <p>61. What does the 'az repos artifact list' command do?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>   
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Lists all repository artifacts</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az repos artifact list</code> command is used to list artifacts associated with a repository, such as Git LFS objects.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) Lists all repository artifacts</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) Lists pipeline artifacts</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) Lists repository contributors</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) Lists repository tags</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee">               
+    <div class="que">
+        <p>62. Which command allows you to download an artifact from a repository?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>   
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) az repos artifact download</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Use <code>az repos artifact download</code> to download artifacts from a repo to a local machine or agent.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) az artifact fetch</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) az repos get-artifact</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) az repos artifact download</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) az download-artifact</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee">               
+    <div class="que">
+        <p>63. What is a typical use case for repository artifacts in Azure Repos?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>   
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To store large binary files using Git LFS</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Artifacts like Git LFS files are used to manage large files that are not efficient to store directly in Git.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) To manage branches efficiently</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) To assign permissions to users</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) To trigger CI pipelines</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) To store large binary files using Git LFS</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee">               
+    <div class="que">
+        <p>64. Which of the following best describes a Git LFS artifact?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>   
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) A pointer file tracked in Git that refers to a large binary file stored outside the repo</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Git LFS (Large File Storage) uses a pointer system where Git tracks small pointer files instead of the actual large files.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) A pointer file tracked in Git that refers to a large binary file stored outside the repo</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) A compiled artifact from a pipeline</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) A zip file of the entire repository</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) A backup of Azure DevOps settings</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee">               
+    <div class="que">
+        <p>65. What is required to download a specific artifact from Azure Repos?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>   
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Repository name and artifact identifier</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To download an artifact, you must specify the repository name and the artifact's unique identifier or name.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) Project ID and build number</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) Repository name and artifact identifier</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) Branch name and user credentials</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) Artifact download token</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+
+<!-- Question 66 -->
+<div class="qee">               
+    <div class="que">
+        <p>66. What is the primary function of the 'az pipelines create' command?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>   
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Creates a new Azure Pipeline</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az pipelines create</code> command is used to create a new build or release pipeline in Azure DevOps.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) Creates a new Azure Pipeline</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) Updates a build variable</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) Deletes an existing pipeline</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) Triggers a pipeline manually</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee">               
+    <div class="que">
+        <p>67. Which command is used to manually run a pipeline in Azure DevOps?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>   
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) az pipelines run</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Use <code>az pipelines run</code> to manually trigger a pipeline, typically used for testing or urgent deployments.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) az pipelines start</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) az pipelines run</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) az pipelines deploy</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) az pipelines trigger</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee">               
+    <div class="que">
+        <p>68. What does 'az pipelines list' display?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>   
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) All pipelines within a project</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        <code>az pipelines list</code> displays all pipelines available in the specified Azure DevOps project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) All failed pipeline runs</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) Only running pipelines</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) All pipelines within a project</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) Pipelines assigned to the current user</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee">               
+    <div class="que">
+        <p>69. Which argument is required when using 'az pipelines create'?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>   
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) --name</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--name</code> argument is mandatory when creating a pipeline to define its identifier within Azure DevOps.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) --token</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) --path</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) --repo</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) --name</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee">               
+    <div class="que">
+        <p>70. What does the 'az pipelines delete' command do?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>   
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Deletes a specified Azure Pipeline</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        <code>az pipelines delete</code> is used to remove an existing pipeline from your Azure DevOps project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) Deletes a pipeline run</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) Deletes a specified Azure Pipeline</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) Cancels a running pipeline</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) Deletes pipeline variables</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+
+<!-- Question 71 -->
+<div class="qee">               
+    <div class="que">
+        <p>71. What is the purpose of the 'az pipelines build queue' command?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>   
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Queues a new build</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az pipelines build queue</code> command initiates a new build for a specific pipeline.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) Queues a new build</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) Views build logs</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) Cancels a build</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) Deletes a build pipeline</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee">               
+    <div class="que">
+        <p>72. Which command lists all builds in a project?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>   
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) az pipelines build list</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az pipelines build list</code> command returns a list of all builds in the specified project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) az pipelines build show</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) az pipelines build get</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) az pipelines build list</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) az pipelines builds</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee">               
+    <div class="que">
+        <p>73. How can you view detailed information about a specific build?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>   
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) az pipelines build show --id &lt;id&gt;</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az pipelines build show</code> command retrieves details of a specific build using its ID.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) az pipelines show build</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) az pipelines build show --id &lt;id&gt;</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) az build show</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) az show pipeline build</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee">               
+    <div class="que">
+        <p>74. Which option is used to filter builds by definition name?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>   
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) --definition-name</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--definition-name</code> option is used to filter builds associated with a particular build pipeline.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) --pipeline</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) --build-id</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) --name</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) --definition-name</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<!-- Question 75 -->
+<div class="qee">               
+    <div class="que">
+        <p>75. What does the 'az pipelines build cancel' command do?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>   
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Cancels a running build</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az pipelines build cancel</code> command stops a build that is currently running in Azure DevOps.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) Cancels a running build</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) Deletes build results</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) Resets build status</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) Skips build validation</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+
+<!-- Question 76 -->
+<div class="qee">               
+    <div class="que">
+        <p>76. What is the use of the 'az pipelines release create' command?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>   
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Creates a new release</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az pipelines release create</code> command is used to initiate a new release from a specified release pipeline.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) Cancels a release</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) Creates a new release</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) Deletes a release definition</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) Lists all release stages</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee">               
+    <div class="que">
+        <p>77. Which command is used to list all releases in a project?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>   
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) az pipelines release list</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az pipelines release list</code> command returns a list of all releases in the specified Azure DevOps project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) az pipelines list release</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) az release list-all</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) az pipelines release list</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) az pipelines show releases</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee">               
+    <div class="que">
+        <p>78. How can you show details of a specific release using the Azure CLI?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>   
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) az pipelines release show --id &lt;id&gt;</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Use <code>az pipelines release show</code> with the release ID to get details about that specific release.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) az pipelines release show --id &lt;id&gt;</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) az show release --name &lt;name&gt;</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) az pipelines get release</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) az pipelines release describe</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+
+<!-- Question 79 -->
+<div class="qee">               
+    <div class="que">
+        <p>79. What is the correct flag to specify the release definition ID when creating a release?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>   
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) --definition-id</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--definition-id</code> flag identifies which release definition to use when creating a new release.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) --release-id</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) --definition-id</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) --project-id</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) --pipeline-id</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee">               
+    <div class="que">
+        <p>80. Which command is used to delete a release?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>   
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) az pipelines release delete --id &lt;id&gt;</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az pipelines release delete</code> command removes a release using its ID.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) az pipelines delete release</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) az release remove</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) az pipelines release delete --id &lt;id&gt;</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) az delete release pipeline</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+<!-- Question 81 -->
+<div class="qee">               
+    <div class="que">
+        <p>81. Which command is used to trigger a new pipeline run?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>   
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) az pipelines run</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az pipelines run</code> command triggers a new run of the specified pipeline in Azure DevOps.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) az pipelines run</label><br>
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) az pipelines trigger-run</label><br>
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) az run pipeline</label><br>
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) az pipelines start</label><br>
+    </div>
+    <div id="result80" class="result"></div>
+</div>
+
+<!-- Question 82 -->
+<div class="qee">               
+    <div class="que">
+        <p>82. Which flag is used to specify the pipeline ID when running a pipeline?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>   
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) --id</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--id</code> flag is used with <code>az pipelines run</code> to identify which pipeline to execute.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) --pipeline</label><br>
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) --run-id</label><br>
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) --id</label><br>
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) --pipeline-id</label><br>
+    </div>
+    <div id="result81" class="result"></div>
+</div>
+
+<!-- Question 83 -->
+<div class="qee">               
+    <div class="que">
+        <p>83. How can you specify variables when triggering a pipeline run?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>   
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) --variables key=value</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can provide variables using the <code>--variables</code> flag in the format <code>key=value</code> when running a pipeline.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) --set key:value</label><br>
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) --variables key=value</label><br>
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) --define key=value</label><br>
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) --params key=value</label><br>
+    </div>
+    <div id="result82" class="result"></div>
+</div>
+
+<!-- Question 84 -->
+<div class="qee">               
+    <div class="que">
+        <p>84. Which argument allows you to target a specific branch in a pipeline run?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>   
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) --branch</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Use <code>--branch</code> to specify the Git branch from which to trigger the pipeline run.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) --source</label><br>
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) --git-branch</label><br>
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) --repo-branch</label><br>
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) --branch</label><br>
+    </div>
+    <div id="result83" class="result"></div>
+</div>
+
+<!-- Question 85 -->
+<div class="qee">               
+    <div class="que">
+        <p>85. What is required along with the pipeline ID to run a pipeline?</p>
+        <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+    </div>   
+    <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Project name or ID</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--project</code> flag must be provided to specify the project within which the pipeline exists.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+        <label for="optionA84">A) Project name or ID</label><br>
+        <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+        <label for="optionB84">B) Agent pool name</label><br>
+        <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+        <label for="optionC84">C) YAML file path</label><br>
+        <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+        <label for="optionD84">D) Repository ID</label><br>
+    </div>
+    <div id="result84" class="result"></div>
+</div>
+
+<!-- Question 86 -->
+<div class="qee">               
+    <div class="que">
+        <p>86. Which command is used to list all variables in a pipeline?</p>
+        <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+    </div>   
+    <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) az pipelines variable list</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az pipelines variable list</code> command shows all the defined variables in a pipeline.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+        <label for="optionA85">A) az pipelines show-variables</label><br>
+        <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+        <label for="optionB85">B) az pipelines variable show</label><br>
+        <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+        <label for="optionC85">C) az pipelines variable list</label><br>
+        <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+        <label for="optionD85">D) az list pipeline-vars</label><br>
+    </div>
+    <div id="result85" class="result"></div>
+</div>
+
+<!-- Question 87 -->
+<div class="qee">               
+    <div class="que">
+        <p>87. What flag is used to make a pipeline variable secret?</p>
+        <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+    </div>   
+    <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) --secret</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Using <code>--secret</code> with <code>az pipelines variable create</code> marks the variable as secret, hiding its value.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+        <label for="optionA86">A) --hide</label><br>
+        <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+        <label for="optionB86">B) --encrypt</label><br>
+        <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+        <label for="optionC86">C) --mask</label><br>
+        <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+        <label for="optionD86">D) --secret</label><br>
+    </div>
+    <div id="result86" class="result"></div>
+</div>
+
+<!-- Question 88 -->
+<div class="qee">               
+    <div class="que">
+        <p>88. Which command is used to delete a pipeline variable?</p>
+        <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+    </div>   
+    <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) az pipelines variable delete</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az pipelines variable delete</code> command removes a specific variable from a pipeline.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+        <label for="optionA87">A) az pipelines delete-variable</label><br>
+        <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+        <label for="optionB87">B) az pipelines variable delete</label><br>
+        <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+        <label for="optionC87">C) az delete pipeline-variable</label><br>
+        <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+        <label for="optionD87">D) az pipelines variable remove</label><br>
+    </div>
+    <div id="result87" class="result"></div>
+</div>
+
+<!-- Question 89 -->
+<div class="qee">               
+    <div class="que">
+        <p>89. To update a pipeline variable, which command should be used?</p>
+        <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+    </div>   
+    <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) az pipelines variable update</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Use <code>az pipelines variable update</code> to modify the value of an existing pipeline variable.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+        <label for="optionA88">A) az pipelines variable update</label><br>
+        <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+        <label for="optionB88">B) az pipelines update-variable</label><br>
+        <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+        <label for="optionC88">C) az pipelines variable set</label><br>
+        <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+        <label for="optionD88">D) az pipelines change-variable</label><br>
+    </div>
+    <div id="result88" class="result"></div>
+</div>
+
+<!-- Question 90 -->
+<div class="qee">               
+    <div class="que">
+        <p>90. What flag is used to specify the pipeline name when managing variables?</p>
+        <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+    </div>   
+    <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) --pipeline-name</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>--pipeline-name</code> flag helps identify which pipeline the variable should be associated with.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+        <label for="optionA89">A) --name</label><br>
+        <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+        <label for="optionB89">B) --pipeline-id</label><br>
+        <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+        <label for="optionC89">C) --pipeline-name</label><br>
+        <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+        <label for="optionD89">D) --pipeline</label><br>
+    </div>
+    <div id="result89" class="result"></div>
+</div>
+
+<!-- Question 91 -->
+<div class="qee">               
+    <div class="que">
+        <p>91. Which command is used to list all pipeline environments?</p>
+        <button id="hintButton90" class="hint-button" type="button" onclick="showHint('hint91')">Show Hint</button>
+    </div>   
+    <div id="hint91" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) az pipelines environment list</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az pipelines environment list</code> command returns all environments in a project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA90" name="answer90" value="A" onclick="checkAnswer(90)">
+        <label for="optionA90">A) az environment list</label><br>
+        <input type="radio" id="optionB90" name="answer90" value="B" onclick="checkAnswer(90)">
+        <label for="optionB90">B) az pipelines environment list</label><br>
+        <input type="radio" id="optionC90" name="answer90" value="C" onclick="checkAnswer(90)">
+        <label for="optionC90">C) az env pipeline show</label><br>
+        <input type="radio" id="optionD90" name="answer90" value="D" onclick="checkAnswer(90)">
+        <label for="optionD90">D) az pipelines env show-all</label><br>
+    </div>
+    <div id="result90" class="result"></div>
+</div>
+
+<!-- Question 92 -->
+<div class="qee">               
+    <div class="que">
+        <p>92. What command creates a new Azure Boards work item?</p>
+        <button id="hintButton91" class="hint-button" type="button" onclick="showHint('hint92')">Show Hint</button>
+    </div>   
+    <div id="hint92" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) az boards work-item create</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az boards work-item create</code> command allows users to create new work items in Azure Boards.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA91" name="answer91" value="A" onclick="checkAnswer(91)">
+        <label for="optionA91">A) az boards item new</label><br>
+        <input type="radio" id="optionB91" name="answer91" value="B" onclick="checkAnswer(91)">
+        <label for="optionB91">B) az boards create-item</label><br>
+        <input type="radio" id="optionC91" name="answer91" value="C" onclick="checkAnswer(91)">
+        <label for="optionC91">C) az boards work-item create</label><br>
+        <input type="radio" id="optionD91" name="answer91" value="D" onclick="checkAnswer(91)">
+        <label for="optionD91">D) az boards task add</label><br>
+    </div>
+    <div id="result91" class="result"></div>
+</div>
+
+<!-- Question 93 -->
+<div class="qee">               
+    <div class="que">
+        <p>93. Which command shows a specific Azure Boards work item?</p>
+        <button id="hintButton92" class="hint-button" type="button" onclick="showHint('hint93')">Show Hint</button>
+    </div>   
+    <div id="hint93" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) az boards work-item show</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az boards work-item show</code> command displays the details of a given work item.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA92" name="answer92" value="A" onclick="checkAnswer(92)">
+        <label for="optionA92">A) az boards work-item show</label><br>
+        <input type="radio" id="optionB92" name="answer92" value="B" onclick="checkAnswer(92)">
+        <label for="optionB92">B) az boards show-item</label><br>
+        <input type="radio" id="optionC92" name="answer92" value="C" onclick="checkAnswer(92)">
+        <label for="optionC92">C) az boards get work-item</label><br>
+        <input type="radio" id="optionD92" name="answer92" value="D" onclick="checkAnswer(92)">
+        <label for="optionD92">D) az boards list-item</label><br>
+    </div>
+    <div id="result92" class="result"></div>
+</div>
+
+<!-- Question 94 -->
+<div class="qee">               
+    <div class="que">
+        <p>94. What command lists all iterations within a project?</p>
+        <button id="hintButton93" class="hint-button" type="button" onclick="showHint('hint94')">Show Hint</button>
+    </div>   
+    <div id="hint94" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) az boards iteration list</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Use <code>az boards iteration list</code> to view all iterations in the current team or project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA93" name="answer93" value="A" onclick="checkAnswer(93)">
+        <label for="optionA93">A) az iteration list</label><br>
+        <input type="radio" id="optionB93" name="answer93" value="B" onclick="checkAnswer(93)">
+        <label for="optionB93">B) az boards iteration list</label><br>
+        <input type="radio" id="optionC93" name="answer93" value="C" onclick="checkAnswer(93)">
+        <label for="optionC93">C) az boards list-iterations</label><br>
+        <input type="radio" id="optionD93" name="answer93" value="D" onclick="checkAnswer(93)">
+        <label for="optionD93">D) az list board-iterations</label><br>
+    </div>
+    <div id="result93" class="result"></div>
+</div>
+
+<!-- Question 95 -->
+<div class="qee">               
+    <div class="que">
+        <p>95. How do you set the default iteration path for a team?</p>
+        <button id="hintButton94" class="hint-button" type="button" onclick="showHint('hint95')">Show Hint</button>
+    </div>   
+    <div id="hint95" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) az boards iteration team set-default-iteration</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The correct command to configure the default iteration for a team is <code>az boards iteration team set-default-iteration</code>.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA94" name="answer94" value="A" onclick="checkAnswer(94)">
+        <label for="optionA94">A) az boards team set-iteration</label><br>
+        <input type="radio" id="optionB94" name="answer94" value="B" onclick="checkAnswer(94)">
+        <label for="optionB94">B) az boards iteration default</label><br>
+        <input type="radio" id="optionC94" name="answer94" value="C" onclick="checkAnswer(94)">
+        <label for="optionC94">C) az set-default boards iteration</label><br>
+        <input type="radio" id="optionD94" name="answer94" value="D" onclick="checkAnswer(94)">
+        <label for="optionD94">D) az boards iteration team set-default-iteration</label><br>
+    </div>
+    <div id="result94" class="result"></div>
+</div>
+
+<!-- Question 96 -->
+<div class="qee">               
+    <div class="que">
+        <p>96. Which command lists all areas in an Azure Boards project?</p>
+        <button id="hintButton95" class="hint-button" type="button" onclick="showHint('hint96')">Show Hint</button>
+    </div>   
+    <div id="hint96" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) az boards area project list</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Use <code>az boards area project list</code> to list all areas defined in a project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA95" name="answer95" value="A" onclick="checkAnswer(95)">
+        <label for="optionA95">A) az boards area project list</label><br>
+        <input type="radio" id="optionB95" name="answer95" value="B" onclick="checkAnswer(95)">
+        <label for="optionB95">B) az boards area list</label><br>
+        <input type="radio" id="optionC95" name="answer95" value="C" onclick="checkAnswer(95)">
+        <label for="optionC95">C) az area show-all</label><br>
+        <input type="radio" id="optionD95" name="answer95" value="D" onclick="checkAnswer(95)">
+        <label for="optionD95">D) az boards list-areas</label><br>
+    </div>
+    <div id="result95" class="result"></div>
+</div>
+
+<!-- Question 97 -->
+<div class="qee">               
+    <div class="que">
+        <p>97. How do you create a new area under a project?</p>
+        <button id="hintButton96" class="hint-button" type="button" onclick="showHint('hint97')">Show Hint</button>
+    </div>   
+    <div id="hint97" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) az boards area project create</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az boards area project create</code> command adds a new area path to a project.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA96" name="answer96" value="A" onclick="checkAnswer(96)">
+        <label for="optionA96">A) az boards area add</label><br>
+        <input type="radio" id="optionB96" name="answer96" value="B" onclick="checkAnswer(96)">
+        <label for="optionB96">B) az boards area project create</label><br>
+        <input type="radio" id="optionC96" name="answer96" value="C" onclick="checkAnswer(96)">
+        <label for="optionC96">C) az area new-path</label><br>
+        <input type="radio" id="optionD96" name="answer96" value="D" onclick="checkAnswer(96)">
+        <label for="optionD96">D) az boards path create</label><br>
+    </div>
+    <div id="result96" class="result"></div>
+</div>
+
+<!-- Question 98 -->
+<div class="qee">               
+    <div class="que">
+        <p>98. Which command is used to delete an area path from a project?</p>
+        <button id="hintButton97" class="hint-button" type="button" onclick="showHint('hint98')">Show Hint</button>
+    </div>   
+    <div id="hint98" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) az boards area project delete</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To remove an area path from a project, you use <code>az boards area project delete</code>.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA97" name="answer97" value="A" onclick="checkAnswer(97)">
+        <label for="optionA97">A) az boards area remove</label><br>
+        <input type="radio" id="optionB97" name="answer97" value="B" onclick="checkAnswer(97)">
+        <label for="optionB97">B) az boards project area delete</label><br>
+        <input type="radio" id="optionC97" name="answer97" value="C" onclick="checkAnswer(97)">
+        <label for="optionC97">C) az boards area project delete</label><br>
+        <input type="radio" id="optionD97" name="answer97" value="D" onclick="checkAnswer(97)">
+        <label for="optionD97">D) az delete boards area</label><br>
+    </div>
+    <div id="result97" class="result"></div>
+</div>
+
+<!-- Question 99 -->
+<div class="qee">               
+    <div class="que">
+        <p>99. How do you update a work item in Azure Boards?</p>
+        <button id="hintButton98" class="hint-button" type="button" onclick="showHint('hint99')">Show Hint</button>
+    </div>   
+    <div id="hint99" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) az boards work-item update</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The <code>az boards work-item update</code> command updates existing work items with new fields or comments.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA98" name="answer98" value="A" onclick="checkAnswer(98)">
+        <label for="optionA98">A) az boards work-item update</label><br>
+        <input type="radio" id="optionB98" name="answer98" value="B" onclick="checkAnswer(98)">
+        <label for="optionB98">B) az update work-item</label><br>
+        <input type="radio" id="optionC98" name="answer98" value="C" onclick="checkAnswer(98)">
+        <label for="optionC98">C) az boards item modify</label><br>
+        <input type="radio" id="optionD98" name="answer98" value="D" onclick="checkAnswer(98)">
+        <label for="optionD98">D) az boards update task</label><br>
+    </div>
+    <div id="result98" class="result"></div>
+</div>
+
+<!-- Question 100 -->
+<div class="qee">               
+    <div class="que">
+        <p>100. What command retrieves details of a specific work item using its ID?</p>
+        <button id="hintButton99" class="hint-button" type="button" onclick="showHint('hint100')">Show Hint</button>
+    </div>   
+    <div id="hint100" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) az boards work-item show</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        <code>az boards work-item show</code> returns detailed info for a specific work item, identified by its ID.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA99" name="answer99" value="A" onclick="checkAnswer(99)">
+        <label for="optionA99">A) az boards item view</label><br>
+        <input type="radio" id="optionB99" name="answer99" value="B" onclick="checkAnswer(99)">
+        <label for="optionB99">B) az work show</label><br>
+        <input type="radio" id="optionC99" name="answer99" value="C" onclick="checkAnswer(99)">
+        <label for="optionC99">C) az boards task view</label><br>
+        <input type="radio" id="optionD99" name="answer99" value="D" onclick="checkAnswer(99)">
+        <label for="optionD99">D) az boards work-item show</label><br>
+    </div>
+    <div id="result99" class="result"></div>
+</div>
+
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

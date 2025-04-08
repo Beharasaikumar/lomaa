@@ -1,0 +1,2912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MONITORING AND LOGGING</title>
+    <link rel="stylesheet" href="../css/Azure Devops.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'C', 'B', 'D', 'B', 'C', 'B', 'C', 'D',
+            'B', 'C', 'B', 'C', 'D', 'B', 'B', 'C', 'B', 'D',
+            'B', 'C', 'B', 'D', 'B', 'B', 'C', 'D', 'B', 'C',
+            'B', 'A', 'C', 'D', 'A', 'B', 'A', 'B', 'D', 'C',
+            'B', 'C', 'D', 'A', 'C', 'C', 'C', 'C', 'C', 'C','C',
+             'D', 'C', 'C', 'B', 'C', 'A', 'B', 'C', 'B',
+            'B', 'A', 'C', 'D', 'A', 'B', 'B', 'D', 'A', 'C',
+            'A', 'B', 'C', 'D', 'A', 'B', 'B', 'A', 'D', 'A',
+            'C', 'B', 'C', 'B', 'C', 'B', 'C', 'B', 'C', 'B',
+            'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C'
+
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>MONITORING AND LOGGING</h3>
+        <div class="inner-border">
+                         
+<!-- Question 1 -->
+<div class="qee"> 
+    <div class="que">
+        <p>1. What is the primary purpose of using Azure DevOps for Continuous Integration (CI)?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Automating the build and testing process</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps provides a platform for automating the build and testing of applications, helping developers detect issues early in the development cycle.<br><br>
+        **Main Features of CI in Azure DevOps**:<br>
+        1. Automates code integration.<br>
+        2. Detects issues early.<br>
+        3. Improves collaboration among teams.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) Managing database backups</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) Automating the build and testing process</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) Deploying applications to production</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) Managing user permissions</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee"> 
+    <div class="que">
+        <p>2. Which Azure DevOps service is used to implement Continuous Integration (CI) pipelines?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure Pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Pipelines is the service in Azure DevOps used to automate building, testing, and deploying applications. It supports CI and CD workflows.<br><br>
+        **Azure DevOps Services**:<br>
+        1. Azure Pipelines.<br>
+        2. Azure Boards.<br>
+        3. Azure Repos.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Azure Repos</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Azure Pipelines</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) Azure DevTest Labs</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Azure Monitor</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee"> 
+    <div class="que">
+        <p>3. Which of the following is a best practice when scaling Continuous Integration (CI) with Azure DevOps?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Implementing parallel builds</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Scaling CI can be achieved by running multiple builds in parallel to speed up the process. Azure DevOps allows you to set up parallel pipelines to reduce build times.<br><br>
+        **Scaling CI**:<br>
+        1. Implement parallel builds.<br>
+        2. Use self-hosted agents.<br>
+        3. Optimize build steps.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) Running a single build per pipeline</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) Avoiding caching in builds</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) Implementing parallel builds</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) Reducing the number of build agents</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee"> 
+    <div class="que">
+        <p>4. Which of the following is essential for managing multiple environments in Azure DevOps CI pipelines?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Using pipeline variables and YAML templates</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps allows the use of pipeline variables and YAML templates to configure different environments, ensuring consistency across environments.<br><br>
+        **Best Practices**:<br>
+        1. Use pipeline variables.<br>
+        2. Use YAML templates.<br>
+        3. Environment-specific configurations.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) Using multiple pipeline agents</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) Using pipeline variables and YAML templates</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) Using a single environment for all builds</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) Disabling pipeline triggers</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee"> 
+    <div class="que">
+        <p>5. Which is a common challenge when scaling Continuous Integration (CI) in Azure DevOps?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Managing build times and resource usage</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        As the number of builds increases, managing the time it takes for builds to complete and ensuring that resources are allocated efficiently becomes a challenge.<br><br>
+        **Challenges in Scaling CI**:<br>
+        1. Increased build times.<br>
+        2. Managing resource consumption.<br>
+        3. Ensuring reliability of the build pipeline.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) Avoiding use of external tools</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) Reducing team collaboration</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) Ignoring error logs</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) Managing build times and resource usage</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+
+<!-- Question 6 -->
+<div class="qee"> 
+    <div class="que">
+        <p>6. What is the primary function of Azure Application Insights?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Monitoring and diagnosing application performance issues</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Application Insights helps developers monitor and diagnose application performance and usage, offering real-time insights into issues.<br><br>
+        **Main Features of Application Insights**:<br>
+        1. Tracks application performance.<br>
+        2. Detects and diagnoses issues.<br>
+        3. Provides real-time usage data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) Automating the build process</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) Monitoring and diagnosing application performance issues</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) Managing user permissions</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) Deploying applications to production</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee"> 
+    <div class="que">
+        <p>7. Which of the following does Azure Application Insights track?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Request rates, response times, and failure rates</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Application Insights tracks metrics such as request rates, response times, and failure rates to help monitor the performance of applications.<br><br>
+        **Metrics Tracked by Application Insights**:<br>
+        1. Request rates.<br>
+        2. Response times.<br>
+        3. Failure rates.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Build times and code coverage</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Deployment status and environment variables</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Request rates, response times, and failure rates</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Resource consumption and user permissions</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee"> 
+    <div class="que">
+        <p>8. Which of the following is a key feature of Azure Application Insights for monitoring applications?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Distributed tracing</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Application Insights offers distributed tracing to monitor the flow of requests and diagnose issues across distributed systems.<br><br>
+        **Key Features of Application Insights**:<br>
+        1. Distributed tracing.<br>
+        2. Real-time alerts.<br>
+        3. Custom event tracking.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) Single agent monitoring</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) Distributed tracing</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) Database transaction monitoring</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) User permission audits</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee"> 
+    <div class="que">
+        <p>9. What type of data does Azure Application Insights primarily focus on?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Telemetry data from applications</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Application Insights primarily collects telemetry data from applications, including performance metrics, usage data, and error logs.<br><br>
+        **Data Collected by Application Insights**:<br>
+        1. Telemetry data.<br>
+        2. Application logs.<br>
+        3. Performance metrics.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) Network latency and bandwidth</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) User authentication logs</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) Telemetry data from applications</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) Infrastructure performance data</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee"> 
+    <div class="que">
+        <p>10. How does Azure Application Insights integrate with other Azure services?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It integrates seamlessly with Azure Monitor and Azure Log Analytics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Application Insights integrates seamlessly with other Azure services such as Azure Monitor and Log Analytics to provide comprehensive monitoring and analytics.<br><br>
+        **Integration with Azure Services**:<br>
+        1. Integration with Azure Monitor.<br>
+        2. Integration with Azure Log Analytics.<br>
+        3. Seamless performance insights.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) Through API keys only</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) Through third-party monitoring tools</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) Through manual configuration only</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) It integrates seamlessly with Azure Monitor and Azure Log Analytics</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+
+<!-- Question 11 -->
+<div class="qee"> 
+    <div class="que">
+        <p>11. What is the primary purpose of Azure Log Analytics?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Collecting and analyzing log data from different sources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Log Analytics helps collect and analyze log and performance data from various sources, enabling troubleshooting and insights into applications and infrastructure.<br><br>
+        **Main Features of Azure Log Analytics**:<br>
+        1. Collects log and performance data.<br>
+        2. Provides powerful query capabilities.<br>
+        3. Helps monitor and troubleshoot systems.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) Managing user permissions</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) Collecting and analyzing log data from different sources</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) Automating build processes</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) Deploying applications to production</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee"> 
+    <div class="que">
+        <p>12. Which of the following is a key feature of Azure Log Analytics?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Advanced querying with Kusto Query Language (KQL)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Log Analytics uses Kusto Query Language (KQL) to enable advanced querying, helping users gain insights from large amounts of log and performance data.<br><br>
+        **Features of Log Analytics**:<br>
+        1. Kusto Query Language (KQL) for advanced queries.<br>
+        2. Real-time log analysis.<br>
+        3. Centralized log collection.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) Automated deployment of resources</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) Real-time monitoring of virtual machines</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) Advanced querying with Kusto Query Language (KQL)</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) Management of user permissions</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee"> 
+    <div class="que">
+        <p>13. How does Azure Log Analytics help in troubleshooting issues?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By analyzing logs from multiple sources to identify patterns and issues</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Log Analytics collects data from multiple sources and enables detailed analysis, which helps in identifying patterns, trends, and diagnosing issues effectively.<br><br>
+        **Troubleshooting with Log Analytics**:<br>
+        1. Aggregates log data.<br>
+        2. Identifies patterns and trends.<br>
+        3. Provides insights to resolve issues.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) Automatically fixes application errors</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) By analyzing logs from multiple sources to identify patterns and issues</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) By managing user permissions and access</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) By automating deployment of resources</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee"> 
+    <div class="que">
+        <p>14. Which type of data can be analyzed using Azure Log Analytics?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Log data, performance metrics, and system events</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Log Analytics allows the analysis of log data, performance metrics, and system events, helping organizations gain insights into their systems and applications.<br><br>
+        **Data Types Analyzed by Log Analytics**:<br>
+        1. Log data.<br>
+        2. Performance metrics.<br>
+        3. System events.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) Only system event logs</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) Only performance metrics</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) Log data, performance metrics, and system events</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) Only network-related data</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee"> 
+    <div class="que">
+        <p>15. What type of queries can be written in Azure Log Analytics?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Kusto Query Language (KQL) queries</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Log Analytics uses Kusto Query Language (KQL) to write powerful queries for analyzing log data and performance metrics.<br><br>
+        **Query Language**:<br>
+        1. Kusto Query Language (KQL).<br>
+        2. Advanced search and analysis.<br>
+        3. Custom data insights.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) SQL queries only</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) PowerShell scripts</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) REST API calls</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) Kusto Query Language (KQL) queries</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee"> 
+    <div class="que">
+        <p>16. What is the primary function of Azure Metrics?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Providing real-time monitoring of system performance</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Metrics allows the monitoring of performance metrics in real time, helping track the health of resources and identify performance bottlenecks.<br><br>
+        **Features of Azure Metrics**:<br>
+        1. Real-time performance tracking.<br>
+        2. Monitors resource health.<br>
+        3. Provides insights into system performance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) Collecting application logs</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) Providing real-time monitoring of system performance</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) Managing user permissions</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) Automating resource deployments</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee"> 
+    <div class="que">
+        <p>17. Which service is primarily used for collecting and visualizing Azure Metrics?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure Monitor</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor is the service used for collecting, analyzing, and visualizing metrics from various Azure resources, giving real-time insights into the health and performance of your systems.<br><br>
+        **Azure Monitor Features**:<br>
+        1. Collects metrics from Azure resources.<br>
+        2. Visualizes data in customizable dashboards.<br>
+        3. Provides alerting capabilities.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) Azure Application Insights</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) Azure Monitor</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) Azure DevTest Labs</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) Azure Active Directory</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee"> 
+    <div class="que">
+        <p>18. What type of metrics can Azure Monitor track?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Resource health, performance, and usage metrics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor tracks a wide range of metrics related to the health, performance, and usage of Azure resources, helping organizations keep track of their infrastructure.<br><br>
+        **Types of Metrics Tracked**:<br>
+        1. Resource health.<br>
+        2. Performance metrics.<br>
+        3. Usage metrics.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) Only performance metrics</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) Only health metrics</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) Resource health, performance, and usage metrics</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) Only resource health metrics</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee"> 
+    <div class="que">
+        <p>19. How can you visualize Azure Metrics?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Using Azure Monitor dashboards</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor allows users to create custom dashboards to visualize metrics, providing a comprehensive view of system performance and health.<br><br>
+        **Visualizing Metrics**:<br>
+        1. Azure Monitor dashboards.<br>
+        2. Customizable charts and graphs.<br>
+        3. Real-time monitoring views.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) Using Azure DevOps boards</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) Using Azure Monitor dashboards</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) Using Azure Resource Manager</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) Using PowerShell scripts</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee"> 
+    <div class="que">
+        <p>20. What is the benefit of using Azure Metrics in monitoring?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It allows for proactive monitoring and early issue detection</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Metrics enables proactive monitoring, allowing issues to be identified early before they impact the system, ensuring better performance and reliability.<br><br>
+        **Benefits of Azure Metrics**:<br>
+        1. Proactive monitoring.<br>
+        2. Early issue detection.<br>
+        3. Improved performance tracking.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) It automates application deployment</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) It simplifies resource management</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) It provides insights into user behavior</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) It allows for proactive monitoring and early issue detection</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee"> 
+    <div class="que">
+        <p>21. What is the primary purpose of Azure Alerts?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To notify users when predefined conditions are met</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Alerts enables users to set up notifications for when specific conditions are met, helping to detect and respond to critical events in the system.<br><br>
+        **Key Features of Azure Alerts**:<br>
+        1. Notifies users based on defined conditions.<br>
+        2. Helps monitor system performance and health.<br>
+        3. Can trigger automated responses.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) To automate resource deployment</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) To notify users when predefined conditions are met</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) To manage user permissions</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) To collect application logs</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee"> 
+    <div class="que">
+        <p>22. What type of conditions can trigger Azure Alerts?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Resource health, performance, and usage metrics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Alerts can be triggered based on a wide range of conditions such as resource health, performance, and usage metrics, helping you monitor the status of your resources.<br><br>
+        **Common Triggers for Azure Alerts**:<br>
+        1. Resource health issues.<br>
+        2. Performance degradation.<br>
+        3. Exceeding usage thresholds.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) Only performance issues</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) Only health-related issues</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) Resource health, performance, and usage metrics</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) Only resource usage metrics</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee"> 
+    <div class="que">
+        <p>23. What actions can Azure Alerts trigger when a condition is met?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Send notifications or trigger automated workflows</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Alerts can trigger notifications, such as emails, or execute automated workflows through Azure Logic Apps or Azure Functions when predefined conditions are met.<br><br>
+        **Actions Triggered by Azure Alerts**:<br>
+        1. Send email notifications.<br>
+        2. Trigger Logic Apps workflows.<br>
+        3. Invoke Azure Functions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) Only send email notifications</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) Send notifications or trigger automated workflows</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) Only send SMS notifications</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) Only collect logs from applications</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee"> 
+    <div class="que">
+        <p>24. How can Azure Alerts help maintain the health of resources?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By providing early notification of issues that may require attention</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Alerts help maintain the health of resources by notifying administrators of issues before they cause significant downtime or impact, allowing for timely intervention.<br><br>
+        **Benefits of Azure Alerts**:<br>
+        1. Early issue detection.<br>
+        2. Minimizes downtime.<br>
+        3. Allows for proactive responses.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) By automatically deploying updates</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) By collecting performance logs</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) By limiting resource usage</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) By providing early notification of issues that may require attention</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee"> 
+    <div class="que">
+        <p>25. Which Azure service is commonly integrated with Azure Alerts for automating responses to alerts?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure Logic Apps</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Logic Apps can be used to automate workflows in response to Azure Alerts, enabling actions such as scaling resources or sending notifications to a wider audience.<br><br>
+        **Azure Logic Apps**:<br>
+        1. Integrates with Azure Alerts.<br>
+        2. Automates workflows in response to conditions.<br>
+        3. Supports a wide range of services for workflow automation.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) Azure Resource Manager</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) Azure Logic Apps</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) Azure Automation</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) Azure Functions</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+
+<!-- Question 26 -->
+<div class="qee"> 
+    <div class="que">
+        <p>26. What is the primary purpose of Azure Diagnostic Logs?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To capture detailed information about the operations of Azure resources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Diagnostic Logs provide detailed information on resource operations, helping users monitor and troubleshoot Azure resources and services.<br><br>
+        **Key Features of Azure Diagnostic Logs**:<br>
+        1. Captures detailed resource activity.<br>
+        2. Helps with troubleshooting and issue resolution.<br>
+        3. Monitors system behavior and performance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) To automate resource deployment</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) To capture detailed information about the operations of Azure resources</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) To monitor the availability of services</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) To manage user permissions for resources</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee"> 
+    <div class="que">
+        <p>27. Which type of data is typically included in Azure Diagnostic Logs?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Resource usage, performance metrics, and error logs</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Diagnostic Logs typically include data related to resource performance, error messages, and usage metrics, which help to identify issues and monitor resource health.<br><br>
+        **Common Data Types in Diagnostic Logs**:<br>
+        1. Performance metrics.<br>
+        2. Error logs.<br>
+        3. Resource usage statistics.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) Only performance metrics</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) Only error logs</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) Resource usage, performance metrics, and error logs</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) Only resource usage statistics</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee"> 
+    <div class="que">
+        <p>28. How can Azure Diagnostic Logs be accessed?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Through Azure Monitor and the Azure portal</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Diagnostic Logs can be accessed via the Azure Monitor service or directly through the Azure portal, where users can query and analyze the logs for insights.<br><br>
+        **Accessing Diagnostic Logs**:<br>
+        1. Through Azure Monitor.<br>
+        2. Via the Azure portal.<br>
+        3. Using Log Analytics queries.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) Only through Azure Functions</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) Only through Azure Automation</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) Only through the Azure CLI</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) Through Azure Monitor and the Azure portal</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee"> 
+    <div class="que">
+        <p>29. Which service is commonly used to query and analyze Azure Diagnostic Logs?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure Log Analytics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Log Analytics is the service used to query and analyze Azure Diagnostic Logs. It provides a powerful query language for extracting insights from the logs.<br><br>
+        **Key Features of Azure Log Analytics**:<br>
+        1. Powerful query capabilities.<br>
+        2. Integration with Azure Monitor.<br>
+        3. Helps in visualizing log data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) Azure Logic Apps</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) Azure Log Analytics</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) Azure Automation</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) Azure Functions</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee"> 
+    <div class="que">
+        <p>30. What is a common use case for Azure Diagnostic Logs?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Troubleshooting resource issues and identifying performance bottlenecks</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Diagnostic Logs are often used to troubleshoot issues with resources, diagnose performance problems, and identify bottlenecks in the system.<br><br>
+        **Common Use Cases for Diagnostic Logs**:<br>
+        1. Troubleshooting resource issues.<br>
+        2. Identifying performance bottlenecks.<br>
+        3. Debugging service errors.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) Automating resource scaling</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) Performing security audits</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) Troubleshooting resource issues and identifying performance bottlenecks</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) Managing user permissions</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+
+<!-- Question 31 -->
+<div class="qee"> 
+    <div class="que">
+        <p>31. What is the primary purpose of using Azure Event Hubs for logging?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To ingest and stream large volumes of event data in real-time</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Event Hubs is designed to collect, process, and stream massive amounts of event data from various sources in real-time, making it ideal for logging large-scale applications and systems.<br><br>
+        **Key Features of Azure Event Hubs**:<br>
+        1. High-throughput event streaming.<br>
+        2. Real-time data ingestion.<br>
+        3. Scalable and flexible.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) To monitor user activity in applications</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) To ingest and stream large volumes of event data in real-time</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) To store event data for long-term analysis</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) To manage security logs across environments</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee"> 
+    <div class="que">
+        <p>32. Which of the following is a key advantage of using Azure Event Hubs for logging?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Real-time event streaming with high throughput</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Event Hubs excels at providing real-time event streaming and can handle high-throughput data ingestion, making it suitable for logging use cases that require fast processing of large volumes of events.<br><br>
+        **Advantages of Azure Event Hubs**:<br>
+        1. High-throughput event ingestion.<br>
+        2. Low-latency event streaming.<br>
+        3. Scalable architecture for large volumes of data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) Real-time event streaming with high throughput</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) Cost-effective long-term storage of event logs</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) Detailed auditing of user activity</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) Integration with Azure Monitor for alerting</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee"> 
+    <div class="que">
+        <p>33. Which type of data is most commonly streamed using Azure Event Hubs for logging?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Event and telemetry data from applications and services</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Event Hubs is most commonly used to stream event and telemetry data from applications, devices, and services in real-time.<br><br>
+        **Types of Data Streamed with Event Hubs**:<br>
+        1. Telemetry data from applications.<br>
+        2. Event data from devices.<br>
+        3. System logs and performance metrics.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) Static data for historical analysis</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) User profile information</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) Event and telemetry data from applications and services</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) Raw system logs for compliance tracking</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee"> 
+    <div class="que">
+        <p>34. How can event data streamed through Azure Event Hubs be processed?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By integrating with stream processing services like Azure Stream Analytics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Event Hubs can integrate with services like Azure Stream Analytics to process real-time event data, enabling the transformation and analysis of events as they are ingested.<br><br>
+        **Processing Event Data**:<br>
+        1. Using Azure Stream Analytics.<br>
+        2. Leveraging Azure Functions.<br>
+        3. Integrating with third-party tools.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) By storing the data in a database</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) By manually analyzing the event logs</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) By exporting the logs to an external service</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) By integrating with stream processing services like Azure Stream Analytics</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee"> 
+    <div class="que">
+        <p>35. Which of the following is a common use case for Azure Event Hubs for logging?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Real-time collection and analysis of application and system logs</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A common use case for Azure Event Hubs is the real-time collection and processing of logs and telemetry data from applications, systems, and services for immediate insights.<br><br>
+        **Use Cases for Event Hubs**:<br>
+        1. Real-time log collection.<br>
+        2. Monitoring system health.<br>
+        3. Analyzing application performance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) Real-time collection and analysis of application and system logs</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) Storing logs for compliance audits</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) Long-term storage of event data for future use</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) Managing access control for event data</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+
+<!-- Question 36 -->
+<div class="qee"> 
+    <div class="que">
+        <p>36. What is the primary purpose of Azure Monitor Workbooks?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To visualize and analyze data from multiple sources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor Workbooks are used to create interactive visualizations and reports by pulling data from multiple Azure services, helping teams analyze and gain insights into their systems.<br><br>
+        **Features of Workbooks**:<br>
+        1. Customizable visualizations.<br>
+        2. Rich query support.<br>
+        3. Combine data from different Azure sources.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) To configure Azure resources</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) To visualize and analyze data from multiple sources</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) To manage user permissions</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) To deploy applications to Azure</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee"> 
+    <div class="que">
+        <p>37. Which of the following is a key feature of Azure Monitor Workbooks?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Interactive queries and visualizations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor Workbooks provide the ability to create interactive queries and visualize data in various forms, including charts, tables, and maps, making it easy to interpret the collected metrics.<br><br>
+        **Key Features of Workbooks**:<br>
+        1. Customizable dashboards.<br>
+        2. Support for interactive queries.<br>
+        3. Rich visualizations.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) Interactive queries and visualizations</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) Automation of resource management tasks</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) Creating network security groups</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) Managing Azure Active Directory users</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee"> 
+    <div class="que">
+        <p>38. Which Azure service can be integrated with Azure Monitor Workbooks for data visualization?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure Log Analytics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor Workbooks can integrate with Azure Log Analytics to query and visualize log data, helping users create custom reports and dashboards.<br><br>
+        **Integration Options**:<br>
+        1. Azure Log Analytics.<br>
+        2. Azure Metrics.<br>
+        3. Azure Monitor Alerts.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) Azure Active Directory</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) Azure Log Analytics</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) Azure Policy</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) Azure Key Vault</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee"> 
+    <div class="que">
+        <p>39. Which of the following is an advantage of using Azure Monitor Workbooks?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Ability to create custom dashboards with interactive visualizations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor Workbooks allows users to create highly customizable and interactive dashboards for monitoring and analyzing their environment, giving them flexibility in how data is displayed and interpreted.<br><br>
+        **Advantages of Workbooks**:<br>
+        1. Customizable visualizations.<br>
+        2. Real-time interactive dashboards.<br>
+        3. Integration with Azure services.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) Automates deployment of Azure resources</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) Enables multi-cloud integration for monitoring</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) Simplifies user access management for resources</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) Ability to create custom dashboards with interactive visualizations</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee"> 
+    <div class="que">
+        <p>40. How can users share their Azure Monitor Workbooks with others?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By publishing the workbook to a shared dashboard or workspace</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Users can share their workbooks with other members of the organization by publishing them to a shared dashboard or workspace within Azure Monitor, allowing others to access the visualizations and data.<br><br>
+        **Sharing Workbooks**:<br>
+        1. Publish to a shared dashboard.<br>
+        2. Share within a workspace.<br>
+        3. Grant access to specific users or groups.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) By exporting the data to a CSV file</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) By sending a direct link to the workbook</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) By publishing the workbook to a shared dashboard or workspace</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) By attaching the workbook to an email</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+
+<!-- Question 41 -->
+<div class="qee"> 
+    <div class="que">
+        <p>41. What is the primary purpose of Azure Dashboards for Monitoring?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To visualize and monitor the health and performance of Azure resources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Dashboards provide a centralized view for monitoring the health, performance, and usage of Azure resources. They allow users to quickly understand the status of their environment through customized visualizations.<br><br>
+        **Key Benefits**:<br>
+        1. Centralized monitoring.<br>
+        2. Customizable visualizations.<br>
+        3. Integration with Azure Monitor, Application Insights, and Log Analytics.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) To automate the deployment of Azure resources</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) To visualize and monitor the health and performance of Azure resources</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) To manage access control for Azure resources</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) To configure Azure Active Directory policies</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee"> 
+    <div class="que">
+        <p>42. Which of the following Azure services can be integrated into a customized Azure Dashboard?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Azure Monitor</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Dashboards can integrate data from multiple Azure services such as Azure Monitor, Application Insights, and Azure Log Analytics, enabling users to visualize the health and performance of their resources.<br><br>
+        **Integration Options**:<br>
+        1. Azure Monitor.<br>
+        2. Application Insights.<br>
+        3. Log Analytics.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) Azure DevOps</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) Azure Storage</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) Azure Monitor</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) Azure Security Center</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee"> 
+    <div class="que">
+        <p>43. How can you share an Azure Dashboard with other users in your organization?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By assigning permissions to specific users or groups</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Dashboards can be shared with other users by assigning them the necessary permissions within the Azure portal. This allows others to view and interact with the dashboard based on the assigned roles.<br><br>
+        **Sharing Options**:<br>
+        1. Assign specific permissions.<br>
+        2. Share within an Azure Active Directory group.<br>
+        3. Share with the subscription-level access.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) By exporting the dashboard to a file</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) By sending an email link</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) By sharing the dashboard URL</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) By assigning permissions to specific users or groups</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee"> 
+    <div class="que">
+        <p>44. Which type of Azure resources can be monitored using Azure Dashboards?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) All Azure resources and services</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Dashboards allow users to monitor all Azure resources and services, including virtual machines, databases, networks, and more. Dashboards can integrate data from multiple services to give a comprehensive view.<br><br>
+        **Monitoring Options**:<br>
+        1. Virtual machines.<br>
+        2. Databases.<br>
+        3. Networks.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) All Azure resources and services</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) Only virtual machines</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) Only databases</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) Only network resources</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee"> 
+    <div class="que">
+        <p>45. What type of visualization options are available in Azure Dashboards?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Charts, tables, and maps</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Dashboards offer various visualization options, including charts, tables, and maps, allowing users to present data in a format that best suits their needs for monitoring and analysis.<br><br>
+        **Visualization Options**:<br>
+        1. Charts (Bar, Line, Pie, etc.).<br>
+        2. Tables.<br>
+        3. Maps (for geographic data).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) Graphs and histograms</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) Only pie charts</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) Charts, tables, and maps</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) Only bar graphs</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Question 46 -->
+<div class="qee"> 
+    <div class="que">
+        <p>46. What is the purpose of Azure DevOps Agent Logs?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To capture detailed logs for build, release, and deployment activities</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Agent Logs provide detailed information regarding the execution of build, release, and deployment processes. These logs are crucial for troubleshooting and identifying potential issues during pipeline execution.<br><br>
+        **Key Features**:<br>
+        1. Captures logs for build, release, and deployment tasks.<br>
+        2. Helps in debugging and troubleshooting pipeline issues.<br>
+        3. Provides a detailed view of agent activities.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) To scale DevOps resources automatically</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) To store artifacts generated by the pipeline</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) To capture detailed logs for build, release, and deployment activities</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) To manage user access and permissions</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee"> 
+    <div class="que">
+        <p>47. Where can you find the logs generated by Azure DevOps agents?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) In the Azure DevOps portal under the build or release pipeline logs</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Azure DevOps agent logs are typically stored in the Azure DevOps portal, where you can access detailed logs from build, release, and deployment pipelines. These logs are crucial for diagnosing and troubleshooting issues during pipeline execution.<br><br>
+        **Key Features**:<br>
+        1. Logs are available in the Azure DevOps portal.<br>
+        2. Accessible from individual build or release pipelines.<br>
+        3. Provides detailed information for troubleshooting.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) In the Azure CLI tool</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) In Azure Monitor logs</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) In the Azure DevOps portal under the build or release pipeline logs</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) In the Azure Key Vault</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee"> 
+    <div class="que">
+        <p>48. How can Azure DevOps Agent Logs assist in troubleshooting pipeline failures?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By providing detailed step-by-step logs of the execution process</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Agent Logs help in troubleshooting pipeline failures by providing a detailed, step-by-step account of what occurred during each stage of the pipeline execution. This information is crucial for identifying and resolving issues like build errors or deployment failures.<br><br>
+        **Key Features**:<br>
+        1. Provides detailed execution logs for each pipeline step.<br>
+        2. Helps identify issues causing pipeline failures.<br>
+        3. Allows for quick resolution of common problems in the pipeline.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) By providing a list of all available agents</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) By automatically fixing pipeline issues</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) By providing detailed step-by-step logs of the execution process</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) By scaling resources based on demand</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee"> 
+    <div class="que">
+        <p>49. How can Azure DevOps Agent Logs help you optimize your build and release pipelines?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By identifying bottlenecks and inefficient processes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Agent Logs help identify areas of inefficiency, such as slow build steps or excessive delays during release processes. By analyzing these logs, teams can optimize pipelines, reduce execution time, and improve overall performance.<br><br>
+        **Key Features**:<br>
+        1. Identifies slow or inefficient stages in the pipeline.<br>
+        2. Helps improve pipeline performance and reduce execution time.<br>
+        3. Provides data to refine the CI/CD pipeline for better efficiency.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) By automatically creating backups of the pipeline</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) By scaling build agents for higher throughput</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) By identifying bottlenecks and inefficient processes</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) By automatically fixing broken pipeline steps</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee"> 
+    <div class="que">
+        <p>50. What does Azure DevOps Release Monitoring help to track?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The progress, status, and health of release pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Release Monitoring tracks the progress, status, and overall health of release pipelines. It provides visibility into the deployment process, helping teams manage and ensure successful software delivery.<br><br>
+        **Key Features**:<br>
+        1. Monitors the status and progress of release pipelines.<br>
+        2. Helps track any failures or delays in the release process.<br>
+        3. Provides health metrics for successful deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) The cost associated with deployments</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) The number of agents involved in deployment</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) The progress, status, and health of release pipelines</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) The resource allocation during deployment</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+
+
+
+<!-- Question 52 -->
+<div class="qee"> 
+    <div class="que">
+        <p>52. Which of the following is a key feature of Azure Network Watcher?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Network Performance Monitoring and Diagnostic Tools</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Network Watcher offers various diagnostic tools like packet capture, traffic analysis, and connection monitoring to help identify and troubleshoot network-related issues.<br><br>
+        **Key Diagnostic Tools**:<br>
+        1. Packet capture.<br>
+        2. Connection monitor.<br>
+        3. Traffic analytics.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) Network Firewall Configuration</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) Load Balancer Configuration</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) Virtual Network Peering</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) Network Performance Monitoring and Diagnostic Tools</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee"> 
+    <div class="que">
+        <p>53. Which of the following tools is available in Azure Network Watcher for diagnosing network connectivity issues?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Connection Troubleshoot</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Network Watcher offers the "Connection Troubleshoot" tool, which helps diagnose issues by analyzing connectivity between various network resources in Azure.<br><br>
+        **Tools for Network Troubleshooting**:<br>
+        1. Connection Troubleshoot.<br>
+        2. Network topology.<br>
+        3. Packet capture.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) Application Gateway Configuration</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) Load Balancer Performance Monitoring</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) Connection Troubleshoot</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) Traffic Analytics</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee"> 
+    <div class="que">
+        <p>54. What is Azure Service Health used for in Azure monitoring?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To provide information on Azure service issues and outages</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Service Health provides alerts and detailed information about issues affecting Azure services, such as outages, planned maintenance, or service health advisories.<br><br>
+        **Service Health Features**:<br>
+        1. Outage notifications.<br>
+        2. Maintenance schedules.<br>
+        3. Health advisories.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) To monitor network traffic</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) To configure user access permissions</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) To provide information on Azure service issues and outages</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) To analyze application performance</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee"> 
+    <div class="que">
+        <p>55. Which of the following can you monitor using Azure Service Health?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Service outages, planned maintenance, and health advisories</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Service Health allows monitoring for outages, planned maintenance events, and health advisories related to Azure services that could impact your resources.<br><br>
+        **Monitoring with Service Health**:<br>
+        1. Service outages.<br>
+        2. Planned maintenance.<br>
+        3. Health advisories.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) Virtual machine performance metrics</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) Service outages, planned maintenance, and health advisories</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) User login activity</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) Azure cost management</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+
+<!-- Question 56 -->
+<div class="qee"> 
+    <div class="que">
+        <p>56. What is the primary purpose of Azure Monitor for Containers?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To monitor the performance and health of containerized applications</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor for Containers provides monitoring for containerized applications and Kubernetes clusters. It collects telemetry data to track container health, performance, and resource usage.<br><br>
+        **Key Features**:<br>
+        1. Real-time monitoring of containers.<br>
+        2. Insights into Kubernetes cluster performance.<br>
+        3. Resource utilization analysis.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) To manage container images and deployments</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) To configure Kubernetes cluster security</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) To monitor the performance and health of containerized applications</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) To scale container deployments</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee"> 
+    <div class="que">
+        <p>57. Which of the following is a key feature of Azure Monitor for Containers?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Provides performance insights for containers and Kubernetes clusters</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor for Containers allows users to gain deep insights into containerized applications, including real-time performance monitoring, resource usage, and cluster health.<br><br>
+        **Key Features**:<br>
+        1. Cluster health monitoring.<br>
+        2. Container performance metrics.<br>
+        3. Resource utilization reports.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) Provides performance insights for containers and Kubernetes clusters</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) Manages container deployments across multiple regions</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) Automates container security patches</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) Provides built-in CI/CD for containers</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee"> 
+    <div class="que">
+        <p>58. Which of the following metrics can Azure Monitor for Containers track in a Kubernetes cluster?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) CPU and memory usage per container</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor for Containers tracks critical resource usage metrics like CPU, memory, and disk usage at the container level to help ensure proper resource allocation and performance optimization.<br><br>
+        **Metrics Tracked**:<br>
+        1. CPU usage.<br>
+        2. Memory usage.<br>
+        3. Network performance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) Total disk space used by containers</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) CPU and memory usage per container</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) Number of active pods in the cluster</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) Kubernetes API request logs</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee"> 
+    <div class="que">
+        <p>59. What is the primary language used for querying logs in Azure Log Analytics?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Kusto Query Language (KQL)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Log Analytics uses Kusto Query Language (KQL) to query and analyze log data collected from various Azure resources.<br><br>
+        **Key Features of KQL**:<br>
+        1. Powerful query language for log analysis.<br>
+        2. Built-in support for time-series data.<br>
+        3. Flexible syntax for querying complex data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) SQL Query Language</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) JSON Query Language</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) Kusto Query Language (KQL)</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) GraphQL</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee"> 
+    <div class="que">
+        <p>60. What is the main advantage of using Kusto Query Language (KQL) in Azure Log Analytics?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It enables fast and flexible querying of large datasets</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        KQL is optimized for querying large amounts of log and telemetry data, enabling users to quickly filter, aggregate, and analyze data across vast datasets.<br><br>
+        **Advantages of KQL**:<br>
+        1. High performance on large datasets.<br>
+        2. Flexible querying.<br>
+        3. Supports complex aggregations and joins.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) It is based on machine learning algorithms</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) It enables fast and flexible querying of large datasets</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) It supports real-time event processing</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) It automatically generates machine learning models</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+
+<!-- Question 61 -->
+<div class="qee"> 
+    <div class="que">
+        <p>61. What is the main purpose of the Azure Monitor Metrics API?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To retrieve and query metric data from Azure resources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Azure Monitor Metrics API allows users to retrieve and query metric data from Azure resources, enabling them to analyze and visualize resource performance and health.<br><br>
+        **Key Features**:<br>
+        1. Access metric data from various Azure resources.<br>
+        2. Filter and aggregate data based on time and other parameters.<br>
+        3. Retrieve data for visualization and analysis.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) To configure alert rules for resources</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) To retrieve and query metric data from Azure resources</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) To manage the scaling of Azure resources</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) To monitor security threats in Azure resources</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee"> 
+    <div class="que">
+        <p>62. Which of the following can be done using the Azure Monitor Metrics API?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Query and retrieve metrics for analysis and reporting</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Azure Monitor Metrics API allows you to query and retrieve metrics from Azure resources for further analysis and reporting, which helps with performance monitoring and troubleshooting.<br><br>
+        **Key Features**:<br>
+        1. Retrieve data for different metrics like CPU, memory, etc.<br>
+        2. Query data over custom time ranges.<br>
+        3. Aggregate data for detailed insights.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) Query and retrieve metrics for analysis and reporting</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) Manage virtual machine deployments</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) Automate patching of resources</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) Monitor security events and alerts</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee"> 
+    <div class="que">
+        <p>63. What kind of data can be retrieved using the Azure Monitor Metrics API?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Performance metrics such as CPU, memory, and disk usage</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Azure Monitor Metrics API retrieves performance-related data for Azure resources, such as CPU usage, memory usage, disk utilization, and other relevant metrics.<br><br>
+        **Common Metrics**:<br>
+        1. CPU usage.<br>
+        2. Memory usage.<br>
+        3. Disk space and I/O.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) Security event logs</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) Cost management and billing data</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) Performance metrics such as CPU, memory, and disk usage</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) Network traffic data</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee"> 
+    <div class="que">
+        <p>64. How can you integrate Azure Monitor Metrics API with custom applications?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using REST API calls to fetch metric data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Azure Monitor Metrics API can be integrated with custom applications by making REST API calls. This allows applications to retrieve real-time metrics for monitoring or visualization.<br><br>
+        **Integration Method**:<br>
+        1. Make REST API calls.<br>
+        2. Retrieve data for Azure resources.<br>
+        3. Use data for custom dashboards or applications.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) By using Azure PowerShell scripts</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) By using Azure CLI commands</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) By using Event Grid subscriptions</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) By using REST API calls to fetch metric data</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee"> 
+    <div class="que">
+        <p>65. Which of the following is an advantage of using the Azure Monitor Metrics API for monitoring resources?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It allows real-time monitoring of Azure resource performance</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Azure Monitor Metrics API enables real-time monitoring of resource performance, which is essential for detecting and resolving issues promptly.<br><br>
+        **Key Benefits**:<br>
+        1. Real-time data retrieval.<br>
+        2. Monitoring of performance metrics.<br>
+        3. Helps with troubleshooting and optimization.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) It allows real-time monitoring of Azure resource performance</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) It supports automatic scaling of resources</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) It provides built-in alerting for resource failures</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) It offers automated issue resolution</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+
+<!-- Question 66 -->
+<div class="qee"> 
+    <div class="que">
+        <p>66. Which Azure service integrates with the Azure Monitor Metrics API to provide security insights?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure Security Center</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Security Center integrates with Azure Monitor Metrics API to provide security insights and alerts for Azure resources, helping to detect vulnerabilities and threats.<br><br>
+        **Integration with Security Center**:<br>
+        1. Provides threat detection.<br>
+        2. Enables security alerts.<br>
+        3. Helps secure resources based on metrics data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) Azure Active Directory</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) Azure Security Center</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) Azure Sentinel</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) Azure Key Vault</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee"> 
+    <div class="que">
+        <p>67. What is the main purpose of Azure Sentinel in security monitoring?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To provide intelligent security analytics and threat detection</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Sentinel is a cloud-native security information and event management (SIEM) system that provides intelligent security analytics, threat detection, and incident response.<br><br>
+        **Key Features**:<br>
+        1. Real-time threat detection.<br>
+        2. Security analytics.<br>
+        3. Automated response and incident management.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) To monitor virtual machine performance</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) To provide intelligent security analytics and threat detection</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) To manage user authentication and access control</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) To deploy and manage firewall rules</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee"> 
+    <div class="que">
+        <p>68. Which of the following best describes how Azure Sentinel helps with security monitoring?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By collecting, correlating, and analyzing data to detect and respond to threats</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Sentinel collects, correlates, and analyzes data from various sources to detect security threats and automate responses to incidents.<br><br>
+        **How It Works**:<br>
+        1. Collects data from multiple sources.<br>
+        2. Analyzes and correlates the data.<br>
+        3. Provides threat detection and automated incident response.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) By providing automatic scaling for resources</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) By automatically patching vulnerabilities</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) By monitoring network traffic for anomalies</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) By collecting, correlating, and analyzing data to detect and respond to threats</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee"> 
+    <div class="que">
+        <p>69. What is a key benefit of using Azure Sentinel for security monitoring in the cloud?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It provides cloud-native SIEM capabilities for enhanced scalability and flexibility</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Sentinel is cloud-native, offering scalability and flexibility to adapt to the changing needs of security monitoring, making it ideal for dynamic environments.<br><br>
+        **Advantages**:<br>
+        1. Scalable to meet growing security demands.<br>
+        2. Flexible with integrations and data collection.<br>
+        3. Built for cloud-first environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) It provides cloud-native SIEM capabilities for enhanced scalability and flexibility</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) It integrates with third-party security products only</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) It only supports on-premises security monitoring</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) It offers minimal integration with Microsoft security services</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee"> 
+    <div class="que">
+        <p>70. How does Azure Sentinel assist in reducing response times to security incidents?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By automating response actions based on predefined playbooks</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Sentinel enables automation of response actions using playbooks, which can significantly reduce the response time to security incidents by triggering predefined workflows.<br><br>
+        **Key Features**:<br>
+        1. Automated incident response.<br>
+        2. Predefined playbooks for common threats.<br>
+        3. Reduces human intervention and speeds up resolution.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) By providing real-time network traffic analysis</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) By sending alerts to security administrators only</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) By automating response actions based on predefined playbooks</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) By providing manual incident reports for review</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+
+<!-- Question 71 -->
+<div class="qee"> 
+    <div class="que">
+        <p>71. Which of the following is a primary feature of Azure Cost Management and Billing Logs?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To track and analyze Azure resource usage and costs</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Cost Management and Billing Logs allow you to track and analyze the usage and costs associated with your Azure resources, providing insights to help manage budgets and optimize spending.<br><br>
+        **Key Features**:<br>
+        1. Track usage across Azure services.<br>
+        2. Analyze costs and identify spending patterns.<br>
+        3. Optimize resource allocation and reduce costs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) To track and analyze Azure resource usage and costs</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) To monitor the health of Azure resources</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) To configure security alerts for Azure resources</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) To automate scaling of Azure resources</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee"> 
+    <div class="que">
+        <p>72. What is the primary function of Azure Resource Health?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To provide the health status of Azure resources and services</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Resource Health helps you monitor and diagnose the health of your resources and services in Azure, ensuring high availability and rapid response in case of any issues.<br><br>
+        **Key Features**:<br>
+        1. Provides health status of Azure resources.<br>
+        2. Offers troubleshooting and support for service issues.<br>
+        3. Notifies you of potential problems with Azure services.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) To monitor the usage of Azure resources</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) To provide the health status of Azure resources and services</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) To scale Azure resources based on usage</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) To optimize the performance of Azure services</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee"> 
+    <div class="que">
+        <p>73. How can Azure Resource Health help in troubleshooting resource-related issues?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By providing detailed information about the health of resources and suggesting remediation steps</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Resource Health provides insights into the status of resources, such as outages or degraded performance, and offers troubleshooting recommendations for restoring normal service.<br><br>
+        **Key Features**:<br>
+        1. Resource health status insights.<br>
+        2. Suggested remediation actions.<br>
+        3. Notification of any resource issues.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) By providing performance metrics for each resource</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) By automatically fixing resource issues</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) By providing detailed information about the health of resources and suggesting remediation steps</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) By scaling resources to handle performance problems</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee"> 
+    <div class="que">
+        <p>74. What type of notifications can Azure Resource Health send to users regarding resource status?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Alerts for resource health events and status changes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Resource Health can send alerts when the health of a resource changes, such as when a resource goes down, is experiencing issues, or returns to a healthy state.<br><br>
+        **Key Features**:<br>
+        1. Sends resource health status alerts.<br>
+        2. Notifications for any issues affecting resource availability.<br>
+        3. Provides real-time health event information.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) Notifications for resource scaling</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) Alerts about performance optimization recommendations</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) Alerts for security threats in Azure resources</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) Alerts for resource health events and status changes</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<!-- Question 75 -->
+<div class="qee"> 
+    <div class="que">
+        <p>75. How does Azure Monitor Autoscale help manage Azure resources?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By automatically adjusting the number of resources based on demand</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor Autoscale automatically adjusts the number of resources based on workload demand, ensuring optimal performance and cost efficiency.<br><br>
+        **Key Features**:<br>
+        1. Scales resources based on predefined metrics.<br>
+        2. Helps in maintaining performance during peak and off-peak periods.<br>
+        3. Saves costs by scaling down during low-demand periods.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) By automatically adjusting the number of resources based on demand</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) By manually increasing the size of virtual machines</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) By reducing the number of active users in the system</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) By stopping unused resources to save costs</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+
+<!-- Question 76 -->
+<div class="qee"> 
+    <div class="que">
+        <p>76. Which of the following metrics can trigger an Azure Monitor Autoscale action?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) CPU usage and memory utilization</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor Autoscale can use various metrics, such as CPU usage and memory utilization, to trigger scaling actions based on preconfigured thresholds.<br><br>
+        **Autoscale Triggers**:<br>
+        1. CPU usage.<br>
+        2. Memory utilization.<br>
+        3. Custom metrics.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) Network traffic and storage capacity</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) CPU usage and memory utilization</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) User activity and application performance</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) Error rates and response times</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee"> 
+    <div class="que">
+        <p>77. What is the primary purpose of Azure Monitor for Virtual Machines?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To monitor the performance and health of virtual machines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor for Virtual Machines provides in-depth insights into the performance and health of virtual machines, helping identify issues like CPU, memory, and disk usage.<br><br>
+        **Key Features**:<br>
+        1. Monitors virtual machine performance.<br>
+        2. Tracks key metrics such as CPU, memory, and disk usage.<br>
+        3. Provides troubleshooting insights for VM-related issues.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) To manage VM deployments</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) To monitor the performance and health of virtual machines</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) To optimize virtual machine pricing</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) To manage network connectivity for virtual machines</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee"> 
+    <div class="que">
+        <p>78. Which of the following is a key metric that Azure Monitor for Virtual Machines tracks?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) CPU usage</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor for Virtual Machines tracks various metrics, with CPU usage being one of the most important to monitor, as it indicates the overall performance of the VM.<br><br>
+        **Key Metrics**:<br>
+        1. CPU usage.<br>
+        2. Memory usage.<br>
+        3. Disk I/O.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) CPU usage</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) Storage capacity</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) Network latency</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) Application errors</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+
+<!-- Question 79 -->
+<div class="qee"> 
+    <div class="que">
+        <p>79. How can Azure Monitor for Virtual Machines help troubleshoot performance issues?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By providing performance diagnostics and suggesting solutions based on collected data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor for Virtual Machines collects data on various performance metrics and provides diagnostic insights and recommended actions to address identified performance issues.<br><br>
+        **Key Features**:<br>
+        1. Collects and analyzes performance data.<br>
+        2. Suggests solutions to common issues.<br>
+        3. Tracks key performance indicators (KPIs).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) By sending alerts for disk space usage</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) By scaling virtual machines automatically</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) By allocating additional storage resources</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) By providing performance diagnostics and suggesting solutions based on collected data</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee"> 
+    <div class="que">
+        <p>80. What is Azure Monitor for Applications used to monitor?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Application performance and usage</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor for Applications is designed to monitor the performance and usage of applications, providing insights into user interactions, response times, and application behavior.<br><br>
+        **Key Features**:<br>
+        1. Monitors application performance.<br>
+        2. Tracks usage metrics.<br>
+        3. Provides diagnostic data for troubleshooting.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) Application performance and usage</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) Network performance</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) Database transactions</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) Server uptime</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+<!-- Question 81 -->
+<div class="qee"> 
+    <div class="que">
+        <p>81. How does Azure Monitor for Applications help in identifying application issues?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By collecting and analyzing application telemetry data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor for Applications collects telemetry data from the application, such as error logs, performance metrics, and user interactions, which helps identify and diagnose issues affecting the application.<br><br>
+        **Key Features**:<br>
+        1. Telemetry data collection.<br>
+        2. Performance and error tracking.<br>
+        3. Application behavior analysis.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) By monitoring server logs</label><br>
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) By monitoring user network activity</label><br>
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) By collecting and analyzing application telemetry data</label><br>
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) By sending alerts for application failures</label><br>
+    </div>
+    <div id="result80" class="result"></div>
+</div>
+
+<!-- Question 82 -->
+<div class="qee"> 
+    <div class="que">
+        <p>82. What is the main function of Application Insights Telemetry?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To collect and analyze application data for performance monitoring</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Application Insights Telemetry collects data about your application's performance, usage, and exceptions, enabling you to analyze how the app performs in real-world conditions and detect potential issues.<br><br>
+        **Key Features**:<br>
+        1. Tracks user interactions.<br>
+        2. Monitors requests, exceptions, and dependencies.<br>
+        3. Offers insights into application health.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) To collect network traffic data</label><br>
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) To collect and analyze application data for performance monitoring</label><br>
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) To monitor Azure resource costs</label><br>
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) To manage user permissions</label><br>
+    </div>
+    <div id="result81" class="result"></div>
+</div>
+
+<!-- Question 83 -->
+<div class="qee"> 
+    <div class="que">
+        <p>83. What is the purpose of Azure Monitor Diagnostic Settings?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To configure the collection and export of diagnostic data from Azure resources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor Diagnostic Settings allow you to collect logs and metrics from Azure resources and export them to destinations such as Log Analytics, Event Hub, or Storage accounts for further analysis and monitoring.<br><br>
+        **Key Features**:<br>
+        1. Collects resource-specific diagnostic data.<br>
+        2. Exports logs to various destinations.<br>
+        3. Configures diagnostics across Azure resources.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) To configure network security rules</label><br>
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) To monitor and manage user permissions</label><br>
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) To configure the collection and export of diagnostic data from Azure resources</label><br>
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) To manage application performance</label><br>
+    </div>
+    <div id="result82" class="result"></div>
+</div>
+
+<!-- Question 84 -->
+<div class="qee"> 
+    <div class="que">
+        <p>84. What is the primary function of Azure DevOps Metrics & Analytics?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To provide insights into the performance and health of DevOps projects</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Metrics & Analytics help track key performance indicators (KPIs) and visualize data to assess the health of DevOps projects. They offer insights into work item progress, pipeline status, and team performance.<br><br>
+        **Key Features**:<br>
+        1. Provides dashboards for monitoring project health.<br>
+        2. Helps visualize team performance and bottlenecks.<br>
+        3. Tracks work item and pipeline metrics.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) To manage user access control</label><br>
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) To provide insights into the performance and health of DevOps projects</label><br>
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) To configure build pipelines</label><br>
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) To manage deployment environments</label><br>
+    </div>
+    <div id="result83" class="result"></div>
+</div>
+
+<!-- Question 85 -->
+<div class="qee"> 
+    <div class="que">
+        <p>85. Which Azure DevOps tool helps in monitoring logs and traces during development?</p>
+        <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+    </div>
+    <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Azure DevOps Logs and Traces</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Logs and Traces provide a detailed record of events, errors, and other activities during the development lifecycle. These logs help developers debug, analyze, and improve the performance of their applications.<br><br>
+        **Key Features**:<br>
+        1. Tracks logs related to builds, releases, and deployments.<br>
+        2. Helps identify and resolve issues.<br>
+        3. Enables tracing of application behavior.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+        <label for="optionA84">A) Azure Pipelines</label><br>
+        <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+        <label for="optionB84">B) Azure Monitor</label><br>
+        <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+        <label for="optionC84">C) Azure DevOps Logs and Traces</label><br>
+        <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+        <label for="optionD84">D) Azure Application Insights</label><br>
+    </div>
+    <div id="result84" class="result"></div>
+</div>
+
+<!-- Question 86 -->
+<div class="qee"> 
+    <div class="que">
+        <p>86. What is the primary purpose of Azure DevOps Pipelines Monitoring?</p>
+        <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+    </div>
+    <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To monitor and track the health and performance of build and release pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Pipelines Monitoring allows users to track and analyze the health and performance of CI/CD pipelines, ensuring smooth builds and releases. It provides real-time data on build status, failures, and performance bottlenecks.<br><br>
+        **Key Features**:<br>
+        1. Tracks pipeline success and failure rates.<br>
+        2. Monitors build and release times.<br>
+        3. Helps identify and resolve bottlenecks in pipelines.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+        <label for="optionA85">A) To monitor application performance</label><br>
+        <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+        <label for="optionB85">B) To monitor and track the health and performance of build and release pipelines</label><br>
+        <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+        <label for="optionC85">C) To manage user permissions in pipelines</label><br>
+        <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+        <label for="optionD85">D) To track deployment configurations</label><br>
+    </div>
+    <div id="result85" class="result"></div>
+</div>
+
+<!-- Question 87 -->
+<div class="qee"> 
+    <div class="que">
+        <p>87. What is the primary purpose of Azure DevOps Agent Logs?</p>
+        <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+    </div>
+    <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To provide detailed logs from the build and release agent during pipeline execution</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Agent Logs are generated during pipeline execution, providing detailed information about the agent's operation, including errors, warnings, and process steps. These logs are critical for troubleshooting and diagnosing issues with pipeline runs.<br><br>
+        **Key Features**:<br>
+        1. Provides detailed step-by-step logs from build and release agents.<br>
+        2. Helps debug issues in pipeline executions.<br>
+        3. Offers insights into agent health and performance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+        <label for="optionA86">A) To monitor application traffic</label><br>
+        <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+        <label for="optionB86">B) To track user authentication events</label><br>
+        <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+        <label for="optionC86">C) To provide detailed logs from the build and release agent during pipeline execution</label><br>
+        <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+        <label for="optionD86">D) To manage deployment workflows</label><br>
+    </div>
+    <div id="result86" class="result"></div>
+</div>
+
+<!-- Question 88 -->
+<div class="qee"> 
+    <div class="que">
+        <p>88. What is the main purpose of Azure DevOps Release Monitoring?</p>
+        <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+    </div>
+    <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To monitor the health and progress of release pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Release Monitoring allows users to track the status and progress of release pipelines. It helps ensure that applications are deployed successfully and that issues are identified early during the deployment process.<br><br>
+        **Key Features**:<br>
+        1. Monitors the status of release pipelines.<br>
+        2. Provides insights into deployment health.<br>
+        3. Tracks the success or failure of releases.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+        <label for="optionA87">A) To monitor application errors</label><br>
+        <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+        <label for="optionB87">B) To monitor the health and progress of release pipelines</label><br>
+        <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+        <label for="optionC87">C) To manage code versioning</label><br>
+        <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+        <label for="optionD87">D) To configure build triggers</label><br>
+    </div>
+    <div id="result87" class="result"></div>
+</div>
+
+<!-- Question 89 -->
+<div class="qee"> 
+    <div class="que">
+        <p>89. What is the purpose of integrating Azure DevOps with Application Insights?</p>
+        <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+    </div>
+    <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To monitor the performance and availability of applications deployed through DevOps pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps integrates with Application Insights to provide real-time monitoring of applications, enabling developers to track performance, availability, and usage data. This integration helps in identifying issues early and improving overall application quality.<br><br>
+        **Key Features**:<br>
+        1. Monitors application performance.<br>
+        2. Tracks availability and response times.<br>
+        3. Provides usage data and error diagnostics.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+        <label for="optionA88">A) To manage build configurations</label><br>
+        <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+        <label for="optionB88">B) To deploy applications to production</label><br>
+        <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+        <label for="optionC88">C) To monitor the performance and availability of applications deployed through DevOps pipelines</label><br>
+        <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+        <label for="optionD88">D) To manage user access control</label><br>
+    </div>
+    <div id="result88" class="result"></div>
+</div>
+
+<!-- Question 90 -->
+<div class="qee"> 
+    <div class="que">
+        <p>90. What is the primary purpose of Azure DevOps Error Reporting & Alerts?</p>
+        <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+    </div>
+    <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To notify users about errors or issues in build or release pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Error Reporting & Alerts helps monitor and notify users about errors that occur in pipelines, whether during builds or releases. This functionality ensures quick identification and resolution of issues.<br><br>
+        **Key Features**:<br>
+        1. Sends notifications on build and release errors.<br>
+        2. Allows configuration of alert rules.<br>
+        3. Helps prevent unnoticed failures in the pipeline.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+        <label for="optionA89">A) To manage source control repositories</label><br>
+        <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+        <label for="optionB89">B) To notify users about errors or issues in build or release pipelines</label><br>
+        <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+        <label for="optionC89">C) To deploy applications to production</label><br>
+        <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+        <label for="optionD89">D) To manage pipeline triggers</label><br>
+    </div>
+    <div id="result89" class="result"></div>
+</div>
+
+<!-- Question 91 -->
+<div class="qee"> 
+    <div class="que">
+        <p>91. What is the purpose of Azure DevOps Performance Monitoring?</p>
+        <button id="hintButton90" class="hint-button" type="button" onclick="showHint('hint91')">Show Hint</button>
+    </div>
+    <div id="hint91" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To monitor the performance and efficiency of build and release pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Performance Monitoring provides insights into the efficiency of your pipelines, including build and release times. It helps identify areas of improvement to optimize the pipeline's performance and minimize delays.<br><br>
+        **Key Features**:<br>
+        1. Monitors build and release performance.<br>
+        2. Tracks pipeline efficiency and bottlenecks.<br>
+        3. Helps optimize pipeline execution time.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA90" name="answer90" value="A" onclick="checkAnswer(90)">
+        <label for="optionA90">A) To deploy applications to cloud environments</label><br>
+        <input type="radio" id="optionB90" name="answer90" value="B" onclick="checkAnswer(90)">
+        <label for="optionB90">B) To monitor application errors in production</label><br>
+        <input type="radio" id="optionC90" name="answer90" value="C" onclick="checkAnswer(90)">
+        <label for="optionC90">C) To monitor the performance and efficiency of build and release pipelines</label><br>
+        <input type="radio" id="optionD90" name="answer90" value="D" onclick="checkAnswer(90)">
+        <label for="optionD90">D) To manage deployment triggers</label><br>
+    </div>
+    <div id="result90" class="result"></div>
+</div>
+
+<!-- Question 92 -->
+<div class="qee"> 
+    <div class="que">
+        <p>92. What is the purpose of Azure Log Analytics Workspaces in Azure DevOps?</p>
+        <button id="hintButton92" class="hint-button" type="button" onclick="showHint('hint92')">Show Hint</button>
+    </div>
+    <div id="hint92" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To collect and analyze logs from multiple Azure resources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Log Analytics Workspaces are used to aggregate and analyze log data from different Azure resources, including virtual machines, applications, and other services. This helps in tracking performance, troubleshooting issues, and optimizing resources.<br><br>
+        **Key Features**:<br>
+        1. Collects log data from multiple sources.<br>
+        2. Helps in performance monitoring and issue troubleshooting.<br>
+        3. Enables advanced analytics using Kusto query language.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA92" name="answer92" value="A" onclick="checkAnswer(92)">
+        <label for="optionA92">A) To manage Azure subscriptions</label><br>
+        <input type="radio" id="optionB92" name="answer92" value="B" onclick="checkAnswer(92)">
+        <label for="optionB92">B) To configure Azure security policies</label><br>
+        <input type="radio" id="optionC92" name="answer92" value="C" onclick="checkAnswer(92)">
+        <label for="optionC92">C) To collect and analyze logs from multiple Azure resources</label><br>
+        <input type="radio" id="optionD92" name="answer92" value="D" onclick="checkAnswer(92)">
+        <label for="optionD92">D) To deploy Azure resources</label><br>
+    </div>
+    <div id="result92" class="result"></div>
+</div>
+
+<!-- Question 93 -->
+<div class="qee"> 
+    <div class="que">
+        <p>93. How does Azure Diagnostic Settings help in monitoring and logging in Azure DevOps?</p>
+        <button id="hintButton93" class="hint-button" type="button" onclick="showHint('hint93')">Show Hint</button>
+    </div>
+    <div id="hint93" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It enables the configuration of data collection for monitoring and diagnostics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Diagnostic Settings allow users to configure data collection from Azure resources for monitoring and logging purposes. It helps to track and capture important performance metrics and logs for further analysis and troubleshooting.<br><br>
+        **Key Features**:<br>
+        1. Configures diagnostic settings for Azure resources.<br>
+        2. Collects data for logs, metrics, and performance analysis.<br>
+        3. Integrates with Azure Monitor and Log Analytics for better insights.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA93" name="answer93" value="A" onclick="checkAnswer(93)">
+        <label for="optionA93">A) It controls user access to Azure DevOps repositories</label><br>
+        <input type="radio" id="optionB93" name="answer93" value="B" onclick="checkAnswer(93)">
+        <label for="optionB93">B) It manages the deployment of resources to Azure</label><br>
+        <input type="radio" id="optionC93" name="answer93" value="C" onclick="checkAnswer(93)">
+        <label for="optionC93">C) It enables the configuration of data collection for monitoring and diagnostics</label><br>
+        <input type="radio" id="optionD93" name="answer93" value="D" onclick="checkAnswer(93)">
+        <label for="optionD93">D) It configures the user interface for Azure DevOps</label><br>
+    </div>
+    <div id="result93" class="result"></div>
+</div>
+
+<!-- Question 94 -->
+<div class="qee"> 
+    <div class="que">
+        <p>94. What is the purpose of Azure Monitor Alerts and Notifications in DevOps?</p>
+        <button id="hintButton94" class="hint-button" type="button" onclick="showHint('hint94')">Show Hint</button>
+    </div>
+    <div id="hint94" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To monitor the health and performance of applications and infrastructure</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor Alerts and Notifications help teams stay informed about the status of their applications and infrastructure. They provide proactive notifications to address potential issues before they affect users.<br><br>
+        **Key Features**:<br>
+        1. Sends alerts based on defined thresholds.<br>
+        2. Notifies teams about critical issues and resource performance.<br>
+        3. Helps in minimizing downtime and improving application reliability.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA94" name="answer94" value="A" onclick="checkAnswer(94)">
+        <label for="optionA94">A) To deploy applications across multiple regions</label><br>
+        <input type="radio" id="optionB94" name="answer94" value="B" onclick="checkAnswer(94)">
+        <label for="optionB94">B) To manage Azure subscriptions</label><br>
+        <input type="radio" id="optionC94" name="answer94" value="C" onclick="checkAnswer(94)">
+        <label for="optionC94">C) To monitor the health and performance of applications and infrastructure</label><br>
+        <input type="radio" id="optionD94" name="answer94" value="D" onclick="checkAnswer(94)">
+        <label for="optionD94">D) To configure deployment triggers</label><br>
+    </div>
+    <div id="result94" class="result"></div>
+</div>
+
+<!-- Question 95 -->
+<div class="qee"> 
+    <div class="que">
+        <p>95. How does Azure Monitor Alerts work for DevOps workflows?</p>
+        <button id="hintButton95" class="hint-button" type="button" onclick="showHint('hint95')">Show Hint</button>
+    </div>
+    <div id="hint95" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By setting up alert rules to track and notify about specific metrics or events</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor Alerts allow users to set up rules based on specific metrics, logs, or events. These rules can then trigger notifications when thresholds are met, helping DevOps teams take quick actions.<br><br>
+        **Key Features**:<br>
+        1. Create custom alert rules based on metrics, logs, or events.<br>
+        2. Alert notifications are sent to teams for rapid response.<br>
+        3. Helps in automating responses and improving system reliability.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA95" name="answer95" value="A" onclick="checkAnswer(95)">
+        <label for="optionA95">A) By creating custom monitoring dashboards</label><br>
+        <input type="radio" id="optionB95" name="answer95" value="B" onclick="checkAnswer(95)">
+        <label for="optionB95">B) By scaling resources automatically based on traffic</label><br>
+        <input type="radio" id="optionC95" name="answer95" value="C" onclick="checkAnswer(95)">
+        <label for="optionC95">C) By setting up alert rules to track and notify about specific metrics or events</label><br>
+        <input type="radio" id="optionD95" name="answer95" value="D" onclick="checkAnswer(95)">
+        <label for="optionD95">D) By optimizing cost management through resource allocation</label><br>
+    </div>
+    <div id="result95" class="result"></div>
+</div>
+
+<!-- Question 96 -->
+<div class="qee"> 
+    <div class="que">
+        <p>96. What is the role of notifications in Azure Monitor Alerts?</p>
+        <button id="hintButton96" class="hint-button" type="button" onclick="showHint('hint96')">Show Hint</button>
+    </div>
+    <div id="hint96" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To inform users about important events or performance metrics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Notifications are a critical part of Azure Monitor Alerts, as they ensure that users are immediately informed when specific events or thresholds are reached. This helps in quicker response times to issues.<br><br>
+        **Key Features**:<br>
+        1. Sends notifications based on alert rules.<br>
+        2. Alerts can be sent through email, SMS, or integrated with other tools.<br>
+        3. Improves incident management by providing timely notifications.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA96" name="answer96" value="A" onclick="checkAnswer(96)">
+        <label for="optionA96">A) To automatically scale the application infrastructure</label><br>
+        <input type="radio" id="optionB96" name="answer96" value="B" onclick="checkAnswer(96)">
+        <label for="optionB96">B) To enforce security policies on resources</label><br>
+        <input type="radio" id="optionC96" name="answer96" value="C" onclick="checkAnswer(96)">
+        <label for="optionC96">C) To inform users about important events or performance metrics</label><br>
+        <input type="radio" id="optionD96" name="answer96" value="D" onclick="checkAnswer(96)">
+        <label for="optionD96">D) To deploy applications to multiple environments</label><br>
+    </div>
+    <div id="result96" class="result"></div>
+</div>
+
+<!-- Question 97 -->
+<div class="qee"> 
+    <div class="que">
+        <p>97. How can Azure Monitor Alerts enhance DevOps pipelines?</p>
+        <button id="hintButton97" class="hint-button" type="button" onclick="showHint('hint97')">Show Hint</button>
+    </div>
+    <div id="hint97" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By providing real-time alerts for performance or failures during pipeline execution</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor Alerts can be integrated into DevOps pipelines to ensure that real-time alerts are provided for issues like build failures, deployment problems, or performance degradation. This allows DevOps teams to take immediate corrective actions.<br><br>
+        **Key Features**:<br>
+        1. Real-time monitoring of pipeline execution.<br>
+        2. Immediate alerts for failures or performance issues.<br>
+        3. Enhances automation and reduces downtime.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA97" name="answer97" value="A" onclick="checkAnswer(97)">
+        <label for="optionA97">A) By automatically scaling the application infrastructure</label><br>
+        <input type="radio" id="optionB97" name="answer97" value="B" onclick="checkAnswer(97)">
+        <label for="optionB97">B) By creating custom dashboards for team collaboration</label><br>
+        <input type="radio" id="optionC97" name="answer97" value="C" onclick="checkAnswer(97)">
+        <label for="optionC97">C) By providing real-time alerts for performance or failures during pipeline execution</label><br>
+        <input type="radio" id="optionD97" name="answer97" value="D" onclick="checkAnswer(97)">
+        <label for="optionD97">D) By managing resource allocation and cost optimization</label><br>
+    </div>
+    <div id="result97" class="result"></div>
+</div>
+
+<!-- Question 98 -->
+<div class="qee"> 
+    <div class="que">
+        <p>98. What can be used as a notification channel in Azure Monitor Alerts?</p>
+        <button id="hintButton98" class="hint-button" type="button" onclick="showHint('hint98')">Show Hint</button>
+    </div>
+    <div id="hint98" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Email, SMS, and integration with external services like Slack</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor Alerts support multiple notification channels, including email, SMS, and integration with third-party services like Slack or webhook-based systems. This helps ensure that DevOps teams can respond quickly across various communication platforms.<br><br>
+        **Key Features**:<br>
+        1. Support for multiple notification channels.<br>
+        2. Easily integrates with popular tools like Slack and Microsoft Teams.<br>
+        3. Customizable alert delivery methods for different scenarios.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA98" name="answer98" value="A" onclick="checkAnswer(98)">
+        <label for="optionA98">A) Only email notifications</label><br>
+        <input type="radio" id="optionB98" name="answer98" value="B" onclick="checkAnswer(98)">
+        <label for="optionB98">B) Only SMS notifications</label><br>
+        <input type="radio" id="optionC98" name="answer98" value="C" onclick="checkAnswer(98)">
+        <label for="optionC98">C) Email, SMS, and integration with external services like Slack</label><br>
+        <input type="radio" id="optionD98" name="answer98" value="D" onclick="checkAnswer(98)">
+        <label for="optionD98">D) Only Azure Portal notifications</label><br>
+    </div>
+    <div id="result98" class="result"></div>
+</div>
+
+<!-- Question 99 -->
+<div class="qee"> 
+    <div class="que">
+        <p>99. What is the benefit of integrating Azure Monitor Alerts into a DevOps workflow?</p>
+        <button id="hintButton99" class="hint-button" type="button" onclick="showHint('hint99')">Show Hint</button>
+    </div>
+    <div id="hint99" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To enhance visibility and quick response to operational issues</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        By integrating Azure Monitor Alerts into DevOps workflows, teams can get immediate feedback on the health and performance of their systems. This results in faster issue identification and resolution, helping maintain high availability and reliability.<br><br>
+        **Key Features**:<br>
+        1. Provides visibility into system health.<br>
+        2. Allows faster incident management.<br>
+        3. Helps DevOps teams respond proactively to issues.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA99" name="answer99" value="A" onclick="checkAnswer(99)">
+        <label for="optionA99">A) To scale resources automatically based on workload</label><br>
+        <input type="radio" id="optionB99" name="answer99" value="B" onclick="checkAnswer(99)">
+        <label for="optionB99">B) To visualize project timelines</label><br>
+        <input type="radio" id="optionC99" name="answer99" value="C" onclick="checkAnswer(99)">
+        <label for="optionC99">C) To enhance visibility and quick response to operational issues</label><br>
+        <input type="radio" id="optionD99" name="answer99" value="D" onclick="checkAnswer(99)">
+        <label for="optionD99">D) To manage cost optimization</label><br>
+    </div>
+    <div id="result99" class="result"></div>
+</div>
+
+
+
+
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

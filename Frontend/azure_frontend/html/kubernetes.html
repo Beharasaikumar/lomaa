@@ -1,0 +1,2317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZURE Repos</title>
+    <link rel="stylesheet" href="../css/Azure Devops.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'A', 'B', 'C', 'D', 'A', 'A', 'B', 'C', 'A', 'D',
+            'A', 'C', 'B', 'D', 'A', 'C', 'A', 'C', 'D', 'A',
+            'D', 'C', 'B', 'A', 'D', 'A', 'B', 'D', 'C', 'D',
+            'A', 'B', 'D', 'C', 'A', 'B', 'D', 'A', 'C', 'B',
+            'C', 'D', 'A', 'B', 'D', 'A', 'B', 'C', 'D', 'C',
+            'B', 'A', 'B', 'A', 'C', 'D', 'A', 'B', 'C', 'D',
+            'A', 'C', 'D', 'B', 'A', 'C', 'A', 'B', 'D', 'C', 
+            'B', 'A', 'D', 'C', 'D', 'B', 'C', 'A'
+           
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>Kubernetes with Azure devops</h3>
+        <div class="inner-border">
+
+          <!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is the main purpose of CI/CD pipelines in Kubernetes?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To automate the process of testing, building, and deploying applications in Kubernetes environments.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        CI/CD pipelines in Kubernetes help automate key stages of the software development lifecycle, ensuring that code is automatically tested, built, and deployed to a Kubernetes cluster. This helps in continuous delivery and faster updates to the system.<br><br>
+        **Steps to Implement CI/CD Pipeline for Kubernetes**:<br>
+        1. Define pipeline in a YAML file.<br>
+        2. Set up automated tests for code validation.<br>
+        3. Build Docker images and deploy to Kubernetes automatically.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) To automate the process of testing, building, and deploying applications in Kubernetes environments.</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) To manually trigger deployment for each new commit in Kubernetes.</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) To deploy code only after the code has been manually reviewed by the team.</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) To track Kubernetes usage and monitor applications.</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. How does Azure DevOps help in managing CI/CD pipelines for Kubernetes?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure DevOps provides YAML-based pipelines that automate Kubernetes deployments and integrate with container registries.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps pipelines are defined using YAML files, which describe the workflow for building, testing, and deploying applications. You can integrate the pipeline with Azure Container Registry and Kubernetes for streamlined deployments.<br><br>
+        **CI/CD with Azure DevOps for Kubernetes**:<br>
+        1. Automate container image builds.<br>
+        2. Push images to container registries.<br>
+        3. Deploy to Kubernetes clusters.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Azure DevOps requires manual setup of Kubernetes clusters for each deployment.</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Azure DevOps provides YAML-based pipelines that automate Kubernetes deployments and integrate with container registries.</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) Azure DevOps does not integrate with Kubernetes and container registries.</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Azure DevOps requires manual deployment to Kubernetes after each build.</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What are the main components in a Kubernetes CI/CD pipeline?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Build, test, and deploy stages are the core components of a Kubernetes CI/CD pipeline.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The CI/CD pipeline in Kubernetes is typically divided into three main stages: build (container image creation), test (automated testing of the application), and deploy (deployment to the Kubernetes cluster). These stages help ensure continuous integration and delivery of code.<br><br>
+        **Key CI/CD Stages**:<br>
+        1. Build – Create Docker images and containerize applications.<br>
+        2. Test – Run unit, integration, and end-to-end tests.<br>
+        3. Deploy – Deploy application to Kubernetes automatically.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) CI/CD pipelines only include build and deploy stages.</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) CI/CD pipelines focus on managing Kubernetes resources and environments only.</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) Build, test, and deploy stages are the core components of a Kubernetes CI/CD pipeline.</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) CI/CD pipelines involve only monitoring Kubernetes deployments.</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. How can you deploy a Docker container to a Kubernetes cluster using Azure DevOps pipelines?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) You can use Azure DevOps pipelines to build a Docker image, push it to Azure Container Registry, and then deploy it to the Kubernetes cluster.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps can automate the process of building Docker images, pushing them to a container registry, and deploying the images to a Kubernetes cluster. This is done using YAML pipelines that define the build and deployment steps.<br><br>
+        **Steps to Deploy to Kubernetes**:<br>
+        1. Build Docker image.<br>
+        2. Push the image to Azure Container Registry.<br>
+        3. Deploy the image to Kubernetes.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) You must manually create Docker containers and deploy them to Kubernetes using Azure CLI.</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) Azure DevOps cannot deploy Docker containers to Kubernetes.</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) You can use Azure DevOps pipelines to deploy Docker containers only to virtual machines.</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) You can use Azure DevOps pipelines to build a Docker image, push it to Azure Container Registry, and then deploy it to the Kubernetes cluster.</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. What is the advantage of using Azure DevOps with Kubernetes for CI/CD?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Azure DevOps provides an automated and repeatable pipeline to continuously deliver applications to Kubernetes, improving deployment consistency and speed.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps pipelines allow for the automation of application deployments, making the process repeatable and reliable. It improves deployment speed and ensures consistency across different Kubernetes clusters.<br><br>
+        **Benefits of Using Azure DevOps with Kubernetes**:<br>
+        1. Continuous integration and deployment.<br>
+        2. Automatic versioning and rollback capabilities.<br>
+        3. Seamless integration with Kubernetes clusters and container registries.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) Azure DevOps provides an automated and repeatable pipeline to continuously deliver applications to Kubernetes, improving deployment consistency and speed.</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) Azure DevOps is not compatible with Kubernetes clusters for CI/CD pipelines.</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) Azure DevOps does not support containerized application deployments.</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) Azure DevOps can only be used for monitoring Kubernetes clusters.</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+
+
+           <!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is the role of Azure Container Registry in a CI/CD pipeline for Kubernetes?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Azure Container Registry stores and manages Docker container images, which are then deployed to Kubernetes clusters via CI/CD pipelines.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Container Registry (ACR) is a private Docker registry that is integrated with Azure DevOps. It provides a secure location to store Docker images, which can be pulled and deployed to a Kubernetes cluster as part of the CI/CD pipeline.<br><br>
+        **Role of ACR in CI/CD**:<br>
+        1. Store Docker images.<br>
+        2. Manage versioning and security.<br>
+        3. Integrate with CI/CD pipeline for Kubernetes deployments.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) Azure Container Registry stores and manages Docker container images, which are then deployed to Kubernetes clusters via CI/CD pipelines.</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) Azure Container Registry is only used for testing Kubernetes applications.</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) Azure Container Registry can only store Kubernetes configuration files, not Docker images.</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) Azure Container Registry is only used for Azure virtual machines and not Kubernetes clusters.</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. How do you manage environment variables in Kubernetes CI/CD pipelines using Azure DevOps?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) You can use Azure DevOps pipeline variables to securely store and inject environment variables into Kubernetes deployments.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps allows the use of pipeline variables to manage environment variables. These variables can be securely injected into the Kubernetes deployment YAML files to configure the application for different environments.<br><br>
+        **Managing Variables**:<br>
+        1. Define pipeline variables in Azure DevOps.<br>
+        2. Inject variables into deployment manifests.<br>
+        3. Securely store sensitive data like API keys using Azure Key Vault.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) You manually define environment variables inside Kubernetes configuration files.</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) You can use Azure DevOps pipeline variables to securely store and inject environment variables into Kubernetes deployments.</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Azure DevOps cannot manage environment variables in CI/CD pipelines for Kubernetes.</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Environment variables are set manually in Kubernetes and cannot be integrated into Azure DevOps pipelines.</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What is the primary benefit of using Helm charts in Kubernetes CI/CD pipelines?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Helm charts provide a reusable, versioned package that simplifies the deployment of Kubernetes applications in CI/CD pipelines.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Helm is a package manager for Kubernetes, which helps in packaging, deploying, and managing applications on Kubernetes. Helm charts are reusable and versioned, making them an excellent choice for CI/CD pipelines.<br><br>
+        **Benefits of Helm in CI/CD**:<br>
+        1. Reusable charts.<br>
+        2. Versioning of applications.<br>
+        3. Simplifies deployment and rollback operations.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) Helm charts are used only for monitoring Kubernetes applications in CI/CD pipelines.</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) Helm charts are not compatible with Kubernetes in CI/CD pipelines.</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) Helm charts provide a reusable, versioned package that simplifies the deployment of Kubernetes applications in CI/CD pipelines.</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) Helm charts are used only for managing Kubernetes configurations, not applications.</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. How can you secure sensitive data like API keys and passwords in a Kubernetes CI/CD pipeline?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) You can use Azure Key Vault to securely store sensitive data and reference it in Azure DevOps pipelines for Kubernetes deployments.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Key Vault helps securely manage and store sensitive information, such as passwords, secrets, and API keys. Azure DevOps can be integrated with Key Vault to automatically reference secrets during the pipeline execution.<br><br>
+        **Using Azure Key Vault**:<br>
+        1. Store secrets in Azure Key Vault.<br>
+        2. Use Azure DevOps to retrieve secrets during pipeline execution.<br>
+        3. Inject secrets into Kubernetes manifests during deployment.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) You can use Azure Key Vault to securely store sensitive data and reference it in Azure DevOps pipelines for Kubernetes deployments.</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) Sensitive data should be stored directly in Kubernetes configuration files for CI/CD pipelines.</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) Sensitive data can only be manually configured in Azure Kubernetes Service (AKS) without using pipelines.</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) Secrets management is not necessary in Kubernetes CI/CD pipelines.</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. How can you perform automated testing in a Kubernetes CI/CD pipeline?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Automated tests can be executed as part of the CI/CD pipeline by integrating testing tools like Selenium or Jest with the pipeline.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Automated testing is a crucial part of CI/CD pipelines. Tools like Selenium (for UI testing) and Jest (for unit testing) can be integrated into the pipeline to automatically test applications running in Kubernetes.<br><br>
+        **Steps for Automated Testing**:<br>
+        1. Integrate a testing tool (like Selenium or Jest) with Azure DevOps pipeline.<br>
+        2. Run tests on your application before deploying to production.<br>
+        3. Review test results and decide whether to proceed with deployment.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) Testing is done manually by the developer before pushing to the repository.</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) Automated tests are not required in Kubernetes CI/CD pipelines.</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) Tests are run only after deployment in the production environment.</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) Automated tests can be executed as part of the CI/CD pipeline by integrating testing tools like Selenium or Jest with the pipeline.</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is the role of a Kubernetes deployment manifest in a CI/CD pipeline?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) A Kubernetes deployment manifest defines the desired state of the application and is used by the CI/CD pipeline to deploy the application to the Kubernetes cluster.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A Kubernetes deployment manifest is a YAML file that specifies the configuration of the application, such as the number of replicas, the Docker image, and environment variables. This file is used during the CI/CD process to deploy applications to the Kubernetes cluster.<br><br>
+        **Steps to Use Deployment Manifest**:<br>
+        1. Define the application configuration in a Kubernetes YAML file.<br>
+        2. Include the manifest in the CI/CD pipeline.<br>
+        3. Apply the manifest to the Kubernetes cluster during deployment.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) A Kubernetes deployment manifest defines the desired state of the application and is used by the CI/CD pipeline to deploy the application to the Kubernetes cluster.</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) The deployment manifest is used only for testing the Kubernetes applications in a CI/CD pipeline.</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) Deployment manifests are not required for deploying to Kubernetes from a CI/CD pipeline.</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) The manifest is only used for configuring Azure resources, not Kubernetes.</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. How do you manage multi-environment deployments in a CI/CD pipeline for Kubernetes?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) You can use environment-specific values in the pipeline YAML file, such as different Docker images or Kubernetes manifests for each environment (development, staging, production).</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Multi-environment deployment in Kubernetes is handled by creating environment-specific variables or configurations. These can be defined in your CI/CD pipeline, ensuring the correct resources are deployed to the right environment.<br><br>
+        **Managing Multi-environment Deployments**:<br>
+        1. Define different deployment configurations for each environment.<br>
+        2. Use pipeline variables to switch between configurations.<br>
+        3. Automate the deployment to the respective environment in the pipeline.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) Multi-environment deployment is not possible with Kubernetes in CI/CD pipelines.</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) Multi-environment deployments require manual intervention for each environment.</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) You can use environment-specific values in the pipeline YAML file, such as different Docker images or Kubernetes manifests for each environment (development, staging, production).</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) Kubernetes CI/CD pipelines can only deploy to a single environment, such as production.</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What is the first step in setting up Azure Kubernetes Service (AKS) for deployment?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The first step is to create an AKS cluster in the Azure portal or through Azure CLI.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Setting up an AKS cluster is the first step for deploying and managing containerized applications using Kubernetes in Azure. You can do this through the Azure portal, CLI, or using ARM templates.<br><br>
+        **Steps to Create an AKS Cluster**:<br>
+        1. Navigate to the Azure portal.<br>
+        2. Create a new AKS resource.<br>
+        3. Select your subscription, resource group, and configure the cluster settings.<br>
+        4. Review and create the AKS cluster.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) Set up Kubernetes CLI (kubectl) on your local machine.</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) The first step is to create an AKS cluster in the Azure portal or through Azure CLI.</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) Install Docker on your local machine for containerization.</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) Set up a load balancer for high availability in AKS.</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. How do you authenticate and connect to an AKS cluster using kubectl?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By running the command `az aks get-credentials` to configure kubectl with the AKS cluster credentials.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To authenticate and connect to an AKS cluster, you need to configure kubectl using the Azure CLI command `az aks get-credentials`, which will download the credentials and configure kubectl to interact with the cluster.<br><br>
+        **Steps for Connecting to AKS Cluster**:<br>
+        1. Install Azure CLI and kubectl on your local machine.<br>
+        2. Run the `az aks get-credentials` command.<br>
+        3. After configuring kubectl, you can use kubectl commands to interact with the AKS cluster.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) Manually create a kubeconfig file with AKS credentials.</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) Use the Azure portal to connect directly to the cluster.</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) Configure the Kubernetes dashboard to connect to AKS.</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) By running the command `az aks get-credentials` to configure kubectl with the AKS cluster credentials.</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. How do you scale an AKS cluster to accommodate more applications or workloads?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) You can scale the AKS cluster by adjusting the node pool size or adding additional node pools via Azure CLI, the Azure portal, or ARM templates.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Scaling an AKS cluster involves increasing or decreasing the number of nodes in a node pool. This can be done manually through Azure CLI, the Azure portal, or automatically using the cluster's autoscaler.<br><br>
+        **Steps for Scaling AKS**:<br>
+        1. Use Azure CLI or the Azure portal to modify the number of nodes in your node pool.<br>
+        2. Enable the autoscaler to automatically scale based on demand.<br>
+        3. Monitor the cluster to ensure the desired performance and cost efficiency.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) You can scale the AKS cluster by adjusting the node pool size or adding additional node pools via Azure CLI, the Azure portal, or ARM templates.</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) You must manually increase the number of pods in the cluster.</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) Scaling an AKS cluster is only possible through Azure Kubernetes Dashboard.</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) You can scale the AKS cluster by configuring Kubernetes Horizontal Pod Autoscaler (HPA) to scale the pods, not the nodes.</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. What is the purpose of using managed identities with AKS?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Managed identities are used to securely authenticate to Azure services, allowing the AKS cluster to access Azure resources without the need for credentials in the code.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Managed identities for Azure resources provide a secure and convenient way for AKS to authenticate to Azure services such as Azure Key Vault, Azure Storage, and others. This eliminates the need to store secrets in the code or environment variables.<br><br>
+        **Steps for Configuring Managed Identities**:<br>
+        1. Enable managed identities when creating the AKS cluster.<br>
+        2. Assign the appropriate Azure role to the AKS-managed identity.<br>
+        3. Use the managed identity to authenticate to Azure resources within your workloads.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) Managed identities are used to enable Azure users to access AKS clusters.</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) Managed identities are used for setting up network security groups in AKS clusters.</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) Managed identities are used to securely authenticate to Azure services, allowing the AKS cluster to access Azure resources without the need for credentials in the code.</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) Managed identities are used to enable Kubernetes users to log into Azure AD.</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. What is the primary purpose of using Helm charts in Azure DevOps?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Helm charts are used to package, configure, and deploy Kubernetes applications in Azure DevOps pipelines.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Helm is a package manager for Kubernetes that simplifies deployment by using pre-configured charts. Helm charts help define, install, and upgrade even the most complex Kubernetes applications.<br><br>
+        **Steps for Using Helm Charts in Azure DevOps**:<br>
+        1. Install the Helm CLI.<br>
+        2. Use a Helm chart repository to find charts for your application.<br>
+        3. Integrate the Helm chart in an Azure DevOps pipeline.<br>
+        4. Deploy the chart to your AKS cluster.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) Helm charts are used to package, configure, and deploy Kubernetes applications in Azure DevOps pipelines.</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) Helm charts are used for managing Azure Kubernetes Service (AKS) nodes.</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) Helm charts are used to configure Kubernetes networking in Azure DevOps.</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) Helm charts are used for automatic code testing in Kubernetes.</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. How can you integrate Helm chart deployments into an Azure DevOps CI/CD pipeline?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using the Helm CLI task in your Azure DevOps pipeline and configuring it to install the chart in your Kubernetes cluster.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Azure DevOps, you can use the Helm CLI task to install or upgrade a Helm chart within a pipeline. This task interacts with Kubernetes to deploy the chart into the AKS cluster.<br><br>
+        **Steps for Helm Chart Deployment in Azure DevOps**:<br>
+        1. Add a Helm task in your pipeline.<br>
+        2. Set the chart repository and name.<br>
+        3. Configure the Kubernetes connection to the AKS cluster.<br>
+        4. Deploy or upgrade the application using Helm in the pipeline.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) By using the Azure DevOps UI to deploy Helm charts to AKS.</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) By manually creating Kubernetes resources in the pipeline.</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) By using the Helm CLI task in your Azure DevOps pipeline and configuring it to install the chart in your Kubernetes cluster.</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) By writing custom scripts for Helm chart deployments in the pipeline.</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What are the benefits of using Helm charts in Azure DevOps for Kubernetes deployments?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Helm charts provide easy deployment, versioning, and management of Kubernetes applications, making it easier to manage complex deployments in Azure DevOps.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Helm charts package Kubernetes applications, making it easy to manage their configuration, versioning, and deployment. It simplifies the management of Kubernetes resources and ensures that the deployment is repeatable and consistent.<br><br>
+        **Key Benefits of Helm Charts**:<br>
+        1. Version control for Kubernetes applications.<br>
+        2. Simplified management and deployment of complex applications.<br>
+        3. Consistent deployments across environments.<br>
+        4. Easy to share and reuse application configurations.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) Helm charts help to create Kubernetes clusters in Azure DevOps.</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) Helm charts allow only manual deployments in Azure DevOps pipelines.</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) Helm charts are used to configure Azure DevOps environments for Kubernetes.</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) Helm charts provide easy deployment, versioning, and management of Kubernetes applications, making it easier to manage complex deployments in Azure DevOps.</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. How can you use Helm charts to manage different environments in Azure DevOps pipelines?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using Helm chart values files, you can define different configurations for each environment and pass them into the Helm chart during deployment in the pipeline.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Helm charts support the use of values files to define environment-specific configurations. You can specify different values for each environment (e.g., dev, staging, production) and pass them as arguments during the Helm install/upgrade process.<br><br>
+        **Steps to Manage Environments with Helm Charts**:<br>
+        1. Create different values files for each environment (e.g., `values-dev.yaml`, `values-prod.yaml`).<br>
+        2. Use Azure DevOps pipeline variables to pass the appropriate values file based on the environment.<br>
+        3. Use the `--values` flag with `helm install` or `helm upgrade` to specify the environment-specific values file.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) By using Helm chart values files, you can define different configurations for each environment and pass them into the Helm chart during deployment in the pipeline.</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) Helm charts automatically handle environment management for you in Azure DevOps.</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) Helm charts are used only for production environment deployments.</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) You must manually edit the Helm chart code for each environment.</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. What is the main advantage of using Helm charts over manually defining Kubernetes YAML files in Azure DevOps?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Helm charts simplify and automate the management of Kubernetes applications, making it easier to deploy, configure, and maintain.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Helm charts provide a more streamlined approach compared to writing individual YAML files. They encapsulate the configuration and deployment logic in reusable templates, reducing complexity and improving maintainability.<br><br>
+        **Benefits of Helm Charts**:<br>
+        1. Reusability and easy versioning.<br>
+        2. Reduces YAML duplication.<br>
+        3. Simplifies complex deployments and upgrades.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) Helm charts allow manual control of Kubernetes resource configurations.</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) Helm charts eliminate the need for Kubernetes clusters.</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) Helm charts provide pre-configured environments for Kubernetes clusters.</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) Helm charts simplify and automate the management of Kubernetes applications, making it easier to deploy, configure, and maintain.</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. How do you handle Helm chart upgrades in Azure DevOps pipelines?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using the `helm upgrade` command in the Azure DevOps pipeline to upgrade an existing Helm release with a new version of the chart.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `helm upgrade` command allows you to upgrade an existing release with a new version of the Helm chart or new values, ensuring that the Kubernetes application is always running with the latest configuration.<br><br>
+        **Steps for Upgrading a Helm Chart in Azure DevOps**:<br>
+        1. Use the `helm upgrade` command to apply changes.<br>
+        2. Specify the release name, chart, and values files.<br>
+        3. Add the upgrade command in the pipeline task.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) By deleting the old Helm release and creating a new one.</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) By manually updating the Helm chart YAML files in the DevOps pipeline.</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) By using the `helm upgrade` command in the Azure DevOps pipeline to upgrade an existing Helm release with a new version of the chart.</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) By updating Kubernetes configurations manually after the upgrade.</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. How can you pass environment-specific values when deploying Helm charts in Azure DevOps pipelines?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By creating separate values files for each environment (e.g., dev, prod) and specifying them in the `helm install` or `helm upgrade` command using the `-f` flag.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Azure DevOps, you can create different values files for each environment (e.g., `values-dev.yaml`, `values-prod.yaml`). These files contain environment-specific configurations, and you can pass them to Helm using the `-f` flag during the deployment process.<br><br>
+        **Steps for Passing Environment-Specific Values**:<br>
+        1. Create a `values.yaml` for each environment.<br>
+        2. In the pipeline, use the `-f` flag to specify the appropriate values file.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) By creating one values file and manually changing its content before each deployment.</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) By creating separate values files for each environment (e.g., dev, prod) and specifying them in the `helm install` or `helm upgrade` command using the `-f` flag.</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) By passing environment variables directly in the Helm chart's code.</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) By setting up Azure DevOps pipeline variables to manage environment-specific values automatically.</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. How do you manage Helm chart dependencies in Azure DevOps pipelines?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using the `helm dependency update` command in the pipeline to update the chart dependencies before deploying the Helm chart.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Helm supports the use of dependencies, where one chart depends on another. The `helm dependency update` command fetches the required dependencies from repositories before the chart is installed or upgraded.<br><br>
+        **Steps to Manage Dependencies**:<br>
+        1. Define dependencies in the `Chart.yaml` file.<br>
+        2. Run `helm dependency update` to download the dependencies.<br>
+        3. Use the updated chart in the Azure DevOps pipeline.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) By using the `helm dependency update` command in the pipeline to update the chart dependencies before deploying the Helm chart.</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) By manually downloading the chart dependencies before each deployment.</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) By specifying dependencies directly in the `values.yaml` file.</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) By using the `helm fetch` command to retrieve the dependencies.</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. What is the purpose of using `helm lint` in Azure DevOps pipelines?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It checks the Helm chart for syntax errors and best practices before deploying it to Kubernetes.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `helm lint` command is used to validate the syntax and structure of Helm charts to ensure that they are correctly defined and follow best practices before being used in production environments.<br><br>
+        **Benefits of `helm lint`**:<br>
+        1. Detects syntax and formatting issues.<br>
+        2. Identifies best practice violations.<br>
+        3. Ensures the Helm chart is deployable.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) It compiles the Helm chart into a deployable Kubernetes YAML file.</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) It installs the Helm chart in the Kubernetes cluster.</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) It tests the Helm chart in a local Kubernetes cluster.</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) It checks the Helm chart for syntax errors and best practices before deploying it to Kubernetes.</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+
+        <!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. How can you scale Kubernetes deployments in Azure DevOps?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using Kubernetes Horizontal Pod Autoscaler (HPA) and defining scaling rules in Azure DevOps pipelines.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Kubernetes scaling can be managed using the Horizontal Pod Autoscaler (HPA) to scale pods based on CPU or memory usage. Azure DevOps pipelines can automate the deployment of updated configurations for scaling.<br><br>
+        **Steps to Scale Kubernetes Deployments**:<br>
+        1. Configure Horizontal Pod Autoscaler (HPA) in your Kubernetes cluster.<br>
+        2. Define scaling parameters in your pipeline YAML file.<br>
+        3. Ensure the pipeline automates the application of scaling changes.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) By using Kubernetes Horizontal Pod Autoscaler (HPA) and defining scaling rules in Azure DevOps pipelines.</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) By configuring scaling rules manually in the Azure portal.</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) By using `kubectl` commands to manually scale pods.</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) By using Azure Virtual Machines to scale workloads.</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. What is the role of Helm charts in Azure DevOps Kubernetes workflows?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Helm charts are used to package Kubernetes resources into reusable deployments that can be integrated into Azure DevOps pipelines.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Helm charts simplify the deployment process by packaging Kubernetes resources into a chart, which can be versioned, shared, and reused in different environments. Azure DevOps pipelines integrate Helm charts to manage Kubernetes deployments.<br><br>
+        **Steps for Using Helm Charts**:<br>
+        1. Define a Helm chart for your Kubernetes application.<br>
+        2. Add Helm tasks in your Azure DevOps pipeline to deploy or update the chart.<br>
+        3. Use versioning to manage updates and rollbacks in your pipeline.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) Helm charts are used to deploy Kubernetes services manually through `kubectl`.</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) Helm charts are used to package Kubernetes resources into reusable deployments that can be integrated into Azure DevOps pipelines.</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) Helm charts are used to configure Kubernetes storage options.</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) Helm charts are used to manually configure cluster networking settings in Kubernetes.</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. What are the key considerations for security in Azure DevOps Kubernetes pipelines?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Implementing secure service connections, using RBAC, and leveraging security tools like Azure Security Center in your pipeline.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Security is critical at all stages of a pipeline. Using role-based access control (RBAC), implementing service connections securely, and integrating security monitoring tools such as Azure Security Center are key best practices.<br><br>
+        **Steps for Security in Pipelines**:<br>
+        1. Configure secure service connections for Azure resources in your pipeline.<br>
+        2. Implement RBAC to limit access to specific resources.<br>
+        3. Integrate security scanning tools like Azure Security Center into your pipeline for automated security checks.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) By configuring firewalls to block access to the Azure portal during pipeline execution.</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) By encrypting Kubernetes manifests with a third-party tool.</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) By disabling security checks for faster deployment.</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) Implementing secure service connections, using RBAC, and leveraging security tools like Azure Security Center in your pipeline.</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. How can you use multi-environment deployments in Azure DevOps for Kubernetes?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By configuring separate pipeline stages for different environments and using Azure DevOps environment variables.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Multi-environment deployments can be managed by defining multiple stages in your pipeline for different environments (e.g., dev, test, prod). You can use environment-specific variables and configurations.<br><br>
+        **Steps for Multi-Environment Deployment**:<br>
+        1. Define separate stages for each environment in your pipeline YAML.<br>
+        2. Use environment variables to differentiate configurations for each stage.<br>
+        3. Set up approval gates between environments to ensure safe deployments.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) By using separate Azure subscriptions for each environment.</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) By configuring all environments within a single pipeline without separate stages.</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) By configuring separate pipeline stages for different environments and using Azure DevOps environment variables.</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) By manually managing environments in separate Azure portals.</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. How can you integrate Azure DevOps with Kubernetes for disaster recovery?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using Azure DevOps to automate backup, recovery, and disaster recovery testing for AKS clusters.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps can help automate disaster recovery processes by integrating with backup solutions for AKS, creating automated recovery pipelines, and testing recovery procedures regularly.<br><br>
+        **Steps for Disaster Recovery**:<br>
+        1. Set up automated backup solutions for your AKS clusters.<br>
+        2. Automate recovery workflows using Azure DevOps pipelines.<br>
+        3. Regularly test disaster recovery to ensure readiness.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) By manually restoring data from backup whenever a disaster occurs.</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) By using Azure DevOps to automate backup, recovery, and disaster recovery testing for AKS clusters.</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) By relying on manual disaster recovery testing outside the pipeline.</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) By disabling recovery pipelines after a disaster recovery event.</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. How can you integrate Azure DevOps with Azure Key Vault for secure secrets management?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By configuring a service connection to Azure Key Vault and retrieving secrets during the pipeline execution.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps can securely retrieve secrets from Azure Key Vault by configuring a service connection. This allows the secrets to be used during pipeline execution without hardcoding sensitive data.<br><br>
+        **Steps for Integration**:<br>
+        1. Create an Azure Key Vault and store your secrets.<br>
+        2. In Azure DevOps, configure a service connection to Azure Key Vault.<br>
+        3. Retrieve secrets during the pipeline execution using the Azure Key Vault task.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) By configuring a service connection to Azure Key Vault and retrieving secrets during the pipeline execution.</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) By manually passing secrets to the pipeline environment variables.</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) By storing secrets as plaintext in YAML files.</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) By configuring Azure Active Directory authentication for the pipeline to access Key Vault.</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. What is the purpose of using a Kubernetes manifest file in Azure DevOps pipelines?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To define the configuration for Kubernetes resources such as pods, deployments, and services, which are applied during pipeline execution.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Kubernetes manifest files define the configuration of the Kubernetes resources that need to be deployed. In Azure DevOps, these manifest files are used during pipeline execution to manage resources on the Kubernetes cluster.<br><br>
+        **Steps for Using Manifest Files**:<br>
+        1. Create Kubernetes manifest files for your deployment, services, and other resources.<br>
+        2. Use Azure DevOps tasks to apply these manifest files to the AKS cluster during the pipeline execution.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) To define the network configurations for Azure DevOps agents.</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) To define the configuration for Kubernetes resources such as pods, deployments, and services, which are applied during pipeline execution.</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) To configure the build agents for the pipeline execution.</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) To configure storage settings for your AKS clusters.</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. How does Azure DevOps help in monitoring and logging Kubernetes clusters?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By integrating Azure Monitor and Azure Log Analytics with Azure DevOps pipelines to track performance and gather logs.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor and Azure Log Analytics provide monitoring and logging capabilities for Kubernetes clusters. By integrating these tools into Azure DevOps pipelines, you can automatically track performance, gather logs, and detect issues.<br><br>
+        **Steps for Monitoring and Logging**:<br>
+        1. Configure Azure Monitor and Log Analytics for your AKS cluster.<br>
+        2. Integrate these services into your Azure DevOps pipeline to gather insights into your Kubernetes deployments.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) By enabling logs directly in the Azure DevOps dashboard.</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) By manually configuring monitoring agents on each node of the Kubernetes cluster.</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) By relying solely on Kubernetes native logging and ignoring Azure DevOps integration.</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) By integrating Azure Monitor and Azure Log Analytics with Azure DevOps pipelines to track performance and gather logs.</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. How can Azure DevOps help in performing blue-green deployments for Kubernetes?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By configuring two separate environments and automating the switch between them using Azure DevOps pipelines.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps pipelines can be used to automate the process of blue-green deployments. This involves having two separate environments (blue and green), and switching traffic between them for zero-downtime deployments.<br><br>
+        **Steps for Blue-Green Deployment**:<br>
+        1. Configure two separate Kubernetes environments (blue and green) for the application.<br>
+        2. Automate the switching of traffic from the blue environment to the green environment in your pipeline.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) By manually switching between the environments using the Azure portal.</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) By using a single Kubernetes environment for all deployments without needing blue-green deployment strategy.</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) By configuring two separate environments and automating the switch between them using Azure DevOps pipelines.</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) By deploying updates directly into the production environment with no rollback plan.</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. How can Azure DevOps support disaster recovery in a Kubernetes-based application?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By automating backups, recovery pipelines, and integrating with disaster recovery tools like Azure Site Recovery.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps supports disaster recovery by automating backup and recovery pipelines, ensuring that in the event of a failure, the application can be restored quickly. Integration with Azure Site Recovery provides additional backup and failover capabilities.<br><br>
+        **Steps for Disaster Recovery**:<br>
+        1. Set up automated backups of Kubernetes resources.<br>
+        2. Implement disaster recovery pipelines in Azure DevOps to quickly restore services.<br>
+        3. Integrate with Azure Site Recovery for failover and recovery options.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) By automating backups, recovery pipelines, and integrating with disaster recovery tools like Azure Site Recovery.</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) By manually restoring Kubernetes pods and services from backup.</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) By disabling disaster recovery features to reduce overhead.</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) By relying on Kubernetes’ own backup system for recovery, ignoring Azure DevOps.</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+                   <!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. What is the role of Helm charts in Kubernetes deployments using Azure DevOps?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To simplify the deployment and management of Kubernetes applications by packaging them into reusable templates.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Helm charts package Kubernetes resources (such as deployments, services, and config maps) into reusable and versioned templates. By using Helm, you can easily deploy, upgrade, and manage Kubernetes applications in a structured way.<br><br>
+        **Steps for Using Helm Charts**:<br>
+        1. Create a Helm chart with the desired Kubernetes resource configurations.<br>
+        2. Add the chart to your Azure DevOps pipeline to deploy it to the AKS cluster.<br>
+        3. Helm helps in managing the lifecycle of the deployed applications, such as upgrades and rollbacks.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) To create a virtual machine instance on AKS for better performance.</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) To simplify the deployment and management of Kubernetes applications by packaging them into reusable templates.</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) To configure and scale the Kubernetes cluster dynamically.</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) To monitor and log all deployments in the Kubernetes cluster automatically.</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. How can you perform continuous integration for Kubernetes applications in Azure DevOps?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By setting up build pipelines that automatically build and test the application, and then deploy it to Kubernetes using Helm or Kubernetes manifest files.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Continuous integration (CI) ensures that code changes are automatically built, tested, and deployed. In Azure DevOps, you can set up CI pipelines to automate the build process, run tests, and deploy the application to Kubernetes using tools like Helm or direct Kubernetes manifest files.<br><br>
+        **Steps for Continuous Integration**:<br>
+        1. Create a build pipeline in Azure DevOps for your application.<br>
+        2. Include tasks for building, testing, and packaging the application.<br>
+        3. Use Helm charts or Kubernetes manifests to deploy the application to the AKS cluster.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) By manually pushing updates to the Kubernetes cluster after each build.</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) By using third-party CI/CD tools to integrate with Azure DevOps.</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) By relying on Kubernetes to handle the entire CI/CD process automatically.</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) By setting up build pipelines that automatically build and test the application, and then deploy it to Kubernetes using Helm or Kubernetes manifest files.</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. What is the benefit of using Azure DevOps for monitoring Kubernetes applications?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It allows you to integrate monitoring tools like Azure Monitor and Azure Log Analytics into your pipeline to track application health and performance.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        By integrating monitoring tools such as Azure Monitor and Azure Log Analytics, Azure DevOps helps you track the health, performance, and logs of your Kubernetes applications. This allows you to detect issues proactively and ensures the application is running smoothly.<br><br>
+        **Steps for Monitoring Integration**:<br>
+        1. Configure Azure Monitor and Azure Log Analytics for your AKS cluster.<br>
+        2. Integrate them into your Azure DevOps pipeline for continuous monitoring and log collection.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) It allows you to integrate monitoring tools like Azure Monitor and Azure Log Analytics into your pipeline to track application health and performance.</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) It automatically fixes any issues detected in the Kubernetes cluster without user intervention.</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) It sends real-time notifications directly to your email for every application change.</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) It automatically generates reports on the Kubernetes infrastructure and resource consumption.</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. How does Azure DevOps help in managing multiple environments for Kubernetes applications?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using multi-stage pipelines and YAML templates, you can define deployment steps for different environments like dev, staging, and production.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps enables multi-environment deployment using YAML templates and multi-stage pipelines. You can define separate stages for development, staging, and production, with different configurations and deployment strategies for each environment.<br><br>
+        **Steps for Multi-Environment Deployment**:<br>
+        1. Create multi-stage YAML pipelines for each environment.<br>
+        2. Define deployment steps, secrets, and configuration for each environment.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) By manually managing environment configurations in Azure DevOps without automation.</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) By using separate pipelines for each environment, without any integration.</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) By using multi-stage pipelines and YAML templates, you can define deployment steps for different environments like dev, staging, and production.</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) By deploying all applications to a single environment and then scaling them manually as needed.</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. What is the purpose of using Azure DevOps service connections for Kubernetes clusters?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To securely connect Azure DevOps to external resources like AKS clusters, enabling seamless deployments and resource management.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps service connections allow you to securely connect Azure DevOps pipelines to external resources, such as Azure Kubernetes Service (AKS) clusters. This connection is crucial for performing actions like deploying, managing, and monitoring Kubernetes applications from within Azure DevOps.<br><br>
+        **Steps for Service Connection Setup**:<br>
+        1. Create an Azure service connection in Azure DevOps.<br>
+        2. Configure it to connect securely to your AKS cluster or any other Kubernetes provider.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) To enable Azure DevOps to authenticate with Azure Active Directory directly for pipeline execution.</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) To securely connect Azure DevOps to external resources like AKS clusters, enabling seamless deployments and resource management.</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) To provide a centralized view of all Azure resources for monitoring purposes.</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) To enable cross-cloud communication for Kubernetes clusters across different cloud providers.</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. How can Azure DevOps facilitate automated testing for Kubernetes deployments?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By integrating test frameworks into the CI pipeline, enabling automated tests during each deployment cycle to ensure application reliability.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Automated testing ensures that code is tested automatically during each deployment. Azure DevOps allows the integration of test frameworks like Selenium, JUnit, or others into the CI pipeline, allowing tests to run against your application before deployment to Kubernetes.<br><br>
+        **Steps for Setting Up Automated Testing**:<br>
+        1. Add tasks in your Azure DevOps pipeline to run automated tests.<br>
+        2. Use test frameworks to validate your application before it is deployed to Kubernetes.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) By creating a manual testing workflow to test the application after every deployment.</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) By testing the application only once during the initial deployment and ignoring future changes.</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) By integrating test frameworks into the CI pipeline, enabling automated tests during each deployment cycle to ensure application reliability.</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) By running manual tests periodically, as automated tests are not necessary in Kubernetes environments.</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. What is the purpose of Azure DevOps release pipelines for Kubernetes deployments?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To automate the deployment and release of applications to different environments, ensuring smooth updates and rollbacks.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Release pipelines in Azure DevOps automate the process of deploying applications to various environments (e.g., development, staging, production). They help to ensure that deployment processes are consistent, fast, and repeatable.<br><br>
+        **Steps for Release Pipeline Setup**:<br>
+        1. Create a release pipeline that pulls artifacts from your build pipeline.<br>
+        2. Define stages for each environment and automate the deployment to your Kubernetes cluster.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) To manually deploy applications to the Kubernetes cluster without any automation.</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) To track changes in your Kubernetes environment and alert you to potential issues.</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) To test application performance under load and simulate production environments.</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) To automate the deployment and release of applications to different environments, ensuring smooth updates and rollbacks.</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. How can Azure DevOps support Kubernetes cluster scaling?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By integrating AKS with Azure DevOps and setting up auto-scaling policies, you can scale your Kubernetes clusters automatically based on resource demands.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps integrates with Azure Kubernetes Service (AKS) to enable automatic scaling of Kubernetes clusters. By configuring scaling policies (e.g., Horizontal Pod Autoscaler), Azure DevOps can help ensure that your applications scale dynamically based on the workload.<br><br>
+        **Steps for Cluster Scaling Setup**:<br>
+        1. Enable auto-scaling in your AKS cluster.<br>
+        2. Configure scaling policies for both the Kubernetes deployment and the cluster itself.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) By integrating AKS with Azure DevOps and setting up auto-scaling policies, you can scale your Kubernetes clusters automatically based on resource demands.</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) By manually increasing the number of nodes and pods in the cluster through Azure DevOps.</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) By using Azure DevOps to control the CPU and memory allocation directly from the pipeline.</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) By limiting the number of Kubernetes clusters based on the Azure DevOps account limits.</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. What feature in Azure DevOps enables safe and controlled deployments to production Kubernetes environments?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By using approval gates and manual interventions within the release pipeline to ensure controlled deployments.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Approval gates and manual interventions help ensure that production deployments are carried out in a controlled and secure manner. You can configure Azure DevOps to require approval from stakeholders before deploying to production, reducing the risk of errors or issues.<br><br>
+        **Steps for Controlled Deployment**:<br>
+        1. Set up approval gates within the release pipeline.<br>
+        2. Use manual interventions to halt deployments at critical stages for review and confirmation.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) By automatically deploying to production with no manual oversight.</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) By using approval gates and manual interventions within the release pipeline to ensure controlled deployments.</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) By automatically scaling the cluster resources to meet production needs.</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) By deploying new versions continuously without any need for approval.</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. What is the significance of using Infrastructure as Code (IaC) in Azure DevOps with Kubernetes?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It enables consistent and repeatable infrastructure deployments, improving reliability and reducing human errors.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Infrastructure as Code (IaC) allows you to define your infrastructure in code, making it easier to deploy and manage resources in a consistent and automated manner. Azure DevOps supports IaC tools like Terraform, ARM templates, and Kubernetes manifests to automate infrastructure provisioning.<br><br>
+        **Steps for IaC Setup**:<br>
+        1. Write infrastructure definitions using IaC tools.<br>
+        2. Integrate the IaC files into your Azure DevOps pipeline to provision resources automatically.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) It allows you to manually configure infrastructure resources without automation.</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) It helps track infrastructure changes over time but does not automate resource provisioning.</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) It enables the use of complex scripting to provision infrastructure manually.</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) It enables consistent and repeatable infrastructure deployments, improving reliability and reducing human errors.</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. How does Azure DevOps support Continuous Monitoring of Kubernetes environments?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By integrating Azure Monitor and Azure Log Analytics to track application performance and logs in real-time.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps supports continuous monitoring by integrating with Azure Monitor and Azure Log Analytics. These tools provide real-time performance metrics, logs, and alerts, helping you track the health of your Kubernetes environments.<br><br>
+        **Steps for Continuous Monitoring Setup**:<br>
+        1. Set up Azure Monitor for Kubernetes.<br>
+        2. Use Log Analytics to analyze logs and metrics for your applications and clusters.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) By integrating Azure Monitor and Azure Log Analytics to track application performance and logs in real-time.</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) By manually checking logs through Kubernetes CLI commands.</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) By using Azure DevOps to trigger alarms only when the system reaches critical thresholds.</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) By monitoring the Kubernetes cluster’s resource utilization only during specific times.</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. What is the advantage of using Helm Charts in Azure DevOps for Kubernetes deployments?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Helm Charts simplify Kubernetes application deployment by packaging all dependencies, making it easier to manage complex applications.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Helm Charts provide a way to define, install, and upgrade Kubernetes applications in a simple way. By using Helm, you can bundle Kubernetes YAML files and their configurations into a single package, making deployment and management more efficient.<br><br>
+        **Steps for Helm Chart Integration**:<br>
+        1. Create a Helm Chart for your Kubernetes application.<br>
+        2. Integrate Helm deployment into your Azure DevOps pipeline for automated deployments.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) Helm Charts are used to configure Azure DevOps agents for automated testing.</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) Helm Charts simplify Kubernetes application deployment by packaging all dependencies, making it easier to manage complex applications.</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) Helm Charts are used only for storing application source code and are not related to Kubernetes deployments.</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) Helm Charts are used to configure Azure DevOps build pipelines but are not related to Kubernetes environments.</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. How can you achieve zero-downtime deployments in Azure DevOps for Kubernetes applications?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using strategies like blue-green or canary deployments that ensure a new version of the app is rolled out with no disruption to the existing services.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps enables zero-downtime deployments by supporting strategies such as blue-green and canary deployments. These strategies allow for gradual traffic shifting and testing of the new version of the application, ensuring minimal impact on end-users.<br><br>
+        **Steps for Zero-Downtime Deployment Setup**:<br>
+        1. Define deployment strategies like blue-green or canary in your Azure DevOps pipeline.<br>
+        2. Configure the pipeline to gradually shift traffic to the new version.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) By stopping the existing application completely before deploying the new version.</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) By forcing a complete restart of the Kubernetes cluster before deploying a new version of the app.</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) By using strategies like blue-green or canary deployments that ensure a new version of the app is rolled out with no disruption to the existing services.</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) By using Azure DevOps to manually intervene and verify that the application is working after deployment.</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. How can you manage Kubernetes secrets in Azure DevOps pipelines?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using Azure Key Vault integration with Azure DevOps to securely store and retrieve sensitive information like credentials and tokens.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps integrates with Azure Key Vault, which allows you to securely store secrets such as database credentials, API keys, and tokens. This integration enables you to manage secrets in your pipelines securely without hardcoding them in your codebase.<br><br>
+        **Steps for Secret Management Setup**:<br>
+        1. Create an Azure Key Vault and store your secrets.<br>
+        2. Integrate Azure Key Vault with your Azure DevOps pipeline to retrieve secrets during the deployment process.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) By storing sensitive information directly in the Kubernetes manifest files.</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) By using environment variables in Azure DevOps to manage secrets.</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) By embedding credentials within your deployment scripts.</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) By using Azure Key Vault integration with Azure DevOps to securely store and retrieve sensitive information like credentials and tokens.</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. What are the key benefits of using Kubernetes with Azure DevOps?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Kubernetes with Azure DevOps enables scalable, reliable, and automated application deployment with integrated monitoring and security features.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Using Kubernetes with Azure DevOps provides a seamless way to deploy and manage containerized applications. Kubernetes helps automate deployment, scaling, and management, while Azure DevOps integrates CI/CD, monitoring, and security.<br><br>
+        **Key Benefits**:<br>
+        1. Automated deployments with CI/CD.<br>
+        2. Scalability and resource management.<br>
+        3. Integrated monitoring and logging with Azure Monitor and Log Analytics.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Kubernetes is only useful for managing containerized applications, and Azure DevOps cannot provide any benefits.</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Kubernetes is a fully manual process, and Azure DevOps automates all tasks for you without any configuration.</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Kubernetes with Azure DevOps enables scalable, reliable, and automated application deployment with integrated monitoring and security features.</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) Kubernetes with Azure DevOps is only suitable for small applications and not for large-scale enterprise solutions.</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+<!-- Question 51 -->
+<div class="qee">
+    <div class="que">
+        <p>51. What is the primary purpose of Azure DevOps in Kubernetes CI/CD pipelines?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Azure DevOps automates the build, test, and deployment process of Kubernetes applications, ensuring continuous integration and continuous delivery.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps enables automated pipelines that manage build, test, and deployment tasks for Kubernetes applications, ensuring the fast, reliable, and consistent delivery of software. This helps reduce manual errors and accelerates delivery.<br><br>
+        **Steps for Implementing CI/CD**:<br>
+        1. Define build, test, and deployment pipelines.<br>
+        2. Automate the process with YAML or classic pipelines in Azure DevOps.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) Azure DevOps is used to manually configure the Kubernetes clusters for each environment.</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) Azure DevOps automates the monitoring of Kubernetes clusters for resource utilization only.</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) Azure DevOps automates the creation of Kubernetes clusters across multiple environments.</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) Azure DevOps automates the build, test, and deployment process of Kubernetes applications, ensuring continuous integration and continuous delivery.</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee">
+    <div class="que">
+        <p>52. How does Azure DevOps enable automatic scaling of Kubernetes applications?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By configuring Horizontal Pod Autoscaling (HPA) in Azure Kubernetes Service (AKS) and integrating it into your Azure DevOps pipelines.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps allows you to configure Horizontal Pod Autoscaling (HPA) to automatically adjust the number of pods in your Kubernetes application based on traffic or resource usage. This enables applications to scale efficiently without manual intervention.<br><br>
+        **Steps to Enable Auto-Scaling**:<br>
+        1. Set up HPA in your AKS environment.<br>
+        2. Integrate the scaling process with Azure DevOps pipeline to trigger automatic scaling based on certain metrics.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) By configuring Horizontal Pod Autoscaling (HPA) in Azure Kubernetes Service (AKS) and integrating it into your Azure DevOps pipelines.</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) By manually adding nodes in the AKS cluster based on traffic.</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) By using Azure DevOps to trigger scaling only during deployments.</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) By adjusting the resource limits of pods through the Kubernetes CLI during pipeline execution.</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee">
+    <div class="que">
+        <p>53. How does Azure DevOps help with Kubernetes security management?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By integrating Azure Security Center and Azure Policy to enforce security best practices across Kubernetes deployments.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps integrates with Azure Security Center and Azure Policy to enforce security rules and compliance across your Kubernetes environments. This allows you to monitor vulnerabilities and ensure secure configurations throughout the lifecycle of your applications.<br><br>
+        **Steps to Implement Security Policies**:<br>
+        1. Use Azure Security Center to monitor the security of your Kubernetes clusters.<br>
+        2. Apply Azure Policy for enforcing security policies during the deployment process.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) By using Azure DevOps to manually scan and fix security vulnerabilities in Kubernetes configurations.</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) By integrating Azure Security Center and Azure Policy to enforce security best practices across Kubernetes deployments.</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) By enforcing manual security checks in the deployment process, requiring human approval.</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) By using Azure DevOps to configure firewalls within Kubernetes clusters only during build and release pipelines.</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee">
+    <div class="que">
+        <p>54. Which Azure DevOps service can be used to deploy Kubernetes applications to multiple environments?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Azure Pipelines enables you to deploy Kubernetes applications to multiple environments with defined approval processes.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Pipelines can automate deployments to multiple Kubernetes environments such as development, staging, and production. It provides integration with Kubernetes clusters, allowing you to deploy applications in a controlled manner using YAML files or classic pipelines.<br><br>
+        **Steps to Deploy to Multiple Environments**:<br>
+        1. Create separate stages for each environment in your pipeline.<br>
+        2. Use environment-specific configurations and approval gates to ensure safe deployments.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) Azure Pipelines enables you to deploy Kubernetes applications to multiple environments with defined approval processes.</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) Azure Boards is used to automate the deployment of Kubernetes applications across environments.</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) Azure Repos can be configured to deploy Kubernetes applications to multiple environments.</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) Azure Artifacts provides tools for Kubernetes deployment across multiple environments.</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee">
+    <div class="que">
+        <p>55. How can you ensure high availability of Kubernetes applications deployed through Azure DevOps?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By configuring Kubernetes clusters for multi-region deployments and utilizing Azure DevOps to automate failover mechanisms.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        High availability can be achieved by distributing your Kubernetes applications across multiple regions. Azure DevOps can be used to automate failover procedures and monitor application health to ensure minimal downtime during disruptions.<br><br>
+        **Steps for High Availability Setup**:<br>
+        1. Set up multi-region AKS clusters for redundancy.<br>
+        2. Automate failover and traffic distribution using Azure DevOps.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) By ensuring that Kubernetes clusters are manually monitored and maintained for failures.</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) By creating a single-region AKS cluster and scaling it vertically during high traffic.</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) By configuring Kubernetes clusters for multi-region deployments and utilizing Azure DevOps to automate failover mechanisms.</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) By limiting the deployment of Kubernetes pods to a single zone to reduce complexity.</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+<!-- Question 56 -->
+<div class="qee">
+    <div class="que">
+        <p>56. How can you manage secrets securely in Kubernetes using Azure DevOps?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By integrating Azure Key Vault with Azure DevOps and Kubernetes to securely manage and access secrets during pipeline execution.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps allows you to securely manage secrets by integrating Azure Key Vault into your pipeline. Secrets like API keys, certificates, and database credentials can be stored in Azure Key Vault and accessed securely during Kubernetes deployments.<br><br>
+        **Steps to Integrate Azure Key Vault**:<br>
+        1. Create an Azure Key Vault instance.<br>
+        2. Store secrets in Key Vault.<br>
+        3. Integrate Key Vault with Azure DevOps using service connections to access secrets during pipeline execution.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) By storing secrets in plain text within the pipeline YAML file.</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) By storing secrets directly in Kubernetes manifests without encryption.</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) By using only Kubernetes secrets management without Azure DevOps integration.</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) By integrating Azure Key Vault with Azure DevOps and Kubernetes to securely manage and access secrets during pipeline execution.</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee">
+    <div class="que">
+        <p>57. What is the benefit of using Helm charts in Azure DevOps for Kubernetes deployment?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Helm charts allow you to define, install, and manage Kubernetes applications with reusable templates, making the deployment process more consistent and streamlined.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Helm charts package Kubernetes resources into reusable templates. With Azure DevOps, you can automate the deployment of these charts, ensuring consistent deployment configurations across environments.<br><br>
+        **Steps to Use Helm in Azure DevOps**:<br>
+        1. Install Helm CLI.<br>
+        2. Package Kubernetes manifests into Helm charts.<br>
+        3. Configure Azure DevOps pipelines to deploy these charts using Helm commands.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) Helm charts allow you to define, install, and manage Kubernetes applications with reusable templates, making the deployment process more consistent and streamlined.</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) Helm charts are only useful for local testing and cannot be used in production environments.</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) Helm charts are only supported in Azure Kubernetes Service (AKS) and cannot be used with other cloud providers.</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) Helm charts are used solely for managing Kubernetes cluster configurations, not application deployments.</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee">
+    <div class="que">
+        <p>58. How can you ensure the security of a Kubernetes cluster deployed with Azure DevOps?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By implementing network policies, using Azure Security Center, and ensuring that secrets are stored securely in Azure Key Vault.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Security in Kubernetes involves various layers, such as ensuring the network policies are in place to control traffic between pods, using Azure Security Center to detect vulnerabilities, and managing secrets with Azure Key Vault to ensure safe access.<br><br>
+        **Steps to Enhance Security**:<br>
+        1. Use network policies to limit pod communication.<br>
+        2. Integrate Azure Security Center for vulnerability management.<br>
+        3. Store and access secrets using Azure Key Vault for secure credentials handling.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) By disabling role-based access control (RBAC) to ensure open access to all users.</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) By implementing network policies, using Azure Security Center, and ensuring that secrets are stored securely in Azure Key Vault.</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) By storing all sensitive data in plaintext within the Kubernetes configuration files.</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) By limiting Azure DevOps permissions to a specific set of users without considering Kubernetes best practices.</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee">
+    <div class="que">
+        <p>59. What Azure DevOps feature allows teams to monitor Kubernetes deployments in real-time?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By integrating Azure Monitor and Azure Log Analytics into Azure DevOps to visualize the health and metrics of Kubernetes clusters.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor and Azure Log Analytics can be integrated with Azure DevOps to provide real-time insights into the performance and health of Kubernetes deployments. This allows you to identify issues early and take corrective actions promptly.<br><br>
+        **Steps to Monitor Kubernetes Deployments**:<br>
+        1. Enable Azure Monitor and Log Analytics for AKS.<br>
+        2. Visualize logs and metrics in Azure DevOps for continuous monitoring.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) By using manual shell scripts to collect Kubernetes logs during pipeline execution.</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) By implementing custom alerting rules in the Kubernetes dashboard for each deployment.</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) By integrating Azure Monitor and Azure Log Analytics into Azure DevOps to visualize the health and metrics of Kubernetes clusters.</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) By using only native Kubernetes monitoring tools without integration into Azure DevOps.</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee">
+    <div class="que">
+        <p>60. What is the purpose of Blue-Green deployments in Kubernetes when using Azure DevOps?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Blue-Green deployments reduce downtime and risk by running two identical production environments and switching between them during updates.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Blue-Green deployment is a strategy that reduces downtime by using two identical environments (blue and green). At any given time, one environment is live while the other is idle or used for testing. During deployment, traffic is switched from the old version to the new version without downtime.<br><br>
+        **Steps to Implement Blue-Green Deployment**:<br>
+        1. Set up two environments (Blue and Green).<br>
+        2. Deploy the new version in the idle environment.<br>
+        3. Switch traffic to the updated environment once the new version is tested and verified.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) Blue-Green deployments are used to manage Kubernetes infrastructure scaling.</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) Blue-Green deployments involve using different Kubernetes clusters for each version.</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) Blue-Green deployments aim to test and validate Kubernetes applications before deployment.</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) Blue-Green deployments reduce downtime and risk by running two identical production environments and switching between them during updates.</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+<!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+        <p>61. What is the main advantage of using Azure DevOps with Kubernetes?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The integration of Azure DevOps with Kubernetes provides seamless automation of the CI/CD pipeline and enhances deployment management.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps simplifies the automation of the entire CI/CD lifecycle for Kubernetes, allowing for consistent and reliable deployments. This integration reduces manual intervention, minimizes errors, and enables more frequent deployments.<br><br>
+        **Advantages of Azure DevOps with Kubernetes**:<br>
+        1. Fully automated CI/CD pipelines.<br>
+        2. Enhanced collaboration and version control.<br>
+        3. Streamlined management of infrastructure and deployment configurations.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) The integration of Azure DevOps with Kubernetes provides seamless automation of the CI/CD pipeline and enhances deployment management.</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) Azure DevOps only works with Kubernetes on Azure and cannot be used with other cloud providers.</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) Azure DevOps requires a manual process to integrate with Kubernetes deployments.</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) Kubernetes cannot be deployed using Azure DevOps as it is incompatible with Kubernetes clusters.</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee">
+    <div class="que">
+        <p>62. What is the purpose of Kubernetes namespaces in Azure DevOps deployments?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Kubernetes namespaces allow for logical separation of resources and facilitate multi-environment deployments within the same cluster.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Kubernetes namespaces help you organize and manage resources effectively. They allow multiple environments (e.g., staging, production) to coexist within the same Kubernetes cluster while ensuring that they do not conflict with each other.<br><br>
+        **Key Uses of Kubernetes Namespaces**:<br>
+        1. Isolate different environments (e.g., staging, production).<br>
+        2. Manage resources effectively in large-scale deployments.<br>
+        3. Provide better access control for different teams.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) Kubernetes namespaces are only used to group pods and are not useful for separating environments.</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) Kubernetes namespaces are used only to organize services and are not effective for managing access control.</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) Kubernetes namespaces allow for logical separation of resources and facilitate multi-environment deployments within the same cluster.</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) Kubernetes namespaces are solely for visualizing cluster configurations and have no impact on deployment workflows.</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee">
+    <div class="que">
+        <p>63. How can you secure Azure DevOps pipelines for Kubernetes deployment?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using service connections, enabling role-based access control (RBAC), and securing secrets using Azure Key Vault.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Securing Azure DevOps pipelines involves controlling access to the pipeline, limiting permissions, and using secure methods for managing sensitive data. Azure Key Vault can store secrets securely, and RBAC ensures that only authorized users can access specific resources.<br><br>
+        **Key Security Practices for Azure DevOps Pipelines**:<br>
+        1. Use service connections to authenticate securely.<br>
+        2. Implement RBAC to control access to pipelines.<br>
+        3. Store secrets in Azure Key Vault and reference them in the pipeline.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) By granting all users full access to the Azure DevOps pipeline without any restrictions.</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) By disabling all authentication mechanisms to simplify access for users.</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) By using unsecured public keys for all service connections.</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) By using service connections, enabling role-based access control (RBAC), and securing secrets using Azure Key Vault.</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee">
+    <div class="que">
+        <p>64. Which of the following tools can be used to monitor and analyze Kubernetes performance in Azure DevOps?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure Monitor and Azure Log Analytics can be used to monitor and analyze Kubernetes performance.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor and Azure Log Analytics are powerful tools for monitoring Kubernetes clusters. They provide real-time metrics, logs, and alerts, which are crucial for analyzing performance and troubleshooting issues within the clusters.<br><br>
+        **Key Features of Azure Monitor and Azure Log Analytics**:<br>
+        1. Real-time monitoring of cluster health and performance.<br>
+        2. Detailed logs and metrics collection.<br>
+        3. Advanced alerting and diagnostic capabilities for Kubernetes clusters.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) Kubernetes Dashboard is the only tool needed for Kubernetes performance monitoring.</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) Azure Monitor and Azure Log Analytics can be used to monitor and analyze Kubernetes performance.</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) Azure DevOps provides a built-in tool for monitoring Kubernetes performance within the pipeline itself.</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) Performance monitoring is unnecessary in Azure DevOps when using Kubernetes.</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee">
+    <div class="que">
+        <p>65. How can you achieve automated rollback for Kubernetes deployments in Azure DevOps?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using Helm charts with Azure DevOps to enable automated rollback in case of deployment failure.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Helm charts support rollback functionality. If a deployment fails, Azure DevOps can trigger a rollback to the previous stable release, ensuring minimal downtime and quick recovery.<br><br>
+        **Steps to Implement Automated Rollback**:<br>
+        1. Define your deployments using Helm.<br>
+        2. Enable rollback functionality in Helm.<br>
+        3. Use Azure DevOps pipelines to automatically trigger a rollback on failure.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) By using Helm charts with Azure DevOps to enable automated rollback in case of deployment failure.</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) By manually triggering the rollback after detecting a failure.</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) By using only Kubernetes native rollback capabilities without integrating with Azure DevOps.</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) Automated rollback is not possible in Azure DevOps for Kubernetes deployments.</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+<!-- Question 66 -->
+<div class="qee">
+    <div class="que">
+        <p>66. Which of the following is the best way to manage configurations in Kubernetes deployments within Azure DevOps?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Use Kubernetes ConfigMaps and Secrets for managing configurations and secrets in Kubernetes deployments.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Kubernetes ConfigMaps and Secrets are the standard way to store and manage configuration data and sensitive information. Azure DevOps pipelines can integrate these resources to manage Kubernetes configurations automatically.<br><br>
+        **Best Practices for Configuration Management**:<br>
+        1. Use ConfigMaps for storing non-sensitive data.<br>
+        2. Use Secrets for sensitive information like API keys or credentials.<br>
+        3. Integrate ConfigMaps and Secrets in the Azure DevOps pipeline to automate deployments.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) Store all configurations directly in Azure DevOps repository without using Kubernetes resources.</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) Use Azure Key Vault only for configuration management and avoid using Kubernetes-native resources.</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) Use Kubernetes ConfigMaps and Secrets for managing configurations and secrets in Kubernetes deployments.</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) Configurations should only be stored in Kubernetes pods and not in external services like Azure DevOps.</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee">
+    <div class="que">
+        <p>67. What is the role of Helm in managing Kubernetes applications within Azure DevOps pipelines?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Helm provides a package manager for Kubernetes, allowing Azure DevOps pipelines to deploy and manage applications with ease.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Helm acts as a package manager for Kubernetes, helping with the management of applications using Helm charts. Helm charts define, install, and upgrade Kubernetes applications, and Azure DevOps pipelines can be used to automate this process.<br><br>
+        **Benefits of Using Helm with Azure DevOps**:<br>
+        1. Simplifies deployment of complex applications.<br>
+        2. Makes version management of applications easy.<br>
+        3. Automates the process of installing and upgrading Kubernetes applications.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) Helm provides a package manager for Kubernetes, allowing Azure DevOps pipelines to deploy and manage applications with ease.</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) Helm is used only for managing configurations and not for deploying applications in Kubernetes.</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) Helm is a tool for managing virtual machines, not Kubernetes applications.</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) Helm charts are not compatible with Azure DevOps pipelines.</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee">
+    <div class="que">
+        <p>68. How does Azure DevOps help with scaling Kubernetes clusters automatically?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure DevOps integrates with the Kubernetes Horizontal Pod Autoscaler (HPA) to adjust the number of pods based on resource usage.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps integrates seamlessly with Kubernetes autoscaling tools like the Horizontal Pod Autoscaler (HPA). The HPA automatically adjusts the number of pods in a deployment based on resource metrics like CPU and memory utilization, ensuring optimal performance.<br><br>
+        **Autoscaling in Kubernetes**:<br>
+        1. Horizontal Pod Autoscaler (HPA) adjusts the number of pod replicas.<br>
+        2. Azure DevOps can trigger autoscaling actions through CI/CD pipelines.<br>
+        3. It ensures optimal resource usage and application performance.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) Azure DevOps uses manual intervention to scale Kubernetes clusters.</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) Azure DevOps integrates with the Kubernetes Horizontal Pod Autoscaler (HPA) to adjust the number of pods based on resource usage.</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) Azure DevOps cannot perform scaling actions directly in Kubernetes clusters.</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) Scaling in Kubernetes is only managed by Azure Resource Manager and cannot be automated with Azure DevOps.</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee">
+    <div class="que">
+        <p>69. Which Azure service can be used to handle secrets management in Azure DevOps for Kubernetes deployments?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Azure Key Vault can be used to store and manage secrets securely in Azure DevOps pipelines for Kubernetes deployments.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Key Vault provides a secure, cloud-based service for storing secrets such as passwords, certificates, and API keys. Azure DevOps can integrate with Key Vault to retrieve secrets during the CI/CD process for secure and automated deployments.<br><br>
+        **Key Features of Azure Key Vault**:<br>
+        1. Secure storage of sensitive data such as secrets and certificates.<br>
+        2. Seamless integration with Azure DevOps pipelines.<br>
+        3. Helps maintain compliance and best practices for security in Kubernetes deployments.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) Azure Active Directory is used for secret management in Azure DevOps pipelines.</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) Azure DevOps has its own internal system for storing secrets, which should be used for Kubernetes deployments.</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) Kubernetes itself provides a built-in solution for managing secrets, so Azure DevOps is not required.</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) Azure Key Vault can be used to store and manage secrets securely in Azure DevOps pipelines for Kubernetes deployments.</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee">
+    <div class="que">
+        <p>70. What is the best practice for securing Kubernetes deployments in Azure DevOps pipelines?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Use Role-Based Access Control (RBAC) and store sensitive data in Azure Key Vault.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        RBAC helps restrict access to Kubernetes resources based on user roles, while Azure Key Vault secures sensitive data such as secrets and certificates. Together, they provide robust security for Kubernetes deployments in Azure DevOps pipelines.<br><br>
+        **Best Security Practices**:<br>
+        1. Implement RBAC to limit access.<br>
+        2. Use Azure Key Vault for secret management.<br>
+        3. Regularly audit and review access policies.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) Use public keys for all users and store secrets in plain text.</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) No security measures are necessary for Kubernetes deployments.</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) Use Role-Based Access Control (RBAC) and store sensitive data in Azure Key Vault.</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) Store all secrets and configurations in the Azure DevOps repository for easy access.</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+<!-- Question 71 -->
+<div class="qee">
+    <div class="que">
+        <p>71. What is the primary benefit of using Azure DevOps to manage Kubernetes clusters on Azure?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure DevOps allows for continuous integration and continuous delivery (CI/CD) of Kubernetes applications, simplifying management and deployment.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps offers CI/CD pipelines for automating the deployment of Kubernetes applications. This integration simplifies the management of Kubernetes clusters, ensuring consistent and automated application updates.<br><br>
+        **Benefits of CI/CD for Kubernetes**:<br>
+        1. Automated deployment of applications to Kubernetes clusters.<br>
+        2. Faster development cycles and updates.<br>
+        3. Increased reliability and reduced manual errors.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) Azure DevOps only helps with monitoring Kubernetes clusters, but not with deployment automation.</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) Azure DevOps allows for continuous integration and continuous delivery (CI/CD) of Kubernetes applications, simplifying management and deployment.</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) Azure DevOps is used only for managing infrastructure and not for automating Kubernetes application deployments.</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) Azure DevOps does not support Kubernetes cluster management.</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee">
+    <div class="que">
+        <p>72. Which Azure service allows Kubernetes clusters to be integrated with Azure Active Directory (AAD) for authentication and authorization?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Azure Kubernetes Service (AKS) allows Kubernetes clusters to integrate with Azure Active Directory (AAD) for identity and access management.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Kubernetes Service (AKS) offers native integration with Azure Active Directory (AAD) to manage user access and authentication. This integration simplifies identity management by leveraging AAD's security features for Kubernetes resources.<br><br>
+        **Benefits of AAD Integration with AKS**:<br>
+        1. Unified authentication and authorization for Kubernetes.<br>
+        2. RBAC integration for controlling access to Kubernetes resources.<br>
+        3. Simplified management of users and permissions.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) Azure Kubernetes Service (AKS) allows Kubernetes clusters to integrate with Azure Active Directory (AAD) for identity and access management.</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) Azure Active Directory is not compatible with Kubernetes clusters for authentication purposes.</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) Azure DevOps uses Azure Active Directory to manage Kubernetes authentication instead of AKS.</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) Kubernetes does not support integration with Azure Active Directory.</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee">
+    <div class="que">
+        <p>73. What is the key benefit of using Azure DevOps to manage containerized applications in Kubernetes?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Azure DevOps helps to automate the build, test, and deployment processes of containerized applications to Kubernetes, improving efficiency and consistency.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps automates the entire CI/CD pipeline for containerized applications, from building and testing Docker images to deploying them into Kubernetes clusters. This leads to better efficiency, reduced manual errors, and faster time to market.<br><br>
+        **Benefits of Using Azure DevOps with Kubernetes**:<br>
+        1. Automates the end-to-end process for building, testing, and deploying containers.<br>
+        2. Ensures consistency in deployment with the use of pipelines.<br>
+        3. Allows integration with other Azure services for enhanced management and monitoring.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) Azure DevOps only manages Kubernetes resources and does not assist with containerized application deployment.</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) Azure DevOps is not useful for managing containerized applications in Kubernetes clusters.</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) Azure DevOps simplifies only the deployment process of containerized applications but does not handle testing.</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) Azure DevOps helps to automate the build, test, and deployment processes of containerized applications to Kubernetes, improving efficiency and consistency.</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee">
+    <div class="que">
+        <p>74. What is the primary use of Azure DevOps Repos in managing Kubernetes deployments?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Azure DevOps Repos are used to store Kubernetes manifests, Helm charts, and CI/CD pipeline YAML files, enabling version control and collaboration.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Repos offers version-controlled Git repositories where Kubernetes manifests, Helm charts, and pipeline files can be stored. This enables collaboration, track changes, and manage configurations for Kubernetes deployments.<br><br>
+        **Use of Azure DevOps Repos in Kubernetes Deployments**:<br>
+        1. Store deployment files such as YAML and Helm charts.<br>
+        2. Enable collaboration and versioning.<br>
+        3. Integrate with CI/CD pipelines to automate deployment and management.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) Azure DevOps Repos are used only for storing documentation related to Kubernetes deployments.</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) Azure DevOps Repos are only used for storing Dockerfiles and container images.</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) Azure DevOps Repos are used to store Kubernetes manifests, Helm charts, and CI/CD pipeline YAML files, enabling version control and collaboration.</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) Azure DevOps Repos cannot be used for Kubernetes-related resources, as it only supports traditional code management.</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<!-- Question 75 -->
+<div class="qee">
+    <div class="que">
+        <p>75. What is the primary advantage of using Helm Charts for Kubernetes deployment in Azure DevOps?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Helm Charts provide a consistent way to deploy, manage, and version applications across Kubernetes clusters, enabling easy upgrades and rollbacks.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Helm Charts allow developers to package Kubernetes applications with predefined configurations. They simplify deployment, upgrades, and rollbacks of Kubernetes resources, making management easier in complex environments.<br><br>
+        **Advantages of Helm Charts**:<br>
+        1. Standardized deployment configurations.<br>
+        2. Easy rollback to previous versions.<br>
+        3. Version control for applications and dependencies.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) Helm Charts are used to build container images and push them to the container registry.</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) Helm Charts are used to monitor Kubernetes deployments, not for deploying applications.</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) Helm Charts automate the scaling of Kubernetes clusters.</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) Helm Charts provide a consistent way to deploy, manage, and version applications across Kubernetes clusters, enabling easy upgrades and rollbacks.</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+
+<!-- Question 76 -->
+<div class="qee">
+    <div class="que">
+        <p>76. How does Azure DevOps integrate with Helm for Kubernetes deployment?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure DevOps can be used to automate Helm Chart deployment using YAML pipelines, enabling consistent and repeatable application deployment to Kubernetes.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps provides YAML-based pipelines where you can integrate Helm for deploying Kubernetes applications. This integration automates the deployment process, making it more efficient and less error-prone.<br><br>
+        **Steps for Integrating Helm in Azure DevOps**:<br>
+        1. Define a YAML pipeline.<br>
+        2. Use the Helm task to deploy or manage Helm Charts.<br>
+        3. Configure Kubernetes settings and deploy to the cluster.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) Azure DevOps does not support Helm integration for Kubernetes.</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) Azure DevOps can be used to automate Helm Chart deployment using YAML pipelines, enabling consistent and repeatable application deployment to Kubernetes.</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) Helm is manually deployed on Kubernetes clusters using Azure DevOps.</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) Helm integration in Azure DevOps is used to monitor Kubernetes cluster health.</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee">
+    <div class="que">
+        <p>77. Which Azure DevOps feature is used to trigger Kubernetes deployments when new changes are pushed to a repository?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Azure DevOps pipelines are used to automatically trigger deployments to Kubernetes clusters upon code changes in the repository.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Azure DevOps, you can configure pipelines to trigger automatically upon code changes, such as commits or pull requests, ensuring continuous deployment of the latest application versions to your Kubernetes clusters.<br><br>
+        **Pipeline Triggers in Azure DevOps**:<br>
+        1. Trigger based on push events or pull request creation.<br>
+        2. Automatically deploy updated images or configurations to Kubernetes.<br>
+        3. Streamlined integration with other Azure DevOps features like Repos and Boards.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) Azure DevOps triggers only manual deployments for Kubernetes after code changes.</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) Azure DevOps uses Azure Pipelines only for monitoring Kubernetes clusters.</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) Azure DevOps pipelines are used to automatically trigger deployments to Kubernetes clusters upon code changes in the repository.</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) Azure DevOps does not support automatic triggers for Kubernetes deployments.</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee">
+    <div class="que">
+        <p>78. What is the primary function of Azure DevOps for managing Kubernetes cluster configurations?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Azure DevOps allows for version control and management of Kubernetes configuration files, including YAML manifests and Helm charts.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps enables teams to store and manage Kubernetes configuration files in Git repositories. This allows you to version control and track changes to manifests, Helm charts, and other deployment configurations.<br><br>
+        **Benefits of Azure DevOps for Kubernetes Configuration Management**:<br>
+        1. Version control for Kubernetes configuration files.<br>
+        2. Collaboration among teams with pull requests and code reviews.<br>
+        3. Seamless integration with Kubernetes deployments.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) Azure DevOps allows for version control and management of Kubernetes configuration files, including YAML manifests and Helm charts.</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) Azure DevOps can only manage infrastructure-related Kubernetes configurations, not application-specific ones.</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) Azure DevOps does not support configuration management for Kubernetes.</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) Azure DevOps only manages Docker container configurations, not Kubernetes configurations.</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+
+                                                                                                                                                                                                                                                       
+            
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

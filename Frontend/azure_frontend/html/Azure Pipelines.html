@@ -1,0 +1,2813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Pipelines</title>
+    <link rel="stylesheet" href="../css/Azure Devops.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'C', 'B', 'A', 'C', 'B', 'C', 'B', 'A', 'C',
+            'B', 'A', 'C', 'B', 'D', 'B', 'A', 'C', 'D', 'B',
+            'B', 'A', 'C', 'D', 'B', 'B', 'D', 'C', 'D', 'A',
+            'B', 'D', 'C', 'B', 'D', 'B', 'A', 'C', 'D', 'A',
+            'D', 'C', 'B', 'D', 'C', 'B', 'D', 'C', 'A', 'C',
+            'B', 'C', 'B', 'A', 'D', 'B', 'A', 'C', 'D', 'B', 
+            'B', 'A', 'C', 'D', 'C', 'B', 'C', 'B', 'D', 'A',
+            'B', 'C', 'A', 'B', 'A', 'B', 'C', 'A', 'D', 'B',
+            'B', 'A', 'C', 'D', 'A', 'B', 'C', 'B', 'C', 'D',
+            'B', 'C', 'B', 'D', 'C', 
+
+
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>Azure Pipelines</h3>
+        <div class="inner-border">
+            <!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is the primary purpose of using Azure Pipelines in Azure DevOps?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automate build and release workflows</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Pipelines enables the automation of building, testing, and deploying code, allowing for continuous integration and continuous delivery.<br><br>
+        **Steps in Pipelines**:<br>
+        1. Code is committed to a repository.<br>
+        2. Azure Pipelines triggers a build to validate the code.<br>
+        3. The code is deployed to the desired environment automatically.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) To manage project documentation</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) To automate build and release workflows</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) To monitor system performance</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) To manage user authentication</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. How does Azure Pipelines handle multi-stage deployments?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using multiple pipeline stages for each environment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Pipelines supports multi-stage deployments, where each stage is defined to handle a different environment, such as development, testing, and production.<br><br>
+        **Multi-Stage Deployment**:<br>
+        1. Define stages for each environment.<br>
+        2. Each stage includes its own tasks and jobs.<br>
+        3. The pipeline progresses through each stage sequentially.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) By running all stages in parallel</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) By using manual triggers for each stage</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) By using multiple pipeline stages for each environment</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) By automating the deployment only to production</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What is a YAML pipeline in Azure DevOps?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A pipeline defined using YAML syntax</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        YAML pipelines allow users to define their pipeline configurations in a `.yml` file, providing more flexibility and versioning options.<br><br>
+        **YAML Pipeline Basics**:<br>
+        1. Define stages, jobs, and steps in YAML.<br>
+        2. Store the `.yml` file in the repository.<br>
+        3. Azure Pipelines executes the tasks defined in the YAML file.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) A pipeline that uses a graphical user interface</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) A pipeline defined using YAML syntax</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) A pipeline that requires manual triggers</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) A pipeline integrated with GitHub Actions</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. How does Azure Pipelines integrate with GitHub for automated deployments?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using a service connection to link GitHub to Azure Pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To automate deployments from GitHub, Azure Pipelines uses a service connection to securely link the GitHub repository to the pipeline.<br><br>
+        **Integration Steps**:<br>
+        1. Create a service connection to GitHub in Azure DevOps.<br>
+        2. Link the GitHub repository to Azure Pipelines.<br>
+        3. Configure the pipeline to trigger on commits to the GitHub repository.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) By using a service connection to link GitHub to Azure Pipelines</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) By linking Azure Pipelines to GitHub Actions</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) By manually uploading the code to Azure DevOps</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) By using GitHub webhooks to trigger deployments</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. What is the benefit of using a release pipeline in Azure Pipelines?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To automate the deployment of code to multiple environments</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A release pipeline allows for the automated deployment of applications to different environments, such as development, staging, and production.<br><br>
+        **Release Pipeline Benefits**:<br>
+        1. Automates deployments to multiple environments.<br>
+        2. Supports approval workflows and manual intervention.<br>
+        3. Enables versioned releases and tracking of deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) To provide version control for code changes</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) To monitor the health of applications in production</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) To automate the deployment of code to multiple environments</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) To create new GitHub repositories automatically</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+
+ <!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is the purpose of a build pipeline in Azure DevOps?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automate the process of building and testing code</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A build pipeline automates the process of compiling source code, running tests, and preparing code for release. It ensures consistency and efficiency in the build process.<br><br>
+        **Build Pipeline Steps**:<br>
+        1. Code is checked into a repository.<br>
+        2. The pipeline automatically triggers the build process.<br>
+        3. Tests are run, and the output is stored or deployed.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) To monitor the system's health</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) To automate the process of building and testing code</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) To deploy code to production environments</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) To manage the source code repository</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. How does Azure DevOps handle build triggers?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using various triggers such as commit, pull request, or schedule</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps allows you to configure different build triggers, such as a code commit, a pull request, or on a scheduled basis, which automatically initiates the build pipeline.<br><br>
+        **Build Triggers Examples**:<br>
+        1. A commit to the repository triggers the build pipeline.<br>
+        2. A pull request can trigger builds to ensure code quality before merging.<br>
+        3. Builds can also be scheduled at specified times.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) By running builds on demand only</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) By manually triggering the build process</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) By using various triggers such as commit, pull request, or schedule</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) By using only commit-based triggers</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What is the role of artifacts in Azure DevOps build pipelines?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Artifacts store the output of the build process for later use</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Artifacts in Azure DevOps are used to store build outputs such as compiled code, logs, and any other files generated during the build process, which can be reused or deployed in subsequent stages.<br><br>
+        **Artifact Workflow**:<br>
+        1. The build process creates an artifact.<br>
+        2. The artifact is stored in Azure DevOps.<br>
+        3. The artifact can be used by release pipelines or other stages in the pipeline.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) Artifacts are used to store the configuration settings for the build</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) Artifacts store the output of the build process for later use</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) Artifacts are used for deploying the code to production</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) Artifacts are only used for version control</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. How can you define build pipeline variables in Azure DevOps?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using pipeline variables or variable groups</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Azure DevOps, build pipeline variables can be defined either inline within the pipeline YAML or by using variable groups that are reusable across multiple pipelines.<br><br>
+        **Defining Variables**:<br>
+        1. Inline variables can be defined directly in the YAML.<br>
+        2. Variable groups can be created and shared across multiple pipelines.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) By using pipeline variables or variable groups</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) By modifying the source code directly</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) By using only environment variables</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) By creating separate configuration files for each build</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. What happens if a build fails in Azure DevOps?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The build process stops, and the failure is logged for troubleshooting</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        If a build fails, the pipeline stops, and detailed logs are generated to help diagnose and fix the issue before retrying the build.<br><br>
+        **Troubleshooting Build Failures**:<br>
+        1. The error messages in the logs help identify the problem.<br>
+        2. You can modify the code or configuration and re-trigger the build.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) The build continues to run but without creating artifacts</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) The build retries automatically without any intervention</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) The build process stops, and the failure is logged for troubleshooting</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) The build continues to the release pipeline</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is the main purpose of a release pipeline in Azure DevOps?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automate the deployment of applications to various environments</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A release pipeline automates the process of deploying applications to different environments, such as development, staging, and production.<br><br>
+        **Release Pipeline Steps**:<br>
+        1. Code is built and tested in the build pipeline.<br>
+        2. The release pipeline takes the built code and deploys it to the target environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) To perform unit tests on the code</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) To automate the deployment of applications to various environments</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) To trigger the build process for the code</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) To track work items associated with the code</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. How can you define environments in a release pipeline in Azure DevOps?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using stages to represent different environments</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Azure DevOps, environments can be defined by using stages in the release pipeline. Each stage represents a specific environment, such as development, staging, or production.<br><br>
+        **Environments in Release Pipeline**:<br>
+        1. A stage is created for each environment.<br>
+        2. The deployment process proceeds through these stages sequentially.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) By using stages to represent different environments</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) By creating separate release pipelines for each environment</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) By linking environment variables to each stage</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) By specifying deployment targets in the release pipeline</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What is the purpose of approvals in a release pipeline in Azure DevOps?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To ensure that deployment to a particular environment is reviewed before proceeding</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Approvals in release pipelines allow you to enforce manual checks before deploying to certain environments. This helps in validating deployments and ensuring that the appropriate teams approve the changes.<br><br>
+        **Approval Workflow**:<br>
+        1. A deployment is triggered for a specific environment.<br>
+        2. The deployment is paused for approval.<br>
+        3. A designated approver reviews and either approves or rejects the deployment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) To automatically deploy code to the next environment</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) To notify users about deployment status</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) To ensure that deployment to a particular environment is reviewed before proceeding</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) To trigger the release pipeline automatically after successful builds</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. How can you track and monitor release deployments in Azure DevOps?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By using release pipeline logs and Azure DevOps dashboards</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps provides detailed logs for each stage of the release pipeline and also offers dashboards to monitor the status of deployments and track their progress.<br><br>
+        **Tracking and Monitoring**:<br>
+        1. Release logs show detailed information about each deployment step.<br>
+        2. Dashboards provide an overview of the release pipeline status, including successful and failed deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) By setting up email notifications for every deployment</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) By using release pipeline logs and Azure DevOps dashboards</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) By checking the deployment status in the source code repository</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) By using third-party monitoring tools</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What is the purpose of a rollback in the context of release pipelines in Azure DevOps?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To restore the previous version of an application if the deployment fails</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Rollback allows you to revert to a previous stable version of an application if the current deployment causes issues or failures.<br><br>
+        **Rollback Process**:<br>
+        1. A deployment fails, triggering a rollback.<br>
+        2. The previous stable version of the application is restored to the environment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) To stop the release pipeline from running</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) To notify users about deployment issues</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) To log deployment errors</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) To restore the previous version of an application if the deployment fails</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. What is the purpose of an agent in Azure DevOps?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To run build and release pipelines on a specified machine</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        An agent in Azure DevOps is responsible for running the tasks defined in build and release pipelines. It can run on either a Microsoft-hosted agent or a self-hosted agent.<br><br>
+        **Agent Types**:<br>
+        1. Microsoft-hosted agents are automatically provided by Azure DevOps.<br>
+        2. Self-hosted agents are manually set up on your own infrastructure for custom requirements.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) To manage user authentication</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) To run build and release pipelines on a specified machine</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) To trigger build events in the pipeline</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) To monitor code quality during builds</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. What is the difference between a Microsoft-hosted agent and a self-hosted agent in Azure DevOps?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Microsoft-hosted agents are managed by Azure DevOps, while self-hosted agents are managed by the user</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Microsoft-hosted agents are automatically managed and provisioned by Azure DevOps, whereas self-hosted agents are manually set up, configured, and maintained by the user on their own infrastructure.<br><br>
+        **Key Differences**:<br>
+        1. Microsoft-hosted agents are preconfigured with common software tools.<br>
+        2. Self-hosted agents can be customized with specific tools or environments based on project needs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) Microsoft-hosted agents are managed by Azure DevOps, while self-hosted agents are managed by the user</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) Microsoft-hosted agents are faster than self-hosted agents</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) Microsoft-hosted agents require manual configuration</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) Self-hosted agents can only be used in the cloud</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. How can you install a self-hosted agent in Azure DevOps?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By downloading the agent package from Azure DevOps and configuring it on the machine</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To install a self-hosted agent, download the agent package from Azure DevOps, extract it, and run a configuration command to connect the agent to your Azure DevOps organization.<br><br>
+        **Steps for Installation**:<br>
+        1. Go to Azure DevOps and select the Agent Pools section.<br>
+        2. Download the appropriate agent package for your operating system.<br>
+        3. Run the configuration command to link the agent to your organization.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) By using an automated script from Azure DevOps</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) By configuring the agent directly from the Azure DevOps UI</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) By downloading the agent package from Azure DevOps and configuring it on the machine</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) By installing the agent from the Azure CLI</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What happens when a self-hosted agent is offline in Azure DevOps?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Pipelines using the agent will fail until the agent is online again</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        When a self-hosted agent is offline, any pipelines that depend on that agent cannot proceed until the agent is brought back online.<br><br>
+        **Impact of Offline Agent**:<br>
+        1. The jobs assigned to that agent will be delayed or fail.<br>
+        2. A different agent from the pool can be used if available.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) The pipeline will be paused until the agent is back online</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) The pipeline will be automatically reassigned to a Microsoft-hosted agent</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) The pipeline will continue without using the agent</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) Pipelines using the agent will fail until the agent is online again</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. How can you scale up or down the number of self-hosted agents in an Azure DevOps environment?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By adding or removing agents in the Agent Pools section in Azure DevOps</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The number of self-hosted agents can be scaled by manually adding or removing agents from the Agent Pools section in Azure DevOps.<br><br>
+        **Scaling Process**:<br>
+        1. Go to the Agent Pools section in Azure DevOps.<br>
+        2. Add new agents or remove existing ones based on the requirements.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) By upgrading the Azure DevOps plan</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) By adding or removing agents in the Agent Pools section in Azure DevOps</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) By increasing the number of Microsoft-hosted agents</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) By configuring auto-scaling for agents in Azure Pipelines</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. What is the primary purpose of stages in Azure DevOps pipelines?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To organize and separate different steps of the pipeline into logical units</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Stages in Azure DevOps pipelines are used to organize different steps of the pipeline, such as build, test, and deploy, into separate logical units. Each stage can run independently or depend on others.<br><br>
+        **Stage Benefits**:<br>
+        1. Allows parallel execution of independent stages.<br>
+        2. Provides a clear separation between different pipeline tasks.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) To monitor the system's health during the pipeline execution</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) To organize and separate different steps of the pipeline into logical units</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) To restrict access to certain parts of the pipeline</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) To configure the number of concurrent pipeline executions</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. How can you control the execution order of stages in Azure DevOps pipelines?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By defining dependencies between stages</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can control the execution order of stages by defining dependencies between them. This ensures that some stages run only after others have completed.<br><br>
+        **Defining Dependencies**:<br>
+        1. Use the `dependsOn` keyword to define dependencies between stages.<br>
+        2. Stages that do not have dependencies run in parallel.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) By defining dependencies between stages</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) By setting the execution priority in the pipeline settings</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) By manually triggering stages from the Azure DevOps UI</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) By setting up automatic retries for each stage</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. What happens if a stage fails in an Azure DevOps pipeline?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The pipeline stops executing, and subsequent stages are not run</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        If a stage fails, the pipeline stops and does not proceed to any subsequent stages unless you explicitly configure the pipeline to continue on failure.<br><br>
+        **Handling Failures**:<br>
+        1. Use the `continueOnError` option to allow subsequent stages to run even if a previous stage fails.<br>
+        2. Investigate the logs to understand why the stage failed.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) The stage retries automatically until it passes</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) The pipeline skips the failed stage and moves to the next</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) The pipeline stops executing, and subsequent stages are not run</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) The stage is paused, awaiting user intervention</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. How can you run a stage in parallel with other stages in Azure DevOps pipelines?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By not defining any dependencies between the stages</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Stages can run in parallel if no dependencies are defined between them. This allows for faster execution of independent stages in the pipeline.<br><br>
+        **Parallel Execution**:<br>
+        1. Ensure that stages that can run simultaneously do not have a `dependsOn` relationship.<br>
+        2. Azure DevOps will automatically handle the parallel execution of independent stages.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) By manually running each stage in parallel</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) By setting the execution priority to high for the stages</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) By defining an execution trigger for each stage</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) By not defining any dependencies between the stages</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. What is a common use case for splitting a pipeline into multiple stages in Azure DevOps?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To separate build, test, and deploy processes into distinct stages</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Splitting a pipeline into multiple stages helps to logically separate different tasks such as building, testing, and deploying. This makes it easier to manage and monitor each part of the process.<br><br>
+        **Stage Use Cases**:<br>
+        1. Build stage to compile code.<br>
+        2. Test stage to validate the build.<br>
+        3. Deploy stage to release the application.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) To define variable groups specific to each pipeline stage</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) To separate build, test, and deploy processes into distinct stages</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) To set up automated triggers based on stage completion</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) To manually approve each pipeline stage before execution</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. What is the primary purpose of jobs in Azure DevOps pipelines?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To define a unit of work that can be executed within a stage</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Jobs in Azure DevOps are used to define a unit of work that runs within a specific stage. They contain tasks that are executed sequentially or in parallel depending on the pipeline setup.<br><br>
+        **Job Benefits**:<br>
+        1. Provides modularity in defining different units of work.<br>
+        2. Allows parallel execution of independent jobs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) To monitor the health of the pipeline</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) To define a unit of work that can be executed within a stage</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) To trigger actions upon successful completion of a stage</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) To organize variables used in the pipeline</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. How can jobs run in parallel in Azure DevOps pipelines?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By not defining dependencies between jobs</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Jobs can run in parallel if no dependencies are defined between them. This can optimize pipeline execution time by running independent jobs simultaneously.<br><br>
+        **Parallel Jobs**:<br>
+        1. Ensure that jobs do not depend on the completion of others by using the `dependsOn` keyword.<br>
+        2. Independent jobs will execute in parallel to save time.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) By assigning high priority to each job</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) By manually triggering each job after the previous one completes</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) By setting the same execution priority for each job</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) By not defining dependencies between jobs</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. What happens if a job fails in an Azure DevOps pipeline?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The pipeline stops executing unless configured to continue on error</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        If a job fails, the pipeline will typically stop unless the `continueOnError` option is used. This is helpful for debugging and preventing further actions if critical steps fail.<br><br>
+        **Handling Job Failures**:<br>
+        1. Use `continueOnError` to allow subsequent jobs to run despite a failure.<br>
+        2. Review logs to troubleshoot failed jobs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) The pipeline retries the job until it succeeds</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) The pipeline ignores the job failure and moves to the next</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) The pipeline stops executing unless configured to continue on error</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) The job is paused, awaiting user intervention</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. How can you reuse jobs in multiple pipelines in Azure DevOps?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using templates</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can reuse jobs across multiple pipelines by creating job templates. These templates allow you to define jobs once and reuse them in different pipeline definitions.<br><br>
+        **Job Templates**:<br>
+        1. Define common jobs in a template file.<br>
+        2. Reference the template in multiple pipeline YAML files.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) By manually copying job definitions into each pipeline</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) By defining jobs as separate pipeline steps</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) By using environment variables to configure jobs</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) By using templates</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. How can you ensure that jobs run in a specific order within a stage in Azure DevOps pipelines?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using the `dependsOn` keyword</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can control the execution order of jobs in a stage by using the `dependsOn` keyword. This ensures that jobs are executed in a specific order, with one job depending on the completion of another.<br><br>
+        **Controlling Job Order**:<br>
+        1. Use `dependsOn` to specify dependencies between jobs.<br>
+        2. Jobs will run in the specified order based on dependencies.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) By using the `dependsOn` keyword</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) By assigning the same priority to each job</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) By manually triggering jobs in sequence</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) By defining job dependencies in the pipeline YAML</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. What is the primary purpose of tasks in Azure DevOps pipelines?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To define actions that are executed during a job</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Tasks in Azure DevOps pipelines define specific actions that are executed during a job. Each task performs a unit of work such as compiling code, running tests, or deploying applications.<br><br>
+        **Task Benefits**:<br>
+        1. Modular execution of pipeline steps.<br>
+        2. Customizable to suit project needs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) To monitor the pipeline execution</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) To define actions that are executed during a job</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) To trigger other pipelines automatically</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) To organize variables used within a pipeline</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. How can you create custom tasks in Azure DevOps pipelines?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By creating a custom extension and publishing it to the Azure DevOps Marketplace</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Custom tasks can be created by developing extensions and publishing them to the Azure DevOps Marketplace. These tasks can then be used in pipelines across various projects.<br><br>
+        **Custom Task Creation**:<br>
+        1. Develop an extension with a custom task.<br>
+        2. Publish the extension to the Azure DevOps Marketplace.<br>
+        3. Install and use the custom task in your pipeline.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) By writing a script and uploading it to the pipeline</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) By manually creating tasks in the YAML file</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) By using pre-built extensions from the Azure DevOps Marketplace</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) By creating a custom extension and publishing it to the Azure DevOps Marketplace</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. What is the function of pre-defined tasks in Azure DevOps pipelines?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To simplify pipeline configuration by automating common actions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Pre-defined tasks in Azure DevOps pipelines automate common actions such as building code, running tests, and deploying applications. These tasks help simplify pipeline configuration and save time.<br><br>
+        **Pre-defined Task Examples**:<br>
+        1. Build task for compiling code.<br>
+        2. Test task for running unit tests.<br>
+        3. Deploy task for pushing applications to production.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) To organize pipeline execution into stages</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) To monitor job performance and alert on failures</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) To simplify pipeline configuration by automating common actions</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) To create custom variables and secrets for the pipeline</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. How do you add a task to a pipeline in Azure DevOps?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By adding the task to the pipeline YAML file or through the pipeline UI</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Tasks can be added to a pipeline by either manually adding them to the pipeline YAML file or by using the pipeline UI. The UI offers a graphical interface to select and configure tasks.<br><br>
+        **Adding Tasks**:<br>
+        1. Open the pipeline configuration page.<br>
+        2. Choose a task from the task catalog or define a custom task.<br>
+        3. Configure the task with the appropriate parameters.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) By writing scripts and attaching them to the pipeline</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) By adding the task to the pipeline YAML file or through the pipeline UI</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) By manually running a task after the pipeline starts</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) By importing task definitions from external repositories</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. Can you modify or configure the behavior of tasks in Azure DevOps pipelines?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Yes, by configuring the task parameters in the pipeline YAML file or UI</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Task behavior can be modified by configuring the parameters for each task either through the pipeline YAML file or through the UI. You can set task-specific options to control its execution.<br><br>
+        **Configuring Task Parameters**:<br>
+        1. Open the pipeline configuration.<br>
+        2. Choose the task and modify its parameters.<br>
+        3. Save the configuration to apply the changes.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) No, tasks cannot be configured once they are added</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) Yes, by editing the task script directly</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) Yes, by using external plugins to modify the task</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) Yes, by configuring the task parameters in the pipeline YAML file or UI</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. What is the purpose of YAML in Azure DevOps pipelines?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To define and configure pipeline workflows in a human-readable format</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        YAML (YAML Ain't Markup Language) is used in Azure DevOps pipelines to define and configure the entire pipeline process, including stages, jobs, and tasks, in a simple, human-readable format.<br><br>
+        **YAML Benefits**:<br>
+        1. Easy to read and write.<br>
+        2. Allows version control and better tracking of pipeline configurations.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) To automate the execution of tasks and jobs</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) To define and configure pipeline workflows in a human-readable format</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) To manage user authentication in pipelines</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) To trigger automated deployments in Azure</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. What is a key advantage of using YAML over the classic pipeline UI in Azure DevOps?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) YAML allows version control and reuse of pipeline definitions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        YAML pipelines can be versioned, stored in a source control system, and reused across different projects, providing better scalability and easier maintenance compared to classic pipelines which are manually configured in the UI.<br><br>
+        **Key Benefits of YAML**:<br>
+        1. Supports version control.<br>
+        2. Allows reuse and sharing of pipeline configurations.<br>
+        3. Enables consistent and repeatable builds.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) YAML allows version control and reuse of pipeline definitions</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) YAML is faster to configure than the classic pipeline UI</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) YAML provides a more visually appealing interface</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) YAML has better support for third-party tools</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. Which of the following is a valid structure for a YAML pipeline in Azure DevOps?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) stages: - stage: Build ...</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Azure DevOps, YAML pipelines consist of stages, jobs, and steps. The structure of a YAML pipeline begins with defining stages, followed by jobs and tasks within those stages.<br><br>
+        **Valid YAML Example**:<br>
+        ```yaml
+        stages:
+          - stage: Build
+            jobs:
+              - job: BuildJob
+                steps:
+                  - task: ...
+        ```<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) pipeline: stages: ...</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) jobs: - build: ...</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) stages: - stage: Build ...</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) workflow: stages: ...</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. In a YAML pipeline, how can you specify a trigger for the pipeline?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using the 'trigger' keyword</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In a YAML pipeline, the trigger keyword is used to define the events that will trigger the pipeline to run. For example, a common trigger is when code is pushed to a repository.<br><br>
+        **Example of Trigger in YAML**:<br>
+        ```yaml
+        trigger:
+          branches:
+            include:
+              - main
+        ```<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) By using the 'on' keyword</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) By using the 'start' keyword</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) By using the 'execute' keyword</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) By using the 'trigger' keyword</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. How do you specify variables in a YAML pipeline in Azure DevOps?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using the 'variables' keyword</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Variables can be specified in YAML pipelines using the 'variables' keyword. These variables can be used to store values that can be referenced later in the pipeline, such as configuration settings or secret values.<br><br>
+        **Example of Variables in YAML**:<br>
+        ```yaml
+        variables:
+          myVar: 'value'
+        ```<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) By using the 'variables' keyword</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) By using the 'config' keyword</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) By using the 'settings' keyword</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) By using the 'params' keyword</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. What is the role of GitHub Secrets in a CI/CD pipeline for Azure Static Web Apps?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To securely store sensitive information like Azure credentials</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub Secrets are used to store sensitive information such as Azure credentials, API keys, or other private data. These secrets are then used in the CI/CD pipeline to authenticate with Azure without exposing sensitive information in the workflow file.<br><br>
+        **Steps to Use GitHub Secrets**:<br>
+        1. Store your Azure credentials in GitHub Secrets.<br>
+        2. Reference these secrets in the workflow file to authenticate with Azure during deployment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) To store logs generated during the build and deploy process</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) To set up the environment for the GitHub Action</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) To store public keys required for authentication</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) To securely store sensitive information like Azure credentials</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. What is the main purpose of integrating GitHub with Azure Kubernetes Service (AKS)?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To automate the deployment of containerized applications to AKS</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        By integrating GitHub with AKS, developers can automate the process of building and deploying containerized applications directly from their GitHub repository to AKS clusters. This streamlines the DevOps workflow and allows for continuous delivery and updates to AKS.<br><br>
+        **Steps in AKS and GitHub Integration**:<br>
+        1. GitHub Actions or other CI/CD tools trigger workflows on code changes.<br>
+        2. Docker images are built and pushed to a container registry.<br>
+        3. Kubernetes manifests are updated and deployed to AKS.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) To monitor AKS cluster health and performance from GitHub</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) To store Kubernetes configuration files in GitHub</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) To automate the deployment of containerized applications to AKS</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) To replace Azure DevOps as the primary CI/CD tool for AKS</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. Which GitHub Action is commonly used to deploy containerized applications to Azure Kubernetes Service (AKS)?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) `azure/k8s-deploy`</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `azure/k8s-deploy` GitHub Action is used for deploying containerized applications to Azure Kubernetes Service. This action allows developers to easily deploy applications, manage Kubernetes manifests, and integrate seamlessly into the CI/CD pipeline.<br><br>
+        **Steps to Deploy to AKS with GitHub Actions**:<br>
+        1. Set up the GitHub Action workflow.<br>
+        2. Use the `azure/k8s-deploy` action to deploy the containerized application to AKS.<br>
+        3. Configure authentication and permissions for accessing Azure resources.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) `azure/deploy-to-aks`</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) `azure/k8s-deploy`</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) `azure/aks-deploy`</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) `github/actions-deploy`</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. How do you authenticate GitHub Actions to Azure when deploying to Azure Kubernetes Service (AKS)?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using an Azure Service Principal with the `azure/login` action</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To authenticate GitHub Actions with Azure, an Azure Service Principal is typically used. The `azure/login` GitHub Action is configured to authenticate the GitHub workflow with Azure using the Service Principal credentials, allowing the deployment process to access Azure resources securely.<br><br>
+        **Steps to Authenticate with Azure**:<br>
+        1. Create an Azure Service Principal with appropriate permissions.<br>
+        2. Store the credentials (client ID, client secret, tenant ID) in GitHub Secrets.<br>
+        3. Use the `azure/login` action in the GitHub Actions workflow to authenticate.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) By using GitHub personal access tokens for authentication</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) By using an Azure Active Directory (AAD) token</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) By using a service principal with Azure DevOps credentials</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) By using an Azure Service Principal with the `azure/login` action</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. What is the primary step when deploying containers from GitHub to Azure Kubernetes Service (AKS)?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Build and push the Docker image to a container registry</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The first essential step in deploying containers from GitHub to AKS is to build the Docker image and push it to a container registry (such as Azure Container Registry or Docker Hub). Once the image is available in the registry, it can be deployed to the AKS cluster using Kubernetes manifests or Helm charts.<br><br>
+        **Steps in the Process**:<br>
+        1. Set up a GitHub Action to build the Docker image.<br>
+        2. Push the image to the container registry.<br>
+        3. Deploy the image to AKS using Kubernetes manifests or Helm charts.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) Set up the Kubernetes manifests in GitHub</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) Create an Azure Kubernetes Service (AKS) cluster manually</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) Build and push the Docker image to a container registry</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) Use Azure DevOps for the CI/CD pipeline</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. What is the main purpose of defining a build pipeline in Azure DevOps?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automate the build, test, and deployment processes for code changes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A build pipeline in Azure DevOps automates the process of compiling code, running tests, and deploying applications. It helps streamline continuous integration (CI) and delivery (CD) processes.<br><br>
+        **Key Features of Build Pipelines**:<br>
+        1. Automatically trigger builds when changes are made to the codebase.<br>
+        2. Automate testing to ensure code quality.<br>
+        3. Deploy applications to various environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) To manually trigger builds only when needed</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) To automate the build, test, and deployment processes for code changes</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) To configure the development environment</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) To set up a repository for storing build artifacts</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. Which task is NOT typically included in a build definition in Azure DevOps?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Database schema changes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Build definitions in Azure DevOps typically involve tasks such as code compilation, unit testing, and packaging. Database schema changes are typically part of deployment or release tasks.<br><br>
+        **Common tasks in build definitions**:<br>
+        1. Code compilation.<br>
+        2. Running unit tests.<br>
+        3. Packaging applications.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) Code compilation</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) Running unit tests</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) Packaging applications</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) Database schema changes</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. Which of the following is a valid trigger for a build in Azure DevOps?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Code commits to the repository</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Azure DevOps, builds can be triggered by various events, including code commits, pull requests, or manual triggers. Code commits are the most common trigger for automated builds.<br><br>
+        **Common build triggers**:<br>
+        1. Code commits or push events.<br>
+        2. Pull requests.<br>
+        3. Scheduled builds.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) Only manual initiation of builds</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) Only pull request creation</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) Code commits to the repository</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) Only scheduled builds</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. How can you improve the performance of a build pipeline in Azure DevOps?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using parallel jobs to run tasks concurrently</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps allows you to improve build performance by using parallel jobs, which run tasks concurrently. This reduces the overall build time by utilizing multiple agents to process different tasks at the same time.<br><br>
+        **Performance Optimization Strategies**:<br>
+        1. Use parallel jobs to run independent tasks concurrently.<br>
+        2. Use caching to avoid redundant builds.<br>
+        3. Split large build steps into smaller, more manageable jobs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) By using parallel jobs to run tasks concurrently</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) By disabling automated tests during builds</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) By using manual triggers instead of automated ones</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) By using fewer agents for each job</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. In Azure DevOps, which task type is used to restore dependencies during a build?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Restore dependencies task</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The restore dependencies task is used in build pipelines to download and restore project dependencies, such as NuGet packages or npm packages, before proceeding with the build.<br><br>
+        **Dependency Restoration Process**:<br>
+        1. Add the restore dependencies task in the pipeline.<br>
+        2. Configure the task to restore dependencies for the relevant language or package manager (e.g., NuGet, npm).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Build task</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Deploy task</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Restore dependencies task</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) Package task</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+
+<!-- Question 51 -->
+<div class="qee">
+    <div class="que">
+        <p>51. What is the primary purpose of a release pipeline in Azure DevOps?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automate the deployment of applications to different environments</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Release pipelines in Azure DevOps are designed to automate the deployment of applications from the build environment to multiple stages or environments such as development, testing, and production.<br><br>
+        **Key Features of Release Pipelines**:<br>
+        1. Automate deployment processes.<br>
+        2. Use different stages for different environments.<br>
+        3. Integrate approval workflows to control releases.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) To perform unit testing during deployment</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) To automate the deployment of applications to different environments</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) To manually deploy applications to production only</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) To perform static code analysis during deployment</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee">
+    <div class="que">
+        <p>52. Which task is typically part of a release pipeline in Azure DevOps?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Deploy to Azure Web App</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A common task in a release pipeline is deploying an application to an environment. The "Deploy to Azure Web App" task is specifically used to deploy code to an Azure Web App during a release pipeline.<br><br>
+        **Common Release Tasks**:<br>
+        1. Deploy to different environments.<br>
+        2. Execute approval workflows.<br>
+        3. Rollback deployments if necessary.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) Code compilation</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) Run unit tests</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) Deploy to Azure Web App</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) Database backup</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee">
+    <div class="que">
+        <p>53. How does Azure DevOps handle approval gates in a release pipeline?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By requiring approval from designated users or groups before continuing</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Approval gates in Azure DevOps ensure that deployment can proceed only after being approved by designated individuals or groups. This process is useful for controlling the flow of releases to different environments, especially production.<br><br>
+        **Approval Process**:<br>
+        1. Define users or groups responsible for approval.<br>
+        2. Set up gates that require manual approval before proceeding to the next stage.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) By automatically approving the release after each stage</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) By requiring approval from designated users or groups before continuing</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) By sending a notification when a release is approved</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) By automatically rolling back failed deployments</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee">
+    <div class="que">
+        <p>54. What is a rollback in Azure DevOps release pipelines?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) A process to undo a deployment and restore the previous state</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A rollback in Azure DevOps refers to the process of undoing a deployment and returning to a previous stable version of the application, often used when a new release causes issues.<br><br>
+        **Rollback Process**:<br>
+        1. Identify the faulty deployment.<br>
+        2. Trigger a rollback to the last known stable release.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) A process to undo a deployment and restore the previous state</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) A task that deploys code to production automatically</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) A process to automatically test the deployed application</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) A feature that pauses the deployment after each stage</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee">
+    <div class="que">
+        <p>55. What is the function of the "Deploy" task in a release pipeline?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To deploy the built artifacts to a specified environment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The "Deploy" task in a release pipeline is responsible for transferring the built artifacts to a specific environment for testing, staging, or production.<br><br>
+        **Key Deployment Steps**:<br>
+        1. Specify the environment (e.g., Azure Web App, VM, Kubernetes, etc.).<br>
+        2. Deploy the artifacts to that environment.<br>
+        3. Validate the deployment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) To build the application</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) To test the deployed code</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) To approve the release manually</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) To deploy the built artifacts to a specified environment</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+
+<!-- Question 56 -->
+<div class="qee">
+    <div class="que">
+        <p>56. What is the primary goal of Continuous Integration (CI) in Azure DevOps?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automate the process of integrating code changes into the main branch frequently</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The primary goal of CI is to merge code changes regularly into the main branch, ensuring the application is always in a deployable state. Azure DevOps automates the build, test, and integration process.<br><br>
+        **CI Benefits**:<br>
+        1. Faster detection of integration errors.<br>
+        2. Reduced risks of bugs in the production environment.<br>
+        3. Improved collaboration between teams.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) To automate user authentication</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) To automate the process of integrating code changes into the main branch frequently</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) To monitor system performance</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) To manage project documentation</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee">
+    <div class="que">
+        <p>57. In Azure DevOps, how can Continuous Integration (CI) be triggered?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By pushing code changes to a repository branch</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Azure DevOps, CI can be triggered automatically when code changes are pushed to a repository branch. This ensures that builds are executed, and tests are run as soon as developers commit code.<br><br>
+        **CI Triggers**:<br>
+        1. Pushing changes to a branch.<br>
+        2. Manual trigger of a pipeline.<br>
+        3. Pull request creation.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) By pushing code changes to a repository branch</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) By manually triggering a build in the Azure portal</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) By running a script on the developer's machine</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) By creating a new repository</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee">
+    <div class="que">
+        <p>58. How does Azure DevOps ensure code quality in Continuous Integration (CI)?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By running automated tests during the build process</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps can run unit tests, integration tests, and other quality checks automatically during the CI process. This ensures that any code changes are validated for correctness and quality before merging into the main branch.<br><br>
+        **CI Quality Checks**:<br>
+        1. Unit tests.<br>
+        2. Static code analysis.<br>
+        3. Code coverage analysis.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) By manually reviewing each code commit</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) By sending notifications to developers</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) By running automated tests during the build process</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) By creating a deployment package</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee">
+    <div class="que">
+        <p>59. What is a common benefit of using Continuous Integration (CI) in Azure DevOps?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Faster identification and resolution of integration issues</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        CI enables early detection of integration issues by automatically building and testing code whenever changes are committed. This results in quicker fixes and smoother deployments.<br><br>
+        **CI Benefits**:<br>
+        1. Detect issues early in the development cycle.<br>
+        2. Reduce integration problems by frequently merging code.<br>
+        3. Ensure a consistent build and test process.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) Improved user interface design</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) Increased manual code review</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) Reduced time to deploy to production</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) Faster identification and resolution of integration issues</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee">
+    <div class="que">
+        <p>60. How can you configure a Continuous Integration (CI) pipeline in Azure DevOps?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By creating a pipeline definition and linking it to a repository</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can configure a CI pipeline by defining the steps in a YAML or classic pipeline, specifying the repository to use, and defining tasks like building, testing, and deploying the application.<br><br>
+        **Configuring CI Pipelines**:<br>
+        1. Choose a repository to link the pipeline to.<br>
+        2. Define pipeline tasks like build, test, and deploy.<br>
+        3. Trigger the pipeline on code commits.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) By setting up a GitHub webhook</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) By creating a pipeline definition and linking it to a repository</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) By configuring a Docker container</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) By manually copying the build files to a server</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+
+<!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+        <p>61. What is the primary goal of Continuous Delivery (CD) in Azure DevOps?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automate the process of deploying code to production or staging environments</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Continuous Delivery (CD) aims to automate the deployment pipeline so that code can be reliably and frequently deployed to production or staging environments after it has passed through automated tests and validation.<br><br>
+        **CD Benefits**:<br>
+        1. Faster and more reliable releases.<br>
+        2. Reduced manual intervention.<br>
+        3. Ability to release at any time with confidence.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) To automate the integration of code changes</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) To automate the process of deploying code to production or staging environments</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) To reduce the size of the production codebase</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) To handle user authentication and authorization</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee">
+    <div class="que">
+        <p>62. How does Continuous Delivery (CD) differ from Continuous Integration (CI) in Azure DevOps?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) CI focuses on integrating code frequently, while CD automates the deployment process</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Continuous Integration (CI) is focused on merging code frequently and running tests. Continuous Delivery (CD) builds upon CI by automating the deployment process to ensure that every change that passes the pipeline can be deployed to production or staging with minimal manual intervention.<br><br>
+        **CI vs CD**:<br>
+        1. CI: Focuses on merging and testing.<br>
+        2. CD: Focuses on automating the deployment process.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) CI focuses on integrating code frequently, while CD automates the deployment process</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) CI automates the deployment process, while CD focuses on integrating code</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) CI and CD are the same and do not have any differences</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) CI is used only for testing, while CD is used for deployment</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee">
+    <div class="que">
+        <p>63. What is a key feature of Continuous Delivery (CD) pipelines in Azure DevOps?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Automatic deployment to production or staging after passing tests</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A key feature of CD in Azure DevOps is the ability to automatically deploy the application to production or staging after the code has passed all defined tests, ensuring that the application is always in a deployable state.<br><br>
+        **CD Pipeline Workflow**:<br>
+        1. Code is pushed to the repository.<br>
+        2. Code is built and tested in the pipeline.<br>
+        3. The deployment is triggered to production or staging automatically.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) Manual deployment to production after approval</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) Build and testing of code in isolation</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) Automatic deployment to production or staging after passing tests</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) Testing the application in local environments before deployment</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee">
+    <div class="que">
+        <p>64. How does Continuous Delivery (CD) improve the release process?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By reducing the risk of human errors and manual intervention during deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        CD automates the deployment process, eliminating the need for manual interventions and reducing the chances of human errors. This ensures a smoother and more reliable release cycle.<br><br>
+        **CD Benefits**:<br>
+        1. Automated, reliable deployments.<br>
+        2. Reduced risk of human errors.<br>
+        3. Faster delivery of features to end-users.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) By making the code more difficult to deploy</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) By introducing more manual steps to control the release process</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) By delaying deployments to prevent unexpected issues</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) By reducing the risk of human errors and manual intervention during deployment</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee">
+    <div class="que">
+        <p>65. What is the benefit of using Continuous Delivery (CD) pipelines with staging environments?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To ensure that code is properly tested in an environment that mirrors production before being released</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Using a staging environment in a CD pipeline ensures that the application is tested in an environment similar to production, reducing the risk of bugs or issues when deploying to production.<br><br>
+        **Benefits of Staging Environments**:<br>
+        1. Code is validated in a production-like environment.<br>
+        2. Issues can be detected and fixed before deployment.<br>
+        3. Reduces the risk of deployment failures.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) To make code changes more difficult to test</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) To avoid any testing before deployment</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) To ensure that code is properly tested in an environment that mirrors production before being released</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) To allow manual deployment of code to production</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+
+<!-- Question 66 -->
+<div class="qee">
+    <div class="que">
+        <p>66. What is the purpose of using variables in Azure Pipelines?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To store values that can be reused throughout the pipeline</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Variables in Azure Pipelines are used to store values such as version numbers, paths, or credentials, which can be reused throughout the pipeline for consistency and maintainability.<br><br>
+        **Benefits of Variables**:<br>
+        1. Reusable values across tasks.<br>
+        2. Simplifies pipeline management.<br>
+        3. Secure storage for sensitive information like passwords.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) To manage the execution order of pipeline steps</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) To store values that can be reused throughout the pipeline</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) To limit the number of pipeline executions</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) To manage the code version control</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee">
+    <div class="que">
+        <p>67. How can you define variables in an Azure Pipeline?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using the `variables` keyword in the YAML file or through the pipeline UI</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Variables can be defined within the YAML file using the `variables` keyword or through the Azure Pipelines UI. These values can then be accessed in subsequent pipeline steps.<br><br>
+        **Defining Variables**:<br>
+        1. In YAML, use `variables` for setting values.<br>
+        2. Through UI, go to Pipeline > Edit > Variables to add them.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) By writing them in the script step directly</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) By defining them in the YAML pipeline only</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) By using the `variables` keyword in the YAML file or through the pipeline UI</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) By including them in the deployment script</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee">
+    <div class="que">
+        <p>68. How can you securely store sensitive data like passwords in Azure Pipelines?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By using pipeline secrets or Azure Key Vault</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Sensitive data such as passwords should be stored securely using Azure Key Vault or pipeline secrets. Azure Pipelines encrypts these values, ensuring they are not exposed.<br><br>
+        **Storing Sensitive Data**:<br>
+        1. Use pipeline secrets for environment variables.<br>
+        2. Use Azure Key Vault to securely manage credentials.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) By writing them in the pipeline YAML file as plain text</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) By using pipeline secrets or Azure Key Vault</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) By encrypting them in the GitHub repository</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) By storing them in environment variables on the local machine</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee">
+    <div class="que">
+        <p>69. How can you reference a variable defined in Azure Pipelines YAML file?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using the syntax `$(variableName)`</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Variables in Azure Pipelines are referenced using the syntax `$(variableName)`. This allows the variable’s value to be substituted dynamically during pipeline execution.<br><br>
+        **Example**:<br>
+        1. Define variable: `variables: varName: 'value'`<br>
+        2. Reference variable: `$(varName)`<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) By using the `{{variableName}}` syntax</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) By using the `%%variableName%%` syntax</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) By using the `<<variableName>>` syntax</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) By using the syntax `$(variableName)`</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee">
+    <div class="que">
+        <p>70. What is the scope of a variable in an Azure Pipeline?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Variables can be defined at multiple levels, such as pipeline, stage, or job level</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Variables in Azure Pipelines can be defined at various levels such as the pipeline level, stage level, or job level. The scope determines where the variable is accessible.<br><br>
+        **Variable Scopes**:<br>
+        1. Pipeline-level variables are accessible throughout the entire pipeline.<br>
+        2. Stage-level variables are available within a specific stage.<br>
+        3. Job-level variables are only available within a specific job.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) Variables can be defined at multiple levels, such as pipeline, stage, or job level</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) Variables can only be defined at the pipeline level</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) Variables can only be defined at the job level</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) Variables can only be defined at the stage level</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+
+<!-- Question 71 -->
+<div class="qee">
+    <div class="que">
+        <p>71. What is the primary purpose of artifacts in Azure Pipelines?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To store and manage files produced during pipeline execution</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Artifacts in Azure Pipelines are used to store files produced during a pipeline’s execution, such as build outputs, which can then be used in subsequent stages or deployments.<br><br>
+        **Artifact Usage**:<br>
+        1. Collect files during build stages.<br>
+        2. Use artifacts in deployment or testing stages.<br>
+        3. Enable sharing files between jobs or stages in a pipeline.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) To define environment variables for the pipeline</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) To store and manage files produced during pipeline execution</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) To manage the deployment triggers</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) To configure testing parameters for the pipeline</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee">
+    <div class="que">
+        <p>72. How can you share build artifacts between stages in Azure Pipelines?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By publishing and downloading artifacts in the pipeline</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can share build artifacts by publishing them in one stage and downloading them in a subsequent stage. This enables stages to share build outputs without rebuilding the same files.<br><br>
+        **Steps**:<br>
+        1. Use the `PublishBuildArtifacts` task to publish artifacts.<br>
+        2. Use the `DownloadBuildArtifacts` task in subsequent stages to use those artifacts.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) By linking the stages through shared variables</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) By passing artifacts through GitHub repositories</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) By publishing and downloading artifacts in the pipeline</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) By creating a shared repository in Azure Repos</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee">
+    <div class="que">
+        <p>73. Which task in Azure Pipelines is used to publish build artifacts?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) PublishBuildArtifacts</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `PublishBuildArtifacts` task is used to publish the build output files as artifacts in Azure Pipelines. These artifacts can then be downloaded and used in subsequent stages of the pipeline.<br><br>
+        **Steps to Publish Artifacts**:<br>
+        1. Define which files to publish in the task.<br>
+        2. Specify the artifact name and destination.<br>
+        3. Publish the artifacts for use in subsequent stages.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) PublishBuildArtifacts</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) PublishFile</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) StoreBuildArtifacts</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) UploadArtifacts</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee">
+    <div class="que">
+        <p>74. How can you consume build artifacts in a release pipeline?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By downloading artifacts using the DownloadBuildArtifacts task</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `DownloadBuildArtifacts` task allows you to download artifacts that were published in a previous build or pipeline. This is commonly used in release pipelines to use the build output during deployment.<br><br>
+        **Steps**:<br>
+        1. Use the `DownloadBuildArtifacts` task to reference the artifact name.<br>
+        2. Define the download location for the artifacts.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) By passing them as environment variables</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) By downloading artifacts using the DownloadBuildArtifacts task</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) By linking them to an Azure Blob Storage container</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) By storing them in a GitHub repository</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<!-- Question 75 -->
+<div class="qee">
+    <div class="que">
+        <p>75. Which type of artifacts are commonly used in Azure Pipelines?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Build outputs such as compiled binaries, log files, or test results</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Common artifacts include build outputs like compiled binaries, log files, and test result files. These are used across stages for further processing or deployment.<br><br>
+        **Examples of Artifacts**:<br>
+        1. Compiled binaries.<br>
+        2. Test result files.<br>
+        3. Logs and other build outputs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) Build outputs such as compiled binaries, log files, or test results</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) Configuration files for the release pipeline</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) Deployment packages and configuration files</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) Environment-specific variables</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+
+<!-- Question 76 -->
+<div class="qee">
+    <div class="que">
+        <p>76. What is the purpose of environments in Azure Pipelines?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To define and manage deployment targets for your pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Environments in Azure Pipelines represent deployment targets such as development, staging, and production environments. They are used to manage deployments and track the status of deployed resources.<br><br>
+        **Usage of Environments**:<br>
+        1. Define environments for different stages of deployment.<br>
+        2. Manage the approval and review process.<br>
+        3. Track the deployment history and status.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) To manage the CI/CD pipeline execution</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) To define and manage deployment targets for your pipelines</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) To configure build tasks and triggers</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) To store environment-specific variables</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee">
+    <div class="que">
+        <p>77. How does Azure Pipelines manage deployments to different environments?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using stages and approvals in the pipeline</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Pipelines manages deployments to different environments using stages, which define the different phases of a pipeline (e.g., dev, test, prod). Each stage can have its own approval process for promoting changes to subsequent environments.<br><br>
+        **Managing Deployments**:<br>
+        1. Define stages corresponding to different environments.<br>
+        2. Configure approvals and manual interventions for each stage.<br>
+        3. Track the status and progress of deployments across environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) By configuring environment-specific build agents</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) By defining environment variables in the YAML file</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) By using stages and approvals in the pipeline</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) By linking different environments with a single build agent</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee">
+    <div class="que">
+        <p>78. How can manual approval be configured for an environment in Azure Pipelines?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By configuring approvals in the environment settings</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Pipelines allows you to configure manual approvals by setting up approval gates in the environment settings. This ensures that deployments can be manually reviewed and approved before proceeding.<br><br>
+        **Steps to Configure Manual Approval**:<br>
+        1. Define an environment in the pipeline.<br>
+        2. Add approval gates for the environment.<br>
+        3. Specify the users or groups who can approve deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) By configuring approvals in the environment settings</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) By adding manual intervention tasks in the YAML file</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) By using a separate approval pipeline for each environment</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) By configuring build tasks to wait for manual input</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+
+<!-- Question 79 -->
+<div class="qee">
+    <div class="que">
+        <p>79. What is the main benefit of using environments in Azure Pipelines?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To better manage deployments and track resource health</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Environments allow better management of deployment processes, including approvals, deployment history tracking, and resource health monitoring. This improves visibility and control over the deployment lifecycle.<br><br>
+        **Key Benefits**:<br>
+        1. Clear tracking of deployments to each environment.<br>
+        2. Integration with Azure Monitor for resource health tracking.<br>
+        3. Control over who approves and triggers deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) To reduce the number of pipeline stages</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) To automate deployment approvals</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) To configure deployment environments across different teams</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) To better manage deployments and track resource health</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee">
+    <div class="que">
+        <p>80. What feature does Azure Pipelines provide to monitor the health of environments?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Integration with Azure Monitor</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Pipelines integrates with Azure Monitor to track the health of deployed resources in each environment. This provides visibility into potential issues, such as service outages or resource performance degradation.<br><br>
+        **Monitor Environment Health**:<br>
+        1. Configure environment monitoring through Azure Monitor.<br>
+        2. Track metrics such as uptime, performance, and resource availability.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) Using custom health check scripts</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) Integration with Azure Monitor</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) Configuring health checks in the release pipeline</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) Using third-party monitoring tools</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+<!-- Question 81 -->
+<div class="qee">
+    <div class="que">
+        <p>81. What is the primary purpose of triggers in Azure Pipelines?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automatically start pipeline runs based on certain events</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Triggers in Azure Pipelines define conditions that automatically start a pipeline run. These conditions can be based on events like changes to a repository or manual triggers.<br><br>
+        **Types of Triggers**:<br>
+        1. Continuous Integration (CI) triggers when code is pushed to a repository.<br>
+        2. Scheduled triggers run pipelines at specified times.<br>
+        3. Manual triggers allow users to start a pipeline manually.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) To monitor build progress</label><br>
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) To automatically start pipeline runs based on certain events</label><br>
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) To configure deployment schedules</label><br>
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) To trigger notifications to team members</label><br>
+    </div>
+    <div id="result80" class="result"></div>
+</div>
+
+<!-- Question 82 -->
+<div class="qee">
+    <div class="que">
+        <p>82. Which of the following is a valid trigger type in Azure Pipelines?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Continuous Integration (CI) trigger</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Continuous Integration (CI) trigger is one of the most commonly used triggers in Azure Pipelines. It automatically starts a pipeline whenever there is a change in the repository, such as when code is pushed.<br><br>
+        **Other Trigger Types**:<br>
+        1. Scheduled trigger: Runs pipelines at a specific time or interval.<br>
+        2. Manual trigger: Requires a user to start the pipeline.<br>
+        3. Pull Request trigger: Starts pipelines when a pull request is created or updated.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) Continuous Integration (CI) trigger</label><br>
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) Trigger on file creation</label><br>
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) Deploy trigger</label><br>
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) Custom trigger</label><br>
+    </div>
+    <div id="result81" class="result"></div>
+</div>
+
+<!-- Question 83 -->
+<div class="qee">
+    <div class="que">
+        <p>83. How do you configure a trigger for a pipeline in Azure Pipelines?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By specifying trigger conditions in the YAML file</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Triggers are configured in the YAML file under the "trigger" or "pr" keyword for pull request triggers. These keywords define when the pipeline should be triggered based on repository changes.<br><br>
+        **YAML Example**:<br>
+        ```yaml
+        trigger:
+          branches:
+            include:
+              - main
+        ```<br>
+        This will trigger the pipeline on changes to the `main` branch.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) By selecting triggers in the Azure DevOps UI</label><br>
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) By specifying triggers in the environment settings</label><br>
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) By specifying trigger conditions in the YAML file</label><br>
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) By configuring triggers in the pipeline editor</label><br>
+    </div>
+    <div id="result82" class="result"></div>
+</div>
+
+<!-- Question 84 -->
+<div class="qee">
+    <div class="que">
+        <p>84. What is the difference between a CI trigger and a PR trigger in Azure Pipelines?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) CI triggers on code changes, PR triggers on pull request events</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        CI triggers initiate a pipeline run whenever there is a commit to the repository. PR triggers, on the other hand, run the pipeline when a pull request is created or updated.<br><br>
+        **CI Trigger Example**:<br>
+        ```yaml
+        trigger:
+          branches:
+            include:
+              - main
+        ```<br>
+        **PR Trigger Example**:<br>
+        ```yaml
+        pr:
+          branches:
+            include:
+              - feature/*
+        ```<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) CI triggers on PR creation, PR triggers on code changes</label><br>
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) CI triggers on code review completion, PR triggers on push events</label><br>
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) CI triggers on branch deletion, PR triggers on tag creation</label><br>
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) CI triggers on code changes, PR triggers on pull request events</label><br>
+    </div>
+    <div id="result83" class="result"></div>
+</div>
+
+<!-- Question 85 -->
+<div class="qee">
+    <div class="que">
+        <p>85. How can you schedule a pipeline run in Azure Pipelines?</p>
+        <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+    </div>
+    <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using scheduled triggers in the YAML file</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Pipelines allows you to configure scheduled runs using YAML. You can specify the time and frequency at which a pipeline should trigger.<br><br>
+        **Example of a scheduled trigger**:<br>
+        ```yaml
+        schedules:
+          - cron: "0 0 * * *"
+            displayName: "Daily midnight"
+            branches:
+              include:
+                - main
+        ```<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+        <label for="optionA84">A) By using scheduled triggers in the YAML file</label><br>
+        <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+        <label for="optionB84">B) By selecting schedule options in the Azure DevOps UI</label><br>
+        <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+        <label for="optionC84">C) By configuring scheduled times in the build pipeline settings</label><br>
+        <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+        <label for="optionD84">D) By adding schedule notifications to the pipeline</label><br>
+    </div>
+    <div id="result84" class="result"></div>
+</div>
+
+<!-- Question 86 -->
+<div class="qee">
+    <div class="que">
+        <p>86. What is the primary purpose of Manual Intervention in Azure Pipelines?</p>
+        <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+    </div>
+    <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To pause a pipeline and wait for user approval before continuing</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Manual Intervention is used in Azure Pipelines to halt the pipeline at a specific stage, waiting for a user to approve or provide input before the pipeline can continue.<br><br>
+        This feature is useful when a manual check is needed, such as before deploying to production or performing critical operations.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+        <label for="optionA85">A) To automatically resolve pipeline errors</label><br>
+        <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+        <label for="optionB85">B) To pause a pipeline and wait for user approval before continuing</label><br>
+        <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+        <label for="optionC85">C) To trigger the pipeline automatically after a failure</label><br>
+        <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+        <label for="optionD85">D) To trigger notifications to users during a pipeline run</label><br>
+    </div>
+    <div id="result85" class="result"></div>
+</div>
+
+<!-- Question 87 -->
+<div class="qee">
+    <div class="que">
+        <p>87. How do you configure Manual Intervention in a pipeline?</p>
+        <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+    </div>
+    <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By adding a manual intervention task in the YAML file or UI</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Manual Intervention can be configured by adding a special task in your pipeline YAML file or using the UI to specify the exact point in the pipeline where manual approval is needed.<br><br>
+        **YAML Example**:<br>
+        ```yaml
+        - task: ManualIntervention@1
+          inputs:
+            timeout: '1h'
+            instructions: 'Please review the deployment before continuing.'
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+        <label for="optionA86">A) By creating a manual approval task in the settings</label><br>
+        <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+        <label for="optionB86">B) By adding a user approval step in the pipeline triggers</label><br>
+        <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+        <label for="optionC86">C) By adding a manual intervention task in the YAML file or UI</label><br>
+        <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+        <label for="optionD86">D) By configuring manual approvals in the pipeline permissions</label><br>
+    </div>
+    <div id="result86" class="result"></div>
+</div>
+
+<!-- Question 88 -->
+<div class="qee">
+    <div class="que">
+        <p>88. When can you use Manual Intervention in Azure Pipelines?</p>
+        <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+    </div>
+    <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To wait for user input before continuing a deployment or process</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Manual Intervention is useful when you need a pause in the pipeline to review, approve, or make decisions before the pipeline can continue. It's commonly used in deployment stages or before critical operations like production deployments.<br><br>
+        **Common Scenarios**:<br>
+        1. Deploying to production with approval.<br>
+        2. Pausing for manual review or testing.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+        <label for="optionA87">A) To validate code changes before the build runs</label><br>
+        <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+        <label for="optionB87">B) To wait for user input before continuing a deployment or process</label><br>
+        <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+        <label for="optionC87">C) To trigger a deployment when code is merged</label><br>
+        <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+        <label for="optionD87">D) To auto-resolve build errors in the pipeline</label><br>
+    </div>
+    <div id="result87" class="result"></div>
+</div>
+
+<!-- Question 89 -->
+<div class="qee">
+    <div class="que">
+        <p>89. How does the pipeline resume after a Manual Intervention task?</p>
+        <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+    </div>
+    <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The pipeline continues once the user approves or completes the manual task</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        After a Manual Intervention task, the pipeline will pause and wait for the user to approve or provide input. Once the task is completed, the pipeline resumes automatically.<br><br>
+        The user can approve, reject, or provide any necessary input at this stage.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+        <label for="optionA88">A) The pipeline continues after a set timeout</label><br>
+        <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+        <label for="optionB88">B) The pipeline retries the previous step after failure</label><br>
+        <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+        <label for="optionC88">C) The pipeline continues once the user approves or completes the manual task</label><br>
+        <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+        <label for="optionD88">D) The pipeline continues based on the next scheduled trigger</label><br>
+    </div>
+    <div id="result88" class="result"></div>
+</div>
+
+<!-- Question 90 -->
+<div class="qee">
+    <div class="que">
+        <p>90. How long can a Manual Intervention task wait for user approval in Azure Pipelines?</p>
+        <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+    </div>
+    <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) The maximum time for Manual Intervention can be set by the user in the pipeline</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The timeout for a Manual Intervention task can be configured using the `timeout` parameter. The default is 0, meaning the task waits indefinitely until the user intervenes, but you can specify a timeout value (e.g., `1h`, `30m`) to limit the waiting time.<br><br>
+        **YAML Example**:<br>
+        ```yaml
+        - task: ManualIntervention@1
+          inputs:
+            timeout: '1h'
+            instructions: 'Please review the deployment before continuing.'
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+        <label for="optionA89">A) It can wait for up to 12 hours</label><br>
+        <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+        <label for="optionB89">B) It can wait for up to 24 hours</label><br>
+        <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+        <label for="optionC89">C) It can wait for up to 48 hours</label><br>
+        <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+        <label for="optionD89">D) The maximum time for Manual Intervention can be set by the user in the pipeline</label><br>
+    </div>
+    <div id="result89" class="result"></div>
+</div>
+
+<!-- Question 91 -->
+<div class="qee">
+    <div class="que">
+        <p>91. What is the main purpose of using pipeline templates in Azure Pipelines?</p>
+        <button id="hintButton90" class="hint-button" type="button" onclick="showHint('hint91')">Show Hint</button>
+    </div>
+    <div id="hint91" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To reuse pipeline code across multiple pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Pipeline templates allow you to define reusable pipeline components that can be shared across multiple pipelines. By using templates, you avoid repetition and ensure consistency across your builds, releases, and deployment processes.<br><br>
+        Templates are helpful for standardizing pipeline tasks, variables, and jobs.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA90" name="answer90" value="A" onclick="checkAnswer(90)">
+        <label for="optionA90">A) To schedule pipeline runs automatically</label><br>
+        <input type="radio" id="optionB90" name="answer90" value="B" onclick="checkAnswer(90)">
+        <label for="optionB90">B) To reuse pipeline code across multiple pipelines</label><br>
+        <input type="radio" id="optionC90" name="answer90" value="C" onclick="checkAnswer(90)">
+        <label for="optionC90">C) To speed up the execution of a pipeline run</label><br>
+        <input type="radio" id="optionD90" name="answer90" value="D" onclick="checkAnswer(90)">
+        <label for="optionD90">D) To trigger different pipelines based on conditions</label><br>
+    </div>
+    <div id="result90" class="result"></div>
+</div>
+
+<!-- Question 92 -->
+<div class="qee">
+    <div class="que">
+        <p>92. How do you include a pipeline template in an Azure Pipeline YAML file?</p>
+        <button id="hintButton91" class="hint-button" type="button" onclick="showHint('hint92')">Show Hint</button>
+    </div>
+    <div id="hint92" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using the `template` keyword in the YAML file</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To include a template in an Azure Pipeline, you use the `template` keyword in your YAML file followed by the path to the template file. Templates can contain reusable tasks, steps, jobs, or stages.<br><br>
+        **Example**:<br>
+        ```yaml
+        jobs:
+          - template: build-template.yml
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA91" name="answer91" value="A" onclick="checkAnswer(91)">
+        <label for="optionA91">A) By including a reference to the template repository</label><br>
+        <input type="radio" id="optionB91" name="answer91" value="B" onclick="checkAnswer(91)">
+        <label for="optionB91">B) By importing the template from a URL</label><br>
+        <input type="radio" id="optionC91" name="answer91" value="C" onclick="checkAnswer(91)">
+        <label for="optionC91">C) By using the `template` keyword in the YAML file</label><br>
+        <input type="radio" id="optionD91" name="answer91" value="D" onclick="checkAnswer(91)">
+        <label for="optionD91">D) By referencing the template in the pipeline triggers section</label><br>
+    </div>
+    <div id="result91" class="result"></div>
+</div>
+
+<!-- Question 93 -->
+<div class="qee">
+    <div class="que">
+        <p>93. Which type of files can be used as pipeline templates in Azure Pipelines?</p>
+        <button id="hintButton92" class="hint-button" type="button" onclick="showHint('hint93')">Show Hint</button>
+    </div>
+    <div id="hint93" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) YAML files</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Pipelines allows the use of YAML files as templates. These YAML files can define reusable pipeline components like jobs, steps, and stages that can be included in other pipeline YAML files.<br><br>
+        **Example**:<br>
+        ```yaml
+        jobs:
+          - template: build-template.yml
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA92" name="answer92" value="A" onclick="checkAnswer(92)">
+        <label for="optionA92">A) XML files</label><br>
+        <input type="radio" id="optionB92" name="answer92" value="B" onclick="checkAnswer(92)">
+        <label for="optionB92">B) YAML files</label><br>
+        <input type="radio" id="optionC92" name="answer92" value="C" onclick="checkAnswer(92)">
+        <label for="optionC92">C) JSON files</label><br>
+        <input type="radio" id="optionD92" name="answer92" value="D" onclick="checkAnswer(92)">
+        <label for="optionD92">D) Text files</label><br>
+    </div>
+    <div id="result92" class="result"></div>
+</div>
+
+<!-- Question 94 -->
+<div class="qee">
+    <div class="que">
+        <p>94. What is the benefit of using templates in Azure Pipelines for large projects?</p>
+        <button id="hintButton93" class="hint-button" type="button" onclick="showHint('hint94')">Show Hint</button>
+    </div>
+    <div id="hint94" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It helps to standardize the pipeline process across multiple pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Templates allow you to enforce consistency across multiple pipelines, ensuring that common tasks or processes are defined in a single template file, making the pipeline setup easier to manage and maintain. This is particularly useful in large projects with multiple pipelines.<br><br>
+        It reduces redundancy and makes changes easier to implement since updating the template affects all pipelines that reference it.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA93" name="answer93" value="A" onclick="checkAnswer(93)">
+        <label for="optionA93">A) It simplifies the build process</label><br>
+        <input type="radio" id="optionB93" name="answer93" value="B" onclick="checkAnswer(93)">
+        <label for="optionB93">B) It makes it easier to set up new pipelines</label><br>
+        <input type="radio" id="optionC93" name="answer93" value="C" onclick="checkAnswer(93)">
+        <label for="optionC93">C) It reduces the number of manual steps in the pipeline</label><br>
+        <input type="radio" id="optionD93" name="answer93" value="D" onclick="checkAnswer(93)">
+        <label for="optionD93">D) It helps to standardize the pipeline process across multiple pipelines</label><br>
+    </div>
+    <div id="result93" class="result"></div>
+</div>
+
+<!-- Question 95 -->
+<div class="qee">
+    <div class="que">
+        <p>95. Can pipeline templates be stored in a different repository from the pipeline that uses them?</p>
+        <button id="hintButton94" class="hint-button" type="button" onclick="showHint('hint95')">Show Hint</button>
+    </div>
+    <div id="hint95" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Yes, pipeline templates can be stored in a separate repository</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Pipelines allows you to store pipeline templates in a separate repository and reference them in other pipelines. This is useful for sharing common templates across different projects or teams.<br><br>
+        **Example**:<br>
+        ```yaml
+        jobs:
+          - template: template.yml@myrepo
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA94" name="answer94" value="A" onclick="checkAnswer(94)">
+        <label for="optionA94">A) No, templates must be in the same repository as the pipeline</label><br>
+        <input type="radio" id="optionB94" name="answer94" value="B" onclick="checkAnswer(94)">
+        <label for="optionB94">B) Yes, but only for the build pipelines</label><br>
+        <input type="radio" id="optionC94" name="answer94" value="C" onclick="checkAnswer(94)">
+        <label for="optionC94">C) Yes, pipeline templates can be stored in a separate repository</label><br>
+        <input type="radio" id="optionD94" name="answer94" value="D" onclick="checkAnswer(94)">
+        <label for="optionD94">D) No, templates can only be stored in the same repository as the build definition</label><br>
+    </div>
+    <div id="result94" class="result"></div>
+</div>
+
+
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

@@ -1,0 +1,2386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serverless & Microservices </title>
+    <link rel="stylesheet" href="../css/Azure Devops.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'C', 'B', 'A', 'D', 'B', 'C', 'B', 'A', 'D',
+            'B', 'C', 'D', 'B', 'A', 'A', 'C', 'B', 'C', 'D',
+            'B', 'A', 'C', 'B', 'D','B', 'C', 'A', 'B', 'D',
+             'B', 'C', 'D', 'B', 'C', 'B', 'C', 'A', 'D', 'C',
+            'B', 'A', 'C', 'D', 'A', 'B', 'A', 'C', 'D','A',
+            'B', 'C', 'A', 'D', 'B','B', 'A', 'C', 'B', 'A',
+            'C', 'A', 'B', 'A', 'D','B', 'D', 'A', 'C', 'D',
+            'B', 'C', 'A', 'D', 'B','A','C', 'D','A', 'B'
+
+
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>Serverless & Microservices</h3>
+        <div class="inner-border">
+            <!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is the primary advantage of using Serverless Computing in Azure?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It allows developers to focus on code without managing infrastructure</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Serverless Computing in Azure abstracts the infrastructure management, allowing developers to focus on writing code while Azure takes care of scaling and managing the resources.<br><br>
+        **Serverless Computing in Azure**:<br>
+        1. Automatically scales based on demand.<br>
+        2. Developers write code without worrying about infrastructure.<br>
+        3. Cost-effective since you pay only for the actual usage.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) It requires managing servers manually for optimal performance</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) It allows developers to focus on code without managing infrastructure</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) It reduces the ability to scale applications dynamically</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) It forces developers to write low-level code for infrastructure management</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. How does Serverless Computing handle scaling in Azure?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It automatically scales up or down based on demand</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Serverless computing in Azure automatically handles scaling. When demand increases, it scales up, and when demand decreases, it scales down, ensuring cost-effectiveness and efficiency.<br><br>
+        **Automatic Scaling in Serverless Computing**:<br>
+        1. Azure manages scaling based on the volume of requests.<br>
+        2. No manual intervention is required.<br>
+        3. It helps optimize costs by scaling only when necessary.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) It requires manual scaling by the developer</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) It scales only when the system crashes</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) It automatically scales up or down based on demand</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) It does not support scaling in serverless architecture</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What is the billing model for Azure Serverless Computing?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) You pay only for the actual execution time and resources consumed</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Azure's Serverless Computing model, billing is based on the actual amount of time your code runs and the resources consumed, making it cost-efficient.<br><br>
+        **Billing in Serverless Computing**:<br>
+        1. You are charged for the resources used during execution.<br>
+        2. You only pay when your code runs.<br>
+        3. No upfront costs or charges for idle time.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) You pay a fixed monthly fee regardless of usage</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) You pay only for the actual execution time and resources consumed</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) You pay based on the number of servers deployed</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) You pay per user access to your serverless application</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. How does Serverless Computing help reduce operational overhead in Azure?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It abstracts infrastructure management, allowing developers to focus on code</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Serverless Computing abstracts away the infrastructure management, meaning that developers do not need to worry about servers, scaling, or maintenance tasks, reducing operational overhead.<br><br>
+        **Reducing Operational Overhead**:<br>
+        1. No need for server management.<br>
+        2. Automatic scaling based on demand.<br>
+        3. Pay-per-use model ensures cost efficiency.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) It abstracts infrastructure management, allowing developers to focus on code</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) It requires manual scaling of servers</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) It forces developers to manage infrastructure along with their code</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) It reduces the ability to scale applications dynamically</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. What is a common use case for Azure Serverless Computing?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Running event-driven applications with minimal infrastructure management</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A common use case for Azure Serverless Computing is for event-driven applications that require minimal infrastructure management, like executing functions in response to events or triggers.<br><br>
+        **Common Use Cases**:<br>
+        1. Event-driven workloads such as file uploads.<br>
+        2. API backends with minimal server management.<br>
+        3. Real-time data processing tasks.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) Running long-running tasks that require consistent server uptime</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) Managing physical hardware resources for large-scale deployments</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) Managing a large number of servers manually</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) Running event-driven applications with minimal infrastructure management</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+
+<!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is the primary purpose of using Azure Functions in a microservices architecture?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To enable event-driven, serverless execution of business logic in microservices</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Functions are ideal for executing small pieces of business logic in a microservices architecture. They are event-driven and allow you to write code in response to events, enabling fast, scalable, and flexible execution.<br><br>
+        **Azure Functions in Microservices**:<br>
+        1. Provides serverless compute resources.<br>
+        2. Allows scaling of individual services.<br>
+        3. Simplifies event-driven architecture.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) To manage the infrastructure for microservices</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) To enable event-driven, serverless execution of business logic in microservices</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) To provide a centralized management dashboard for microservices</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) To execute long-running tasks that require persistent state</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. How do Azure Functions integrate with other Azure services in a microservices environment?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Through triggers and bindings to various Azure services such as Event Hubs and Azure Storage</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Functions integrate seamlessly with other Azure services using triggers and bindings. Triggers start functions based on events, and bindings simplify the input/output of data between Azure services and functions.<br><br>
+        **Integration with Azure Services**:<br>
+        1. Functions can be triggered by events from services like Event Hubs or Azure Storage.<br>
+        2. Bindings allow for easy input and output of data from other services.<br>
+        3. Supports asynchronous communication for microservices.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Through manual data entry from Azure portal</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Through direct database calls from within the function code</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Through triggers and bindings to various Azure services such as Event Hubs and Azure Storage</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Through manual integration of each microservice</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What is the scaling behavior of Azure Functions in a microservices environment?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It scales automatically based on demand, allowing microservices to scale independently</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Functions scale automatically based on the number of incoming events or triggers, ensuring that each microservice can scale independently based on its individual load.<br><br>
+        **Scaling in Azure Functions**:<br>
+        1. Functions scale up and down automatically.<br>
+        2. Each microservice can scale independently.<br>
+        3. No need to manage infrastructure.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) Functions require manual intervention for scaling</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) It scales automatically based on demand, allowing microservices to scale independently</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) Scaling is limited to a specific number of concurrent executions</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) Scaling requires an external tool to manage</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. What is a benefit of using Azure Functions in a microservices-based architecture?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It simplifies event-driven architecture and reduces the need for manual intervention</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Functions are ideal for microservices architectures where services need to communicate via events. They reduce manual intervention by automatically reacting to events, making it easier to build event-driven systems.<br><br>
+        **Benefits of Azure Functions**:<br>
+        1. Reduces manual intervention with automatic event handling.<br>
+        2. Enables highly scalable, event-driven architectures.<br>
+        3. Supports seamless integration with other microservices.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) It simplifies event-driven architecture and reduces the need for manual intervention</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) It requires more infrastructure management compared to other solutions</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) It forces developers to use specific programming languages</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) It does not support integration with other services in Azure</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. How do Azure Functions contribute to the microservices' overall cost-efficiency?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) You pay only for the resources consumed during the execution of the function</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        With Azure Functions, you are charged based on the actual execution time and resources consumed, making it a cost-effective solution, especially for microservices that only run based on events or triggers.<br><br>
+        **Cost-Efficiency with Azure Functions**:<br>
+        1. Pay-as-you-go pricing model.<br>
+        2. No cost when the function is idle.<br>
+        3. Ideal for burst workloads and unpredictable demand.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) You pay a fixed monthly fee regardless of usage</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) You pay for the number of servers deployed</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) You pay for the duration of time your service is active</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) You pay only for the resources consumed during the execution of the function</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. How does Azure Event Grid ensure reliability in event delivery?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By providing automatic retries and dead-lettering for failed events</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Event Grid ensures that events are reliably delivered by automatically retrying failed deliveries and using a dead-lettering mechanism to store events that couldn't be delivered.<br><br>
+        **Reliability Features**:<br>
+        1. Automatic retries in case of delivery failure.<br>
+        2. Dead-lettering for events that can't be processed.<br>
+        3. Ensures that events are not lost and can be reviewed or retried later.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) By using a central queue to store all events</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) By providing automatic retries and dead-lettering for failed events</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) By encrypting all events during transmission</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) By caching events locally on the server</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. What type of events can be routed through Azure Event Grid?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Azure service events, custom events, and partner events</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Event Grid supports routing multiple types of events, including built-in Azure service events, custom events, and events from third-party partners.<br><br>
+        **Event Types Supported**:<br>
+        1. Built-in events from Azure services like storage, compute, and networking.<br>
+        2. Custom events created by users for specific business needs.<br>
+        3. Partner events from third-party services integrated with Azure.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) Only built-in Azure service events</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) Only custom events created by the user</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) Azure service events, custom events, and partner events</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) Only partner events from third-party services</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. Which of the following best describes the subscription model in Azure Event Grid?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Subscribers register to receive events from one or more event sources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Event Grid uses a subscription model where subscribers register to receive events from one or more event sources. This allows flexibility in delivering events to different endpoints.<br><br>
+        **Subscription Model**:<br>
+        1. Subscribers register for events from one or more event sources.<br>
+        2. Subscriptions can be filtered based on event types.<br>
+        3. Events are delivered to the subscribers’ endpoints for processing.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) Subscribers are automatically assigned based on their location</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) Subscribers are grouped into categories for event distribution</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) Subscribers can only register for a specific event source</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) Subscribers register to receive events from one or more event sources</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. How does Azure Event Grid integrate with Azure Logic Apps?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By triggering workflows in Logic Apps based on incoming events</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Event Grid can trigger workflows in Azure Logic Apps based on incoming events. This allows automation of business processes and integration with various services.<br><br>
+        **Integration with Logic Apps**:<br>
+        1. Event Grid triggers Logic Apps based on specific event types.<br>
+        2. Logic Apps can then perform actions such as sending emails, updating databases, or calling APIs.<br>
+        3. This integration enables complex workflows to be automated based on real-time events.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) By providing data storage for Logic Apps</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) By triggering workflows in Logic Apps based on incoming events</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) By storing the events in Logic Apps for later processing</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) By using Logic Apps to generate events to be sent to Event Grid</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What is the role of event filtering in Azure Event Grid?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To filter and route events based on specific conditions and criteria</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Event filtering allows Azure Event Grid to route only relevant events to subscribers, based on specific criteria such as event type or event data.<br><br>
+        **Event Filtering Features**:<br>
+        1. Filters can be applied to events based on event types or data attributes.<br>
+        2. Helps reduce unnecessary event processing and ensures only relevant events are delivered.<br>
+        3. Enables more precise routing of events to subscribers.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) To filter and route events based on specific conditions and criteria</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) To archive events for future processing</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) To store events in a centralized database</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) To trigger events from multiple sources at the same time</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. How does Azure Logic Apps facilitate communication between serverless microservices?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By orchestrating workflows and integrating various microservices through connectors</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Logic Apps facilitates communication between microservices by orchestrating workflows and integrating different services using pre-built connectors. This allows seamless communication without writing complex code.<br><br>
+        **Facilitating Communication**:<br>
+        1. Logic Apps can connect to various microservices using pre-built connectors.<br>
+        2. Allows for easy orchestration and automation of workflows.<br>
+        3. Helps integrate diverse services with minimal development effort.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) By orchestrating workflows and integrating various microservices through connectors</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) By providing a local runtime for executing microservices</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) By offering a serverless platform to run microservices directly</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) By using containers to encapsulate microservices</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. Which of the following best describes how Azure Logic Apps supports event-driven workflows?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By triggering workflows in response to specific events or conditions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Logic Apps allows you to create event-driven workflows that are triggered based on specific conditions or events. This helps in automating tasks in response to real-time changes.<br><br>
+        **Event-Driven Workflows**:<br>
+        1. Workflows are triggered by events such as receiving an HTTP request or a message from a queue.<br>
+        2. Logic Apps automatically respond to these events and execute predefined actions.<br>
+        3. Helps automate workflows in real-time based on specific conditions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) By polling for events at regular intervals</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) By storing events for later processing</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) By triggering workflows in response to specific events or conditions</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) By processing events synchronously in real-time</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. How does Azure Logic Apps handle error handling and retries in serverless workflows?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By providing built-in error handling and automatic retries for failed actions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Logic Apps provides built-in error handling and automatic retry mechanisms. If an action fails, the Logic App can retry the action a specified number of times, improving workflow resilience.<br><br>
+        **Error Handling and Retries**:<br>
+        1. Automatic retries for transient errors or failures.<br>
+        2. Custom error handling for more complex workflows.<br>
+        3. Helps ensure that workflows are more resilient and less prone to failure.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) By logging all errors for manual review</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) By providing built-in error handling and automatic retries for failed actions</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) By stopping the workflow immediately when an error occurs</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) By notifying administrators about every error</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What is the role of connectors in Azure Logic Apps when integrating with serverless microservices?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Connectors enable integration with various services by providing pre-built operations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Logic Apps uses connectors to integrate with a wide range of services and applications. Connectors provide pre-built actions and triggers, simplifying integration with external services.<br><br>
+        **Connectors in Logic Apps**:<br>
+        1. Pre-built connectors for common services like Azure, Office 365, and Salesforce.<br>
+        2. Simplifies integration without the need for custom code.<br>
+        3. Makes connecting microservices easier by abstracting the complexity of APIs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) Connectors provide manual configuration options for each service</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) Connectors enable integration only with Azure services</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) Connectors enable integration with various services by providing pre-built operations</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) Connectors allow for only event-driven workflows</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. How can Azure Logic Apps be used to scale serverless microservices?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By automatically scaling based on the number of incoming requests and events</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Logic Apps can scale automatically based on incoming requests or events, ensuring that the system handles varying workloads without manual intervention. This enables dynamic scaling of serverless microservices.<br><br>
+        **Scaling in Logic Apps**:<br>
+        1. Automatic scaling based on demand.<br>
+        2. Helps handle high volumes of events and requests efficiently.<br>
+        3. No need to configure servers or manually adjust resources.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) By manually adding more compute resources as needed</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) By optimizing the workflow for fewer events</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) By limiting the number of concurrent requests</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) By automatically scaling based on the number of incoming requests and events</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. What is the primary role of Azure API Management in the context of serverless microservices?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To expose and manage APIs for serverless microservices</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure API Management helps in exposing and managing APIs for microservices, whether they are serverless or not. It allows easy integration, monitoring, and control of access to serverless functions and other microservices.<br><br>
+        **Role of API Management**:<br>
+        1. Exposes serverless microservices through secure APIs.<br>
+        2. Manages API traffic and applies policies for authentication, rate limiting, etc.<br>
+        3. Provides monitoring and analytics for API usage.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) To directly host serverless microservices</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) To expose and manage APIs for serverless microservices</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) To monitor serverless microservices in real-time</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) To create custom UI for interacting with microservices</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. How does Azure API Management handle security for serverless microservices?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By implementing policies for authentication, authorization, and encryption</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure API Management provides several built-in policies that can be applied to APIs for authentication (e.g., OAuth, API keys), authorization, and encryption. This ensures that only authorized users can access serverless microservices securely.<br><br>
+        **API Management Security**:<br>
+        1. OAuth 2.0, API keys, and JWT tokens for authentication.<br>
+        2. Policies for rate limiting and IP filtering.<br>
+        3. Encryption of data both in transit and at rest.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) By implementing policies for authentication, authorization, and encryption</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) By monitoring usage statistics and detecting anomalies</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) By automatically scaling the microservices based on traffic</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) By providing a firewall to protect serverless microservices</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. What feature of Azure API Management allows developers to monitor the usage of serverless microservices?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) API Analytics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure API Management provides API Analytics that allows developers and administrators to track API usage, monitor traffic patterns, and identify issues. Analytics help in understanding how the APIs for serverless microservices are being used and in optimizing their performance.<br><br>
+        **Monitoring with API Analytics**:<br>
+        1. Provides insights into API calls, response times, and error rates.<br>
+        2. Helps in optimizing serverless microservice performance.<br>
+        3. Allows tracking of usage patterns to plan scaling and cost management.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) Real-time event processing</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) User authentication logs</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) API Analytics</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) Service health checks</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. How can Azure API Management help in versioning APIs for serverless microservices?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By supporting multiple API versions and routing traffic accordingly</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure API Management allows you to create and manage multiple versions of an API. Traffic can be routed to specific versions of a microservice, allowing you to handle backward compatibility or upgrade APIs without disruption.<br><br>
+        **API Versioning**:<br>
+        1. Supports multiple versions of APIs to handle different client requirements.<br>
+        2. Allows traffic routing to different versions based on headers or URL paths.<br>
+        3. Ensures smooth transitions and backward compatibility for clients.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) By deploying multiple versions of the microservices</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) By supporting multiple API versions and routing traffic accordingly</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) By limiting access to previous versions of the APIs</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) By upgrading microservices to the latest versions automatically</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. What is the benefit of using Azure API Management in serverless microservices architectures?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It provides centralized API management, security, and monitoring</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure API Management allows you to centralize the management of APIs for serverless microservices. It provides security, analytics, versioning, and monitoring, making it easier to manage complex microservices architectures.<br><br>
+        **Benefits of Azure API Management**:<br>
+        1. Centralized control over API access and traffic.<br>
+        2. Advanced security features such as authentication and rate limiting.<br>
+        3. Integrated monitoring and analytics for performance insights.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) It allows manual configuration of all microservices</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) It provides automatic scaling of microservices</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) It simplifies the deployment process for microservices</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) It provides centralized API management, security, and monitoring</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. What is the primary benefit of using Azure Blob Storage in serverless applications?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It provides scalable, durable, and cost-effective storage for unstructured data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Blob Storage is ideal for storing unstructured data like text and binary data. It offers scalability, durability, and low-cost storage, making it suitable for serverless applications that require storage for large volumes of data.<br><br>
+        **Azure Blob Storage Features**:<br>
+        1. Scalable storage for large amounts of unstructured data.<br>
+        2. Durable and highly available with replication options.<br>
+        3. Cost-effective with pay-as-you-go pricing.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) It stores structured relational data for applications</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) It provides scalable, durable, and cost-effective storage for unstructured data</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) It provides serverless data analysis for large datasets</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) It integrates only with on-premises applications</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. Which type of data does Azure Cosmos DB primarily handle in serverless applications?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Highly available, globally distributed, and structured or semi-structured data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Cosmos DB is a globally distributed database that is ideal for handling structured and semi-structured data. It offers multi-region replication and low-latency access, making it perfect for serverless applications that require fast, scalable data storage.<br><br>
+        **Cosmos DB Features**:<br>
+        1. Globally distributed with multi-region replication.<br>
+        2. Supports structured, semi-structured, and unstructured data.<br>
+        3. Low-latency, high-performance access to data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) Only relational data</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) Only unstructured data</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) Highly available, globally distributed, and structured or semi-structured data</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) Only large binary data such as images and videos</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. How does Azure Blob Storage ensure data durability in a serverless architecture?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By providing multiple replication options across different Azure regions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Blob Storage offers different replication strategies such as locally redundant storage (LRS) and geo-redundant storage (GRS). These ensure that data is replicated across different locations to protect against data loss due to hardware failures or regional outages.<br><br>
+        **Blob Storage Durability**:<br>
+        1. Locally redundant storage (LRS) replicates data within a single data center.<br>
+        2. Geo-redundant storage (GRS) replicates data to a secondary region.<br>
+        3. Offers high durability with multiple replicas to ensure data integrity.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) By providing multiple replication options across different Azure regions</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) By providing a dedicated storage location for each application</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) By allowing only one replica of the data</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) By limiting the amount of data that can be stored</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. How does Azure Cosmos DB provide low-latency access to data in a serverless architecture?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By replicating data across multiple global regions for fast access</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Cosmos DB is designed for high performance with low-latency access. By replicating data to multiple global regions, Cosmos DB ensures that users can access their data from the nearest region, minimizing the latency involved in read and write operations.<br><br>
+        **Cosmos DB Latency Features**:<br>
+        1. Multi-region replication for low-latency access.<br>
+        2. Automatic routing of requests to the nearest region.<br>
+        3. Tunable consistency models to balance performance and data accuracy.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) By limiting the number of concurrent read and write operations</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) By replicating data across multiple global regions for fast access</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) By caching data locally on each client machine</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) By only allowing read operations in the primary region</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. What is the advantage of using serverless data storage solutions like Azure Blob Storage and Cosmos DB in serverless microservices?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) They provide automatic scaling, high availability, and cost-effectiveness for dynamic workloads</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Serverless data storage solutions such as Azure Blob Storage and Cosmos DB automatically scale based on the workload and provide high availability with replication across regions. This is especially beneficial in dynamic serverless microservices architectures where the demand fluctuates.<br><br>
+        **Serverless Data Storage Benefits**:<br>
+        1. Automatic scaling to handle unpredictable workloads.<br>
+        2. High availability with multi-region replication.<br>
+        3. Pay-as-you-go pricing model that reduces costs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) They require manual intervention to scale based on demand</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) They are designed only for large-scale data processing tasks</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) They are limited to small-scale workloads only</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) They provide automatic scaling, high availability, and cost-effectiveness for dynamic workloads</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. What is a key security best practice when using Azure Functions for serverless microservices?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Use managed identities to securely access Azure resources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Managed identities allow Azure services like Azure Functions to authenticate to Azure resources without needing credentials in code. This improves security by avoiding hard-coded credentials and reducing the risk of accidental leaks.<br><br>
+        **Security Best Practices for Azure Functions**:<br>
+        1. Use managed identities for secure access to Azure resources.<br>
+        2. Apply the principle of least privilege for resource access.<br>
+        3. Ensure function code is secure and follows secure coding practices.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) Use static API keys to access Azure resources</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) Use managed identities to securely access Azure resources</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) Store sensitive information in environment variables</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) Use shared access signatures (SAS) for all communication</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. How can you ensure that Azure Functions are not exposed to unauthorized access?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Use Azure Functions' authentication and authorization features</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Functions provides built-in authentication and authorization features that can be used to restrict access to the functions. You can integrate with Azure Active Directory (AAD) and set up role-based access control (RBAC) for secure access.<br><br>
+        **Securing Azure Functions**:<br>
+        1. Use Azure Active Directory (AAD) for identity-based authentication.<br>
+        2. Configure role-based access control (RBAC) for authorization.<br>
+        3. Enable IP restrictions and inbound traffic filtering.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) Enable logging to monitor unauthorized access</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) Expose the functions to public networks</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) Use Azure Functions' authentication and authorization features</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) Use a public API key for access control</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. What should you do to ensure that serverless microservices running on Azure are compliant with industry security standards?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Implement security controls such as encryption, logging, and monitoring</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Compliance with industry security standards requires implementing strong security controls such as data encryption, secure access, and continuous monitoring of your applications. This ensures that your serverless microservices adhere to regulatory and compliance requirements.<br><br>
+        **Compliance Best Practices**:<br>
+        1. Encrypt sensitive data at rest and in transit.<br>
+        2. Enable logging and monitor access to services.<br>
+        3. Implement continuous security assessment and vulnerability management.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) Only store sensitive data in the cloud</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) Disable logging to improve performance</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) Rely solely on third-party compliance tools</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) Implement security controls such as encryption, logging, and monitoring</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. How can Azure Monitor help in securing serverless microservices on Azure?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By providing visibility into the performance, security, and health of serverless functions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor enables you to monitor the health, performance, and security of your serverless applications. It helps identify potential issues, threats, and performance bottlenecks, ensuring a secure and reliable system.<br><br>
+        **Azure Monitor Features**:<br>
+        1. Provides real-time monitoring of serverless functions.<br>
+        2. Tracks performance metrics, errors, and logs.<br>
+        3. Integrates with Azure Security Center to provide security insights.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) By automatically patching vulnerabilities in code</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) By providing visibility into the performance, security, and health of serverless functions</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) By creating automatic backups of serverless resources</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) By disabling access to logs and performance metrics</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. What is a recommended practice to secure communication between serverless microservices in Azure?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Use encryption (TLS/SSL) for secure communication</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Securing communication between serverless microservices is critical. Using encryption protocols like TLS (Transport Layer Security) ensures that data transmitted between services is secure and cannot be intercepted or tampered with.<br><br>
+        **Securing Communication**:<br>
+        1. Use TLS for secure communication over HTTP/HTTPS.<br>
+        2. Implement API keys and OAuth for authentication.<br>
+        3. Enforce role-based access controls (RBAC) for authorized access.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) Disable encryption for better performance</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) Use shared access signatures (SAS) for all communication</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) Use encryption (TLS/SSL) for secure communication</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) Rely on unencrypted communication for better performance</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. What is a common approach for implementing CI/CD in serverless microservices using Azure DevOps?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Use Azure Pipelines to automate build, test, and deployment tasks</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps provides Azure Pipelines, which can be used to create CI/CD workflows that automate build, test, and deployment tasks for serverless microservices. This ensures a streamlined process for deploying serverless applications.<br><br>
+        **CI/CD with Azure DevOps**:<br>
+        1. Set up build pipelines to automate code compilation and testing.<br>
+        2. Set up release pipelines to deploy serverless applications to Azure.<br>
+        3. Implement automated testing as part of the CI pipeline.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) Manually deploy code to each Azure Function</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) Use Azure Pipelines to automate build, test, and deployment tasks</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) Deploy using PowerShell scripts only</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) Avoid testing before deployment for faster releases</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. How can Azure Functions be integrated into a CI/CD pipeline using Azure DevOps?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Use the Azure Functions extension in Azure DevOps to deploy serverless apps</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps provides an extension specifically for Azure Functions. This extension allows you to deploy, manage, and update serverless functions as part of the CI/CD pipeline, making it easier to integrate serverless microservices into your deployment process.<br><br>
+        **CI/CD Integration for Azure Functions**:<br>
+        1. Install the Azure Functions extension in Azure DevOps.<br>
+        2. Configure the pipeline to deploy Azure Functions automatically.<br>
+        3. Enable automated testing and validation before deployment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) Deploy manually after every code change</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) Use only traditional VMs to deploy serverless apps</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) Use the Azure Functions extension in Azure DevOps to deploy serverless apps</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) Avoid using any CI/CD tools for serverless apps</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. What is an advantage of using CI/CD pipelines for deploying serverless microservices in Azure?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) CI/CD pipelines automate repetitive deployment tasks, reducing errors</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        CI/CD pipelines help automate the repetitive tasks of building, testing, and deploying serverless microservices, which not only speeds up the development process but also minimizes the risk of human errors in the deployment.<br><br>
+        **CI/CD Advantages**:<br>
+        1. Reduces manual intervention in the deployment process.<br>
+        2. Increases the speed of deployments and updates.<br>
+        3. Ensures consistent deployments across environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) CI/CD pipelines automate repetitive deployment tasks, reducing errors</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) They make deployment slower and more error-prone</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) CI/CD pipelines require manual intervention for each deployment</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) CI/CD pipelines are only useful for traditional applications, not serverless</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. Which of the following is a key feature of Azure DevOps Pipelines for serverless microservices?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Support for multiple environments and rollbacks</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Pipelines supports the deployment of serverless microservices across multiple environments (e.g., development, staging, production). It also allows easy rollback to a previous version of the application in case of issues.<br><br>
+        **Key Features of Azure DevOps Pipelines**:<br>
+        1. Multi-environment deployment support.<br>
+        2. Easy rollback mechanisms.<br>
+        3. Integration with Azure Functions and other serverless services.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) Limited to only one environment for deployment</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) Only supports manual deployments</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) Doesn't allow rolling back to previous versions</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) Support for multiple environments and rollbacks</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. How can cost management be implemented for serverless microservices in Azure?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Use Azure Cost Management to monitor and optimize resource usage</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Cost Management provides insights into your usage and spending patterns, allowing you to track costs and optimize resource usage to avoid over-provisioning, which is particularly important for serverless environments where costs are based on actual usage.<br><br>
+        **Cost Management Strategies**:<br>
+        1. Monitor usage with Azure Cost Management.<br>
+        2. Set up alerts to notify you of any budget breaches.<br>
+        3. Optimize functions by identifying unnecessary executions and scaling appropriately.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) Avoid monitoring costs to focus on performance</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) Manually track costs with spreadsheets</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) Use Azure Cost Management to monitor and optimize resource usage</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) Ignore cost management for serverless services</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. What is a key advantage of using Azure Kubernetes Service (AKS) for serverless microservices?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) AKS simplifies the management and scaling of containerized applications</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Kubernetes Service (AKS) provides a managed Kubernetes environment to deploy, scale, and manage containerized applications, including serverless microservices. It automatically handles scaling and ensures high availability.<br><br>
+        **Advantages of AKS for Serverless Microservices**:<br>
+        1. Automated scaling based on traffic demands.<br>
+        2. Simplified container orchestration and management.<br>
+        3. Integration with Azure services such as Azure Functions and Logic Apps for event-driven architectures.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) AKS only supports traditional VM-based applications</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) AKS simplifies the management and scaling of containerized applications</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) AKS only works with applications hosted on-premises</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) AKS does not support automatic scaling of microservices</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. How can Azure Kubernetes Service (AKS) help improve the scalability of serverless microservices?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By automatically scaling pods based on resource demand</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        AKS can automatically scale the number of pods running your microservices based on the resource demand, making it easier to handle varying workloads without manual intervention.<br><br>
+        **Scalability in AKS**:<br>
+        1. Horizontal Pod Autoscaler adjusts the number of pods based on CPU or memory usage.<br>
+        2. AKS integrates with Azure Monitor to provide metrics for autoscaling decisions.<br>
+        3. Kubernetes' dynamic scaling features ensure cost efficiency and high availability.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) By automatically scaling pods based on resource demand</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) By manually increasing the number of instances in the cluster</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) By relying on Azure Functions to scale microservices</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) By limiting the number of pods for cost control</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. What role does Azure Container Registry (ACR) play in serverless microservices on AKS?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) ACR stores container images that are deployed to AKS clusters</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Container Registry (ACR) is used to store and manage Docker container images. These images can then be deployed to AKS clusters as part of your serverless microservices architecture.<br><br>
+        **Role of ACR in Serverless Microservices**:<br>
+        1. Securely store container images.<br>
+        2. Provide a private registry for your organization.<br>
+        3. Integrate with AKS to automatically pull and deploy images.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) ACR only stores serverless code, not container images</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) ACR is used for monitoring serverless microservices in AKS</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) ACR stores container images that are deployed to AKS clusters</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) ACR is used for scaling serverless microservices in AKS</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. What is the primary benefit of using Azure Container Instances (ACI) for serverless microservices?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) ACI allows running containers without managing underlying infrastructure</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Container Instances (ACI) offer serverless container hosting, allowing you to run containers without managing the underlying infrastructure. This makes it ideal for short-lived, event-driven workloads.<br><br>
+        **Benefits of ACI for Serverless Microservices**:<br>
+        1. No need to manage virtual machines or clusters.<br>
+        2. Start containers in seconds for immediate scaling.<br>
+        3. Cost-effective for bursty workloads due to pay-as-you-go pricing.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) ACI requires manual scaling of containers</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) ACI can only be used for long-running applications</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) ACI requires setting up Kubernetes clusters</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) ACI allows running containers without managing underlying infrastructure</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. How can Azure Container Instances (ACI) be used for event-driven architectures in serverless microservices?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) ACI can run containers in response to events from Azure Event Grid or Azure Service Bus</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Container Instances (ACI) can be integrated with Azure Event Grid or Azure Service Bus to run containers in response to specific events, such as a new file upload or a message in a queue, enabling efficient event-driven microservices architectures.<br><br>
+        **Event-Driven Integration with ACI**:<br>
+        1. ACI can automatically trigger container executions based on events.<br>
+        2. Ideal for short-lived processes such as data transformations or handling events.<br>
+        3. Scalable and cost-efficient for burst workloads.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) ACI can run containers in response to events from Azure Event Grid or Azure Service Bus</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) ACI is only suitable for batch processing jobs</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) ACI cannot be triggered by events in Azure</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) ACI requires manual triggers to start containers</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. What is a key feature of Azure Durable Functions that distinguishes it from regular Azure Functions?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Durable Functions maintain state between function calls</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Durable Functions is an extension of Azure Functions that enables you to write stateful workflows. Unlike regular functions that are stateless, Durable Functions allow you to maintain state between function executions, making them ideal for long-running, orchestrated workflows.<br><br>
+        **Key Features of Durable Functions**:<br>
+        1. State management between calls, allowing complex workflows.<br>
+        2. Support for patterns such as function chaining, human intervention, and timer-based delays.<br>
+        3. Automatically scales based on workload.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) Durable Functions do not support chaining of multiple functions</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) Durable Functions maintain state between function calls</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) Durable Functions only support synchronous execution</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) Durable Functions cannot handle long-running workflows</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. Which of the following is a typical use case for Azure Durable Functions?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Orchestrating a multi-step business process</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Durable Functions are ideal for workflows that involve multiple steps, like approvals, data processing, or complex orchestration. These functions can maintain state and handle long-running operations such as approvals or waiting for an external event.<br><br>
+        **Common Use Cases for Durable Functions**:<br>
+        1. Orchestrating multi-step business processes.<br>
+        2. Managing long-running workflows with human interaction.<br>
+        3. Implementing event-driven architectures with retry policies.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) Orchestrating a multi-step business process</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) Running short-lived, stateless jobs</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) Hosting a static website</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) Performing one-time data transformations</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. How does Azure Durable Functions handle long-running workflows?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By saving progress and resuming after failures or restarts</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Durable Functions are designed to manage long-running workflows by saving progress between steps. If a failure or restart occurs, they can resume the workflow from the last known state, ensuring reliability in the execution.<br><br>
+        **Handling Long-Running Workflows**:<br>
+        1. State is persisted between function executions.<br>
+        2. Can resume from where it left off after a failure or restart.<br>
+        3. Supports activities like human approval, waiting for external events, or time delays.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) By continuously running functions in the background</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) By splitting long-running workflows into smaller tasks</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) By saving progress and resuming after failures or restarts</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) By executing each step sequentially without delays</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. Which of the following Azure services can Azure Durable Functions integrate with for event-driven workflows?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Azure Event Grid, Azure Service Bus, and Azure Storage</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Durable Functions can be integrated with services such as Azure Event Grid, Azure Service Bus, and Azure Storage for handling events, sending notifications, or processing files within a workflow. These integrations allow the creation of powerful event-driven architectures.<br><br>
+        **Event-Driven Integration**:<br>
+        1. Azure Event Grid: For event-driven scenarios, triggering functions on events.<br>
+        2. Azure Service Bus: For managing queues and triggering workflows based on messages.<br>
+        3. Azure Storage: For file-related events, such as Blob Storage triggers.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) Azure SQL Database and Azure Redis Cache</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) Azure Functions and Azure Logic Apps</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) Azure Active Directory and Azure App Service</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) Azure Event Grid, Azure Service Bus, and Azure Storage</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. Which of the following patterns can be implemented using Azure Durable Functions?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Function chaining, human intervention, and fan-out/fan-in</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Durable Functions support various orchestration patterns, including function chaining (sequential execution), human intervention (waiting for user input), and fan-out/fan-in (parallel execution with aggregation of results). These patterns are common in complex workflows that require coordination and state management.<br><br>
+        **Common Durable Function Patterns**:<br>
+        1. Function Chaining: Executing functions in a specific sequence.<br>
+        2. Human Intervention: Pausing workflows until user input is received.<br>
+        3. Fan-Out/Fan-In: Running tasks in parallel and aggregating results.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Function chaining, human intervention, and fan-out/fan-in</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Stateless execution and synchronous processing</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Only simple parallel execution of tasks</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) Synchronous execution with no retries or delays</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+<!-- Question 51 -->
+<div class="qee">
+    <div class="que">
+        <p>51. What is the primary advantage of using Azure Service Bus with serverless microservices?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It enables asynchronous messaging and decouples components of a microservice architecture</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Service Bus allows microservices to communicate asynchronously by sending messages between services. This decouples components, improving scalability and fault tolerance by allowing each service to operate independently of the others.<br><br>
+        **Key Benefits of Service Bus**:<br>
+        1. Asynchronous message delivery.<br>
+        2. Decoupling of services, improving flexibility and scalability.<br>
+        3. Built-in support for reliable messaging and queuing.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) It allows synchronous communication between microservices</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) It enables asynchronous messaging and decouples components of a microservice architecture</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) It provides real-time data processing for microservices</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) It stores large amounts of unstructured data for microservices</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee">
+    <div class="que">
+        <p>52. How does Azure Service Bus handle message durability and reliability?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By storing messages in a highly durable queue until they are successfully processed</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Service Bus ensures message durability by storing messages in a queue or topic until they are successfully processed by the receiving service. This guarantees reliable message delivery even in the case of failures or service downtime.<br><br>
+        **Message Durability Features**:<br>
+        1. Messages are persisted until successfully consumed.<br>
+        2. Supports automatic retries for message processing.<br>
+        3. Guarantees that messages are not lost, even if the consumer is temporarily unavailable.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) By deleting messages immediately after they are received</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) By storing messages in an in-memory cache for fast access</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) By storing messages in a highly durable queue until they are successfully processed</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) By compressing messages to save storage space</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee">
+    <div class="que">
+        <p>53. In which of the following scenarios would Azure Service Bus queues be most beneficial for serverless architectures?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) When microservices need to process requests asynchronously and independently</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Service Bus queues are ideal for scenarios where microservices need to handle requests asynchronously. This allows each service to process tasks independently, without being blocked by other services' work. It also helps in load leveling by temporarily holding requests during high traffic.<br><br>
+        **Use Case Scenarios for Service Bus Queues**:<br>
+        1. Asynchronous request processing.<br>
+        2. Decoupling services to improve scalability.<br>
+        3. Handling high-volume or time-consuming tasks in a serverless environment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) When microservices need to process requests asynchronously and independently</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) When microservices need to process requests in real-time and synchronously</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) When there is a need to store large volumes of data for microservices</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) When microservices need to communicate directly with users</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee">
+    <div class="que">
+        <p>54. How does Azure Service Bus help in ensuring message delivery even in the case of failures?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By providing dead-letter queues for undeliverable messages</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Service Bus offers dead-letter queues (DLQs) to store messages that cannot be delivered after multiple attempts. This ensures that messages are not lost and can be inspected or retried later, helping maintain reliability and fault tolerance.<br><br>
+        **Message Delivery Features**:<br>
+        1. Automatic retries for message delivery.<br>
+        2. Dead-letter queues to store undeliverable messages.<br>
+        3. Support for delayed message processing.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) By discarding undeliverable messages immediately</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) By alerting users when a message cannot be delivered</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) By retrying messages only once before failure</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) By providing dead-letter queues for undeliverable messages</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee">
+    <div class="que">
+        <p>55. What role do Azure Service Bus topics play in serverless microservices architectures?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) They allow multiple subscribers to consume messages from a single message source</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Service Bus topics enable a publisher-subscriber model where multiple subscribers can listen to and process messages from a single topic. This is useful when you need different services to react to the same event or message in different ways.<br><br>
+        **Role of Topics in Microservices**:<br>
+        1. Publish/subscribe messaging model.<br>
+        2. Allows multiple services to consume messages from a single source.<br>
+        3. Facilitates event-driven architectures with different consumer needs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) They enable direct point-to-point communication between services</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) They allow multiple subscribers to consume messages from a single message source</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) They guarantee message order delivery</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) They store messages for longer retention periods</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+<!-- Question 56 -->
+<div class="qee">
+    <div class="que">
+        <p>56. What is the main benefit of using asynchronous communication in serverless microservices architectures?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It enables decoupling of services and improves scalability</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Asynchronous communication allows microservices to operate independently of one another. By decoupling services, each can scale independently, which leads to better performance and greater resilience. Asynchronous patterns, such as event-driven architectures, help with efficient resource utilization in serverless environments.<br><br>
+        **Benefits of Asynchronous Communication**:<br>
+        1. Decoupling of microservices.<br>
+        2. Increased scalability and flexibility.<br>
+        3. Non-blocking operations, improving performance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) It reduces the number of messages exchanged between services</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) It enables decoupling of services and improves scalability</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) It ensures real-time communication between microservices</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) It simplifies service orchestration and management</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee">
+    <div class="que">
+        <p>57. How does Azure Functions support asynchronous communication in serverless microservices?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By allowing functions to be triggered by events and messages from various sources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Functions are designed to respond to events, such as a message in a queue or a change in data. This allows them to process asynchronous tasks triggered by these events. This event-driven approach supports the decoupling of services and enables efficient resource utilization in serverless architectures.<br><br>
+        **Azure Functions Asynchronous Features**:<br>
+        1. Triggers for event-driven execution.<br>
+        2. Support for various event sources like queues, service bus, HTTP requests.<br>
+        3. Automatic scaling based on event frequency.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) By allowing functions to be triggered by events and messages from various sources</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) By enabling real-time data processing in microservices</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) By forcing functions to wait for synchronous responses before proceeding</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) By storing incoming messages until they are processed</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee">
+    <div class="que">
+        <p>58. What is the purpose of using Azure Event Grid in asynchronous communication for serverless architectures?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It enables event-based routing to multiple endpoints for asynchronous processing</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Event Grid provides a mechanism for routing events to various endpoints, allowing different microservices to react to events asynchronously. This enables a highly scalable, event-driven approach where multiple services can be triggered by a single event, promoting loose coupling and better scalability.<br><br>
+        **Event Grid Features for Asynchronous Communication**:<br>
+        1. Event-based routing to multiple consumers.<br>
+        2. Supports many Azure services as event sources.<br>
+        3. Low-latency, reliable delivery of events.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) It ensures that all events are processed synchronously in real-time</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) It stores events for later retrieval and processing</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) It enables event-based routing to multiple endpoints for asynchronous processing</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) It compresses events to reduce network latency</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee">
+    <div class="que">
+        <p>59. Which Azure service is commonly used in serverless architectures for message queuing in asynchronous communication?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure Service Bus</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Service Bus is a fully managed message queuing service that is often used in serverless architectures to manage communication between microservices asynchronously. It supports reliable messaging, and message queuing, and allows for flexible integrations between services.<br><br>
+        **Azure Service Bus Benefits for Asynchronous Communication**:<br>
+        1. Reliable message delivery with automatic retries.<br>
+        2. Queues and topics for decoupled communication.<br>
+        3. Supports multiple protocols for message delivery.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) Azure Blob Storage</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) Azure Service Bus</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) Azure Event Hubs</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) Azure SQL Database</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee">
+    <div class="que">
+        <p>60. How does Azure Queue Storage help in handling asynchronous communication in serverless microservices?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By providing a reliable and scalable message queuing mechanism</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Queue Storage provides a simple and scalable mechanism to store and retrieve messages. It enables asynchronous communication by allowing microservices to place messages in queues, which are then processed by workers asynchronously. This decouples services and allows for load leveling.<br><br>
+        **Queue Storage Features for Asynchronous Communication**:<br>
+        1. Reliable message storage.<br>
+        2. Scalable to handle high message volumes.<br>
+        3. Supports delayed message processing and retry mechanisms.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) By providing a reliable and scalable message queuing mechanism</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) By compressing messages to optimize storage usage</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) By ensuring synchronous delivery of messages</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) By storing messages in a SQL-based database</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+<!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+        <p>61. Why is Identity and Access Management (IAM) important in serverless microservices architectures?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It ensures secure and controlled access to microservices and resources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        IAM is critical for securing the serverless architecture, ensuring that only authorized users or services can access specific resources. With microservices, where each service may require different levels of access, IAM allows the enforcement of policies to restrict permissions, thereby ensuring that the services operate securely.<br><br>
+        **Benefits of IAM in Serverless Architectures**:<br>
+        1. Fine-grained access control.<br>
+        2. Ensures that each service has the least privilege necessary.<br>
+        3. Helps prevent unauthorized access to sensitive resources.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) It enables services to communicate without encryption</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) It allows services to directly access each other's data</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) It ensures secure and controlled access to microservices and resources</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) It removes the need for authentication across services</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee">
+    <div class="que">
+        <p>62. Which Azure service can be used to manage identities and authenticate access to serverless microservices?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Azure Active Directory (Azure AD)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Active Directory (Azure AD) is the primary identity and access management service in Azure. It can be used to authenticate users, manage service-to-service authentication, and enforce access policies for resources in a serverless microservices architecture.<br><br>
+        **Azure AD Features for IAM in Serverless Architectures**:<br>
+        1. Centralized identity management.<br>
+        2. Multi-factor authentication (MFA) support.<br>
+        3. Conditional access policies.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) Azure Active Directory (Azure AD)</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) Azure Blob Storage</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) Azure Resource Manager (ARM)</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) Azure Key Vault</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee">
+    <div class="que">
+        <p>63. How does Azure Managed Identities simplify access management in serverless microservices?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It allows services to authenticate to Azure resources without storing credentials</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Managed Identities provide an identity to Azure services for accessing Azure resources. The key benefit is that it removes the need for storing and managing credentials, which improves security and simplifies access management in a serverless microservices environment.<br><br>
+        **Benefits of Azure Managed Identities**:<br>
+        1. No need to manage secrets or credentials.<br>
+        2. Automatic credential management by Azure.<br>
+        3. Simplifies role-based access control (RBAC) configurations.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) It stores credentials securely in Azure Key Vault</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) It allows services to authenticate to Azure resources without storing credentials</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) It integrates third-party authentication providers with Azure services</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) It automatically configures firewalls for services</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee">
+    <div class="que">
+        <p>64. What is the role of Azure Role-Based Access Control (RBAC) in serverless microservices architectures?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It defines granular access permissions for resources and services</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Role-Based Access Control (RBAC) helps define specific permissions for users, groups, and services. In a serverless microservices architecture, RBAC ensures that each microservice or user has only the necessary access, improving security and maintaining the principle of least privilege.<br><br>
+        **RBAC Features for Serverless Architectures**:<br>
+        1. Granular control over access permissions.<br>
+        2. Supports user and service-specific roles.<br>
+        3. Enforces least privilege principle.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) It defines granular access permissions for resources and services</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) It provides automatic security monitoring for all services</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) It enables service-to-service encryption without authentication</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) It automatically detects and responds to security threats</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee">
+    <div class="que">
+        <p>65. How can Azure Key Vault be used to improve identity and access management in serverless microservices?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By securely storing and managing credentials, keys, and secrets</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Key Vault is a service that securely stores and manages sensitive data, such as secrets, keys, and certificates. In serverless microservices, it can be used to store authentication credentials and API keys, helping to protect sensitive information and enforce secure access policies.<br><br>
+        **Azure Key Vault Benefits for IAM**:<br>
+        1. Secure storage for keys, secrets, and certificates.<br>
+        2. Centralized management of sensitive data.<br>
+        3. Integration with Azure Managed Identities for seamless authentication.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) By encrypting all communication between microservices</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) By providing real-time monitoring of access control</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) By enforcing firewall rules for all serverless services</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) By securely storing and managing credentials, keys, and secrets</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+<!-- Question 66 -->
+<div class="qee">
+    <div class="que">
+        <p>66. What is the primary advantage of designing serverless microservices with scalability in mind?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It ensures the system can handle varying loads without manual intervention</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One of the main benefits of a serverless architecture is its ability to scale automatically based on the workload. By designing serverless microservices with scalability in mind, the system can efficiently handle spikes in demand without the need for manual resource management.<br><br>
+        **Key Benefits of Scalability in Serverless Microservices**:<br>
+        1. Automatic scaling based on traffic.<br>
+        2. Cost efficiency, as resources are only allocated when needed.<br>
+        3. Reduced operational overhead, since scaling is managed by the cloud provider.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) It allows resources to be pre-allocated for high-demand periods</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) It ensures the system can handle varying loads without manual intervention</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) It ensures the system can operate without any downtime</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) It enables horizontal scaling without resource limits</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee">
+    <div class="que">
+        <p>67. What pattern can be used to ensure resilience in a serverless microservices architecture?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Circuit Breaker pattern</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Circuit Breaker pattern helps ensure resilience in distributed systems, like serverless microservices. It detects failures and prevents cascading failures by temporarily halting calls to a service that is experiencing issues, thereby protecting the system from overload.<br><br>
+        **How the Circuit Breaker Pattern Works**:<br>
+        1. Monitors service calls and detects failures.<br>
+        2. When a failure threshold is reached, the circuit breaker "opens," preventing further calls to the failing service.<br>
+        3. After a predefined period, the circuit breaker allows some calls to test the service before fully closing the circuit.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) Repository pattern</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) Singleton pattern</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) Adapter pattern</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) Circuit Breaker pattern</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee">
+    <div class="que">
+        <p>68. How does event-driven architecture help improve the resilience of serverless microservices?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By decoupling services and allowing asynchronous communication</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Event-driven architecture enhances resilience by decoupling services. This allows services to operate independently and communicate asynchronously through events, reducing the impact of failure in one service on the rest of the system.<br><br>
+        **Advantages of Event-Driven Architecture for Resilience**:<br>
+        1. Failures in one service do not directly impact other services.<br>
+        2. Allows retries and message buffering in case of temporary failures.<br>
+        3. Increases system scalability by handling requests asynchronously.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) By decoupling services and allowing asynchronous communication</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) By enforcing synchronous communication across services</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) By creating a single point of failure</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) By eliminating the need for data persistence</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee">
+    <div class="que">
+        <p>69. How can retry policies help improve the resilience of serverless microservices?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By automatically retrying failed requests with a defined backoff strategy</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Retry policies help improve resilience by automatically retrying failed requests, particularly in transient failure scenarios. By implementing a backoff strategy (such as exponential backoff), these policies prevent overwhelming a service and help recover from temporary issues.<br><br>
+        **How Retry Policies Improve Resilience**:<br>
+        1. Ensures that temporary failures do not lead to permanent service disruptions.<br>
+        2. Helps reduce the impact of brief network glitches or service outages.<br>
+        3. Enables smooth recovery from errors without manual intervention.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) By automatically increasing the number of requests</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) By reducing the frequency of requests during failure</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) By automatically retrying failed requests with a defined backoff strategy</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) By avoiding retries and ignoring failure errors</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee">
+    <div class="que">
+        <p>70. What is the role of monitoring and logging in maintaining the resilience of serverless microservices?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) They help detect, diagnose, and resolve issues in real-time</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Monitoring and logging are critical for maintaining resilience, as they allow teams to detect issues early, diagnose problems, and resolve them quickly. By having a clear view of the system's health, teams can address failures and prevent service disruptions.<br><br>
+        **Benefits of Monitoring and Logging for Resilience**:<br>
+        1. Real-time visibility into system performance.<br>
+        2. Faster identification of failures and bottlenecks.<br>
+        3. Helps proactively address issues before they impact users.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) They reduce the need for service retries</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) They simplify the configuration of microservices</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) They improve the speed of the development process</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) They help detect, diagnose, and resolve issues in real-time</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+<!-- Question 71 -->
+<div class="qee">
+    <div class="que">
+        <p>71. What is a key challenge when testing serverless microservices in Azure?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Handling the complexity of distributed services</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Testing serverless microservices can be challenging due to the distributed nature of services and the lack of control over the underlying infrastructure. Each microservice operates independently, which means testing the system as a whole, simulating real-world traffic, and managing dependencies between services can be difficult.<br><br>
+        **Challenges in Testing Serverless Microservices**:<br>
+        1. Complexity of distributed systems.<br>
+        2. Lack of access to the underlying infrastructure for performance testing.<br>
+        3. Asynchronous communication makes end-to-end testing more difficult.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) Ensuring sufficient network bandwidth</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) Handling the complexity of distributed services</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) Preventing data loss during serverless execution</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) Managing infrastructure provisioning during testing</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee">
+    <div class="que">
+        <p>72. Which Azure service can be used to simulate real user traffic for testing serverless microservices?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Azure Load Testing</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Load Testing helps simulate real user traffic to test the performance and scalability of your applications, including serverless microservices. It enables stress testing and the ability to evaluate how your system behaves under various levels of traffic.<br><br>
+        **Benefits of Azure Load Testing for Serverless Microservices**:<br>
+        1. Helps simulate real-world traffic to your serverless APIs.<br>
+        2. Identifies bottlenecks and helps with capacity planning.<br>
+        3. Measures system resilience under load.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) Azure Application Insights</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) Azure DevOps Pipelines</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) Azure Load Testing</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) Azure Monitor</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee">
+    <div class="que">
+        <p>73. What approach is commonly used for testing individual functions in serverless microservices?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Unit testing</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Unit testing is a key approach for testing individual functions in serverless microservices. Since serverless functions are often small, single-purpose pieces of code, unit testing allows developers to verify that each function behaves as expected in isolation.<br><br>
+        **Key Aspects of Unit Testing for Serverless Functions**:<br>
+        1. Isolates individual functions from dependencies.<br>
+        2. Verifies correct input-output behavior.<br>
+        3. Can be automated and integrated into CI/CD pipelines.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) Unit testing</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) Performance testing</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) Integration testing</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) Stress testing</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee">
+    <div class="que">
+        <p>74. Which tool can be used to test Azure Functions locally before deploying to the cloud?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Azure Functions Core Tools</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Functions Core Tools enable local development and testing of Azure Functions before they are deployed to the cloud. It allows you to run and test your functions on your local machine, simulating the cloud environment for a more streamlined development process.<br><br>
+        **Benefits of Azure Functions Core Tools for Local Testing**:<br>
+        1. Allows local execution of functions with the same runtime as Azure.<br>
+        2. Supports debugging and testing functions before deployment.<br>
+        3. Can be integrated with local CI/CD pipelines.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) Azure DevOps</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) Visual Studio Code</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) Azure Portal</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) Azure Functions Core Tools</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<!-- Question 75 -->
+<div class="qee">
+    <div class="que">
+        <p>75. What is the benefit of using mocks in testing serverless microservices?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) They allow testing without relying on external services or databases</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Mocks allow you to simulate external dependencies like databases, APIs, or other microservices, enabling you to test the functionality of your serverless microservices in isolation without needing to rely on the actual services. This helps reduce testing complexity and costs.<br><br>
+        **Benefits of Mocks in Testing Serverless Microservices**:<br>
+        1. Eliminates the need for real dependencies.<br>
+        2. Increases testing speed and reliability.<br>
+        3. Helps test edge cases and failure scenarios easily.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) They improve the visual design of the microservices</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) They allow testing without relying on external services or databases</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) They simulate high traffic scenarios</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) They help with stress testing serverless functions</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+<!-- Question 76 -->
+<div class="qee">
+    <div class="que">
+        <p>76. What is a primary benefit of using Azure DevOps for deploying serverless microservices?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Automating the deployment process</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps allows teams to automate the deployment process, ensuring that code changes are tested, validated, and deployed seamlessly. This improves reliability, reduces manual errors, and accelerates the release cycle for serverless microservices.<br><br>
+        **Benefits of Automating Deployment in Azure DevOps**:<br>
+        1. Consistency in deployments.<br>
+        2. Reduced manual intervention.<br>
+        3. Enhanced ability to handle frequent code changes and updates.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) Automating the deployment process</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) Providing direct access to the underlying infrastructure</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) Simplifying the configuration of Azure resources</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) Eliminating the need for CI/CD pipelines</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee">
+    <div class="que">
+        <p>77. Which of the following is a key component in Azure DevOps for managing deployments of serverless microservices?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Azure Pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Pipelines is the key component in Azure DevOps for automating the deployment of applications, including serverless microservices. It provides continuous integration (CI) and continuous delivery (CD) capabilities, enabling you to build, test, and deploy serverless applications in a seamless and efficient manner.<br><br>
+        **Key Features of Azure Pipelines**:<br>
+        1. Supports building, testing, and deploying serverless applications.<br>
+        2. Integrates with various Azure services like Azure Functions and Azure Logic Apps.<br>
+        3. Enables versioning, rollback, and monitoring of deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) Azure Resource Manager</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) Azure DevTest Labs</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) Azure Pipelines</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) Azure Automation</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee">
+    <div class="que">
+        <p>78. Which Azure DevOps feature is most suitable for versioning and tracking deployments for serverless microservices?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Azure Repos</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Repos provides source control for tracking and managing code changes, ensuring that you can version and collaborate on serverless microservices efficiently. It integrates seamlessly with Azure Pipelines to deploy the latest versions of your application.<br><br>
+        **Benefits of Azure Repos for Serverless Microservices**:<br>
+        1. Versioning of serverless microservices code.<br>
+        2. Supports Git repositories for collaborative development.<br>
+        3. Easy integration with CI/CD pipelines for continuous delivery.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) Azure Pipelines</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) Azure DevTest Labs</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) Azure Artifacts</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) Azure Repos</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+
+<!-- Question 79 -->
+<div class="qee">
+    <div class="que">
+        <p>79. How can Azure DevOps help ensure that only tested and validated serverless microservices are deployed to production?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using continuous integration and continuous delivery (CI/CD) pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps CI/CD pipelines enable continuous integration and continuous delivery of serverless microservices. These pipelines automatically test and validate code changes before deploying them to production, ensuring that only stable, reliable code reaches production environments.<br><br>
+        **CI/CD for Serverless Microservices in Azure**:<br>
+        1. Automates the process of building, testing, and deploying.<br>
+        2. Helps catch issues early through automated tests.<br>
+        3. Provides deployment gates and approval processes for control.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) By using continuous integration and continuous delivery (CI/CD) pipelines</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) By manually approving code changes before each deployment</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) By using Azure Monitor for live testing</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) By deploying directly to production after initial testing</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee">
+    <div class="que">
+        <p>80. What can be used to roll back a deployment if a serverless microservice fails after being deployed via Azure DevOps?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Deployment gates and rollback strategies in Azure Pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Pipelines can incorporate deployment gates and rollback strategies to ensure that problematic deployments can be rolled back quickly. This helps ensure that failures don't impact production systems.<br><br>
+        **Rollback Strategies**:<br>
+        1. Automatic rollback on failure during deployment.<br>
+        2. Manual approval gates to ensure only tested and validated code is deployed.<br>
+        3. Use of versioning and canary deployments for safer releases.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) Rebuilding the function and redeploying it</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) Deployment gates and rollback strategies in Azure Pipelines</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) Manually undoing the changes in the Azure Portal</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) Reverting to a previous snapshot of the application</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

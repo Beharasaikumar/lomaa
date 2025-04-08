@@ -1,0 +1,2425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERRAFORMS WITH DEVOPS</title>
+    <link rel="stylesheet" href="../css/Azure Devops.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'B', 'C', 'A', 'A', 'B', 'C', 'D', 'B',
+            'A', 'B', 'D', 'A', 'C', 'A', 'B', 'C', 'A', 'B',
+            'A', 'B', 'C', 'D', 'A', 'A', 'B', 'C', 'D', 'B',
+            'A', 'A', 'D', 'B', 'C', 'A', 'B', 'D', 'B', 'A',
+            'A', 'B', 'C', 'A', 'D', 'A', 'B', 'D', 'C', 'B',
+            'A', 'D', 'C', 'B', 'D', 'A', 'B', 'C', 'B', 'B',  
+            'C', 'B', 'D', 'A', 'C', 'A', 'B', 'C', 'D', 'A',
+            'B', 'A', 'C', 'D', 'B', 'B', 'A', 'C', 'B', 'D'
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>TERRAFORMS WITH DEVOPS</h3>
+        <div class="inner-border">
+            <div class="qee">
+                <!-- Question 1 -->
+                <div class="que">
+                    <p>1. What is the primary purpose of Terraform in DevOps?</p>
+                    <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+                </div>
+                <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To automate the provisioning and management of infrastructure as code.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Terraform is an Infrastructure as Code (IaC) tool that allows you to define and manage infrastructure resources efficiently and consistently.<br><br>
+                    **Key Features of Terraform:**<br>
+                    1. Infrastructure as Code (IaC) for defining resources.<br>
+                    2. Supports multi-cloud and on-premises environments.<br>
+                    3. Declarative configuration language (HCL).<br>
+                    4. Automates deployment, scaling, and management of infrastructure.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+                    <label for="optionA0">A) To monitor application performance in real-time.</label><br>
+                    <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+                    <label for="optionB0">B) To automate the provisioning and management of infrastructure as code.</label><br>
+                    <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+                    <label for="optionC0">C) To create and manage databases.</label><br>
+                    <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+                    <label for="optionD0">D) To develop mobile applications.</label><br>
+                </div>
+                <div id="result0" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 2 -->
+                <div class="que">
+                    <p>2. Which of the following is a key feature of Azure DevOps?</p>
+                    <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+                </div>
+                <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Provides a comprehensive set of DevOps tools for CI/CD, version control, and more.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure DevOps is a cloud-based platform that offers a suite of development tools for managing the entire software development lifecycle.<br><br>
+                    **Key Components of Azure DevOps:**<br>
+                    1. Azure Repos: Git repositories for version control.<br>
+                    2. Azure Pipelines: Continuous Integration and Continuous Deployment (CI/CD) services.<br>
+                    3. Azure Boards: Work tracking with Kanban boards and backlogs.<br>
+                    4. Azure Artifacts: Package management for sharing code.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+                    <label for="optionA1">A) Only provides cloud storage solutions.</label><br>
+                    <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+                    <label for="optionB1">B) Provides a comprehensive set of DevOps tools for CI/CD, version control, and more.</label><br>
+                    <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+                    <label for="optionC1">C) A tool for creating desktop applications.</label><br>
+                    <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+                    <label for="optionD1">D) A database management system.</label><br>
+                </div>
+                <div id="result1" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 3 -->
+                <div class="que">
+                    <p>3. Which language is primarily used for writing Terraform configuration files?</p>
+                    <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+                </div>
+                <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) HashiCorp Configuration Language (HCL)</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Terraform uses HashiCorp Configuration Language (HCL) to define the infrastructure in a human-readable format.<br><br>
+                    **Characteristics of HCL:**<br>
+                    1. Declarative syntax to define resources.<br>
+                    2. Supports modularization and reusability.<br>
+                    3. Easy to read and write for infrastructure-as-code practices.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+                    <label for="optionA2">A) Python</label><br>
+                    <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+                    <label for="optionB2">B) HashiCorp Configuration Language (HCL)</label><br>
+                    <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+                    <label for="optionC2">C) JavaScript</label><br>
+                    <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+                    <label for="optionD2">D) SQL</label><br>
+                </div>
+                <div id="result2" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 4 -->
+                <div class="que">
+                    <p>4. Which command is used to initialize a Terraform working directory?</p>
+                    <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+                </div>
+                <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) terraform init</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform init` command initializes a Terraform working directory by downloading required provider plugins and setting up the environment.<br><br>
+                    **Steps:**<br>
+                    1. Navigate to the project directory.<br>
+                    2. Run `terraform init` to initialize the directory.<br>
+                    3. Prepare the environment for applying configurations.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+                    <label for="optionA3">A) terraform plan</label><br>
+                    <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+                    <label for="optionB3">B) terraform apply</label><br>
+                    <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+                    <label for="optionC3">C) terraform init</label><br>
+                    <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+                    <label for="optionD3">D) terraform destroy</label><br>
+                </div>
+                <div id="result3" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 5 -->
+                <div class="que">
+                    <p>5. What is the purpose of a pipeline in Azure DevOps?</p>
+                    <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+                </div>
+                <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To automate the process of building, testing, and deploying applications.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Pipelines in Azure DevOps are used to automate the process of building, testing, and deploying applications, supporting Continuous Integration and Continuous Deployment (CI/CD) practices.<br><br>
+                    **Key Benefits:**<br>
+                    1. Automates repetitive tasks.<br>
+                    2. Ensures consistent deployment processes.<br>
+                    3. Reduces manual errors and increases efficiency.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+                    <label for="optionA4">A) To automate the process of building, testing, and deploying applications.</label><br>
+                    <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+                    <label for="optionB4">B) To manage user access permissions.</label><br>
+                    <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+                    <label for="optionC4">C) To provide cloud storage solutions.</label><br>
+                    <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+                    <label for="optionD4">D) To create user interfaces.</label><br>
+                </div>
+                <div id="result4" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 6 -->
+                <div class="que">
+                    <p>6. What is the first step when setting up Azure DevOps for Terraform?</p>
+                    <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+                </div>
+                <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Create an Azure DevOps organization and project.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    To start using Azure DevOps with Terraform, you first need to create an Azure DevOps organization and a project where you will manage your pipelines and repositories.<br><br>
+                    **Steps to Set Up:**<br>
+                    1. Sign in to Azure DevOps.<br>
+                    2. Create an organization.<br>
+                    3. Create a project within the organization.<br>
+                    4. Configure repositories and pipelines.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+                    <label for="optionA5">A) Create an Azure DevOps organization and project.</label><br>
+                    <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+                    <label for="optionB5">B) Install Terraform on your local machine.</label><br>
+                    <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+                    <label for="optionC5">C) Deploy the infrastructure manually.</label><br>
+                    <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+                    <label for="optionD5">D) Create a GitHub repository.</label><br>
+                </div>
+                <div id="result5" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 7 -->
+                <div class="que">
+                    <p>7. Which Azure DevOps service is used to define and automate the deployment process?</p>
+                    <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+                </div>
+                <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Azure Pipelines</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Pipelines is the service used to automate the build, test, and deployment processes within Azure DevOps. It supports both Continuous Integration (CI) and Continuous Deployment (CD).<br><br>
+                    **Key Features:**<br>
+                    1. Supports YAML for pipeline as code.<br>
+                    2. Integrates with Terraform for infrastructure deployment.<br>
+                    3. Can deploy to multiple environments (Azure, AWS, etc.).<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+                    <label for="optionA6">A) Azure Repos</label><br>
+                    <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+                    <label for="optionB6">B) Azure Pipelines</label><br>
+                    <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+                    <label for="optionC6">C) Azure Boards</label><br>
+                    <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+                    <label for="optionD6">D) Azure Artifacts</label><br>
+                </div>
+                <div id="result6" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 8 -->
+                <div class="que">
+                    <p>8. What is the purpose of a service connection in Azure DevOps?</p>
+                    <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+                </div>
+                <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) To securely connect Azure DevOps with external services like Azure.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    A service connection in Azure DevOps allows you to authenticate and authorize Azure DevOps to interact with external services securely, such as Azure subscriptions.<br><br>
+                    **Types of Service Connections:**<br>
+                    1. Azure Resource Manager<br>
+                    2. GitHub<br>
+                    3. Docker Registry<br>
+                    4. Generic service connections<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+                    <label for="optionA7">A) To create Git repositories.</label><br>
+                    <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+                    <label for="optionB7">B) To manage project boards.</label><br>
+                    <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+                    <label for="optionC7">C) To securely connect Azure DevOps with external services like Azure.</label><br>
+                    <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+                    <label for="optionD7">D) To deploy apps to mobile devices.</label><br>
+                </div>
+                <div id="result7" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 9 -->
+                <div class="que">
+                    <p>9. What is the purpose of the `terraform plan` command in Terraform?</p>
+                    <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+                </div>
+                <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) To preview the changes that will be made to the infrastructure.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform plan` command is used to create an execution plan, showing what changes Terraform will make to the infrastructure before actually applying them.<br><br>
+                    **Key Benefits:**<br>
+                    1. Helps in reviewing changes before deployment.<br>
+                    2. Prevents unintended modifications.<br>
+                    3. Provides insights into resource creation, updates, or deletions.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+                    <label for="optionA8">A) To install Terraform modules.</label><br>
+                    <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+                    <label for="optionB8">B) To authenticate with Azure.</label><br>
+                    <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+                    <label for="optionC8">C) To destroy existing infrastructure.</label><br>
+                    <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+                    <label for="optionD8">D) To preview the changes that will be made to the infrastructure.</label><br>
+                </div>
+                <div id="result8" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 10 -->
+                <div class="que">
+                    <p>10. Which Terraform command is used to apply the changes defined in the configuration files?</p>
+                    <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+                </div>
+                <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) terraform apply</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform apply` command is used to apply the changes required to reach the desired state of the configuration defined in the `.tf` files.<br><br>
+                    **Steps:**<br>
+                    1. Run `terraform plan` to review changes.<br>
+                    2. Run `terraform apply` to execute the changes.<br>
+                    3. Confirm the action when prompted.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+                    <label for="optionA9">A) terraform init</label><br>
+                    <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+                    <label for="optionB9">B) terraform apply</label><br>
+                    <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+                    <label for="optionC9">C) terraform validate</label><br>
+                    <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+                    <label for="optionD9">D) terraform destroy</label><br>
+                </div>
+                <div id="result9" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 11 -->
+                <div class="que">
+                    <p>11. What is the primary purpose of an Azure Service Connection in Terraform deployments?</p>
+                    <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+                </div>
+                <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To securely authenticate and authorize Azure DevOps to access Azure resources.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    An Azure Service Connection is used to establish a secure connection between Azure DevOps and Azure, allowing Terraform to authenticate and manage Azure resources safely.<br><br>
+                    **Key Features:**<br>
+                    1. Uses Azure Active Directory (AAD) for authentication.<br>
+                    2. Supports different authentication methods (Service Principal, Managed Identity).<br>
+                    3. Enables secure automation of infrastructure deployments.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+                    <label for="optionA10">A) To securely authenticate and authorize Azure DevOps to access Azure resources.</label><br>
+                    <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+                    <label for="optionB10">B) To create virtual machines in Azure.</label><br>
+                    <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+                    <label for="optionC10">C) To deploy applications directly to Azure App Services.</label><br>
+                    <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+                    <label for="optionD10">D) To manage user permissions in Azure.</label><br>
+                </div>
+                <div id="result10" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 12 -->
+                <div class="que">
+                    <p>12. Which type of authentication is commonly used for Azure Service Connections in Terraform?</p>
+                    <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+                </div>
+                <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Service Principal Authentication</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Service Principal Authentication is the most commonly used method for Azure Service Connections because it provides secure, role-based access to Azure resources for automation tools like Terraform.<br><br>
+                    **How It Works:**<br>
+                    1. Create a Service Principal in Azure AD.<br>
+                    2. Assign necessary permissions (RBAC) to the Service Principal.<br>
+                    3. Configure Azure DevOps with the Service Principal credentials.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+                    <label for="optionA11">A) Username and Password Authentication</label><br>
+                    <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+                    <label for="optionB11">B) Service Principal Authentication</label><br>
+                    <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+                    <label for="optionC11">C) OAuth 2.0 with Refresh Token</label><br>
+                    <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+                    <label for="optionD11">D) SSH Key Authentication</label><br>
+                </div>
+                <div id="result11" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 13 -->
+                <div class="que">
+                    <p>13. Which Azure role is required to allow a Service Principal to manage resources via Terraform?</p>
+                    <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+                </div>
+                <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Contributor Role</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The Contributor role grants the necessary permissions to create, modify, and delete resources in an Azure subscription, making it ideal for Terraform operations.<br><br>
+                    **Permissions Include:**<br>
+                    1. Deploying infrastructure as code.<br>
+                    2. Managing resource groups and virtual networks.<br>
+                    3. Assigning RBAC roles to other users.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+                    <label for="optionA12">A) Reader Role</label><br>
+                    <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+                    <label for="optionB12">B) Owner Role</label><br>
+                    <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+                    <label for="optionC12">C) User Access Administrator</label><br>
+                    <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+                    <label for="optionD12">D) Contributor Role</label><br>
+                </div>
+                <div id="result12" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 14 -->
+                <div class="que">
+                    <p>14. Which of the following is a required field when creating an Azure Service Connection?</p>
+                    <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+                </div>
+                <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Subscription ID</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The Subscription ID is a mandatory field because it identifies the specific Azure subscription where the resources will be managed by Terraform.<br><br>
+                    **Other Required Details:**<br>
+                    1. Tenant ID<br>
+                    2. Service Principal ID<br>
+                    3. Service Principal Key (Secret) or Certificate<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+                    <label for="optionA13">A) Subscription ID</label><br>
+                    <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+                    <label for="optionB13">B) Resource Group Name</label><br>
+                    <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+                    <label for="optionC13">C) Virtual Network ID</label><br>
+                    <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+                    <label for="optionD13">D) Storage Account Name</label><br>
+                </div>
+                <div id="result13" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 15 -->
+                <div class="que">
+                    <p>15. Which command is used to verify that the Azure Service Connection is correctly configured?</p>
+                    <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+                </div>
+                <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) az account show</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `az account show` command verifies the current Azure subscription context, ensuring that the Service Connection is properly configured.<br><br>
+                    **Steps:**<br>
+                    1. Run the command in the Azure CLI.<br>
+                    2. Check for subscription details and tenant information.<br>
+                    3. If errors occur, review Service Connection credentials and permissions.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+                    <label for="optionA14">A) terraform init</label><br>
+                    <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+                    <label for="optionB14">B) terraform plan</label><br>
+                    <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+                    <label for="optionC14">C) az account show</label><br>
+                    <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+                    <label for="optionD14">D) az vm create</label><br>
+                </div>
+                <div id="result14" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 16 -->
+                <div class="que">
+                    <p>16. What is the primary purpose of the `provider` block in a Terraform configuration for Azure?</p>
+                    <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+                </div>
+                <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To specify the cloud provider (Azure) and its configuration settings.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `provider` block defines the cloud provider (Azure in this case) and includes details like subscription ID, tenant ID, and credentials.<br><br>
+                    **Example:**<br>
+                    ```hcl
+                    provider "azurerm" {
+                      features {}
+                      subscription_id = "xxxx-xxxx-xxxx"
+                      client_id       = "xxxx-xxxx-xxxx"
+                      client_secret   = "xxxx"
+                      tenant_id       = "xxxx"
+                    }
+                    ```<br>
+                    This allows Terraform to authenticate and interact with Azure resources.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+                    <label for="optionA15">A) To specify the cloud provider (Azure) and its configuration settings.</label><br>
+                    <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+                    <label for="optionB15">B) To define resource groups in Azure.</label><br>
+                    <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+                    <label for="optionC15">C) To create virtual machines in Azure.</label><br>
+                    <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+                    <label for="optionD15">D) To manage Azure DevOps pipelines.</label><br>
+                </div>
+                <div id="result15" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 17 -->
+                <div class="que">
+                    <p>17. Which Terraform block is used to define an Azure resource, such as a virtual network?</p>
+                    <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+                </div>
+                <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) resource</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `resource` block is used to define the configuration for an Azure resource, such as a virtual network, storage account, or virtual machine.<br><br>
+                    **Example:**<br>
+                    ```hcl
+                    resource "azurerm_virtual_network" "example" {
+                      name                = "example-network"
+                      address_space       = ["10.0.0.0/16"]
+                      location            = "East US"
+                      resource_group_name = azurerm_resource_group.example.name
+                    }
+                    ```  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+                    <label for="optionA16">A) module</label><br>
+                    <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+                    <label for="optionB16">B) resource</label><br>
+                    <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+                    <label for="optionC16">C) output</label><br>
+                    <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+                    <label for="optionD16">D) provider</label><br>
+                </div>
+                <div id="result16" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 18 -->
+                <div class="que">
+                    <p>18. How do you define a variable in Terraform for Azure resource configurations?</p>
+                    <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+                </div>
+                <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) variable "variable_name" { }</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Variables in Terraform allow you to make your configurations dynamic and reusable.<br><br>
+                    **Example:**<br>
+                    ```hcl
+                    variable "location" {
+                      description = "Azure region for resources"
+                      default     = "East US"
+                    }
+                    ```  
+                    You can reference this variable in your resource block using `var.location`.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+                    <label for="optionA17">A) define "variable_name"</label><br>
+                    <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+                    <label for="optionB17">B) resource "variable_name"</label><br>
+                    <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+                    <label for="optionC17">C) variable "variable_name" { }</label><br>
+                    <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+                    <label for="optionD17">D) output "variable_name"</label><br>
+                </div>
+                <div id="result17" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 19 -->
+                <div class="que">
+                    <p>19. What command is used to initialize a Terraform configuration for Azure?</p>
+                    <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+                </div>
+                <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) terraform init</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform init` command initializes the working directory, downloads the required provider plugins, and prepares the environment for deployment.<br><br>
+                    **Usage:**<br>
+                    ```bash
+                    terraform init
+                    ```  
+                    This step must be done before running `terraform plan` or `terraform apply`.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+                    <label for="optionA18">A) terraform init</label><br>
+                    <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+                    <label for="optionB18">B) terraform plan</label><br>
+                    <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+                    <label for="optionC18">C) terraform apply</label><br>
+                    <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+                    <label for="optionD18">D) terraform destroy</label><br>
+                </div>
+                <div id="result18" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 20 -->
+                <div class="que">
+                    <p>20. How do you apply changes defined in a Terraform configuration for Azure?</p>
+                    <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+                </div>
+                <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) terraform apply</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform apply` command applies the changes defined in the Terraform configuration to the Azure environment.<br><br>
+                    **Usage:**<br>
+                    ```bash
+                    terraform apply
+                    ```  
+                    You’ll be prompted to confirm before the changes are executed unless you use the `-auto-approve` flag.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+                    <label for="optionA19">A) terraform init</label><br>
+                    <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+                    <label for="optionB19">B) terraform apply</label><br>
+                    <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+                    <label for="optionC19">C) terraform plan</label><br>
+                    <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+                    <label for="optionD19">D) terraform destroy</label><br>
+                </div>
+                <div id="result19" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 21 -->
+                <div class="que">
+                    <p>21. What is the purpose of using Azure Pipelines with Terraform?</p>
+                    <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+                </div>
+                <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To automate the deployment of infrastructure as code (IaC) in Azure.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Pipelines automates the process of applying Terraform configurations, enabling continuous integration and continuous deployment (CI/CD) for infrastructure.<br><br>
+                    **Key Benefits:**<br>
+                    - Automates deployments<br>
+                    - Integrates with version control<br>
+                    - Ensures consistency and repeatability<br>
+                    - Enhances security with controlled access  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+                    <label for="optionA20">A) To automate the deployment of infrastructure as code (IaC) in Azure.</label><br>
+                    <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+                    <label for="optionB20">B) To create virtual machines manually in Azure.</label><br>
+                    <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+                    <label for="optionC20">C) To manage Azure DevOps user accounts.</label><br>
+                    <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+                    <label for="optionD20">D) To monitor Azure network traffic.</label><br>
+                </div>
+                <div id="result20" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 22 -->
+                <div class="que">
+                    <p>22. Which Azure DevOps service is used to create CI/CD pipelines for Terraform?</p>
+                    <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+                </div>
+                <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Azure Pipelines</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Azure Pipelines** is a CI/CD service within Azure DevOps that allows you to automate the build, test, and deployment process for Terraform configurations.<br><br>
+                    **Key Features:**<br>
+                    - Supports YAML and classic pipelines<br>
+                    - Integrates with Terraform CLI<br>
+                    - Manages secrets securely<br>
+                    - Works with multi-cloud environments  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+                    <label for="optionA21">A) Azure Repos</label><br>
+                    <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+                    <label for="optionB21">B) Azure Pipelines</label><br>
+                    <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+                    <label for="optionC21">C) Azure Artifacts</label><br>
+                    <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+                    <label for="optionD21">D) Azure Monitor</label><br>
+                </div>
+                <div id="result21" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 23 -->
+                <div class="que">
+                    <p>23. What is the role of a YAML file in Azure Pipelines for Terraform?</p>
+                    <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+                </div>
+                <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) To define the pipeline configuration, including stages, jobs, and tasks.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    YAML files define the structure and process of Azure Pipelines, specifying how Terraform scripts are executed.<br><br>
+                    **Example:**  
+                    ```yaml
+                    trigger:
+                      - main
+                    jobs:
+                      - job: Terraform
+                        steps:
+                          - script: terraform init
+                          - script: terraform plan
+                          - script: terraform apply -auto-approve
+                    ```  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+                    <label for="optionA22">A) To store Terraform state files.</label><br>
+                    <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+                    <label for="optionB22">B) To manage Azure resource groups.</label><br>
+                    <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+                    <label for="optionC22">C) To define the pipeline configuration, including stages, jobs, and tasks.</label><br>
+                    <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+                    <label for="optionD22">D) To deploy Azure applications only.</label><br>
+                </div>
+                <div id="result22" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 24 -->
+                <div class="que">
+                    <p>24. Which Azure DevOps feature helps manage sensitive data like API keys for Terraform?</p>
+                    <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+                </div>
+                <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Azure DevOps Pipeline Secrets</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Pipeline Secrets** allow secure storage of sensitive information like API keys, client secrets, and tokens, which can be accessed securely within pipeline tasks.<br><br>
+                    **Example:**  
+                    ```yaml
+                    - script: terraform apply -auto-approve
+                      env:
+                        ARM_CLIENT_SECRET: $(azureSecret)
+                    ```  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+                    <label for="optionA23">A) Azure Resource Groups</label><br>
+                    <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+                    <label for="optionB23">B) Azure Key Vault</label><br>
+                    <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+                    <label for="optionC23">C) Azure Storage Account</label><br>
+                    <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+                    <label for="optionD23">D) Azure DevOps Pipeline Secrets</label><br>
+                </div>
+                <div id="result23" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 25 -->
+                <div class="que">
+                    <p>25. What is the purpose of the `terraform init` command in an Azure Pipeline?</p>
+                    <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+                </div>
+                <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To initialize the working directory and download necessary provider plugins.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform init` command prepares the environment, ensuring all dependencies are downloaded and the backend is configured correctly.<br><br>
+                    **Usage:**  
+                    ```bash
+                    terraform init
+                    ```  
+                    This step is mandatory before running `terraform plan` or `terraform apply` in an Azure Pipeline.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+                    <label for="optionA24">A) To initialize the working directory and download necessary provider plugins.</label><br>
+                    <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+                    <label for="optionB24">B) To delete all existing infrastructure.</label><br>
+                    <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+                    <label for="optionC24">C) To create new Azure DevOps repositories.</label><br>
+                    <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+                    <label for="optionD24">D) To trigger manual deployments only.</label><br>
+                </div>
+                <div id="result24" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 26 -->
+                <div class="que">
+                    <p>26. What is the purpose of the Terraform state file?</p>
+                    <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+                </div>
+                <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To keep track of the current state of the managed infrastructure.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The Terraform state file (`terraform.tfstate`) contains information about the infrastructure resources that Terraform manages. It helps in detecting changes and planning updates.<br><br>
+                    **Key Points:**<br>
+                    - Tracks resource IDs and metadata<br>
+                    - Enables resource management across deployments<br>
+                    - Supports remote state storage for team collaboration  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+                    <label for="optionA25">A) To keep track of the current state of the managed infrastructure.</label><br>
+                    <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+                    <label for="optionB25">B) To store the Terraform configuration files.</label><br>
+                    <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+                    <label for="optionC25">C) To manage Azure resource groups.</label><br>
+                    <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+                    <label for="optionD25">D) To execute Terraform commands.</label><br>
+                </div>
+                <div id="result25" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 27 -->
+                <div class="que">
+                    <p>27. Which Azure service is commonly used to store Terraform state files remotely?</p>
+                    <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+                </div>
+                <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Azure Blob Storage</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Azure Blob Storage** is commonly used to store Terraform state files remotely. It allows multiple team members to collaborate securely and manage state files effectively.<br><br>
+                    **Benefits:**<br>
+                    - Supports state locking and consistency<br>
+                    - Secure storage with encryption<br>
+                    - Easily scalable for large infrastructures  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+                    <label for="optionA26">A) Azure SQL Database</label><br>
+                    <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+                    <label for="optionB26">B) Azure Blob Storage</label><br>
+                    <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+                    <label for="optionC26">C) Azure Active Directory</label><br>
+                    <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+                    <label for="optionD26">D) Azure Cosmos DB</label><br>
+                </div>
+                <div id="result26" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 28 -->
+                <div class="que">
+                    <p>28. How can you enable remote state locking in Azure for Terraform?</p>
+                    <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+                </div>
+                <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By using Azure Blob Storage with a state locking mechanism enabled.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Remote state locking prevents concurrent modifications to the state file, ensuring data consistency.<br><br>
+                    **Steps to Enable State Locking:**<br>
+                    1. Use Azure Blob Storage as the backend.<br>
+                    2. Enable state locking using Azure Storage's built-in locking feature.<br>
+                    3. Configure the backend in Terraform with `terraform { backend "azurerm" { ... } }`  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+                    <label for="optionA27">A) By using Azure Resource Groups.</label><br>
+                    <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+                    <label for="optionB27">B) By storing the state file in a local directory.</label><br>
+                    <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+                    <label for="optionC27">C) By using Azure Blob Storage with a state locking mechanism enabled.</label><br>
+                    <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+                    <label for="optionD27">D) By enabling Azure DevOps pipelines only.</label><br>
+                </div>
+                <div id="result27" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 29 -->
+                <div class="que">
+                    <p>29. Which Terraform command is used to view the current state of the infrastructure?</p>
+                    <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+                </div>
+                <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) terraform show</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform show` command displays the current state of the infrastructure, including resource details and configurations.<br><br>
+                    **Example:**  
+                    ```bash
+                    terraform show terraform.tfstate
+                    ```  
+                    This helps in verifying the applied changes and understanding the infrastructure's current status.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+                    <label for="optionA28">A) terraform init</label><br>
+                    <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+                    <label for="optionB28">B) terraform plan</label><br>
+                    <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+                    <label for="optionC28">C) terraform apply</label><br>
+                    <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+                    <label for="optionD28">D) terraform show</label><br>
+                </div>
+                <div id="result28" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 30 -->
+                <div class="que">
+                    <p>30. How can you prevent accidental changes to the Terraform state file in Azure?</p>
+                    <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+                </div>
+                <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By using Azure Blob Storage with access control and locking mechanisms.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    To prevent accidental changes to the state file:<br>
+                    - Use **Azure Blob Storage** for remote state management.<br>
+                    - Enable **state locking** to prevent simultaneous modifications.<br>
+                    - Apply **Azure RBAC** to restrict access to the state storage.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+                    <label for="optionA29">A) By storing the state file in a local directory only.</label><br>
+                    <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+                    <label for="optionB29">B) By using Azure Blob Storage with access control and locking mechanisms.</label><br>
+                    <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+                    <label for="optionC29">C) By disabling remote state storage.</label><br>
+                    <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+                    <label for="optionD29">D) By using only Azure DevOps pipelines.</label><br>
+                </div>
+                <div id="result29" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 31 -->
+                <div class="que">
+                    <p>31. What is the primary purpose of using Terraform workspaces?</p>
+                    <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+                </div>
+                <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To manage multiple environments using the same configuration.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Terraform workspaces allow you to create isolated environments (like development, staging, production) while reusing the same configuration files.<br><br>
+                    **Key Benefits:**<br>
+                    - Simplifies environment management<br>
+                    - Prevents accidental changes across environments<br>
+                    - Enables parallel infrastructure deployments  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+                    <label for="optionA30">A) To manage multiple environments using the same configuration.</label><br>
+                    <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+                    <label for="optionB30">B) To store Terraform state files locally.</label><br>
+                    <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+                    <label for="optionC30">C) To automate Azure resource provisioning.</label><br>
+                    <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+                    <label for="optionD30">D) To create Terraform modules for reuse.</label><br>
+                </div>
+                <div id="result30" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 32 -->
+                <div class="que">
+                    <p>32. Which command is used to create a new workspace in Terraform?</p>
+                    <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+                </div>
+                <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) terraform workspace new</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform workspace new` command is used to create a new workspace. This helps in setting up an isolated environment for infrastructure management.<br><br>
+                    **Example:**  
+                    ```bash
+                    terraform workspace new staging
+                    ```  
+                    This creates a new workspace called "staging" for separate environment management.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+                    <label for="optionA31">A) terraform workspace new</label><br>
+                    <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+                    <label for="optionB31">B) terraform init</label><br>
+                    <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+                    <label for="optionC31">C) terraform apply</label><br>
+                    <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+                    <label for="optionD31">D) terraform plan</label><br>
+                </div>
+                <div id="result31" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 33 -->
+                <div class="que">
+                    <p>33. How can you list all the available workspaces in Terraform?</p>
+                    <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+                </div>
+                <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) terraform workspace list</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform workspace list` command lists all the workspaces available in the current directory. This helps in verifying and managing environments efficiently.<br><br>
+                    **Example:**  
+                    ```bash
+                    terraform workspace list
+                    ```  
+                    This will display a list of all workspaces like `default`, `development`, `staging`, etc.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+                    <label for="optionA32">A) terraform init</label><br>
+                    <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+                    <label for="optionB32">B) terraform plan</label><br>
+                    <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+                    <label for="optionC32">C) terraform apply</label><br>
+                    <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+                    <label for="optionD32">D) terraform workspace list</label><br>
+                </div>
+                <div id="result32" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 34 -->
+                <div class="que">
+                    <p>34. What happens when you switch to a different workspace in Terraform?</p>
+                    <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+                </div>
+                <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Terraform uses a separate state file for the selected workspace.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    When you switch to a different workspace using `terraform workspace select`, Terraform switches the context and manages a separate state file for that workspace.<br><br>
+                    **Example:**  
+                    ```bash
+                    terraform workspace select production
+                    ```  
+                    This allows you to manage different environments like `development`, `staging`, and `production` independently.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+                    <label for="optionA33">A) The infrastructure is automatically deleted.</label><br>
+                    <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+                    <label for="optionB33">B) Terraform uses a separate state file for the selected workspace.</label><br>
+                    <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+                    <label for="optionC33">C) It triggers a new deployment automatically.</label><br>
+                    <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+                    <label for="optionD33">D) It deletes all the previous workspaces.</label><br>
+                </div>
+                <div id="result33" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 35 -->
+                <div class="que">
+                    <p>35. Which Terraform command is used to switch to an existing workspace?</p>
+                    <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+                </div>
+                <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) terraform workspace select</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform workspace select` command allows you to switch to an existing workspace. This helps in managing different environments seamlessly.<br><br>
+                    **Example:**  
+                    ```bash
+                    terraform workspace select staging
+                    ```  
+                    This will switch to the "staging" workspace for infrastructure management.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+                    <label for="optionA34">A) terraform init</label><br>
+                    <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+                    <label for="optionB34">B) terraform plan</label><br>
+                    <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+                    <label for="optionC34">C) terraform workspace select</label><br>
+                    <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+                    <label for="optionD34">D) terraform apply</label><br>
+                </div>
+                <div id="result34" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 36 -->
+                <div class="que">
+                    <p>36. What is the purpose of using variables in Azure DevOps pipelines?</p>
+                    <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+                </div>
+                <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To store dynamic values that can be reused across tasks.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Variables in Azure DevOps pipelines are used to store dynamic values like environment configurations, credentials, or any reusable data.<br><br>
+                    **Key Benefits:**<br>
+                    - Reusability of values<br>
+                    - Easy management of configurations<br>
+                    - Simplifies pipeline maintenance  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+                    <label for="optionA35">A) To store dynamic values that can be reused across tasks.</label><br>
+                    <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+                    <label for="optionB35">B) To apply static IP addresses to resources.</label><br>
+                    <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+                    <label for="optionC35">C) To disable build triggers automatically.</label><br>
+                    <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+                    <label for="optionD35">D) To manage Git repository permissions.</label><br>
+                </div>
+                <div id="result35" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 37 -->
+                <div class="que">
+                    <p>37. How can you securely store sensitive information like passwords in Azure DevOps?</p>
+                    <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+                </div>
+                <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By using Azure DevOps Pipeline Secrets.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure DevOps provides a feature called **Pipeline Secrets** to store sensitive data securely. Secrets are encrypted and can only be accessed by authorized pipelines.<br><br>
+                    **How to Add Secrets:**<br>
+                    1. Go to **Project Settings** → **Pipelines** → **Library**.<br>
+                    2. Create a variable group and mark variables as secrets.<br>
+                    3. Reference them in the pipeline YAML file securely.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+                    <label for="optionA36">A) By storing them in plain text within YAML files.</label><br>
+                    <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+                    <label for="optionB36">B) By using Azure DevOps Pipeline Secrets.</label><br>
+                    <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+                    <label for="optionC36">C) By hardcoding them in the build script.</label><br>
+                    <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+                    <label for="optionD36">D) By storing them in the Azure Resource Manager (ARM) templates.</label><br>
+                </div>
+                <div id="result36" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 38 -->
+                <div class="que">
+                    <p>38. Which of the following is a correct way to reference a secret variable in an Azure DevOps YAML pipeline?</p>
+                    <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+                </div>
+                <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) $(mySecret)</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    In Azure DevOps YAML pipelines, secret variables can be referenced using the `$(variableName)` syntax.<br><br>
+                    **Example:**  
+                    ```yaml
+                    steps:
+                    - script: echo $(mySecret)
+                    ```  
+                    This securely outputs the secret value during pipeline execution without exposing it in logs.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+                    <label for="optionA37">A) ${{ mySecret }}</label><br>
+                    <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+                    <label for="optionB37">B) ${mySecret}</label><br>
+                    <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+                    <label for="optionC37">C) @mySecret</label><br>
+                    <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+                    <label for="optionD37">D) $(mySecret)</label><br>
+                </div>
+                <div id="result37" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 39 -->
+                <div class="que">
+                    <p>39. What is the key difference between Azure DevOps Pipeline Variables and Pipeline Secrets?</p>
+                    <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+                </div>
+                <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Secrets are encrypted and hidden from logs, while variables are visible in logs.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    - **Pipeline Variables:** Can store plain text data and are visible in logs unless masked.<br>
+                    - **Pipeline Secrets:** Encrypted, hidden from logs, and have restricted access to prevent exposure.<br><br>
+                    **Best Practice:** Use secrets for sensitive information like passwords, tokens, and API keys.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+                    <label for="optionA38">A) Variables are encrypted, while secrets are stored as plain text.</label><br>
+                    <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+                    <label for="optionB38">B) Secrets are encrypted and hidden from logs, while variables are visible in logs.</label><br>
+                    <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+                    <label for="optionC38">C) Variables and secrets are the same in Azure DevOps.</label><br>
+                    <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+                    <label for="optionD38">D) Secrets can be used in YAML, but variables cannot.</label><br>
+                </div>
+                <div id="result38" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 40 -->
+                <div class="que">
+                    <p>40. How can you ensure that a secret variable is not accidentally logged in an Azure DevOps pipeline?</p>
+                    <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+                </div>
+                <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) By using the `secrets` keyword and ensuring sensitive values are not echoed directly.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    - Use the `secrets` keyword when defining variables.<br>
+                    - Avoid using `echo` or logging commands that display secrets.<br>
+                    - Mask secrets in pipeline logs to prevent accidental exposure.<br><br>
+                    **Example:**  
+                    ```yaml
+                    variables:
+                      - name: mySecret
+                        value: $(mySecret)
+                        isSecret: true
+                    ```  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+                    <label for="optionA39">A) By using the `secrets` keyword and ensuring sensitive values are not echoed directly.</label><br>
+                    <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+                    <label for="optionB39">B) By storing secrets as plain text in YAML files.</label><br>
+                    <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+                    <label for="optionC39">C) By disabling all logging in the pipeline.</label><br>
+                    <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+                    <label for="optionD39">D) By encrypting logs after the pipeline runs.</label><br>
+                </div>
+                <div id="result39" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 41 -->
+                <div class="que">
+                    <p>41. What is the primary command used to identify errors in a Terraform configuration?</p>
+                    <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+                </div>
+                <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) terraform validate</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform validate` command checks the syntax and validity of Terraform configuration files without accessing any remote services.<br><br>
+                    **Key Points:**<br>
+                    - Ensures the configuration is syntactically correct.<br>
+                    - Identifies common mistakes before applying changes.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+                    <label for="optionA40">A) terraform validate</label><br>
+                    <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+                    <label for="optionB40">B) terraform plan</label><br>
+                    <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+                    <label for="optionC40">C) terraform apply</label><br>
+                    <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+                    <label for="optionD40">D) terraform refresh</label><br>
+                </div>
+                <div id="result40" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 42 -->
+                <div class="que">
+                    <p>42. Which Terraform environment variable can be set to get more detailed error output?</p>
+                    <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+                </div>
+                <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) TF_LOG</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Setting the `TF_LOG` environment variable helps to debug Terraform operations by providing detailed logs.<br><br>
+                    **Log Levels:**<br>
+                    - `TRACE` (most detailed)  
+                    - `DEBUG`  
+                    - `INFO`  
+                    - `WARN`  
+                    - `ERROR` (least detailed)  
+                    **Example:**  
+                    ```bash
+                    export TF_LOG=DEBUG
+                    terraform apply
+                    ```  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+                    <label for="optionA41">A) TF_DEBUG</label><br>
+                    <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+                    <label for="optionB41">B) TF_LOG</label><br>
+                    <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+                    <label for="optionC41">C) TF_TRACE</label><br>
+                    <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+                    <label for="optionD41">D) TF_ERROR</label><br>
+                </div>
+                <div id="result41" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 43 -->
+                <div class="que">
+                    <p>43. Which command allows you to refresh the Terraform state without making changes to the infrastructure?</p>
+                    <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+                </div>
+                <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) terraform refresh</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform refresh` command updates the local state file to reflect the real-time status of the infrastructure without making any changes.<br><br>
+                    **When to Use:**<br>
+                    - After manual changes to infrastructure outside Terraform.<br>
+                    - To ensure the state file is up-to-date before planning or applying.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+                    <label for="optionA42">A) terraform apply</label><br>
+                    <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+                    <label for="optionB42">B) terraform plan</label><br>
+                    <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+                    <label for="optionC42">C) terraform refresh</label><br>
+                    <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+                    <label for="optionD42">D) terraform validate</label><br>
+                </div>
+                <div id="result42" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 44 -->
+                <div class="que">
+                    <p>44. What is the purpose of the `terraform plan` command?</p>
+                    <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+                </div>
+                <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To create an execution plan and show proposed changes without applying them.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform plan` command previews changes that will be made when `terraform apply` is run. It helps to review actions before modifying resources.<br><br>
+                    **Key Features:**<br>
+                    - Detects potential errors before execution.<br>
+                    - Shows the impact of changes clearly.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+                    <label for="optionA43">A) To create an execution plan and show proposed changes without applying them.</label><br>
+                    <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+                    <label for="optionB43">B) To apply changes directly to the infrastructure.</label><br>
+                    <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+                    <label for="optionC43">C) To delete resources from the state file.</label><br>
+                    <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+                    <label for="optionD43">D) To refresh the Terraform state without validating the code.</label><br>
+                </div>
+                <div id="result43" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 45 -->
+                <div class="que">
+                    <p>45. What is the best practice for debugging Terraform errors?</p>
+                    <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+                </div>
+                <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Use `terraform plan` with `TF_LOG=DEBUG` and check error messages carefully.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    For effective debugging, combine `terraform plan` with environment variables like `TF_LOG` to capture detailed logs.<br><br>
+                    **Steps:**<br>
+                    1. Set debug logs: `export TF_LOG=DEBUG`<br>
+                    2. Run the plan: `terraform plan`<br>
+                    3. Review logs for detailed error messages.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+                    <label for="optionA44">A) Only rely on Terraform error messages without checking logs.</label><br>
+                    <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+                    <label for="optionB44">B) Re-run `terraform apply` multiple times to see if errors resolve.</label><br>
+                    <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+                    <label for="optionC44">C) Use third-party tools instead of Terraform for debugging.</label><br>
+                    <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+                    <label for="optionD44">D) Use `terraform plan` with `TF_LOG=DEBUG` and check error messages carefully.</label><br>
+                </div>
+                <div id="result44" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 46 -->
+                <div class="que">
+                    <p>46. What is the primary purpose of using stages in an Azure DevOps pipeline for Terraform?</p>
+                    <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+                </div>
+                <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To organize and manage different phases of the deployment process.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Stages in Azure DevOps help structure the pipeline into logical sections such as build, plan, apply, and test. This improves manageability and allows for better control over deployment workflows.<br><br>
+                    **Key Benefits:**<br>
+                    - Isolate different deployment phases.<br>
+                    - Enable approvals and manual interventions.<br>
+                    - Improve pipeline readability and maintainability.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+                    <label for="optionA45">A) To organize and manage different phases of the deployment process.</label><br>
+                    <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+                    <label for="optionB45">B) To run multiple Terraform plans simultaneously.</label><br>
+                    <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+                    <label for="optionC45">C) To reduce the number of Terraform configuration files needed.</label><br>
+                    <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+                    <label for="optionD45">D) To automatically generate Terraform code from Azure resources.</label><br>
+                </div>
+                <div id="result45" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 47 -->
+                <div class="que">
+                    <p>47. Which Azure DevOps feature allows for conditional execution of Terraform steps?</p>
+                    <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+                </div>
+                <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Conditions</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Conditions** in Azure DevOps allow you to control when specific steps or jobs run based on predefined criteria.<br><br>
+                    **Example:**  
+                    ```yaml
+                    - script: terraform apply
+                      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+                    ```  
+                    This ensures `terraform apply` runs only when the build is successful and the branch is `main`.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+                    <label for="optionA46">A) Variables</label><br>
+                    <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+                    <label for="optionB46">B) Conditions</label><br>
+                    <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+                    <label for="optionC46">C) Pipelines</label><br>
+                    <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+                    <label for="optionD46">D) Approvals</label><br>
+                </div>
+                <div id="result46" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 48 -->
+                <div class="que">
+                    <p>48. How can you implement parallelism in Terraform deployments within Azure DevOps pipelines?</p>
+                    <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+                </div>
+                <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) By using the `parallelism` argument in the `terraform apply` command.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `parallelism` flag allows you to control the number of resources that Terraform will manage simultaneously.<br><br>
+                    **Example:**  
+                    ```bash
+                    terraform apply -parallelism=5
+                    ```  
+                    This runs up to 5 resources in parallel, speeding up deployments for large infrastructures.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+                    <label for="optionA47">A) By using multiple pipelines for each resource.</label><br>
+                    <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+                    <label for="optionB47">B) By enabling parallel execution in the Azure DevOps project settings.</label><br>
+                    <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+                    <label for="optionC47">C) By defining multiple jobs in the pipeline YAML file.</label><br>
+                    <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+                    <label for="optionD47">D) By using the `parallelism` argument in the `terraform apply` command.</label><br>
+                </div>
+                <div id="result47" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 49 -->
+                <div class="que">
+                    <p>49. What is the purpose of using `terraform output` in an Azure DevOps pipeline?</p>
+                    <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+                </div>
+                <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) To retrieve and display output values from Terraform state.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform output` command helps retrieve outputs defined in Terraform configurations, such as resource IDs, IP addresses, or URLs.<br><br>
+                    **Example:**  
+                    ```bash
+                    terraform output public_ip
+                    ```  
+                    This is useful for passing dynamic values to subsequent steps in Azure DevOps pipelines.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+                    <label for="optionA48">A) To delete resources from the Terraform state file.</label><br>
+                    <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+                    <label for="optionB48">B) To validate Terraform configurations before deployment.</label><br>
+                    <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+                    <label for="optionC48">C) To retrieve and display output values from Terraform state.</label><br>
+                    <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+                    <label for="optionD48">D) To refresh the Terraform state file without applying changes.</label><br>
+                </div>
+                <div id="result48" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 50 -->
+                <div class="que">
+                    <p>50. How can you ensure idempotency in Terraform deployments within Azure DevOps pipelines?</p>
+                    <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+                </div>
+                <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By using `terraform plan` before `terraform apply` to review changes.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Idempotency ensures that applying the same Terraform configuration multiple times results in the same infrastructure state.<br><br>
+                    **Steps:**<br>
+                    1. Run `terraform plan` to preview changes.<br>
+                    2. Review the plan to verify no unintended modifications.<br>
+                    3. Apply changes with `terraform apply`.  
+                    This approach minimizes errors and ensures consistency.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+                    <label for="optionA49">A) By deleting all resources before each deployment.</label><br>
+                    <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+                    <label for="optionB49">B) By using `terraform plan` before `terraform apply` to review changes.</label><br>
+                    <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+                    <label for="optionC49">C) By running Terraform commands in a virtual machine.</label><br>
+                    <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+                    <label for="optionD49">D) By disabling automatic state management in Terraform.</label><br>
+                </div>
+                <div id="result49" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 51 -->
+                <div class="que">
+                    <p>51. What is the primary reason for using remote backends in Terraform when working with Azure?</p>
+                    <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+                </div>
+                <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To secure the state file and enable team collaboration.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Remote backends store the Terraform state file securely in a remote location, such as Azure Storage. This provides:<br><br>
+                    - **State file encryption** for security.<br>
+                    - **Concurrency control** for team collaboration.<br>
+                    - **Versioning** to track changes in the infrastructure.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+                    <label for="optionA50">A) To secure the state file and enable team collaboration.</label><br>
+                    <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+                    <label for="optionB50">B) To reduce the cost of using Azure resources.</label><br>
+                    <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+                    <label for="optionC50">C) To improve the performance of Terraform commands.</label><br>
+                    <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+                    <label for="optionD50">D) To automatically apply Terraform changes without manual approval.</label><br>
+                </div>
+                <div id="result50" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 52 -->
+                <div class="que">
+                    <p>52. Which of the following is considered a security risk when managing Terraform state files?</p>
+                    <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+                </div>
+                <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Storing state files without encryption or access control.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Terraform state files contain sensitive information, such as resource IDs, IP addresses, and secrets. Storing them without proper encryption or access control exposes the infrastructure to security vulnerabilities.<br><br>
+                    **Best Practices:**<br>
+                    - Use remote backends with encryption (e.g., Azure Storage with encryption at rest).<br>
+                    - Implement access controls (RBAC) to restrict state file access.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+                    <label for="optionA51">A) Using variables in Terraform code.</label><br>
+                    <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+                    <label for="optionB51">B) Using version control systems to track state changes.</label><br>
+                    <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+                    <label for="optionC51">C) Using Terraform modules for code reuse.</label><br>
+                    <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+                    <label for="optionD51">D) Storing state files without encryption or access control.</label><br>
+                </div>
+                <div id="result51" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 53 -->
+                <div class="que">
+                    <p>53. How can you securely manage sensitive variables in Terraform when using Azure DevOps?</p>
+                    <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+                </div>
+                <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By using Azure DevOps secure pipeline variables or key vault integration.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Secure management of sensitive data like API keys, passwords, and secrets can be done via:<br><br>
+                    - **Azure DevOps secure variables**: Encrypted and hidden in logs.<br>
+                    - **Azure Key Vault**: Centralized secret management integrated with Azure DevOps pipelines.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+                    <label for="optionA52">A) Hardcoding secrets in the Terraform configuration files.</label><br>
+                    <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+                    <label for="optionB52">B) Storing secrets as plain text in the pipeline YAML files.</label><br>
+                    <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+                    <label for="optionC52">C) By using Azure DevOps secure pipeline variables or key vault integration.</label><br>
+                    <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+                    <label for="optionD52">D) Sharing secrets through environment variables in the pipeline.</label><br>
+                </div>
+                <div id="result52" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 54 -->
+                <div class="que">
+                    <p>54. What is the security risk of using the `terraform apply` command without proper review?</p>
+                    <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+                </div>
+                <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Unintentional deployment of unauthorized or insecure changes.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Applying Terraform configurations without reviewing the plan can lead to:<br><br>
+                    - **Deployment of unintended resources.**<br>
+                    - **Overwriting critical infrastructure.**<br>
+                    - **Exposure of sensitive data or misconfigurations.**  
+                    **Best Practice:** Always run `terraform plan` before `terraform apply` to review and validate changes.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+                    <label for="optionA53">A) It speeds up the deployment process.</label><br>
+                    <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+                    <label for="optionB53">B) Unintentional deployment of unauthorized or insecure changes.</label><br>
+                    <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+                    <label for="optionC53">C) Reduced complexity in managing infrastructure.</label><br>
+                    <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+                    <label for="optionD53">D) Improved performance of Terraform operations.</label><br>
+                </div>
+                <div id="result53" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 55 -->
+                <div class="que">
+                    <p>55. Which Azure service can be integrated with Terraform to enhance security through compliance management?</p>
+                    <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+                </div>
+                <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Azure Policy</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Azure Policy** allows you to enforce organizational standards and assess compliance in Azure resources. Terraform can be integrated with Azure Policy to:<br><br>
+                    - Automatically apply security policies during deployment.<br>
+                    - Audit resources for compliance with company rules.<br>
+                    - Remediate non-compliant resources automatically.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+                    <label for="optionA54">A) Azure Active Directory</label><br>
+                    <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+                    <label for="optionB54">B) Azure Firewall</label><br>
+                    <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+                    <label for="optionC54">C) Azure Key Vault</label><br>
+                    <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+                    <label for="optionD54">D) Azure Policy</label><br>
+                </div>
+                <div id="result54" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 56 -->
+                <div class="que">
+                    <p>56. What is the primary benefit of using Continuous Deployment (CD) with Terraform?</p>
+                    <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+                </div>
+                <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Automated and consistent deployment of infrastructure changes.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    CD with Terraform ensures that infrastructure changes are deployed automatically and consistently, reducing human errors and improving deployment speed.<br><br>
+                    **Key Benefits:**<br>
+                    - Faster delivery of infrastructure updates.<br>
+                    - Reduced manual intervention.<br>
+                    - Improved reliability and reproducibility of deployments.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+                    <label for="optionA55">A) Automated and consistent deployment of infrastructure changes.</label><br>
+                    <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+                    <label for="optionB55">B) Manual verification of every infrastructure change.</label><br>
+                    <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+                    <label for="optionC55">C) Only deploying changes in development environments.</label><br>
+                    <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+                    <label for="optionD55">D) Reducing the need for version control systems.</label><br>
+                </div>
+                <div id="result55" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 57 -->
+                <div class="que">
+                    <p>57. Which Azure DevOps service is commonly used to implement Continuous Deployment with Terraform?</p>
+                    <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+                </div>
+                <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Azure Pipelines</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Azure Pipelines** is widely used for implementing CD with Terraform. It allows you to define deployment workflows using YAML files or the visual designer.<br><br>
+                    **Key Features:**<br>
+                    - Integration with Git repositories.<br>
+                    - Support for multiple environments.<br>
+                    - Automated testing and deployment.<br>  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+                    <label for="optionA56">A) Azure Repos</label><br>
+                    <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+                    <label for="optionB56">B) Azure Pipelines</label><br>
+                    <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+                    <label for="optionC56">C) Azure Functions</label><br>
+                    <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+                    <label for="optionD56">D) Azure Logic Apps</label><br>
+                </div>
+                <div id="result56" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 58 -->
+                <div class="que">
+                    <p>58. What is the role of the `terraform plan` command in a Continuous Deployment pipeline?</p>
+                    <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+                </div>
+                <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) To preview the changes that will be applied to the infrastructure.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform plan` command generates an execution plan, showing what changes will be made to the infrastructure before applying them.<br><br>
+                    **Benefits:**<br>
+                    - Identifies unintended changes before deployment.<br>
+                    - Improves security by reviewing changes.<br>
+                    - Reduces the risk of infrastructure misconfigurations.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+                    <label for="optionA57">A) To apply changes to the infrastructure automatically.</label><br>
+                    <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+                    <label for="optionB57">B) To delete all existing resources in Azure.</label><br>
+                    <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+                    <label for="optionC57">C) To preview the changes that will be applied to the infrastructure.</label><br>
+                    <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+                    <label for="optionD57">D) To check the syntax of Terraform code without executing it.</label><br>
+                </div>
+                <div id="result57" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 59 -->
+                <div class="que">
+                    <p>59. How can you ensure rollbacks in case of failed Terraform deployments in a CD pipeline?</p>
+                    <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+                </div>
+                <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) By using Terraform’s `terraform destroy` command or by implementing infrastructure versioning.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Rollbacks can be managed through:<br><br>
+                    - **Using `terraform destroy`** to revert changes if a deployment fails.<br>
+                    - **Implementing infrastructure versioning** to redeploy a previous working state.<br>
+                    - **Automated rollback scripts** within the CI/CD pipeline.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+                    <label for="optionA58">A) By disabling Terraform’s automatic state management.</label><br>
+                    <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+                    <label for="optionB58">B) By using `terraform apply` without reviewing the plan.</label><br>
+                    <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+                    <label for="optionC58">C) By ignoring errors during the deployment process.</label><br>
+                    <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+                    <label for="optionD58">D) By using Terraform’s `terraform destroy` command or by implementing infrastructure versioning.</label><br>
+                </div>
+                <div id="result58" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 60 -->
+                <div class="que">
+                    <p>60. Which practice improves the security of a Continuous Deployment pipeline with Terraform?</p>
+                    <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+                </div>
+                <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Implementing access controls and using secure variables for sensitive data.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Security best practices include:<br><br>
+                    - **Role-based access control (RBAC)** to limit who can deploy changes.<br>
+                    - **Secure variable management** (e.g., using Azure Key Vault or encrypted pipeline variables).<br>
+                    - **Audit logging** to track changes and deployments.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+                    <label for="optionA59">A) Allowing all users to modify pipeline configurations.</label><br>
+                    <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+                    <label for="optionB59">B) Implementing access controls and using secure variables for sensitive data.</label><br>
+                    <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+                    <label for="optionC59">C) Storing secrets in plain text within the pipeline scripts.</label><br>
+                    <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+                    <label for="optionD59">D) Disabling multi-factor authentication for ease of access.</label><br>
+                </div>
+                <div id="result59" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 61 -->
+                <div class="que">
+                    <p>61. What is the primary purpose of running `terraform plan` in a Pull Request (PR) workflow?</p>
+                    <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+                </div>
+                <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) To preview the changes that will be applied before merging the PR.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Running `terraform plan` in a PR workflow allows teams to review the proposed infrastructure changes before merging the PR. This ensures that only intended modifications are deployed.<br><br>
+                    **Key Benefits:**<br>
+                    - Identifies unintended changes.<br>
+                    - Provides a reviewable output for security and compliance.<br>
+                    - Reduces the risk of deploying incorrect configurations.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+                    <label for="optionA60">A) To immediately apply the changes to production.</label><br>
+                    <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+                    <label for="optionB60">B) To create a backup of the infrastructure.</label><br>
+                    <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+                    <label for="optionC60">C) To preview the changes that will be applied before merging the PR.</label><br>
+                    <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+                    <label for="optionD60">D) To delete all existing resources in the environment.</label><br>
+                </div>
+                <div id="result60" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 62 -->
+                <div class="que">
+                    <p>62. Which Azure DevOps feature can be used to automate the `terraform apply` process after PR approval?</p>
+                    <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+                </div>
+                <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Azure Pipelines</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Azure Pipelines** allows for automating infrastructure deployment tasks, including running `terraform apply` after a PR is approved.<br><br>
+                    **Automation Benefits:**<br>
+                    - Reduces manual deployment effort.<br>
+                    - Ensures consistency in deployments.<br>
+                    - Integrates with PR workflows seamlessly.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+                    <label for="optionA61">A) Azure Repos</label><br>
+                    <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+                    <label for="optionB61">B) Azure Pipelines</label><br>
+                    <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+                    <label for="optionC61">C) Azure Logic Apps</label><br>
+                    <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+                    <label for="optionD61">D) Azure Functions</label><br>
+                </div>
+                <div id="result61" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 63 -->
+                <div class="que">
+                    <p>63. Why is it important to use `terraform plan` before `terraform apply` in PR workflows?</p>
+                    <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+                </div>
+                <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) To verify that the proposed changes match the intended infrastructure modifications.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Using `terraform plan` before `terraform apply` helps verify that the proposed changes are correct, reducing the risk of accidental modifications.<br><br>
+                    **Key Reasons:**<br>
+                    - Detects unintended resource changes.<br>
+                    - Provides a chance to review changes before applying.<br>
+                    - Improves security and compliance.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+                    <label for="optionA62">A) To speed up the deployment process.</label><br>
+                    <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+                    <label for="optionB62">B) To generate backup files for the infrastructure.</label><br>
+                    <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+                    <label for="optionC62">C) To ensure all Terraform providers are up to date.</label><br>
+                    <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+                    <label for="optionD62">D) To verify that the proposed changes match the intended infrastructure modifications.</label><br>
+                </div>
+                <div id="result62" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 64 -->
+                <div class="que">
+                    <p>64. How can you prevent accidental infrastructure changes in a PR workflow?</p>
+                    <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+                </div>
+                <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) By implementing code reviews, automated plans, and approval gates before applying changes.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Preventing accidental changes involves multiple best practices:<br><br>
+                    - **Code reviews** to catch errors early.<br>
+                    - **Automated Terraform plans** for validation.<br>
+                    - **Approval gates** to require manual review before deployment.<br>
+                    - **Environment isolation** to test changes in non-production environments first.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+                    <label for="optionA63">A) By implementing code reviews, automated plans, and approval gates before applying changes.</label><br>
+                    <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+                    <label for="optionB63">B) By disabling the `terraform apply` command.</label><br>
+                    <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+                    <label for="optionC63">C) By running `terraform apply` without validation checks.</label><br>
+                    <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+                    <label for="optionD63">D) By allowing all PRs to deploy changes without review.</label><br>
+                </div>
+                <div id="result63" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 65 -->
+                <div class="que">
+                    <p>65. What type of testing is recommended before applying Terraform changes in PR workflows?</p>
+                    <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+                </div>
+                <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Infrastructure as Code (IaC) testing.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **IaC testing** verifies the correctness of Terraform code before deployment. This includes:<br><br>
+                    - **Syntax validation:** Ensures proper code structure.<br>
+                    - **Static analysis:** Identifies potential security risks.<br>
+                    - **Integration testing:** Verifies infrastructure behavior in different environments.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+                    <label for="optionA64">A) Unit testing for application code.</label><br>
+                    <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+                    <label for="optionB64">B) Performance testing on virtual machines.</label><br>
+                    <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+                    <label for="optionC64">C) Infrastructure as Code (IaC) testing.</label><br>
+                    <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+                    <label for="optionD64">D) User acceptance testing (UAT) for APIs.</label><br>
+                </div>
+                <div id="result64" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 66 -->
+                <div class="que">
+                    <p>66. What is the main advantage of using Infrastructure as Code (IaC) with Terraform?</p>
+                    <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+                </div>
+                <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) It enables automated, consistent, and repeatable infrastructure deployment.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **IaC with Terraform** allows for infrastructure management through code, ensuring:<br><br>
+                    - **Automation:** Reduces manual effort.<br>
+                    - **Consistency:** Deploys the same infrastructure every time.<br>
+                    - **Repeatability:** Easily replicates environments.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+                    <label for="optionA65">A) It enables automated, consistent, and repeatable infrastructure deployment.</label><br>
+                    <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+                    <label for="optionB65">B) It requires manual configuration for each deployment.</label><br>
+                    <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+                    <label for="optionC65">C) It limits infrastructure changes to only production environments.</label><br>
+                    <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+                    <label for="optionD65">D) It eliminates the need for version control.</label><br>
+                </div>
+                <div id="result65" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 67 -->
+                <div class="que">
+                    <p>67. Which Terraform feature helps manage infrastructure across multiple environments?</p>
+                    <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+                </div>
+                <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Workspaces</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Terraform Workspaces** allow you to manage different environments (e.g., dev, staging, prod) with isolated state files.<br><br>
+                    **Benefits:**<br>
+                    - Simplifies environment management.<br>
+                    - Avoids state file conflicts.<br>
+                    - Enables environment-specific configurations.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+                    <label for="optionA66">A) Modules</label><br>
+                    <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+                    <label for="optionB66">B) Workspaces</label><br>
+                    <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+                    <label for="optionC66">C) Providers</label><br>
+                    <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+                    <label for="optionD66">D) Variables</label><br>
+                </div>
+                <div id="result66" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 68 -->
+                <div class="que">
+                    <p>68. What is the purpose of Terraform modules in an IaC strategy?</p>
+                    <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+                </div>
+                <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) To create reusable and maintainable infrastructure code components.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Terraform Modules** help organize and reuse code for similar infrastructure components.<br><br>
+                    **Key Benefits:**<br>
+                    - Reduces code duplication.<br>
+                    - Enhances code maintainability.<br>
+                    - Simplifies complex configurations.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+                    <label for="optionA67">A) To manage state files across different regions.</label><br>
+                    <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+                    <label for="optionB67">B) To deploy resources directly to production environments.</label><br>
+                    <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+                    <label for="optionC67">C) To create reusable and maintainable infrastructure code components.</label><br>
+                    <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+                    <label for="optionD67">D) To override provider configurations in Terraform scripts.</label><br>
+                </div>
+                <div id="result67" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 69 -->
+                <div class="que">
+                    <p>69. Which Terraform command is used to validate the syntax of your configuration files?</p>
+                    <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+                </div>
+                <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) `terraform validate`</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform validate` command checks the syntax and structure of Terraform configuration files to ensure correctness before applying changes.<br><br>
+                    **Why It's Important:**<br>
+                    - Catches syntax errors early.<br>
+                    - Prevents deployment failures.<br>
+                    - Verifies code consistency.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+                    <label for="optionA68">A) `terraform apply`</label><br>
+                    <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+                    <label for="optionB68">B) `terraform plan`</label><br>
+                    <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+                    <label for="optionC68">C) `terraform init`</label><br>
+                    <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+                    <label for="optionD68">D) `terraform validate`</label><br>
+                </div>
+                <div id="result68" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 70 -->
+                <div class="que">
+                    <p>70. How can Terraform ensure the desired infrastructure state is maintained?</p>
+                    <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+                </div>
+                <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) By using the Terraform state file to track infrastructure changes.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Terraform State File** stores the current state of your infrastructure, allowing Terraform to determine what changes are necessary.<br><br>
+                    **Key Features:**<br>
+                    - Tracks resource IDs and configurations.<br>
+                    - Detects drift from the desired state.<br>
+                    - Enables efficient infrastructure management.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+                    <label for="optionA69">A) By using the Terraform state file to track infrastructure changes.</label><br>
+                    <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+                    <label for="optionB69">B) By storing configuration files in a Git repository.</label><br>
+                    <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+                    <label for="optionC69">C) By limiting infrastructure updates to specific time windows.</label><br>
+                    <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+                    <label for="optionD69">D) By using manual approvals for every infrastructure change.</label><br>
+                </div>
+                <div id="result69" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 71 -->
+                <div class="que">
+                    <p>71. What is the key approach to scaling Terraform for large Azure deployments?</p>
+                    <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+                </div>
+                <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Using modular architecture and managing dependencies effectively.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Scaling Terraform** effectively involves:<br><br>
+                    - **Modular Architecture:** Breaks down infrastructure into reusable components.<br>
+                    - **Managing Dependencies:** Ensures resources are created in the correct order.<br>
+                    - **Parallel Execution:** Speeds up deployments with resource parallelism.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+                    <label for="optionA70">A) Deploying all resources manually.</label><br>
+                    <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+                    <label for="optionB70">B) Using modular architecture and managing dependencies effectively.</label><br>
+                    <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+                    <label for="optionC70">C) Reducing the number of resources to scale faster.</label><br>
+                    <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+                    <label for="optionD70">D) Using only a single large configuration file.</label><br>
+                </div>
+                <div id="result70" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 72 -->
+                <div class="que">
+                    <p>72. Which Terraform feature helps to manage large-scale infrastructure with multiple environments?</p>
+                    <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+                </div>
+                <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Workspaces</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Workspaces** allow you to maintain separate state files for different environments (e.g., dev, staging, prod), making large-scale infrastructure management easier.<br><br>
+                    **Key Benefits:**<br>
+                    - Isolated state management.<br>
+                    - Simplified environment deployment.<br>
+                    - Efficient resource scaling.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+                    <label for="optionA71">A) Workspaces</label><br>
+                    <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+                    <label for="optionB71">B) Modules</label><br>
+                    <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+                    <label for="optionC71">C) Providers</label><br>
+                    <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+                    <label for="optionD71">D) Variables</label><br>
+                </div>
+                <div id="result71" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 73 -->
+                <div class="que">
+                    <p>73. How does using Terraform modules improve scalability in large deployments?</p>
+                    <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+                </div>
+                <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By promoting code reusability and reducing duplication.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Modules** encapsulate infrastructure components, making it easier to manage, update, and scale resources across large deployments.<br><br>
+                    **Advantages:**<br>
+                    - **Reusability:** Apply the same module with different parameters.<br>
+                    - **Maintainability:** Easier updates and version control.<br>
+                    - **Scalability:** Simplifies complex configurations.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+                    <label for="optionA72">A) By reducing the need for state files.</label><br>
+                    <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+                    <label for="optionB72">B) By increasing the need for manual configuration.</label><br>
+                    <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+                    <label for="optionC72">C) By promoting code reusability and reducing duplication.</label><br>
+                    <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+                    <label for="optionD72">D) By limiting the number of resources deployed.</label><br>
+                </div>
+                <div id="result72" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 74 -->
+                <div class="que">
+                    <p>74. What is the purpose of using a remote state backend in Terraform?</p>
+                    <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+                </div>
+                <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) To enable collaboration and state file locking for concurrent deployments.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Remote State Backend** stores the Terraform state file remotely, allowing multiple team members to work on the same infrastructure safely.<br><br>
+                    **Key Benefits:**<br>
+                    - **Collaboration:** Share state across teams.<br>
+                    - **State Locking:** Prevents simultaneous changes that could cause conflicts.<br>
+                    - **Security:** Centralized state management with access controls.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+                    <label for="optionA73">A) To reduce deployment time.</label><br>
+                    <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+                    <label for="optionB73">B) To increase the number of resources deployed.</label><br>
+                    <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+                    <label for="optionC73">C) To store configuration files locally.</label><br>
+                    <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+                    <label for="optionD73">D) To enable collaboration and state file locking for concurrent deployments.</label><br>
+                </div>
+                <div id="result73" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 75 -->
+                <div class="que">
+                    <p>75. Which Terraform command helps optimize resource scaling for large deployments?</p>
+                    <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+                </div>
+                <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) `terraform plan`</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform plan` command previews the changes that Terraform will apply, helping optimize resource scaling decisions.<br><br>
+                    **Why It's Important:**<br>
+                    - **Cost Management:** Avoids unnecessary resource provisioning.<br>
+                    - **Change Verification:** Ensures changes meet scaling requirements.<br>
+                    - **Efficient Deployments:** Identifies potential issues before applying.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+                    <label for="optionA74">A) `terraform apply`</label><br>
+                    <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+                    <label for="optionB74">B) `terraform plan`</label><br>
+                    <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+                    <label for="optionC74">C) `terraform init`</label><br>
+                    <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+                    <label for="optionD74">D) `terraform destroy`</label><br>
+                </div>
+                <div id="result74" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 76 -->
+                <div class="que">
+                    <p>76. What is the primary benefit of using Terraform modules in large Azure deployments?</p>
+                    <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+                </div>
+                <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Simplifies resource management through reusability and modularization.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Modules** help manage complexity by allowing infrastructure components to be defined once and reused multiple times across different environments.<br><br>
+                    **Benefits:**<br>
+                    - Code reusability<br>
+                    - Improved maintainability<br>
+                    - Faster deployment processes  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+                    <label for="optionA75">A) Increases the number of resources deployed.</label><br>
+                    <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+                    <label for="optionB75">B) Simplifies resource management through reusability and modularization.</label><br>
+                    <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+                    <label for="optionC75">C) Reduces the need for state files.</label><br>
+                    <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+                    <label for="optionD75">D) Limits the scalability of infrastructure.</label><br>
+                </div>
+                <div id="result75" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 77 -->
+                <div class="que">
+                    <p>77. Which of the following helps manage Terraform state files efficiently in large deployments?</p>
+                    <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+                </div>
+                <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Remote backends like Azure Storage Account.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Remote backends** allow you to store Terraform state files securely and access them from multiple environments or teams without conflicts.<br><br>
+                    **Why It’s Important:**<br>
+                    - Ensures team collaboration<br>
+                    - Enables state locking to prevent concurrent modifications<br>
+                    - Enhances security with controlled access  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+                    <label for="optionA76">A) Remote backends like Azure Storage Account.</label><br>
+                    <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+                    <label for="optionB76">B) Local state files in a Git repository.</label><br>
+                    <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+                    <label for="optionC76">C) Using plain text files for state management.</label><br>
+                    <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+                    <label for="optionD76">D) Keeping state files on personal local drives.</label><br>
+                </div>
+                <div id="result76" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 78 -->
+                <div class="que">
+                    <p>78. How can Terraform workspaces improve scaling for large Azure deployments?</p>
+                    <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+                </div>
+                <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By enabling the management of multiple environments with isolated states.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Workspaces** allow you to create isolated environments (like dev, staging, prod) within the same configuration, making scaling and environment management easier.<br><br>
+                    **Benefits:**<br>
+                    - Environment isolation<br>
+                    - Simplified state management<br>
+                    - Enhanced resource control across environments  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+                    <label for="optionA77">A) By limiting the number of resources deployed.</label><br>
+                    <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+                    <label for="optionB77">B) By storing state files locally for better performance.</label><br>
+                    <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+                    <label for="optionC77">C) By enabling the management of multiple environments with isolated states.</label><br>
+                    <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+                    <label for="optionD77">D) By reducing the complexity of Terraform configurations.</label><br>
+                </div>
+                <div id="result77" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 79 -->
+                <div class="que">
+                    <p>79. Which command is used to initialize Terraform configurations for large Azure deployments?</p>
+                    <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+                </div>
+                <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) `terraform init`</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform init` command initializes a Terraform working directory, setting up necessary providers and modules for large-scale deployments.<br><br>
+                    **Why It’s Essential:**<br>
+                    - Prepares the backend configuration<br>
+                    - Installs required providers<br>
+                    - Ensures smooth execution of `terraform plan` and `terraform apply`  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+                    <label for="optionA78">A) `terraform apply`</label><br>
+                    <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+                    <label for="optionB78">B) `terraform init`</label><br>
+                    <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+                    <label for="optionC78">C) `terraform destroy`</label><br>
+                    <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+                    <label for="optionD78">D) `terraform plan`</label><br>
+                </div>
+                <div id="result78" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 80 -->
+                <div class="que">
+                    <p>80. What is the purpose of using `terraform plan` before applying changes in large deployments?</p>
+                    <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+                </div>
+                <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) To preview changes and identify potential issues before applying them.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `terraform plan` command shows what changes Terraform will make without actually applying them, helping prevent errors in large deployments.<br><br>
+                    **Benefits:**<br>
+                    - Verifies the impact of changes<br>
+                    - Detects misconfigurations before deployment<br>
+                    - Ensures deployment accuracy and safety  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+                    <label for="optionA79">A) To delete all existing resources.</label><br>
+                    <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+                    <label for="optionB79">B) To force apply changes immediately.</label><br>
+                    <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+                    <label for="optionC79">C) To clear all Terraform state files.</label><br>
+                    <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+                    <label for="optionD79">D) To preview changes and identify potential issues before applying them.</label><br>
+                </div>
+                <div id="result79" class="result"></div>
+            </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+            
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

@@ -1,0 +1,2395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZURE ARTIFACTS</title>
+    <link rel="stylesheet" href="../css/Azure Devops.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'A', 'B', 'A', 'B', 'A', 'A', 'B', 'A', 'C', 'D',
+            'A', 'B', 'C', 'A', 'D', 'B', 'C', 'B', 'D', 'C',
+            'A', 'B', 'C', 'B', 'D', 'A', 'D', 'B', 'A', 'D',
+            'A', 'B', 'C', 'A', 'B', 'A', 'A', 'B', 'D', 'A',
+            'A', 'B', 'C', 'B', 'D', 'A', 'B', 'C', 'D', 'B',
+            'A', 'C', 'B', 'D', 'A', 'B', 'C', 'A', 'B', 'D',  
+            'C', 'B', 'A', 'C', 'D', 'A', 'B', 'D', 'A', 'C',
+            'A', 'B', 'A', 'B', 'D', 'B', 'B', 'C', 'A', 'B'
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>AZURE ARTIFACTS</h3>
+        <div class="inner-border">
+            <div class="qee">
+                <!-- Question 1 -->
+                <div class="que">
+                    <p>1. What is the primary purpose of Azure Artifacts?</p>
+                    <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+                </div>
+                <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To manage and share packages across development teams.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts allows teams to manage, share, and integrate packages (like NuGet, npm, Maven) in their CI/CD pipelines.<br><br>
+                    **Key Features:**<br>
+                    1. Centralized package management.<br>
+                    2. Versioning of packages.<br>
+                    3. Integration with Azure DevOps pipelines.<br>
+                    4. Secure access and permissions.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+                    <label for="optionA0">A) To manage and share packages across development teams.</label><br>
+                    <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+                    <label for="optionB0">B) To create virtual machines.</label><br>
+                    <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+                    <label for="optionC0">C) To manage user accounts.</label><br>
+                    <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+                    <label for="optionD0">D) To monitor application performance.</label><br>
+                </div>
+                <div id="result0" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 2 -->
+                <div class="que">
+                    <p>2. Which of the following package types is supported by Azure Artifacts?</p>
+                    <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+                </div>
+                <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) NuGet, npm, Maven, and Python packages</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts supports a wide range of package types to accommodate different development environments and languages.<br><br>
+                    **Supported Package Types:**<br>
+                    1. NuGet (for .NET)<br>
+                    2. npm (for JavaScript)<br>
+                    3. Maven (for Java)<br>
+                    4. Python (for Python projects)<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+                    <label for="optionA1">A) Docker images only</label><br>
+                    <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+                    <label for="optionB1">B) NuGet, npm, Maven, and Python packages</label><br>
+                    <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+                    <label for="optionC1">C) Only JavaScript packages</label><br>
+                    <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+                    <label for="optionD1">D) Only Python packages</label><br>
+                </div>
+                <div id="result1" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 3 -->
+                <div class="que">
+                    <p>3. What is a key benefit of using Azure Artifacts in DevOps?</p>
+                    <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+                </div>
+                <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Simplifies dependency management and version control in CI/CD pipelines.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts integrates seamlessly with CI/CD pipelines to simplify dependency management, ensuring consistency across environments.<br><br>
+                    **Benefits Include:**<br>
+                    1. Centralized package repository.<br>
+                    2. Automatic version updates.<br>
+                    3. Secure access controls.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+                    <label for="optionA2">A) Simplifies dependency management and version control in CI/CD pipelines.</label><br>
+                    <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+                    <label for="optionB2">B) Only supports static websites.</label><br>
+                    <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+                    <label for="optionC2">C) Replaces the need for Git repositories.</label><br>
+                    <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+                    <label for="optionD2">D) Eliminates the need for version control systems.</label><br>
+                </div>
+                <div id="result2" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 4 -->
+                <div class="que">
+                    <p>4. Which Azure service integrates directly with Azure Artifacts for seamless CI/CD workflows?</p>
+                    <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+                </div>
+                <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Azure Pipelines</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Pipelines integrates with Azure Artifacts, enabling seamless build, test, and deployment workflows with package management.<br><br>
+                    **Key Integrations:**<br>
+                    1. Continuous Integration (CI) builds.<br>
+                    2. Continuous Deployment (CD) releases.<br>
+                    3. Secure access to artifacts during deployment.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+                    <label for="optionA3">A) Azure Functions</label><br>
+                    <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+                    <label for="optionB3">B) Azure Pipelines</label><br>
+                    <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+                    <label for="optionC3">C) Azure Logic Apps</label><br>
+                    <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+                    <label for="optionD3">D) Azure DevTest Labs</label><br>
+                </div>
+                <div id="result3" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 5 -->
+                <div class="que">
+                    <p>5. How does Azure Artifacts ensure security for shared packages?</p>
+                    <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+                </div>
+                <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) By providing fine-grained access control and secure feeds.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts ensures the security of shared packages using role-based access controls (RBAC), permissions, and private feeds.<br><br>
+                    **Security Features:**<br>
+                    1. Fine-grained permissions.<br>
+                    2. Secure package feeds.<br>
+                    3. Authentication via Azure Active Directory.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+                    <label for="optionA4">A) By providing fine-grained access control and secure feeds.</label><br>
+                    <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+                    <label for="optionB4">B) By allowing unlimited public access to packages.</label><br>
+                    <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+                    <label for="optionC4">C) By ignoring user permissions for simplicity.</label><br>
+                    <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+                    <label for="optionD4">D) By only allowing anonymous access.</label><br>
+                </div>
+                <div id="result4" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 6 -->
+                <div class="que">
+                    <p>6. What is the first step in setting up Azure Artifacts in an Azure DevOps project?</p>
+                    <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+                </div>
+                <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Create an Azure DevOps project.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    To set up Azure Artifacts, you first need to create an Azure DevOps project as it provides the environment for managing artifacts.<br><br>
+                    **Steps:**<br>
+                    1. Sign in to Azure DevOps.<br>
+                    2. Create a new project.<br>
+                    3. Navigate to the Artifacts section to configure feeds.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+                    <label for="optionA5">A) Create an Azure DevOps project.</label><br>
+                    <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+                    <label for="optionB5">B) Install Visual Studio Code.</label><br>
+                    <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+                    <label for="optionC5">C) Set up a Git repository.</label><br>
+                    <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+                    <label for="optionD5">D) Configure an Azure Virtual Machine.</label><br>
+                </div>
+                <div id="result5" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 7 -->
+                <div class="que">
+                    <p>7. How do you create a new feed in Azure Artifacts?</p>
+                    <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+                </div>
+                <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Go to the Artifacts section, click "New Feed", and configure settings.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Feeds in Azure Artifacts are used to organize and manage packages. You can create a feed directly from the Azure DevOps portal.<br><br>
+                    **Steps:**<br>
+                    1. Go to Azure DevOps.<br>
+                    2. Click on "Artifacts".<br>
+                    3. Click "New Feed".<br>
+                    4. Name the feed and set permissions.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+                    <label for="optionA6">A) Use the Azure CLI to create a feed.</label><br>
+                    <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+                    <label for="optionB6">B) Go to the Artifacts section, click "New Feed", and configure settings.</label><br>
+                    <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+                    <label for="optionC6">C) Create a new Git repository.</label><br>
+                    <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+                    <label for="optionD6">D) Deploy an Azure Function App.</label><br>
+                </div>
+                <div id="result6" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 8 -->
+                <div class="que">
+                    <p>8. Which command is used to connect your local project to an Azure Artifacts feed?</p>
+                    <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+                </div>
+                <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) `az artifacts universal publish`</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure CLI commands are used to interact with Azure Artifacts, including connecting to feeds and publishing packages.<br><br>
+                    **Common Commands:**<br>
+                    1. `az artifacts universal publish` - for publishing packages.<br>
+                    2. `az artifacts feed list` - to list feeds.<br>
+                    3. `az artifacts login` - for authentication.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+                    <label for="optionA7">A) `az artifacts universal publish`</label><br>
+                    <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+                    <label for="optionB7">B) `git clone <repo-url>`</label><br>
+                    <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+                    <label for="optionC7">C) `az login`</label><br>
+                    <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+                    <label for="optionD7">D) `npm install`</label><br>
+                </div>
+                <div id="result7" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 9 -->
+                <div class="que">
+                    <p>9. How can you secure access to an Azure Artifacts feed?</p>
+                    <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+                </div>
+                <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By using Azure Active Directory (AAD) and feed permissions.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Security in Azure Artifacts is managed through Azure Active Directory (AAD) and setting up feed-level permissions.<br><br>
+                    **Security Measures:**<br>
+                    1. Role-Based Access Control (RBAC).<br>
+                    2. Feed permissions (read, contribute, manage).<br>
+                    3. Token-based authentication.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+                    <label for="optionA8">A) By using SSH keys only.</label><br>
+                    <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+                    <label for="optionB8">B) By enabling public access to feeds.</label><br>
+                    <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+                    <label for="optionC8">C) By using Azure Active Directory (AAD) and feed permissions.</label><br>
+                    <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+                    <label for="optionD8">D) By disabling all user accounts.</label><br>
+                </div>
+                <div id="result8" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 10 -->
+                <div class="que">
+                    <p>10. What is the purpose of configuring upstream sources in Azure Artifacts?</p>
+                    <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+                </div>
+                <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) To allow consumption of packages from external feeds.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Upstream sources enable Azure Artifacts to fetch packages from external repositories, making it easy to manage dependencies.<br><br>
+                    **Key Features:**<br>
+                    1. Integrate with public feeds like npm, Maven Central.<br>
+                    2. Manage internal and external package versions.<br>
+                    3. Simplify dependency management.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+                    <label for="optionA9">A) To create a new Azure DevOps project.</label><br>
+                    <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+                    <label for="optionB9">B) To deploy applications to Azure.</label><br>
+                    <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+                    <label for="optionC9">C) To set up automated build pipelines.</label><br>
+                    <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+                    <label for="optionD9">D) To allow consumption of packages from external feeds.</label><br>
+                </div>
+                <div id="result9" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 11 -->
+                <div class="que">
+                    <p>11. What is the first step to create a package for Azure Artifacts?</p>
+                    <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+                </div>
+                <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Create the package using a supported format (e.g., NuGet, npm, Maven).</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    To create a package, you need to use the appropriate tools for the package format you intend to publish.<br><br>
+                    **Steps:**<br>
+                    1. Choose the package format (NuGet, npm, Maven).<br>
+                    2. Use the corresponding tools (e.g., `nuget pack`, `npm pack`, `mvn package`).<br>
+                    3. Ensure the package has the correct metadata.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+                    <label for="optionA10">A) Create the package using a supported format (e.g., NuGet, npm, Maven).</label><br>
+                    <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+                    <label for="optionB10">B) Deploy the package directly to production.</label><br>
+                    <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+                    <label for="optionC10">C) Use Azure CLI without any package tools.</label><br>
+                    <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+                    <label for="optionD10">D) Only use Git repositories for package management.</label><br>
+                </div>
+                <div id="result10" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 12 -->
+                <div class="que">
+                    <p>12. Which command is used to publish a NuGet package to Azure Artifacts?</p>
+                    <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+                </div>
+                <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) `nuget push`</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `nuget push` command is used to upload NuGet packages to Azure Artifacts.<br><br>
+                    **Steps:**<br>
+                    1. Authenticate using `nuget.exe` or Azure CLI.<br>
+                    2. Run the command: `nuget push <package>.nupkg -Source <feed URL>`.<br>
+                    3. Verify the package appears in the feed.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+                    <label for="optionA11">A) `npm publish`</label><br>
+                    <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+                    <label for="optionB11">B) `nuget push`</label><br>
+                    <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+                    <label for="optionC11">C) `az artifacts upload`</label><br>
+                    <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+                    <label for="optionD11">D) `git push`</label><br>
+                </div>
+                <div id="result11" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 13 -->
+                <div class="que">
+                    <p>13. What is the purpose of the `npm publish` command in Azure Artifacts?</p>
+                    <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+                </div>
+                <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) To publish a package to an npm feed in Azure Artifacts.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `npm publish` command uploads your npm package to an Azure Artifacts feed, making it available for installation in projects.<br><br>
+                    **Steps:**<br>
+                    1. Log in using `npm login` with Azure Artifacts credentials.<br>
+                    2. Run `npm publish` in the package directory.<br>
+                    3. Verify the package is available in the feed.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+                    <label for="optionA12">A) To delete an existing package.</label><br>
+                    <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+                    <label for="optionB12">B) To install a package from Azure Artifacts.</label><br>
+                    <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+                    <label for="optionC12">C) To publish a package to an npm feed in Azure Artifacts.</label><br>
+                    <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+                    <label for="optionD12">D) To update the package metadata only.</label><br>
+                </div>
+                <div id="result12" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 14 -->
+                <div class="que">
+                    <p>14. Which file is essential for defining package metadata in npm?</p>
+                    <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+                </div>
+                <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) `package.json`</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `package.json` file contains metadata such as package name, version, dependencies, and scripts required to publish the package.<br><br>
+                    **Common Fields:**<br>
+                    1. `name`: Package name.<br>
+                    2. `version`: Version number.<br>
+                    3. `dependencies`: Required npm packages.<br>
+                    4. `scripts`: Custom commands.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+                    <label for="optionA13">A) `package.json`</label><br>
+                    <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+                    <label for="optionB13">B) `README.md`</label><br>
+                    <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+                    <label for="optionC13">C) `.gitignore`</label><br>
+                    <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+                    <label for="optionD13">D) `dockerfile`</label><br>
+                </div>
+                <div id="result13" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 15 -->
+                <div class="que">
+                    <p>15. How can you verify that your package has been published to Azure Artifacts?</p>
+                    <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+                </div>
+                <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) By checking the Azure Artifacts feed in Azure DevOps.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    After publishing, verify the package via the Azure DevOps portal.<br><br>
+                    **Steps:**<br>
+                    1. Navigate to Azure DevOps.<br>
+                    2. Go to "Artifacts" section.<br>
+                    3. Select your feed and check for the newly published package.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+                    <label for="optionA14">A) Only by running a test application.</label><br>
+                    <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+                    <label for="optionB14">B) By checking the local package directory.</label><br>
+                    <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+                    <label for="optionC14">C) By using `npm info <package-name>` command.</label><br>
+                    <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+                    <label for="optionD14">D) By checking the Azure Artifacts feed in Azure DevOps.</label><br>
+                </div>
+                <div id="result14" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 16 -->
+                <div class="que">
+                    <p>16. What is the purpose of a feed in Azure Artifacts?</p>
+                    <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+                </div>
+                <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To organize and manage packages within Azure DevOps.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    A feed in Azure Artifacts is a repository for storing, organizing, and sharing packages securely within an organization.<br><br>
+                    **Key Features:**<br>
+                    1. Centralized package management.<br>
+                    2. Version control.<br>
+                    3. Access permissions and security.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+                    <label for="optionA15">A) To store user credentials.</label><br>
+                    <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+                    <label for="optionB15">B) To organize and manage packages within Azure DevOps.</label><br>
+                    <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+                    <label for="optionC15">C) To manage virtual machines in Azure.</label><br>
+                    <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+                    <label for="optionD15">D) To create and manage Azure subscriptions.</label><br>
+                </div>
+                <div id="result15" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 17 -->
+                <div class="que">
+                    <p>17. How can you grant access to a specific feed in Azure Artifacts?</p>
+                    <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+                </div>
+                <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By configuring feed permissions in Azure DevOps.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    You can manage feed access by setting permissions at the feed level in Azure DevOps.<br><br>
+                    **Steps:**<br>
+                    1. Navigate to Azure Artifacts in Azure DevOps.<br>
+                    2. Select the desired feed.<br>
+                    3. Click on "Feed Settings" and then "Permissions."<br>
+                    4. Add users/groups and set access levels (e.g., Reader, Contributor, Owner).<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+                    <label for="optionA16">A) By using Azure CLI only.</label><br>
+                    <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+                    <label for="optionB16">B) By assigning resource groups in Azure Portal.</label><br>
+                    <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+                    <label for="optionC16">C) By configuring feed permissions in Azure DevOps.</label><br>
+                    <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+                    <label for="optionD16">D) By creating a new Azure subscription.</label><br>
+                </div>
+                <div id="result16" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 18 -->
+                <div class="que">
+                    <p>18. Which command is used to connect to an Azure Artifacts feed using NuGet?</p>
+                    <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+                </div>
+                <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) `nuget sources add`</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `nuget sources add` command allows you to add an Azure Artifacts feed as a source for NuGet packages.<br><br>
+                    **Steps:**<br>
+                    1. Authenticate using `nuget.exe` or Azure CLI.<br>
+                    2. Add the feed: `nuget sources add -name <feed-name> -source <feed-url>`.<br>
+                    3. Verify the connection using `nuget sources list`.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+                    <label for="optionA17">A) `nuget install`</label><br>
+                    <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+                    <label for="optionB17">B) `nuget sources add`</label><br>
+                    <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+                    <label for="optionC17">C) `nuget push`</label><br>
+                    <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+                    <label for="optionD17">D) `nuget update`</label><br>
+                </div>
+                <div id="result17" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 19 -->
+                <div class="que">
+                    <p>19. What is the role of feed policies in Azure Artifacts?</p>
+                    <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+                </div>
+                <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) To enforce rules on package versions, retention, and access.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Feed policies help manage how packages are handled, including version control, security, and retention rules.<br><br>
+                    **Key Functions:**<br>
+                    1. Set package version limits.<br>
+                    2. Define retention policies.<br>
+                    3. Enforce security protocols.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+                    <label for="optionA18">A) To manage billing for Azure subscriptions.</label><br>
+                    <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+                    <label for="optionB18">B) To deploy virtual machines in Azure.</label><br>
+                    <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+                    <label for="optionC18">C) To create new Azure subscriptions.</label><br>
+                    <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+                    <label for="optionD18">D) To enforce rules on package versions, retention, and access.</label><br>
+                </div>
+                <div id="result18" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 20 -->
+                <div class="que">
+                    <p>20. How can you delete a feed in Azure Artifacts?</p>
+                    <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+                </div>
+                <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By using Azure DevOps portal under feed settings.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Deleting a feed removes all its packages and is irreversible.<br><br>
+                    **Steps:**<br>
+                    1. Go to Azure DevOps.<br>
+                    2. Open Azure Artifacts.<br>
+                    3. Select the feed you want to delete.<br>
+                    4. Click on "Feed Settings" and choose "Delete Feed."<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+                    <label for="optionA19">A) Using Azure CLI only.</label><br>
+                    <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+                    <label for="optionB19">B) By deleting the subscription in Azure Portal.</label><br>
+                    <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+                    <label for="optionC19">C) By using Azure DevOps portal under feed settings.</label><br>
+                    <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+                    <label for="optionD19">D) By removing the corresponding Git repository.</label><br>
+                </div>
+                <div id="result19" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 21 -->
+                <div class="que">
+                    <p>21. Which package manager is used for Java projects in Azure Artifacts?</p>
+                    <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+                </div>
+                <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Maven</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Maven** is a popular build automation tool used primarily for Java projects. It manages project dependencies and build configurations.<br><br>
+                    **Key Features:**<br>
+                    1. Dependency management.<br>
+                    2. Build automation.<br>
+                    3. Integration with CI/CD pipelines.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+                    <label for="optionA20">A) Maven</label><br>
+                    <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+                    <label for="optionB20">B) npm</label><br>
+                    <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+                    <label for="optionC20">C) NuGet</label><br>
+                    <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+                    <label for="optionD20">D) Docker</label><br>
+                </div>
+                <div id="result20" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 22 -->
+                <div class="que">
+                    <p>22. Which command is used to publish a package to an Azure Artifacts feed using npm?</p>
+                    <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+                </div>
+                <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) `npm publish`</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **`npm publish`** command uploads your npm package to the configured Azure Artifacts feed.<br><br>
+                    **Steps:**<br>
+                    1. Authenticate with Azure Artifacts.<br>
+                    2. Configure `.npmrc` for the feed.<br>
+                    3. Run `npm publish` to upload the package.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+                    <label for="optionA21">A) `npm install`</label><br>
+                    <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+                    <label for="optionB21">B) `npm publish`</label><br>
+                    <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+                    <label for="optionC21">C) `npm update`</label><br>
+                    <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+                    <label for="optionD21">D) `npm install -g`</label><br>
+                </div>
+                <div id="result21" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 23 -->
+                <div class="que">
+                    <p>23. Which Azure Artifacts command is used to restore NuGet packages?</p>
+                    <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+                </div>
+                <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) `nuget restore`</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **`nuget restore`** command is used to download and install NuGet packages specified in a project file.<br><br>
+                    **Steps:**<br>
+                    1. Ensure your NuGet.config is configured for the Azure feed.<br>
+                    2. Run `nuget restore <solution-file>.sln`.<br>
+                    3. Packages will be restored from the feed to your local machine.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+                    <label for="optionA22">A) `nuget install`</label><br>
+                    <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+                    <label for="optionB22">B) `nuget update`</label><br>
+                    <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+                    <label for="optionC22">C) `nuget restore`</label><br>
+                    <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+                    <label for="optionD22">D) `nuget push`</label><br>
+                </div>
+                <div id="result22" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 24 -->
+                <div class="que">
+                    <p>24. How can you authenticate to Azure Artifacts when using Maven?</p>
+                    <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+                </div>
+                <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By configuring the `settings.xml` file with credentials.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Maven uses the **`settings.xml`** file to manage authentication with Azure Artifacts.<br><br>
+                    **Steps:**<br>
+                    1. Add the Azure Artifacts repository to `settings.xml`.<br>
+                    2. Include your credentials (username and token) in the configuration.<br>
+                    3. Use `mvn deploy` to publish packages.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+                    <label for="optionA23">A) By using an API key only.</label><br>
+                    <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+                    <label for="optionB23">B) By configuring the `settings.xml` file with credentials.</label><br>
+                    <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+                    <label for="optionC23">C) By logging into the Azure Portal directly.</label><br>
+                    <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+                    <label for="optionD23">D) By enabling two-factor authentication only.</label><br>
+                </div>
+                <div id="result23" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 25 -->
+                <div class="que">
+                    <p>25. What is the purpose of `.npmrc` file in Azure Artifacts?</p>
+                    <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+                </div>
+                <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) To configure package registry settings and authentication.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **`.npmrc`** file stores configuration details for npm, including registry URLs and authentication tokens.<br><br>
+                    **Key Settings:**<br>
+                    1. Registry URL for Azure Artifacts.<br>
+                    2. Authentication tokens.<br>
+                    3. Proxy settings and package scopes.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+                    <label for="optionA24">A) To define the project's build scripts.</label><br>
+                    <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+                    <label for="optionB24">B) To manage Git repository settings.</label><br>
+                    <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+                    <label for="optionC24">C) To configure database connections.</label><br>
+                    <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+                    <label for="optionD24">D) To configure package registry settings and authentication.</label><br>
+                </div>
+                <div id="result24" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 26 -->
+                <div class="que">
+                    <p>26. What is the primary purpose of Azure Artifacts permissions?</p>
+                    <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+                </div>
+                <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To control access to feeds and packages.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts permissions manage who can access, publish, and manage packages within feeds.<br><br>
+                    **Key Permissions:**<br>
+                    1. Read: View and download packages.<br>
+                    2. Write: Publish new packages.<br>
+                    3. Manage: Control feed settings and permissions.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+                    <label for="optionA25">A) To control access to feeds and packages.</label><br>
+                    <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+                    <label for="optionB25">B) To optimize package performance.</label><br>
+                    <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+                    <label for="optionC25">C) To monitor network traffic.</label><br>
+                    <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+                    <label for="optionD25">D) To manage virtual networks.</label><br>
+                </div>
+                <div id="result25" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 27 -->
+                <div class="que">
+                    <p>27. Which Azure role provides full control over Azure Artifacts feeds?</p>
+                    <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+                </div>
+                <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Owner</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **Owner** role in Azure provides full permissions, including managing feeds, permissions, and settings.<br><br>
+                    **Key Responsibilities:**<br>
+                    1. Granting access to other users.<br>
+                    2. Configuring feed settings.<br>
+                    3. Managing security policies.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+                    <label for="optionA26">A) Contributor</label><br>
+                    <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+                    <label for="optionB26">B) Reader</label><br>
+                    <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+                    <label for="optionC26">C) DevOps Administrator</label><br>
+                    <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+                    <label for="optionD26">D) Owner</label><br>
+                </div>
+                <div id="result26" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 28 -->
+                <div class="que">
+                    <p>28. How can you restrict access to specific packages within an Azure Artifacts feed?</p>
+                    <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+                </div>
+                <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By using package-level permissions.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Package-level permissions** allow granular control over who can read, write, or manage specific packages within a feed.<br><br>
+                    **Steps:**<br>
+                    1. Navigate to the feed in Azure DevOps.<br>
+                    2. Select the package.<br>
+                    3. Configure access control settings to assign permissions.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+                    <label for="optionA27">A) By using Azure Active Directory groups only.</label><br>
+                    <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+                    <label for="optionB27">B) By using package-level permissions.</label><br>
+                    <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+                    <label for="optionC27">C) By disabling public access.</label><br>
+                    <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+                    <label for="optionD27">D) By using network security groups (NSGs).</label><br>
+                </div>
+                <div id="result27" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 29 -->
+                <div class="que">
+                    <p>29. Which Azure service is integrated with Azure Artifacts for authentication?</p>
+                    <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+                </div>
+                <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Azure Active Directory (AAD)</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Azure Active Directory (AAD)** is used to authenticate users and manage access to Azure Artifacts.<br><br>
+                    **Key Features:**<br>
+                    1. Single sign-on (SSO) capabilities.<br>
+                    2. Role-based access control (RBAC).<br>
+                    3. Integration with Azure DevOps for seamless authentication.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+                    <label for="optionA28">A) Azure Active Directory (AAD)</label><br>
+                    <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+                    <label for="optionB28">B) Azure Key Vault</label><br>
+                    <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+                    <label for="optionC28">C) Azure Firewall</label><br>
+                    <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+                    <label for="optionD28">D) Azure Monitor</label><br>
+                </div>
+                <div id="result28" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 30 -->
+                <div class="que">
+                    <p>30. What is the purpose of using feed permissions in Azure Artifacts?</p>
+                    <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+                </div>
+                <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) To control who can access and manage the feed.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Feed permissions** help manage access at the feed level, allowing administrators to control who can publish, read, or manage packages.<br><br>
+                    **Types of Permissions:**<br>
+                    1. Reader: Read-only access.<br>
+                    2. Contributor: Can publish and manage packages.<br>
+                    3. Owner: Full control, including permission management.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+                    <label for="optionA29">A) To enhance package performance.</label><br>
+                    <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+                    <label for="optionB29">B) To secure the Azure DevOps environment.</label><br>
+                    <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+                    <label for="optionC29">C) To automate deployment processes.</label><br>
+                    <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+                    <label for="optionD29">D) To control who can access and manage the feed.</label><br>
+                </div>
+                <div id="result29" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 31 -->
+                <div class="que">
+                    <p>31. What is the primary benefit of integrating Azure Artifacts with CI/CD pipelines?</p>
+                    <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+                </div>
+                <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To automate the management and deployment of packages.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Integrating Azure Artifacts with CI/CD pipelines automates the process of building, testing, and deploying packages, ensuring faster and more reliable releases.<br><br>
+                    **Key Benefits:**<br>
+                    1. Automated dependency management.<br>
+                    2. Consistent and repeatable builds.<br>
+                    3. Seamless deployment to multiple environments.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+                    <label for="optionA30">A) To automate the management and deployment of packages.</label><br>
+                    <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+                    <label for="optionB30">B) To manually trigger deployments.</label><br>
+                    <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+                    <label for="optionC30">C) To limit the number of packages in a feed.</label><br>
+                    <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+                    <label for="optionD30">D) To reduce the size of the CI/CD pipeline.</label><br>
+                </div>
+                <div id="result30" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 32 -->
+                <div class="que">
+                    <p>32. Which Azure DevOps service is commonly used to implement CI/CD pipelines?</p>
+                    <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+                </div>
+                <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Azure Pipelines</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Azure Pipelines** is the service in Azure DevOps designed for implementing CI/CD pipelines, enabling automated build, test, and deployment processes.<br><br>
+                    **Key Features:**<br>
+                    1. Supports multiple languages and platforms.<br>
+                    2. Integrates with Azure Artifacts for dependency management.<br>
+                    3. Provides YAML-based pipeline configurations.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+                    <label for="optionA31">A) Azure Repos</label><br>
+                    <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+                    <label for="optionB31">B) Azure Pipelines</label><br>
+                    <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+                    <label for="optionC31">C) Azure Boards</label><br>
+                    <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+                    <label for="optionD31">D) Azure Test Plans</label><br>
+                </div>
+                <div id="result31" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 33 -->
+                <div class="que">
+                    <p>33. How can Azure Artifacts be used in a CI/CD pipeline to manage dependencies?</p>
+                    <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+                </div>
+                <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By using feeds to store and retrieve packages during build and release stages.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts feeds act as repositories where packages are stored, making it easy to manage dependencies in CI/CD pipelines.<br><br>
+                    **Pipeline Steps:**<br>
+                    1. Add Azure Artifacts as a package source.<br>
+                    2. Install dependencies during the build phase.<br>
+                    3. Publish updated packages to the feed if needed.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+                    <label for="optionA32">A) By using manual downloads of dependencies.</label><br>
+                    <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+                    <label for="optionB32">B) By storing dependencies in Azure Repos.</label><br>
+                    <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+                    <label for="optionC32">C) By using feeds to store and retrieve packages during build and release stages.</label><br>
+                    <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+                    <label for="optionD32">D) By hardcoding dependencies in the source code.</label><br>
+                </div>
+                <div id="result32" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 34 -->
+                <div class="que">
+                    <p>34. What is the purpose of the `NuGet restore` command in a CI/CD pipeline?</p>
+                    <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+                </div>
+                <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To restore NuGet packages from a feed before the build process.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The `NuGet restore` command downloads and installs the dependencies specified in the project file, ensuring all required packages are available for the build.<br><br>
+                    **Steps:**<br>
+                    1. Define package dependencies in the project file.<br>
+                    2. Run `nuget restore` or `dotnet restore` in the pipeline.<br>
+                    3. Proceed with the build using the restored packages.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+                    <label for="optionA33">A) To restore NuGet packages from a feed before the build process.</label><br>
+                    <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+                    <label for="optionB33">B) To deploy packages to Azure Artifacts.</label><br>
+                    <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+                    <label for="optionC33">C) To create a new NuGet package.</label><br>
+                    <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+                    <label for="optionD33">D) To update the Azure DevOps pipeline.</label><br>
+                </div>
+                <div id="result33" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 35 -->
+                <div class="que">
+                    <p>35. Which Azure Pipeline task is used to publish packages to Azure Artifacts?</p>
+                    <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+                </div>
+                <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Publish Artifacts</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **Publish Artifacts** task is used to upload build outputs, including NuGet packages, to Azure Artifacts.<br><br>
+                    **Pipeline Steps:**<br>
+                    1. Build the project and generate package files.<br>
+                    2. Use the **Publish Artifacts** task to push packages to Azure Artifacts.<br>
+                    3. Confirm successful publishing in the pipeline logs.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+                    <label for="optionA34">A) Build Artifacts</label><br>
+                    <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+                    <label for="optionB34">B) Publish Artifacts</label><br>
+                    <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+                    <label for="optionC34">C) Deploy Artifacts</label><br>
+                    <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+                    <label for="optionD34">D) Download Artifacts</label><br>
+                </div>
+                <div id="result34" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 36 -->
+                <div class="que">
+                    <p>36. What is the primary purpose of package versioning in Azure Artifacts?</p>
+                    <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+                </div>
+                <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To manage and track changes in software packages.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Package versioning helps in tracking changes, ensuring compatibility, and managing dependencies efficiently across environments.<br><br>
+                    **Key Benefits:**<br>
+                    1. Prevents breaking changes in applications.<br>
+                    2. Facilitates rollback to previous versions if needed.<br>
+                    3. Enhances dependency management in CI/CD pipelines.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+                    <label for="optionA35">A) To manage and track changes in software packages.</label><br>
+                    <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+                    <label for="optionB35">B) To reduce the number of packages in a feed.</label><br>
+                    <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+                    <label for="optionC35">C) To automatically delete old packages.</label><br>
+                    <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+                    <label for="optionD35">D) To enhance the visual appearance of the package feed.</label><br>
+                </div>
+                <div id="result35" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 37 -->
+                <div class="que">
+                    <p>37. Which versioning strategy follows the pattern "Major.Minor.Patch"?</p>
+                    <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+                </div>
+                <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Semantic Versioning (SemVer)</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Semantic Versioning (SemVer)** is a widely adopted versioning strategy that helps in managing dependencies clearly and predictably.<br><br>
+                    **Format:**<br>
+                    - **Major:** Breaking changes.<br>
+                    - **Minor:** New features without breaking changes.<br>
+                    - **Patch:** Bug fixes and minor changes.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+                    <label for="optionA36">A) Semantic Versioning (SemVer)</label><br>
+                    <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+                    <label for="optionB36">B) Date-based Versioning</label><br>
+                    <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+                    <label for="optionC36">C) Incremental Versioning</label><br>
+                    <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+                    <label for="optionD36">D) Random Versioning</label><br>
+                </div>
+                <div id="result36" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 38 -->
+                <div class="que">
+                    <p>38. What is a key advantage of using Semantic Versioning in Azure Artifacts?</p>
+                    <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+                </div>
+                <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) It helps in understanding the impact of changes on dependencies.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Semantic Versioning clearly indicates whether changes are backward-compatible, introduce new features, or fix bugs, aiding in dependency management.<br><br>
+                    **Benefits:**<br>
+                    1. Predictable upgrades.<br>
+                    2. Simplified dependency resolution.<br>
+                    3. Better communication of changes to developers.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+                    <label for="optionA37">A) It allows for unlimited version changes.</label><br>
+                    <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+                    <label for="optionB37">B) It helps in understanding the impact of changes on dependencies.</label><br>
+                    <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+                    <label for="optionC37">C) It eliminates the need for version control systems.</label><br>
+                    <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+                    <label for="optionD37">D) It prevents the creation of new package versions.</label><br>
+                </div>
+                <div id="result37" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 39 -->
+                <div class="que">
+                    <p>39. How does Azure Artifacts handle version conflicts between packages?</p>
+                    <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+                </div>
+                <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) By using dependency resolution rules based on version ranges.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts uses dependency resolution mechanisms to manage conflicts, ensuring the most compatible versions are selected.<br><br>
+                    **How It Works:**<br>
+                    1. Check for version constraints in the project.<br>
+                    2. Resolve dependencies by selecting the appropriate version.<br>
+                    3. Apply fallback strategies if conflicts persist.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+                    <label for="optionA38">A) By deleting older versions automatically.</label><br>
+                    <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+                    <label for="optionB38">B) By ignoring the conflicting packages.</label><br>
+                    <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+                    <label for="optionC38">C) By prompting for manual conflict resolution.</label><br>
+                    <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+                    <label for="optionD38">D) By using dependency resolution rules based on version ranges.</label><br>
+                </div>
+                <div id="result38" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 40 -->
+                <div class="que">
+                    <p>40. What is the recommended practice for versioning packages in a multi-environment CI/CD pipeline?</p>
+                    <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+                </div>
+                <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Use immutable versions to ensure consistency across environments.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Using immutable versions prevents unexpected changes, ensuring that the same package version is deployed across all environments.<br><br>
+                    **Best Practices:**<br>
+                    1. Assign unique version numbers for each release.<br>
+                    2. Avoid overwriting published versions.<br>
+                    3. Use tags or metadata to identify versions for specific environments.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+                    <label for="optionA39">A) Use immutable versions to ensure consistency across environments.</label><br>
+                    <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+                    <label for="optionB39">B) Update packages frequently to the latest version.</label><br>
+                    <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+                    <label for="optionC39">C) Use the same version number for all environments.</label><br>
+                    <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+                    <label for="optionD39">D) Delete old versions after each deployment.</label><br>
+                </div>
+                <div id="result39" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 41 -->
+                <div class="que">
+                    <p>41. What is the main purpose of integrating Azure Artifacts with external feeds?</p>
+                    <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+                </div>
+                <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To enable the use of external packages alongside internal ones.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Integrating with external feeds allows teams to access and manage third-party packages securely alongside their internal packages.<br><br>
+                    **Key Benefits:**<br>
+                    1. Access to a broader range of libraries and tools.<br>
+                    2. Centralized management of both internal and external dependencies.<br>
+                    3. Enhanced security through controlled access.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+                    <label for="optionA40">A) To enable the use of external packages alongside internal ones.</label><br>
+                    <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+                    <label for="optionB40">B) To increase the storage capacity of Azure Artifacts.</label><br>
+                    <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+                    <label for="optionC40">C) To eliminate the need for version control systems.</label><br>
+                    <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+                    <label for="optionD40">D) To automate the deployment of external applications.</label><br>
+                </div>
+                <div id="result40" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 42 -->
+                <div class="que">
+                    <p>42. Which of the following protocols is commonly used to connect Azure Artifacts to external feeds?</p>
+                    <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+                </div>
+                <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) NuGet, npm, and Maven protocols</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts supports various package management protocols like **NuGet**, **npm**, and **Maven** for seamless integration with external feeds.<br><br>
+                    **How It Works:**<br>
+                    1. Configure external feed sources in Azure Artifacts.<br>
+                    2. Authenticate using tokens or credentials.<br>
+                    3. Manage dependencies directly from external repositories.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+                    <label for="optionA41">A) FTP and HTTP</label><br>
+                    <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+                    <label for="optionB41">B) NuGet, npm, and Maven protocols</label><br>
+                    <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+                    <label for="optionC41">C) SOAP and REST APIs</label><br>
+                    <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+                    <label for="optionD41">D) SSH and Telnet</label><br>
+                </div>
+                <div id="result41" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 43 -->
+                <div class="que">
+                    <p>43. What is the role of a personal access token (PAT) when integrating Azure Artifacts with external feeds?</p>
+                    <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+                </div>
+                <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) It provides secure authentication to access external feeds.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    A **Personal Access Token (PAT)** is used to authenticate securely with external feeds, ensuring that only authorized users can access the packages.<br><br>
+                    **Key Features:**<br>
+                    1. Secure token-based authentication.<br>
+                    2. Granular permissions for specific feeds.<br>
+                    3. Easily revocable if compromised.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+                    <label for="optionA42">A) It stores the package metadata.</label><br>
+                    <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+                    <label for="optionB42">B) It encrypts package files during transit.</label><br>
+                    <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+                    <label for="optionC42">C) It provides secure authentication to access external feeds.</label><br>
+                    <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+                    <label for="optionD42">D) It automatically updates package versions.</label><br>
+                </div>
+                <div id="result42" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 44 -->
+                <div class="que">
+                    <p>44. How can you configure Azure Artifacts to work with an external NuGet feed?</p>
+                    <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+                </div>
+                <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By adding the external feed URL to the NuGet.config file.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    To integrate with an external NuGet feed, you modify the `NuGet.config` file to include the feed URL and authentication details.<br><br>
+                    **Steps:**<br>
+                    1. Open `NuGet.config`.<br>
+                    2. Add the external feed URL under `<packageSources>`.<br>
+                    3. Include authentication credentials if required.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+                    <label for="optionA43">A) By installing the feed using Azure CLI.</label><br>
+                    <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+                    <label for="optionB43">B) By adding the external feed URL to the NuGet.config file.</label><br>
+                    <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+                    <label for="optionC43">C) By publishing the feed to Azure DevOps Repos.</label><br>
+                    <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+                    <label for="optionD43">D) By creating a new project in Azure Artifacts.</label><br>
+                </div>
+                <div id="result43" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 45 -->
+                <div class="que">
+                    <p>45. What are the security considerations when integrating Azure Artifacts with external feeds?</p>
+                    <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+                </div>
+                <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Use secure authentication, access controls, and monitor feed activities.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Security is critical when connecting to external feeds to prevent unauthorized access and data breaches.<br><br>
+                    **Best Practices:**<br>
+                    1. Use PATs with least privilege permissions.<br>
+                    2. Enforce HTTPS for secure communication.<br>
+                    3. Monitor and audit feed access regularly.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+                    <label for="optionA44">A) Only allow public feeds without authentication.</label><br>
+                    <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+                    <label for="optionB44">B) Use basic authentication for all external feeds.</label><br>
+                    <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+                    <label for="optionC44">C) Disable all external feed connections to ensure security.</label><br>
+                    <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+                    <label for="optionD44">D) Use secure authentication, access controls, and monitor feed activities.</label><br>
+                </div>
+                <div id="result44" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 46 -->
+                <div class="que">
+                    <p>46. What is the primary purpose of using Azure Artifacts for dependency management?</p>
+                    <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+                </div>
+                <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To manage and share dependencies across projects securely.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts helps manage project dependencies by providing a centralized feed for storing and sharing packages.<br><br>
+                    **Key Features:**<br>
+                    1. Version control for packages.<br>
+                    2. Secure access through permissions and tokens.<br>
+                    3. Integration with CI/CD pipelines.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+                    <label for="optionA45">A) To manage and share dependencies across projects securely.</label><br>
+                    <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+                    <label for="optionB45">B) To replace all version control systems.</label><br>
+                    <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+                    <label for="optionC45">C) To eliminate the need for external repositories.</label><br>
+                    <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+                    <label for="optionD45">D) To store only static files for deployment.</label><br>
+                </div>
+                <div id="result45" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 47 -->
+                <div class="que">
+                    <p>47. How does Azure Artifacts help with version management of dependencies?</p>
+                    <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+                </div>
+                <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By allowing multiple versions of a package to coexist in the feed.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts supports versioning, enabling teams to maintain multiple versions of dependencies.<br><br>
+                    **How It Works:**<br>
+                    1. Upload packages with version numbers.<br>
+                    2. Reference specific versions in project files.<br>
+                    3. Manage dependencies without conflicts.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+                    <label for="optionA46">A) It deletes older versions automatically.</label><br>
+                    <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+                    <label for="optionB46">B) By allowing multiple versions of a package to coexist in the feed.</label><br>
+                    <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+                    <label for="optionC46">C) By restricting the use of outdated versions.</label><br>
+                    <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+                    <label for="optionD46">D) By only supporting the latest version of each package.</label><br>
+                </div>
+                <div id="result46" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 48 -->
+                <div class="que">
+                    <p>48. What is the role of a package feed in dependency management?</p>
+                    <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+                </div>
+                <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) To store and distribute packages to various projects.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    A **package feed** acts as a central repository where dependencies are stored and shared among multiple projects.<br><br>
+                    **Functions:**<br>
+                    1. Centralized storage for packages.<br>
+                    2. Secure distribution and versioning.<br>
+                    3. Integration with build and deployment pipelines.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+                    <label for="optionA47">A) To provide source code repositories.</label><br>
+                    <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+                    <label for="optionB47">B) To manage user permissions in Azure.</label><br>
+                    <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+                    <label for="optionC47">C) To store and distribute packages to various projects.</label><br>
+                    <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+                    <label for="optionD47">D) To replace database management systems.</label><br>
+                </div>
+                <div id="result47" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 49 -->
+                <div class="que">
+                    <p>49. How can Azure Artifacts be integrated with CI/CD pipelines for dependency management?</p>
+                    <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+                </div>
+                <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) By configuring pipeline tasks to restore, build, and publish packages.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts integrates with CI/CD pipelines to automate the management of dependencies throughout the development lifecycle.<br><br>
+                    **Integration Steps:**<br>
+                    1. Add tasks to restore dependencies from Azure Artifacts.<br>
+                    2. Build projects using the restored packages.<br>
+                    3. Publish updated packages back to the feed.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+                    <label for="optionA48">A) By disabling all external dependencies.</label><br>
+                    <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+                    <label for="optionB48">B) By manually downloading each package before deployment.</label><br>
+                    <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+                    <label for="optionC48">C) By using only GitHub repositories for dependencies.</label><br>
+                    <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+                    <label for="optionD48">D) By configuring pipeline tasks to restore, build, and publish packages.</label><br>
+                </div>
+                <div id="result48" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 50 -->
+                <div class="que">
+                    <p>50. What is a common challenge when managing dependencies with Azure Artifacts?</p>
+                    <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+                </div>
+                <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Handling dependency conflicts and version compatibility issues.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Dependency management often faces challenges such as version conflicts and compatibility issues, especially in large projects.<br><br>
+                    **Solutions:**<br>
+                    1. Use semantic versioning for clear versioning.<br>
+                    2. Apply strict version controls in pipelines.<br>
+                    3. Regularly audit dependencies for updates and vulnerabilities.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+                    <label for="optionA49">A) Limited storage capacity in Azure Artifacts.</label><br>
+                    <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+                    <label for="optionB49">B) Handling dependency conflicts and version compatibility issues.</label><br>
+                    <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+                    <label for="optionC49">C) Inability to integrate with Git repositories.</label><br>
+                    <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+                    <label for="optionD49">D) Lack of support for external feeds.</label><br>
+                </div>
+                <div id="result49" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 51 -->
+                <div class="que">
+                    <p>51. What is a key best practice when managing packages in Azure Artifacts?</p>
+                    <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+                </div>
+                <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Use versioning to track changes and maintain compatibility.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Versioning is essential for managing package updates and ensuring compatibility across projects.<br><br>
+                    **Why It’s Important:**<br>
+                    1. Helps track changes in packages.<br>
+                    2. Prevents breaking changes in dependent applications.<br>
+                    3. Facilitates rollbacks if needed.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+                    <label for="optionA50">A) Use versioning to track changes and maintain compatibility.</label><br>
+                    <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+                    <label for="optionB50">B) Store all packages in a single feed regardless of type.</label><br>
+                    <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+                    <label for="optionC50">C) Avoid setting permissions to simplify access management.</label><br>
+                    <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+                    <label for="optionD50">D) Use only the latest package versions without tracking history.</label><br>
+                </div>
+                <div id="result50" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 52 -->
+                <div class="que">
+                    <p>52. How should you manage access control in Azure Artifacts?</p>
+                    <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+                </div>
+                <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By using feed permissions and Azure Active Directory (AAD) groups.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Managing access ensures that only authorized users can publish or consume packages.<br><br>
+                    **Best Practices:**<br>
+                    1. Apply role-based access control (RBAC) using AAD.<br>
+                    2. Define feed permissions for different user groups.<br>
+                    3. Use security policies to manage package visibility.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+                    <label for="optionA51">A) By setting permissions only at the project level.</label><br>
+                    <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+                    <label for="optionB51">B) By granting full access to all users.</label><br>
+                    <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+                    <label for="optionC51">C) By using feed permissions and Azure Active Directory (AAD) groups.</label><br>
+                    <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+                    <label for="optionD51">D) By disabling access controls for simplicity.</label><br>
+                </div>
+                <div id="result51" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 53 -->
+                <div class="que">
+                    <p>53. What is the recommended way to handle sensitive data in Azure Artifacts?</p>
+                    <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+                </div>
+                <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By encrypting sensitive data and using secure feeds.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Protecting sensitive data is crucial for security and compliance.<br><br>
+                    **Security Measures:**<br>
+                    1. Encrypt sensitive data at rest and in transit.<br>
+                    2. Use private feeds for secure data distribution.<br>
+                    3. Implement access controls to restrict unauthorized access.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+                    <label for="optionA52">A) By storing it in plain text for easy access.</label><br>
+                    <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+                    <label for="optionB52">B) By encrypting sensitive data and using secure feeds.</label><br>
+                    <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+                    <label for="optionC52">C) By allowing all users to access the data freely.</label><br>
+                    <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+                    <label for="optionD52">D) By storing data only in public repositories.</label><br>
+                </div>
+                <div id="result52" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 54 -->
+                <div class="que">
+                    <p>54. How can you improve the performance of dependency management in Azure Artifacts?</p>
+                    <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+                </div>
+                <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) By using caching and optimizing package feed configurations.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Optimizing performance reduces build times and improves pipeline efficiency.<br><br>
+                    **Optimization Strategies:**<br>
+                    1. Enable caching for frequently used packages.<br>
+                    2. Configure feeds to reduce latency.<br>
+                    3. Use parallel processing in CI/CD pipelines.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+                    <label for="optionA53">A) By reducing the number of feeds to just one.</label><br>
+                    <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+                    <label for="optionB53">B) By disabling all security features.</label><br>
+                    <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+                    <label for="optionC53">C) By avoiding the use of version control.</label><br>
+                    <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+                    <label for="optionD53">D) By using caching and optimizing package feed configurations.</label><br>
+                </div>
+                <div id="result53" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 55 -->
+                <div class="que">
+                    <p>55. What is a recommended practice for auditing packages in Azure Artifacts?</p>
+                    <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+                </div>
+                <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Regularly review package versions and access logs.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Auditing helps identify security risks, outdated packages, and compliance issues.<br><br>
+                    **Audit Steps:**<br>
+                    1. Review package version history.<br>
+                    2. Monitor feed access logs.<br>
+                    3. Identify unauthorized access or changes.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+                    <label for="optionA54">A) Regularly review package versions and access logs.</label><br>
+                    <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+                    <label for="optionB54">B) Ignore logs to reduce administrative workload.</label><br>
+                    <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+                    <label for="optionC54">C) Only review packages when issues arise.</label><br>
+                    <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+                    <label for="optionD54">D) Allow unrestricted access to all packages.</label><br>
+                </div>
+                <div id="result54" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 56 -->
+                <div class="que">
+                    <p>56. What is a common reason for package installation failures in Azure Artifacts?</p>
+                    <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+                </div>
+                <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Incorrect feed permissions or access issues.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Package installation failures often occur due to permission issues preventing access to the feed.<br><br>
+                    **Troubleshooting Steps:**<br>
+                    1. Verify feed permissions for the user or service principal.<br>
+                    2. Check if the feed is accessible from the current network.<br>
+                    3. Ensure correct credentials are configured.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+                    <label for="optionA55">A) Using outdated package versions.</label><br>
+                    <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+                    <label for="optionB55">B) Incorrect feed permissions or access issues.</label><br>
+                    <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+                    <label for="optionC55">C) Lack of internet connectivity.</label><br>
+                    <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+                    <label for="optionD55">D) Package size too large for Azure Artifacts.</label><br>
+                </div>
+                <div id="result55" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 57 -->
+                <div class="que">
+                    <p>57. How can you troubleshoot authentication errors when accessing Azure Artifacts?</p>
+                    <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+                </div>
+                <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Verify authentication tokens and refresh credentials if needed.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Authentication issues are often due to expired or incorrect credentials.<br><br>
+                    **Troubleshooting Steps:**<br>
+                    1. Check the validity of authentication tokens.<br>
+                    2. Ensure correct credentials are configured in your environment.<br>
+                    3. Refresh or regenerate tokens if needed.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+                    <label for="optionA56">A) Disable all security features temporarily.</label><br>
+                    <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+                    <label for="optionB56">B) Use the same token for all Azure services without changes.</label><br>
+                    <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+                    <label for="optionC56">C) Verify authentication tokens and refresh credentials if needed.</label><br>
+                    <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+                    <label for="optionD56">D) Ignore the error as it will resolve itself over time.</label><br>
+                </div>
+                <div id="result56" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 58 -->
+                <div class="que">
+                    <p>58. What is the first step when troubleshooting slow package download speeds in Azure Artifacts?</p>
+                    <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+                </div>
+                <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Check network connectivity and bandwidth availability.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Slow download speeds can be due to network issues rather than Azure Artifacts itself.<br><br>
+                    **Troubleshooting Steps:**<br>
+                    1. Test network speed and latency.<br>
+                    2. Check for any firewall or proxy restrictions.<br>
+                    3. Verify that Azure Artifacts service is operational.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+                    <label for="optionA57">A) Check network connectivity and bandwidth availability.</label><br>
+                    <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+                    <label for="optionB57">B) Reinstall Azure Artifacts without changes.</label><br>
+                    <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+                    <label for="optionC57">C) Disable all package caching mechanisms.</label><br>
+                    <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+                    <label for="optionD57">D) Avoid using Azure Artifacts during peak hours.</label><br>
+                </div>
+                <div id="result57" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 59 -->
+                <div class="que">
+                    <p>59. How can you resolve issues with missing dependencies in Azure Artifacts?</p>
+                    <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+                </div>
+                <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Verify the package versions and check feed configurations.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Missing dependencies often result from version mismatches or misconfigured feeds.<br><br>
+                    **Troubleshooting Steps:**<br>
+                    1. Confirm that the correct version of the dependency exists in the feed.<br>
+                    2. Review feed settings to ensure proper access and visibility.<br>
+                    3. Validate build configurations for accurate dependency references.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+                    <label for="optionA58">A) Clear all packages from the feed.</label><br>
+                    <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+                    <label for="optionB58">B) Verify the package versions and check feed configurations.</label><br>
+                    <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+                    <label for="optionC58">C) Reinstall the Azure Artifacts service.</label><br>
+                    <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+                    <label for="optionD58">D) Ignore the issue as it will resolve automatically.</label><br>
+                </div>
+                <div id="result58" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 60 -->
+                <div class="que">
+                    <p>60. What should you do if Azure Artifacts service is unresponsive?</p>
+                    <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+                </div>
+                <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Check the Azure Service Health dashboard for outages.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Service unresponsiveness may be due to outages or service disruptions.<br><br>
+                    **Troubleshooting Steps:**<br>
+                    1. Visit the [Azure Service Health Dashboard](https://status.azure.com/).<br>
+                    2. Check for any active incidents affecting Azure Artifacts.<br>
+                    3. If no incidents are reported, review Azure logs for additional diagnostics.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+                    <label for="optionA59">A) Restart the Azure portal.</label><br>
+                    <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+                    <label for="optionB59">B) Reinstall Azure Artifacts.</label><br>
+                    <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+                    <label for="optionC59">C) Disable all network firewalls temporarily.</label><br>
+                    <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+                    <label for="optionD59">D) Check the Azure Service Health dashboard for outages.</label><br>
+                </div>
+                <div id="result59" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 61 -->
+                <div class="que">
+                    <p>61. What is the primary advantage of using Azure Artifacts over traditional package managers?</p>
+                    <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+                </div>
+                <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Seamless integration with Azure DevOps and enterprise-grade security.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts provides native integration with Azure DevOps, enhancing CI/CD workflows and offering enterprise-level security.<br><br>
+                    **Key Benefits:**<br>
+                    1. Integrated with Azure Pipelines and Repos.<br>
+                    2. Supports multiple package types (NuGet, npm, Maven, etc.).<br>
+                    3. Advanced security and access control features.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+                    <label for="optionA60">A) It only supports Python packages.</label><br>
+                    <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+                    <label for="optionB60">B) It is only compatible with Windows environments.</label><br>
+                    <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+                    <label for="optionC60">C) Seamless integration with Azure DevOps and enterprise-grade security.</label><br>
+                    <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+                    <label for="optionD60">D) It automatically generates documentation for packages.</label><br>
+                </div>
+                <div id="result60" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 62 -->
+                <div class="que">
+                    <p>62. Which package manager is primarily designed for Java projects?</p>
+                    <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+                </div>
+                <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Maven</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Maven is a build automation tool used primarily for Java projects, managing dependencies and project builds.<br><br>
+                    **Key Features of Maven:**<br>
+                    1. Dependency management.<br>
+                    2. Project build automation.<br>
+                    3. Standardized project structure.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+                    <label for="optionA61">A) npm</label><br>
+                    <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+                    <label for="optionB61">B) Maven</label><br>
+                    <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+                    <label for="optionC61">C) NuGet</label><br>
+                    <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+                    <label for="optionD61">D) Pip</label><br>
+                </div>
+                <div id="result61" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 63 -->
+                <div class="que">
+                    <p>63. Which package manager is commonly used for managing JavaScript libraries?</p>
+                    <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+                </div>
+                <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) npm</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    npm (Node Package Manager) is the default package manager for JavaScript, especially for Node.js applications.<br><br>
+                    **Features of npm:**<br>
+                    1. Manages JavaScript libraries and tools.<br>
+                    2. Supports dependency management and versioning.<br>
+                    3. Extensive open-source ecosystem.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+                    <label for="optionA62">A) npm</label><br>
+                    <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+                    <label for="optionB62">B) Maven</label><br>
+                    <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+                    <label for="optionC62">C) NuGet</label><br>
+                    <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+                    <label for="optionD62">D) Conda</label><br>
+                </div>
+                <div id="result62" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 64 -->
+                <div class="que">
+                    <p>64. Which package manager is designed for .NET applications?</p>
+                    <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+                </div>
+                <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) NuGet</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    NuGet is the official package manager for .NET, handling libraries, tools, and other dependencies.<br><br>
+                    **NuGet Features:**<br>
+                    1. Manages .NET libraries and tools.<br>
+                    2. Integrates with Visual Studio.<br>
+                    3. Supports package versioning and dependency resolution.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+                    <label for="optionA63">A) npm</label><br>
+                    <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+                    <label for="optionB63">B) Maven</label><br>
+                    <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+                    <label for="optionC63">C) NuGet</label><br>
+                    <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+                    <label for="optionD63">D) Pip</label><br>
+                </div>
+                <div id="result63" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 65 -->
+                <div class="que">
+                    <p>65. Which package manager is known for managing Python libraries?</p>
+                    <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+                </div>
+                <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Pip</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Pip is the default package manager for Python, enabling easy installation and management of Python packages.<br><br>
+                    **Pip Features:**<br>
+                    1. Installs packages from PyPI.<br>
+                    2. Handles dependencies and package versions.<br>
+                    3. Works seamlessly with virtual environments.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+                    <label for="optionA64">A) npm</label><br>
+                    <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+                    <label for="optionB64">B) Maven</label><br>
+                    <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+                    <label for="optionC64">C) NuGet</label><br>
+                    <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+                    <label for="optionD64">D) Pip</label><br>
+                </div>
+                <div id="result64" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 66 -->
+                <div class="que">
+                    <p>66. What is the primary purpose of optimizing storage in Azure Artifacts?</p>
+                    <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+                </div>
+                <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To reduce costs and improve performance.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Optimizing storage helps in minimizing storage costs while ensuring faster access and efficient resource usage.<br><br>
+                    **Key Optimization Strategies:**<br>
+                    1. Use retention policies to manage old packages.<br>
+                    2. Implement efficient caching strategies.<br>
+                    3. Clean up unused feeds and packages regularly.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+                    <label for="optionA65">A) To reduce costs and improve performance.</label><br>
+                    <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+                    <label for="optionB65">B) To increase the number of stored packages.</label><br>
+                    <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+                    <label for="optionC65">C) To simplify the UI of Azure DevOps.</label><br>
+                    <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+                    <label for="optionD65">D) To ensure packages are publicly accessible.</label><br>
+                </div>
+                <div id="result65" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 67 -->
+                <div class="que">
+                    <p>67. Which feature in Azure Artifacts helps to automatically remove old or unused packages?</p>
+                    <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+                </div>
+                <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Retention Policies</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Retention Policies automatically clean up old or unused packages based on defined rules, helping manage storage effectively.<br><br>
+                    **How Retention Policies Work:**<br>
+                    1. Set criteria for package age or version.<br>
+                    2. Define rules to retain or delete packages.<br>
+                    3. Apply policies to specific feeds or projects.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+                    <label for="optionA66">A) Version Control</label><br>
+                    <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+                    <label for="optionB66">B) Retention Policies</label><br>
+                    <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+                    <label for="optionC66">C) Package Locking</label><br>
+                    <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+                    <label for="optionD66">D) Dependency Mapping</label><br>
+                </div>
+                <div id="result66" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 68 -->
+                <div class="que">
+                    <p>68. Which of the following is NOT a recommended practice for optimizing storage in Azure Artifacts?</p>
+                    <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+                </div>
+                <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Storing duplicate packages in multiple feeds</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Storing duplicate packages increases storage costs and redundancy, which is not an efficient practice.<br><br>
+                    **Recommended Practices:**<br>
+                    1. Use shared feeds for common packages.<br>
+                    2. Clean up old versions regularly.<br>
+                    3. Apply retention policies effectively.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+                    <label for="optionA67">A) Using retention policies</label><br>
+                    <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+                    <label for="optionB67">B) Consolidating feeds</label><br>
+                    <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+                    <label for="optionC67">C) Compressing large packages</label><br>
+                    <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+                    <label for="optionD67">D) Storing duplicate packages in multiple feeds</label><br>
+                </div>
+                <div id="result67" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 69 -->
+                <div class="que">
+                    <p>69. How does caching help in optimizing storage within Azure Artifacts?</p>
+                    <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+                </div>
+                <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Reduces redundant downloads and speeds up build times.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Caching helps minimize redundant storage by reusing previously downloaded packages, reducing the need to store multiple copies.<br><br>
+                    **Benefits of Caching:**<br>
+                    1. Faster builds due to reduced downloads.<br>
+                    2. Lower storage usage.<br>
+                    3. Improved efficiency in CI/CD pipelines.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+                    <label for="optionA68">A) Reduces redundant downloads and speeds up build times.</label><br>
+                    <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+                    <label for="optionB68">B) Increases the number of stored packages.</label><br>
+                    <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+                    <label for="optionC68">C) Encrypts packages for security.</label><br>
+                    <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+                    <label for="optionD68">D) Deletes old packages automatically.</label><br>
+                </div>
+                <div id="result68" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 70 -->
+                <div class="que">
+                    <p>70. Which of the following Azure Artifacts features helps in reducing the impact of large package sizes on storage?</p>
+                    <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+                </div>
+                <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Package Compression</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Package compression reduces the storage footprint of large packages, making them easier to manage and transfer.<br><br>
+                    **How Package Compression Helps:**<br>
+                    1. Reduces storage costs.<br>
+                    2. Speeds up download and upload times.<br>
+                    3. Optimizes bandwidth usage.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+                    <label for="optionA69">A) Data Encryption</label><br>
+                    <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+                    <label for="optionB69">B) Version Locking</label><br>
+                    <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+                    <label for="optionC69">C) Package Compression</label><br>
+                    <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+                    <label for="optionD69">D) Dependency Mapping</label><br>
+                </div>
+                <div id="result69" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 71 -->
+                <div class="que">
+                    <p>71. What is a key advantage of using advanced features in Azure Artifacts?</p>
+                    <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+                </div>
+                <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Enhanced package management and automation capabilities.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Advanced features enable better automation, improved security, and streamlined package management within Azure DevOps.<br><br>
+                    **Key Advanced Features:**<br>
+                    1. Cross-feed dependencies.<br>
+                    2. Package versioning automation.<br>
+                    3. Integration with external feeds.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+                    <label for="optionA70">A) Enhanced package management and automation capabilities.</label><br>
+                    <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+                    <label for="optionB70">B) Increased storage space.</label><br>
+                    <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+                    <label for="optionC70">C) Simplified UI design.</label><br>
+                    <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+                    <label for="optionD70">D) Automatic deployment to production environments.</label><br>
+                </div>
+                <div id="result70" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 72 -->
+                <div class="que">
+                    <p>72. Which Azure Artifacts feature allows integration with external package sources?</p>
+                    <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+                </div>
+                <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Upstream Sources</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Upstream Sources** enable Azure Artifacts to connect with external feeds like npm, NuGet, and Maven repositories, allowing seamless dependency management.<br><br>
+                    **How It Works:**<br>
+                    1. Configure upstream sources in Azure Artifacts.<br>
+                    2. Azure Artifacts fetches packages from external sources when needed.<br>
+                    3. Manage external dependencies alongside internal packages.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+                    <label for="optionA71">A) Dependency Mapping</label><br>
+                    <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+                    <label for="optionB71">B) Upstream Sources</label><br>
+                    <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+                    <label for="optionC71">C) Package Locking</label><br>
+                    <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+                    <label for="optionD71">D) Version Control</label><br>
+                </div>
+                <div id="result71" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 73 -->
+                <div class="que">
+                    <p>73. How does Azure Artifacts support cross-platform package management?</p>
+                    <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+                </div>
+                <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) By supporting multiple package formats like npm, NuGet, and Maven.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts supports various package formats, making it versatile for different development environments and platforms.<br><br>
+                    **Supported Package Formats:**<br>
+                    1. npm (JavaScript)<br>
+                    2. NuGet (.NET)<br>
+                    3. Maven (Java)<br>
+                    4. Python (PyPI)<br>
+                    5. Universal Packages<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+                    <label for="optionA72">A) By supporting multiple package formats like npm, NuGet, and Maven.</label><br>
+                    <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+                    <label for="optionB72">B) By limiting to only .NET packages.</label><br>
+                    <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+                    <label for="optionC72">C) By requiring specific OS configurations.</label><br>
+                    <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+                    <label for="optionD72">D) By using proprietary package formats only.</label><br>
+                </div>
+                <div id="result72" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 74 -->
+                <div class="que">
+                    <p>74. What is the role of Azure Artifacts' retention policies in advanced package management?</p>
+                    <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+                </div>
+                <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To manage the lifecycle of packages by automatically deleting old versions.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Retention policies automate the cleanup of outdated packages, reducing storage costs and maintaining feed hygiene.<br><br>
+                    **Key Features:**<br>
+                    1. Define rules based on package age, version, or usage.<br>
+                    2. Apply policies to specific feeds.<br>
+                    3. Automate clean-up tasks without manual intervention.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+                    <label for="optionA73">A) To encrypt packages for security.</label><br>
+                    <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+                    <label for="optionB73">B) To manage the lifecycle of packages by automatically deleting old versions.</label><br>
+                    <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+                    <label for="optionC73">C) To lock packages to prevent updates.</label><br>
+                    <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+                    <label for="optionD73">D) To increase the download speed of packages.</label><br>
+                </div>
+                <div id="result73" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 75 -->
+                <div class="que">
+                    <p>75. Which feature in Azure Artifacts helps in monitoring package usage and trends?</p>
+                    <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+                </div>
+                <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Analytics and Reporting</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts provides analytics tools to track package usage, helping teams understand dependency trends and optimize resource allocation.<br><br>
+                    **Analytics Features Include:**<br>
+                    1. Package download statistics.<br>
+                    2. User access patterns.<br>
+                    3. Performance monitoring for feed health.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+                    <label for="optionA74">A) Dependency Mapping</label><br>
+                    <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+                    <label for="optionB74">B) Package Locking</label><br>
+                    <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+                    <label for="optionC74">C) Version Control</label><br>
+                    <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+                    <label for="optionD74">D) Analytics and Reporting</label><br>
+                </div>
+                <div id="result74" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 76 -->
+                <div class="que">
+                    <p>76. What is the purpose of the **Universal Packages** feature in Azure Artifacts?</p>
+                    <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+                </div>
+                <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To store and manage any type of files, not just code packages.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Universal Packages allow storage of any type of files (e.g., binaries, documents, scripts) in Azure Artifacts, making it versatile for various workflows.<br><br>
+                    **Key Features:**<br>
+                    1. Supports any file type.<br>
+                    2. Versioning for better tracking.<br>
+                    3. Integration with CI/CD pipelines.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+                    <label for="optionA75">A) To store and manage any type of files, not just code packages.</label><br>
+                    <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+                    <label for="optionB75">B) To restrict package downloads to specific IPs.</label><br>
+                    <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+                    <label for="optionC75">C) To automatically deploy packages to production.</label><br>
+                    <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+                    <label for="optionD75">D) To convert code packages into Docker images.</label><br>
+                </div>
+                <div id="result75" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 77 -->
+                <div class="que">
+                    <p>77. How can you automate the management of packages in Azure Artifacts?</p>
+                    <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+                </div>
+                <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Using Azure Pipelines with custom scripts and triggers.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Pipelines can automate tasks like publishing, versioning, and cleaning up packages with the help of scripts and triggers.<br><br>
+                    **Automation Techniques:**<br>
+                    1. CI/CD triggers for automatic package publishing.<br>
+                    2. PowerShell or Azure CLI scripts for management.<br>
+                    3. Retention policies for cleanup automation.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+                    <label for="optionA76">A) By manually uploading packages through the UI.</label><br>
+                    <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+                    <label for="optionB76">B) Using Azure Pipelines with custom scripts and triggers.</label><br>
+                    <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+                    <label for="optionC76">C) By disabling all manual interactions.</label><br>
+                    <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+                    <label for="optionD76">D) By setting up external storage buckets.</label><br>
+                </div>
+                <div id="result76" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 78 -->
+                <div class="que">
+                    <p>78. Which feature helps in ensuring that only secure packages are used in your projects?</p>
+                    <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+                </div>
+                <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Package security scanning.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Artifacts offers security scanning to identify vulnerabilities in packages, ensuring safe usage across projects.<br><br>
+                    **Key Security Features:**<br>
+                    1. Integration with security tools like Azure Security Center.<br>
+                    2. Automated scans for vulnerabilities.<br>
+                    3. Notifications for security updates.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+                    <label for="optionA77">A) Package version locking.</label><br>
+                    <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+                    <label for="optionB77">B) Access control policies.</label><br>
+                    <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+                    <label for="optionC77">C) Package security scanning.</label><br>
+                    <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+                    <label for="optionD77">D) Encrypted package uploads.</label><br>
+                </div>
+                <div id="result77" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 79 -->
+                <div class="que">
+                    <p>79. What is the function of **Retention Policies** in Azure Artifacts?</p>
+                    <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+                </div>
+                <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To automatically delete outdated packages based on defined rules.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Retention Policies help manage storage by deleting old or unused packages, ensuring efficiency and cost control.<br><br>
+                    **Policy Examples:**<br>
+                    1. Delete packages older than 90 days.<br>
+                    2. Keep only the latest 5 versions.<br>
+                    3. Apply different rules to different feeds.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+                    <label for="optionA78">A) To automatically delete outdated packages based on defined rules.</label><br>
+                    <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+                    <label for="optionB78">B) To lock packages to prevent unauthorized access.</label><br>
+                    <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+                    <label for="optionC78">C) To encrypt packages before upload.</label><br>
+                    <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+                    <label for="optionD78">D) To allow unlimited package versions.</label><br>
+                </div>
+                <div id="result78" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 80 -->
+                <div class="que">
+                    <p>80. How can Azure Artifacts help in managing dependencies in large projects?</p>
+                    <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+                </div>
+                <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By providing centralized feeds for dependency management.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Centralized feeds allow teams to manage, share, and control dependencies effectively, ensuring consistent versions across projects.<br><br>
+                    **Benefits:**<br>
+                    1. Version control for all dependencies.<br>
+                    2. Secure access and permissions.<br>
+                    3. Easy integration with CI/CD pipelines.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+                    <label for="optionA79">A) By allowing only one version per project.</label><br>
+                    <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+                    <label for="optionB79">B) By providing centralized feeds for dependency management.</label><br>
+                    <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+                    <label for="optionC79">C) By eliminating the need for version control.</label><br>
+                    <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+                    <label for="optionD79">D) By removing all outdated packages automatically.</label><br>
+                </div>
+                <div id="result79" class="result"></div>
+            </div>
+                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                  
+            
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

@@ -1,0 +1,2957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFRASTRUCTURE AS CODE</title>
+    <link rel="stylesheet" href="../css/Azure Devops.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'C', 'B', 'D', 'B', 'B', 'C', 'B', 'D',
+            'B', 'A', 'C', 'D', 'B', 'B', 'C', 'B', 'A', 'C',
+            'B', 'C', 'B', 'C', 'D','B', 'C', 'D', 'C', 'B',
+            'B', 'C', 'D', 'A', 'B', 'B', 'A', 'D', 'C', 'A',
+            'B', 'A', 'C', 'B', 'D', 'A', 'B', 'C', 'D', 'C',
+            'A', 'D', 'B', 'D', 'C', 'A', 'B', 'C', 'D', 'B',
+            'A', 'D', 'C', 'B', 'D', 'B', 'A', 'D', 'A', 'C',
+            'B', 'C', 'D', 'B', 'C', 'C', 'B', 'D', 'A', 'D',
+            'C', 'B', 'D', 'A', 'C', 'B', 'A', 'C', 'B', 'D',
+            'C', 'A', 'D', 'A', 'B', 'C', 'B', 'A', 'D', 'C'
+
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>INFRASTRUCTURE AS CODE</h3>
+        <div class="inner-border">
+                         
+<!-- Question 1 -->
+<div class="qee"> 
+    <div class="que">
+        <p>1. What is Infrastructure as Code (IaC) primarily used for?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Managing infrastructure through code</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Infrastructure as Code (IaC) is the process of managing and provisioning computing infrastructure through machine-readable code rather than manual processes.<br><br>
+        **Main Features of IaC**:<br>
+        1. Automates infrastructure management.<br>
+        2. Reduces human error.<br>
+        3. Ensures consistency across environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) Deploying software applications</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) Managing infrastructure through code</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) Monitoring application performance</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) Managing databases</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee"> 
+    <div class="que">
+        <p>2. Which of the following is a key benefit of using Infrastructure as Code (IaC)?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Automation of infrastructure provisioning</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        IaC allows you to automate the provisioning and management of infrastructure, making it more efficient and less prone to human error.<br><br>
+        **Benefits of IaC**:<br>
+        1. Faster infrastructure provisioning.<br>
+        2. Improved consistency.<br>
+        3. Reduced operational costs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Reduces cost of applications</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Automation of infrastructure provisioning</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) Managing security patches</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Monitoring network performance</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee"> 
+    <div class="que">
+        <p>3. Which tool is commonly used for Infrastructure as Code (IaC) in cloud environments?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Terraform</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Terraform is a popular IaC tool that allows you to define, provision, and manage cloud infrastructure using code.<br><br>
+        **IaC Tools**:<br>
+        1. Terraform.<br>
+        2. AWS CloudFormation.<br>
+        3. Ansible.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) Kubernetes</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) Docker</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) Terraform</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) Jenkins</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee"> 
+    <div class="que">
+        <p>4. What is the purpose of using version control in Infrastructure as Code (IaC)?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To track changes in infrastructure code</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Version control helps you track changes to infrastructure code, enabling collaboration and rollback to previous versions if needed.<br><br>
+        **Version Control in IaC**:<br>
+        1. Enables code history tracking.<br>
+        2. Facilitates collaboration.<br>
+        3. Provides rollback capabilities.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) To manage security policies</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) To track changes in infrastructure code</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) To manage user access</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) To monitor performance</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee"> 
+    <div class="que">
+        <p>5. Which of the following is a common practice when implementing Infrastructure as Code (IaC)?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Testing infrastructure code before deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        It is essential to test infrastructure code before deploying it to ensure it behaves as expected and prevents any issues.<br><br>
+        **IaC Best Practices**:<br>
+        1. Code review and testing.<br>
+        2. Version control integration.<br>
+        3. Modular design.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) Deploying without validation</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) Ignoring code reviews</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) Deploying directly to production</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) Testing infrastructure code before deployment</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+
+<!-- Question 6 -->
+<div class="qee"> 
+    <div class="que">
+        <p>6. What is the main purpose of Azure DevOps Pipelines?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Automating the build and release processes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Pipelines is used to automate the continuous integration and continuous delivery (CI/CD) of applications. It helps streamline the process of building, testing, and deploying applications.<br><br>
+        **Main Features of Azure DevOps Pipelines**:<br>
+        1. Automates build and release pipelines.<br>
+        2. Supports multiple platforms and environments.<br>
+        3. Integrates with various version control systems.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) Managing user permissions</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) Automating the build and release processes</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) Deploying infrastructure</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) Monitoring application performance</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee"> 
+    <div class="que">
+        <p>7. Which of the following components is part of Azure DevOps Pipelines?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Build pipeline</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Pipelines consists of multiple components, including build pipelines and release pipelines. A build pipeline automates the process of compiling and testing code, while a release pipeline automates the deployment process.<br><br>
+        **Azure DevOps Pipeline Components**:<br>
+        1. Build pipeline.<br>
+        2. Release pipeline.<br>
+        3. Agent pools and environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Release pipeline only</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Build pipeline</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Code repository</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Source control system</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee"> 
+    <div class="que">
+        <p>8. What is the role of agents in Azure DevOps Pipelines?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Execute the tasks defined in the pipeline</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Azure DevOps Pipelines, agents are responsible for running the tasks specified in a pipeline, such as building code, running tests, or deploying applications.<br><br>
+        **Agent Roles**:<br>
+        1. Build agent for compiling and testing code.<br>
+        2. Release agent for deploying applications.<br>
+        3. Hosted or self-hosted agents.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) Monitor the pipeline</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) Manage user permissions</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) Execute the tasks defined in the pipeline</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) Configure environment variables</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee"> 
+    <div class="que">
+        <p>9. What is a YAML file used for in Azure DevOps Pipelines?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Defining pipeline configurations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Azure DevOps, YAML files are used to define the structure and configuration of the pipeline, including stages, jobs, and steps.<br><br>
+        **YAML in Pipelines**:<br>
+        1. Defines pipeline structure.<br>
+        2. Describes build, test, and deploy steps.<br>
+        3. Provides version control for pipeline configurations.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) Storing application code</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) Defining pipeline configurations</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) Managing user permissions</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) Configuring network settings</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee"> 
+    <div class="que">
+        <p>10. How does Azure DevOps Pipelines support continuous integration and continuous delivery (CI/CD)?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Automating code build, test, and deployment processes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Pipelines supports CI/CD by automating the processes of building, testing, and deploying applications whenever changes are committed to the source code repository.<br><br>
+        **CI/CD in Azure DevOps**:<br>
+        1. Continuous integration (CI) automates code integration.<br>
+        2. Continuous delivery (CD) automates deployment.<br>
+        3. Reduces manual errors and accelerates releases.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) Manually deploying code to production</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) Testing code only</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) Building code only</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) Automating code build, test, and deployment processes</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+
+<!-- Question 11 -->
+<div class="qee"> 
+    <div class="que">
+        <p>11. What is the purpose of Azure Resource Manager (ARM) templates?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Defining and deploying Azure resources in a repeatable manner</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        ARM templates are used to define the infrastructure and configuration of resources in Azure. They allow you to deploy resources consistently across different environments.<br><br>
+        **ARM Template Features**:<br>
+        1. Infrastructure as Code (IaC).<br>
+        2. Reusable and repeatable deployments.<br>
+        3. Declarative syntax for defining resources.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) Automating application deployment</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) Defining and deploying Azure resources in a repeatable manner</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) Managing user permissions in Azure</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) Monitoring Azure resources</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee"> 
+    <div class="que">
+        <p>12. What format is used to write Azure Resource Manager (ARM) templates?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) JSON</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        ARM templates are written in JSON format. This format is used to define the structure of Azure resources, their properties, and relationships.<br><br>
+        **ARM Template Format**:<br>
+        1. JSON syntax.<br>
+        2. Used to define resource types, parameters, and outputs.<br>
+        3. Declarative structure for deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) JSON</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) YAML</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) XML</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) Markdown</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee"> 
+    <div class="que">
+        <p>13. What is the key benefit of using ARM templates in Azure?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Consistency and repeatability in deployments</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        ARM templates enable consistent and repeatable deployment of resources. This reduces the risk of human error and ensures that infrastructure is deployed exactly as intended.<br><br>
+        **Benefits of ARM Templates**:<br>
+        1. Consistency in resource provisioning.<br>
+        2. Reusable configurations.<br>
+        3. Version-controlled infrastructure.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) Faster deployment times</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) Cost reduction in infrastructure</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) Consistency and repeatability in deployments</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) Easier resource scaling</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee"> 
+    <div class="que">
+        <p>14. Which of the following is NOT a valid section in an ARM template?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Monitoring</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        ARM templates contain sections like `resources`, `parameters`, `variables`, and `outputs`, but `monitoring` is not a valid section.<br><br>
+        **ARM Template Sections**:<br>
+        1. `resources`: Defines the resources to deploy.<br>
+        2. `parameters`: Defines input parameters.<br>
+        3. `outputs`: Defines values to be returned after deployment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) resources</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) parameters</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) outputs</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) monitoring</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee"> 
+    <div class="que">
+        <p>15. What is the primary function of the "parameters" section in an ARM template?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To define values that can be passed into the template during deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `parameters` section in an ARM template is used to define input values that can be passed into the template during deployment, allowing you to make the template more flexible.<br><br>
+        **Parameters Section**:<br>
+        1. Defines values to be supplied at runtime.<br>
+        2. Allows customization of template deployments.<br>
+        3. Makes templates reusable for different environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) To specify the type of resources to be deployed</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) To define values that can be passed into the template during deployment</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) To specify the version of the template</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) To list the required dependencies for resources</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee"> 
+    <div class="que">
+        <p>16. What is the primary purpose of using Terraform in Azure DevOps for Infrastructure as Code (IaC)?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Automating the deployment and management of Azure infrastructure</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Terraform is used to automate the provisioning and management of Azure resources, ensuring consistent and repeatable infrastructure deployment using code.<br><br>
+        **Terraform in Azure DevOps**:<br>
+        1. IaC (Infrastructure as Code) for cloud resources.<br>
+        2. Managing Azure resources using declarative configuration files.<br>
+        3. Version-controlled deployments and changes.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) Managing code quality in Azure</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) Automating the deployment and management of Azure infrastructure</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) Managing source code repositories in Azure</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) Monitoring Azure resources</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee"> 
+    <div class="que">
+        <p>17. Which file extension is used for Terraform configuration files?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) .tf</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Terraform configuration files are written in HashiCorp Configuration Language (HCL) and use the `.tf` extension.<br><br>
+        **Terraform File Extensions**:<br>
+        1. `.tf`: Main configuration files.<br>
+        2. `.tfvars`: Variable definition files.<br>
+        3. `.tfstate`: Terraform state files.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) .json</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) .yaml</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) .tf</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) .terraform</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee"> 
+    <div class="que">
+        <p>18. How does Azure DevOps integrate with Terraform for IaC deployments?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By using Terraform tasks in Azure Pipelines to automate infrastructure provisioning</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps allows you to automate the deployment of infrastructure by using Terraform tasks in Azure Pipelines. This helps in continuous integration and continuous delivery (CI/CD) for infrastructure.<br><br>
+        **Terraform and Azure DevOps Integration**:<br>
+        1. Use Terraform tasks to plan, apply, and destroy infrastructure.<br>
+        2. Integrate with Azure Pipelines for automated deployments.<br>
+        3. Version control and collaboration for IaC.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) By manually running Terraform commands on the Azure portal</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) By using Terraform tasks in Azure Pipelines to automate infrastructure provisioning</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) By creating virtual machines using Azure DevOps agents</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) By integrating with Azure Functions for real-time deployment</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee"> 
+    <div class="que">
+        <p>19. What is the purpose of the `terraform plan` command in a Terraform-based Azure DevOps pipeline?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To preview the changes Terraform will make to the infrastructure</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `terraform plan` command allows you to preview the changes that Terraform will make to the infrastructure based on the configuration files, without actually applying them.<br><br>
+        **Terraform Plan**:<br>
+        1. Shows a detailed preview of resource changes.<br>
+        2. Helps prevent unintentional changes.<br>
+        3. Useful for validating configurations before applying them.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) To preview the changes Terraform will make to the infrastructure</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) To apply the changes to the infrastructure</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) To destroy the existing infrastructure</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) To fetch the current state of the infrastructure</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee"> 
+    <div class="que">
+        <p>20. Which of the following Terraform commands is used to apply the changes to Azure infrastructure after running `terraform plan`?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) terraform apply</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `terraform apply` command is used to apply the changes previewed by the `terraform plan` command and implement the changes to the infrastructure.<br><br>
+        **Terraform Apply**:<br>
+        1. Applies the changes to the infrastructure.<br>
+        2. Confirms the changes after reviewing the plan.<br>
+        3. Implements the infrastructure modifications.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) terraform init</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) terraform start</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) terraform apply</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) terraform deploy</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee"> 
+    <div class="que">
+        <p>21. What is Azure Bicep primarily used for?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To simplify and streamline the process of authoring Azure Resource Manager (ARM) templates</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Bicep is a domain-specific language (DSL) that simplifies the syntax for deploying Azure resources and provides a more readable alternative to JSON-based ARM templates.<br><br>
+        **Azure Bicep Features**:<br>
+        1. Concise and readable syntax.<br>
+        2. Direct compilation into ARM templates.<br>
+        3. Supports all ARM resources and features.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) To manage Azure virtual machines</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) To simplify and streamline the process of authoring Azure Resource Manager (ARM) templates</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) To monitor Azure resources</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) To deploy Azure virtual machines</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee"> 
+    <div class="que">
+        <p>22. How does Azure Bicep differ from traditional ARM templates?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It uses a simpler syntax and is more concise compared to JSON-based ARM templates</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Bicep offers a simpler, more concise syntax compared to traditional JSON-based ARM templates, while still providing full support for all Azure resource types.<br><br>
+        **Key Differences**:<br>
+        1. Bicep uses a more readable syntax.<br>
+        2. Bicep files are compiled into ARM templates.<br>
+        3. Bicep is declarative like ARM templates.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) Bicep uses YAML syntax instead of JSON</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) Bicep is more limited than ARM templates in terms of resource support</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) It uses a simpler syntax and is more concise compared to JSON-based ARM templates</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) Bicep requires additional tools for deployment</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee"> 
+    <div class="que">
+        <p>23. Which command is used to compile a Bicep file into an ARM template?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) bicep build</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `bicep build` command is used to compile a Bicep file into a corresponding ARM template (JSON format). This allows the Bicep code to be deployed using standard Azure deployment tools.<br><br>
+        **Bicep Commands**:<br>
+        1. `bicep build`: Compiles Bicep to ARM templates.<br>
+        2. `bicep deploy`: Deploys Bicep files to Azure.<br>
+        3. `bicep decompile`: Converts ARM templates to Bicep code.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) bicep compile</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) bicep build</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) bicep generate</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) bicep deploy</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee"> 
+    <div class="que">
+        <p>24. Which of the following is true about Azure Bicep?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Bicep files are declarative and can be version-controlled like traditional ARM templates</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Bicep files are declarative, just like ARM templates, meaning they define the desired state of resources rather than the steps to achieve that state. They can also be version-controlled in source control systems.<br><br>
+        **Bicep Characteristics**:<br>
+        1. Declarative syntax.<br>
+        2. Can be version-controlled.<br>
+        3. More concise than ARM templates.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) Bicep files are not compatible with ARM templates</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) Bicep files require Azure PowerShell for deployment</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) Bicep files are declarative and can be version-controlled like traditional ARM templates</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) Bicep files are procedural, like Terraform files</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee"> 
+    <div class="que">
+        <p>25. How does Azure Bicep integrate with Azure DevOps?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Bicep can be used in Azure Pipelines for automated infrastructure deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Bicep can be integrated with Azure Pipelines, enabling automated infrastructure deployment using Bicep code within CI/CD pipelines.<br><br>
+        **Bicep and Azure DevOps**:<br>
+        1. Bicep files can be part of your version-controlled repositories.<br>
+        2. Azure Pipelines can build and deploy Bicep templates.<br>
+        3. Streamlined automation of Azure resource provisioning.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) Bicep can only be used manually through the Azure portal</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) Bicep requires third-party tools for Azure DevOps integration</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) Bicep cannot be integrated with Azure DevOps</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) Bicep can be used in Azure Pipelines for automated infrastructure deployment</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+
+<!-- Question 26 -->
+<div class="qee"> 
+    <div class="que">
+        <p>26. What is the purpose of an environment in Azure DevOps?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To represent a target environment for deploying applications or infrastructure</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Environments in Azure DevOps are used to represent the stages or targets (such as development, staging, and production) in the software delivery pipeline, where applications and infrastructure are deployed.<br><br>
+        **Azure DevOps Environment Features**:<br>
+        1. Can be used to model stages in a CI/CD pipeline.<br>
+        2. Helps with resource management and tracking deployments.<br>
+        3. Provides approval workflows before deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) To define the user access for Azure DevOps</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) To represent a target environment for deploying applications or infrastructure</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) To manage Azure DevOps user permissions</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) To configure Azure Boards for project management</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee"> 
+    <div class="que">
+        <p>27. How do environments facilitate infrastructure deployment in Azure DevOps?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By providing approval gates and tracking deployment statuses</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Environments in Azure DevOps help control and manage deployments through approval gates, ensuring that deployments are carefully reviewed before reaching production. They also allow tracking of deployment status for better visibility and accountability.<br><br>
+        **Deployment Management with Environments**:<br>
+        1. Enables approval workflows before deployment.<br>
+        2. Tracks deployment history.<br>
+        3. Provides release status for each environment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) By managing user permissions during deployment</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) By automatically approving deployments</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) By providing approval gates and tracking deployment statuses</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) By configuring Azure DevOps pipelines</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee"> 
+    <div class="que">
+        <p>28. What can be tracked and monitored in Azure DevOps environments during deployments?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) All of the above</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps environments provide detailed tracking of deployments, including which resources were deployed, deployment statuses, and the associated approvals or failures. It also tracks the overall release progress.<br><br>
+        **Tracking and Monitoring**:<br>
+        1. Deployment history.<br>
+        2. Resource deployment status.<br>
+        3. Approvals and failures.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) Resource deployment status</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) Deployment failures</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) Approval workflows</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) All of the above</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee"> 
+    <div class="que">
+        <p>29. Which of the following is a key benefit of using environments in Azure DevOps for IaC deployments?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Control over deployment flow with approval gates and manual interventions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Environments in Azure DevOps provide significant control over the deployment process. Through the use of approval gates and manual intervention points, teams can ensure proper checks are in place before proceeding to production.<br><br>
+        **Benefits of Using Environments**:<br>
+        1. Approval gates for critical deployments.<br>
+        2. Ability to enforce manual steps during the deployment.<br>
+        3. Visibility into deployment progress.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) Faster resource provisioning</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) Automatic resource scaling</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) Control over deployment flow with approval gates and manual interventions</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) Auto-scaling of environments based on usage</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee"> 
+    <div class="que">
+        <p>30. How can Azure DevOps environments be linked to Azure subscriptions for IaC deployments?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By configuring service connections to Azure within Azure DevOps</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To link environments to Azure subscriptions, service connections must be configured in Azure DevOps. These connections allow secure authentication and interaction between Azure DevOps and Azure resources.<br><br>
+        **Service Connections**:<br>
+        1. Used to authenticate Azure DevOps pipelines with Azure subscriptions.<br>
+        2. Configured under the "Service connections" settings.<br>
+        3. Enable IaC deployment to Azure resources.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) By using Azure CLI commands in pipelines</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) By configuring service connections to Azure within Azure DevOps</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) By manually entering subscription details in each pipeline</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) By deploying resources via ARM templates directly in the pipeline</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+
+<!-- Question 31 -->
+<div class="qee"> 
+    <div class="que">
+        <p>31. What is the primary purpose of using Git for version control in Azure Repos for Infrastructure as Code (IaC)?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To track and manage changes in infrastructure code</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Git in Azure Repos allows teams to manage and track changes to infrastructure code, enabling version control, collaboration, and rollback capabilities. This ensures that the infrastructure code evolves smoothly while maintaining history.<br><br>
+        **Key Benefits of Git for IaC**:<br>
+        1. Version control to manage changes.<br>
+        2. Collaboration with team members.<br>
+        3. Rollback to previous versions if necessary.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) To store all deployment logs</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) To track and manage changes in infrastructure code</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) To automate infrastructure provisioning</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) To deploy infrastructure to Azure</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee"> 
+    <div class="que">
+        <p>32. How does Azure Repos support version control for Infrastructure as Code?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By providing Git repositories to store and manage IaC code</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Repos offers Git repositories to store infrastructure as code, enabling version control, branching, and collaboration. These repositories help manage infrastructure changes over time and allow teams to collaborate effectively.<br><br>
+        **Version Control Features in Azure Repos**:<br>
+        1. Git-based repositories for storing code.<br>
+        2. Branching and merging support for collaborative development.<br>
+        3. History tracking for changes and rollbacks.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) By enabling the use of Terraform in pipelines</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) By automatically provisioning infrastructure on Git commits</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) By providing Git repositories to store and manage IaC code</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) By configuring approval workflows in pipelines</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee"> 
+    <div class="que">
+        <p>33. What Git feature is commonly used to manage multiple versions of Infrastructure as Code in Azure Repos?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Branching and merging</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Git, branching and merging are used to manage different versions of IaC. Teams can create separate branches for features, fixes, or environments, and later merge them into the main branch once they are ready.<br><br>
+        **Git Branching Features**:<br>
+        1. Separate branches for different features or changes.<br>
+        2. Easy merging of changes from multiple branches.<br>
+        3. Safe collaboration with version control.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) Tags</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) Pull requests</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) Forking</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) Branching and merging</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee"> 
+    <div class="que">
+        <p>34. How can Azure DevOps ensure the consistency of IaC deployments when using Git in Azure Repos?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using pipelines to automate deployments from the Git repository</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps pipelines can automate the deployment of infrastructure from Git repositories, ensuring consistency across environments. By automating the process, pipelines reduce the risk of human error and ensure deployments are consistent every time.<br><br>
+        **Automation with Pipelines**:<br>
+        1. Automatically deploy IaC when changes are pushed to Git.<br>
+        2. Ensure consistent deployment across environments.<br>
+        3. Use templates for consistent infrastructure provisioning.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) By using pipelines to automate deployments from the Git repository</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) By manually approving deployments after each commit</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) By setting up approval gates for each commit</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) By configuring manual deployment steps for each environment</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee"> 
+    <div class="que">
+        <p>35. What is the benefit of using pull requests in Azure Repos for managing Infrastructure as Code?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To review and ensure quality before merging code changes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Pull requests in Azure Repos enable team members to review and approve changes before they are merged into the main branch. This ensures that infrastructure changes are validated for quality, security, and consistency.<br><br>
+        **Benefits of Pull Requests**:<br>
+        1. Review and validate changes before merging.<br>
+        2. Ensure code quality and compliance.<br>
+        3. Enable collaboration between team members.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) To automatically deploy the code</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) To review and ensure quality before merging code changes</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) To trigger deployment when code is merged</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) To automatically sync branches in the repository</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+
+<!-- Question 36 -->
+<div class="qee"> 
+    <div class="que">
+        <p>36. What is the primary use of Azure CLI in managing infrastructure as code in Azure DevOps?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automate the management and deployment of Azure resources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure CLI provides a set of commands that allow you to automate tasks related to managing and deploying Azure resources. You can integrate Azure CLI into Azure DevOps pipelines to manage infrastructure as code (IaC) and automate deployments.<br><br>
+        **Key Features of Azure CLI for DevOps**:<br>
+        1. Automating infrastructure provisioning and management.<br>
+        2. Scripted deployment of resources.<br>
+        3. Integration with Azure DevOps pipelines for continuous deployment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) To create ARM templates for infrastructure management</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) To automate the management and deployment of Azure resources</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) To monitor the health of Azure resources</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) To integrate with Terraform for IaC</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee"> 
+    <div class="que">
+        <p>37. How can Azure CLI be integrated into an Azure DevOps pipeline?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using the Azure CLI task in the pipeline</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure CLI can be integrated into an Azure DevOps pipeline using the "Azure CLI" task, which allows you to run custom CLI commands to manage Azure resources during the build or release process.<br><br>
+        **Steps for Integration**:<br>
+        1. Add an Azure CLI task to your pipeline.<br>
+        2. Write the necessary commands for resource management.<br>
+        3. Run the pipeline and manage infrastructure automatically.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) By using the Azure CLI task in the pipeline</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) By configuring manual steps for CLI commands in the release pipeline</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) By setting up Azure CLI commands in GitHub Actions</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) By running CLI commands directly from the Azure portal</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee"> 
+    <div class="que">
+        <p>38. Which of the following can be done with Azure CLI in an Azure DevOps pipeline?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) All of the above</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure CLI in DevOps pipelines allows various tasks such as provisioning Azure resources, configuring infrastructure settings, and even deploying applications.<br><br>
+        **Azure CLI Tasks in Pipelines**:<br>
+        1. Provisioning Azure resources like VMs and storage accounts.<br>
+        2. Managing resource configurations and settings.<br>
+        3. Deploying applications and managing infrastructure.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) Provisioning Azure resources</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) Configuring infrastructure settings</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) Deploying applications to Azure</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) All of the above</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee"> 
+    <div class="que">
+        <p>39. How does Azure CLI help in automating infrastructure deployment in Azure DevOps?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By allowing the execution of CLI commands as part of the pipeline</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure CLI can be integrated into pipelines, and it automates infrastructure deployment by executing Azure commands to create, update, or manage Azure resources without manual intervention.<br><br>
+        **Automation with Azure CLI**:<br>
+        1. Execute commands to deploy and configure infrastructure.<br>
+        2. Automate resource provisioning based on pipeline triggers.<br>
+        3. Eliminate manual steps in infrastructure management.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) By creating infrastructure templates in JSON format</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) By manually creating resources in the Azure portal</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) By allowing the execution of CLI commands as part of the pipeline</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) By using Azure DevOps to manually approve deployments</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee"> 
+    <div class="que">
+        <p>40. What command in Azure CLI can be used to create a resource group in Azure?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) az group create</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The command `az group create` is used in Azure CLI to create a new resource group in Azure. A resource group is a container for Azure resources, and this command is commonly used to initiate infrastructure deployments.<br><br>
+        **Command to Create a Resource Group**:<br>
+        1. `az group create --name <ResourceGroupName> --location <Location>`<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) az group create</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) az create resource group</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) az resource create</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) az create rg</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+
+<!-- Question 41 -->
+<div class="qee"> 
+    <div class="que">
+        <p>41. What is the primary purpose of Continuous Integration (CI) in Infrastructure as Code (IaC) workflows?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automatically test and integrate code changes into the shared repository</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Continuous Integration in IaC ensures that changes made to the infrastructure code are automatically tested and integrated into the main repository. This helps maintain the quality of the code and reduces integration issues.<br><br>
+        **CI Features for IaC**:<br>
+        1. Automated testing of infrastructure code.<br>
+        2. Continuous integration of code changes.<br>
+        3. Early detection of issues in infrastructure deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) To deploy infrastructure changes to production automatically</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) To automatically test and integrate code changes into the shared repository</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) To monitor the health of infrastructure in production</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) To manually approve code changes before integration</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee"> 
+    <div class="que">
+        <p>42. What is the primary function of Continuous Deployment (CD) in an Infrastructure as Code (IaC) pipeline?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To automatically deploy code changes to production after passing all tests</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Continuous Deployment (CD) automates the process of deploying code to production. Once the code passes all tests in the CI pipeline, it is automatically deployed to the production environment without manual intervention.<br><br>
+        **CD Features for IaC**:<br>
+        1. Automates deployment of code changes.<br>
+        2. Ensures that changes are deployed quickly and consistently.<br>
+        3. Minimizes the risk of human errors in the deployment process.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) To automatically deploy code changes to production after passing all tests</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) To monitor and report deployment failures</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) To test infrastructure code during the deployment process</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) To approve deployment changes manually before releasing to production</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee"> 
+    <div class="que">
+        <p>43. How can CI/CD pipelines in Azure DevOps help automate Infrastructure as Code (IaC) deployments?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By automatically triggering infrastructure deployments based on code changes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        CI/CD pipelines in Azure DevOps allow you to automatically trigger infrastructure deployments when changes are made to the infrastructure code. This ensures that the infrastructure is always up to date with the latest code changes.<br><br>
+        **Automation with CI/CD in IaC**:<br>
+        1. Automatically triggering deployment on code changes.<br>
+        2. Validating infrastructure code in the CI pipeline.<br>
+        3. Ensuring consistent and repeatable deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) By manually triggering deployment based on code changes</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) By manually creating deployment scripts for each environment</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) By automatically triggering infrastructure deployments based on code changes</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) By automatically testing the infrastructure code in the development environment</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee"> 
+    <div class="que">
+        <p>44. In Azure DevOps, which task is commonly used to deploy Infrastructure as Code (IaC) resources?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure Resource Group Deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Azure Resource Group Deployment task is commonly used in Azure DevOps pipelines to deploy infrastructure code, such as ARM templates or Bicep files, to manage Azure resources.<br><br>
+        **Deployment Tasks in Azure DevOps**:<br>
+        1. Azure Resource Group Deployment for deploying IaC resources.<br>
+        2. Azure CLI or PowerShell tasks to manage resources.<br>
+        3. Azure DevOps Pipelines to integrate testing and deployment of infrastructure.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) Azure VM Deployment</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) Azure Resource Group Deployment</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) Azure Kubernetes Service Deployment</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) Azure App Service Deployment</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee"> 
+    <div class="que">
+        <p>45. What is the main benefit of using CI/CD pipelines for Infrastructure as Code (IaC) deployments?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Faster and more reliable infrastructure deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The main benefit of using CI/CD pipelines for IaC deployments is the speed and reliability of deployments. Automation reduces human errors and ensures consistent deployment of infrastructure, leading to quicker delivery and fewer issues.<br><br>
+        **Benefits of CI/CD in IaC**:<br>
+        1. Faster deployment of infrastructure changes.<br>
+        2. Reduced human errors in deployment.<br>
+        3. Reliable, repeatable infrastructure deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) Easier manual deployment process</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) More manual approvals for deployments</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) Reduced monitoring of deployed infrastructure</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) Faster and more reliable infrastructure deployment</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Question 46 -->
+<div class="qee"> 
+    <div class="que">
+        <p>46. What is the first step in automating infrastructure deployment using Azure DevOps Pipelines?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Define the infrastructure as code (IaC) using tools like ARM templates or Bicep</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The first step in automating infrastructure deployment is to define the infrastructure using tools like Azure Resource Manager (ARM) templates, Bicep, or Terraform. These definitions provide the configuration that the pipeline will deploy.<br><br>
+        **Automation Steps**:<br>
+        1. Define infrastructure as code.<br>
+        2. Commit IaC files to version control.<br>
+        3. Set up the DevOps pipeline to automate deployment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) Define the infrastructure as code (IaC) using tools like ARM templates or Bicep</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) Deploy the infrastructure manually on Azure</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) Set up the DevOps pipeline without defining IaC</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) Automatically deploy the infrastructure without version control</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee"> 
+    <div class="que">
+        <p>47. Which task in Azure DevOps is commonly used to deploy Infrastructure as Code (IaC) using Azure DevOps Pipelines?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure Resource Group Deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Azure DevOps Pipelines, the "Azure Resource Group Deployment" task is used to deploy infrastructure defined in ARM templates or Bicep files to an Azure resource group. This task integrates easily with the pipeline to automate infrastructure deployment.<br><br>
+        **Azure DevOps Deployment Tasks**:<br>
+        1. Azure Resource Group Deployment task.<br>
+        2. Azure CLI task for managing infrastructure.<br>
+        3. Azure PowerShell task for more advanced deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) Azure VM Deployment</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) Azure Resource Group Deployment</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) Azure Kubernetes Service Deployment</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) Azure App Service Deployment</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee"> 
+    <div class="que">
+        <p>48. How does Azure DevOps integrate with version control systems for automating infrastructure deployment?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By linking the repository to the pipeline and triggering automatic deployments on code changes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps integrates with version control systems like Git by linking the repository to the pipeline. Whenever a change is made to the infrastructure code in the repository, it triggers an automatic deployment to the specified environment.<br><br>
+        **Integration with Version Control**:<br>
+        1. Link version control repositories (e.g., Azure Repos, GitHub) to pipelines.<br>
+        2. Trigger pipeline runs automatically on code changes.<br>
+        3. Ensure the infrastructure is always up-to-date with the latest code changes.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) By manually uploading the code changes to the pipeline</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) By sending code changes via email to trigger the pipeline</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) By linking the repository to the pipeline and triggering automatic deployments on code changes</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) By deploying code manually through Azure Portal</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee"> 
+    <div class="que">
+        <p>49. What is the purpose of the "Deploy to Azure" task in Azure DevOps Pipelines?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To deploy Azure resources defined in infrastructure code to the target environment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The "Deploy to Azure" task in Azure DevOps Pipelines is used to deploy infrastructure code (such as ARM templates or Bicep files) to the Azure environment. It automates the deployment process, reducing the chances of errors.<br><br>
+        **Deployment Tasks in Azure DevOps**:<br>
+        1. "Deploy to Azure" task for IaC deployment.<br>
+        2. Azure CLI and PowerShell tasks for infrastructure management.<br>
+        3. Automates deployment to ensure consistency across environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) To monitor Azure resources</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) To create Azure resources manually</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) To trigger manual deployment of Azure resources</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) To deploy Azure resources defined in infrastructure code to the target environment</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee"> 
+    <div class="que">
+        <p>50. How can you ensure that infrastructure deployments are repeatable in Azure DevOps Pipelines?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using version-controlled infrastructure code and defining clear deployment steps in the pipeline</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Ensuring repeatability involves using version-controlled infrastructure code (e.g., ARM templates or Terraform) and clearly defining deployment steps within the pipeline to ensure the same infrastructure is deployed every time.<br><br>
+        **Best Practices for Repeatability**:<br>
+        1. Version control IaC files.<br>
+        2. Automate deployment steps in the pipeline.<br>
+        3. Use environments and approval gates for consistency.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) By using manual deployment steps</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) By avoiding the use of version control</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) By using version-controlled infrastructure code and defining clear deployment steps in the pipeline</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) By deploying infrastructure only manually</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+
+<!-- Question 51 -->
+<div class="qee"> 
+    <div class="que">
+        <p>51. What is the first step when deploying virtual machines using Infrastructure as Code (IaC) in Azure?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Define the virtual machine configuration in an ARM template or Bicep file</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The first step in deploying virtual machines (VMs) with IaC is to define the VM configuration using an Infrastructure as Code (IaC) tool like Azure Resource Manager (ARM) templates or Bicep files.<br><br>
+        **Deployment Steps**:<br>
+        1. Define the VM's properties in the IaC code.<br>
+        2. Configure the network, disk, and other resources associated with the VM.<br>
+        3. Deploy using Azure DevOps or Azure CLI.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) Define the virtual machine configuration in an ARM template or Bicep file</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) Manually create the VM in the Azure Portal</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) Deploy the VM using the Azure CLI only</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) Use a third-party tool to deploy the VM</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee"> 
+    <div class="que">
+        <p>52. Which of the following resources can be included in an ARM template to deploy a virtual machine?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) All of the above</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        An ARM template can include a variety of resources like virtual networks, storage accounts, and network interfaces, in addition to the virtual machine itself. This allows for fully automated deployment of the VM and its associated resources.<br><br>
+        **Resources Included in ARM Template**:<br>
+        1. Virtual Machines.<br>
+        2. Network Interfaces.<br>
+        3. Storage Accounts.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) Virtual Machine only</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) Network Interfaces</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) Storage Accounts</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) All of the above</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee"> 
+    <div class="que">
+        <p>53. How can you define the size of a virtual machine in an ARM template?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By specifying the `vmSize` property in the ARM template</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The size of a virtual machine in an ARM template is defined by specifying the `vmSize` property. This property is set under the `hardwareProfile` section of the VM configuration.<br><br>
+        **VM Size Definition in ARM Template**:<br>
+        1. `vmSize` property defines the size of the virtual machine (e.g., Standard_DS2_v2).<br>
+        2. Different VM sizes offer varying amounts of CPU, memory, and disk performance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) By specifying the `cpuCount` property</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) By specifying the `vmSize` property in the ARM template</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) By using a third-party tool to select the size</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) By selecting the size during VM creation in the Azure Portal</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee"> 
+    <div class="que">
+        <p>54. Which of the following can be automated using Azure DevOps Pipelines when deploying virtual machines?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) All of the above</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Pipelines can automate the entire process of deploying virtual machines, including creating and configuring the VM, deploying associated resources, and ensuring the correct configuration through infrastructure as code.<br><br>
+        **Automatable Steps with Azure DevOps Pipelines**:<br>
+        1. Creating and configuring the VM.<br>
+        2. Deploying associated resources (e.g., storage, network interfaces).<br>
+        3. Ensuring proper configuration and scaling of the VM.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) Creating and configuring the VM only</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) Deploying associated resources like networks and storage</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) Ensuring correct configuration of the VM</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) All of the above</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee"> 
+    <div class="que">
+        <p>55. What is the role of the `dependsOn` property in an ARM template when deploying virtual machines?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It ensures that resources are deployed in a specific order</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `dependsOn` property in an ARM template is used to define dependencies between resources. It ensures that one resource is deployed only after another resource has been successfully deployed.<br><br>
+        **Using `dependsOn` in ARM Templates**:<br>
+        1. Ensures deployment order.<br>
+        2. Useful for creating dependent resources like a network interface before a virtual machine.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) It defines the size of the VM</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) It defines the IP address of the VM</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) It ensures that resources are deployed in a specific order</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) It configures the network security rules for the VM</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+
+<!-- Question 56 -->
+<div class="qee"> 
+    <div class="que">
+        <p>56. What is the first step in defining networking resources for Infrastructure as Code (IaC) in Azure?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Define the virtual network (VNet) configuration in an ARM template or Bicep file</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The first step in defining networking resources for IaC in Azure is to define the virtual network (VNet) configuration using tools like ARM templates or Bicep.<br><br>
+        **Networking Resources in IaC**:<br>
+        1. Virtual Network (VNet) configuration.<br>
+        2. Subnets, Network Security Groups (NSGs), and IP addresses.<br>
+        3. Network interfaces and load balancers.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) Define the virtual network (VNet) configuration in an ARM template or Bicep file</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) Manually configure the VNet using the Azure Portal</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) Use only Azure CLI to create the network resources</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) Use a third-party tool to configure networking</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee"> 
+    <div class="que">
+        <p>57. How can you define a subnet in an ARM template for networking infrastructure?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By defining the `subnets` property in the virtual network resource</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To define a subnet in an ARM template, the `subnets` property is specified under the `resources` section of the virtual network resource.<br><br>
+        **Subnet Definition in ARM Templates**:<br>
+        1. Define the subnet address prefix.<br>
+        2. Specify any network security group (NSG) associations.<br>
+        3. Optionally define additional configurations like route tables.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) By creating a new virtual machine</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) By defining the `subnets` property in the virtual network resource</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) By associating a subnet with an existing network security group</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) By configuring a public IP address for the subnet</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee"> 
+    <div class="que">
+        <p>58. How can you associate a Network Security Group (NSG) with a subnet in an ARM template?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By adding an `nsg` property under the `subnets` section</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The association of a Network Security Group (NSG) with a subnet in an ARM template is done by specifying the `nsg` property in the `subnets` section of the virtual network resource.<br><br>
+        **NSG Association in ARM Templates**:<br>
+        1. Use the `properties` section to define NSG associations.<br>
+        2. Specify the NSG name and resource group.<br>
+        3. Ensure the subnet has the correct security rules applied.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) By specifying an NSG inside the `networkInterfaces` section</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) By creating a new NSG in the `resources` section</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) By adding an `nsg` property under the `subnets` section</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) By associating an NSG with a public IP address</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee"> 
+    <div class="que">
+        <p>59. Which of the following can be used to automate the deployment of network infrastructure in Azure?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) All of the above</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The deployment of network infrastructure in Azure can be automated using ARM templates, Bicep, and Azure DevOps pipelines.<br><br>
+        **Automation Tools for Network Deployment**:<br>
+        1. ARM templates for resource definitions.<br>
+        2. Bicep for simplified syntax.<br>
+        3. Azure DevOps pipelines for continuous deployment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) ARM templates</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) Bicep templates</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) Azure DevOps pipelines</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) All of the above</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee"> 
+    <div class="que">
+        <p>60. How can you verify the correct configuration of a virtual network and its associated resources after deploying with IaC?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By using Azure Network Watcher and validating resource states</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        After deploying networking resources with IaC, Azure Network Watcher can be used to monitor and validate the health and configuration of the network.<br><br>
+        **Validating Networking Resources**:<br>
+        1. Use Network Watcher's tools like Topology, Connection Monitor, and Network Performance Monitor.<br>
+        2. Ensure the configuration matches the defined template.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) By manually checking the configuration in the Azure portal</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) By using Azure Network Watcher and validating resource states</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) By using PowerShell commands</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) By checking the logs in the Azure Activity Monitor</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+
+<!-- Question 61 -->
+<div class="qee"> 
+    <div class="que">
+        <p>61. What is the primary tool in Azure DevOps for monitoring the status of infrastructure deployments?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Azure DevOps Pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps Pipelines provides a comprehensive monitoring interface that tracks the status, logs, and results of each stage in the deployment process.<br><br>
+        **Monitoring Tools in Azure DevOps**:<br>
+        1. Real-time monitoring of pipeline execution.<br>
+        2. Logs and artifacts for each deployment stage.<br>
+        3. Integration with Azure Monitor for advanced monitoring and alerts.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) Azure DevOps Pipelines</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) Azure Activity Log</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) Azure CLI</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) Azure Resource Manager</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee"> 
+    <div class="que">
+        <p>62. How can you monitor the real-time status of infrastructure deployments in Azure DevOps Pipelines?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using the pipeline run interface and live logs</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The pipeline run interface in Azure DevOps provides a live view of the pipeline execution, including real-time logs, and allows you to see any issues or errors as they happen.<br><br>
+        **Monitoring in Azure DevOps Pipelines**:<br>
+        1. Real-time logs for tracking execution.<br>
+        2. Visual representation of deployment stages.<br>
+        3. Direct feedback for troubleshooting.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) By using the Azure Activity Log</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) By accessing the pipeline YAML file</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) By running diagnostic commands in Azure CLI</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) By using the pipeline run interface and live logs</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee"> 
+    <div class="que">
+        <p>63. Which feature in Azure DevOps Pipelines can help you troubleshoot deployment issues in real time?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Live logs during pipeline execution</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Live logs are available in Azure DevOps Pipelines, which allow you to see detailed logs of each step during the pipeline execution. This can help you quickly pinpoint issues in real time.<br><br>
+        **Troubleshooting Features in Pipelines**:<br>
+        1. Logs with detailed execution data.<br>
+        2. Stage and job status updates.<br>
+        3. Error messages and debugging information.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) By reviewing the build history</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) By using Azure Monitor</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) Live logs during pipeline execution</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) By checking the Azure Resource Manager logs</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee"> 
+    <div class="que">
+        <p>64. What is the purpose of using Azure Monitor in conjunction with Azure DevOps Pipelines?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To gain deeper insights and set up alerts based on resource performance</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor can be integrated with Azure DevOps to collect performance metrics, set alerts, and gain deeper insights into the health and status of the deployed resources.<br><br>
+        **Using Azure Monitor for Monitoring**:<br>
+        1. Collect metrics for infrastructure performance.<br>
+        2. Set up alerts for issues during deployment.<br>
+        3. Visualize resource performance with dashboards.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) To monitor the build pipeline execution</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) To gain deeper insights and set up alerts based on resource performance</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) To track code quality and vulnerabilities</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) To manage access control for resources</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee"> 
+    <div class="que">
+        <p>65. What role do alerts play in the monitoring of infrastructure deployments in Azure DevOps?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Alerts notify stakeholders of issues during deployment in real time</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Alerts in Azure DevOps and Azure Monitor can be configured to notify teams of any failures or critical issues during infrastructure deployment. This allows for prompt intervention.<br><br>
+        **Role of Alerts**:<br>
+        1. Real-time notifications of deployment failures.<br>
+        2. Configuration for critical thresholds.<br>
+         3. Automated responses to deployment failures.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) Alerts notify users of build successes</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) Alerts provide detailed analysis of performance</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) Alerts monitor user permissions</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) Alerts notify stakeholders of issues during deployment in real time</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+
+<!-- Question 66 -->
+<div class="qee"> 
+    <div class="que">
+        <p>66. What is a key security best practice when using Infrastructure as Code (IaC) in Azure DevOps?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Use secrets management tools like Azure Key Vault</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Managing secrets securely is crucial when dealing with IaC. Azure Key Vault allows you to store and manage sensitive information like passwords, API keys, and certificates in a secure manner.<br><br>
+        **Security Best Practices**:<br>
+        1. Use secrets management for sensitive data.<br>
+        2. Implement role-based access control (RBAC).<br>
+        3. Avoid hardcoding secrets in IaC templates.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) Hardcode secrets directly into IaC templates</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) Use secrets management tools like Azure Key Vault</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) Share IaC scripts publicly for transparency</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) Use the same permissions for all users</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee"> 
+    <div class="que">
+        <p>67. How can you reduce security risks when managing Infrastructure as Code (IaC) in Azure DevOps?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Implement automated security scans for IaC templates</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Implementing automated security scans in the pipeline can detect vulnerabilities and misconfigurations in IaC templates before they are deployed.<br><br>
+        **Reducing Security Risks**:<br>
+        1. Use automated security scanning tools.<br>
+        2. Apply policies to enforce security standards.<br>
+        3. Regularly review and update IaC templates.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) Implement automated security scans for IaC templates</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) Use unsecured storage for sensitive information</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) Skip security reviews for quicker deployments</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) Share your IaC scripts with the community</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee"> 
+    <div class="que">
+        <p>68. What is the role of role-based access control (RBAC) in securing Infrastructure as Code (IaC) in Azure DevOps?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) RBAC ensures that only authorized users can modify IaC templates and deploy resources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Role-based access control (RBAC) helps to ensure that only authorized personnel can access or modify IaC templates, reducing the risk of unauthorized changes or deployments.<br><br>
+        **RBAC in Security**:<br>
+        1. Define roles with specific access permissions.<br>
+        2. Limit user access to sensitive IaC resources.<br>
+        3. Apply the principle of least privilege to users.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) RBAC is only useful for managing network security</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) RBAC is used only for monitoring purposes</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) RBAC allows all users to access and modify IaC templates</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) RBAC ensures that only authorized users can modify IaC templates and deploy resources</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee"> 
+    <div class="que">
+        <p>69. What is the benefit of using automated policy enforcement for Infrastructure as Code (IaC) in Azure DevOps?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It ensures that deployments comply with security and regulatory standards</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Automated policy enforcement allows you to define security and compliance rules that are automatically applied to your IaC templates before deployment. This helps to ensure consistent and secure deployments.<br><br>
+        **Automated Policy Enforcement**:<br>
+        1. Enforces security and compliance checks.<br>
+        2. Prevents misconfigurations before deployment.<br>
+        3. Reduces the chance of human error in infrastructure provisioning.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) It ensures that deployments comply with security and regulatory standards</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) It speeds up the deployment process by skipping checks</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) It provides full automation of code writing</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) It automates the approval process for new features</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee"> 
+    <div class="que">
+        <p>70. Which of the following is a recommended practice for securing sensitive data in Infrastructure as Code (IaC) deployments?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Use environment variables or Azure Key Vault to store sensitive data securely</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Environment variables and Azure Key Vault are secure ways to manage sensitive data, ensuring that secrets and credentials are not exposed in IaC templates.<br><br>
+        **Securing Sensitive Data**:<br>
+        1. Store sensitive data in environment variables.<br>
+        2. Use Azure Key Vault to store and manage secrets.<br>
+        3. Avoid hardcoding sensitive data in IaC templates.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) Store all sensitive data directly in IaC templates</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) Use unsecured text files for sensitive data</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) Use environment variables or Azure Key Vault to store sensitive data securely</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) Share sensitive data openly with team members</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+
+<!-- Question 71 -->
+<div class="qee"> 
+    <div class="que">
+        <p>71. What is the primary benefit of using multiple environments for infrastructure deployment in Azure DevOps?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It allows for testing in isolated environments before production deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Using multiple environments such as development, staging, and production helps ensure that changes are tested and validated in isolated environments before being deployed to production.<br><br>
+        **Benefits of Multi-Environment Deployment**:<br>
+        1. Isolated testing for different stages.<br>
+        2. Reduced risk of deploying broken code to production.<br>
+        3. Better control and management over the deployment pipeline.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) It speeds up the deployment process by using only a single environment</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) It allows for testing in isolated environments before production deployment</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) It reduces the need for version control</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) It eliminates the need for code reviews</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee"> 
+    <div class="que">
+        <p>72. Which Azure DevOps feature supports the deployment of multi-environment infrastructure as code?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Azure Pipelines with multi-stage YAML templates</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Pipelines can use multi-stage YAML templates to manage and deploy infrastructure across multiple environments, ensuring smooth transitions between environments like development, testing, and production.<br><br>
+        **Azure Pipelines for Multi-Environment Deployment**:<br>
+        1. Define stages for each environment.<br>
+        2. Use parameters to customize environment settings.<br>
+        3. Automate promotion of code through stages.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) Azure Repos for storing environment configurations</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) Azure Key Vault for securing environment variables</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) Azure Pipelines with multi-stage YAML templates</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) Azure Functions for environment management</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee"> 
+    <div class="que">
+        <p>73. What is the purpose of using parameters in multi-environment deployments in Azure DevOps?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Parameters allow customization of environment-specific values during deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Parameters help manage environment-specific values (e.g., database connection strings, API keys) and allow the deployment pipeline to dynamically adjust based on the environment.<br><br>
+        **Using Parameters**:<br>
+        1. Customize resource deployment based on the environment.<br>
+        2. Avoid hardcoding values that vary across environments.<br>
+        3. Streamline the deployment process by reducing manual intervention.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) To automate environment variable creation</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) To manage the security of deployment scripts</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) To track the history of deployments in different environments</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) Parameters allow customization of environment-specific values during deployment</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee"> 
+    <div class="que">
+        <p>74. How does Azure DevOps support the promotion of infrastructure through multiple environments?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By using pipeline stages and approvals for environment transitions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps pipelines enable the promotion of infrastructure by using multiple stages, each representing a different environment, and incorporating approval gates to control transitions between environments.<br><br>
+        **Pipeline Stages and Approvals**:<br>
+        1. Define stages for different environments.<br>
+        2. Set approval gates for key environment transitions.<br>
+        3. Automate deployment and testing processes.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) By manually deploying to each environment</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) By using pipeline stages and approvals for environment transitions</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) By using a single environment for all deployments</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) By creating separate pipelines for each environment</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<!-- Question 75 -->
+<div class="qee"> 
+    <div class="que">
+        <p>75. What is the key advantage of using Infrastructure as Code (IaC) for multi-environment deployments in Azure?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It enables consistency and repeatability across environments</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        With IaC, you can ensure that infrastructure deployments are consistent across multiple environments, minimizing the risk of errors and configuration drift.<br><br>
+        **Advantages of IaC for Multi-Environment Deployments**:<br>
+        1. Provides consistent infrastructure setup across environments.<br>
+        2. Reduces manual intervention and human errors.<br>
+        3. Supports version control and collaboration.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) It allows for flexible and manual environment configurations</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) It speeds up the process of deploying infrastructure</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) It enables consistency and repeatability across environments</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) It eliminates the need for version control</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+
+<!-- Question 76 -->
+<div class="qee"> 
+    <div class="que">
+        <p>76. What is the primary benefit of using Infrastructure as Code (IaC) for deploying Azure Kubernetes Service (AKS)?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It automates the creation and management of AKS clusters, ensuring consistency</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        IaC allows for the automation of AKS cluster creation, configuration, and management, ensuring consistent environments and reducing manual effort.<br><br>
+        **Benefits of IaC for AKS**:<br>
+        1. Automated deployment of AKS clusters.<br>
+        2. Consistent configuration management.<br>
+        3. Version-controlled infrastructure.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) It simplifies the Kubernetes management in the Azure portal</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) It provides a web-based interface for managing AKS clusters</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) It automates the creation and management of AKS clusters, ensuring consistency</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) It allows manual scaling of AKS clusters based on traffic</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee"> 
+    <div class="que">
+        <p>77. Which Azure DevOps feature can be used to automate the deployment of Azure Kubernetes Service (AKS) using Infrastructure as Code?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure Pipelines with YAML templates</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Pipelines, using YAML templates, can automate the deployment of AKS clusters, enabling the definition of infrastructure as code in a version-controlled environment.<br><br>
+        **Using Azure Pipelines for AKS Deployment**:<br>
+        1. Define deployment stages in YAML.<br>
+        2. Use variables to customize the AKS deployment.<br>
+        3. Automate AKS updates and scaling operations.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) Azure Boards for managing AKS tasks</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) Azure Pipelines with YAML templates</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) Azure DevTest Labs for testing AKS deployments</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) Azure Automation for scaling AKS clusters</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee"> 
+    <div class="que">
+        <p>78. Which tool is commonly used in Azure DevOps for defining and deploying AKS infrastructure as code?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Terraform</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Terraform is widely used for defining Azure infrastructure, including AKS, as code. It allows you to describe your desired state for AKS clusters and then automatically deploy and manage the infrastructure.<br><br>
+        **Terraform for AKS**:<br>
+        1. Define AKS clusters in HCL (HashiCorp Configuration Language).<br>
+        2. Automate AKS deployment and scaling.<br>
+        3. Track and version infrastructure changes.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) Azure CLI for manual deployment</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) Azure Bicep for defining AKS resources</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) Azure PowerShell for AKS configuration</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) Terraform</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+
+<!-- Question 79 -->
+<div class="qee"> 
+    <div class="que">
+        <p>79. How can you scale an Azure Kubernetes Service (AKS) cluster using Infrastructure as Code (IaC)?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By adjusting the node pool size in the IaC configuration</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        IaC tools like Terraform and Azure Bicep allow you to adjust the node pool size for AKS clusters, providing an automated way to scale up or down based on demand.<br><br>
+        **Scaling AKS with IaC**:<br>
+        1. Define the desired node pool size in the IaC configuration.<br>
+        2. Apply changes using the IaC tool to scale the cluster.<br>
+        3. Automate scaling as part of the deployment pipeline.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) By adjusting the node pool size in the IaC configuration</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) By manually scaling through the Azure portal</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) By using Azure CLI to scale after deployment</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) By adding more pods in the AKS cluster manually</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee"> 
+    <div class="que">
+        <p>80. Which of the following is a key advantage of automating AKS deployment with IaC in Azure DevOps?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Reduced manual intervention and increased deployment consistency</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        By automating AKS deployment with IaC, manual errors are minimized, and the deployment process becomes more consistent and repeatable.<br><br>
+        **Advantages of IaC for AKS**:<br>
+        1. Automates deployment and updates.<br>
+        2. Consistent and repeatable deployments.<br>
+        3. Integration with DevOps pipelines.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) Faster manual configurations of AKS clusters</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) Direct management of AKS through the Azure portal</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) Easier to manually scale AKS clusters</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) Reduced manual intervention and increased deployment consistency</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+<!-- Question 81 -->
+<div class="qee"> 
+    <div class="que">
+        <p>81. What is the primary benefit of integrating Azure Key Vault with Infrastructure as Code (IaC) in Azure DevOps?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It securely stores and retrieves sensitive information like passwords and secrets</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Key Vault provides a secure and centralized location to store secrets like API keys, certificates, and passwords. Integrating it with IaC ensures that sensitive information is managed securely and automatically during deployment.<br><br>
+        **Key Vault Benefits**:<br>
+        1. Centralized management of secrets.<br>
+        2. Secure access control.<br>
+        3. Integration with automated deployment pipelines.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) It automates Azure subscription management</label><br>
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) It simplifies the management of network resources</label><br>
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) It securely stores and retrieves sensitive information like passwords and secrets</label><br>
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) It enables real-time monitoring of deployments</label><br>
+    </div>
+    <div id="result80" class="result"></div>
+</div>
+
+<!-- Question 82 -->
+<div class="qee"> 
+    <div class="que">
+        <p>82. How can Azure Key Vault be used in Azure DevOps pipelines when deploying Infrastructure as Code (IaC)?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By linking the Key Vault to the pipeline and retrieving secrets during deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps pipelines can be configured to retrieve secrets from Azure Key Vault during the IaC deployment process, ensuring sensitive data such as passwords, API keys, and certificates are kept secure and not hardcoded in the code.<br><br>
+        **Steps to Use Key Vault in Pipelines**:<br>
+        1. Link the Key Vault to the Azure DevOps pipeline.<br>
+        2. Use Azure DevOps tasks to retrieve secrets from Key Vault.<br>
+        3. Securely inject secrets into deployment scripts without exposing them.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) By storing deployment logs in Key Vault</label><br>
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) By linking the Key Vault to the pipeline and retrieving secrets during deployment</label><br>
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) By automatically encrypting the code in the pipeline</label><br>
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) By automatically auditing deployment actions</label><br>
+    </div>
+    <div id="result81" class="result"></div>
+</div>
+
+<!-- Question 83 -->
+<div class="qee"> 
+    <div class="que">
+        <p>83. What is the role of Azure Key Vault in ensuring the security of secrets during an Infrastructure as Code (IaC) deployment in Azure DevOps?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Key Vault allows secure storage and access to sensitive data like API keys, which is essential in an automated deployment pipeline</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Key Vault provides a secure mechanism for storing secrets like API keys, certificates, and passwords. Integrating it with IaC ensures that sensitive data is not hardcoded in source code or configuration files, mitigating security risks.<br><br>
+        **Securing Secrets with Key Vault**:<br>
+        1. Secure access to sensitive data.<br>
+        2. Centralized management of secrets.<br>
+        3. Prevents exposure of secrets in code and logs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) Key Vault is only used for network configuration</label><br>
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) Key Vault provides access to monitoring tools</label><br>
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) Key Vault stores the version control for IaC scripts</label><br>
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) Key Vault allows secure storage and access to sensitive data like API keys, which is essential in an automated deployment pipeline</label><br>
+    </div>
+    <div id="result82" class="result"></div>
+</div>
+
+<!-- Question 84 -->
+<div class="qee"> 
+    <div class="que">
+        <p>84. How can you avoid hardcoding secrets in your Infrastructure as Code (IaC) templates when integrating with Azure Key Vault?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using Azure Key Vault references in the IaC templates</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Key Vault references allow you to securely retrieve secrets during the deployment process without hardcoding them in your IaC templates. This ensures that sensitive information is retrieved dynamically at runtime.<br><br>
+        **Avoiding Hardcoding Secrets**:<br>
+        1. Use Key Vault references in Bicep, ARM, or Terraform templates.<br>
+        2. Secrets are retrieved at deployment time from Azure Key Vault.<br>
+        3. Secrets are never exposed in the source code.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) By using Azure Key Vault references in the IaC templates</label><br>
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) By storing secrets in version control</label><br>
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) By embedding the secrets in deployment scripts</label><br>
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) By encrypting secrets within the IaC files</label><br>
+    </div>
+    <div id="result83" class="result"></div>
+</div>
+
+<!-- Question 85 -->
+<div class="qee"> 
+    <div class="que">
+        <p>85. What Azure DevOps feature integrates with Azure Key Vault to retrieve secrets during IaC deployment?</p>
+        <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+    </div>
+    <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Azure Pipeline Secrets</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Pipelines can retrieve secrets from Azure Key Vault by linking the Key Vault to the pipeline. The secrets are injected into the pipeline during execution, providing secure access to them during IaC deployments.<br><br>
+        **Pipelines and Key Vault Integration**:<br>
+        1. Link Key Vault to the pipeline.<br>
+        2. Use pipeline tasks to fetch secrets.<br>
+        3. Secrets are injected securely during execution.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+        <label for="optionA84">A) Azure Monitor for logging secrets</label><br>
+        <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+        <label for="optionB84">B) Azure Boards for managing secret versions</label><br>
+        <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+        <label for="optionC84">C) Azure Pipeline Secrets</label><br>
+        <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+        <label for="optionD84">D) Azure Key Vault Access Policies</label><br>
+    </div>
+    <div id="result84" class="result"></div>
+</div>
+
+<!-- Question 86 -->
+<div class="qee"> 
+    <div class="que">
+        <p>86. What is the benefit of using Azure DevOps for scaling Infrastructure as Code (IaC) deployments?</p>
+        <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+    </div>
+    <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It allows automated scaling through templates and pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps automates IaC deployments, making it easier to scale infrastructure by utilizing templates and automated pipelines. Infrastructure can be scaled horizontally or vertically as part of the deployment process, improving efficiency and reducing errors.<br><br>
+        **Key Benefits of Scaling with Azure DevOps**:<br>
+        1. Automated scaling with Azure Pipelines.<br>
+        2. Using IaC templates to manage resource configurations.<br>
+        3. Reducing manual intervention for scaling operations.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+        <label for="optionA85">A) It requires manual scaling interventions</label><br>
+        <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+        <label for="optionB85">B) It allows automated scaling through templates and pipelines</label><br>
+        <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+        <label for="optionC85">C) It uses Azure Functions to manage scaling</label><br>
+        <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+        <label for="optionD85">D) It requires third-party tools for scaling</label><br>
+    </div>
+    <div id="result85" class="result"></div>
+</div>
+
+<!-- Question 87 -->
+<div class="qee"> 
+    <div class="que">
+        <p>87. How does Azure DevOps facilitate scaling virtual machine deployments in Azure using IaC?</p>
+        <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+    </div>
+    <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using scaling parameters in ARM templates or Bicep files</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps allows you to define scaling parameters in ARM templates or Bicep files, enabling you to automate the deployment of virtual machines with scalability built in. These templates can specify the number of VMs, their sizes, and other configurations for horizontal or vertical scaling.<br><br>
+        **Scaling Virtual Machines**:<br>
+        1. Use ARM or Bicep templates to define VM sizes and quantities.<br>
+        2. Automate VM scaling based on demand.<br>
+        3. Define scaling rules and parameters in IaC templates.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+        <label for="optionA86">A) By using scaling parameters in ARM templates or Bicep files</label><br>
+        <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+        <label for="optionB86">B) By manually configuring scaling groups</label><br>
+        <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+        <label for="optionC86">C) By using Azure Functions to scale VMs</label><br>
+        <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+        <label for="optionD86">D) By requiring external tools for scaling</label><br>
+    </div>
+    <div id="result86" class="result"></div>
+</div>
+
+<!-- Question 88 -->
+<div class="qee"> 
+    <div class="que">
+        <p>88. Which Azure DevOps feature helps in scaling infrastructure resources automatically based on load?</p>
+        <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+    </div>
+    <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Azure Autoscale</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Autoscale enables automatic scaling of resources like virtual machines, web apps, and databases based on predefined rules (e.g., CPU usage, memory). In Azure DevOps, you can configure autoscaling policies in IaC templates and leverage them during automated deployments.<br><br>
+        **How Autoscale Works**:<br>
+        1. Defines scale rules based on resource metrics.<br>
+        2. Automatically adjusts resource quantities based on load.<br>
+        3. Configures autoscale settings in templates for seamless integration.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+        <label for="optionA87">A) Azure Traffic Manager</label><br>
+        <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+        <label for="optionB87">B) Azure Load Balancer</label><br>
+        <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+        <label for="optionC87">C) Azure Autoscale</label><br>
+        <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+        <label for="optionD87">D) Azure Monitor</label><br>
+    </div>
+    <div id="result87" class="result"></div>
+</div>
+
+<!-- Question 89 -->
+<div class="qee"> 
+    <div class="que">
+        <p>89. How can you use Azure DevOps to automate scaling of network resources like load balancers and virtual networks?</p>
+        <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+    </div>
+    <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By defining network scaling rules in IaC templates like ARM, Bicep, or Terraform</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps enables network resource scaling through IaC templates. You can define load balancer configurations, virtual network subnets, and network security groups, along with scaling rules, which can be applied during deployments to ensure network resources are properly scaled to meet demand.<br><br>
+        **Scaling Network Resources**:<br>
+        1. Define network scaling rules in templates.<br>
+        2. Automate scaling during deployments via Azure DevOps pipelines.<br>
+        3. Use template parameters to adjust the size and configuration of network resources.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+        <label for="optionA88">A) By manually adjusting network settings in Azure Portal</label><br>
+        <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+        <label for="optionB88">B) By defining network scaling rules in IaC templates like ARM, Bicep, or Terraform</label><br>
+        <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+        <label for="optionC88">C) By using Azure Resource Manager (ARM) exclusively</label><br>
+        <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+        <label for="optionD88">D) By creating network resources manually</label><br>
+    </div>
+    <div id="result88" class="result"></div>
+</div>
+
+<!-- Question 90 -->
+<div class="qee"> 
+    <div class="que">
+        <p>90. What role does Azure DevOps play in ensuring consistency when scaling infrastructure resources using IaC?</p>
+        <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+    </div>
+    <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Azure DevOps ensures that infrastructure resources are provisioned and scaled consistently using automated pipelines and IaC templates</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps ensures consistent infrastructure scaling by automating the deployment of IaC templates. This eliminates manual errors, ensures proper configuration, and enables repeatable deployments across different environments.<br><br>
+        **Benefits of Consistency**:<br>
+        1. Automated and repeatable deployments.<br>
+        2. Accurate scaling and configuration.<br>
+        3. Minimized human error and configuration drift.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+        <label for="optionA89">A) Azure DevOps scales resources manually based on user inputs</label><br>
+        <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+        <label for="optionB89">B) Azure DevOps uses machine learning for scaling</label><br>
+        <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+        <label for="optionC89">C) Azure DevOps configures scaling manually for each environment</label><br>
+        <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+        <label for="optionD89">D) Azure DevOps ensures that infrastructure resources are provisioned and scaled consistently using automated pipelines and IaC templates</label><br>
+    </div>
+    <div id="result89" class="result"></div>
+</div>
+
+<!-- Question 91 -->
+<div class="qee"> 
+    <div class="que">
+        <p>91. What is the role of testing in Infrastructure as Code (IaC) in Azure DevOps pipelines?</p>
+        <button id="hintButton90" class="hint-button" type="button" onclick="showHint('hint91')">Show Hint</button>
+    </div>
+    <div id="hint91" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To ensure that infrastructure is correctly provisioned and configured before deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Testing in IaC ensures that the infrastructure configurations are valid, correctly provisioned, and adhere to defined policies before actual deployment. Azure DevOps Pipelines can automate these tests, allowing for quick feedback and reducing risks of misconfigurations.<br><br>
+        **Testing Benefits in IaC**:<br>
+        1. Identifies issues before deployment.<br>
+        2. Validates infrastructure changes.<br>
+        3. Reduces manual testing and errors.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA90" name="answer90" value="A" onclick="checkAnswer(90)">
+        <label for="optionA90">A) To monitor infrastructure performance</label><br>
+        <input type="radio" id="optionB90" name="answer90" value="B" onclick="checkAnswer(90)">
+        <label for="optionB90">B) To automate infrastructure deployment</label><br>
+        <input type="radio" id="optionC90" name="answer90" value="C" onclick="checkAnswer(90)">
+        <label for="optionC90">C) To ensure that infrastructure is correctly provisioned and configured before deployment</label><br>
+        <input type="radio" id="optionD90" name="answer90" value="D" onclick="checkAnswer(90)">
+        <label for="optionD90">D) To reduce the time spent on infrastructure deployment</label><br>
+    </div>
+    <div id="result90" class="result"></div>
+</div>
+
+<!-- Question 92 -->
+<div class="qee"> 
+    <div class="que">
+        <p>92. How can Azure DevOps pipelines integrate testing for Infrastructure as Code?</p>
+        <button id="hintButton91" class="hint-button" type="button" onclick="showHint('hint92')">Show Hint</button>
+    </div>
+    <div id="hint92" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By integrating tools like Pester, Test Kitchen, or Terraform validate in the pipeline</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps pipelines can integrate IaC testing by using tools like Pester for PowerShell scripts, Test Kitchen for multi-cloud testing, or the `terraform validate` command for validating Terraform configurations. These tools help ensure that your infrastructure configurations are correct before deployment.<br><br>
+        **Testing Tools in Azure DevOps Pipelines**:<br>
+        1. Pester for PowerShell testing.<br>
+        2. Test Kitchen for testing Terraform and Chef scripts.<br>
+        3. `terraform validate` for validating Terraform configurations.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA91" name="answer91" value="A" onclick="checkAnswer(91)">
+        <label for="optionA91">A) By integrating tools like Pester, Test Kitchen, or Terraform validate in the pipeline</label><br>
+        <input type="radio" id="optionB91" name="answer91" value="B" onclick="checkAnswer(91)">
+        <label for="optionB91">B) By manually testing infrastructure after deployment</label><br>
+        <input type="radio" id="optionC91" name="answer91" value="C" onclick="checkAnswer(91)">
+        <label for="optionC91">C) By using only Azure portal to check the deployments</label><br>
+        <input type="radio" id="optionD91" name="answer91" value="D" onclick="checkAnswer(91)">
+        <label for="optionD91">D) By testing with third-party cloud testing tools</label><br>
+    </div>
+    <div id="result91" class="result"></div>
+</div>
+
+<!-- Question 93 -->
+<div class="qee"> 
+    <div class="que">
+        <p>93. What is the purpose of using `terraform plan` in an Azure DevOps pipeline during the testing phase of IaC?</p>
+        <button id="hintButton92" class="hint-button" type="button" onclick="showHint('hint93')">Show Hint</button>
+    </div>
+    <div id="hint93" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To preview the changes that Terraform will make to the infrastructure</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `terraform plan` command is used to generate an execution plan for Terraform. It shows you the actions Terraform will take to change your infrastructure, such as creating, modifying, or destroying resources. This command is essential in the testing phase to verify that the intended changes will be applied correctly.<br><br>
+        **Terraform Plan Purpose**:<br>
+        1. Previews infrastructure changes before applying them.<br>
+        2. Identifies potential issues in the infrastructure configuration.<br>
+        3. Ensures that the changes align with the expected outcomes.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA92" name="answer92" value="A" onclick="checkAnswer(92)">
+        <label for="optionA92">A) To apply the changes to the infrastructure immediately</label><br>
+        <input type="radio" id="optionB92" name="answer92" value="B" onclick="checkAnswer(92)">
+        <label for="optionB92">B) To check if the infrastructure is deployed successfully</label><br>
+        <input type="radio" id="optionC92" name="answer92" value="C" onclick="checkAnswer(92)">
+        <label for="optionC92">C) To validate infrastructure configurations after deployment</label><br>
+        <input type="radio" id="optionD92" name="answer92" value="D" onclick="checkAnswer(92)">
+        <label for="optionD92">D) To preview the changes that Terraform will make to the infrastructure</label><br>
+    </div>
+    <div id="result92" class="result"></div>
+</div>
+
+<!-- Question 94 -->
+<div class="qee"> 
+    <div class="que">
+        <p>94. What is the benefit of using `terraform validate` in Azure DevOps pipelines during the IaC testing phase?</p>
+        <button id="hintButton93" class="hint-button" type="button" onclick="showHint('hint94')">Show Hint</button>
+    </div>
+    <div id="hint94" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It ensures the Terraform configuration files are syntactically correct</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `terraform validate` command checks if your Terraform configuration files are valid. It ensures that the configuration syntax is correct and free of errors before attempting to apply any changes to your infrastructure, making it a crucial part of the testing phase in an Azure DevOps pipeline.<br><br>
+        **Terraform Validate Benefits**:<br>
+        1. Ensures that configuration files are syntactically correct.<br>
+        2. Helps prevent errors during deployment.<br>
+        3. Verifies that the infrastructure code follows best practices.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA93" name="answer93" value="A" onclick="checkAnswer(93)">
+        <label for="optionA93">A) It ensures the Terraform configuration files are syntactically correct</label><br>
+        <input type="radio" id="optionB93" name="answer93" value="B" onclick="checkAnswer(93)">
+        <label for="optionB93">B) It automatically deploys infrastructure</label><br>
+        <input type="radio" id="optionC93" name="answer93" value="C" onclick="checkAnswer(93)">
+        <label for="optionC93">C) It creates a backup of the infrastructure</label><br>
+        <input type="radio" id="optionD93" name="answer93" value="D" onclick="checkAnswer(93)">
+        <label for="optionD93">D) It checks the health of the infrastructure after deployment</label><br>
+    </div>
+    <div id="result93" class="result"></div>
+</div>
+
+<!-- Question 95 -->
+<div class="qee"> 
+    <div class="que">
+        <p>95. How can you ensure that infrastructure tests are executed automatically every time code changes are committed in Azure DevOps?</p>
+        <button id="hintButton94" class="hint-button" type="button" onclick="showHint('hint95')">Show Hint</button>
+    </div>
+    <div id="hint95" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By setting up Continuous Integration (CI) pipelines in Azure DevOps</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Continuous Integration (CI) in Azure DevOps automatically triggers tests every time changes are pushed to the repository. CI pipelines can be configured to run infrastructure tests like `terraform validate`, `terraform plan`, or custom tests as part of the pipeline to ensure that code changes are validated before deployment.<br><br>
+        **Continuous Integration in Azure DevOps**:<br>
+        1. Automates testing whenever code changes occur.<br>
+        2. Reduces manual testing efforts.<br>
+        3. Provides quick feedback on code quality.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA94" name="answer94" value="A" onclick="checkAnswer(94)">
+        <label for="optionA94">A) By manually running the tests after every commit</label><br>
+        <input type="radio" id="optionB94" name="answer94" value="B" onclick="checkAnswer(94)">
+        <label for="optionB94">B) By setting up Continuous Integration (CI) pipelines in Azure DevOps</label><br>
+        <input type="radio" id="optionC94" name="answer94" value="C" onclick="checkAnswer(94)">
+        <label for="optionC94">C) By running tests on a separate testing server</label><br>
+        <input type="radio" id="optionD94" name="answer94" value="D" onclick="checkAnswer(94)">
+        <label for="optionD94">D) By manually testing after deployment</label><br>
+    </div>
+    <div id="result94" class="result"></div>
+</div>
+
+<!-- Question 96 -->
+<div class="qee"> 
+    <div class="que">
+        <p>96. How can Infrastructure as Code (IaC) help with cost optimization in Azure?</p>
+        <button id="hintButton95" class="hint-button" type="button" onclick="showHint('hint96')">Show Hint</button>
+    </div>
+    <div id="hint96" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By automating the provisioning and decommissioning of resources based on demand</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        IaC helps optimize costs by automating the provisioning and decommissioning of resources based on demand. With IaC tools like Terraform, Bicep, and ARM templates, resources can be scaled up or down according to the needs, ensuring that you only pay for what is required at any given time.<br><br>
+        **Cost Optimization Strategies with IaC**:<br>
+        1. Automating resource scaling.<br>
+        2. Decommissioning unused resources.<br>
+        3. Leveraging cost-effective resource types based on usage patterns.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA95" name="answer95" value="A" onclick="checkAnswer(95)">
+        <label for="optionA95">A) By using Azure cost management tools to track spending</label><br>
+        <input type="radio" id="optionB95" name="answer95" value="B" onclick="checkAnswer(95)">
+        <label for="optionB95">B) By running Azure resources only during business hours</label><br>
+        <input type="radio" id="optionC95" name="answer95" value="C" onclick="checkAnswer(95)">
+        <label for="optionC95">C) By automating the provisioning and decommissioning of resources based on demand</label><br>
+        <input type="radio" id="optionD95" name="answer95" value="D" onclick="checkAnswer(95)">
+        <label for="optionD95">D) By manually choosing lower-cost resource types</label><br>
+    </div>
+    <div id="result95" class="result"></div>
+</div>
+
+<!-- Question 97 -->
+<div class="qee"> 
+    <div class="que">
+        <p>97. Which Azure service is most useful for tracking the cost of resources managed with Infrastructure as Code?</p>
+        <button id="hintButton96" class="hint-button" type="button" onclick="showHint('hint97')">Show Hint</button>
+    </div>
+    <div id="hint97" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure Cost Management and Billing</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Azure Cost Management and Billing** is the primary service used for tracking and managing costs for resources in Azure. It allows you to monitor the spending on resources provisioned via IaC tools like Terraform, Azure Bicep, and ARM templates. This service can help with cost allocation, budget setting, and resource optimization.<br><br>
+        **Key Features of Azure Cost Management and Billing**:<br>
+        1. Cost tracking and reporting.<br>
+        2. Budget and cost alerts.<br>
+        3. Resource optimization recommendations.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA96" name="answer96" value="A" onclick="checkAnswer(96)">
+        <label for="optionA96">A) Azure Monitor</label><br>
+        <input type="radio" id="optionB96" name="answer96" value="B" onclick="checkAnswer(96)">
+        <label for="optionB96">B) Azure Cost Management and Billing</label><br>
+        <input type="radio" id="optionC96" name="answer96" value="C" onclick="checkAnswer(96)">
+        <label for="optionC96">C) Azure Security Center</label><br>
+        <input type="radio" id="optionD96" name="answer96" value="D" onclick="checkAnswer(96)">
+        <label for="optionD96">D) Azure Resource Manager</label><br>
+    </div>
+    <div id="result96" class="result"></div>
+</div>
+
+<!-- Question 98 -->
+<div class="qee"> 
+    <div class="que">
+        <p>98. How can you reduce resource wastage when using IaC in Azure?</p>
+        <button id="hintButton97" class="hint-button" type="button" onclick="showHint('hint98')">Show Hint</button>
+    </div>
+    <div id="hint98" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By implementing auto-scaling and automated decommissioning of unused resources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Auto-scaling and automated decommissioning are critical strategies in reducing resource wastage. With IaC, you can automate scaling resources based on traffic or usage and decommission resources when they are no longer needed, thus preventing over-provisioning and underutilization of cloud resources.<br><br>
+        **Strategies to Reduce Resource Wastage**:<br>
+        1. Use auto-scaling to adjust resources based on demand.<br>
+        2. Automate the cleanup of unused resources.<br>
+        3. Apply proper resource tagging to manage resources better.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA97" name="answer97" value="A" onclick="checkAnswer(97)">
+        <label for="optionA97">A) By implementing auto-scaling and automated decommissioning of unused resources</label><br>
+        <input type="radio" id="optionB97" name="answer97" value="B" onclick="checkAnswer(97)">
+        <label for="optionB97">B) By manually monitoring resource usage and turning off unused resources</label><br>
+        <input type="radio" id="optionC97" name="answer97" value="C" onclick="checkAnswer(97)">
+        <label for="optionC97">C) By limiting resource usage to only one environment at a time</label><br>
+        <input type="radio" id="optionD97" name="answer97" value="D" onclick="checkAnswer(97)">
+        <label for="optionD97">D) By using smaller resource types for all deployments</label><br>
+    </div>
+    <div id="result97" class="result"></div>
+</div>
+
+<!-- Question 99 -->
+<div class="qee"> 
+    <div class="que">
+        <p>99. How does applying resource tags in Azure help with cost management in an IaC setup?</p>
+        <button id="hintButton98" class="hint-button" type="button" onclick="showHint('hint99')">Show Hint</button>
+    </div>
+    <div id="hint99" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By allowing you to track and allocate costs based on resource groups and departments</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Resource tags in Azure allow you to categorize and track costs based on different attributes like departments, projects, or environments. When using IaC, adding resource tags can help identify how much each group or team is consuming, allowing for better cost allocation and management.<br><br>
+        **Benefits of Resource Tags in Cost Management**:<br>
+        1. Improved cost allocation by department or project.<br>
+        2. Easier cost tracking for different environments.<br>
+        3. Better reporting and auditing capabilities.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA98" name="answer98" value="A" onclick="checkAnswer(98)">
+        <label for="optionA98">A) By limiting the types of resources that can be created in Azure</label><br>
+        <input type="radio" id="optionB98" name="answer98" value="B" onclick="checkAnswer(98)">
+        <label for="optionB98">B) By reducing the cost of resources automatically based on tags</label><br>
+        <input type="radio" id="optionC98" name="answer98" value="C" onclick="checkAnswer(98)">
+        <label for="optionC98">C) By automatically scaling resources based on tags</label><br>
+        <input type="radio" id="optionD98" name="answer98" value="D" onclick="checkAnswer(98)">
+        <label for="optionD98">D) By allowing you to track and allocate costs based on resource groups and departments</label><br>
+    </div>
+    <div id="result98" class="result"></div>
+</div>
+
+<!-- Question 100 -->
+<div class="qee"> 
+    <div class="que">
+        <p>100. Which of the following is a key benefit of using Azure Reserved Instances (RI) when provisioning resources with IaC?</p>
+        <button id="hintButton99" class="hint-button" type="button" onclick="showHint('hint100')">Show Hint</button>
+    </div>
+    <div id="hint100" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It allows you to commit to a specific resource configuration for a reduced cost</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Reserved Instances (RI) offer cost savings when committing to specific resource configurations for a period of 1 or 3 years. When provisioning resources with IaC, integrating RIs can help you reduce long-term costs, making it ideal for predictable workloads that require constant resources.<br><br>
+        **Benefits of Azure Reserved Instances**:<br>
+        1. Cost savings over pay-as-you-go pricing.<br>
+        2. Better budgeting and cost prediction.<br>
+        3. Long-term commitment to resource configurations.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA99" name="answer99" value="A" onclick="checkAnswer(99)">
+        <label for="optionA99">A) It guarantees availability of resources during high demand</label><br>
+        <input type="radio" id="optionB99" name="answer99" value="B" onclick="checkAnswer(99)">
+        <label for="optionB99">B) It enables faster provisioning of resources</label><br>
+        <input type="radio" id="optionC99" name="answer99" value="C" onclick="checkAnswer(99)">
+        <label for="optionC99">C) It allows you to commit to a specific resource configuration for a reduced cost</label><br>
+        <input type="radio" id="optionD99" name="answer99" value="D" onclick="checkAnswer(99)">
+        <label for="optionD99">D) It automatically scales resources based on demand</label><br>
+    </div>
+    <div id="result99" class="result"></div>
+</div>
+
+                            
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZURE KEY VAULT</title>
+    <link rel="stylesheet" href="../css/Azure Devops.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'B', 'B', 'A', 'B', 'B', 'B', 'A', 'A',
+            'B', 'B', 'B', 'A', 'A', 'B', 'B', 'B', 'A', 'A',
+            'A', 'B', 'B', 'A', 'B', 'A', 'B', 'A', 'B', 'A',
+            'A', 'B', 'A', 'B', 'B', 'A', 'B', 'C', 'B', 'A',
+            'A', 'B', 'C', 'A', 'D', 'A', 'B', 'C', 'B', 'D',
+            'A', 'B', 'C', 'D', 'B', 'B', 'A', 'C', 'D', 'B',
+            'B', 'A', 'C', 'D', 'A', 'B', 'C', 'B', 'D', 'C'
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>AZURE KEY VAULT</h3>
+        <div class="inner-border">
+            <div class="qee">
+                <!-- Question 1 -->
+                <div class="que">
+                    <p>1. What is Azure Key Vault used for?</p>
+                    <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+                </div>
+                <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To securely store and manage sensitive information like secrets, keys, and certificates.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Key Vault helps protect sensitive data such as encryption keys, secrets, and certificates. It ensures that applications can securely access these items without exposing them to potential threats.<br><br>
+                    **Key Features of Azure Key Vault:**<br>
+                    1. Secure storage for secrets, keys, and certificates.<br>
+                    2. Access control using Azure Active Directory.<br>
+                    3. Integration with other Azure services.<br>
+                    4. Auditing and monitoring capabilities.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+                    <label for="optionA0">A) To process large datasets.</label><br>
+                    <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+                    <label for="optionB0">B) To securely store and manage sensitive information like secrets, keys, and certificates.</label><br>
+                    <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+                    <label for="optionC0">C) To manage virtual machines in the cloud.</label><br>
+                    <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+                    <label for="optionD0">D) To monitor network traffic in real time.</label><br>
+                </div>
+                <div id="result0" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 2 -->
+                <div class="que">
+                    <p>2. Which Python library is commonly used to interact with Azure Key Vault?</p>
+                    <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+                </div>
+                <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Azure SDK for Python</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **Azure SDK for Python** provides a set of libraries to interact with Azure services, including Key Vault.<br><br>
+                    **Steps to Use Azure SDK for Key Vault:**<br>
+                    1. Install the SDK: `pip install azure-keyvault-secrets`.<br>
+                    2. Authenticate using Azure Identity.<br>
+                    3. Use the `SecretClient` class to manage secrets.<br>
+                    4. Perform operations like get, set, delete, or list secrets.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+                    <label for="optionA1">A) boto3</label><br>
+                    <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+                    <label for="optionB1">B) Azure SDK for Python</label><br>
+                    <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+                    <label for="optionC1">C) PyJWT</label><br>
+                    <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+                    <label for="optionD1">D) Flask</label><br>
+                </div>
+                <div id="result1" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 3 -->
+                <div class="que">
+                    <p>3. What is the primary purpose of using a Managed Identity with Azure Key Vault?</p>
+                    <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+                </div>
+                <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To enable secure authentication without managing credentials explicitly.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    A **Managed Identity** helps authenticate applications to Azure services securely, eliminating the need for explicit credential management.<br><br>
+                    **Benefits:**<br>
+                    1. Secure access to Azure resources.<br>
+                    2. No need to store secrets in code.<br>
+                    3. Automatic credential rotation.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+                    <label for="optionA2">A) To encrypt data at rest.</label><br>
+                    <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+                    <label for="optionB2">B) To enable secure authentication without managing credentials explicitly.</label><br>
+                    <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+                    <label for="optionC2">C) To deploy virtual machines faster.</label><br>
+                    <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+                    <label for="optionD2">D) To monitor network traffic.</label><br>
+                </div>
+                <div id="result2" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 4 -->
+                <div class="que">
+                    <p>4. Which type of Azure Key Vault object is used to store sensitive information like passwords?</p>
+                    <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+                </div>
+                <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Secret</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    A **Secret** in Azure Key Vault is used to store sensitive information like passwords, API keys, or connection strings.<br><br>
+                    **Operations with Secrets:**<br>
+                    1. Set a new secret.<br>
+                    2. Get an existing secret.<br>
+                    3. Delete or update secrets as needed.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+                    <label for="optionA3">A) Key</label><br>
+                    <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+                    <label for="optionB3">B) Secret</label><br>
+                    <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+                    <label for="optionC3">C) Certificate</label><br>
+                    <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+                    <label for="optionD3">D) Policy</label><br>
+                </div>
+                <div id="result3" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 5 -->
+                <div class="que">
+                    <p>5. What does the Azure Key Vault access policy define?</p>
+                    <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+                </div>
+                <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) It defines permissions for users or applications to access Key Vault resources.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    An **Access Policy** in Azure Key Vault defines who can access the vault and what operations they are allowed to perform.<br><br>
+                    **Example Permissions:**<br>
+                    1. Read, write, delete, or list secrets.<br>
+                    2. Manage keys and certificates.<br>
+                    3. Grant access to specific users or applications.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+                    <label for="optionA4">A) It defines permissions for users or applications to access Key Vault resources.</label><br>
+                    <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+                    <label for="optionB4">B) It manages virtual networks.</label><br>
+                    <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+                    <label for="optionC4">C) It monitors application performance.</label><br>
+                    <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+                    <label for="optionD4">D) It controls database backups.</label><br>
+                </div>
+                <div id="result4" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 6 -->
+                <div class="que">
+                    <p>6. What is the purpose of a Key in Azure Key Vault?</p>
+                    <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+                </div>
+                <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To encrypt and decrypt data, as well as to sign and verify data.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Keys** in Azure Key Vault are used for cryptographic operations such as encryption, decryption, signing, and verifying data. They are crucial for securing sensitive information.<br><br>
+                    **Key Operations Include:**<br>
+                    1. Encrypting and decrypting data.<br>
+                    2. Signing and verifying digital signatures.<br>
+                    3. Key rotation for enhanced security.<br>
+                    4. Managing key permissions.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+                    <label for="optionA5">A) To store user credentials securely.</label><br>
+                    <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+                    <label for="optionB5">B) To encrypt and decrypt data, as well as to sign and verify data.</label><br>
+                    <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+                    <label for="optionC5">C) To monitor network activities.</label><br>
+                    <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+                    <label for="optionD5">D) To manage virtual machines in Azure.</label><br>
+                </div>
+                <div id="result5" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 7 -->
+                <div class="que">
+                    <p>7. Which type of key in Azure Key Vault supports asymmetric encryption?</p>
+                    <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+                </div>
+                <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) RSA Key</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **RSA Keys** are commonly used for asymmetric encryption, where two separate keys (public and private) are used for encryption and decryption.<br><br>
+                    **Benefits of Asymmetric Encryption:**<br>
+                    1. Secure data transmission over insecure channels.<br>
+                    2. Digital signatures for verifying data authenticity.<br>
+                    3. Key management flexibility.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+                    <label for="optionA6">A) Symmetric Key</label><br>
+                    <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+                    <label for="optionB6">B) RSA Key</label><br>
+                    <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+                    <label for="optionC6">C) HMAC Key</label><br>
+                    <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+                    <label for="optionD6">D) AES Key</label><br>
+                </div>
+                <div id="result6" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 8 -->
+                <div class="que">
+                    <p>8. How can you manage keys in Azure Key Vault using Python?</p>
+                    <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+                </div>
+                <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Using the Azure SDK for Python with the KeyClient class</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **Azure SDK for Python** provides tools to manage keys through the `KeyClient` class.<br><br>
+                    **Steps to Manage Keys:**<br>
+                    1. Install the SDK: `pip install azure-keyvault-keys`.<br>
+                    2. Authenticate using Azure Identity.<br>
+                    3. Use `KeyClient` to create, list, update, or delete keys.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+                    <label for="optionA7">A) Using the Requests library</label><br>
+                    <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+                    <label for="optionB7">B) Using the Azure SDK for Python with the KeyClient class</label><br>
+                    <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+                    <label for="optionC7">C) Using the Matplotlib library</label><br>
+                    <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+                    <label for="optionD7">D) Using PyJWT for key management</label><br>
+                </div>
+                <div id="result7" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 9 -->
+                <div class="que">
+                    <p>9. What is the key rotation policy in Azure Key Vault?</p>
+                    <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+                </div>
+                <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) A policy that defines how often keys should be rotated for security purposes.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Key Rotation** ensures that cryptographic keys are periodically changed to reduce the risk of key compromise.<br><br>
+                    **Key Points:**<br>
+                    1. Automated key rotation can be configured.<br>
+                    2. Helps comply with security standards.<br>
+                    3. Reduces the potential impact of key leaks.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+                    <label for="optionA8">A) A policy that defines how often keys should be rotated for security purposes.</label><br>
+                    <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+                    <label for="optionB8">B) A rule for managing virtual networks.</label><br>
+                    <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+                    <label for="optionC8">C) A setting for backup frequency in Azure.</label><br>
+                    <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+                    <label for="optionD8">D) A monitoring tool for network traffic.</label><br>
+                </div>
+                <div id="result8" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 10 -->
+                <div class="que">
+                    <p>10. What is the benefit of using Hardware Security Modules (HSM) in Azure Key Vault?</p>
+                    <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+                </div>
+                <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) They provide a highly secure environment for key management using dedicated hardware.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **HSMs** are physical devices used to manage and protect cryptographic keys.<br><br>
+                    **Advantages of HSMs:**<br>
+                    1. Enhanced security through dedicated hardware.<br>
+                    2. Compliance with regulatory standards.<br>
+                    3. Protection against key compromise and unauthorized access.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+                    <label for="optionA9">A) They provide a highly secure environment for key management using dedicated hardware.</label><br>
+                    <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+                    <label for="optionB9">B) They are used to monitor network traffic in Azure.</label><br>
+                    <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+                    <label for="optionC9">C) They manage virtual machine scaling.</label><br>
+                    <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+                    <label for="optionD9">D) They control database backups in Azure.</label><br>
+                </div>
+                <div id="result9" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 11 -->
+                <div class="que">
+                    <p>11. What is the purpose of Secrets in Azure Key Vault?</p>
+                    <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+                </div>
+                <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To securely store and manage sensitive information like passwords, API keys, and tokens.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Secrets** in Azure Key Vault are used to manage sensitive data that applications and services need to function securely.<br><br>
+                    **Common Uses of Secrets:**<br>
+                    1. Storing API keys and connection strings.<br>
+                    2. Managing database credentials.<br>
+                    3. Handling authentication tokens.<br>
+                    4. Securely sharing secrets with applications.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+                    <label for="optionA10">A) To manage virtual machines in Azure.</label><br>
+                    <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+                    <label for="optionB10">B) To securely store and manage sensitive information like passwords, API keys, and tokens.</label><br>
+                    <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+                    <label for="optionC10">C) To analyze network performance.</label><br>
+                    <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+                    <label for="optionD10">D) To control database backups in Azure.</label><br>
+                </div>
+                <div id="result10" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 12 -->
+                <div class="que">
+                    <p>12. Which Azure SDK class is used to manage Secrets in Python?</p>
+                    <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+                </div>
+                <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) SecretClient</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **`SecretClient`** class in the Azure SDK for Python is used to manage secrets within Azure Key Vault.<br><br>
+                    **Operations with `SecretClient`:**<br>
+                    1. Create, read, update, and delete secrets.<br>
+                    2. List all secrets in a vault.<br>
+                    3. Manage secret versions for better control.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+                    <label for="optionA11">A) KeyClient</label><br>
+                    <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+                    <label for="optionB11">B) SecretClient</label><br>
+                    <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+                    <label for="optionC11">C) StorageClient</label><br>
+                    <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+                    <label for="optionD11">D) DatabaseClient</label><br>
+                </div>
+                <div id="result11" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 13 -->
+                <div class="que">
+                    <p>13. How can you securely access secrets in Azure Key Vault using Python?</p>
+                    <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+                </div>
+                <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By authenticating with Azure Identity and using `SecretClient`.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    To access secrets securely in Azure Key Vault, you need to:<br><br>
+                    **Steps:**<br>
+                    1. Install the SDK: `pip install azure-identity azure-keyvault-secrets`.<br>
+                    2. Authenticate using `DefaultAzureCredential`.<br>
+                    3. Use `SecretClient` to retrieve or manage secrets.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+                    <label for="optionA12">A) Using basic authentication with username and password.</label><br>
+                    <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+                    <label for="optionB12">B) By authenticating with Azure Identity and using `SecretClient`.</label><br>
+                    <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+                    <label for="optionC12">C) By accessing the Key Vault REST API directly without authentication.</label><br>
+                    <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+                    <label for="optionD12">D) By embedding secret values directly into the code.</label><br>
+                </div>
+                <div id="result12" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 14 -->
+                <div class="que">
+                    <p>14. What is the purpose of secret versioning in Azure Key Vault?</p>
+                    <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+                </div>
+                <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To maintain and manage multiple versions of the same secret for auditing and rollback.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Secret versioning** allows for tracking changes and managing different iterations of a secret.<br><br>
+                    **Key Benefits:**<br>
+                    1. Rollback to a previous version if needed.<br>
+                    2. Auditing secret changes for security compliance.<br>
+                    3. Ensuring the latest version is always used in applications.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+                    <label for="optionA13">A) To maintain and manage multiple versions of the same secret for auditing and rollback.</label><br>
+                    <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+                    <label for="optionB13">B) To delete old secrets automatically without tracking.</label><br>
+                    <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+                    <label for="optionC13">C) To encrypt secrets with multiple algorithms.</label><br>
+                    <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+                    <label for="optionD13">D) To combine multiple secrets into a single key.</label><br>
+                </div>
+                <div id="result13" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 15 -->
+                <div class="que">
+                    <p>15. How does Azure Key Vault ensure the security of secrets?</p>
+                    <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+                </div>
+                <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) By using encryption, access policies, and secure authentication mechanisms.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Key Vault secures secrets through multiple layers of protection:<br><br>
+                    **Security Measures Include:**<br>
+                    1. Encryption at rest and in transit.<br>
+                    2. Role-based access control (RBAC) and access policies.<br>
+                    3. Secure authentication with Azure Active Directory.<br>
+                    4. Auditing and logging for tracking access attempts.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+                    <label for="optionA14">A) By using encryption, access policies, and secure authentication mechanisms.</label><br>
+                    <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+                    <label for="optionB14">B) By storing secrets in plaintext for easy access.</label><br>
+                    <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+                    <label for="optionC14">C) By using only password-based security mechanisms.</label><br>
+                    <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+                    <label for="optionD14">D) By relying solely on network firewalls for security.</label><br>
+                </div>
+                <div id="result14" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 16 -->
+                <div class="que">
+                    <p>16. What is the purpose of certificates in Azure Key Vault?</p>
+                    <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+                </div>
+                <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To secure communication through encryption and authenticate identities.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Certificates** in Azure Key Vault are used to enhance security through encryption, authentication, and data integrity.<br><br>
+                    **Common Uses of Certificates:**<br>
+                    1. Securing data in transit (SSL/TLS encryption).<br>
+                    2. Authenticating applications and services.<br>
+                    3. Digital signing for verifying data integrity.<br>
+                    4. Managing secure connections in cloud-based environments.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+                    <label for="optionA15">A) To store large files securely.</label><br>
+                    <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+                    <label for="optionB15">B) To secure communication through encryption and authenticate identities.</label><br>
+                    <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+                    <label for="optionC15">C) To manage database backups.</label><br>
+                    <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+                    <label for="optionD15">D) To monitor network performance in Azure.</label><br>
+                </div>
+                <div id="result15" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 17 -->
+                <div class="que">
+                    <p>17. Which Azure SDK class is used to manage certificates in Python?</p>
+                    <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+                </div>
+                <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) CertificateClient</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **`CertificateClient`** class in the Azure SDK for Python is used to manage certificates within Azure Key Vault.<br><br>
+                    **Operations with `CertificateClient`:**<br>
+                    1. Create, import, and manage certificates.<br>
+                    2. Retrieve certificate details and versions.<br>
+                    3. Manage certificate policies and renewals.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+                    <label for="optionA16">A) KeyClient</label><br>
+                    <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+                    <label for="optionB16">B) CertificateClient</label><br>
+                    <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+                    <label for="optionC16">C) SecretClient</label><br>
+                    <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+                    <label for="optionD16">D) StorageClient</label><br>
+                </div>
+                <div id="result16" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 18 -->
+                <div class="que">
+                    <p>18. How can you securely import a certificate into Azure Key Vault using Python?</p>
+                    <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+                </div>
+                <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By using `CertificateClient` and providing the certificate data in PEM format.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    To securely import a certificate into Azure Key Vault:<br><br>
+                    **Steps:**<br>
+                    1. Use the `CertificateClient` from the Azure SDK.<br>
+                    2. Provide the certificate data in PEM format.<br>
+                    3. Use `begin_import_certificate()` method to start the import process.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+                    <label for="optionA17">A) By uploading the certificate as a .zip file.</label><br>
+                    <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+                    <label for="optionB17">B) By using `CertificateClient` and providing the certificate data in PEM format.</label><br>
+                    <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+                    <label for="optionC17">C) By embedding the certificate directly into the code.</label><br>
+                    <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+                    <label for="optionD17">D) By copying the certificate to a database table.</label><br>
+                </div>
+                <div id="result17" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 19 -->
+                <div class="que">
+                    <p>19. What is the purpose of certificate policies in Azure Key Vault?</p>
+                    <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+                </div>
+                <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To define rules and settings for certificate issuance, management, and renewal.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Certificate policies** define how certificates are issued, managed, and renewed in Azure Key Vault.<br><br>
+                    **Key Features:**<br>
+                    1. Specify key algorithms and key sizes.<br>
+                    2. Define expiration and renewal rules.<br>
+                    3. Control certificate lifecycle and security settings.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+                    <label for="optionA18">A) To define rules and settings for certificate issuance, management, and renewal.</label><br>
+                    <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+                    <label for="optionB18">B) To monitor network traffic in Azure.</label><br>
+                    <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+                    <label for="optionC18">C) To manage database backups.</label><br>
+                    <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+                    <label for="optionD18">D) To track resource usage in Azure.</label><br>
+                </div>
+                <div id="result18" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 20 -->
+                <div class="que">
+                    <p>20. How does Azure Key Vault ensure the security of certificates?</p>
+                    <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+                </div>
+                <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) By using hardware security modules (HSMs), encryption, and strict access policies.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Key Vault secures certificates through:<br><br>
+                    **Security Measures:**<br>
+                    1. Hardware Security Modules (HSMs) for key protection.<br>
+                    2. Encryption at rest and in transit.<br>
+                    3. Role-based access control (RBAC) and access policies.<br>
+                    4. Auditing and logging for security monitoring.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+                    <label for="optionA19">A) By using hardware security modules (HSMs), encryption, and strict access policies.</label><br>
+                    <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+                    <label for="optionB19">B) By storing certificates in plain text.</label><br>
+                    <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+                    <label for="optionC19">C) By encrypting data only for internal Azure services.</label><br>
+                    <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+                    <label for="optionD19">D) By disabling auditing features.</label><br>
+                </div>
+                <div id="result19" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 21 -->
+                <div class="que">
+                    <p>21. What are access policies in Azure Key Vault?</p>
+                    <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+                </div>
+                <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Rules that define permissions for users, applications, or services to access Key Vault resources.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Access Policies** in Azure Key Vault specify permissions for different identities (users, applications, or services) to access and manage resources like keys, secrets, and certificates.<br><br>
+                    **Key Features:**<br>
+                    1. Define permissions such as read, write, delete, and list.<br>
+                    2. Apply policies at the Key Vault level or specific resource level.<br>
+                    3. Use Azure Active Directory (AAD) for identity-based access control.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+                    <label for="optionA20">A) Rules that define permissions for users, applications, or services to access Key Vault resources.</label><br>
+                    <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+                    <label for="optionB20">B) A feature to monitor network performance in Azure.</label><br>
+                    <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+                    <label for="optionC20">C) A method to store large files securely.</label><br>
+                    <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+                    <label for="optionD20">D) A system to track resource usage in Azure.</label><br>
+                </div>
+                <div id="result20" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 22 -->
+                <div class="que">
+                    <p>22. Which Azure SDK class is used to manage access policies in Python?</p>
+                    <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+                </div>
+                <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) AccessPolicyClient</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **`AccessPolicyClient`** class in the Azure SDK for Python is used to manage access policies within Azure Key Vault.<br><br>
+                    **Operations with `AccessPolicyClient`:**<br>
+                    1. Add or update access policies.<br>
+                    2. Remove access policies.<br>
+                    3. List current access policies for a Key Vault.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+                    <label for="optionA21">A) KeyClient</label><br>
+                    <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+                    <label for="optionB21">B) AccessPolicyClient</label><br>
+                    <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+                    <label for="optionC21">C) SecretClient</label><br>
+                    <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+                    <label for="optionD21">D) StorageClient</label><br>
+                </div>
+                <div id="result21" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 23 -->
+                <div class="que">
+                    <p>23. How do you grant read access to a secret in Azure Key Vault using Python?</p>
+                    <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+                </div>
+                <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By updating the access policy with the `get` permission for secrets.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    To grant read access to a secret:<br><br>
+                    **Steps:**<br>
+                    1. Use the `AccessPolicyClient`.<br>
+                    2. Assign the `get` permission for the secret.<br>
+                    3. Apply the updated access policy to the Key Vault.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+                    <label for="optionA22">A) By creating a new Key Vault resource.</label><br>
+                    <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+                    <label for="optionB22">B) By updating the access policy with the `get` permission for secrets.</label><br>
+                    <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+                    <label for="optionC22">C) By encrypting the secret with a new key.</label><br>
+                    <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+                    <label for="optionD22">D) By deleting the secret and recreating it.</label><br>
+                </div>
+                <div id="result22" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 24 -->
+                <div class="que">
+                    <p>24. What is the purpose of role-based access control (RBAC) in Azure Key Vault?</p>
+                    <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+                </div>
+                <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To manage access to Azure resources based on roles assigned to users or applications.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **RBAC** helps control who can access specific Azure resources, including Key Vaults, based on defined roles.<br><br>
+                    **Key Features:**<br>
+                    1. Assign roles such as Owner, Contributor, or Reader.<br>
+                    2. Control permissions at the resource or subscription level.<br>
+                    3. Enhance security by following the principle of least privilege.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+                    <label for="optionA23">A) To manage access to Azure resources based on roles assigned to users or applications.</label><br>
+                    <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+                    <label for="optionB23">B) To monitor network activity in Azure.</label><br>
+                    <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+                    <label for="optionC23">C) To store large files in Azure.</label><br>
+                    <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+                    <label for="optionD23">D) To optimize database performance.</label><br>
+                </div>
+                <div id="result23" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 25 -->
+                <div class="que">
+                    <p>25. How do you remove an access policy in Azure Key Vault using Python?</p>
+                    <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+                </div>
+                <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By using the `delete_access_policy()` method from `AccessPolicyClient`.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    To remove an access policy:<br><br>
+                    **Steps:**<br>
+                    1. Authenticate using Azure SDK.<br>
+                    2. Use the `AccessPolicyClient`.<br>
+                    3. Call the `delete_access_policy()` method with the required parameters.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+                    <label for="optionA24">A) By deleting the Key Vault resource.</label><br>
+                    <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+                    <label for="optionB24">B) By using the `delete_access_policy()` method from `AccessPolicyClient`.</label><br>
+                    <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+                    <label for="optionC24">C) By formatting the Azure subscription.</label><br>
+                    <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+                    <label for="optionD24">D) By exporting the Key Vault settings.</label><br>
+                </div>
+                <div id="result24" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 26 -->
+                <div class="que">
+                    <p>26. What is a Managed HSM in Azure?</p>
+                    <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+                </div>
+                <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) A fully managed, highly available hardware security module for secure key management.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Managed HSM (Hardware Security Module)** in Azure provides a secure environment for managing cryptographic keys.<br><br>
+                    **Key Features:**<br>
+                    1. Hardware-backed key protection.<br>
+                    2. High availability and scalability.<br>
+                    3. Compliance with security standards like FIPS 140-2 Level 3.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+                    <label for="optionA25">A) A fully managed, highly available hardware security module for secure key management.</label><br>
+                    <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+                    <label for="optionB25">B) A type of database for storing large data sets.</label><br>
+                    <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+                    <label for="optionC25">C) A service for managing virtual machines.</label><br>
+                    <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+                    <label for="optionD25">D) A tool for generating random passwords.</label><br>
+                </div>
+                <div id="result25" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 27 -->
+                <div class="que">
+                    <p>27. Which Azure SDK class is used to manage Managed HSM in Python?</p>
+                    <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+                </div>
+                <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) ManagedHsmClient</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **`ManagedHsmClient`** class in the Azure SDK for Python is used to manage Managed HSM resources.<br><br>
+                    **Operations with `ManagedHsmClient`:**<br>
+                    1. Create, update, or delete Managed HSM instances.<br>
+                    2. Manage keys and access policies.<br>
+                    3. Monitor the health and status of the HSM.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+                    <label for="optionA26">A) KeyClient</label><br>
+                    <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+                    <label for="optionB26">B) ManagedHsmClient</label><br>
+                    <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+                    <label for="optionC26">C) SecretClient</label><br>
+                    <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+                    <label for="optionD26">D) StorageClient</label><br>
+                </div>
+                <div id="result26" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 28 -->
+                <div class="que">
+                    <p>28. What is the primary purpose of Managed HSM in Azure?</p>
+                    <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+                </div>
+                <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To provide secure key management and cryptographic operations.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Managed HSM** ensures the secure management of cryptographic keys and supports operations like encryption, decryption, and digital signing.<br><br>
+                    **Common Use Cases:**<br>
+                    1. Key encryption and decryption.<br>
+                    2. Digital signing and verification.<br>
+                    3. Secure key storage for compliance needs.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+                    <label for="optionA27">A) To provide secure key management and cryptographic operations.</label><br>
+                    <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+                    <label for="optionB27">B) To manage virtual machines in Azure.</label><br>
+                    <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+                    <label for="optionC27">C) To host large-scale databases.</label><br>
+                    <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+                    <label for="optionD27">D) To monitor network traffic in Azure.</label><br>
+                </div>
+                <div id="result27" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 29 -->
+                <div class="que">
+                    <p>29. How do you create a new key in a Managed HSM using Python?</p>
+                    <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+                </div>
+                <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By using the `create_key()` method from `ManagedHsmClient`.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    To create a new key in Managed HSM:<br><br>
+                    **Steps:**<br>
+                    1. Authenticate using Azure SDK.<br>
+                    2. Use the `ManagedHsmClient`.<br>
+                    3. Call the `create_key()` method with the required parameters like key name, key type, and key operations.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+                    <label for="optionA28">A) By creating a new Azure subscription.</label><br>
+                    <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+                    <label for="optionB28">B) By using the `create_key()` method from `ManagedHsmClient`.</label><br>
+                    <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+                    <label for="optionC28">C) By exporting the key from a local machine.</label><br>
+                    <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+                    <label for="optionD28">D) By disabling the Managed HSM instance.</label><br>
+                </div>
+                <div id="result28" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 30 -->
+                <div class="que">
+                    <p>30. Which of the following is a security feature of Managed HSM?</p>
+                    <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+                </div>
+                <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Hardware-backed key protection with compliance to FIPS 140-2 Level 3.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Managed HSM provides strong security features such as:<br><br>
+                    **Key Security Features:**<br>
+                    1. Hardware-backed key protection.<br>
+                    2. High compliance standards like FIPS 140-2 Level 3.<br>
+                    3. Secure key management with granular access controls.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+                    <label for="optionA29">A) Hardware-backed key protection with compliance to FIPS 140-2 Level 3.</label><br>
+                    <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+                    <label for="optionB29">B) Unlimited key storage without any encryption.</label><br>
+                    <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+                    <label for="optionC29">C) Public key access for all users.</label><br>
+                    <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+                    <label for="optionD29">D) Simple password-based key management.</label><br>
+                </div>
+                <div id="result29" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 31 -->
+                <div class="que">
+                    <p>31. What is the primary purpose of the Key Vault REST API in Azure?</p>
+                    <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+                </div>
+                <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To perform key management operations such as creating, deleting, and retrieving keys.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **Key Vault REST API** allows developers to interact programmatically with Azure Key Vault for various key management tasks.<br><br>
+                    **Common Operations:**<br>
+                    1. Create, import, and delete keys.<br>
+                    2. Retrieve key attributes and properties.<br>
+                    3. Manage access policies and permissions.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+                    <label for="optionA30">A) To perform key management operations such as creating, deleting, and retrieving keys.</label><br>
+                    <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+                    <label for="optionB30">B) To manage virtual machines in Azure.</label><br>
+                    <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+                    <label for="optionC30">C) To host large-scale databases.</label><br>
+                    <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+                    <label for="optionD30">D) To monitor network traffic in Azure.</label><br>
+                </div>
+                <div id="result30" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 32 -->
+                <div class="que">
+                    <p>32. Which HTTP method is used to create a new key in Azure Key Vault via the REST API?</p>
+                    <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+                </div>
+                <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) POST</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **POST** method is used in REST APIs to create new resources, such as keys in Azure Key Vault.<br><br>
+                    **Key Vault REST API Endpoint Example:**<br>
+                    `POST https://<your-keyvault-name>.vault.azure.net/keys/<key-name>/create?api-version=7.3`<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+                    <label for="optionA31">A) GET</label><br>
+                    <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+                    <label for="optionB31">B) POST</label><br>
+                    <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+                    <label for="optionC31">C) PUT</label><br>
+                    <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+                    <label for="optionD31">D) DELETE</label><br>
+                </div>
+                <div id="result31" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 33 -->
+                <div class="que">
+                    <p>33. Which header is essential when making requests to the Azure Key Vault REST API?</p>
+                    <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+                </div>
+                <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Authorization header with a Bearer token.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **Authorization header** with a Bearer token is required to authenticate REST API requests to Azure Key Vault.<br><br>
+                    **Example:**<br>
+                    `Authorization: Bearer <access_token>`<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+                    <label for="optionA32">A) Authorization header with a Bearer token.</label><br>
+                    <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+                    <label for="optionB32">B) Content-Type header with application/json.</label><br>
+                    <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+                    <label for="optionC32">C) User-Agent header with the client application name.</label><br>
+                    <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+                    <label for="optionD32">D) Referer header with the website URL.</label><br>
+                </div>
+                <div id="result32" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 34 -->
+                <div class="que">
+                    <p>34. How do you authenticate to Azure Key Vault REST API?</p>
+                    <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+                </div>
+                <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By obtaining an OAuth 2.0 Bearer token from Azure AD.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Authentication to the Azure Key Vault REST API is done using **OAuth 2.0 Bearer tokens** obtained from Azure Active Directory (Azure AD).<br><br>
+                    **Steps:**<br>
+                    1. Register an application in Azure AD.<br>
+                    2. Obtain an access token using client credentials.<br>
+                    3. Include the token in the Authorization header.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+                    <label for="optionA33">A) By using a username and password directly.</label><br>
+                    <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+                    <label for="optionB33">B) By obtaining an OAuth 2.0 Bearer token from Azure AD.</label><br>
+                    <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+                    <label for="optionC33">C) By sending an API key in the request header.</label><br>
+                    <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+                    <label for="optionD33">D) By using an SSH key.</label><br>
+                </div>
+                <div id="result33" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 35 -->
+                <div class="que">
+                    <p>35. What is the correct API version for accessing Azure Key Vault REST API as of now?</p>
+                    <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+                </div>
+                <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) 7.3</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **API version 7.3** is the latest supported version for the Azure Key Vault REST API.<br><br>
+                    **Example:**<br>
+                    `https://<your-keyvault-name>.vault.azure.net/keys/<key-name>/create?api-version=7.3`<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+                    <label for="optionA34">A) 6.0</label><br>
+                    <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+                    <label for="optionB34">B) 7.3</label><br>
+                    <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+                    <label for="optionC34">C) 5.5</label><br>
+                    <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+                    <label for="optionD34">D) 4.0</label><br>
+                </div>
+                <div id="result34" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 36 -->
+                <div class="que">
+                    <p>36. What is the primary purpose of Role-Based Access Control (RBAC) in Azure Key Vault?</p>
+                    <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+                </div>
+                <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To manage permissions for users and applications at a granular level.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Role-Based Access Control (RBAC)** in Azure Key Vault helps manage who can access and perform actions on key vault resources.<br><br>
+                    **Key Features:**<br>
+                    1. Assign roles to users, groups, or applications.<br>
+                    2. Grant permissions for specific actions (read, write, delete, etc.).<br>
+                    3. Apply policies at the subscription, resource group, or key vault level.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+                    <label for="optionA35">A) To manage permissions for users and applications at a granular level.</label><br>
+                    <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+                    <label for="optionB35">B) To encrypt data in transit.</label><br>
+                    <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+                    <label for="optionC35">C) To create and manage virtual networks.</label><br>
+                    <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+                    <label for="optionD35">D) To deploy Azure resources automatically.</label><br>
+                </div>
+                <div id="result35" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 37 -->
+                <div class="que">
+                    <p>37. Which Azure service is primarily used to implement RBAC for Key Vault?</p>
+                    <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+                </div>
+                <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Azure Active Directory (Azure AD)</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Azure Active Directory (Azure AD)** is used to manage identities and enforce RBAC policies for Azure resources, including Key Vault.<br><br>
+                    **Key Steps:**<br>
+                    1. Assign Azure AD roles to users or applications.<br>
+                    2. Grant access to Key Vault resources based on these roles.<br>
+                    3. Use Azure AD tokens for authentication and authorization.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+                    <label for="optionA36">A) Azure Monitor</label><br>
+                    <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+                    <label for="optionB36">B) Azure Active Directory (Azure AD)</label><br>
+                    <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+                    <label for="optionC36">C) Azure Resource Manager (ARM)</label><br>
+                    <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+                    <label for="optionD36">D) Azure Storage Account</label><br>
+                </div>
+                <div id="result36" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 38 -->
+                <div class="que">
+                    <p>38. What are the built-in roles available for Azure Key Vault RBAC?</p>
+                    <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+                </div>
+                <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Owner, Contributor, Reader, and Key Vault specific roles.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Key Vault provides both **built-in roles** and **custom roles** to manage access.<br><br>
+                    **Common Built-in Roles:**<br>
+                    1. **Owner:** Full control over Key Vault.<br>
+                    2. **Contributor:** Manage Key Vault resources, but no access to keys or secrets.<br>
+                    3. **Reader:** Read-only access to Key Vault.<br>
+                    4. **Key Vault Contributor:** Manage keys, secrets, and certificates.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+                    <label for="optionA37">A) Admin, User, Developer</label><br>
+                    <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+                    <label for="optionB37">B) Security, Auditor, Reader</label><br>
+                    <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+                    <label for="optionC37">C) Owner, Contributor, Reader, and Key Vault specific roles.</label><br>
+                    <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+                    <label for="optionD37">D) Developer, Tester, Analyst</label><br>
+                </div>
+                <div id="result37" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 39 -->
+                <div class="que">
+                    <p>39. How can you grant a user access to manage secrets in an Azure Key Vault?</p>
+                    <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+                </div>
+                <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Assign the Key Vault Secrets Officer role to the user.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    To grant access to manage secrets, you need to assign the **Key Vault Secrets Officer** role to the user.<br><br>
+                    **Steps:**<br>
+                    1. Go to the Azure Portal.<br>
+                    2. Navigate to Key Vault → Access Control (IAM).<br>
+                    3. Add role assignment for the user.<br>
+                    4. Select **Key Vault Secrets Officer** role.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+                    <label for="optionA38">A) Assign the Owner role to the user.</label><br>
+                    <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+                    <label for="optionB38">B) Assign the Key Vault Secrets Officer role to the user.</label><br>
+                    <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+                    <label for="optionC38">C) Grant the user access to the Azure Portal only.</label><br>
+                    <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+                    <label for="optionD38">D) Enable user authentication with an API key.</label><br>
+                </div>
+                <div id="result38" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 40 -->
+                <div class="que">
+                    <p>40. What is the difference between RBAC and Access Policies in Azure Key Vault?</p>
+                    <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+                </div>
+                <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) RBAC manages resource-level access, while Access Policies manage data-level access.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    - **RBAC (Role-Based Access Control):** Manages access to Azure resources like Key Vault.<br>
+                    - **Access Policies:** Control access to secrets, keys, and certificates inside Key Vault.<br><br>
+                    **Key Difference:**<br>
+                    RBAC is applied at the resource level, while Access Policies control specific data within the Key Vault.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+                    <label for="optionA39">A) RBAC manages resource-level access, while Access Policies manage data-level access.</label><br>
+                    <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+                    <label for="optionB39">B) RBAC and Access Policies are the same.</label><br>
+                    <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+                    <label for="optionC39">C) Access Policies are used only in virtual networks.</label><br>
+                    <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+                    <label for="optionD39">D) RBAC is for managing storage accounts only.</label><br>
+                </div>
+                <div id="result39" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 41 -->
+                <div class="que">
+                    <p>41. What is the purpose of Soft-Delete in Azure Key Vault?</p>
+                    <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+                </div>
+                <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To allow recovery of deleted Key Vault objects within a retention period.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Soft-Delete** is a feature that allows you to recover deleted Key Vault objects (like keys, secrets, and certificates) within a specific retention period.<br><br>
+                    **Key Features:**<br>
+                    1. Deleted items are retained for a configurable period (default 90 days).<br>
+                    2. Items can be recovered without data loss during this period.<br>
+                    3. After the retention period, items are permanently deleted unless Purge Protection is enabled.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+                    <label for="optionA40">A) To allow recovery of deleted Key Vault objects within a retention period.</label><br>
+                    <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+                    <label for="optionB40">B) To permanently delete all Key Vault objects immediately.</label><br>
+                    <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+                    <label for="optionC40">C) To prevent any deletion of Key Vault objects.</label><br>
+                    <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+                    <label for="optionD40">D) To enable encryption of Key Vault data.</label><br>
+                </div>
+                <div id="result40" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 42 -->
+                <div class="que">
+                    <p>42. What is Purge Protection in Azure Key Vault?</p>
+                    <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+                </div>
+                <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) It prevents the permanent deletion of deleted Key Vault objects.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Purge Protection** is a feature that prevents the permanent deletion (purge) of Key Vault objects even after the soft-delete retention period has expired.<br><br>
+                    **Key Features:**<br>
+                    1. Ensures that deleted items cannot be purged without explicit administrative action.<br>
+                    2. Provides an additional layer of protection against accidental or malicious deletions.<br>
+                    3. Must be enabled at the time of Key Vault creation or before an object is deleted.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+                    <label for="optionA41">A) It allows immediate deletion of Key Vault objects.</label><br>
+                    <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+                    <label for="optionB41">B) It prevents the permanent deletion of deleted Key Vault objects.</label><br>
+                    <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+                    <label for="optionC41">C) It enables automatic backups of Key Vault data.</label><br>
+                    <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+                    <label for="optionD41">D) It provides encryption for Key Vault secrets.</label><br>
+                </div>
+                <div id="result41" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 43 -->
+                <div class="que">
+                    <p>43. How can you recover a deleted Key Vault object if Soft-Delete is enabled?</p>
+                    <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+                </div>
+                <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By using the Azure portal, PowerShell, or Azure CLI to restore the object.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    If Soft-Delete is enabled, you can recover deleted Key Vault objects within the retention period using:<br><br>
+                    **Recovery Methods:**<br>
+                    1. **Azure Portal:** Navigate to Key Vault → Deleted Items → Restore.<br>
+                    2. **Azure CLI:** Use `az keyvault secret recover` or `az keyvault key recover` commands.<br>
+                    3. **PowerShell:** Use `Restore-AzKeyVaultSecret` or `Restore-AzKeyVaultKey` cmdlets.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+                    <label for="optionA42">A) By reinstalling the Azure Key Vault service.</label><br>
+                    <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+                    <label for="optionB42">B) By contacting Azure Support only.</label><br>
+                    <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+                    <label for="optionC42">C) By using the Azure portal, PowerShell, or Azure CLI to restore the object.</label><br>
+                    <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+                    <label for="optionD42">D) By re-creating the Key Vault from scratch.</label><br>
+                </div>
+                <div id="result42" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 44 -->
+                <div class="que">
+                    <p>44. What happens if Purge Protection is not enabled and the retention period expires?</p>
+                    <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+                </div>
+                <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) The deleted Key Vault objects will be permanently deleted and cannot be recovered.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    If Purge Protection is not enabled, deleted Key Vault objects will be permanently deleted after the retention period expires.<br><br>
+                    **Implications:**<br>
+                    1. Data cannot be recovered after permanent deletion.<br>
+                    2. Critical data loss risk if not managed properly.<br>
+                    3. It's recommended to enable Purge Protection for sensitive environments.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+                    <label for="optionA43">A) The deleted Key Vault objects will be permanently deleted and cannot be recovered.</label><br>
+                    <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+                    <label for="optionB43">B) The objects will be restored automatically.</label><br>
+                    <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+                    <label for="optionC43">C) The retention period will reset automatically.</label><br>
+                    <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+                    <label for="optionD43">D) The Key Vault will be suspended but not deleted.</label><br>
+                </div>
+                <div id="result43" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 45 -->
+                <div class="que">
+                    <p>45. How do you enable Purge Protection in Azure Key Vault?</p>
+                    <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+                </div>
+                <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) By enabling it during the Key Vault creation or updating its settings.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Purge Protection** can be enabled:<br><br>
+                    1. **During Key Vault Creation:** Set the `--enable-purge-protection` flag using Azure CLI.<br>
+                    2. **For Existing Vaults:** Use Azure CLI or PowerShell to update the Key Vault properties.<br><br>
+                    **CLI Command Example:**<br>
+                    ```bash
+                    az keyvault update --name <vault-name> --resource-group <group-name> --enable-purge-protection true
+                    ```  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+                    <label for="optionA44">A) By configuring the virtual network settings.</label><br>
+                    <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+                    <label for="optionB44">B) By enabling it through Azure Portal only.</label><br>
+                    <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+                    <label for="optionC44">C) By setting up a backup policy.</label><br>
+                    <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+                    <label for="optionD44">D) By enabling it during the Key Vault creation or updating its settings.</label><br>
+                </div>
+                <div id="result44" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 46 -->
+                <div class="que">
+                    <p>46. What is the purpose of the Azure Key Vault SDK for Python?</p>
+                    <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+                </div>
+                <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To provide an easy-to-use interface for interacting with Azure Key Vault services.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **Azure Key Vault SDK for Python** allows developers to securely access and manage Key Vault resources such as keys, secrets, and certificates through Python applications.<br><br>
+                    **Key Features:**<br>
+                    1. Simplifies authentication with Azure Active Directory.<br>
+                    2. Provides Pythonic methods to perform operations on keys, secrets, and certificates.<br>
+                    3. Integrates with Azure services seamlessly for secure data management.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+                    <label for="optionA45">A) To provide an easy-to-use interface for interacting with Azure Key Vault services.</label><br>
+                    <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+                    <label for="optionB45">B) To automatically delete Key Vaults after use.</label><br>
+                    <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+                    <label for="optionC45">C) To convert Azure Key Vault to a local database.</label><br>
+                    <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+                    <label for="optionD45">D) To enable real-time analytics in Azure Key Vault.</label><br>
+                </div>
+                <div id="result45" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 47 -->
+                <div class="que">
+                    <p>47. Which Python library is used to interact with Azure Key Vault?</p>
+                    <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+                </div>
+                <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) azure-keyvault-secrets</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    To interact with Azure Key Vault, the **`azure-keyvault-secrets`** library is commonly used for managing secrets. Similarly, **`azure-keyvault-keys`** and **`azure-keyvault-certificates`** are used for keys and certificates respectively.<br><br>
+                    **Example to Install SDK:**<br>
+                    ```bash
+                    pip install azure-keyvault-secrets
+                    ```  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+                    <label for="optionA46">A) azure-storage-blob</label><br>
+                    <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+                    <label for="optionB46">B) azure-keyvault-secrets</label><br>
+                    <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+                    <label for="optionC46">C) azure-machine-learning</label><br>
+                    <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+                    <label for="optionD46">D) azure-analytics</label><br>
+                </div>
+                <div id="result46" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 48 -->
+                <div class="que">
+                    <p>48. How do you authenticate when using the Azure Key Vault SDK in Python?</p>
+                    <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+                </div>
+                <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By using Azure Active Directory (AAD) credentials or environment variables.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Authentication with Azure Key Vault SDK can be done using:<br><br>
+                    1. **Azure Active Directory (AAD) Authentication:** Using the `DefaultAzureCredential` class.<br>
+                    2. **Environment Variables:** Setting credentials like `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, and `AZURE_CLIENT_SECRET`.<br>
+                    **Example:**  
+                    ```python
+                    from azure.identity import DefaultAzureCredential
+                    from azure.keyvault.secrets import SecretClient
+            
+                    credential = DefaultAzureCredential()
+                    client = SecretClient(vault_url="https://<your-vault-name>.vault.azure.net/", credential=credential)
+                    ```  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+                    <label for="optionA47">A) Using a password file only.</label><br>
+                    <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+                    <label for="optionB47">B) By hardcoding credentials in the code.</label><br>
+                    <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+                    <label for="optionC47">C) By using Azure Active Directory (AAD) credentials or environment variables.</label><br>
+                    <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+                    <label for="optionD47">D) Through manual token generation only.</label><br>
+                </div>
+                <div id="result47" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 49 -->
+                <div class="que">
+                    <p>49. What method is used to retrieve a secret from Azure Key Vault using the SDK?</p>
+                    <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+                </div>
+                <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) get_secret()</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The method **`get_secret()`** is used to retrieve a secret from Azure Key Vault using the SDK.<br><br>
+                    **Example:**  
+                    ```python
+                    secret = client.get_secret("my-secret-name")
+                    print(secret.value)
+                    ```  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+                    <label for="optionA48">A) fetch_secret()</label><br>
+                    <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+                    <label for="optionB48">B) get_secret()</label><br>
+                    <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+                    <label for="optionC48">C) retrieve_data()</label><br>
+                    <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+                    <label for="optionD48">D) download_secret()</label><br>
+                </div>
+                <div id="result48" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 50 -->
+                <div class="que">
+                    <p>50. How do you list all secrets in an Azure Key Vault using the SDK?</p>
+                    <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+                </div>
+                <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Using the list_properties_of_secrets() method.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The method **`list_properties_of_secrets()`** lists all the secrets stored in a Key Vault.<br><br>
+                    **Example:**  
+                    ```python
+                    secrets = client.list_properties_of_secrets()
+                    for secret in secrets:
+                        print(secret.name)
+                    ```  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+                    <label for="optionA49">A) list_all_secrets()</label><br>
+                    <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+                    <label for="optionB49">B) retrieve_secrets()</label><br>
+                    <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+                    <label for="optionC49">C) get_secrets()</label><br>
+                    <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+                    <label for="optionD49">D) list_properties_of_secrets()</label><br>
+                </div>
+                <div id="result49" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 51 -->
+                <div class="que">
+                    <p>51. What is the primary purpose of Encryption at Rest in Azure Key Vault?</p>
+                    <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+                </div>
+                <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To protect data stored in databases, files, and other storage systems.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Encryption at Rest** ensures that data is encrypted when stored on disk or in persistent storage, protecting sensitive information from unauthorized access.<br><br>
+                    **Key Features:**<br>
+                    1. Data is encrypted automatically when stored in Azure services.<br>
+                    2. Uses strong encryption algorithms (e.g., AES-256).<br>
+                    3. Encryption keys are managed securely by Azure Key Vault.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+                    <label for="optionA50">A) To protect data stored in databases, files, and other storage systems.</label><br>
+                    <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+                    <label for="optionB50">B) To secure data while being transmitted over the network.</label><br>
+                    <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+                    <label for="optionC50">C) To remove sensitive data from storage.</label><br>
+                    <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+                    <label for="optionD50">D) To compress data for storage efficiency.</label><br>
+                </div>
+                <div id="result50" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 52 -->
+                <div class="que">
+                    <p>52. Which encryption algorithm is commonly used for Encryption at Rest in Azure?</p>
+                    <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+                </div>
+                <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) AES-256</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure uses the **AES-256 (Advanced Encryption Standard with 256-bit key)** algorithm for encrypting data at rest, offering strong protection against brute-force attacks.<br><br>
+                    **Why AES-256?**<br>
+                    - High level of security.<br>
+                    - Efficient for large-scale data encryption.<br>
+                    - Widely accepted as a standard in the industry.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+                    <label for="optionA51">A) RSA-1024</label><br>
+                    <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+                    <label for="optionB51">B) AES-256</label><br>
+                    <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+                    <label for="optionC51">C) DES</label><br>
+                    <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+                    <label for="optionD51">D) MD5</label><br>
+                </div>
+                <div id="result51" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 53 -->
+                <div class="que">
+                    <p>53. What type of key is used for encrypting data at rest in Azure Key Vault?</p>
+                    <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+                </div>
+                <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Symmetric Key</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Symmetric Key Encryption** is used for encrypting data at rest, where the same key is used for both encryption and decryption.<br><br>
+                    **Why Symmetric?**<br>
+                    - Fast and efficient for large datasets.<br>
+                    - Simplified key management compared to asymmetric encryption.<br>
+                    - Suitable for scenarios where secure key distribution is possible.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+                    <label for="optionA52">A) Asymmetric Key</label><br>
+                    <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+                    <label for="optionB52">B) Public Key</label><br>
+                    <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+                    <label for="optionC52">C) Symmetric Key</label><br>
+                    <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+                    <label for="optionD52">D) Hash Key</label><br>
+                </div>
+                <div id="result52" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 54 -->
+                <div class="que">
+                    <p>54. How does Azure Key Vault manage encryption keys for Encryption at Rest?</p>
+                    <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+                </div>
+                <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Keys are securely stored and managed with strict access controls.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Key Vault provides secure key management features, ensuring:<br><br>
+                    - **Secure Storage:** Encryption keys are stored in hardware security modules (HSMs).<br>
+                    - **Access Control:** Fine-grained access policies using RBAC and access policies.<br>
+                    - **Key Rotation:** Automatic or manual key rotation policies.<br>
+                    - **Audit Logs:** Monitoring key usage for compliance and security.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+                    <label for="optionA53">A) Keys are stored in plain text for easy access.</label><br>
+                    <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+                    <label for="optionB53">B) Keys are encrypted with weak algorithms for faster performance.</label><br>
+                    <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+                    <label for="optionC53">C) Keys are stored in local servers without encryption.</label><br>
+                    <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+                    <label for="optionD53">D) Keys are securely stored and managed with strict access controls.</label><br>
+                </div>
+                <div id="result53" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 55 -->
+                <div class="que">
+                    <p>55. Which Azure service can be integrated with Key Vault for automatic encryption of data at rest?</p>
+                    <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+                </div>
+                <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Azure Storage</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Azure Storage** integrates with Azure Key Vault to automatically encrypt data at rest using customer-managed keys (CMKs) stored in Key Vault.<br><br>
+                    **Key Features:**<br>
+                    - Enables data encryption at the storage account level.<br>
+                    - Allows control over the encryption keys.<br>
+                    - Ensures compliance with security and regulatory requirements.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+                    <label for="optionA54">A) Azure Functions</label><br>
+                    <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+                    <label for="optionB54">B) Azure Storage</label><br>
+                    <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+                    <label for="optionC54">C) Azure Monitor</label><br>
+                    <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+                    <label for="optionD54">D) Azure Active Directory</label><br>
+                </div>
+                <div id="result54" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 56 -->
+                <div class="que">
+                    <p>56. Which Azure service can integrate with Key Vault to manage secrets for cloud-native applications?</p>
+                    <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+                </div>
+                <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Azure App Service</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Azure App Service** can integrate with Azure Key Vault to securely manage application secrets (e.g., database connection strings, API keys) and prevent hardcoding sensitive information in source code.<br><br>
+                    **Key Benefits of Integration:**<br>
+                    - Secure management of secrets.<br>
+                    - Seamless application deployment.<br>
+                    - Reduces the risk of exposing sensitive data.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+                    <label for="optionA55">A) Azure Functions</label><br>
+                    <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+                    <label for="optionB55">B) Azure App Service</label><br>
+                    <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+                    <label for="optionC55">C) Azure Kubernetes Service</label><br>
+                    <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+                    <label for="optionD55">D) Azure Data Lake</label><br>
+                </div>
+                <div id="result55" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 57 -->
+                <div class="que">
+                    <p>57. How can Azure Key Vault integrate with Azure Virtual Machines (VMs) for secure key management?</p>
+                    <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+                </div>
+                <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) By using Managed Identity for seamless authentication and access to Key Vault.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Managed Identity** allows Azure VMs to authenticate to Azure Key Vault securely without needing credentials in the code. Once the VM has the Managed Identity, it can request secrets, keys, and certificates from Key Vault.<br><br>
+                    **Key Features of Integration:**<br>
+                    - Automatic credential management with Managed Identity.<br>
+                    - Secure access to Key Vault resources.<br>
+                    - No need to manage or store credentials manually.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+                    <label for="optionA56">A) By using Managed Identity for seamless authentication and access to Key Vault.</label><br>
+                    <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+                    <label for="optionB56">B) By embedding a shared access signature (SAS) token in the VM configuration.</label><br>
+                    <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+                    <label for="optionC56">C) By using a service principal with a secret for authentication.</label><br>
+                    <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+                    <label for="optionD56">D) By allowing direct access to the Key Vault API from the VM.</label><br>
+                </div>
+                <div id="result56" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 58 -->
+                <div class="que">
+                    <p>58. Which Azure service allows the use of Key Vault for securely storing secrets in containerized applications?</p>
+                    <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+                </div>
+                <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Azure Kubernetes Service (AKS)</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Azure Kubernetes Service (AKS)** can integrate with Azure Key Vault to securely store and manage secrets, keys, and certificates used by containerized applications running within the Kubernetes clusters.<br><br>
+                    **How Integration Works:**<br>
+                    - Kubernetes secrets can be linked to Key Vault.<br>
+                    - Secrets are automatically injected into the containers.<br>
+                    - Azure AD-based authentication can be used for secure access.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+                    <label for="optionA57">A) Azure Blob Storage</label><br>
+                    <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+                    <label for="optionB57">B) Azure Virtual Machines</label><br>
+                    <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+                    <label for="optionC57">C) Azure Kubernetes Service (AKS)</label><br>
+                    <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+                    <label for="optionD57">D) Azure Functions</label><br>
+                </div>
+                <div id="result57" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 59 -->
+                <div class="que">
+                    <p>59. Which Azure service can integrate with Key Vault to provide secure management of SSL/TLS certificates?</p>
+                    <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+                </div>
+                <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Azure App Service</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Azure App Service** allows you to use Azure Key Vault for secure management of SSL/TLS certificates, enabling automatic certificate renewal and avoiding the need to manually manage certificates in your applications.<br><br>
+                    **How Integration Works:**<br>
+                    - Certificates are stored securely in Key Vault.<br>
+                    - App Service can pull certificates from Key Vault when needed.<br>
+                    - Simplifies certificate lifecycle management.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+                    <label for="optionA58">A) Azure Blob Storage</label><br>
+                    <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+                    <label for="optionB58">B) Azure SQL Database</label><br>
+                    <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+                    <label for="optionC58">C) Azure Functions</label><br>
+                    <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+                    <label for="optionD58">D) Azure App Service</label><br>
+                </div>
+                <div id="result58" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 60 -->
+                <div class="que">
+                    <p>60. Which Azure feature allows you to control the access to Key Vault resources in integrated applications?</p>
+                    <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+                </div>
+                <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Azure Role-Based Access Control (RBAC)</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Azure Role-Based Access Control (RBAC)** enables you to define roles and assign them to users or applications to control their access to Key Vault resources. You can assign built-in or custom roles based on the least privilege principle.<br><br>
+                    **How RBAC Works:**<br>
+                    - Assign permissions to users, groups, or managed identities.<br>
+                    - Control access to secrets, keys, and certificates.<br>
+                    - Define roles like **Key Vault Contributor**, **Key Vault Reader**, etc.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+                    <label for="optionA59">A) Azure Active Directory</label><br>
+                    <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+                    <label for="optionB59">B) Azure Role-Based Access Control (RBAC)</label><br>
+                    <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+                    <label for="optionC59">C) Azure Key Vault Managed Identity</label><br>
+                    <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+                    <label for="optionD59">D) Azure Policy</label><br>
+                </div>
+                <div id="result59" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 61 -->
+                <div class="que">
+                    <p>61. What is the primary purpose of Azure Key Vault audit logs?</p>
+                    <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+                </div>
+                <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To track all access and changes made to Key Vault resources.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Audit logs** provide a record of who accessed the Key Vault and what actions they performed (e.g., reading, writing, deleting keys, secrets, or certificates). This is critical for security, compliance, and troubleshooting.<br><br>
+                    **Key Benefits of Audit Logs:**<br>
+                    - Helps track unauthorized access.<br>
+                    - Provides a history of changes for compliance.<br>
+                    - Aids in diagnosing issues with Key Vault resources.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+                    <label for="optionA60">A) To improve Key Vault performance.</label><br>
+                    <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+                    <label for="optionB60">B) To track all access and changes made to Key Vault resources.</label><br>
+                    <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+                    <label for="optionC60">C) To reduce Key Vault's operational cost.</label><br>
+                    <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+                    <label for="optionD60">D) To automatically back up Key Vault resources.</label><br>
+                </div>
+                <div id="result60" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 62 -->
+                <div class="que">
+                    <p>62. Where can Azure Key Vault audit logs be stored for further analysis?</p>
+                    <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+                </div>
+                <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Azure Monitor</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Azure Monitor** allows you to store, analyze, and visualize Key Vault audit logs. You can set up alerts and dashboards to monitor activity and detect unusual behavior.<br><br>
+                    **Features of Azure Monitor Integration:**<br>
+                    - Centralized log storage.<br>
+                    - Advanced querying and filtering.<br>
+                    - Integration with other monitoring tools.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+                    <label for="optionA61">A) Azure Monitor</label><br>
+                    <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+                    <label for="optionB61">B) Azure Blob Storage</label><br>
+                    <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+                    <label for="optionC61">C) Azure Active Directory</label><br>
+                    <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+                    <label for="optionD61">D) Azure Event Grid</label><br>
+                </div>
+                <div id="result61" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 63 -->
+                <div class="que">
+                    <p>63. What type of events are recorded in Azure Key Vault audit logs?</p>
+                    <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+                </div>
+                <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Operations such as access, modifications, and deletions of secrets, keys, or certificates.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Audit logs capture detailed information on various actions performed on Key Vault resources, including who performed the action, when, and what was modified.<br><br>
+                    **Examples of Recorded Events:**<br>
+                    - Access requests.<br>
+                    - Creation, modification, and deletion of secrets, keys, and certificates.<br>
+                    - Permission changes.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+                    <label for="optionA62">A) Only successful authentication events.</label><br>
+                    <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+                    <label for="optionB62">B) Only system-generated events.</label><br>
+                    <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+                    <label for="optionC62">C) Operations such as access, modifications, and deletions of secrets, keys, or certificates.</label><br>
+                    <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+                    <label for="optionD62">D) Only administrative changes made to Key Vault settings.</label><br>
+                </div>
+                <div id="result62" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 64 -->
+                <div class="que">
+                    <p>64. How can you retrieve audit logs for Azure Key Vault?</p>
+                    <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+                </div>
+                <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) By querying Azure Monitor logs with Kusto Query Language (KQL).</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    **Azure Monitor** stores Key Vault audit logs and allows you to query these logs using **Kusto Query Language (KQL)** for deeper analysis. You can filter logs based on specific events, time ranges, and resources.<br><br>
+                    **KQL Query Example:**<br>
+                    `AzureDiagnostics | where ResourceType == "KEYVAULT" | project TimeGenerated, OperationName, ResultType`<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+                    <label for="optionA63">A) By using Azure Key Vault’s built-in querying capabilities.</label><br>
+                    <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+                    <label for="optionB63">B) By using Azure Resource Manager templates.</label><br>
+                    <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+                    <label for="optionC63">C) By exporting logs to an external server.</label><br>
+                    <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+                    <label for="optionD63">D) By querying Azure Monitor logs with Kusto Query Language (KQL).</label><br>
+                </div>
+                <div id="result63" class="result"></div>
+            </div>
+            <div class="qee">
+
+                <!-- Question 65 -->
+                <div class="que">
+                    <p>65. What is the primary purpose of an access token in Azure?</p>
+                    <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+                </div>
+                <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To authenticate a client to Azure services.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    An **access token** is used to authenticate a client (such as an app or user) and authorize access to Azure resources or services.<br><br>
+                    **Key Features of Access Tokens:**<br>
+                    - They are short-lived (expire after a certain time).<br>
+                    - Issued by Azure AD as part of OAuth 2.0 flow.<br>
+                    - Used to grant access to protected resources.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+                    <label for="optionA64">A) To authenticate a client to Azure services.</label><br>
+                    <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+                    <label for="optionB64">B) To encrypt data stored in Azure.</label><br>
+                    <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+                    <label for="optionC64">C) To manage Azure subscriptions.</label><br>
+                    <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+                    <label for="optionD64">D) To monitor Azure resource usage.</label><br>
+                </div>
+                <div id="result64" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 66 -->
+                <div class="que">
+                    <p>66. Which Azure service issues access tokens for authentication?</p>
+                    <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+                </div>
+                <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Azure Active Directory (Azure AD)</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    **Azure AD** is responsible for issuing access tokens that are used for authentication and authorization to access Azure resources.<br><br>
+                    **Azure AD Flow for Access Tokens:**<br>
+                    - Client requests an access token.<br>
+                    - Azure AD validates the request.<br>
+                    - If valid, Azure AD issues an access token to the client.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+                    <label for="optionA65">A) Azure Resource Manager</label><br>
+                    <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+                    <label for="optionB65">B) Azure Active Directory (Azure AD)</label><br>
+                    <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+                    <label for="optionC65">C) Azure Key Vault</label><br>
+                    <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+                    <label for="optionD65">D) Azure Security Center</label><br>
+                </div>
+                <div id="result65" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 67 -->
+                <div class="que">
+                    <p>67. What information does an access token typically contain?</p>
+                    <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+                </div>
+                <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Claims about the user or app, including permissions and expiry time.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    An access token contains claims, which are pieces of information about the authenticated user or app. These claims include roles, permissions, and expiry time of the token.<br><br>
+                    **Common Claims in Access Tokens:**<br>
+                    - Subject (sub): Identifies the user or app.<br>
+                    - Issuer (iss): The entity that issued the token.<br>
+                    - Expiry (exp): The expiration time of the token.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+                    <label for="optionA66">A) The user’s password and account settings.</label><br>
+                    <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+                    <label for="optionB66">B) A list of Azure resources the user can access.</label><br>
+                    <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+                    <label for="optionC66">C) Claims about the user or app, including permissions and expiry time.</label><br>
+                    <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+                    <label for="optionD66">D) The full history of the user’s authentication attempts.</label><br>
+                </div>
+                <div id="result66" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 68 -->
+                <div class="que">
+                    <p>68. How long is an access token valid in Azure?</p>
+                    <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+                </div>
+                <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) It is typically valid for a short period, usually 1 hour.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Access tokens are typically short-lived for security reasons. Most access tokens in Azure expire after **1 hour**, but this can vary depending on the service and configuration.<br><br>
+                    **Refreshing Tokens:**<br>
+                    - When the access token expires, a **refresh token** can be used to obtain a new access token without re-authenticating.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+                    <label for="optionA67">A) It is valid for a day.</label><br>
+                    <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+                    <label for="optionB67">B) It is typically valid for a short period, usually 1 hour.</label><br>
+                    <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+                    <label for="optionC67">C) It is valid indefinitely until manually revoked.</label><br>
+                    <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+                    <label for="optionD67">D) It is valid for 30 days.</label><br>
+                </div>
+                <div id="result67" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 69 -->
+                <div class="que">
+                    <p>69. How can an application obtain an access token for Azure resources?</p>
+                    <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+                </div>
+                <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) By using the OAuth 2.0 authorization code flow or client credentials flow.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Applications can obtain an access token using **OAuth 2.0** flows such as the **authorization code flow** (for interactive apps) or **client credentials flow** (for non-interactive apps like services).<br><br>
+                    **OAuth 2.0 Flow:**<br>
+                    1. The application requests an access token from Azure AD.<br>
+                    2. Azure AD authenticates the application and returns an access token.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+                    <label for="optionA68">A) By embedding credentials in the application's configuration file.</label><br>
+                    <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+                    <label for="optionB68">B) By using basic authentication with username and password.</label><br>
+                    <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+                    <label for="optionC68">C) By using an API key for Azure services.</label><br>
+                    <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+                    <label for="optionD68">D) By using the OAuth 2.0 authorization code flow or client credentials flow.</label><br>
+                </div>
+                <div id="result68" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 70 -->
+                <div class="que">
+                    <p>70. Which of the following is required to validate an access token in Azure?</p>
+                    <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+                </div>
+                <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) The token's signature, which is verified using the public key from Azure AD.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Access tokens must be validated to ensure they are authentic and haven't been tampered with. This is typically done by verifying the **token's signature** using the **public key** from Azure AD.<br><br>
+                    **Steps to Validate an Access Token:**<br>
+                    1. Decode the token.<br>
+                    2. Retrieve the signature part.<br>
+                    3. Validate the signature using the public key from Azure AD.<br>
+                    4. Ensure the token has not expired and is intended for the correct resource.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+                    <label for="optionA69">A) The user's password and account status.</label><br>
+                    <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+                    <label for="optionB69">B) The token's creation timestamp.</label><br>
+                    <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+                    <label for="optionC69">C) The token's signature, which is verified using the public key from Azure AD.</label><br>
+                    <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+                    <label for="optionD69">D) The token's expiration time.</label><br>
+                </div>
+                <div id="result69" class="result"></div>
+            </div>
+                                                                                                                                                                                    
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

@@ -1,0 +1,2411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZURE BOARDS</title>
+    <link rel="stylesheet" href="../css/Azure Devops.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'D', 'B', 'A', 'C', 'B', 'D', 'C', 'A', 'D',
+            'B', 'D', 'A', 'B', 'C', 'B', 'A', 'C', 'D', 'B',
+            'C', 'B', 'A', 'D', 'B', 'C', 'D', 'B', 'D', 'A',
+            'C', 'A', 'C', 'B', 'D', 'A', 'B', 'D', 'A', 'B',
+            'A', 'D', 'A', 'B', 'C', 'A', 'B', 'A', 'C', 'B',
+            'A', 'B', 'C', 'A', 'D', 'A', 'B', 'C', 'D', 'B',  
+            'A', 'B', 'C', 'D', 'B', 'D', 'A', 'B', 'C', 'D',
+            'A', 'B', 'C', 'D', 'B', 'A', 'B', 'C', 'D', 'A'
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>AZURE BOARDS</h3>
+        <div class="inner-border">
+            <div class="qee">
+                <!-- Question 1 -->
+                <div class="que">
+                    <p>1. What is the purpose of Work Items in Azure Boards?</p>
+                    <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+                </div>
+                <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To track and manage tasks, bugs, user stories, and features.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Work Items in Azure Boards help in tracking and managing various types of work such as tasks, bugs, user stories, and features. They allow teams to organize, prioritize, and monitor progress.<br><br>
+                    **Key Types of Work Items:**<br>
+                    1. Epics<br>
+                    2. Features<br>
+                    3. User Stories<br>
+                    4. Tasks<br>
+                    5. Bugs<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+                    <label for="optionA0">A) To store source code in Azure DevOps.</label><br>
+                    <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+                    <label for="optionB0">B) To track and manage tasks, bugs, user stories, and features.</label><br>
+                    <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+                    <label for="optionC0">C) To manage deployment pipelines.</label><br>
+                    <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+                    <label for="optionD0">D) To create virtual machines in Azure.</label><br>
+                </div>
+                <div id="result0" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 2 -->
+                <div class="que">
+                    <p>2. Which of the following is NOT a valid type of Work Item in Azure Boards?</p>
+                    <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+                </div>
+                <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Test Case</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Boards supports Work Items like Epics, Features, User Stories, Tasks, and Bugs. However, **Test Cases** are managed in Azure Test Plans, not as a Work Item in Azure Boards.<br><br>
+                    **Common Work Item Types:**<br>
+                    1. Epics<br>
+                    2. Features<br>
+                    3. User Stories<br>
+                    4. Tasks<br>
+                    5. Bugs<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+                    <label for="optionA1">A) Epic</label><br>
+                    <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+                    <label for="optionB1">B) User Story</label><br>
+                    <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+                    <label for="optionC1">C) Bug</label><br>
+                    <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+                    <label for="optionD1">D) Test Case</label><br>
+                </div>
+                <div id="result1" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 3 -->
+                <div class="que">
+                    <p>3. How can you link a Work Item to a Git commit in Azure Boards?</p>
+                    <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+                </div>
+                <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By including the Work Item ID in the commit message.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Linking Work Items to Git commits helps in tracking the changes made for specific tasks or bugs. This is done by including the Work Item ID in the commit message, e.g., `#123` for Work Item ID 123.<br><br>
+                    **Example Commit Message:**<br>
+                    `Fixed login issue. Related to #123`<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+                    <label for="optionA2">A) By attaching the Work Item file to the commit.</label><br>
+                    <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+                    <label for="optionB2">B) By including the Work Item ID in the commit message.</label><br>
+                    <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+                    <label for="optionC2">C) By creating a new branch for each Work Item.</label><br>
+                    <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+                    <label for="optionD2">D) By pushing the commit to a specific repository.</label><br>
+                </div>
+                <div id="result2" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 4 -->
+                <div class="que">
+                    <p>4. What is the primary purpose of a Work Item query in Azure Boards?</p>
+                    <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+                </div>
+                <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To filter and display Work Items based on specific criteria.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Work Item queries help in filtering and displaying Work Items based on conditions like state, assigned user, tags, etc. This makes it easier to track progress and manage tasks effectively.<br><br>
+                    **Common Query Filters:**<br>
+                    1. Work Item Type<br>
+                    2. Assigned To<br>
+                    3. State<br>
+                    4. Priority<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+                    <label for="optionA3">A) To filter and display Work Items based on specific criteria.</label><br>
+                    <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+                    <label for="optionB3">B) To delete Work Items from the board.</label><br>
+                    <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+                    <label for="optionC3">C) To assign Work Items to multiple users.</label><br>
+                    <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+                    <label for="optionD3">D) To merge Work Items into a single task.</label><br>
+                </div>
+                <div id="result3" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 5 -->
+                <div class="que">
+                    <p>5. How can you track the progress of a Work Item in Azure Boards?</p>
+                    <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+                </div>
+                <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By updating the Work Item’s state and adding comments.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Tracking the progress of a Work Item involves updating its state (e.g., New, Active, Resolved) and adding comments to reflect changes or updates related to the task.<br><br>
+                    **Work Item States:**<br>
+                    1. New<br>
+                    2. Active<br>
+                    3. Resolved<br>
+                    4. Closed<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+                    <label for="optionA4">A) By deleting old Work Items.</label><br>
+                    <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+                    <label for="optionB4">B) By assigning Work Items to different teams.</label><br>
+                    <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+                    <label for="optionC4">C) By updating the Work Item’s state and adding comments.</label><br>
+                    <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+                    <label for="optionD4">D) By changing the Work Item’s priority level.</label><br>
+                </div>
+                <div id="result4" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 6 -->
+                <div class="que">
+                    <p>6. What is the purpose of Backlogs in Azure Boards?</p>
+                    <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+                </div>
+                <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To prioritize and manage work items for future development.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Backlogs in Azure Boards help teams manage and prioritize work items such as user stories, bugs, and tasks for future development. They support agile methodologies like Scrum and Kanban.<br><br>
+                    **Key Features of Backlogs:**<br>
+                    1. Prioritization of Work Items<br>
+                    2. Sprint Planning Support<br>
+                    3. Visual Management with Drag-and-Drop<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+                    <label for="optionA5">A) To store historical project data.</label><br>
+                    <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+                    <label for="optionB5">B) To prioritize and manage work items for future development.</label><br>
+                    <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+                    <label for="optionC5">C) To create automated test scripts.</label><br>
+                    <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+                    <label for="optionD5">D) To manage deployment configurations.</label><br>
+                </div>
+                <div id="result5" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 7 -->
+                <div class="que">
+                    <p>7. Which of the following is NOT a type of backlog in Azure Boards?</p>
+                    <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+                </div>
+                <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Test Backlog</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Boards supports different backlogs such as **Product Backlog**, **Sprint Backlog**, and **Portfolio Backlog**. However, there is no specific backlog type called "Test Backlog." Test cases are managed separately in Azure Test Plans.<br><br>
+                    **Common Backlogs:**<br>
+                    1. Product Backlog<br>
+                    2. Sprint Backlog<br>
+                    3. Portfolio Backlog<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+                    <label for="optionA6">A) Product Backlog</label><br>
+                    <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+                    <label for="optionB6">B) Sprint Backlog</label><br>
+                    <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+                    <label for="optionC6">C) Portfolio Backlog</label><br>
+                    <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+                    <label for="optionD6">D) Test Backlog</label><br>
+                </div>
+                <div id="result6" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 8 -->
+                <div class="que">
+                    <p>8. How can you reorder items in a backlog in Azure Boards?</p>
+                    <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+                </div>
+                <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By dragging and dropping items to the desired position.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    In Azure Boards, you can easily reorder backlog items by using a **drag-and-drop** feature. This allows you to prioritize work based on business needs or team capacity.<br><br>
+                    **Steps to Reorder:**<br>
+                    1. Open the backlog view.<br>
+                    2. Click and hold the item you want to move.<br>
+                    3. Drag it to the desired position.<br>
+                    4. Release the item to drop it in place.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+                    <label for="optionA7">A) By editing the Work Item’s priority field.</label><br>
+                    <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+                    <label for="optionB7">B) By creating a new backlog for each sprint.</label><br>
+                    <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+                    <label for="optionC7">C) By dragging and dropping items to the desired position.</label><br>
+                    <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+                    <label for="optionD7">D) By assigning items to specific team members.</label><br>
+                </div>
+                <div id="result7" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 9 -->
+                <div class="que">
+                    <p>9. What is the difference between the Product Backlog and the Sprint Backlog in Azure Boards?</p>
+                    <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+                </div>
+                <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) The Product Backlog contains all project work, while the Sprint Backlog focuses on the current sprint.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    - **Product Backlog:** A prioritized list of all work items required for the project.<br>
+                    - **Sprint Backlog:** A subset of the Product Backlog items selected for the current sprint.<br><br>
+                    **Key Differences:**<br>
+                    1. **Scope:** Product (Project-wide) vs Sprint (Current iteration)<br>
+                    2. **Priority:** Product Backlog is dynamic; Sprint Backlog is fixed during the sprint.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+                    <label for="optionA8">A) The Product Backlog contains all project work, while the Sprint Backlog focuses on the current sprint.</label><br>
+                    <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+                    <label for="optionB8">B) The Sprint Backlog is used for reporting, while the Product Backlog is for coding.</label><br>
+                    <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+                    <label for="optionC8">C) The Product Backlog is only for developers, while the Sprint Backlog is for testers.</label><br>
+                    <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+                    <label for="optionD8">D) Both are identical in purpose.</label><br>
+                </div>
+                <div id="result8" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 10 -->
+                <div class="que">
+                    <p>10. How can you track the progress of items in the backlog?</p>
+                    <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+                </div>
+                <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) By using the backlog view and progress indicators in Azure Boards.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Boards provides features like **progress indicators**, **burndown charts**, and **work item states** to track backlog item progress.<br><br>
+                    **Tracking Methods:**<br>
+                    1. Backlog View (Shows status updates)<br>
+                    2. Kanban Board (Visual workflow)<br>
+                    3. Dashboards & Reports (For metrics)<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+                    <label for="optionA9">A) By checking the team’s email updates.</label><br>
+                    <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+                    <label for="optionB9">B) By reviewing the project’s source code.</label><br>
+                    <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+                    <label for="optionC9">C) By manually tracking items on a whiteboard.</label><br>
+                    <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+                    <label for="optionD9">D) By using the backlog view and progress indicators in Azure Boards.</label><br>
+                </div>
+                <div id="result9" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 11 -->
+                <div class="que">
+                    <p>11. What is the primary purpose of Kanban Boards in Azure Boards?</p>
+                    <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+                </div>
+                <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To visualize and manage the flow of work items.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Kanban Boards in Azure Boards help teams visualize the flow of work items, manage workflows, and improve efficiency by limiting work in progress (WIP) and optimizing the flow.<br><br>
+                    **Key Features of Kanban Boards:**<br>
+                    1. Visual Workflow with Columns<br>
+                    2. Work-in-Progress Limits<br>
+                    3. Customizable Card Types<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+                    <label for="optionA10">A) To create detailed project documentation.</label><br>
+                    <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+                    <label for="optionB10">B) To visualize and manage the flow of work items.</label><br>
+                    <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+                    <label for="optionC10">C) To generate automated test scripts.</label><br>
+                    <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+                    <label for="optionD10">D) To manage deployment pipelines.</label><br>
+                </div>
+                <div id="result10" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 12 -->
+                <div class="que">
+                    <p>12. Which of the following is NOT a column typically found in a Kanban Board?</p>
+                    <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+                </div>
+                <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Test Cases</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    A typical Kanban Board includes columns such as **To Do**, **In Progress**, and **Done**. "Test Cases" is not a standard column; it is usually managed in separate test plans.<br><br>
+                    **Common Kanban Columns:**<br>
+                    1. To Do<br>
+                    2. In Progress<br>
+                    3. Done<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+                    <label for="optionA11">A) To Do</label><br>
+                    <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+                    <label for="optionB11">B) In Progress</label><br>
+                    <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+                    <label for="optionC11">C) Done</label><br>
+                    <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+                    <label for="optionD11">D) Test Cases</label><br>
+                </div>
+                <div id="result11" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 13 -->
+                <div class="que">
+                    <p>13. How can you limit the number of items in progress on a Kanban Board?</p>
+                    <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+                </div>
+                <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) By setting Work-in-Progress (WIP) limits for each column.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Work-in-Progress (WIP) limits help teams manage workflow efficiency by restricting the number of items allowed in each column at a time.<br><br>
+                    **Benefits of WIP Limits:**<br>
+                    1. Reduces bottlenecks<br>
+                    2. Improves focus and productivity<br>
+                    3. Identifies workflow issues early<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+                    <label for="optionA12">A) By setting Work-in-Progress (WIP) limits for each column.</label><br>
+                    <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+                    <label for="optionB12">B) By adding more columns to the board.</label><br>
+                    <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+                    <label for="optionC12">C) By increasing the number of team members.</label><br>
+                    <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+                    <label for="optionD12">D) By disabling the drag-and-drop feature.</label><br>
+                </div>
+                <div id="result12" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 14 -->
+                <div class="que">
+                    <p>14. Which of the following best describes a "card" on a Kanban Board?</p>
+                    <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+                </div>
+                <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) A visual representation of a work item.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    In Kanban Boards, a **card** represents a work item such as a task, bug, or user story. It typically includes details like title, description, status, and assignee.<br><br>
+                    **Key Features of a Card:**<br>
+                    1. Title and Description<br>
+                    2. Assigned Team Member<br>
+                    3. Status and Priority<br>
+                    4. Comments and Attachments<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+                    <label for="optionA13">A) A document used for project planning.</label><br>
+                    <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+                    <label for="optionB13">B) A visual representation of a work item.</label><br>
+                    <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+                    <label for="optionC13">C) A report generated after project completion.</label><br>
+                    <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+                    <label for="optionD13">D) A backup copy of project data.</label><br>
+                </div>
+                <div id="result13" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 15 -->
+                <div class="que">
+                    <p>15. How can you customize a Kanban Board in Azure Boards?</p>
+                    <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+                </div>
+                <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By modifying board settings, adding custom columns, and changing card styles.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Kanban Boards in Azure can be customized to fit team needs by adjusting board settings, adding or removing columns, and defining custom card styles.<br><br>
+                    **Customization Options:**<br>
+                    1. Add/Remove Columns<br>
+                    2. Set WIP Limits<br>
+                    3. Customize Card Fields<br>
+                    4. Apply Filters and Tags<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+                    <label for="optionA14">A) By writing custom scripts in Python.</label><br>
+                    <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+                    <label for="optionB14">B) By changing the project’s repository settings.</label><br>
+                    <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+                    <label for="optionC14">C) By modifying board settings, adding custom columns, and changing card styles.</label><br>
+                    <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+                    <label for="optionD14">D) By upgrading the Azure DevOps server.</label><br>
+                </div>
+                <div id="result14" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 16 -->
+                <div class="que">
+                    <p>16. What is the primary purpose of iteration plans in Azure Boards?</p>
+                    <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+                </div>
+                <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To define and manage work items for a specific sprint or iteration.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Iteration plans in Azure Boards help teams organize and manage work items for specific sprints, ensuring that tasks are completed within the sprint timeframe.<br><br>
+                    **Key Components of Iteration Plans:**<br>
+                    1. Sprint Goals<br>
+                    2. Work Item Backlog<br>
+                    3. Task Assignments<br>
+                    4. Burndown Charts<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+                    <label for="optionA15">A) To track the team’s vacation schedules.</label><br>
+                    <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+                    <label for="optionB15">B) To define and manage work items for a specific sprint or iteration.</label><br>
+                    <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+                    <label for="optionC15">C) To create automated test cases.</label><br>
+                    <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+                    <label for="optionD15">D) To manage project budgets.</label><br>
+                </div>
+                <div id="result15" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 17 -->
+                <div class="que">
+                    <p>17. How are iterations typically organized in Azure Boards?</p>
+                    <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+                </div>
+                <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) In a sequential order with start and end dates for each sprint.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Iterations in Azure Boards are organized sequentially, with each sprint having defined start and end dates to track progress effectively.<br><br>
+                    **Iteration Structure:**<br>
+                    1. Sprint Planning<br>
+                    2. Active Sprint<br>
+                    3. Review and Retrospective<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+                    <label for="optionA16">A) In a sequential order with start and end dates for each sprint.</label><br>
+                    <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+                    <label for="optionB16">B) Based on random selection of tasks.</label><br>
+                    <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+                    <label for="optionC16">C) Only by team member availability.</label><br>
+                    <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+                    <label for="optionD16">D) Based on the project’s budget constraints.</label><br>
+                </div>
+                <div id="result16" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 18 -->
+                <div class="que">
+                    <p>18. What is a key benefit of using iteration plans in Agile projects?</p>
+                    <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+                </div>
+                <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) They provide a structured approach to delivering incremental value.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Iteration plans allow teams to deliver work in small, manageable increments, providing regular feedback and enabling continuous improvement.<br><br>
+                    **Benefits of Iteration Plans:**<br>
+                    1. Incremental Delivery<br>
+                    2. Continuous Feedback<br>
+                    3. Adaptability to Changes<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+                    <label for="optionA17">A) They eliminate the need for project timelines.</label><br>
+                    <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+                    <label for="optionB17">B) They focus solely on documentation.</label><br>
+                    <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+                    <label for="optionC17">C) They provide a structured approach to delivering incremental value.</label><br>
+                    <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+                    <label for="optionD17">D) They reduce the need for team collaboration.</label><br>
+                </div>
+                <div id="result17" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 19 -->
+                <div class="que">
+                    <p>19. Which of the following is NOT a typical activity during an iteration planning meeting?</p>
+                    <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+                </div>
+                <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Writing a detailed project charter.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Iteration planning focuses on defining tasks, estimating effort, and setting sprint goals. Writing a detailed project charter is typically done at the project initiation phase.<br><br>
+                    **Common Iteration Planning Activities:**<br>
+                    1. Reviewing the Product Backlog<br>
+                    2. Defining Sprint Goals<br>
+                    3. Estimating Task Efforts<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+                    <label for="optionA18">A) Reviewing the Product Backlog</label><br>
+                    <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+                    <label for="optionB18">B) Defining Sprint Goals</label><br>
+                    <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+                    <label for="optionC18">C) Estimating Task Efforts</label><br>
+                    <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+                    <label for="optionD18">D) Writing a detailed project charter</label><br>
+                </div>
+                <div id="result18" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 20 -->
+                <div class="que">
+                    <p>20. How can Azure Boards help track the progress of an iteration?</p>
+                    <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+                </div>
+                <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By using burndown charts and iteration backlogs.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Azure Boards provides tools like **burndown charts** and **iteration backlogs** to visualize progress, identify blockers, and ensure the team is on track.<br><br>
+                    **Progress Tracking Tools:**<br>
+                    1. Burndown Charts<br>
+                    2. Sprint Backlogs<br>
+                    3. Task Boards<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+                    <label for="optionA19">A) By generating automatic invoices for team members.</label><br>
+                    <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+                    <label for="optionB19">B) By using burndown charts and iteration backlogs.</label><br>
+                    <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+                    <label for="optionC19">C) By sending email reminders to team members.</label><br>
+                    <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+                    <label for="optionD19">D) By calculating project expenses.</label><br>
+                </div>
+                <div id="result19" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 21 -->
+                <div class="que">
+                    <p>21. What is an Epic in Azure Boards?</p>
+                    <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+                </div>
+                <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) A large body of work that can be broken down into smaller features or user stories.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    An **Epic** represents a large feature or requirement that is broken down into smaller, manageable **Features** or **User Stories** to be developed over multiple sprints.<br><br>
+                    **Key Characteristics of Epics:**<br>
+                    1. High-level functionality<br>
+                    2. Broad scope<br>
+                    3. Requires multiple iterations<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+                    <label for="optionA20">A) A single task to be completed in one sprint.</label><br>
+                    <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+                    <label for="optionB20">B) A specific bug found in the system.</label><br>
+                    <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+                    <label for="optionC20">C) A large body of work that can be broken down into smaller features or user stories.</label><br>
+                    <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+                    <label for="optionD20">D) A small improvement to an existing feature.</label><br>
+                </div>
+                <div id="result20" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 22 -->
+                <div class="que">
+                    <p>22. What is the purpose of Features in Azure Boards?</p>
+                    <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+                </div>
+                <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To represent a collection of related user stories that deliver a specific functionality.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Features** are used to group related **User Stories** together, representing a specific functionality that delivers value to the customer.<br><br>
+                    **Key Characteristics of Features:**<br>
+                    1. Mid-level scope<br>
+                    2. Breaks down Epics into smaller deliverables<br>
+                    3. Can span multiple sprints<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+                    <label for="optionA21">A) To track individual team members’ productivity.</label><br>
+                    <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+                    <label for="optionB21">B) To represent a collection of related user stories that deliver a specific functionality.</label><br>
+                    <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+                    <label for="optionC21">C) To manage project budgets and expenses.</label><br>
+                    <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+                    <label for="optionD21">D) To create system architecture diagrams.</label><br>
+                </div>
+                <div id="result21" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 23 -->
+                <div class="que">
+                    <p>23. How are User Stories typically structured in Azure Boards?</p>
+                    <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+                </div>
+                <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Using the format: "As a [user], I want [feature] so that [benefit]."</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **User Stories** capture requirements from the user's perspective, ensuring the team focuses on delivering value.<br><br>
+                    **Typical User Story Format:**<br>
+                    1. **As a** [role] <br>
+                    2. **I want** [feature] <br>
+                    3. **So that** [benefit] <br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+                    <label for="optionA22">A) Using the format: "As a [user], I want [feature] so that [benefit]."</label><br>
+                    <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+                    <label for="optionB22">B) Listing technical specifications without context.</label><br>
+                    <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+                    <label for="optionC22">C) Describing the system architecture in detail.</label><br>
+                    <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+                    <label for="optionD22">D) Creating timelines for project milestones.</label><br>
+                </div>
+                <div id="result22" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 24 -->
+                <div class="que">
+                    <p>24. What are Tasks in Azure Boards?</p>
+                    <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+                </div>
+                <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Smaller work items that support completing a User Story.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Tasks** are the smallest unit of work in Azure Boards, often assigned to individual team members to complete a **User Story**.<br><br>
+                    **Key Features of Tasks:**<br>
+                    1. Break down User Stories into actionable steps<br>
+                    2. Track progress at a granular level<br>
+                    3. Can be assigned, prioritized, and estimated<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+                    <label for="optionA23">A) High-level project goals.</label><br>
+                    <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+                    <label for="optionB23">B) System requirements documentation.</label><br>
+                    <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+                    <label for="optionC23">C) Budget reports for the project.</label><br>
+                    <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+                    <label for="optionD23">D) Smaller work items that support completing a User Story.</label><br>
+                </div>
+                <div id="result23" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 25 -->
+                <div class="que">
+                    <p>25. What is the purpose of tracking Bugs in Azure Boards?</p>
+                    <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+                </div>
+                <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To identify, track, and resolve issues in the software.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Bugs** are defects in the software that need to be identified, tracked, and resolved to ensure the product functions as expected.<br><br>
+                    **Key Bug Tracking Steps:**<br>
+                    1. Log the bug with detailed reproduction steps<br>
+                    2. Prioritize and assign to the appropriate developer<br>
+                    3. Track status (New, Active, Resolved, Closed)<br>
+                    4. Verify the fix before closing the bug<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+                    <label for="optionA24">A) To manage project budgets.</label><br>
+                    <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+                    <label for="optionB24">B) To identify, track, and resolve issues in the software.</label><br>
+                    <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+                    <label for="optionC24">C) To create new feature requests.</label><br>
+                    <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+                    <label for="optionD24">D) To generate team performance reports.</label><br>
+                </div>
+                <div id="result24" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 26 -->
+                <div class="que">
+                    <p>26. What are Work Item Types in Azure Boards?</p>
+                    <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+                </div>
+                <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Categories that define the nature of tasks to be tracked within a project.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Work Item Types** are categories used to define the nature of tasks, such as **User Stories**, **Bugs**, **Features**, and **Tasks**, helping teams manage their work effectively.<br><br>
+                    **Key Work Item Types:**<br>
+                    1. **Epic** - Large body of work<br>
+                    2. **Feature** - Group of related user stories<br>
+                    3. **User Story** - A specific functionality from the user’s perspective<br>
+                    4. **Task** - Smaller work items to support User Stories<br>
+                    5. **Bug** - Defects in the software<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+                    <label for="optionA25">A) Templates for project management.</label><br>
+                    <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+                    <label for="optionB25">B) Tools for automated testing.</label><br>
+                    <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+                    <label for="optionC25">C) Categories that define the nature of tasks to be tracked within a project.</label><br>
+                    <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+                    <label for="optionD25">D) Software versions for deployment.</label><br>
+                </div>
+                <div id="result25" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 27 -->
+                <div class="que">
+                    <p>27. Which of the following is NOT a standard Work Item Type in Azure Boards?</p>
+                    <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+                </div>
+                <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Milestone</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Milestone** is not a standard Work Item Type in Azure Boards. The common types include **Epic**, **Feature**, **User Story**, **Task**, and **Bug**.<br><br>
+                    **Standard Work Item Types:**<br>
+                    1. **Epic**<br>
+                    2. **Feature**<br>
+                    3. **User Story**<br>
+                    4. **Task**<br>
+                    5. **Bug**<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+                    <label for="optionA26">A) Epic</label><br>
+                    <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+                    <label for="optionB26">B) Feature</label><br>
+                    <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+                    <label for="optionC26">C) User Story</label><br>
+                    <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+                    <label for="optionD26">D) Milestone</label><br>
+                </div>
+                <div id="result26" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 28 -->
+                <div class="que">
+                    <p>28. What is the primary purpose of a Bug work item in Azure Boards?</p>
+                    <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+                </div>
+                <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To track and manage software defects or issues.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    A **Bug** work item is used to track and manage software defects or issues that need to be identified, prioritized, and resolved during development.<br><br>
+                    **Bug Tracking Process:**<br>
+                    1. Log the bug with reproduction steps<br>
+                    2. Assign priority and severity<br>
+                    3. Track the status through resolution<br>
+                    4. Verify the fix before closure<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+                    <label for="optionA27">A) To create new features for the product.</label><br>
+                    <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+                    <label for="optionB27">B) To track and manage software defects or issues.</label><br>
+                    <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+                    <label for="optionC27">C) To manage team schedules.</label><br>
+                    <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+                    <label for="optionD27">D) To document business requirements.</label><br>
+                </div>
+                <div id="result27" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 29 -->
+                <div class="que">
+                    <p>29. Which Work Item Type is best suited for tracking a small, actionable task?</p>
+                    <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+                </div>
+                <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Task</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    A **Task** is the most suitable Work Item Type for tracking small, actionable items that support the completion of a User Story.<br><br>
+                    **Characteristics of Tasks:**<br>
+                    1. Granular level of work<br>
+                    2. Assigned to individual team members<br>
+                    3. Helps track progress of specific activities<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+                    <label for="optionA28">A) Epic</label><br>
+                    <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+                    <label for="optionB28">B) Feature</label><br>
+                    <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+                    <label for="optionC28">C) User Story</label><br>
+                    <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+                    <label for="optionD28">D) Task</label><br>
+                </div>
+                <div id="result28" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 30 -->
+                <div class="que">
+                    <p>30. What is the key difference between a Feature and a User Story in Azure Boards?</p>
+                    <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+                </div>
+                <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) A Feature is a larger body of work, while a User Story represents a specific functionality.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    A **Feature** is a collection of related **User Stories** that together deliver a specific functionality. A **User Story** describes an individual piece of functionality from the user’s perspective.<br><br>
+                    **Hierarchy:**<br>
+                    1. **Epic** (high-level objective) → **Feature** (major functionality) → **User Story** (specific user need)<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+                    <label for="optionA29">A) A Feature is a larger body of work, while a User Story represents a specific functionality.</label><br>
+                    <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+                    <label for="optionB29">B) A User Story is a project management tool, while a Feature is a coding task.</label><br>
+                    <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+                    <label for="optionC29">C) They are interchangeable in Azure Boards.</label><br>
+                    <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+                    <label for="optionD29">D) A Feature is used only for bugs, while a User Story is for features.</label><br>
+                </div>
+                <div id="result29" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 31 -->
+                <div class="que">
+                    <p>31. What is the purpose of Queries in Azure Boards?</p>
+                    <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+                </div>
+                <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) To filter, sort, and view work items based on specific criteria.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Queries** in Azure Boards allow teams to filter, sort, and view work items based on criteria like **state**, **assigned user**, **area path**, and more.<br><br>
+                    **Key Features of Queries:**<br>
+                    1. Custom filters for specific needs<br>
+                    2. Save and share queries with the team<br>
+                    3. Support for flat or tree-style queries<br>
+                    4. Integration with dashboards for real-time tracking<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+                    <label for="optionA30">A) To create new work items automatically.</label><br>
+                    <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+                    <label for="optionB30">B) To manage project budgets and expenses.</label><br>
+                    <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+                    <label for="optionC30">C) To filter, sort, and view work items based on specific criteria.</label><br>
+                    <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+                    <label for="optionD30">D) To manage team permissions and access.</label><br>
+                </div>
+                <div id="result30" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 32 -->
+                <div class="que">
+                    <p>32. Which of the following is a valid type of query in Azure Boards?</p>
+                    <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+                </div>
+                <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Flat List Query</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Azure Boards supports different query types such as **Flat List**, **Tree of Work Items**, and **Direct Links**.<br><br>
+                    **Key Query Types:**<br>
+                    1. **Flat List** - Displays work items in a simple list.<br>
+                    2. **Tree of Work Items** - Shows parent-child relationships.<br>
+                    3. **Direct Links** - Displays items linked to a specific work item.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+                    <label for="optionA31">A) Flat List Query</label><br>
+                    <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+                    <label for="optionB31">B) Code Review Query</label><br>
+                    <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+                    <label for="optionC31">C) Budget Allocation Query</label><br>
+                    <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+                    <label for="optionD31">D) Team Performance Query</label><br>
+                </div>
+                <div id="result31" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 33 -->
+                <div class="que">
+                    <p>33. What is the difference between a Flat Query and a Tree Query in Azure Boards?</p>
+                    <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+                </div>
+                <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) A Flat Query shows a simple list, while a Tree Query displays items with parent-child relationships.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    - A **Flat Query** displays work items in a simple, flat list without hierarchy.<br>
+                    - A **Tree Query** shows work items in a hierarchical structure, displaying parent-child relationships.<br><br>
+                    **Use Cases:**<br>
+                    - Flat Query: View all bugs assigned to a team member.<br>
+                    - Tree Query: View user stories along with their tasks.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+                    <label for="optionA32">A) A Flat Query shows data in a table, while a Tree Query shows charts.</label><br>
+                    <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+                    <label for="optionB32">B) A Flat Query filters work items based on dates, while a Tree Query does not.</label><br>
+                    <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+                    <label for="optionC32">C) A Flat Query shows a simple list, while a Tree Query displays items with parent-child relationships.</label><br>
+                    <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+                    <label for="optionD32">D) A Flat Query supports dynamic filters, while a Tree Query only shows static data.</label><br>
+                </div>
+                <div id="result32" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 34 -->
+                <div class="que">
+                    <p>34. How can you save a query for future use in Azure Boards?</p>
+                    <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+                </div>
+                <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Click the "Save Query" option and provide a name.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    You can save queries in Azure Boards to access them easily later.<br><br>
+                    **Steps to Save a Query:**<br>
+                    1. Create or modify a query.<br>
+                    2. Click the **"Save Query"** button.<br>
+                    3. Enter a name and choose a folder (optional).<br>
+                    4. Click **"OK"** to save.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+                    <label for="optionA33">A) Export the query as a CSV file.</label><br>
+                    <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+                    <label for="optionB33">B) Click the "Save Query" option and provide a name.</label><br>
+                    <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+                    <label for="optionC33">C) Add the query to your dashboard.</label><br>
+                    <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+                    <label for="optionD33">D) Use the "Share Query" option to save it.</label><br>
+                </div>
+                <div id="result33" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 35 -->
+                <div class="que">
+                    <p>35. Which of the following operators can be used in Azure Board Queries to filter work items?</p>
+                    <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+                </div>
+                <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) =, <>, >, <, and IN</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Azure Board Queries support operators like **=**, **<>** (not equal), **>**, **<**, **IN**, and more to filter work items.<br><br>
+                    **Example:**<br>
+                    - `State = "Active"` filters items that are currently active.<br>
+                    - `Assigned To IN (User1, User2)` filters items assigned to specific users.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+                    <label for="optionA34">A) AND, OR, NOT</label><br>
+                    <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+                    <label for="optionB34">B) IS NULL, IS NOT NULL</label><br>
+                    <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+                    <label for="optionC34">C) LIKE, BETWEEN</label><br>
+                    <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+                    <label for="optionD34">D) =, <>, >, <, and IN</label><br>
+                </div>
+                <div id="result34" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 36 -->
+                <div class="que">
+                    <p>36. What is the purpose of Dashboards in Azure Boards?</p>
+                    <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+                </div>
+                <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To provide a visual representation of project data and metrics.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    **Dashboards** in Azure Boards offer a customizable, visual representation of project data, helping teams track progress, monitor key metrics, and manage work effectively.<br><br>
+                    **Key Features of Dashboards:**<br>
+                    1. Customizable widgets for charts, graphs, and data.<br>
+                    2. Real-time updates on project status.<br>
+                    3. Easy sharing with team members.<br>
+                    4. Supports multiple dashboards for different roles.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+                    <label for="optionA35">A) To provide a visual representation of project data and metrics.</label><br>
+                    <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+                    <label for="optionB35">B) To create work items automatically.</label><br>
+                    <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+                    <label for="optionC35">C) To manage team permissions and roles.</label><br>
+                    <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+                    <label for="optionD35">D) To configure email notifications for work items.</label><br>
+                </div>
+                <div id="result35" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 37 -->
+                <div class="que">
+                    <p>37. Which of the following is a common widget used in Azure Dashboards?</p>
+                    <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+                </div>
+                <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Chart Widget</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Azure Dashboards support various widgets to visualize data, such as **charts**, **grids**, **query tiles**, and **pie charts**.<br><br>
+                    **Common Widgets:**<br>
+                    1. **Chart Widget** - Displays bar, line, or pie charts.<br>
+                    2. **Query Tile** - Shows results from saved queries.<br>
+                    3. **Markdown Widget** - Displays custom notes or instructions.<br>
+                    4. **Build Summary** - Shows build pipeline statuses.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+                    <label for="optionA36">A) Code Review Widget</label><br>
+                    <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+                    <label for="optionB36">B) Chart Widget</label><br>
+                    <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+                    <label for="optionC36">C) Budget Tracker Widget</label><br>
+                    <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+                    <label for="optionD36">D) Time Tracking Widget</label><br>
+                </div>
+                <div id="result36" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 38 -->
+                <div class="que">
+                    <p>38. How can you customize a dashboard in Azure Boards?</p>
+                    <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+                </div>
+                <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Add, remove, and configure widgets according to your needs.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Dashboards in Azure Boards are highly customizable.<br><br>
+                    **Customization Options:**<br>
+                    1. **Add Widgets** - Choose from various widgets like charts, grids, and markdown.<br>
+                    2. **Rearrange Widgets** - Drag and drop widgets to organize layout.<br>
+                    3. **Configure Widgets** - Adjust settings like data sources, filters, and display styles.<br>
+                    4. **Remove Widgets** - Delete widgets you no longer need.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+                    <label for="optionA37">A) Only add new work items directly to the dashboard.</label><br>
+                    <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+                    <label for="optionB37">B) Customize dashboards using project settings only.</label><br>
+                    <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+                    <label for="optionC37">C) Dashboards cannot be customized after creation.</label><br>
+                    <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+                    <label for="optionD37">D) Add, remove, and configure widgets according to your needs.</label><br>
+                </div>
+                <div id="result37" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 39 -->
+                <div class="que">
+                    <p>39. Which of the following is true about dashboard sharing in Azure Boards?</p>
+                    <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+                </div>
+                <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Dashboards can be shared with specific users or teams within the project.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Azure Boards allows you to share dashboards with other users or teams.<br><br>
+                    **Sharing Options:**<br>
+                    1. **Private Dashboard** - Visible only to the creator.<br>
+                    2. **Project Dashboard** - Shared with all users in the project.<br>
+                    3. **Team Dashboard** - Restricted to specific teams.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+                    <label for="optionA38">A) Dashboards can be shared with specific users or teams within the project.</label><br>
+                    <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+                    <label for="optionB38">B) Dashboards are public and accessible to anyone online.</label><br>
+                    <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+                    <label for="optionC38">C) Dashboards can only be shared with administrators.</label><br>
+                    <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+                    <label for="optionD38">D) Dashboards cannot be shared under any circumstances.</label><br>
+                </div>
+                <div id="result38" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 40 -->
+                <div class="que">
+                    <p>40. How do you add a new widget to an Azure Dashboard?</p>
+                    <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+                </div>
+                <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Click the "Add Widget" button and select the desired widget.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Adding a widget to an Azure Dashboard is simple:<br><br>
+                    **Steps:**<br>
+                    1. Open the dashboard.<br>
+                    2. Click **"Add Widget"**.<br>
+                    3. Choose from the widget gallery (chart, query tile, markdown, etc.).<br>
+                    4. Configure the widget settings.<br>
+                    5. Save the changes.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+                    <label for="optionA39">A) Add widgets through the Azure CLI only.</label><br>
+                    <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+                    <label for="optionB39">B) Click the "Add Widget" button and select the desired widget.</label><br>
+                    <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+                    <label for="optionC39">C) Widgets can only be added via REST API.</label><br>
+                    <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+                    <label for="optionD39">D) Dashboards do not support adding widgets.</label><br>
+                </div>
+                <div id="result39" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 41 -->
+                <div class="que">
+                    <p>41. What is the primary purpose of customizing boards in Azure Boards?</p>
+                    <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+                </div>
+                <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To tailor the board view according to team needs and workflows.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Customizing boards allows teams to modify the layout, columns, and work item types to align with their specific workflows and processes.<br><br>
+                    **Key Customization Options:**<br>
+                    1. **Column Configuration** - Add, remove, or rename columns.<br>
+                    2. **Swimlanes** - Organize work items horizontally for different priorities.<br>
+                    3. **Card Styles** - Customize card appearance with rules.<br>
+                    4. **Filters** - Apply filters to display specific work items.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+                    <label for="optionA40">A) To tailor the board view according to team needs and workflows.</label><br>
+                    <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+                    <label for="optionB40">B) To limit access to specific team members only.</label><br>
+                    <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+                    <label for="optionC40">C) To automatically generate reports without user input.</label><br>
+                    <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+                    <label for="optionD40">D) To restrict boards to specific project types only.</label><br>
+                </div>
+                <div id="result40" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 42 -->
+                <div class="que">
+                    <p>42. Which of the following can be customized in an Azure Board?</p>
+                    <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+                </div>
+                <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Columns, card styles, and filters.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Azure Boards offers flexibility to customize various aspects, enhancing productivity and alignment with team requirements.<br><br>
+                    **Customizable Elements:**<br>
+                    1. **Columns** - Adjust the workflow stages.<br>
+                    2. **Card Styles** - Modify colors, fields, and layout.<br>
+                    3. **Filters** - Apply conditions to show relevant work items.<br>
+                    4. **Swimlanes** - Organize items horizontally.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+                    <label for="optionA41">A) Only the board background color.</label><br>
+                    <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+                    <label for="optionB41">B) Only the number of team members.</label><br>
+                    <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+                    <label for="optionC41">C) Only the work item types displayed.</label><br>
+                    <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+                    <label for="optionD41">D) Columns, card styles, and filters.</label><br>
+                </div>
+                <div id="result41" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 43 -->
+                <div class="que">
+                    <p>43. How can you modify the columns in an Azure Board?</p>
+                    <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+                </div>
+                <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Use the "Board Settings" option to add, remove, or rename columns.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Modifying columns helps teams reflect their unique workflows accurately.<br><br>
+                    **Steps to Modify Columns:**<br>
+                    1. Click on the gear icon ⚙️ (Board Settings).<br>
+                    2. Select **"Columns"**.<br>
+                    3. Add, remove, or rename columns as needed.<br>
+                    4. Save changes to update the board layout.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+                    <label for="optionA42">A) Use the "Board Settings" option to add, remove, or rename columns.</label><br>
+                    <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+                    <label for="optionB42">B) Modify columns only via the Azure CLI.</label><br>
+                    <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+                    <label for="optionC42">C) Columns cannot be modified once the board is created.</label><br>
+                    <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+                    <label for="optionD42">D) Only administrators can modify columns in boards.</label><br>
+                </div>
+                <div id="result42" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 44 -->
+                <div class="que">
+                    <p>44. What is the function of swimlanes in Azure Boards?</p>
+                    <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+                </div>
+                <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To organize work items horizontally based on criteria like priority or team.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    **Swimlanes** help teams categorize and manage work items effectively within the same board.<br><br>
+                    **Use Cases:**<br>
+                    1. **Priority Levels** - High, Medium, Low.<br>
+                    2. **Teams/Departments** - Separate lanes for different teams.<br>
+                    3. **Work Types** - Bugs, features, tasks, etc.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+                    <label for="optionA43">A) To apply security restrictions on work items.</label><br>
+                    <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+                    <label for="optionB43">B) To organize work items horizontally based on criteria like priority or team.</label><br>
+                    <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+                    <label for="optionC43">C) To limit the number of work items displayed per board.</label><br>
+                    <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+                    <label for="optionD43">D) To create automated workflows for approval processes.</label><br>
+                </div>
+                <div id="result43" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 45 -->
+                <div class="que">
+                    <p>45. How can you apply a custom card style in Azure Boards?</p>
+                    <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+                </div>
+                <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Use the "Card Styles" settings in Board Settings to create custom rules.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Customizing card styles helps highlight important information visually.<br><br>
+                    **Steps:**<br>
+                    1. Go to **Board Settings**.<br>
+                    2. Select **"Card Styles"**.<br>
+                    3. Add rules based on fields (e.g., priority, state).<br>
+                    4. Customize colors, icons, and text.<br>
+                    5. Save changes to apply the new style.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+                    <label for="optionA44">A) Only administrators can set custom card styles.</label><br>
+                    <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+                    <label for="optionB44">B) Custom card styles are applied through Azure CLI commands.</label><br>
+                    <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+                    <label for="optionC44">C) Use the "Card Styles" settings in Board Settings to create custom rules.</label><br>
+                    <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+                    <label for="optionD44">D) Card styles cannot be customized in Azure Boards.</label><br>
+                </div>
+                <div id="result44" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 46 -->
+                <div class="que">
+                    <p>46. What is the primary purpose of using rules and automation in Azure Boards?</p>
+                    <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+                </div>
+                <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To streamline workflows by automating repetitive tasks.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Rules and automation help reduce manual effort by triggering actions automatically based on specific conditions.<br><br>
+                    **Common Automation Scenarios:**<br>
+                    1. **Auto-assigning Work Items** - Based on area path or work item type.<br>
+                    2. **State Transitions** - Automatically moving items to different states.<br>
+                    3. **Email Notifications** - Sending alerts when a work item changes.<br>
+                    4. **Field Updates** - Automatically updating fields based on conditions.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+                    <label for="optionA45">A) To streamline workflows by automating repetitive tasks.</label><br>
+                    <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+                    <label for="optionB45">B) To restrict access to specific boards.</label><br>
+                    <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+                    <label for="optionC45">C) To manually track progress of work items.</label><br>
+                    <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+                    <label for="optionD45">D) To create new projects automatically without user input.</label><br>
+                </div>
+                <div id="result45" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 47 -->
+                <div class="que">
+                    <p>47. Which of the following is a valid trigger for a rule in Azure Boards?</p>
+                    <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+                </div>
+                <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) When a work item is updated.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Triggers are events that initiate automation rules. They help automate responses to changes in work items.<br><br>
+                    **Common Triggers:**<br>
+                    1. **Work Item Created** - Trigger when a new item is added.<br>
+                    2. **Work Item Updated** - Trigger when an item is modified.<br>
+                    3. **State Changed** - Trigger when an item moves to a different state.<br>
+                    4. **Work Item Deleted** - Trigger when an item is removed.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+                    <label for="optionA46">A) When a user logs into Azure DevOps.</label><br>
+                    <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+                    <label for="optionB46">B) When a work item is updated.</label><br>
+                    <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+                    <label for="optionC46">C) When a project is created.</label><br>
+                    <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+                    <label for="optionD46">D) When an Azure subscription expires.</label><br>
+                </div>
+                <div id="result46" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 48 -->
+                <div class="que">
+                    <p>48. How can you create an automation rule in Azure Boards?</p>
+                    <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+                </div>
+                <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) By accessing Board Settings and selecting "Rules" to define conditions and actions.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Automation rules can be easily set up to manage repetitive tasks and maintain workflow consistency.<br><br>
+                    **Steps to Create a Rule:**<br>
+                    1. Open the **Board Settings**.<br>
+                    2. Select **"Rules"**.<br>
+                    3. Click **"New Rule"**.<br>
+                    4. Define the trigger, conditions, and actions.<br>
+                    5. Save the rule to activate it.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+                    <label for="optionA47">A) By accessing Board Settings and selecting "Rules" to define conditions and actions.</label><br>
+                    <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+                    <label for="optionB47">B) Only through the Azure CLI.</label><br>
+                    <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+                    <label for="optionC47">C) By editing the project’s source code directly.</label><br>
+                    <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+                    <label for="optionD47">D) Rules can’t be created in Azure Boards.</label><br>
+                </div>
+                <div id="result47" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 49 -->
+                <div class="que">
+                    <p>49. What happens when a rule’s condition is met in Azure Boards?</p>
+                    <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+                </div>
+                <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) The defined action(s) are automatically executed.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    When conditions are satisfied, the corresponding actions are triggered without manual intervention.<br><br>
+                    **Example:**<br>
+                    - **Condition:** If the priority is set to "High".<br>
+                    - **Action:** Automatically assign the work item to a specific team member.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+                    <label for="optionA48">A) An error message is displayed.</label><br>
+                    <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+                    <label for="optionB48">B) The work item is deleted automatically.</label><br>
+                    <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+                    <label for="optionC48">C) The defined action(s) are automatically executed.</label><br>
+                    <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+                    <label for="optionD48">D) The work item moves to a "Pending Review" state.</label><br>
+                </div>
+                <div id="result48" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 50 -->
+                <div class="que">
+                    <p>50. Which of the following is an example of an action in Azure Board automation rules?</p>
+                    <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+                </div>
+                <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Assigning a work item to a specific user.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Actions define what happens when a rule is triggered.<br><br>
+                    **Common Actions:**<br>
+                    1. **Assign Work Items** - Automatically assign to users.<br>
+                    2. **Send Notifications** - Trigger email alerts.<br>
+                    3. **Change State** - Move items to different states.<br>
+                    4. **Update Fields** - Modify field values automatically.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+                    <label for="optionA49">A) Deleting the entire project.</label><br>
+                    <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+                    <label for="optionB49">B) Assigning a work item to a specific user.</label><br>
+                    <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+                    <label for="optionC49">C) Removing a user from Azure DevOps.</label><br>
+                    <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+                    <label for="optionD49">D) Changing the Azure subscription settings.</label><br>
+                </div>
+                <div id="result49" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 51 -->
+                <div class="que">
+                    <p>51. What is the purpose of using Area Paths in Azure Boards?</p>
+                    <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+                </div>
+                <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To categorize and organize work items based on different teams or features.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Area Paths help structure work items by grouping them under specific categories like teams, projects, or features.<br><br>
+                    **Common Uses:**<br>
+                    1. **Team Assignment:** Assign work items to specific teams.<br>
+                    2. **Feature Segmentation:** Organize items based on features or components.<br>
+                    3. **Reporting:** Filter work items for analytics and reporting.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+                    <label for="optionA50">A) To categorize and organize work items based on different teams or features.</label><br>
+                    <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+                    <label for="optionB50">B) To define the workflow of a project.</label><br>
+                    <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+                    <label for="optionC50">C) To create automatic rules for work items.</label><br>
+                    <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+                    <label for="optionD50">D) To assign work items to specific users.</label><br>
+                </div>
+                <div id="result50" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 52 -->
+                <div class="que">
+                    <p>52. How do Iteration Paths help in managing work in Azure Boards?</p>
+                    <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+                </div>
+                <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) They define timeframes for work items, helping in sprint planning and tracking.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Iteration Paths are used to structure work based on timeframes, such as sprints or iterations.<br><br>
+                    **Key Benefits:**<br>
+                    1. **Sprint Planning:** Assign work items to specific sprints.<br>
+                    2. **Progress Tracking:** Monitor work completed within each iteration.<br>
+                    3. **Burndown Charts:** Generate reports to visualize sprint progress.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+                    <label for="optionA51">A) To categorize work items based on team responsibilities.</label><br>
+                    <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+                    <label for="optionB51">B) They define timeframes for work items, helping in sprint planning and tracking.</label><br>
+                    <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+                    <label for="optionC51">C) To create automatic rules for work item updates.</label><br>
+                    <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+                    <label for="optionD51">D) To assign work items to specific project managers.</label><br>
+                </div>
+                <div id="result51" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 53 -->
+                <div class="que">
+                    <p>53. What is the difference between Area Paths and Iteration Paths?</p>
+                    <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+                </div>
+                <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Area Paths categorize work items, while Iteration Paths define timeframes.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    - **Area Paths:** Organize work items based on teams, features, or components.<br>
+                    - **Iteration Paths:** Structure work items by timeframes, such as sprints or milestones.<br><br>
+                    **Example:**<br>
+                    - **Area Path:** "Frontend Team" or "Authentication Module".<br>
+                    - **Iteration Path:** "Sprint 1", "Sprint 2", "Release 2023-Q2".<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+                    <label for="optionA52">A) Area Paths are for reporting, Iteration Paths are for user permissions.</label><br>
+                    <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+                    <label for="optionB52">B) Area Paths are used for sprint planning, Iteration Paths are for project budgeting.</label><br>
+                    <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+                    <label for="optionC52">C) Area Paths categorize work items, while Iteration Paths define timeframes.</label><br>
+                    <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+                    <label for="optionD52">D) There is no difference between Area Paths and Iteration Paths.</label><br>
+                </div>
+                <div id="result52" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 54 -->
+                <div class="que">
+                    <p>54. How can you use Area Paths to improve project management?</p>
+                    <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+                </div>
+                <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) By segmenting work based on teams, features, or components.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Area Paths help project managers allocate work, track progress, and analyze performance based on logical divisions within the project.<br><br>
+                    **Benefits:**<br>
+                    1. **Team-Based Work Distribution:** Assign tasks to relevant teams.<br>
+                    2. **Feature Tracking:** Monitor development progress by feature.<br>
+                    3. **Granular Reporting:** Generate detailed reports for specific areas.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+                    <label for="optionA53">A) By segmenting work based on teams, features, or components.</label><br>
+                    <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+                    <label for="optionB53">B) By automatically assigning all tasks to the project manager.</label><br>
+                    <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+                    <label for="optionC53">C) By eliminating the need for iteration planning.</label><br>
+                    <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+                    <label for="optionD53">D) By reducing the number of users in the project.</label><br>
+                </div>
+                <div id="result53" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 55 -->
+                <div class="que">
+                    <p>55. What type of hierarchy do Area Paths follow in Azure Boards?</p>
+                    <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+                </div>
+                <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Hierarchical structure with parent and child areas.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Area Paths are organized hierarchically, allowing you to create parent-child relationships between different areas.<br><br>
+                    **Example:**<br>
+                    - **Parent Area:** "Project A"<br>
+                    - **Child Areas:** "Frontend", "Backend", "Database"<br><br>
+                    This structure helps in detailed tracking and reporting based on different components.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+                    <label for="optionA54">A) Flat structure with no hierarchy.</label><br>
+                    <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+                    <label for="optionB54">B) Linear sequence from start to end.</label><br>
+                    <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+                    <label for="optionC54">C) Random grouping of work items.</label><br>
+                    <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+                    <label for="optionD54">D) Hierarchical structure with parent and child areas.</label><br>
+                </div>
+                <div id="result54" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 56 -->
+                <div class="que">
+                    <p>56. What is the purpose of notifications in Azure Boards?</p>
+                    <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+                </div>
+                <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To keep users informed about changes to work items or projects.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Notifications alert users about important changes such as updates, assignments, comments, or state transitions in work items.<br><br>
+                    **Common Scenarios:**<br>
+                    1. **Work Item Updates:** Notify when a task is updated.<br>
+                    2. **Assignments:** Alert when a user is assigned a new work item.<br>
+                    3. **Project Changes:** Notify about project or repository changes.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+                    <label for="optionA55">A) To keep users informed about changes to work items or projects.</label><br>
+                    <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+                    <label for="optionB55">B) To automatically delete work items after completion.</label><br>
+                    <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+                    <label for="optionC55">C) To restrict access to specific users.</label><br>
+                    <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+                    <label for="optionD55">D) To create automatic reports for project managers.</label><br>
+                </div>
+                <div id="result55" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 57 -->
+                <div class="que">
+                    <p>57. Which of the following is a common trigger for alerts in Azure Boards?</p>
+                    <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+                </div>
+                <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) When a work item changes its state or is assigned to a new user.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Alerts are triggered based on specific events or conditions, such as updates to work item fields, state changes, or new assignments.<br><br>
+                    **Example Triggers:**<br>
+                    1. **State Change:** Moving from "In Progress" to "Done".<br>
+                    2. **Assignment:** When a new work item is assigned.<br>
+                    3. **Custom Criteria:** Based on specific field values or conditions.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+                    <label for="optionA56">A) When a user logs into Azure DevOps.</label><br>
+                    <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+                    <label for="optionB56">B) When a work item changes its state or is assigned to a new user.</label><br>
+                    <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+                    <label for="optionC56">C) When a project is created in Azure DevOps.</label><br>
+                    <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+                    <label for="optionD56">D) When a user changes their profile picture.</label><br>
+                </div>
+                <div id="result56" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 58 -->
+                <div class="que">
+                    <p>58. How can you configure alerts in Azure Boards?</p>
+                    <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+                </div>
+                <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By setting up notification subscriptions for specific events.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Alerts are configured through **notification subscriptions**, which define the criteria and recipients for alerts.<br><br>
+                    **Steps to Configure:**<br>
+                    1. Go to **Project Settings** > **Notifications**.<br>
+                    2. Create a new subscription.<br>
+                    3. Define the trigger event (e.g., work item update).<br>
+                    4. Set conditions and recipients (e.g., email, Teams).<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+                    <label for="optionA57">A) By editing the project’s source code.</label><br>
+                    <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+                    <label for="optionB57">B) By changing the Azure subscription settings.</label><br>
+                    <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+                    <label for="optionC57">C) By setting up notification subscriptions for specific events.</label><br>
+                    <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+                    <label for="optionD57">D) By installing third-party plugins.</label><br>
+                </div>
+                <div id="result57" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 59 -->
+                <div class="que">
+                    <p>59. Which of the following is NOT a notification type in Azure Boards?</p>
+                    <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+                </div>
+                <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Voice calls to project managers.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Azure Boards supports notifications via **email, Teams, or webhooks** but does not support voice calls as a native notification method.<br><br>
+                    **Common Notification Types:**<br>
+                    1. **Email Notifications:** Alerts sent via email.<br>
+                    2. **Microsoft Teams:** Integrated with Teams for quick updates.<br>
+                    3. **Webhooks:** For external systems to trigger actions.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+                    <label for="optionA58">A) Email notifications for work item updates.</label><br>
+                    <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+                    <label for="optionB58">B) Microsoft Teams alerts for project activities.</label><br>
+                    <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+                    <label for="optionC58">C) Webhook triggers for third-party applications.</label><br>
+                    <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+                    <label for="optionD58">D) Voice calls to project managers.</label><br>
+                </div>
+                <div id="result58" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 60 -->
+                <div class="que">
+                    <p>60. How can you customize notifications in Azure Boards?</p>
+                    <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+                </div>
+                <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By modifying notification subscriptions and rules.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Customization is done through **notification subscriptions**, where you can set filters, recipients, and conditions based on project needs.<br><br>
+                    **Customization Options:**<br>
+                    1. **Event Triggers:** Select specific events (e.g., state changes).<br>
+                    2. **Recipient Rules:** Choose who receives notifications.<br>
+                    3. **Conditions:** Apply custom conditions to narrow down notifications.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+                    <label for="optionA59">A) By changing the Azure subscription plan.</label><br>
+                    <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+                    <label for="optionB59">B) By modifying notification subscriptions and rules.</label><br>
+                    <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+                    <label for="optionC59">C) By creating new project boards.</label><br>
+                    <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+                    <label for="optionD59">D) By adding custom themes to the dashboard.</label><br>
+                </div>
+                <div id="result59" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 61 -->
+                <div class="que">
+                    <p>61. What is the purpose of integrating Azure Boards with Azure Repos?</p>
+                    <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+                </div>
+                <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To link work items with code changes for better traceability.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Integrating Azure Boards with Azure Repos helps track code changes directly linked to work items, ensuring seamless traceability from requirements to implementation.<br><br>
+                    **Benefits:**<br>
+                    1. **Traceability:** See which code commits relate to specific tasks.<br>
+                    2. **Collaboration:** Developers and project managers stay aligned.<br>
+                    3. **Automation:** Trigger builds and deployments based on work item status.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+                    <label for="optionA60">A) To link work items with code changes for better traceability.</label><br>
+                    <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+                    <label for="optionB60">B) To create automated code reviews without human intervention.</label><br>
+                    <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+                    <label for="optionC60">C) To generate code snippets automatically for documentation.</label><br>
+                    <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+                    <label for="optionD60">D) To restrict access to repositories based on user roles.</label><br>
+                </div>
+                <div id="result60" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 62 -->
+                <div class="que">
+                    <p>62. How does Azure Pipelines enhance the CI/CD process?</p>
+                    <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+                </div>
+                <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) By automating the build, test, and deployment processes.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Azure Pipelines automates the entire CI/CD lifecycle, enabling continuous integration (CI) and continuous deployment (CD) for faster and more reliable software delivery.<br><br>
+                    **Key Features:**<br>
+                    1. **Build Automation:** Automatically build code after changes.<br>
+                    2. **Test Automation:** Run unit, integration, and UI tests.<br>
+                    3. **Deployment Automation:** Deploy applications to multiple environments automatically.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+                    <label for="optionA61">A) By manually reviewing each code commit before deployment.</label><br>
+                    <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+                    <label for="optionB61">B) By automating the build, test, and deployment processes.</label><br>
+                    <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+                    <label for="optionC61">C) By replacing the need for source control management.</label><br>
+                    <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+                    <label for="optionD61">D) By allowing manual deployments only when needed.</label><br>
+                </div>
+                <div id="result61" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 63 -->
+                <div class="que">
+                    <p>63. Which of the following is a key benefit of using Azure Pipelines?</p>
+                    <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+                </div>
+                <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Faster and more reliable software delivery through automation.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Azure Pipelines improve software delivery speed and reliability by automating build, test, and deployment tasks.<br><br>
+                    **Benefits:**<br>
+                    1. **Speed:** Reduce manual work and deployment time.<br>
+                    2. **Consistency:** Automated processes reduce human error.<br>
+                    3. **Scalability:** Deploy to multiple environments seamlessly.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+                    <label for="optionA62">A) Limited deployment options for specific platforms.</label><br>
+                    <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+                    <label for="optionB62">B) Manual code reviews before every deployment.</label><br>
+                    <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+                    <label for="optionC62">C) Faster and more reliable software delivery through automation.</label><br>
+                    <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+                    <label for="optionD62">D) Manual error tracking for each release.</label><br>
+                </div>
+                <div id="result62" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 64 -->
+                <div class="que">
+                    <p>64. How can Azure Pipelines integrate with Azure Boards?</p>
+                    <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+                </div>
+                <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) By linking pipeline runs to work items using commit messages or build triggers.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Azure Pipelines can link build and release pipelines to Azure Boards by using commit messages, build triggers, or work item updates.<br><br>
+                    **Integration Methods:**<br>
+                    1. **Commit Messages:** Reference work items using `#ID` in commit messages.<br>
+                    2. **Build Triggers:** Trigger builds based on work item changes.<br>
+                    3. **Automated Updates:** Update work item status automatically after build completion.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+                    <label for="optionA63">A) By creating separate projects for each service.</label><br>
+                    <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+                    <label for="optionB63">B) By using manual deployment only.</label><br>
+                    <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+                    <label for="optionC63">C) By disabling all work item tracking features.</label><br>
+                    <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+                    <label for="optionD63">D) By linking pipeline runs to work items using commit messages or build triggers.</label><br>
+                </div>
+                <div id="result63" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 65 -->
+                <div class="que">
+                    <p>65. Which of the following is NOT a feature of Azure Pipelines?</p>
+                    <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+                </div>
+                <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Manual deployment without automation.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Azure Pipelines is designed for automation. While manual steps can be part of a pipeline, its core feature is automation for builds, tests, and deployments.<br><br>
+                    **Key Features:**<br>
+                    1. **Continuous Integration and Continuous Deployment (CI/CD).**<br>
+                    2. **Automated Testing and Validation.**<br>
+                    3. **Multi-environment Deployment.**<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+                    <label for="optionA64">A) Supports multi-platform builds and deployments.</label><br>
+                    <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+                    <label for="optionB64">B) Manual deployment without automation.</label><br>
+                    <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+                    <label for="optionC64">C) Integration with multiple source control systems.</label><br>
+                    <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+                    <label for="optionD64">D) Automated testing as part of the CI/CD process.</label><br>
+                </div>
+                <div id="result64" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 66 -->
+                <div class="que">
+                    <p>66. Which of the following is a key principle of security in Azure Boards?</p>
+                    <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+                </div>
+                <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Least Privilege Access</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The principle of **Least Privilege Access** ensures that users have only the minimum permissions necessary to perform their tasks, reducing security risks.<br><br>
+                    **Key Aspects:**<br>
+                    1. **Role-Based Permissions:** Assign roles based on job responsibilities.<br>
+                    2. **Regular Reviews:** Periodically review access rights.<br>
+                    3. **Audit Logs:** Monitor activities for suspicious behavior.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+                    <label for="optionA65">A) Data Encryption</label><br>
+                    <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+                    <label for="optionB65">B) Multi-Factor Authentication</label><br>
+                    <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+                    <label for="optionC65">C) Password Complexity</label><br>
+                    <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+                    <label for="optionD65">D) Least Privilege Access</label><br>
+                </div>
+                <div id="result65" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 67 -->
+                <div class="que">
+                    <p>67. What is the purpose of access control lists (ACLs) in Azure Boards?</p>
+                    <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+                </div>
+                <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To define permissions for users and groups on resources.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    ACLs manage permissions for users and groups on specific resources within Azure Boards, providing granular control over access.<br><br>
+                    **Features:**<br>
+                    1. **Granular Control:** Set permissions for individual users or groups.<br>
+                    2. **Resource-Specific:** Apply ACLs to boards, backlogs, or repositories.<br>
+                    3. **Security Auditing:** Track access changes and monitor activity.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+                    <label for="optionA66">A) To define permissions for users and groups on resources.</label><br>
+                    <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+                    <label for="optionB66">B) To encrypt data in transit.</label><br>
+                    <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+                    <label for="optionC66">C) To manage network traffic.</label><br>
+                    <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+                    <label for="optionD66">D) To configure email notifications.</label><br>
+                </div>
+                <div id="result66" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 68 -->
+                <div class="que">
+                    <p>68. Which security feature in Azure Boards helps prevent unauthorized access?</p>
+                    <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+                </div>
+                <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Multi-Factor Authentication (MFA)</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    **Multi-Factor Authentication (MFA)** adds an extra layer of security by requiring users to provide two or more verification methods to access Azure Boards.<br><br>
+                    **Benefits:**<br>
+                    1. **Enhanced Security:** Reduces risk of credential theft.<br>
+                    2. **Flexible Methods:** Supports SMS, email, authentication apps.<br>
+                    3. **Compliance:** Meets regulatory security standards.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+                    <label for="optionA67">A) VPN Connections</label><br>
+                    <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+                    <label for="optionB67">B) Multi-Factor Authentication (MFA)</label><br>
+                    <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+                    <label for="optionC67">C) Data Backup</label><br>
+                    <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+                    <label for="optionD67">D) Network Load Balancer</label><br>
+                </div>
+                <div id="result67" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 69 -->
+                <div class="que">
+                    <p>69. Which of the following roles can view project data without making any changes?</p>
+                    <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+                </div>
+                <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Reader</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The **Reader** role allows users to view project data without modifying any settings or work items, ideal for stakeholders or auditors.<br><br>
+                    **Key Features:**<br>
+                    1. **View-Only Access:** No editing or deleting permissions.<br>
+                    2. **Audit Purposes:** Suitable for compliance tracking.<br>
+                    3. **Limited Scope:** Restricted to specific boards or reports.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+                    <label for="optionA68">A) Contributor</label><br>
+                    <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+                    <label for="optionB68">B) Project Administrator</label><br>
+                    <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+                    <label for="optionC68">C) Reader</label><br>
+                    <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+                    <label for="optionD68">D) Stakeholder</label><br>
+                </div>
+                <div id="result68" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 70 -->
+                <div class="que">
+                    <p>70. What type of security policy can be applied to restrict access based on location?</p>
+                    <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+                </div>
+                <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Conditional Access Policies</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    **Conditional Access Policies** allow administrators to set rules for restricting access based on conditions like location, device type, or risk level.<br><br>
+                    **Examples:**<br>
+                    1. **Geo-Blocking:** Deny access from specific regions.<br>
+                    2. **Device Compliance:** Allow access only from compliant devices.<br>
+                    3. **Time-Based Access:** Restrict access during specific hours.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+                    <label for="optionA69">A) Role-Based Access Control (RBAC)</label><br>
+                    <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+                    <label for="optionB69">B) Virtual Network Policies</label><br>
+                    <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+                    <label for="optionC69">C) Network Security Groups (NSG)</label><br>
+                    <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+                    <label for="optionD69">D) Conditional Access Policies</label><br>
+                </div>
+                <div id="result69" class="result"></div>
+            </div>
+                             
+            <div class="qee">
+                <!-- Question 71 -->
+                <div class="que">
+                    <p>71. What is the primary purpose of reporting in Azure Boards?</p>
+                    <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+                </div>
+                <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To track project progress and analyze work item data.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Reporting in Azure Boards helps teams monitor project performance, track progress, and identify bottlenecks through visual dashboards and analytics.<br><br>
+                    **Key Features:**<br>
+                    1. **Work Item Tracking:** Analyze status, priority, and completion rates.<br>
+                    2. **Dashboards:** Visualize data using charts, graphs, and widgets.<br>
+                    3. **Custom Reports:** Create tailored reports based on project needs.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+                    <label for="optionA70">A) To track project progress and analyze work item data.</label><br>
+                    <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+                    <label for="optionB70">B) To restrict access to project data.</label><br>
+                    <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+                    <label for="optionC70">C) To create backup copies of work items.</label><br>
+                    <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+                    <label for="optionD70">D) To enable manual data entry for reports.</label><br>
+                </div>
+                <div id="result70" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 72 -->
+                <div class="que">
+                    <p>72. Which Azure Boards feature allows you to create visual dashboards?</p>
+                    <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+                </div>
+                <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Dashboards</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Azure Dashboards enable the visualization of project data through customizable widgets, providing insights into work items, sprint progress, and more.<br><br>
+                    **Features:**<br>
+                    1. **Custom Widgets:** Add charts, graphs, and lists.<br>
+                    2. **Real-Time Updates:** Live data reflection for dynamic project tracking.<br>
+                    3. **Personalization:** Tailor dashboards for different team roles.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+                    <label for="optionA71">A) Work Items</label><br>
+                    <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+                    <label for="optionB71">B) Dashboards</label><br>
+                    <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+                    <label for="optionC71">C) Backlogs</label><br>
+                    <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+                    <label for="optionD71">D) Sprints</label><br>
+                </div>
+                <div id="result71" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 73 -->
+                <div class="que">
+                    <p>73. How can you analyze historical data in Azure Boards?</p>
+                    <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+                </div>
+                <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) By using analytics views and reports.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Azure Boards provides analytics views to review historical data, track trends, and measure project performance over time.<br><br>
+                    **Analytics Features:**<br>
+                    1. **Trend Analysis:** Track work item progress and cycle times.<br>
+                    2. **Historical Reports:** View completed work, lead times, and more.<br>
+                    3. **Custom Queries:** Filter data to analyze specific periods or metrics.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+                    <label for="optionA72">A) By exporting data to external databases.</label><br>
+                    <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+                    <label for="optionB72">B) By using manual data entry logs.</label><br>
+                    <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+                    <label for="optionC72">C) By using analytics views and reports.</label><br>
+                    <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+                    <label for="optionD72">D) By disabling project tracking features.</label><br>
+                </div>
+                <div id="result72" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 74 -->
+                <div class="que">
+                    <p>74. What is the purpose of using queries in Azure Boards?</p>
+                    <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+                </div>
+                <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) To filter and find specific work items based on criteria.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Queries in Azure Boards help teams search, filter, and organize work items based on conditions like state, priority, or assigned user.<br><br>
+                    **Query Types:**<br>
+                    1. **Flat List:** Shows work items in a simple list.<br>
+                    2. **Tree of Work Items:** Displays hierarchical relationships.<br>
+                    3. **Shared Queries:** Reusable queries across teams.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+                    <label for="optionA73">A) To generate automated email notifications.</label><br>
+                    <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+                    <label for="optionB73">B) To restrict user permissions in the project.</label><br>
+                    <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+                    <label for="optionC73">C) To create visual dashboards for project overview.</label><br>
+                    <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+                    <label for="optionD73">D) To filter and find specific work items based on criteria.</label><br>
+                </div>
+                <div id="result73" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 75 -->
+                <div class="que">
+                    <p>75. Which tool can be integrated with Azure Boards for advanced analytics and reporting?</p>
+                    <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+                </div>
+                <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Power BI</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Azure Boards integrates with Power BI for advanced data visualization, custom reports, and in-depth analytics.<br><br>
+                    **Power BI Features:**<br>
+                    1. **Custom Dashboards:** Create detailed dashboards with dynamic data.<br>
+                    2. **Data Transformation:** Analyze trends, patterns, and KPIs.<br>
+                    3. **Real-Time Updates:** Sync with Azure Boards for live reporting.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+                    <label for="optionA74">A) Microsoft Excel</label><br>
+                    <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+                    <label for="optionB74">B) Power BI</label><br>
+                    <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+                    <label for="optionC74">C) Azure Repos</label><br>
+                    <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+                    <label for="optionD74">D) Visual Studio Code</label><br>
+                </div>
+                <div id="result74" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 76 -->
+                <div class="que">
+                    <p>76. What is the primary purpose of permissions in Azure Boards?</p>
+                    <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+                </div>
+                <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To control access to project data and features.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Permissions in Azure Boards ensure that only authorized users can access, modify, or manage project data, maintaining data integrity and security.<br><br>
+                    **Key Aspects:**<br>
+                    1. **Role-Based Access Control (RBAC):** Assign roles to define permissions.<br>
+                    2. **Project-Level Permissions:** Control access to work items, boards, and repositories.<br>
+                    3. **Security Groups:** Manage user access efficiently.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+                    <label for="optionA75">A) To control access to project data and features.</label><br>
+                    <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+                    <label for="optionB75">B) To disable user accounts automatically.</label><br>
+                    <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+                    <label for="optionC75">C) To generate automated reports.</label><br>
+                    <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+                    <label for="optionD75">D) To create backup copies of project data.</label><br>
+                </div>
+                <div id="result75" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 77 -->
+                <div class="que">
+                    <p>77. What is the function of security groups in Azure Boards?</p>
+                    <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+                </div>
+                <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To manage user access and permissions collectively.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Security groups allow administrators to manage permissions for multiple users at once, simplifying access control.<br><br>
+                    **Features:**<br>
+                    1. **Role Assignment:** Assign roles to groups rather than individual users.<br>
+                    2. **Scalability:** Easily manage large teams.<br>
+                    3. **Consistent Policies:** Apply uniform security settings across users.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+                    <label for="optionA76">A) To track user activity in real time.</label><br>
+                    <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+                    <label for="optionB76">B) To manage user access and permissions collectively.</label><br>
+                    <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+                    <label for="optionC76">C) To generate performance reports.</label><br>
+                    <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+                    <label for="optionD76">D) To create data backups.</label><br>
+                </div>
+                <div id="result76" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 78 -->
+                <div class="que">
+                    <p>78. Which of the following roles provides full administrative permissions in Azure Boards?</p>
+                    <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+                </div>
+                <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Project Administrator</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    The Project Administrator role grants full access to project settings, security, and permissions, allowing management of all project-related configurations.<br><br>
+                    **Privileges:**<br>
+                    1. **Manage Users:** Add, remove, and modify user permissions.<br>
+                    2. **Project Settings:** Control board configurations, work items, and repositories.<br>
+                    3. **Security Policies:** Define security rules and access levels.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+                    <label for="optionA77">A) Contributor</label><br>
+                    <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+                    <label for="optionB77">B) Reader</label><br>
+                    <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+                    <label for="optionC77">C) Project Administrator</label><br>
+                    <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+                    <label for="optionD77">D) Stakeholder</label><br>
+                </div>
+                <div id="result77" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 79 -->
+                <div class="que">
+                    <p>79. What type of access control does Azure Boards primarily use?</p>
+                    <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+                </div>
+                <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Role-Based Access Control (RBAC)</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Azure Boards uses Role-Based Access Control (RBAC) to manage permissions, allowing administrators to assign specific roles with defined access levels.<br><br>
+                    **RBAC Features:**<br>
+                    1. **Granular Control:** Assign permissions based on user roles.<br>
+                    2. **Flexible Configuration:** Adjust roles as project requirements evolve.<br>
+                    3. **Security Assurance:** Enforce least-privilege access policies.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+                    <label for="optionA78">A) Mandatory Access Control (MAC)</label><br>
+                    <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+                    <label for="optionB78">B) Discretionary Access Control (DAC)</label><br>
+                    <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+                    <label for="optionC78">C) Identity-Based Access Control (IBAC)</label><br>
+                    <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+                    <label for="optionD78">D) Role-Based Access Control (RBAC)</label><br>
+                </div>
+                <div id="result78" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 80 -->
+                <div class="que">
+                    <p>80. What is the function of access levels in Azure Boards?</p>
+                    <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+                </div>
+                <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To define the level of access a user has to project features.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    Access levels determine what features a user can access and what actions they can perform within Azure Boards, such as viewing work items or managing settings.<br><br>
+                    **Common Access Levels:**<br>
+                    1. **Stakeholder:** Limited access for non-technical users.<br>
+                    2. **Basic:** Full access to boards, backlogs, and repositories.<br>
+                    3. **Basic + Test Plans:** Additional permissions for managing test cases.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+                    <label for="optionA79">A) To define the level of access a user has to project features.</label><br>
+                    <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+                    <label for="optionB79">B) To track project progress.</label><br>
+                    <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+                    <label for="optionC79">C) To create automated build pipelines.</label><br>
+                    <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+                    <label for="optionD79">D) To export data to external tools.</label><br>
+                </div>
+                <div id="result79" class="result"></div>
+            </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+            
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

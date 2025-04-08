@@ -1,0 +1,2787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github integration </title>
+    <link rel="stylesheet" href="../css/Azure Devops.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'C', 'B', 'A', 'D', 'A', 'B', 'C', 'D', 'A',
+            'C', 'B', 'D', 'A', 'C', 'A', 'C', 'B', 'A', 'D',
+            'B', 'B', 'C', 'A', 'D','','B', 'A', 'C', 'B', 'D',
+            'B', 'A', 'C', 'D', 'C', 'A', 'B', 'D', 'C', 'B',
+            'D', 'C', 'B', 'D', 'C', 'A', 'D', 'B', 'C', 'A',
+            'C', 'B', 'A', 'C', 'A', 'B', 'A', 'B', 'A', 'C', 
+            'D', 'B', 'C', 'D', 'C', 'B', 'C', 'D', 'C', 'C',
+            'D', 'C', 'B', 'C', 'D', 'B', 'D', 'C', 'D', 'C',
+            'B', 'D', 'C', 'B', 'D', 'C', 'B', 'C', 'B', 'A',
+            'C', 'A', 'C', 'B', 'D'
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>Github Integration</h3>
+        <div class="inner-border">
+             <!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is the primary purpose of integrating GitHub with Azure DevOps?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To enable CI/CD pipelines and version control management</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Integrating GitHub with Azure DevOps allows you to automate continuous integration (CI) and continuous delivery (CD) pipelines. It also enables better version control management and collaboration.<br><br>
+        **Steps in Integration**:<br>
+        1. Link GitHub repository with Azure DevOps.<br>
+        2. Set up CI/CD pipelines for automated builds and deployments.<br>
+        3. Track changes and collaborate with teams using GitHub and Azure DevOps.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) To manage user authentication</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) To enable CI/CD pipelines and version control management</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) To monitor system performance</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) To manage project documentation</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. How does Azure DevOps help in CI/CD for a GitHub repository?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using Azure Pipelines to automate build and release workflows</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps provides Azure Pipelines to automate the process of building, testing, and deploying code from GitHub repositories. This enables continuous integration and continuous delivery.<br><br>
+        **CI/CD Workflow**:<br>
+        1. Code is pushed to GitHub repository.<br>
+        2. Azure DevOps triggers a pipeline that builds and tests the code.<br>
+        3. The code is deployed to the desired environment automatically.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) By manually triggering the build process in GitHub</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) By linking GitHub issues with Azure DevOps tasks</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) By using Azure Pipelines to automate build and release workflows</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) By using GitHub Actions for deployments</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What does Azure DevOps use to monitor and track changes in a GitHub repository?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure Repos and Azure Boards</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Repos allows tracking changes in the GitHub repository, and Azure Boards helps manage work items such as bugs and features.<br><br>
+        **Tracking Changes**:<br>
+        1. Use Azure Repos to track commits and branches.<br>
+        2. Use Azure Boards to manage tasks, bugs, and user stories.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) Azure Functions</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) Azure Repos and Azure Boards</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) GitHub Actions and GitHub Issues</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) Azure DevOps Dashboards</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. How does Azure DevOps handle authentication when integrating with GitHub?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using OAuth authentication</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps uses OAuth authentication to securely link GitHub accounts with Azure DevOps, allowing seamless integration.<br><br>
+        **Authentication Process**:<br>
+        1. Sign in to Azure DevOps.<br>
+        2. Authorize Azure DevOps to access your GitHub account.<br>
+        3. GitHub grants permission for integration.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) By using OAuth authentication</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) By using Personal Access Tokens</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) By linking GitHub with Azure Active Directory</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) By using Single Sign-On (SSO)</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. What is the benefit of using GitHub Actions over Azure Pipelines in a GitHub-Azure DevOps integration?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) GitHub Actions allows native integration with GitHub repositories</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub Actions provides a native and seamless way to automate workflows within GitHub repositories, while Azure Pipelines offers broader cross-platform CI/CD solutions. GitHub Actions is ideal for GitHub-centric projects.<br><br>
+        **GitHub Actions Benefits**:<br>
+        1. Direct integration with GitHub.<br>
+        2. Customizable workflows based on events in the repository.<br>
+        3. Flexible and reusable actions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) GitHub Actions is easier to configure than Azure Pipelines</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) GitHub Actions supports more languages than Azure Pipelines</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) GitHub Actions provides better deployment options than Azure Pipelines</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) GitHub Actions allows native integration with GitHub repositories</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+   <!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. Which of the following GitHub Actions features helps in automating testing during the CI/CD process?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Workflows and Actions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In GitHub Actions, workflows define the automation steps, and actions are the individual tasks within those workflows. You can configure them to run tests as part of the CI/CD pipeline.<br><br>
+        **Key Features**:<br>
+        1. Workflows automate the entire process.<br>
+        2. Actions define specific tasks, like testing or deploying.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) Workflows and Actions</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) Pipelines and Deployments</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) GitHub Pages and Issues</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) Projects and Pull Requests</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. What is the role of 'artifacts' in Azure Pipelines?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To store and share the outputs of builds and deployments</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Azure Pipelines, artifacts are used to store build outputs, such as compiled code, and can be shared across multiple stages or between different pipeline runs.<br><br>
+        **Use of Artifacts**:<br>
+        1. Storing build outputs.<br>
+        2. Sharing artifacts between different pipeline stages.<br>
+        3. Reducing the need for redundant builds.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) To configure CI/CD triggers</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) To store and share the outputs of builds and deployments</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) To manage pipeline security settings</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) To define pipeline policies</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What is the purpose of a 'trigger' in GitHub Actions?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To specify when a workflow should be triggered</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Triggers in GitHub Actions define the events that initiate workflows, such as pushes to a branch, pull requests, or even scheduled times.<br><br>
+        **Common Triggers**:<br>
+        1. Push events.<br>
+        2. Pull request events.<br>
+        3. Scheduled events.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) To specify the repository for a workflow</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) To define the job sequence in a workflow</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) To specify when a workflow should be triggered</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) To determine the resources used during a pipeline</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. What is a 'job' in GitHub Actions?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) A set of steps that execute in a specific environment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A job in GitHub Actions is a collection of steps that run in a specific environment, such as a virtual machine or a Docker container. Jobs can run sequentially or in parallel.<br><br>
+        **Job Features**:<br>
+        1. Jobs contain multiple steps.<br>
+        2. Jobs execute in a defined environment.<br>
+        3. Jobs can run sequentially or concurrently.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) A single step in a pipeline</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) The entire pipeline</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) The trigger that starts a workflow</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) A set of steps that execute in a specific environment</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. In Azure Pipelines, what is the purpose of a 'service connection'?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To connect Azure Pipelines with external services or platforms</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A service connection in Azure Pipelines allows you to securely connect your pipeline to external services, such as cloud providers or third-party tools, for deployment or other operations.<br><br>
+        **Service Connection Use Cases**:<br>
+        1. Connect to Azure for deployments.<br>
+        2. Integrate with GitHub or other version control systems.<br>
+        3. Access third-party tools for additional functionality.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) To connect Azure Pipelines with external services or platforms</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) To define which environments to deploy to</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) To configure build agents</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) To define the steps in a pipeline</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is the purpose of integrating GitHub with Azure DevOps?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To enable CI/CD pipelines and manage builds and releases</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Integrating GitHub with Azure DevOps allows developers to use GitHub for source control while leveraging Azure DevOps for continuous integration (CI), continuous deployment (CD), and managing builds and releases.<br><br>
+        **Benefits of Integration**:<br>
+        1. Seamless CI/CD pipeline creation.<br>
+        2. Centralized build and release management.<br>
+        3. Integration of GitHub code with Azure DevOps features.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) To manage GitHub repositories inside Azure DevOps</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) To enable social collaboration features for developers</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) To enable CI/CD pipelines and manage builds and releases</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) To deploy Azure applications directly to GitHub</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. How does Azure DevOps trigger a build after integrating with GitHub?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By using webhooks to listen for GitHub events like push or pull request</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure DevOps uses webhooks to listen for events from GitHub, such as code pushes or pull requests, which then trigger a build or a pipeline to run in Azure DevOps.<br><br>
+        **Trigger Mechanism**:<br>
+        1. Webhooks are set up in GitHub.<br>
+        2. GitHub sends events to Azure DevOps when code changes happen.<br>
+        3. The pipeline or build process starts based on the event.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) By manually starting a build from GitHub</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) By using webhooks to listen for GitHub events like push or pull request</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) By scheduling builds in Azure DevOps</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) By integrating with GitHub Actions</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What is the 'Azure Repos' integration with GitHub?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) GitHub repositories can be linked to Azure Repos for code management</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Repos can be integrated with GitHub so that code from GitHub repositories can be managed using Azure Repos services, such as pull requests and branch policies, within Azure DevOps.<br><br>
+        **Integration Features**:<br>
+        1. Link GitHub repos to Azure DevOps.<br>
+        2. Use Azure DevOps features to manage and track code.<br>
+        3. Keep track of commits and pull requests in a central system.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) Syncing code between GitHub and Azure Pipelines</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) Storing GitHub commits in Azure Pipelines</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) Linking GitHub repositories to Azure Test Plans</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) GitHub repositories can be linked to Azure Repos for code management</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. How can you configure continuous integration (CI) for a GitHub repository in Azure DevOps?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By setting up a pipeline in Azure DevOps that is triggered by GitHub commits</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can configure continuous integration by creating a build pipeline in Azure DevOps, which is triggered by code changes (such as commits) in the connected GitHub repository.<br><br>
+        **CI Configuration Steps**:<br>
+        1. Create a pipeline in Azure DevOps.<br>
+        2. Connect the GitHub repository to the pipeline.<br>
+        3. Set the pipeline to trigger on specific GitHub events (e.g., push or pull request).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) By setting up a pipeline in Azure DevOps that is triggered by GitHub commits</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) By manually committing code to Azure Repos</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) By configuring a CI tool in GitHub Actions</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) By integrating GitHub Actions with Azure DevOps</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What is the 'GitHub Actions for Azure' integration?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) A set of pre-configured GitHub Actions that integrate with Azure services</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub Actions for Azure provides pre-configured actions that allow you to easily deploy to Azure from a GitHub repository, automating deployment workflows such as to Azure App Services or Azure Kubernetes Service.<br><br>
+        **Features of GitHub Actions for Azure**:<br>
+        1. Pre-built actions for Azure deployments.<br>
+        2. Streamlined Azure service integration.<br>
+        3. Supports a variety of Azure resources (e.g., App Services, Kubernetes, etc.).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) A tool for managing Azure resources within GitHub</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) A manual process to deploy to Azure from GitHub</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) A set of pre-configured GitHub Actions that integrate with Azure services</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) A GitHub service to host Azure applications</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. What is the first step when deploying an application from GitHub to Azure?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Create a GitHub repository with your application code</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The first step in deploying an application from GitHub to Azure is ensuring your application code is stored in a GitHub repository. Once the code is in GitHub, you can set up continuous integration (CI) and continuous deployment (CD) workflows for Azure.<br><br>
+        **Steps for Deployment**:<br>
+        1. Create a GitHub repository with your application code.<br>
+        2. Connect the repository to Azure DevOps or GitHub Actions.<br>
+        3. Set up deployment pipelines in Azure.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) Create a GitHub repository with your application code</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) Set up an Azure Kubernetes cluster</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) Configure an Azure Active Directory (AAD) account</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) Install Azure CLI locally</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. What is the role of GitHub Actions in the deployment process to Azure?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) GitHub Actions automate the deployment pipeline from GitHub to Azure</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub Actions provides a platform to automate your build, test, and deployment pipelines directly from GitHub repositories to Azure services. You can configure actions to trigger builds and deployments on events like commits or pull requests.<br><br>
+        **GitHub Actions in Deployment**:<br>
+        1. Define workflows using YAML files in the repository.<br>
+        2. Automate the deployment process to Azure services such as App Service, Virtual Machines, or Kubernetes.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) GitHub Actions handle application configuration in Azure</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) GitHub Actions provide monitoring for Azure resources</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) GitHub Actions automate the deployment pipeline from GitHub to Azure</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) GitHub Actions set up Azure resource groups</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. Which Azure service is commonly used to deploy applications from GitHub repositories?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure App Service</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure App Service is a fully managed platform for building, deploying, and scaling web applications. It is commonly used to deploy applications directly from GitHub repositories using CI/CD pipelines.<br><br>
+        **Why Azure App Service?**:<br>
+        1. Easy to set up deployment from GitHub.<br>
+        2. Supports multiple application types (e.g., .NET, Node.js, Python).<br>
+        3. Scalable and secure platform for hosting web applications.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) Azure Functions</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) Azure App Service</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) Azure Virtual Machines</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) Azure Storage</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. How do you connect a GitHub repository to an Azure App Service for deployment?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By linking the GitHub repository to the Azure App Service Deployment Center</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can connect a GitHub repository to Azure App Service through the Azure Deployment Center, where you can set up continuous deployment (CD) from GitHub. This process automates the deployment whenever changes are made in the GitHub repository.<br><br>
+        **Steps**:<br>
+        1. Go to the Azure Portal and navigate to your App Service.<br>
+        2. Open the Deployment Center and select GitHub as the source.<br>
+        3. Connect your GitHub repository and configure deployment settings.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) By linking the GitHub repository to the Azure App Service Deployment Center</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) By uploading the code manually to the Azure Portal</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) By configuring a Virtual Machine in Azure</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) By installing the Azure CLI on GitHub</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. What is the benefit of using continuous deployment (CD) when deploying from GitHub to Azure?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It automates the deployment process and reduces manual intervention</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Continuous deployment (CD) automates the process of deploying code changes from GitHub to Azure. This reduces the need for manual intervention, improves deployment speed, and ensures faster feedback on the application’s performance.<br><br>
+        **Benefits of CD**:<br>
+        1. Automates the deployment workflow.<br>
+        2. Reduces errors and deployment time.<br>
+        3. Ensures faster delivery of new features and fixes.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) It requires less code to be written in GitHub</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) It ensures application performance is continuously optimized</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) It allows developers to manually deploy features</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) It automates the deployment process and reduces manual intervention</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. What is the main purpose of using GitHub Actions for Azure deployments?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Automate the deployment pipeline directly from GitHub to Azure</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub Actions is used to automate CI/CD pipelines for deployments. By configuring workflows in GitHub, developers can automatically deploy their applications to Azure whenever code changes occur, eliminating manual intervention.<br><br>
+        **Benefits of Using GitHub Actions for Azure**:<br>
+        1. Seamless integration with GitHub repositories.<br>
+        2. Automates deployment steps for efficient and reliable processes.<br>
+        3. Supports Azure services like App Service, Kubernetes, and Functions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) Automate local testing of applications before deployment</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) Automate the setup of Azure resource groups</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) Automate the deployment pipeline directly from GitHub to Azure</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) Automate Azure subscription billing</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. Which file is used to define a GitHub Actions workflow for deploying to Azure?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) YAML file</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub Actions workflows are defined using YAML files. These files specify the steps in the CI/CD pipeline, including deployment actions, and are stored in the `.github/workflows/` directory in the repository.<br><br>
+        **YAML File Workflow**:<br>
+        1. Define jobs and steps.<br>
+        2. Configure triggers (e.g., on push or pull request).<br>
+        3. Include Azure-specific deployment actions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) JSON file</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) YAML file</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) XML file</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) MD file</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. Which action is typically used in GitHub Actions to deploy to Azure App Service?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) azure/webapps-deploy</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `azure/webapps-deploy` action is commonly used in GitHub Actions to deploy applications directly to Azure App Service. It automates the process of deploying code from GitHub repositories to the Azure platform.<br><br>
+        **Key Features of the Action**:<br>
+        1. Deploys applications to Azure App Service.<br>
+        2. Supports various frameworks and platforms.<br>
+        3. Integrates seamlessly with GitHub Actions workflows.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) azure/azure-cli-action</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) azure/azure-deploy-action</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) azure/webapps-deploy</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) azure/resource-manager-deploy</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. How can you trigger a GitHub Actions workflow when changes are made to a specific branch?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using the `on` key in the YAML file to specify branch triggers</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can configure a GitHub Actions workflow to trigger when changes are made to specific branches by using the `on` key in the YAML file. This can specify branches for events like push, pull request, or others.<br><br>
+        **Example in YAML**:<br>
+        ```yaml
+        on:
+          push:
+            branches:
+              - main
+        ```<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) By using the `on` key in the YAML file to specify branch triggers</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) By manually selecting branches in the Azure Portal</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) By configuring branch-specific actions in Azure DevOps</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) By enabling the branch trigger in the GitHub UI</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. What is the benefit of using GitHub Actions for continuous integration (CI) and continuous deployment (CD) on Azure?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It streamlines the build, test, and deployment process from code commit to Azure deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Using GitHub Actions for CI/CD enables automation from code commit to deployment on Azure. This provides faster feedback, reduces manual processes, and ensures that changes are automatically tested and deployed to Azure services.<br><br>
+        **Key Benefits**:<br>
+        1. Automation of build and deployment processes.<br>
+        2. Faster feedback loops for developers.<br>
+        3. Reduced risk of human error.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) It only handles deployment to Azure App Services</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) It requires manual deployment every time code changes</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) It automatically updates Azure subscription billing</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) It streamlines the build, test, and deployment process from code commit to Azure deployment</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. What is the primary use of Azure CLI in GitHub Actions?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To manage Azure resources directly from a GitHub Actions workflow</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure CLI is a command-line tool that allows you to manage Azure resources directly. In GitHub Actions, you can use Azure CLI commands to create, configure, and manage Azure services within a CI/CD pipeline.<br><br>
+        **Common Uses of Azure CLI in GitHub Actions**:<br>
+        1. Deploy applications to Azure.<br>
+        2. Create and configure Azure resources like VMs, Storage, and Networking.<br>
+        3. Manage Azure subscriptions and resource groups.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) To execute custom scripts on Azure servers</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) To manage Azure resources directly from a GitHub Actions workflow</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) To deploy Azure DevOps pipelines from GitHub</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) To perform local builds on a GitHub runner</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. Which GitHub Action allows you to authenticate Azure CLI in a GitHub Actions workflow?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) azure/login</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `azure/login` action is used to authenticate the Azure CLI in GitHub Actions. This action helps to log into Azure with a service principal or managed identity, enabling the use of Azure CLI commands in the workflow.<br><br>
+        **Authentication Steps**:<br>
+        1. Use the `azure/login` action with a service principal.<br>
+        2. Provide necessary credentials like client ID, tenant ID, and client secret.<br>
+        3. Once authenticated, you can execute Azure CLI commands in subsequent workflow steps.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) azure/login</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) azure/setup-cli</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) azure/cli-action</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) azure/credentials</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. How can you execute Azure CLI commands in GitHub Actions after authenticating with `azure/login`?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using the `run` keyword in a step with Azure CLI commands</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        After authenticating with `azure/login`, you can run Azure CLI commands in the GitHub Actions workflow by using the `run` keyword in a step. You can specify any valid Azure CLI command, and GitHub Actions will execute it on the Azure environment.<br><br>
+        **Example of Running an Azure CLI Command**:<br>
+        ```yaml
+        - name: Azure CLI - Create Resource Group
+          run: az group create --name MyResourceGroup --location eastus
+        ```<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) By invoking the `az` command in a terminal on the runner</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) By manually running the CLI on the Azure server</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) By using the `run` keyword in a step with Azure CLI commands</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) By configuring Azure CLI in the GitHub Settings</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. What should you do to ensure that your Azure CLI commands are executed successfully in GitHub Actions?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Ensure that the Azure CLI is properly installed and authenticated</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        For Azure CLI commands to execute successfully in GitHub Actions, you need to authenticate using `azure/login` and ensure that the CLI is properly set up and available in the environment.<br><br>
+        **Checklist for Successful Execution**:<br>
+        1. Install the Azure CLI if it's not pre-installed on the GitHub runner.<br>
+        2. Authenticate with Azure using `azure/login`.<br>
+        3. Execute the required Azure CLI commands after authentication.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) Configure Azure CLI as a Docker container</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) Ensure that the Azure CLI is properly installed and authenticated</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) Run the commands using an SSH connection to Azure</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) Configure GitHub Actions to execute CLI commands on your local machine</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. What does the `az webapp up` command do in GitHub Actions?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Deploy an application to Azure App Service</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `az webapp up` command is used to quickly deploy an application to Azure App Service from the local GitHub Actions environment. It simplifies deployment without needing to manually configure app settings or create Azure resources beforehand.<br><br>
+        **Command Usage**:<br>
+        1. It automatically creates a resource group, app service plan, and app if not already present.<br>
+        2. Deploys the application to the specified Azure App Service.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) Create a new Azure App Service plan</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) Set up a new virtual machine in Azure</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) Configure Azure Storage for the application</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) Deploy an application to Azure App Service</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. Which GitHub Action is commonly used for deploying an application to Azure App Services?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) azure/webapps-deploy</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `azure/webapps-deploy` action is specifically designed for deploying web applications to Azure App Services from a GitHub repository. It simplifies the deployment process by directly connecting the GitHub repository with Azure App Services.<br><br>
+        **Steps to Deploy with GitHub Action**:<br>
+        1. Authenticate to Azure using the `azure/login` action.<br>
+        2. Use the `azure/webapps-deploy` action to deploy the web app to Azure.<br>
+        3. Specify the app name, resource group, and package or folder to be deployed.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) azure/setup-webapp</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) azure/webapps-deploy</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) azure/deploy-webapp</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) azure/app-service</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. Which action is required to integrate Azure Functions with GitHub for continuous deployment?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) azure/functions-action</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `azure/functions-action` is used to deploy Azure Functions directly from a GitHub Actions workflow. This action allows seamless integration of GitHub repositories with Azure Functions, enabling automatic deployment and updates.<br><br>
+        **Steps to Integrate Azure Functions with GitHub**:<br>
+        1. Use the `azure/functions-action` to deploy your function app.<br>
+        2. Authenticate with Azure using `azure/login`.<br>
+        3. Configure the action to deploy the function app code to Azure when changes are pushed to the GitHub repository.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) azure/functions-action</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) azure/azure-functions-deploy</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) azure/functions-deployment</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) azure/app-functions</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. How do you authenticate Azure Functions during GitHub Actions deployment?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using `azure/login` with a service principal</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To authenticate Azure Functions during a GitHub Actions deployment, you use the `azure/login` action with a service principal. This allows GitHub Actions to securely authenticate with Azure and deploy to Azure Functions.<br><br>
+        **Authentication Process**:<br>
+        1. Create a service principal in Azure AD.<br>
+        2. Store the service principal credentials securely in GitHub Secrets.<br>
+        3. Use `azure/login` action to authenticate.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) By using GitHub API tokens</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) By using Azure access keys</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) By using `azure/login` with a service principal</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) By manually logging into Azure</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. What is the key advantage of using GitHub Actions for deploying Azure Functions?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It automates the deployment process, ensuring consistency and reliability</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub Actions helps automate the deployment of Azure Functions, which eliminates manual intervention, reduces human error, and ensures the deployment process is consistent and reliable every time code is pushed to the repository.<br><br>
+        **Benefits**:<br>
+        1. Automated deployments save time.<br>
+        2. Reduces manual errors during the deployment.<br>
+        3. Ensures that every deployment is consistent with the latest code.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) It provides better scalability for large applications</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) It simplifies the Azure resource provisioning process</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) It integrates well with all Azure services</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) It automates the deployment process, ensuring consistency and reliability</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. How can you trigger an Azure Function through GitHub Events?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By configuring a GitHub webhook to trigger the function on events like push or pull request</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Functions can be triggered by GitHub events by setting up a webhook in the GitHub repository. The webhook can trigger Azure Functions on events like push, pull request, or issue creation. The webhook sends a request to the Azure Function, which processes the event.<br><br>
+        **Steps to Trigger Azure Function with GitHub Events**:<br>
+        1. Create an Azure Function with an HTTP trigger.<br>
+        2. Set up a webhook in your GitHub repository that listens for events (e.g., push, pull request).<br>
+        3. Configure the webhook to invoke the Azure Function with the event data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) By calling Azure Function from GitHub Actions</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) By configuring an Azure DevOps pipeline to trigger the function</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) By configuring a GitHub webhook to trigger the function on events like push or pull request</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) By using GitHub Actions only</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. Which GitHub event can be used to trigger an Azure Function when code is pushed to the repository?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) push</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `push` event in GitHub triggers actions whenever code is pushed to the repository. This event can be configured to call an Azure Function, allowing you to perform tasks like build, deployment, or testing upon code updates.<br><br>
+        **Steps to Trigger on `push` Event**:<br>
+        1. Set up a webhook or GitHub Action to listen to `push` events.<br>
+        2. The function is triggered every time there is a push to the repository.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) push</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) pull_request</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) issue_comment</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) all of the above</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. How do you deploy an Azure Static Web App using GitHub Actions?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By using the `azure/static-web-apps-deploy` GitHub Action</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To deploy an Azure Static Web App via GitHub Actions, you use the `azure/static-web-apps-deploy` GitHub Action. This action automatically builds and deploys static websites (such as React, Angular, or Vue apps) to Azure Static Web Apps.<br><br>
+        **Steps to Deploy**:<br>
+        1. Set up the `azure/static-web-apps-deploy` action in the GitHub workflow file.<br>
+        2. Configure the repository with the correct build and output folder paths.<br>
+        3. Authenticate with Azure via GitHub Secrets.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) By using `azure/deploy-static-web-app` GitHub Action</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) By using `azure/static-web-apps-deploy` GitHub Action</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) By using `azure/webapp-deploy` GitHub Action</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) By using `azure/azure-webapp` GitHub Action</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. What is the advantage of using GitHub Actions to deploy Azure Static Web Apps?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It automates the deployment and ensures that the static web app is always up-to-date</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Using GitHub Actions to deploy Azure Static Web Apps automates the deployment process, ensuring that the static site is always up-to-date with the latest code changes. It eliminates the need for manual deployment, reducing the risk of human error.<br><br>
+        **Benefits**:<br>
+        1. Automation of the deployment process.<br>
+        2. Always deploy the latest code automatically.<br>
+        3. Simplifies the CI/CD pipeline for static web apps.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) It requires fewer configurations and is easier to set up</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) It provides more granular control over deployment</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) It is cheaper than manual deployment methods</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) It automates the deployment and ensures that the static web app is always up-to-date</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. What is the main benefit of using CI/CD with GitHub for Azure Static Web Apps?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Automates the build, test, and deployment process for faster and more reliable releases</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        CI/CD (Continuous Integration/Continuous Deployment) ensures that every change made to the codebase is automatically tested, built, and deployed to the Azure Static Web App. This reduces the risk of errors during deployment and allows for faster, more reliable releases.<br><br>
+        **Steps in CI/CD for Azure Static Web Apps**:<br>
+        1. GitHub Actions automatically triggers the pipeline on every change.<br>
+        2. The code is built, tested, and validated.<br>
+        3. Upon successful tests, the static web app is deployed to Azure.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) Reduces the cost of deploying static web apps</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) Reduces the manual effort needed for deployments</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) Automates the build, test, and deployment process for faster and more reliable releases</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) It requires no configuration for deployment</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. How do you configure CI/CD pipelines in GitHub Actions for Azure Static Web Apps?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By creating a GitHub workflow file with the `azure/static-web-apps-deploy` action</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To configure CI/CD pipelines, you create a `.yml` file in the `.github/workflows` directory. This file defines the pipeline steps, including the build and deployment stages, using GitHub Actions such as the `azure/static-web-apps-deploy` action.<br><br>
+        **Steps to Configure CI/CD Pipeline**:<br>
+        1. Create a workflow file under `.github/workflows/` in your GitHub repository.<br>
+        2. Use the `azure/static-web-apps-deploy` action in the workflow.<br>
+        3. Set up secrets for authentication with Azure.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) By configuring Azure DevOps pipelines and linking to GitHub</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) By creating a GitHub workflow file with the `azure/static-web-apps-deploy` action</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) By using Azure's built-in CI/CD pipelines</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) By manually deploying the app using Azure Portal</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. What is the role of GitHub Secrets in a CI/CD pipeline for Azure Static Web Apps?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To securely store sensitive information like Azure credentials</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub Secrets are used to store sensitive information such as Azure credentials, API keys, or other private data. These secrets are then used in the CI/CD pipeline to authenticate with Azure without exposing sensitive information in the workflow file.<br><br>
+        **Steps to Use GitHub Secrets**:<br>
+        1. Store your Azure credentials in GitHub Secrets.<br>
+        2. Reference these secrets in the workflow file to authenticate with Azure during deployment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) To store logs generated during the build and deploy process</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) To set up the environment for the GitHub Action</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) To store public keys required for authentication</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) To securely store sensitive information like Azure credentials</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. What is the main purpose of integrating GitHub with Azure Kubernetes Service (AKS)?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To automate the deployment of containerized applications to AKS</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        By integrating GitHub with AKS, developers can automate the process of building and deploying containerized applications directly from their GitHub repository to AKS clusters. This streamlines the DevOps workflow and allows for continuous delivery and updates to AKS.<br><br>
+        **Steps in AKS and GitHub Integration**:<br>
+        1. GitHub Actions or other CI/CD tools trigger workflows on code changes.<br>
+        2. Docker images are built and pushed to a container registry.<br>
+        3. Kubernetes manifests are updated and deployed to AKS.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) To monitor AKS cluster health and performance from GitHub</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) To store Kubernetes configuration files in GitHub</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) To automate the deployment of containerized applications to AKS</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) To replace Azure DevOps as the primary CI/CD tool for AKS</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. Which GitHub Action is commonly used to deploy containerized applications to Azure Kubernetes Service (AKS)?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) `azure/k8s-deploy`</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `azure/k8s-deploy` GitHub Action is used for deploying containerized applications to Azure Kubernetes Service. This action allows developers to easily deploy applications, manage Kubernetes manifests, and integrate seamlessly into the CI/CD pipeline.<br><br>
+        **Steps to Deploy to AKS with GitHub Actions**:<br>
+        1. Set up the GitHub Action workflow.<br>
+        2. Use the `azure/k8s-deploy` action to deploy the containerized application to AKS.<br>
+        3. Configure authentication and permissions for accessing Azure resources.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) `azure/deploy-to-aks`</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) `azure/k8s-deploy`</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) `azure/aks-deploy`</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) `github/actions-deploy`</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. How do you authenticate GitHub Actions to Azure when deploying to Azure Kubernetes Service (AKS)?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using an Azure Service Principal with the `azure/login` action</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To authenticate GitHub Actions with Azure, an Azure Service Principal is typically used. The `azure/login` GitHub Action is configured to authenticate the GitHub workflow with Azure using the Service Principal credentials, allowing the deployment process to access Azure resources securely.<br><br>
+        **Steps to Authenticate with Azure**:<br>
+        1. Create an Azure Service Principal with appropriate permissions.<br>
+        2. Store the credentials (client ID, client secret, tenant ID) in GitHub Secrets.<br>
+        3. Use the `azure/login` action in the GitHub Actions workflow to authenticate.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) By using GitHub personal access tokens for authentication</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) By using an Azure Active Directory (AAD) token</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) By using a service principal with Azure DevOps credentials</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) By using an Azure Service Principal with the `azure/login` action</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. What is the primary step when deploying containers from GitHub to Azure Kubernetes Service (AKS)?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Build and push the Docker image to a container registry</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The first essential step in deploying containers from GitHub to AKS is to build the Docker image and push it to a container registry (such as Azure Container Registry or Docker Hub). Once the image is available in the registry, it can be deployed to the AKS cluster using Kubernetes manifests or Helm charts.<br><br>
+        **Steps in the Process**:<br>
+        1. Set up a GitHub Action to build the Docker image.<br>
+        2. Push the image to the container registry.<br>
+        3. Deploy the image to AKS using Kubernetes manifests or Helm charts.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) Set up the Kubernetes manifests in GitHub</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) Create an Azure Kubernetes Service (AKS) cluster manually</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) Build and push the Docker image to a container registry</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) Use Azure DevOps for the CI/CD pipeline</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. Which GitHub Action is often used for building Docker images in a CI/CD pipeline for Azure Kubernetes Service (AKS)?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) `docker/build-push-action`</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `docker/build-push-action` GitHub Action is widely used to build and push Docker images to a container registry as part of a CI/CD pipeline. This action can be integrated into your GitHub Actions workflow for automating the process of creating Docker images from your application code and pushing them to a registry like Azure Container Registry (ACR) or Docker Hub.<br><br>
+        **Steps for Docker Image Build and Push**:<br>
+        1. Use the `docker/build-push-action` action to build the Docker image.<br>
+        2. Authenticate to the container registry (e.g., Azure Container Registry).<br>
+        3. Push the image to the registry for use in AKS deployment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) `docker/build-push-action`</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) `azure/aks-deploy`</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) `github/ci-cd-action`</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) `docker/azure-deploy`</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. How can you deploy a Dockerized application to Azure Kubernetes Service (AKS) after the image is pushed to the container registry?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using Kubernetes manifests or Helm charts</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Once the Docker image is pushed to the container registry, the next step is to deploy it to the AKS cluster. This can be done by creating Kubernetes manifests (e.g., Deployment, Service, etc.) or using Helm charts to manage the deployment and scaling of the application in the AKS environment.<br><br>
+        **Steps for Deployment**:<br>
+        1. Create Kubernetes manifests that define your application and its dependencies.<br>
+        2. Use `kubectl` or Helm to apply these manifests to the AKS cluster.<br>
+        3. The application is now running on AKS.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) By manually configuring the AKS cluster</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) By using the Azure portal to deploy the image</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) By using Azure CLI to deploy the image</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) By using Kubernetes manifests or Helm charts</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. What is the main role of Azure Container Registry (ACR) in the GitHub Actions workflow for CI/CD?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Store Docker images for deployment to Azure services</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Container Registry (ACR) serves as a private container registry where Docker images are stored and managed. In the CI/CD pipeline, GitHub Actions is used to build the Docker images, and these images are then pushed to ACR. The images in ACR are later used to deploy applications to services such as Azure Kubernetes Service (AKS) or Azure App Services.<br><br>
+        **ACR and GitHub Actions Integration**:<br>
+        1. Build the Docker image in the GitHub Actions workflow.<br>
+        2. Authenticate to Azure Container Registry using Azure CLI or service principal.<br>
+        3. Push the built image to ACR.<br>
+        4. Deploy the image to Azure services.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) Automatically deploy the images to Azure Kubernetes Service (AKS)</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) Store Docker images for deployment to Azure services</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) Provide scaling for containerized applications</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) Build and run the Docker images</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. What GitHub Action is commonly used to authenticate to Azure Container Registry (ACR)?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) `azure/login`</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `azure/login` action is commonly used to authenticate to Azure from GitHub Actions. This action allows you to use Azure credentials (such as a service principal) to log in and interact with Azure resources, including Azure Container Registry (ACR). After authentication, you can push and pull Docker images to and from ACR as part of your CI/CD pipeline.<br><br>
+        **Authentication Flow**:<br>
+        1. Use `azure/login` to authenticate to Azure using service principal credentials.<br>
+        2. Configure Docker to authenticate to ACR using the `docker/login-action`.<br>
+        3. Push Docker images to ACR for use in Azure services.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) `docker/login-action`</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) `github/actions-auth`</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) `azure/login`</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) `azure/container-registry-action`</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. What is the typical first step when configuring a GitHub Actions workflow to build Docker images for Azure Container Registry (ACR)?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Set up Docker Build and Push Action in GitHub Actions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The first step in the workflow is to set up the Docker Build and Push Action in GitHub Actions. This action builds a Docker image from your application's source code and pushes it to Azure Container Registry (ACR) or another container registry.<br><br>
+        **Steps in Docker Image CI/CD Pipeline**:<br>
+        1. Set up the `docker/build-push-action` in the GitHub Actions workflow.<br>
+        2. Build the Docker image using this action.<br>
+        3. Push the built image to Azure Container Registry (ACR).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Set up Docker Build and Push Action in GitHub Actions</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Set up Azure CLI for authentication</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Configure Kubernetes manifests</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) Build the image manually on Azure</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+<!-- Question 51 -->
+<div class="qee">
+    <div class="que">
+        <p>51. What is the primary purpose of deploying a Docker image from Azure Container Registry (ACR) to Azure Kubernetes Service (AKS)?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To run containerized applications in a scalable Kubernetes environment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The primary purpose of deploying Docker images from Azure Container Registry (ACR) to Azure Kubernetes Service (AKS) is to run containerized applications in a scalable, managed Kubernetes environment. AKS enables automatic scaling, monitoring, and orchestration of containers, making it an ideal solution for deploying containerized applications at scale.<br><br>
+        **Deployment Process**:<br>
+        1. Build and store the Docker image in ACR.<br>
+        2. Configure AKS to pull the image from ACR.<br>
+        3. Deploy the image to AKS using Kubernetes deployment manifests.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) To manage multiple Docker containers without Kubernetes</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) To store Docker images for use on any cloud platform</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) To run containerized applications in a scalable Kubernetes environment</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) To convert Docker images into virtual machines</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee">
+    <div class="que">
+        <p>52. Which Kubernetes resource is typically used to manage the deployment of Docker containers in Azure Kubernetes Service (AKS)?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Kubernetes, the `Deployment` resource is used to manage the deployment of Docker containers. It ensures that the correct number of replicas of a containerized application are running and handles updates to the application. In Azure Kubernetes Service (AKS), a Kubernetes Deployment is used to manage the lifecycle of Docker containers deployed from Azure Container Registry (ACR).<br><br>
+        **Deployment in AKS**:<br>
+        1. Define the container image and configuration in a Deployment manifest.<br>
+        2. Apply the Deployment manifest to the AKS cluster.<br>
+        3. Kubernetes ensures the defined number of container replicas are running.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) Pod</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) Deployment</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) ReplicaSet</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) Service</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee">
+    <div class="que">
+        <p>53. What must you configure to allow Azure Kubernetes Service (AKS) to pull images from Azure Container Registry (ACR)?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Azure Active Directory (AAD) service principal or managed identity</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To allow Azure Kubernetes Service (AKS) to pull images from Azure Container Registry (ACR), you must configure an Azure Active Directory (AAD) service principal or a managed identity. This identity is granted permission to pull the images from ACR, ensuring secure communication between AKS and ACR.<br><br>
+        **Steps to Configure**:<br>
+        1. Create a service principal or enable managed identity for AKS.<br>
+        2. Grant the service principal or managed identity pull permissions on the ACR.<br>
+        3. AKS can now securely pull Docker images from ACR for deployment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) Azure Active Directory (AAD) service principal or managed identity</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) Azure Key Vault secret for authentication</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) ACR token for accessing the registry</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) Public access configuration on ACR</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+<!-- Question 54 -->
+<div class="qee">
+    <div class="que">
+        <p>54. What is the primary benefit of integrating GitHub with Azure Active Directory (AAD) for authentication?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Single Sign-On (SSO) for secure access to GitHub repositories and Azure resources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Integrating GitHub with Azure Active Directory (AAD) allows users to benefit from Single Sign-On (SSO), which enables secure access to both GitHub repositories and Azure resources. By using AAD for authentication, organizations can streamline access control, enforce security policies, and simplify user management.<br><br>
+        **Benefits of Integration**:<br>
+        1. Simplified authentication with SSO.<br>
+        2. Centralized identity management through AAD.<br>
+        3. Enhanced security through multi-factor authentication (MFA) integration.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) Access control for GitHub repositories using GitHub's built-in permissions</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) Integration with GitHub webhooks for triggering Azure services</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) Single Sign-On (SSO) for secure access to GitHub repositories and Azure resources</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) Enabling encrypted communications between GitHub and Azure services</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee">
+    <div class="que">
+        <p>55. Which Azure service can be used to monitor and audit GitHub access in an Azure environment?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Azure Security Center</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Security Center provides advanced monitoring and auditing capabilities for resources in an Azure environment, including access from external services like GitHub. By integrating GitHub with Azure, Security Center can help detect and prevent unauthorized access, ensuring compliance with organizational security policies.<br><br>
+        **Azure Security Center Features**:<br>
+        1. Continuous security assessments.<br>
+        2. Threat detection and prevention.<br>
+        3. Integration with GitHub to monitor access to Azure resources.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) Azure Security Center</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) Azure Monitor</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) Azure Active Directory (AAD)</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) Azure Key Vault</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+
+<!-- Question 56 -->
+<div class="qee">
+    <div class="que">
+        <p>56. What security feature in GitHub helps protect sensitive information in repositories when integrating with Azure?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Secrets Management</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub offers secrets management to protect sensitive information, such as API keys, passwords, and access tokens. By securely storing and referencing these secrets in GitHub Actions workflows, you can ensure that sensitive data is not exposed when integrating with Azure services. This feature helps prevent accidental leaks of critical data.<br><br>
+        **Secrets Management**:<br>
+        1. Store sensitive data securely in GitHub.<br>
+        2. Reference secrets in GitHub Actions without exposing them in plain text.<br>
+        3. Use secrets to authenticate with Azure services like Azure Container Registry (ACR) and Azure Key Vault.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) Access Control Lists (ACLs)</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) Secrets Management</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) Two-Factor Authentication (2FA)</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) Audit Logs</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee">
+    <div class="que">
+        <p>57. How can you restrict which Azure resources GitHub Actions workflows can access to improve security?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Use Azure Role-Based Access Control (RBAC) to assign permissions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Role-Based Access Control (RBAC) allows you to define and assign specific permissions to GitHub Actions workflows, ensuring that they only have access to the necessary Azure resources. By configuring RBAC, you can limit the scope of access, minimizing the potential attack surface and improving security.<br><br>
+        **Azure RBAC Features**:<br>
+        1. Fine-grained control over resource permissions.<br>
+        2. Assign roles to GitHub workflows or service principals.<br>
+        3. Enforce least privilege access control.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) Use Azure Role-Based Access Control (RBAC) to assign permissions</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) Enable Multi-Factor Authentication (MFA) for all workflows</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) Set up a VPN connection between GitHub and Azure</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) Configure GitHub repository settings for encrypted connections</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+<!-- Question 58 -->
+<div class="qee">
+    <div class="que">
+        <p>58. What is the primary function of GitHub Dependabot in the context of security?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Automatically update dependencies to fix security vulnerabilities</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub Dependabot helps keep your project secure by automatically checking for security vulnerabilities in dependencies and suggesting or making automatic updates to those dependencies. It works with your GitHub repository to ensure that your project is always up to date with the latest patches for security issues.<br><br>
+        **Dependabot Features**:<br>
+        1. Identifies outdated or insecure dependencies.<br>
+        2. Creates pull requests with security updates.<br>
+        3. Automates dependency version management.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) Automatically monitor server performance metrics</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) Automatically update dependencies to fix security vulnerabilities</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) Analyze GitHub workflow files for configuration issues</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) Track changes in repository commit history for security audits</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee">
+    <div class="que">
+        <p>59. How can you integrate GitHub Dependabot with Azure to enhance security for Azure-based applications?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Use GitHub Actions to trigger Azure security scans upon Dependabot updates</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To integrate GitHub Dependabot with Azure, you can set up GitHub Actions workflows that automatically trigger Azure security scans (such as using Azure Security Center or Azure Defender) when Dependabot creates a pull request with dependency updates. This way, security vulnerabilities in dependencies are checked and remediated as part of the CI/CD pipeline.<br><br>
+        **Integration Steps**:<br>
+        1. Set up GitHub Actions to monitor Dependabot PRs.<br>
+        2. Trigger Azure security scans using Azure CLI or other security tools.<br>
+        3. Review and act on security scan results for proactive vulnerability remediation.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) Use GitHub Actions to trigger Azure security scans upon Dependabot updates</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) Configure Azure Security Center to directly interact with Dependabot alerts</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) Use Azure DevOps to manage dependencies and pull requests</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) Manually check all dependencies for vulnerabilities before committing code</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee">
+    <div class="que">
+        <p>60. Which Azure service can help track security vulnerabilities in dependencies automatically updated by GitHub Dependabot?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Azure Security Center</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Security Center is a unified security management system that helps you monitor and protect your Azure resources. By integrating it with GitHub and its Dependabot updates, you can automatically detect and resolve security vulnerabilities in your dependencies. This service provides continuous monitoring and alerts you of any potential security risks in the dependencies updated by Dependabot.<br><br>
+        **Azure Security Center Features**:<br>
+        1. Continuous monitoring of Azure resources.<br>
+        2. Integration with GitHub to scan updated dependencies.<br>
+        3. Alerts and remediation advice for identified security risks.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) Azure Key Vault</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) Azure Sentinel</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) Azure Security Center</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) Azure Active Directory</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+
+<!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+        <p>61. How can GitHub Dependabot be used to strengthen security posture in an Azure environment?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By automatically updating vulnerable dependencies and integrating with Azure’s security monitoring tools</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub Dependabot automatically updates dependencies in your repositories to fix known vulnerabilities. This helps improve security by ensuring that your project uses the latest, most secure versions of libraries. By integrating Dependabot with Azure’s security monitoring tools, you can continuously track and mitigate potential risks from outdated or vulnerable dependencies in the Azure environment.<br><br>
+        **Benefits of Using Dependabot with Azure Security**:<br>
+        1. Automatic updates to critical dependencies.<br>
+        2. Integration with Azure’s security tools for proactive vulnerability monitoring.<br>
+        3. Reduced exposure to security breaches due to outdated software.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) By manually updating dependencies during each code release</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) By restricting access to repositories with outdated dependencies</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) By creating backup copies of vulnerable dependencies</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) By automatically updating vulnerable dependencies and integrating with Azure’s security monitoring tools</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+<!-- Question 62 -->
+<div class="qee">
+    <div class="que">
+        <p>62. What is the primary use of Azure Key Vault in a GitHub integration?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Securely store and access secrets like API keys and credentials</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Key Vault is used to securely store and manage sensitive information such as API keys, passwords, certificates, and other secrets. In a GitHub integration, it can help ensure that your secrets are not exposed in your codebase by storing them in a secure and centralized location. GitHub Actions can then retrieve these secrets at runtime during CI/CD pipelines.<br><br>
+        **Key Vault Features**:<br>
+        1. Store secrets such as database connection strings and API keys.<br>
+        2. Securely access secrets from GitHub Actions.<br>
+        3. Manage certificates and encryption keys for your applications.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) Manage Azure subscriptions for GitHub users</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) Securely store and access secrets like API keys and credentials</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) Automate deployment of GitHub repositories to Azure</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) Control access to GitHub repositories for Azure users</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee">
+    <div class="que">
+        <p>63. How can you retrieve secrets stored in Azure Key Vault within a GitHub Actions workflow?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Use Azure Key Vault GitHub Action to fetch secrets securely</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To securely retrieve secrets from Azure Key Vault in a GitHub Actions workflow, you can use the Azure Key Vault GitHub Action. This action allows you to securely access secrets from Key Vault and make them available as environment variables during the workflow run. By integrating it into your CI/CD pipeline, you can access sensitive information like API keys, client secrets, and certificates without exposing them in your repository.<br><br>
+        **Steps to Retrieve Secrets**:<br>
+        1. Set up Azure Key Vault and store secrets.<br>
+        2. Configure GitHub Action to use the Azure Key Vault GitHub Action.<br>
+        3. Retrieve secrets at runtime and use them securely in your workflows.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) Manually fetch secrets from the Azure portal and store them in GitHub</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) Use Azure CLI commands in GitHub Actions to fetch secrets</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) Use Azure Key Vault GitHub Action to fetch secrets securely</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) Store secrets directly in the GitHub repository and reference them in workflows</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee">
+    <div class="que">
+        <p>64. Why is it a best practice to use Azure Key Vault for secrets management in GitHub workflows?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It securely stores sensitive information and prevents exposure in the codebase</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Storing sensitive data, such as API keys or connection strings, directly in your GitHub repository is risky because it can lead to accidental exposure. Azure Key Vault provides a secure, centralized location for managing secrets, ensuring that sensitive information is never exposed in your codebase or version control. This practice helps mitigate the risk of data breaches and keeps sensitive information protected.<br><br>
+        **Key Vault Benefits**:<br>
+        1. Centralized and secure storage for secrets.<br>
+        2. Granular access control using Azure RBAC.<br>
+        3. Reduced risk of secrets exposure in public repositories.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) It provides more granular version control over secrets than GitHub</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) It automatically encrypts secrets in the repository</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) It allows easier sharing of secrets between different repositories</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) It securely stores sensitive information and prevents exposure in the codebase</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee">
+    <div class="que">
+        <p>65. Which GitHub Action would you use to integrate Azure Key Vault into your GitHub Actions workflow?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Azure Key Vault GitHub Action</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Azure Key Vault GitHub Action allows you to securely fetch secrets stored in Azure Key Vault and make them available as environment variables in your GitHub Actions workflows. This action can be integrated into your CI/CD pipeline to ensure sensitive data is securely managed without hardcoding them in your codebase.<br><br>
+        **GitHub Action Workflow**:<br>
+        1. Configure the Azure Key Vault GitHub Action.<br>
+        2. Set up secrets in Azure Key Vault.<br>
+        3. Use the Action to retrieve secrets at runtime during the workflow.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) GitHub Secrets Action</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) Azure CLI GitHub Action</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) Azure Key Vault GitHub Action</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) Azure DevOps GitHub Action</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+<!-- Question 66 -->
+<div class="qee">
+    <div class="que">
+        <p>66. What is the primary purpose of integrating Azure Monitor with GitHub?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Monitor the performance and health of applications and infrastructure</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor is a comprehensive monitoring service that provides real-time visibility into the performance and health of applications and infrastructure in Azure. By integrating Azure Monitor with GitHub, you can capture logs, metrics, and other monitoring data from your applications and pipelines. This integration helps you ensure that your application is running smoothly and identify issues in real time during your CI/CD workflows.<br><br>
+        **Azure Monitor Features**:<br>
+        1. Collects logs and metrics.<br>
+        2. Provides insights into application performance.<br>
+        3. Integrates with GitHub Actions to monitor deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) Store GitHub Actions logs in Azure</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) Monitor the performance and health of applications and infrastructure</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) Securely manage code repositories</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) Automate the deployment of applications to Azure</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee">
+    <div class="que">
+        <p>67. How can GitHub Actions integrate with Azure Monitor to provide continuous monitoring during CI/CD pipelines?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using Azure Monitor Action to collect logs and metrics during the pipeline</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub Actions can integrate with Azure Monitor by using the Azure Monitor GitHub Action. This action can collect logs, metrics, and monitoring data during the CI/CD pipeline execution. You can set up custom alerts and take corrective actions based on performance data or errors encountered during deployments.<br><br>
+        **Key Integration Steps**:<br>
+        1. Add Azure Monitor Action to your GitHub Actions workflow.<br>
+        2. Configure monitoring for your application or infrastructure.<br>
+        3. Collect and analyze logs and metrics in Azure Monitor during deployment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) By manually pushing logs to Azure Monitor from GitHub Actions</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) By configuring custom Azure Monitor alerts in GitHub Actions</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) By using Azure Monitor Action to collect logs and metrics during the pipeline</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) By integrating Azure Monitor into GitHub repository settings</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee">
+    <div class="que">
+        <p>68. Which Azure Monitor feature can be leveraged in GitHub Actions to alert developers about failed deployments?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Azure Monitor Alerts</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor Alerts can be set up to trigger notifications or actions when specific conditions are met, such as a failed deployment or error in the pipeline. By integrating Azure Monitor Alerts with GitHub Actions, developers can receive timely notifications about issues in their workflows, allowing them to respond and troubleshoot faster.<br><br>
+        **Azure Monitor Alerts Features**:<br>
+        1. Set thresholds for specific metrics or log events.<br>
+        2. Trigger notifications via email, SMS, or webhook.<br>
+        3. Automate responses to critical issues, such as failed deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) Application Insights</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) Log Analytics</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) Diagnostics Settings</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) Azure Monitor Alerts</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee">
+    <div class="que">
+        <p>69. What are the benefits of integrating Azure Monitor with GitHub Actions in a CI/CD pipeline?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Improved visibility into deployment health and automated issue detection</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        By integrating Azure Monitor with GitHub Actions, developers gain visibility into the health of their applications during and after deployments. This integration allows automatic detection of issues like performance degradation, failures, or errors. The ability to monitor deployment health in real-time and set up automated alerts helps reduce the time taken to detect and resolve problems.<br><br>
+        **Key Benefits**:<br>
+        1. Real-time monitoring of application health.<br>
+        2. Automated alerts and notifications for deployment failures.<br>
+        3. Enhanced troubleshooting with log and metric insights.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) Easier deployment of applications to Azure</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) Ability to automatically fix bugs during the deployment</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) Improved visibility into deployment health and automated issue detection</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) Automatic rollback of failed deployments</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+<!-- Question 70 -->
+<div class="qee">
+    <div class="que">
+        <p>70. How can Azure Monitor help track GitHub deployment status and metrics?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By integrating Azure Monitor with GitHub Actions to track deployment logs and metrics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor can track GitHub deployment status by integrating with GitHub Actions, where it collects logs and metrics during deployments. These logs provide valuable insights into the deployment process, including any errors, performance issues, or other critical information that can help you monitor the health of your application in real-time.<br><br>
+        **Azure Monitor Features**:<br>
+        1. Tracks deployment logs during CI/CD workflows.<br>
+        2. Collects performance metrics to monitor application health.<br>
+        3. Provides alerting based on predefined thresholds or errors.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) By manually tracking each deployment step</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) By using GitHub Actions logs only</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) By integrating Azure Monitor with GitHub Actions to track deployment logs and metrics</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) By storing GitHub deployment status in Azure DevOps</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+
+<!-- Question 71 -->
+<div class="qee">
+    <div class="que">
+        <p>71. What type of metrics can be tracked in Azure Monitor during GitHub deployments?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Performance metrics, error logs, and deployment duration</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        When integrating Azure Monitor with GitHub, you can track several important metrics such as the performance of the deployed application, any error logs, and the duration of each deployment. These insights help you optimize your CI/CD process and ensure the deployed application performs well under various conditions.<br><br>
+        **Metrics Tracked by Azure Monitor**:<br>
+        1. Performance metrics (e.g., response times).<br>
+        2. Error logs (e.g., deployment failures, system errors).<br>
+        3. Deployment duration and success rates.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) Code version and author details</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) Only deployment success rates</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) Error logs and security alerts only</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) Performance metrics, error logs, and deployment duration</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee">
+    <div class="que">
+        <p>72. Which of the following is a benefit of using Azure Monitor to track GitHub deployments?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Proactive issue detection and quicker response to deployment failures</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor offers the ability to detect issues proactively during the GitHub deployment process. By monitoring logs and performance metrics, you can quickly identify when something goes wrong and take corrective action before it impacts end-users. This reduces downtime and helps maintain the reliability of your applications.<br><br>
+        **Key Benefits of Azure Monitor**:<br>
+        1. Proactive monitoring and early issue detection.<br>
+        2. Quick response to failed deployments or performance degradation.<br>
+        3. Reduces troubleshooting time and downtime.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) Full control over deployment settings</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) Manual error handling during deployment</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) Proactive issue detection and quicker response to deployment failures</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) Improved deployment speeds and reduced costs</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee">
+    <div class="que">
+        <p>73. How can alerts be set up in Azure Monitor for GitHub deployments?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By defining threshold values for logs and metrics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor allows you to define custom alerts based on specific threshold values for logs and metrics. These thresholds can trigger alerts when deployment errors occur, or when performance issues are detected during or after GitHub deployments. Alerts can notify teams via email, text, or automated actions.<br><br>
+        **Setting up Alerts**:<br>
+        1. Define threshold values for metrics or logs.<br>
+        2. Set up notifications to alert the team when the threshold is breached.<br>
+        3. Take automated actions to resolve issues (e.g., rollback deployment).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) By creating a custom dashboard for GitHub</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) By defining threshold values for logs and metrics</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) By scheduling deployment health checks</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) By manually checking GitHub Action status after each deployment</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+<!-- Question 74 -->
+<div class="qee">
+    <div class="que">
+        <p>74. How can Azure Monitor be used to track logs for GitHub Actions deployments?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By integrating GitHub Actions logs with Azure Monitor</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To track logs for GitHub Actions deployments, you can integrate GitHub Actions logs with Azure Monitor. This allows you to view the logs of each GitHub Action run in the Azure portal, providing insights into deployment status, errors, and other important details.<br><br>
+        **Steps for Integration**:<br>
+        1. Set up Azure Monitor to collect GitHub Actions logs.<br>
+        2. Use the Azure portal to view deployment logs.<br>
+        3. Analyze logs for errors and performance issues.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) By manually logging each GitHub Action run</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) By exporting GitHub Action logs to a third-party tool</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) By integrating GitHub Actions logs with Azure Monitor</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) By using GitHub's native logging system</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<!-- Question 75 -->
+<div class="qee">
+    <div class="que">
+        <p>75. What types of events can be tracked in Azure Monitor for GitHub Actions?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Deployment status, errors, and workflow execution times</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Monitor can track various types of events during GitHub Actions, including the deployment status, errors, and the time taken for each workflow execution. This data helps in identifying issues, improving performance, and providing better insights into the CI/CD process.<br><br>
+        **Events Tracked in Azure Monitor**:<br>
+        1. Deployment success/failure.<br>
+        2. Errors in the CI/CD pipeline.<br>
+        3. Workflow execution duration and efficiency.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) Only workflow execution times</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) Only deployment success rates</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) Only errors and performance issues</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) Deployment status, errors, and workflow execution times</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+
+<!-- Question 76 -->
+<div class="qee">
+    <div class="que">
+        <p>76. How can you set up alerts for GitHub Actions failures in Azure Monitor?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By creating alert rules based on log data and failure conditions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can set up alerts in Azure Monitor by creating custom alert rules that monitor for specific conditions in the GitHub Actions logs, such as failures or errors. These alerts can notify teams via email or trigger automated workflows to respond to failures.<br><br>
+        **Setting Up Alerts**:<br>
+        1. Create custom alert rules in Azure Monitor.<br>
+        2. Define conditions based on log data (e.g., failed deployments).<br>
+        3. Set up notifications or automated responses to the alerts.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) By configuring manual error checks</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) By creating alert rules based on log data and failure conditions</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) By manually tracking deployment status</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) By using GitHub's native alerting system</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee">
+    <div class="que">
+        <p>77. Which tool can be used to visualize GitHub Actions logs within Azure Monitor?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Azure Log Analytics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Log Analytics is the primary tool within Azure Monitor for analyzing and visualizing logs. You can use it to query GitHub Actions logs, analyze deployment issues, and create custom dashboards for better visualization of the data.<br><br>
+        **Key Features of Azure Log Analytics**:<br>
+        1. Query logs using Kusto Query Language (KQL).<br>
+        2. Visualize logs in custom dashboards.<br>
+        3. Monitor and analyze large volumes of log data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) Azure DevOps</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) Azure Application Insights</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) GitHub Insights</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) Azure Log Analytics</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+<!-- Question 78 -->
+<div class="qee">
+    <div class="que">
+        <p>78. What is the primary benefit of using Azure Bicep for Infrastructure as Code (IaC) in GitHub workflows?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Simplified syntax for defining Azure resources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Bicep simplifies the syntax for defining Azure resources in a declarative manner, compared to JSON or ARM templates. It integrates well with GitHub workflows, allowing for easy automation of infrastructure deployments. Bicep is a domain-specific language (DSL) that makes writing, maintaining, and managing IaC more efficient.<br><br>
+        **Advantages of Azure Bicep**:<br>
+        1. Simplified syntax.<br>
+        2. Integration with GitHub workflows for continuous deployment.<br>
+        3. Native support in Azure and GitHub Actions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) Bicep allows for complex configuration management</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) Bicep provides a user interface for resource deployment</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) Simplified syntax for defining Azure resources</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) Bicep automates the entire Azure setup process</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+
+<!-- Question 79 -->
+<div class="qee">
+    <div class="que">
+        <p>79. How does Azure Bicep integrate with GitHub Actions for continuous deployment?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using GitHub Actions workflows to deploy Bicep templates to Azure</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Bicep can be integrated into GitHub Actions by using workflows that automate the deployment of Bicep templates to Azure. You can create a GitHub Actions pipeline that compiles and deploys the Bicep code to Azure, providing seamless automation for infrastructure management.<br><br>
+        **Steps for Integration**:<br>
+        1. Define a GitHub Actions workflow that uses Azure CLI or Bicep tasks.<br>
+        2. Compile the Bicep file using the Azure CLI.<br>
+        3. Deploy the compiled template to Azure using the Azure Resource Manager (ARM) API.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) By integrating Bicep into GitHub's issue tracking system</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) By triggering manual deployment through GitHub Actions</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) By automatically generating Bicep files from GitHub Actions</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) By using GitHub Actions workflows to deploy Bicep templates to Azure</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee">
+    <div class="que">
+        <p>80. What is the purpose of the "bicep build" command in a GitHub Actions workflow?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To compile the Bicep template into an ARM template</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The "bicep build" command is used to compile a Bicep file into an ARM template. In GitHub Actions, this command can be included in the workflow to ensure that the Bicep code is correctly transformed into the Azure Resource Manager template before deployment.<br><br>
+        **Using "bicep build"**:<br>
+        1. The Bicep file is compiled into an ARM template.<br>
+        2. The resulting ARM template can be deployed to Azure.<br>
+        3. This ensures that the infrastructure defined in Bicep is accurately reflected in the deployed resources.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) To build the Bicep file into a Docker image</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) To deploy the Bicep code directly to Azure</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) To compile the Bicep template into an ARM template</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) To package the Bicep template into a ZIP file</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+<!-- Question 81 -->
+<div class="qee">
+    <div class="que">
+        <p>81. How can you trigger a GitHub Actions workflow to deploy Azure resources using Bicep?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By pushing changes to the GitHub repository that contains the Bicep template</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can trigger a GitHub Actions workflow to deploy Azure resources using Bicep by pushing changes to the repository that contains the Bicep template. This will automatically trigger the workflow and deploy the changes to Azure.<br><br>
+        **Setting up the trigger**:<br>
+        1. Define a GitHub Actions workflow.<br>
+        2. Set the trigger to be a push to the repository.<br>
+        3. Use Azure CLI or Bicep tasks to deploy the infrastructure.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) By manually running the GitHub Actions workflow</label><br>
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) By pushing changes to the GitHub repository that contains the Bicep template</label><br>
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) By configuring a schedule to run the workflow</label><br>
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) By manually compiling the Bicep file before the workflow runs</label><br>
+    </div>
+    <div id="result80" class="result"></div>
+</div>
+<!-- Question 82 -->
+<div class="qee">
+    <div class="que">
+        <p>82. What is the benefit of automating Bicep deployments via GitHub Actions?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Streamlines infrastructure management by automating deployments</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Automating Bicep deployments via GitHub Actions enables continuous deployment pipelines, reducing manual intervention. It streamlines infrastructure management and ensures consistency by deploying infrastructure automatically whenever changes are pushed to the repository.<br><br>
+        **Benefits of Automation**:<br>
+        1. Streamlined process.<br>
+        2. Reduced risk of human error.<br>
+        3. Increased efficiency and speed in infrastructure updates.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) It reduces the need for source code version control</label><br>
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) It simplifies the debugging process of Bicep files</label><br>
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) It automatically fixes syntax errors in Bicep files</label><br>
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) Streamlines infrastructure management by automating deployments</label><br>
+    </div>
+    <div id="result81" class="result"></div>
+</div>
+
+<!-- Question 83 -->
+<div class="qee">
+    <div class="que">
+        <p>83. How can you trigger a GitHub Actions workflow to automate the deployment of a Bicep template to Azure?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By pushing changes to the GitHub repository that contains the Bicep file</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To trigger a GitHub Actions workflow to deploy a Bicep template, you can configure the workflow to trigger on events like pushing changes to the repository that contains the Bicep file. This ensures that every update automatically triggers the deployment process.<br><br>
+        **Trigger Options**:<br>
+        1. Push events.<br>
+        2. Pull request events.<br>
+        3. Manual trigger.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) By manually triggering a job from the GitHub Actions UI</label><br>
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) By creating a scheduled task to trigger the workflow</label><br>
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) By pushing changes to the GitHub repository that contains the Bicep file</label><br>
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) By using the GitHub Actions API to manually start the workflow</label><br>
+    </div>
+    <div id="result82" class="result"></div>
+</div>
+
+<!-- Question 84 -->
+<div class="qee">
+    <div class="que">
+        <p>84. What GitHub Actions step would you typically use to deploy a Bicep template to Azure?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure CLI action to deploy Bicep templates</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In a GitHub Actions workflow, you can use the Azure CLI action to deploy a Bicep template. The `az deployment sub create` command allows you to deploy Bicep templates to your Azure subscription.<br><br>
+        **Example Deployment Step**:<br>
+        - `az deployment sub create --location <region> --template-file <bicep_file>.bicep`<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) Azure Functions deployment action</label><br>
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) Azure CLI action to deploy Bicep templates</label><br>
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) GitHub Deployment action</label><br>
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) Azure Kubernetes Service deployment action</label><br>
+    </div>
+    <div id="result83" class="result"></div>
+</div>
+
+<!-- Question 85 -->
+<div class="qee">
+    <div class="que">
+        <p>85. Which GitHub Action is used to authenticate to Azure when automating Bicep deployments?</p>
+        <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+    </div>
+    <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Azure Login Action</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Azure Login Action is used to authenticate to Azure before any deployment steps, including deploying Bicep templates. This action requires service principal credentials to authenticate to Azure.<br><br>
+        **Usage**:<br>
+        - `uses: azure/login@v1`<br>
+        - Provides authentication for Azure CLI commands and Bicep deployments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+        <label for="optionA84">A) Azure Deploy Action</label><br>
+        <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+        <label for="optionB84">B) Azure Kubernetes Service Action</label><br>
+        <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+        <label for="optionC84">C) Azure Resource Manager Action</label><br>
+        <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+        <label for="optionD84">D) Azure Login Action</label><br>
+    </div>
+    <div id="result84" class="result"></div>
+</div>
+
+<!-- Question 86 -->
+<div class="qee">
+    <div class="que">
+        <p>86. How can you use GitHub to automate deployments to Azure API Management?</p>
+        <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+    </div>
+    <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using GitHub Actions to push API definitions to Azure API Management</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub Actions can be configured to automate deployments to Azure API Management (APIM) by pushing API definitions and configurations directly to the APIM service. This process includes using the Azure CLI or the Azure API Management REST API.<br><br>
+        **Deployment Steps**:<br>
+        1. Use GitHub Actions to build or update API definitions.<br>
+        2. Push these definitions to Azure API Management.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+        <label for="optionA85">A) By configuring Azure API Management as a GitHub repository</label><br>
+        <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+        <label for="optionB85">B) By integrating GitHub with Azure API Management's UI</label><br>
+        <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+        <label for="optionC85">C) By using GitHub Actions to push API definitions to Azure API Management</label><br>
+        <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+        <label for="optionD85">D) By creating manual API definitions in GitHub Actions</label><br>
+    </div>
+    <div id="result85" class="result"></div>
+</div>
+
+<!-- Question 87 -->
+<div class="qee">
+    <div class="que">
+        <p>87. What GitHub Action is typically used to deploy API definitions to Azure API Management?</p>
+        <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+    </div>
+    <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure CLI action to manage API definitions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Azure CLI action in GitHub Actions can be used to push API definitions to Azure API Management by using commands like `az apim api import`.<br><br>
+        **Example Command**:<br>
+        - `az apim api import --service-name <apim-service> --api-id <api-id> --path <api-definition-path>`<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+        <label for="optionA86">A) GitHub Actions API Management Task</label><br>
+        <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+        <label for="optionB86">B) Azure CLI action to manage API definitions</label><br>
+        <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+        <label for="optionC86">C) Azure DevOps API deployment</label><br>
+        <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+        <label for="optionD86">D) GitHub API integration</label><br>
+    </div>
+    <div id="result86" class="result"></div>
+</div>
+
+<!-- Question 88 -->
+<div class="qee">
+    <div class="que">
+        <p>88. How can you manage API definitions from GitHub to Azure API Management (APIM)?</p>
+        <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+    </div>
+    <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using GitHub Actions to automate the deployment of API definitions to APIM</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To manage APIs from GitHub to Azure API Management, you can use GitHub Actions to automate the deployment of API definitions. GitHub Actions allows you to push API definitions and configurations from your repository directly to Azure API Management, ensuring that your APIs are always up to date.<br><br>
+        **Steps Involved**:<br>
+        1. Create API definitions in GitHub.<br>
+        2. Use GitHub Actions to deploy these definitions to Azure API Management.<br>
+        3. Automate the process to keep the API definitions updated.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+        <label for="optionA87">A) By manually uploading API definitions through the Azure Portal</label><br>
+        <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+        <label for="optionB87">B) By using Azure DevOps pipelines to push APIs from GitHub</label><br>
+        <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+        <label for="optionC87">C) By using GitHub Actions to automate the deployment of API definitions to APIM</label><br>
+        <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+        <label for="optionD87">D) By creating a pull request to update APIs in Azure API Management</label><br>
+    </div>
+    <div id="result87" class="result"></div>
+</div>
+
+<!-- Question 89 -->
+<div class="qee">
+    <div class="que">
+        <p>89. What is a common GitHub Action used to deploy API definitions to Azure API Management (APIM)?</p>
+        <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+    </div>
+    <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Azure CLI Action for API Management deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Azure CLI Action is commonly used to deploy API definitions to Azure API Management. This action allows you to interact with Azure and automate tasks like importing API definitions from a GitHub repository to Azure API Management.<br><br>
+        **Example Command**:<br>
+        - `az apim api import --service-name <service-name> --api-id <api-id> --path <api-definition-path>`<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+        <label for="optionA88">A) GitHub API Action</label><br>
+        <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+        <label for="optionB88">B) Azure CLI Action for API Management deployment</label><br>
+        <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+        <label for="optionC88">C) Azure Resource Manager API Action</label><br>
+        <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+        <label for="optionD88">D) GitHub Action for deploying API to Azure Functions</label><br>
+    </div>
+    <div id="result88" class="result"></div>
+</div>
+
+<!-- Question 90 -->
+<div class="qee">
+    <div class="que">
+        <p>90. What is the purpose of the `az apim api import` command in GitHub Actions when deploying to Azure API Management?</p>
+        <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+    </div>
+    <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It imports API definitions from a file into Azure API Management</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `az apim api import` command is used to import API definitions from a file, such as an OpenAPI specification or a Swagger definition, into Azure API Management. This command is useful for automating the process of managing and updating APIs in Azure API Management.<br><br>
+        **Command Usage**:<br>
+        - `az apim api import --service-name <apim-service-name> --api-id <api-id> --path <path-to-definition>`<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+        <label for="optionA89">A) It imports API definitions from a file into Azure API Management</label><br>
+        <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+        <label for="optionB89">B) It lists all APIs in an Azure API Management service</label><br>
+        <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+        <label for="optionC89">C) It updates API definitions in an Azure API Management service</label><br>
+        <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+        <label for="optionD89">D) It deploys Azure Functions to Azure API Management</label><br>
+    </div>
+    <div id="result89" class="result"></div>
+</div>
+
+<!-- Question 91 -->
+<div class="qee">
+    <div class="que">
+        <p>91. How can GitHub integrate with Azure AI services?</p>
+        <button id="hintButton90" class="hint-button" type="button" onclick="showHint('hint91')">Show Hint</button>
+    </div>
+    <div id="hint91" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using GitHub Actions to trigger Azure AI model training and deployment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub can integrate with Azure AI services using GitHub Actions to automate the process of training and deploying AI models to Azure. This allows for continuous deployment of AI models based on changes in your code or data.<br><br>
+        **Azure AI Services**:<br>
+        1. Azure Machine Learning (Azure ML)<br>
+        2. Azure Cognitive Services<br>
+        3. Azure AI Pipelines<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA90" name="answer90" value="A" onclick="checkAnswer(90)">
+        <label for="optionA90">A) By creating pull requests in GitHub to trigger Azure AI models</label><br>
+        <input type="radio" id="optionB90" name="answer90" value="B" onclick="checkAnswer(90)">
+        <label for="optionB90">B) By manually deploying models from GitHub to Azure AI services</label><br>
+        <input type="radio" id="optionC90" name="answer90" value="C" onclick="checkAnswer(90)">
+        <label for="optionC90">C) By using GitHub Actions to trigger Azure AI model training and deployment</label><br>
+        <input type="radio" id="optionD90" name="answer90" value="D" onclick="checkAnswer(90)">
+        <label for="optionD90">D) By storing AI models directly in GitHub repositories</label><br>
+    </div>
+    <div id="result90" class="result"></div>
+</div>
+
+<!-- Question 92 -->
+<div class="qee">
+    <div class="que">
+        <p>92. Which Azure AI service can be used with GitHub to build and deploy machine learning models?</p>
+        <button id="hintButton91" class="hint-button" type="button" onclick="showHint('hint92')">Show Hint</button>
+    </div>
+    <div id="hint92" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Azure Machine Learning (Azure ML)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Machine Learning (Azure ML) is a comprehensive cloud platform used to build, train, and deploy machine learning models. GitHub can be integrated with Azure ML through GitHub Actions to automate workflows for training and deploying models.<br><br>
+        **Azure ML Features**:<br>
+        1. Model training and testing.<br>
+        2. Continuous model deployment.<br>
+        3. Version control of machine learning models.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA91" name="answer91" value="A" onclick="checkAnswer(91)">
+        <label for="optionA91">A) Azure Machine Learning (Azure ML)</label><br>
+        <input type="radio" id="optionB91" name="answer91" value="B" onclick="checkAnswer(91)">
+        <label for="optionB91">B) Azure Cognitive Services</label><br>
+        <input type="radio" id="optionC91" name="answer91" value="C" onclick="checkAnswer(91)">
+        <label for="optionC91">C) Azure AI Insights</label><br>
+        <input type="radio" id="optionD91" name="answer91" value="D" onclick="checkAnswer(91)">
+        <label for="optionD91">D) Azure Data Factory</label><br>
+    </div>
+    <div id="result91" class="result"></div>
+</div>
+<!-- Question 93 -->
+<div class="qee">
+    <div class="que">
+        <p>93. How can GitHub be used to automate the training of AI models with Azure Machine Learning?</p>
+        <button id="hintButton92" class="hint-button" type="button" onclick="showHint('hint93')">Show Hint</button>
+    </div>
+    <div id="hint93" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using GitHub Actions to trigger Azure Machine Learning pipelines</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub can integrate with Azure Machine Learning through GitHub Actions. This allows you to automate training processes by triggering Azure ML pipelines when there are changes to the code or data stored in GitHub repositories. GitHub Actions can be used to push updates and train machine learning models automatically.<br><br>
+        **Steps**:<br>
+        1. Define an Azure ML pipeline.<br>
+        2. Use GitHub Actions to trigger the pipeline.<br>
+        3. Monitor and deploy the trained model.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA92" name="answer92" value="A" onclick="checkAnswer(92)">
+        <label for="optionA92">A) By manually running Azure ML pipelines from GitHub</label><br>
+        <input type="radio" id="optionB92" name="answer92" value="B" onclick="checkAnswer(92)">
+        <label for="optionB92">B) By using Azure DevOps pipelines to trigger model training</label><br>
+        <input type="radio" id="optionC92" name="answer92" value="C" onclick="checkAnswer(92)">
+        <label for="optionC92">C) By using GitHub Actions to trigger Azure Machine Learning pipelines</label><br>
+        <input type="radio" id="optionD92" name="answer92" value="D" onclick="checkAnswer(92)">
+        <label for="optionD92">D) By using GitHub workflows to train models on Azure</label><br>
+    </div>
+    <div id="result92" class="result"></div>
+</div>
+
+<!-- Question 94 -->
+<div class="qee">
+    <div class="que">
+        <p>94. What is the purpose of Azure Machine Learning pipelines in the context of GitHub integration?</p>
+        <button id="hintButton93" class="hint-button" type="button" onclick="showHint('hint94')">Show Hint</button>
+    </div>
+    <div id="hint94" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automate the process of training and deploying machine learning models</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Azure Machine Learning pipelines automate the machine learning workflow, including steps like data preprocessing, model training, evaluation, and deployment. By integrating with GitHub, the pipeline can be triggered automatically when updates are made to the repository.<br><br>
+        **Pipeline Steps**:<br>
+        1. Data preprocessing.<br>
+        2. Model training.<br>
+        3. Evaluation and deployment.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA93" name="answer93" value="A" onclick="checkAnswer(93)">
+        <label for="optionA93">A) To manually update machine learning models in Azure</label><br>
+        <input type="radio" id="optionB93" name="answer93" value="B" onclick="checkAnswer(93)">
+        <label for="optionB93">B) To automate the process of training and deploying machine learning models</label><br>
+        <input type="radio" id="optionC93" name="answer93" value="C" onclick="checkAnswer(93)">
+        <label for="optionC93">C) To monitor and visualize machine learning models on GitHub</label><br>
+        <input type="radio" id="optionD93" name="answer93" value="D" onclick="checkAnswer(93)">
+        <label for="optionD93">D) To store model versions in GitHub</label><br>
+    </div>
+    <div id="result93" class="result"></div>
+</div>
+
+<!-- Question 95 -->
+<div class="qee">
+    <div class="que">
+        <p>95. How can GitHub Actions help with continuous integration and continuous deployment (CI/CD) for Azure Machine Learning models?</p>
+        <button id="hintButton94" class="hint-button" type="button" onclick="showHint('hint95')">Show Hint</button>
+    </div>
+    <div id="hint95" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By automating the model training, testing, and deployment process</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GitHub Actions can be used to set up CI/CD pipelines for machine learning models by automating tasks like training models, testing them, and deploying the models to Azure. This ensures that your machine learning models are constantly updated and deployed without manual intervention.<br><br>
+        **CI/CD Pipeline**:<br>
+        1. Trigger the training process based on code or data updates.<br>
+        2. Test the model.<br>
+        3. Deploy the model to Azure.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA94" name="answer94" value="A" onclick="checkAnswer(94)">
+        <label for="optionA94">A) By manually triggering model training on GitHub</label><br>
+        <input type="radio" id="optionB94" name="answer94" value="B" onclick="checkAnswer(94)">
+        <label for="optionB94">B) By using GitHub to store model files</label><br>
+        <input type="radio" id="optionC94" name="answer94" value="C" onclick="checkAnswer(94)">
+        <label for="optionC94">C) By syncing GitHub with Azure AI Services</label><br>
+        <input type="radio" id="optionD94" name="answer94" value="D" onclick="checkAnswer(94)">
+        <label for="optionD94">D) By automating the model training, testing, and deployment process</label><br>
+    </div>
+    <div id="result94" class="result"></div>
+</div>
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>
