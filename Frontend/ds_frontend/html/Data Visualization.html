@@ -1,0 +1,2758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization</title>
+    <link rel="stylesheet" href="../css/data science.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'A', 'C', 'A', 'B', 'C', 'D', 'B', 'C', 'A', 'B',
+            'A', 'C', 'B', 'D', 'A', 'C', 'D', 'A', 'B', 'C',
+            'B', 'A', 'C', 'D', 'B','A', 'B', 'C', 'A', 'D',
+            'B', 'C', 'A', 'D', 'B', 'C', 'A', 'D', 'B', 'A',
+            'B', 'C', 'A', 'D', 'B', 'C', 'A', 'D', 'B', 'C',
+
+            'C', 'A', 'D', 'B', 'C', 'C', 'A', 'D', 'C', 'A',   
+            'B', 'A', 'D', 'C', 'B', 'A', 'C', 'B', 'D', 'C',
+            'B', 'C', 'A', 'D', 'B', 'C', 'A', 'B', 'C', 'A',
+            'B', 'C', 'A', 'D', 'B', 'A', 'C', 'B', 'C', 'A',
+            'B', 'A', 'D', 'B', 'A', 'C', 'B', 'A', 'C', 'B',
+
+            'C', 'B', 'A', 'D', 'B'
+
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>Data Visualization</h3>
+        <div class="inner-border">
+            <div class="qee">               
+<!-- Question 1 -->
+<div class="que">
+    <p>1. Why is data visualization important in data science?</p>
+    <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+</div>
+<div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+    <strong>Correct Option: A) It helps in understanding complex data quickly</strong><br><br>
+    <strong>Solution and Explanation:</strong><br>
+    Data visualization is crucial in data science because it allows complex data to be communicated clearly and effectively through graphical means like charts and graphs.<br><br>
+    **Benefits**:<br>
+    1. Easier interpretation of large datasets.<br>
+    2. Better communication of findings.<br>
+    3. Helps identify patterns, trends, and outliers.<br>
+</div>
+<div class="options">
+    <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+    <label for="optionA0">A) It helps in understanding complex data quickly</label><br>
+    <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+    <label for="optionB0">B) It replaces data preprocessing</label><br>
+    <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+    <label for="optionC0">C) It eliminates the need for machine learning</label><br>
+    <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+    <label for="optionD0">D) It hides data from the user</label><br>
+</div>
+<div id="result0" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 2 -->
+    <div class="que">
+        <p>2. Which of the following is a key advantage of using visualizations in data storytelling?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Simplifies communication of insights</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Data storytelling with visualizations helps simplify complex data and communicate insights clearly, making it easier for stakeholders to understand the key messages.<br><br>
+        **Advantages**:<br>
+        1. Makes information more digestible.<br>
+        2. Enhances data-driven decision-making.<br>
+        3. Captures audience attention.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Increases data storage</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Removes data bias</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) Simplifies communication of insights</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Makes data confidential</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 3 -->
+    <div class="que">
+        <p>3. Which visualization type is best for showing trends over time?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Line chart</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Line charts are most effective for showing trends over time, allowing the user to easily see patterns, rises, and falls in data.<br><br>
+        **Use cases**:<br>
+        1. Time series analysis.<br>
+        2. Stock market trends.<br>
+        3. Sales or website traffic over time.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) Line chart</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) Pie chart</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) Histogram</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) Box plot</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 4 -->
+    <div class="que">
+        <p>4. How does data visualization support decision-making?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By making patterns and trends easier to spot</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Visualization helps decision-makers by making trends, patterns, and anomalies in data easier to detect and analyze, thus leading to more informed choices.<br><br>
+        **Key Roles in Decision-Making**:<br>
+        1. Highlighting KPIs and metrics visually.<br>
+        2. Supporting strategic analysis.<br>
+        3. Driving data-informed actions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) By removing the need for data</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) By making patterns and trends easier to spot</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) By randomizing the dataset</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) By using only numerical outputs</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 5 -->
+    <div class="que">
+        <p>5. What is the role of dashboards in data visualization?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) They provide a real-time view of key metrics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Dashboards are powerful tools in data visualization, offering real-time displays of key performance indicators (KPIs) and metrics for quick and effective monitoring.<br><br>
+        **Dashboard Benefits**:<br>
+        1. Centralizes information.<br>
+        2. Enhances visibility into operations.<br>
+        3. Enables faster responses.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) They are used only for static reports</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) They are used to store raw data</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) They provide a real-time view of key metrics</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) They clean the dataset automatically</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+                            
+<div class="qee">
+    <!-- Question 6 -->
+    <div class="que">
+        <p>6. Which of the following is a **qualitative** type of data?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Eye color</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Qualitative (or categorical) data describes non-numeric characteristics. Eye color is an example because it categorizes a trait without numerical value.<br><br>
+        **Other examples**:<br>
+        1. Gender<br>
+        2. Nationality<br>
+        3. Blood type<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) Age</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) Salary</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) Height</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) Eye color</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 7 -->
+    <div class="que">
+        <p>7. Which of these is considered **discrete** numerical data?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Number of students in a class</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Discrete data takes on countable values. The number of students in a class is a whole number that cannot be broken down into fractions or decimals.<br><br>
+        **Other examples**:<br>
+        1. Number of cars<br>
+        2. Count of emails<br>
+        3. Goals scored in a match<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Temperature</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Number of students in a class</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Height</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Weight</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 8 -->
+    <div class="que">
+        <p>8. Which type of data is used to represent **ranking or order**?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Ordinal</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Ordinal data represents categories with a meaningful order or ranking (e.g., 1st, 2nd, 3rd or low, medium, high).<br><br>
+        **Examples**:<br>
+        1. Education level (High School, Bachelor’s, Master’s)<br>
+        2. Customer satisfaction levels<br>
+        3. Star ratings<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) Nominal</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) Continuous</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) Ordinal</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) Interval</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 9 -->
+    <div class="que">
+        <p>9. What type of data is **temperature in Celsius** considered?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Interval</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Interval data has meaningful differences between values, but no true zero. Temperature in Celsius is interval data because 0°C does not represent a true absence of temperature.<br><br>
+        **Examples**:<br>
+        1. IQ scores<br>
+        2. Dates on a calendar<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) Interval</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) Ratio</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) Ordinal</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) Nominal</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 10 -->
+    <div class="que">
+        <p>10. Which type of data has a **true zero point**, allowing for meaningful ratios?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Ratio</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Ratio data has all the properties of interval data but also includes a true zero, allowing for ratios. For example, 10kg is twice as heavy as 5kg.<br><br>
+        **Examples**:<br>
+        1. Height<br>
+        2. Weight<br>
+        3. Distance<br>
+        4. Age<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) Interval</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) Ratio</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) Ordinal</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) Nominal</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 11 -->
+    <div class="que">
+        <p>11. Which of the following is typically used for **univariate analysis**?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Histogram</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Univariate analysis deals with a single variable. A histogram helps visualize the distribution and frequency of that single variable.<br><br>
+        **Other examples**:<br>
+        1. Box plot<br>
+        2. Pie chart (for categorical data)<br>
+        3. Density plot<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) Histogram</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) Scatter Plot</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) Heatmap</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) Pair Plot</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 12 -->
+    <div class="que">
+        <p>12. What is the main goal of **univariate visualization**?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Understand the distribution of a single variable</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Univariate visualization focuses on summarizing and understanding a single variable’s distribution, central tendency, and spread.<br><br>
+        **Examples**:<br>
+        - Mean, median, mode<br>
+        - Range, standard deviation<br>
+        - Outlier detection using box plots<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) Visualize two variables together</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) Show correlation</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) Understand the distribution of a single variable</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) Perform classification</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 13 -->
+    <div class="que">
+        <p>13. Which plot is commonly used for **bivariate visualization** involving two continuous variables?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Scatter Plot</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A scatter plot is ideal for visualizing the relationship between two continuous numerical variables and identifying patterns, trends, or correlations.<br><br>
+        **Other uses**:<br>
+        - Regression line overlay<br>
+        - Detecting outliers or clusters<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) Bar Chart</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) Scatter Plot</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) Histogram</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) Box Plot</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 14 -->
+    <div class="que">
+        <p>14. What does a **scatter plot** help identify in bivariate data?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Correlation or relationship</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Scatter plots help reveal the type and strength of correlation between two variables. A positive slope indicates positive correlation and vice versa.<br><br>
+        **Examples**:<br>
+        - Height vs. Weight<br>
+        - Hours Studied vs. Exam Score<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) Mean and median</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) Frequency</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) Mode</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) Correlation or relationship</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 15 -->
+    <div class="que">
+        <p>15. Which visualization is most appropriate for **comparing one categorical and one numerical variable**?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Box Plot</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A box plot is ideal for visualizing the distribution of a numerical variable across different categories (e.g., scores grouped by gender).<br><br>
+        **Example**:<br>
+        - Salary by Department<br>
+        - Test Scores by Grade Level<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) Box Plot</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) Scatter Plot</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) Histogram</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) Line Chart</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 16 -->
+    <div class="que">
+        <p>16. What is the purpose of **multivariate visualization** in data science?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Visualize the relationship between more than two variables</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Multivariate visualization techniques help analyze interactions and dependencies between three or more variables simultaneously.<br><br>
+        **Examples**:<br>
+        - Pair Plots<br>
+        - Heatmaps<br>
+        - 3D plots<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) Show distribution of a single variable</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) Compare two bar charts</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) Visualize the relationship between more than two variables</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) Identify missing values</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 17 -->
+    <div class="que">
+        <p>17. Which of the following is a **multivariate visualization technique**?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Pair Plot</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A pair plot is used to plot multiple pairwise relationships in a dataset. It is especially helpful in exploring high-dimensional data.<br><br>
+        **Library**: Seaborn<br>
+        **Displays**: Scatter plots, histograms on diagonals, and correlation between variables.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) Histogram</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) Box Plot</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) Bar Chart</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) Pair Plot</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 18 -->
+    <div class="que">
+        <p>18. Which visualization is best suited to observe **trends over time**?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Line Plot</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A line plot is commonly used to observe patterns and trends over time where the x-axis typically represents time and the y-axis represents the measured variable.<br><br>
+        **Example**:<br>
+        - Stock price vs. Date<br>
+        - Temperature vs. Time
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) Line Plot</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) Heatmap</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) Scatter Plot</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) Bar Chart</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 19 -->
+    <div class="que">
+        <p>19. In a **line plot**, what does each line typically represent when visualizing multivariate time series data?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A variable or category</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In a multivariate line plot, each line typically represents a different variable or category across the same time period, allowing comparison over time.<br><br>
+        **Example**: Visualizing temperatures from multiple cities over time.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) Random noise</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) A variable or category</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) Time series gaps</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) A histogram of values</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 20 -->
+    <div class="que">
+        <p>20. What is a key advantage of using a **line plot** in data science?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Helps track changes and trends over time</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Line plots are effective for tracking how values change over time, making them ideal for temporal data like sensor readings, stock prices, and more.<br><br>
+        **Tip**: Use different colors and markers to distinguish between multiple lines.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) Shows mean and median</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) Ideal for pie charts</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) Helps track changes and trends over time</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) Only used for categorical data</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 21 -->
+    <div class="que">
+        <p>21. What is the main use of a **bar chart** in data science?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To compare categories of data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A bar chart is used to compare different categories or groups. The height (or length) of the bars represents the value of each category.<br><br>
+        **Example**: Number of students in different departments.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) To display time series</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) To compare categories of data</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) To show correlation</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) To detect outliers</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 22 -->
+    <div class="que">
+        <p>22. Which axis usually represents the **categories** in a vertical bar chart?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) X-axis</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In a vertical bar chart, the X-axis typically shows the categories, and the Y-axis shows the corresponding values or frequencies.<br><br>
+        **Tip**: For horizontal bar charts, the roles are reversed.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) X-axis</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) Y-axis</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) Z-axis</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) Legend</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 23 -->
+    <div class="que">
+        <p>23. What is the **main difference** between a histogram and a bar chart?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Histogram is for continuous data; bar chart is for categorical data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Bar charts show data in separate categories, while histograms show the frequency of data within intervals (bins) of continuous data.<br><br>
+        **Example**:<br>
+        - Bar chart: Favorite fruits<br>
+        - Histogram: Distribution of student ages
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) Bar charts are only horizontal</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) Histogram uses pie slices</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) Histogram is for continuous data; bar chart is for categorical data</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) No difference</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 24 -->
+    <div class="que">
+        <p>24. In a **histogram**, what do the bars represent?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Frequency of data within a range</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Each bar in a histogram shows the number of observations (frequency) within a particular interval or "bin". It helps visualize the distribution of continuous variables.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) Average of categories</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) Pie slices</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) Categories of nominal data</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) Frequency of data within a range</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 25 -->
+    <div class="que">
+        <p>25. What parameter in Python’s `plt.hist()` controls the number of bars (bins)?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) bins</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `bins` parameter in matplotlib's `plt.hist()` determines how many intervals the data is split into. More bins = more granularity.<br><br>
+        **Syntax**: `plt.hist(data, bins=10)`
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) columns</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) bins</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) width</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) levels</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 26 -->
+    <div class="que">
+        <p>26. What does a **pie chart** typically represent in data visualization?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Proportions of a whole</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A pie chart shows proportions by dividing a circle into slices, where each slice represents a category's contribution to the total.<br><br>
+        **Tip**: Best used when there are few categories and a clear visual distinction is needed.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) Proportions of a whole</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) Frequency over time</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) Distribution of continuous data</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) Correlation between variables</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 27 -->
+    <div class="que">
+        <p>27. What is one **limitation** of using pie charts in data science?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Difficult to compare similar-sized slices</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Pie charts are visually appealing but not great for comparing values that are close in size. Bar charts are generally better for comparison.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) Too colorful</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) Difficult to compare similar-sized slices</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) Only supports text data</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) Cannot be customized</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 28 -->
+    <div class="que">
+        <p>28. What does a **box plot** help visualize in a dataset?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Distribution and outliers</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A box plot shows median, quartiles, and potential outliers in a dataset. It's useful for comparing distributions between multiple groups.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) Count of categories</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) Frequency over time</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) Distribution and outliers</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) Pie chart conversion</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 29 -->
+    <div class="que">
+        <p>29. What does the **central line** in a box plot indicate?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Median</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The line inside the box represents the median (Q2) of the data. It divides the dataset into two equal halves.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) Median</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) Mean</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) Outlier</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) Maximum value</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 30 -->
+    <div class="que">
+        <p>30. What are the **"whiskers"** in a box plot used for?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To show the range excluding outliers</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Whiskers in a box plot extend to the smallest and largest values within 1.5 times the interquartile range (IQR) from the quartiles. They help visualize the spread without considering outliers.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) Decorations only</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) Only maximum values</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) Categories in text</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) To show the range excluding outliers</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 31 -->
+    <div class="que">
+        <p>31. What is the primary purpose of a **scatter plot** in data science?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To identify relationships between two variables</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A scatter plot displays points for two numerical variables, helping to observe correlations or patterns between them.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) Showing parts of a whole</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) To identify relationships between two variables</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) Tracking categorical data</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) Distribution across quartiles</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 32 -->
+    <div class="que">
+        <p>32. In a scatter plot, what does a **cluster of points** generally indicate?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Possible group or pattern</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Clustering in a scatter plot may indicate groups of observations or relationships that can be explored for further insights.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) Errors in data</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) Time-series alignment</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) Possible group or pattern</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) Pie slice category</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 33 -->
+    <div class="que">
+        <p>33. What type of data is best represented by an **area chart**?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Quantities changing over time</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Area charts show how values change over time, emphasizing the magnitude of change with filled areas under the line.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) Quantities changing over time</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) Single variable distribution</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) Circular proportions</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) Random numeric values</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 34 -->
+    <div class="que">
+        <p>34. Which of the following is a key characteristic of an **area chart**?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Filled area under the line</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Area charts emphasize volume or magnitude of values by shading the space beneath the line graph.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) Uses bars without gaps</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) Uses categories only</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) Random scatter of points</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) Filled area under the line</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 35 -->
+    <div class="que">
+        <p>35. What is a **common use case** of area charts in business dashboards?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Tracking sales growth over time</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Area charts are often used to monitor performance metrics like sales, revenue, or user growth over periods of time.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) Comparing unrelated categories</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) Tracking sales growth over time</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) Displaying static labels</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) Showing box plot range</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 36 -->
+    <div class="que">
+        <p>36. What does a **heatmap** primarily represent in data visualization?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Values encoded using color gradients</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A heatmap uses varying intensities of color to represent data values, making it easy to spot patterns or correlations in matrices.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) Pie slices in proportion</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) Scatter of outliers</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) Values encoded using color gradients</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) Value distribution with boxes</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 37 -->
+    <div class="que">
+        <p>37. What is the **main use** of a heatmap in exploratory data analysis?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Identifying correlation between variables</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Heatmaps are frequently used to visualize correlation matrices, helping to identify how variables are related to each other.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) Identifying correlation between variables</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) Finding median of values</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) Calculating histogram bins</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) Sorting labels alphabetically</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 38 -->
+    <div class="que">
+        <p>38. In seaborn or matplotlib, which function is commonly used to create a **heatmap**?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) sns.heatmap()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Seaborn library provides the <code>sns.heatmap()</code> function to create detailed and customizable heatmaps.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) plt.line()</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) pd.heatmap()</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) sns.boxplot()</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) sns.heatmap()</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 39 -->
+    <div class="que">
+        <p>39. What is the main **advantage** of a pair plot in data science?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Visualizing relationships between multiple variables at once</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Pair plots create scatter plots for every pair of numerical variables, making it easy to analyze patterns and correlations across the dataset.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) Displaying a time series</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) Visualizing relationships between multiple variables at once</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) Showing only means and medians</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) Analyzing one variable's frequency</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 40 -->
+    <div class="que">
+        <p>40. Which Seaborn function is used to create a **pair plot**?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) sns.pairplot()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Seaborn’s <code>sns.pairplot()</code> function automatically plots scatter plots for each pair of variables and histograms for individual variables.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) sns.pairplot()</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) sns.grid()</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) plt.pairshow()</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) pd.plotpair()</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 41 -->
+    <div class="que">
+        <p>41. What does a **violin plot** represent in data visualization?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Distribution, density, and summary statistics of the data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A violin plot combines aspects of a box plot with a kernel density plot, showing distribution, central tendency, and spread of the data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) Only mean values</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) Distribution, density, and summary statistics of the data</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) Values sorted by category</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) Data points over time</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 42 -->
+    <div class="que">
+        <p>42. Which of the following is a key advantage of using a **violin plot** over a box plot?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Shows full distribution and density</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Violin plots provide richer information by illustrating the probability density of the data at different values, something box plots do not show.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) Requires less space</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) Highlights only outliers</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) Shows full distribution and density</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) Combines multiple line plots</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 43 -->
+    <div class="que">
+        <p>43. Which Seaborn function is used to draw a **violin plot**?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) sns.violinplot()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Seaborn function <code>sns.violinplot()</code> is specifically designed to plot violin plots with added support for categorical data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) sns.violinplot()</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) sns.kdeplot()</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) sns.distplot()</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) sns.lineplot()</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 44 -->
+    <div class="que">
+        <p>44. What is the purpose of a **swarm plot** in data visualization?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Display all data points while avoiding overlap</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Swarm plots are used to show all individual observations while adjusting their positions so they don’t overlap, useful for small datasets.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) Display linear regression lines</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) Group data into bins</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) Aggregate values across time</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) Display all data points while avoiding overlap</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 45 -->
+    <div class="que">
+        <p>45. Which function from Seaborn is used to create a **swarm plot**?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) sns.swarmplot()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Seaborn function <code>sns.swarmplot()</code> is used to draw a categorical scatterplot where points are adjusted (jittered) to avoid overlap.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) sns.stripplot()</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) sns.swarmplot()</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) sns.scatter()</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) sns.pointplot()</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 46 -->
+    <div class="que">
+        <p>46. What is the main difference between a **bubble chart** and a **scatter plot**?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Bubble chart includes a third variable represented by bubble size</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        While scatter plots use x and y axes for two variables, bubble charts add a third dimension by encoding the size of each bubble based on a third variable.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) Scatter plot has colors, bubble chart does not</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) Bubble chart uses line thickness instead of dots</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) Bubble chart includes a third variable represented by bubble size</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) Scatter plot uses bars instead of points</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 47 -->
+    <div class="que">
+        <p>47. In a **bubble chart**, what does the size of each bubble typically represent?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Magnitude of a third variable</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The bubble size corresponds to a third variable, making it possible to compare three dimensions of data simultaneously using x-axis, y-axis, and bubble area.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) Magnitude of a third variable</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) Count of rows</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) Label size</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) Sum of x and y values</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 48 -->
+    <div class="que">
+        <p>48. Which of the following libraries is commonly used to create **bubble charts** in Python?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Matplotlib and Plotly</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Python's Matplotlib allows scatter plots with variable size points, while Plotly provides interactive bubble charts easily with just a few lines of code.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) pandas</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) Numpy</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) BeautifulSoup</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) Matplotlib and Plotly</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 49 -->
+    <div class="que">
+        <p>49. What is a **donut chart** in data visualization?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A pie chart with a blank center</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Donut charts are similar to pie charts but with a central hole, making them visually distinct and often used to show part-to-whole relationships.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) A rotated bar chart</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) A pie chart with a blank center</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) A combination of scatter and line plots</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) A histogram in circular form</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 50 -->
+    <div class="que">
+        <p>50. What is one main advantage of using a **donut chart** over a pie chart?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Central space can be used for labels or totals</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The empty center of a donut chart allows the user to insert additional information, such as a total value, making the chart more informative.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Donut charts use bars instead of slices</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Donut charts support animation</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Central space can be used for labels or totals</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) They are better for large data sets</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 51 -->
+    <div class="que">
+        <p>51. What is the main difference between a **bubble chart** and a **scatter plot**?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Bubble chart includes a third variable represented by bubble size</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        While scatter plots use x and y axes for two variables, bubble charts add a third dimension by encoding the size of each bubble based on a third variable.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) Scatter plot has colors, bubble chart does not</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) Bubble chart uses line thickness instead of dots</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) Bubble chart includes a third variable represented by bubble size</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) Scatter plot uses bars instead of points</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 52 -->
+    <div class="que">
+        <p>52. In a **bubble chart**, what does the size of each bubble typically represent?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Magnitude of a third variable</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The bubble size corresponds to a third variable, making it possible to compare three dimensions of data simultaneously using x-axis, y-axis, and bubble area.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) Magnitude of a third variable</label><br>
+        <input type="radio" id="optionB46" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) Count of rows</label><br>
+        <input type="radio" id="optionC46" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) Label size</label><br>
+        <input type="radio" id="optionD46" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) Sum of x and y values</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 53 -->
+    <div class="que">
+        <p>53. Which of the following libraries is commonly used to create **bubble charts** in Python?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Matplotlib and Plotly</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Python's Matplotlib allows scatter plots with variable size points, while Plotly provides interactive bubble charts easily with just a few lines of code.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) pandas</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) Numpy</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) BeautifulSoup</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) Matplotlib and Plotly</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 54 -->
+    <div class="que">
+        <p>54. What is a **donut chart** in data visualization?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A pie chart with a blank center</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Donut charts are similar to pie charts but with a central hole, making them visually distinct and often used to show part-to-whole relationships.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) A rotated bar chart</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) A pie chart with a blank center</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) A combination of scatter and line plots</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) A histogram in circular form</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 55 -->
+    <div class="que">
+        <p>55. What is one main advantage of using a **donut chart** over a pie chart?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Central space can be used for labels or totals</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The empty center of a donut chart allows the user to insert additional information, such as a total value, making the chart more informative.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) Donut charts use bars instead of slices</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) Donut charts support animation</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) Central space can be used for labels or totals</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) They are better for large data sets</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 56 -->
+    <div class="que">
+        <p>56. What is the main purpose of a **Radar Chart** in data visualization?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Comparing multivariate data on a circular graph</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Radar charts, also known as spider charts, are ideal for comparing multiple variables across different categories in a circular format.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) Showing time series data</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) Visualizing correlation</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) Comparing multivariate data on a circular graph</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) Creating heatmaps</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 57 -->
+    <div class="que">
+        <p>57. Which of the following is another name for a **Radar Chart**?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Spider chart</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Radar charts are also referred to as spider charts because of their web-like structure.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) Spider chart</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) Bubble chart</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) Heat chart</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) Line matrix</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 58 -->
+    <div class="que">
+        <p>58. What is the ideal number of variables to compare using a **Radar Chart**?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) 3 to 10 variables</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Radar charts are best suited for 3 to 10 variables; too many variables make them cluttered and hard to interpret.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) Only 2 variables</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) 3 to 10 variables</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) More than 20 variables</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) No limit</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 59 -->
+    <div class="que">
+        <p>59. What is the benefit of using **3D plots** in data science?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Helps visualize complex data with three dimensions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        3D plots allow visualization of relationships in data involving three variables, providing better spatial understanding.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) Used only for pie charts</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) Reduces clarity in visualizations</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) Helps visualize complex data with three dimensions</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) It is outdated and rarely used</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 60 -->
+    <div class="que">
+        <p>60. Which Python libraries are commonly used to create **3D plots**?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Matplotlib and Plotly</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Both Matplotlib and Plotly support 3D visualizations, including surface plots, scatter plots, and line plots in three dimensions.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) Matplotlib and Plotly</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) Seaborn and Requests</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) NumPy and CSV</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) BeautifulSoup and Flask</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 61 -->
+    <div class="que">
+        <p>61. What is a **Word Cloud** used for in data science?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Visualizing the frequency of words in text data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Word clouds are a visual representation of text data where the size of each word indicates its frequency or importance in the dataset.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) Translating languages</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) Visualizing the frequency of words in text data</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) Predicting next words</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) Filtering stop words from a dataset</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 62 -->
+    <div class="que">
+        <p>62. Which Python library is commonly used to generate **Word Clouds**?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) wordcloud</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `wordcloud` library in Python is specifically designed to generate customizable word clouds from textual data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) wordcloud</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) seaborn</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) nltk</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) scikit-learn</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 63 -->
+    <div class="que">
+        <p>63. What is a **Choropleth Map** used for in data visualization?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Showing how a measurement varies across a geographic area</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Choropleth maps use color gradients to represent data values across different geographical regions, making it easy to spot regional patterns.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) Text summarization</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) Network routing</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) Representing time series data</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) Showing how a measurement varies across a geographic area</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 64 -->
+    <div class="que">
+        <p>64. Which library in Python is widely used to create **Choropleth Maps**?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Plotly</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Plotly supports interactive Choropleth Maps that can be built using geographical and statistical data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) NumPy</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) Pandas</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) Plotly</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) SciPy</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 65 -->
+    <div class="que">
+        <p>65. What data is essential for creating a Choropleth Map?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Geographic boundaries and corresponding values</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To build a Choropleth Map, you need geographic boundary data (e.g., states, countries) and values tied to those areas for visualization.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) Only text data</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) Geographic boundaries and corresponding values</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) Only one variable</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) Random numerical lists</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 66 -->
+    <div class="que">
+        <p>66. What does a **Network Graph** represent in data science?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Relationships between nodes using edges</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Network graphs display entities (nodes) and the relationships (edges) between them, useful in social networks, transportation, and more.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) Relationships between nodes using edges</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) Frequency of keywords</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) Color distribution in images</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) Numerical feature scaling</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 67 -->
+    <div class="que">
+        <p>67. Which Python library is popular for creating **Network Graphs**?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) NetworkX</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        NetworkX is a powerful Python library designed specifically for the creation, manipulation, and study of the structure and dynamics of complex networks.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) Matplotlib</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) Seaborn</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) NetworkX</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) WordCloud</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 68 -->
+    <div class="que">
+        <p>68. What is the main advantage of **Interactive Visualizations** in data science?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Allows users to explore data dynamically</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Interactive visualizations let users zoom, filter, and hover over elements to get deeper insights from the data dynamically.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) Generates random graphs</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) Allows users to explore data dynamically</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) Simplifies code writing</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) Automatically cleans datasets</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 69 -->
+    <div class="que">
+        <p>69. Which of the following is a library used for **Interactive Visualization**?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Plotly</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Plotly is known for creating interactive web-based visualizations like line charts, scatter plots, and choropleth maps.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) NumPy</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) Scikit-learn</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) Matplotlib</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) Plotly</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 70 -->
+    <div class="que">
+        <p>70. What feature is typically found in **interactive plots**?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Zoom, hover, and filter functionalities</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Interactive plots offer features like zooming into specific data points, tooltips on hover, and filters to explore subsets of data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) File compression</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) Web scraping</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) Zoom, hover, and filter functionalities</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) 3D animation creation</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 71 -->
+    <div class="que">
+        <p>71. What is the primary purpose of a **dashboard** in data science?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To visually monitor and analyze key metrics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Dashboards provide an interactive, visual interface that helps users monitor, analyze, and understand key data metrics and insights in real-time.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) To store raw datasets</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) To visually monitor and analyze key metrics</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) To write SQL queries</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) To develop machine learning models</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 72 -->
+    <div class="que">
+        <p>72. Which tool allows creation of interactive dashboards using Python and Plotly?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Dash</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Dash is a Python framework built on top of Plotly, used to build web-based interactive dashboards for data analysis.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) Tableau</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) Power BI</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) Dash</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) Excel</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 73 -->
+    <div class="que">
+        <p>73. Plotly is best known for creating what kind of visualizations?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Interactive and web-based plots</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Plotly allows users to create highly interactive and customizable web-based plots like line charts, bar charts, 3D plots, and more.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) Interactive and web-based plots</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) Only static plots</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) Excel charts</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) 2D CAD drawings</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 74 -->
+    <div class="que">
+        <p>74. In a dashboard, what does a **real-time update** feature do?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Continuously refreshes data without manual reload</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Real-time updates enable dashboards to reflect current data automatically, which is vital for monitoring time-sensitive KPIs and trends.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) Saves the dashboard design</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) Formats the background</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) Adds charts manually</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) Continuously refreshes data without manual reload</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 75 -->
+    <div class="que">
+        <p>75. Which of the following is a benefit of using **Plotly Dash**?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Easily builds interactive dashboards with Python</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Plotly Dash simplifies the creation of full-fledged dashboards and web applications entirely in Python, ideal for data scientists.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) Only supports JavaScript</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) Easily builds interactive dashboards with Python</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) Exports SQL queries</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) Generates synthetic data</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 76 -->
+    <div class="que">
+        <p>76. What is the main feature of **Bokeh** in data visualization?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Creating interactive, browser-based visualizations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Bokeh is a Python library for creating interactive plots and dashboards that run in modern web browsers using JavaScript under the hood.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) Creating static pie charts only</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) Making Excel reports</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) Creating interactive, browser-based visualizations</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) Developing mobile apps</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 77 -->
+    <div class="que">
+        <p>77. Which language is used to write **Streamlit** applications?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Python</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Streamlit is a Python framework designed for creating fast and beautiful data applications with minimal code.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) Python</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) Java</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) HTML</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) C++</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 78 -->
+    <div class="que">
+        <p>78. Which of the following is a key benefit of using **Streamlit**?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Quickly building interactive web apps for data projects</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Streamlit is great for turning data scripts into shareable web apps with little effort, suitable for dashboards and demos.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) Making Android applications</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) Quickly building interactive web apps for data projects</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) Web scraping automation</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) Desktop-based games</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 79 -->
+    <div class="que">
+        <p>79. Which visualization library is **well-integrated with Bokeh**?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Pandas</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Bokeh integrates easily with Pandas DataFrames, allowing seamless plotting of data series and interactive visualization.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) Matplotlib only</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) NumPy arrays only</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) Pandas</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) Requests</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 80 -->
+    <div class="que">
+        <p>80. What command is typically used to run a **Streamlit app** from the terminal?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) streamlit run app.py</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To launch a Streamlit application, the `streamlit run <script_name>.py` command is used, which starts a local web server.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) streamlit run app.py</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) python app.py</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) streamlit deploy</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) flask run app.py</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 81 -->
+    <div class="que">
+        <p>81. What is a key feature of the **Altair** visualization library?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Declarative statistical visualization</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Altair is a declarative statistical visualization library for Python, which lets users define charts by specifying *what* should be visualized, not *how*.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) Creating 3D animations</label><br>
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) Declarative statistical visualization</label><br>
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) Making mobile dashboards</label><br>
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) Designing infographics manually</label><br>
+    </div>
+    <div id="result80" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 82 -->
+    <div class="que">
+        <p>82. Which data format is commonly used with **Altair**?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Pandas DataFrame</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Altair works efficiently with structured datasets, especially Pandas DataFrames, to create interactive and concise visualizations.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) XML Files</label><br>
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) CSV strings only</label><br>
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) Pandas DataFrame</label><br>
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) PDF files</label><br>
+    </div>
+    <div id="result81" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 83 -->
+    <div class="que">
+        <p>83. What is the primary use of **Tableau** in data science?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Creating interactive dashboards and visual analytics</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Tableau is a powerful business intelligence tool used to create interactive dashboards, visualizations, and data stories without programming.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) Creating interactive dashboards and visual analytics</label><br>
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) Backend database development</label><br>
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) Frontend web development</label><br>
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) Writing shell scripts</label><br>
+    </div>
+    <div id="result82" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 84 -->
+    <div class="que">
+        <p>84. Which feature of **Tableau** allows users to ask natural language questions to data?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Ask Data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Tableau’s “Ask Data” feature enables users to input questions in plain language and automatically generates relevant visualizations.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) Data Form</label><br>
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) Info Board</label><br>
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) Smart Table</label><br>
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) Ask Data</label><br>
+    </div>
+    <div id="result83" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 85 -->
+    <div class="que">
+        <p>85. Which of the following is **NOT a Tableau product**?</p>
+        <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+    </div>
+    <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Power BI</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Power BI is a Microsoft product. Tableau offers tools like Tableau Desktop, Tableau Public, Tableau Server, and Tableau Online.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+        <label for="optionA84">A) Tableau Public</label><br>
+        <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+        <label for="optionB84">B) Power BI</label><br>
+        <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+        <label for="optionC84">C) Tableau Online</label><br>
+        <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+        <label for="optionD84">D) Tableau Desktop</label><br>
+    </div>
+    <div id="result84" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 86 -->
+    <div class="que">
+        <p>86. What is **Power BI** mainly used for in data science?</p>
+        <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+    </div>
+    <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Business Intelligence and interactive dashboards</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Power BI is a Microsoft tool for creating reports, dashboards, and interactive data visualizations, widely used in business intelligence and data science.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+        <label for="optionA85">A) Business Intelligence and interactive dashboards</label><br>
+        <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+        <label for="optionB85">B) Backend software development</label><br>
+        <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+        <label for="optionC85">C) Web scraping</label><br>
+        <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+        <label for="optionD85">D) Mobile app development</label><br>
+    </div>
+    <div id="result85" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 87 -->
+    <div class="que">
+        <p>87. Which language is often used for creating custom visuals in **Power BI**?</p>
+        <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+    </div>
+    <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) DAX and R</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Power BI supports both DAX (Data Analysis Expressions) for data modeling and R/Python for advanced visualizations and analytics.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+        <label for="optionA86">A) Java only</label><br>
+        <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+        <label for="optionB86">B) HTML & CSS</label><br>
+        <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+        <label for="optionC86">C) DAX and R</label><br>
+        <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+        <label for="optionD86">D) PHP and SQL</label><br>
+    </div>
+    <div id="result86" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 88 -->
+    <div class="que">
+        <p>88. What does **customizing a plot** mean in the context of data visualization?</p>
+        <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+    </div>
+    <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Changing labels, colors, sizes, and axes of the chart</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Customizing plots helps in enhancing readability, highlighting insights, and aligning visuals with business needs. This includes changing styles, fonts, ticks, and more.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+        <label for="optionA87">A) Deleting plots automatically</label><br>
+        <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+        <label for="optionB87">B) Changing labels, colors, sizes, and axes of the chart</label><br>
+        <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+        <label for="optionC87">C) Hiding the plot from output</label><br>
+        <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+        <label for="optionD87">D) Using raw unprocessed data directly</label><br>
+    </div>
+    <div id="result87" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 89 -->
+    <div class="que">
+        <p>89. In **Matplotlib**, which method is used to set the title of a plot?</p>
+        <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+    </div>
+    <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) plt.title()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Matplotlib, `plt.title("Your Title")` is used to set the title of the plot.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+        <label for="optionA88">A) title.set()</label><br>
+        <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+        <label for="optionB88">B) set.title()</label><br>
+        <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+        <label for="optionC88">C) plt.title()</label><br>
+        <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+        <label for="optionD88">D) fig.label()</label><br>
+    </div>
+    <div id="result88" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 90 -->
+    <div class="que">
+        <p>90. What does the `plt.legend()` function do in a Matplotlib plot?</p>
+        <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+    </div>
+    <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Displays labels for different data series</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        `plt.legend()` adds a legend to the plot, showing labels for lines or points to distinguish between different data series.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+        <label for="optionA89">A) Displays labels for different data series</label><br>
+        <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+        <label for="optionB89">B) Changes color of the plot</label><br>
+        <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+        <label for="optionC89">C) Hides the axes</label><br>
+        <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+        <label for="optionD89">D) Plots a histogram</label><br>
+    </div>
+    <div id="result89" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 91 -->
+    <div class="que">
+        <p>91. Why are **color palettes** important in data visualization?</p>
+        <button id="hintButton90" class="hint-button" type="button" onclick="showHint('hint91')">Show Hint</button>
+    </div>
+    <div id="hint91" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) They enhance visual appeal and help differentiate data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Color palettes help in maintaining consistency, improving clarity, and enhancing interpretation of data visuals by differentiating categories or scales.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA90" name="answer90" value="A" onclick="checkAnswer(90)">
+        <label for="optionA90">A) Only to make the chart colorful</label><br>
+        <input type="radio" id="optionB90" name="answer90" value="B" onclick="checkAnswer(90)">
+        <label for="optionB90">B) They enhance visual appeal and help differentiate data</label><br>
+        <input type="radio" id="optionC90" name="answer90" value="C" onclick="checkAnswer(90)">
+        <label for="optionC90">C) Used for changing background themes</label><br>
+        <input type="radio" id="optionD90" name="answer90" value="D" onclick="checkAnswer(90)">
+        <label for="optionD90">D) They hide labels in charts</label><br>
+    </div>
+    <div id="result90" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 92 -->
+    <div class="que">
+        <p>92. Which library provides built-in color palettes like "Set1", "Pastel1", etc.?</p>
+        <button id="hintButton91" class="hint-button" type="button" onclick="showHint('hint92')">Show Hint</button>
+    </div>
+    <div id="hint92" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Seaborn</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Seaborn has various pre-defined color palettes like "Set1", "coolwarm", "pastel", which are helpful for aesthetic and informative visualizations.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA91" name="answer91" value="A" onclick="checkAnswer(91)">
+        <label for="optionA91">A) Seaborn</label><br>
+        <input type="radio" id="optionB91" name="answer91" value="B" onclick="checkAnswer(91)">
+        <label for="optionB91">B) NumPy</label><br>
+        <input type="radio" id="optionC91" name="answer91" value="C" onclick="checkAnswer(91)">
+        <label for="optionC91">C) TensorFlow</label><br>
+        <input type="radio" id="optionD91" name="answer91" value="D" onclick="checkAnswer(91)">
+        <label for="optionD91">D) Pandas</label><br>
+    </div>
+    <div id="result91" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 93 -->
+    <div class="que">
+        <p>93. Which of the following color palettes is suitable for **diverging** data?</p>
+        <button id="hintButton92" class="hint-button" type="button" onclick="showHint('hint93')">Show Hint</button>
+    </div>
+    <div id="hint93" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) coolwarm</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        "coolwarm" is a diverging palette suitable for data where a midpoint (like 0) is important, often used for correlation or difference plots.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA92" name="answer92" value="A" onclick="checkAnswer(92)">
+        <label for="optionA92">A) Set3</label><br>
+        <input type="radio" id="optionB92" name="answer92" value="B" onclick="checkAnswer(92)">
+        <label for="optionB92">B) Paired</label><br>
+        <input type="radio" id="optionC92" name="answer92" value="C" onclick="checkAnswer(92)">
+        <label for="optionC92">C) muted</label><br>
+        <input type="radio" id="optionD92" name="answer92" value="D" onclick="checkAnswer(92)">
+        <label for="optionD92">D) coolwarm</label><br>
+    </div>
+    <div id="result92" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 94 -->
+    <div class="que">
+        <p>94. What is the purpose of **titles** in a data visualization?</p>
+        <button id="hintButton93" class="hint-button" type="button" onclick="showHint('hint94')">Show Hint</button>
+    </div>
+    <div id="hint94" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To describe the main idea or insight of the chart</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Titles provide context and help the viewer understand what the visualization represents at a glance.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA93" name="answer93" value="A" onclick="checkAnswer(93)">
+        <label for="optionA93">A) To make the plot colorful</label><br>
+        <input type="radio" id="optionB93" name="answer93" value="B" onclick="checkAnswer(93)">
+        <label for="optionB93">B) To describe the main idea or insight of the chart</label><br>
+        <input type="radio" id="optionC93" name="answer93" value="C" onclick="checkAnswer(93)">
+        <label for="optionC93">C) To show the source code</label><br>
+        <input type="radio" id="optionD93" name="answer93" value="D" onclick="checkAnswer(93)">
+        <label for="optionD93">D) To align text boxes</label><br>
+    </div>
+    <div id="result93" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 95 -->
+    <div class="que">
+        <p>95. What does the `xlabel()` and `ylabel()` functions do in Matplotlib?</p>
+        <button id="hintButton94" class="hint-button" type="button" onclick="showHint('hint95')">Show Hint</button>
+    </div>
+    <div id="hint95" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Label the x-axis and y-axis respectively</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        These functions add labels to the horizontal (x) and vertical (y) axes of the plot to explain what each axis represents.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA94" name="answer94" value="A" onclick="checkAnswer(94)">
+        <label for="optionA94">A) Label the x-axis and y-axis respectively</label><br>
+        <input type="radio" id="optionB94" name="answer94" value="B" onclick="checkAnswer(94)">
+        <label for="optionB94">B) Show data labels in bars</label><br>
+        <input type="radio" id="optionC94" name="answer94" value="C" onclick="checkAnswer(94)">
+        <label for="optionC94">C) Color the axes</label><br>
+        <input type="radio" id="optionD94" name="answer94" value="D" onclick="checkAnswer(94)">
+        <label for="optionD94">D) Hide axis ticks</label><br>
+    </div>
+    <div id="result94" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 96 -->
+    <div class="que">
+        <p>96. What is the purpose of a **legend** in data visualization?</p>
+        <button id="hintButton95" class="hint-button" type="button" onclick="showHint('hint96')">Show Hint</button>
+    </div>
+    <div id="hint96" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To identify different data series or categories</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A legend helps users understand what different colors, lines, or markers represent in a chart, especially when there are multiple data series.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA95" name="answer95" value="A" onclick="checkAnswer(95)">
+        <label for="optionA95">A) To increase the size of the plot</label><br>
+        <input type="radio" id="optionB95" name="answer95" value="B" onclick="checkAnswer(95)">
+        <label for="optionB95">B) To create gridlines</label><br>
+        <input type="radio" id="optionC95" name="answer95" value="C" onclick="checkAnswer(95)">
+        <label for="optionC95">C) To identify different data series or categories</label><br>
+        <input type="radio" id="optionD95" name="answer95" value="D" onclick="checkAnswer(95)">
+        <label for="optionD95">D) To save the plot</label><br>
+    </div>
+    <div id="result95" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 97 -->
+    <div class="que">
+        <p>97. Which Matplotlib function is used to display the **legend**?</p>
+        <button id="hintButton96" class="hint-button" type="button" onclick="showHint('hint97')">Show Hint</button>
+    </div>
+    <div id="hint97" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) plt.legend()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        `plt.legend()` is used in Matplotlib to display the legend box that describes the elements of the plot like line labels.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA96" name="answer96" value="A" onclick="checkAnswer(96)">
+        <label for="optionA96">A) plt.label()</label><br>
+        <input type="radio" id="optionB96" name="answer96" value="B" onclick="checkAnswer(96)">
+        <label for="optionB96">B) plt.legend()</label><br>
+        <input type="radio" id="optionC96" name="answer96" value="C" onclick="checkAnswer(96)">
+        <label for="optionC96">C) plt.annotate()</label><br>
+        <input type="radio" id="optionD96" name="answer96" value="D" onclick="checkAnswer(96)">
+        <label for="optionD96">D) plt.title()</label><br>
+    </div>
+    <div id="result96" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 98 -->
+    <div class="que">
+        <p>98. What is the role of **annotations** in a plot?</p>
+        <button id="hintButton97" class="hint-button" type="button" onclick="showHint('hint98')">Show Hint</button>
+    </div>
+    <div id="hint98" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To add explanatory text on specific data points</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Annotations are used to provide extra information about specific data points by adding descriptive text directly onto the plot.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA97" name="answer97" value="A" onclick="checkAnswer(97)">
+        <label for="optionA97">A) To add explanatory text on specific data points</label><br>
+        <input type="radio" id="optionB97" name="answer97" value="B" onclick="checkAnswer(97)">
+        <label for="optionB97">B) To sort the data in ascending order</label><br>
+        <input type="radio" id="optionC97" name="answer97" value="C" onclick="checkAnswer(97)">
+        <label for="optionC97">C) To zoom into a chart</label><br>
+        <input type="radio" id="optionD97" name="answer97" value="D" onclick="checkAnswer(97)">
+        <label for="optionD97">D) To export the plot</label><br>
+    </div>
+    <div id="result97" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 99 -->
+    <div class="que">
+        <p>99. Which function in Matplotlib is used for annotations?</p>
+        <button id="hintButton98" class="hint-button" type="button" onclick="showHint('hint99')">Show Hint</button>
+    </div>
+    <div id="hint99" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) plt.annotate()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `plt.annotate()` function is specifically designed to add annotations (text with optional arrows) to Matplotlib charts.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA98" name="answer98" value="A" onclick="checkAnswer(98)">
+        <label for="optionA98">A) plt.textbox()</label><br>
+        <input type="radio" id="optionB98" name="answer98" value="B" onclick="checkAnswer(98)">
+        <label for="optionB98">B) plt.mark()</label><br>
+        <input type="radio" id="optionC98" name="answer98" value="C" onclick="checkAnswer(98)">
+        <label for="optionC98">C) plt.annotate()</label><br>
+        <input type="radio" id="optionD98" name="answer98" value="D" onclick="checkAnswer(98)">
+        <label for="optionD98">D) plt.labeltext()</label><br>
+    </div>
+    <div id="result98" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 100 -->
+    <div class="que">
+        <p>100. What is a **subplot** in data visualization?</p>
+        <button id="hintButton99" class="hint-button" type="button" onclick="showHint('hint100')">Show Hint</button>
+    </div>
+    <div id="hint100" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A way to display multiple plots in a single figure</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Subplots are used to arrange multiple visualizations (plots) in a grid layout within a single figure, useful for comparison or overview.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA99" name="answer99" value="A" onclick="checkAnswer(99)">
+        <label for="optionA99">A) A plot that displays pie charts only</label><br>
+        <input type="radio" id="optionB99" name="answer99" value="B" onclick="checkAnswer(99)">
+        <label for="optionB99">B) A way to display multiple plots in a single figure</label><br>
+        <input type="radio" id="optionC99" name="answer99" value="C" onclick="checkAnswer(99)">
+        <label for="optionC99">C) A 3D chart format</label><br>
+        <input type="radio" id="optionD99" name="answer99" value="D" onclick="checkAnswer(99)">
+        <label for="optionD99">D) A type of bubble chart</label><br>
+    </div>
+    <div id="result99" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 101 -->
+    <div class="que">
+        <p>101. What is the most important factor when **choosing the right chart** for your data?</p>
+        <button id="hintButton100" class="hint-button" type="button" onclick="showHint('hint101')">Show Hint</button>
+    </div>
+    <div id="hint101" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The type of data and the message you want to convey</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Selecting the correct chart depends heavily on whether the data is categorical, numerical, or time-based and on what insight you want the audience to understand.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA100" name="answer100" value="A" onclick="checkAnswer(100)">
+        <label for="optionA100">A) The colors of the chart</label><br>
+        <input type="radio" id="optionB100" name="answer100" value="B" onclick="checkAnswer(100)">
+        <label for="optionB100">B) The size of the dataset only</label><br>
+        <input type="radio" id="optionC100" name="answer100" value="C" onclick="checkAnswer(100)">
+        <label for="optionC100">C) The type of data and the message you want to convey</label><br>
+        <input type="radio" id="optionD100" name="answer100" value="D" onclick="checkAnswer(100)">
+        <label for="optionD100">D) The number of rows in the dataframe</label><br>
+    </div>
+    <div id="result100" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 102 -->
+    <div class="que">
+        <p>102. Which chart type is best suited to show **part-to-whole** relationships?</p>
+        <button id="hintButton101" class="hint-button" type="button" onclick="showHint('hint102')">Show Hint</button>
+    </div>
+    <div id="hint102" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Pie chart</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Pie charts are specifically designed to display how different categories contribute to a whole (100%).
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA101" name="answer101" value="A" onclick="checkAnswer(101)">
+        <label for="optionA101">A) Line chart</label><br>
+        <input type="radio" id="optionB101" name="answer101" value="B" onclick="checkAnswer(101)">
+        <label for="optionB101">B) Pie chart</label><br>
+        <input type="radio" id="optionC101" name="answer101" value="C" onclick="checkAnswer(101)">
+        <label for="optionC101">C) Scatter plot</label><br>
+        <input type="radio" id="optionD101" name="answer101" value="D" onclick="checkAnswer(101)">
+        <label for="optionD101">D) Box plot</label><br>
+    </div>
+    <div id="result101" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 103 -->
+    <div class="que">
+        <p>103. Which of the following is a common mistake that leads to **misleading charts**?</p>
+        <button id="hintButton102" class="hint-button" type="button" onclick="showHint('hint103')">Show Hint</button>
+    </div>
+    <div id="hint103" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Truncating the y-axis</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Cutting the y-axis (not starting from zero) can exaggerate differences in the data and mislead viewers.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA102" name="answer102" value="A" onclick="checkAnswer(102)">
+        <label for="optionA102">A) Truncating the y-axis</label><br>
+        <input type="radio" id="optionB102" name="answer102" value="B" onclick="checkAnswer(102)">
+        <label for="optionB102">B) Using labels</label><br>
+        <input type="radio" id="optionC102" name="answer102" value="C" onclick="checkAnswer(102)">
+        <label for="optionC102">C) Adding a title</label><br>
+        <input type="radio" id="optionD102" name="answer102" value="D" onclick="checkAnswer(102)">
+        <label for="optionD102">D) Choosing a bar chart over a pie chart</label><br>
+    </div>
+    <div id="result102" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 104 -->
+    <div class="que">
+        <p>104. Which chart is ideal for **visualizing trends over time**?</p>
+        <button id="hintButton103" class="hint-button" type="button" onclick="showHint('hint104')">Show Hint</button>
+    </div>
+    <div id="hint104" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Line chart</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Line charts effectively show changes in data over time by connecting data points with lines.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA103" name="answer103" value="A" onclick="checkAnswer(103)">
+        <label for="optionA103">A) Histogram</label><br>
+        <input type="radio" id="optionB103" name="answer103" value="B" onclick="checkAnswer(103)">
+        <label for="optionB103">B) Bar chart</label><br>
+        <input type="radio" id="optionC103" name="answer103" value="C" onclick="checkAnswer(103)">
+        <label for="optionC103">C) Pie chart</label><br>
+        <input type="radio" id="optionD103" name="answer103" value="D" onclick="checkAnswer(103)">
+        <label for="optionD103">D) Line chart</label><br>
+    </div>
+    <div id="result103" class="result"></div>
+</div>
+
+<div class="qee">
+    <!-- Question 105 -->
+    <div class="que">
+        <p>105. Why is it important to **avoid using too many colors** in a single chart?</p>
+        <button id="hintButton104" class="hint-button" type="button" onclick="showHint('hint105')">Show Hint</button>
+    </div>
+    <div id="hint105" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It makes the chart hard to interpret</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Using too many colors can overwhelm the viewer and reduce clarity, making it difficult to extract meaningful insights.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA104" name="answer104" value="A" onclick="checkAnswer(104)">
+        <label for="optionA104">A) It increases the file size</label><br>
+        <input type="radio" id="optionB104" name="answer104" value="B" onclick="checkAnswer(104)">
+        <label for="optionB104">B) It makes the chart hard to interpret</label><br>
+        <input type="radio" id="optionC104" name="answer104" value="C" onclick="checkAnswer(104)">
+        <label for="optionC104">C) It reduces the resolution</label><br>
+        <input type="radio" id="optionD104" name="answer104" value="D" onclick="checkAnswer(104)">
+        <label for="optionD104">D) It causes memory error</label><br>
+    </div>
+    <div id="result104" class="result"></div>
+</div>
+
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsupervised Learning</title>
+    <link rel="stylesheet" href="../css/data science.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'C', 'B', 'A', 'D', 'B', 'C', 'D', 'B', 'C',
+            'B', 'C', 'A', 'C', 'B', 'B', 'C', 'A', 'B', 'C',
+            'B', 'C', 'A', 'D', 'B', 'A', 'B', 'C', 'D', 'C',
+            'A', 'C', 'B', 'D', 'C', 'B', 'A', 'C', 'D', 'B',
+            'B', 'C', 'D', 'B', 'D', 'B', 'D', 'C', 'C', 'B',
+
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>Unsupervised Learning</h3>
+        <div class="inner-border">
+<!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is the primary purpose of clustering in Unsupervised Learning?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To group similar data points together</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Clustering aims to group similar data points together based on their features, helping to uncover hidden patterns or structures in the data.<br><br>
+        **Clustering Process**:<br>
+        1. Data points are analyzed based on their features.<br>
+        2. Points that are similar are grouped into clusters.<br>
+        3. The goal is to minimize the intra-cluster distance and maximize the inter-cluster distance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) To classify data into predefined labels</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) To group similar data points together</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) To reduce the dimensionality of the data</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) To predict future outcomes based on data</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. Which algorithm is commonly used for clustering in Unsupervised Learning?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) K-means Clustering</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        K-means is a widely used clustering algorithm that partitions data into K clusters by minimizing the sum of squared distances between data points and their respective cluster centroids.<br><br>
+        **K-means Steps**:<br>
+        1. Choose K initial centroids.<br>
+        2. Assign data points to the nearest centroid.<br>
+        3. Recalculate centroids based on the new assignments.<br>
+        4. Repeat until convergence.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Linear Regression</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Decision Trees</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) K-means Clustering</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Random Forest</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What is the main challenge in determining the optimal number of clusters in K-means?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The value of K must be specified in advance</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In K-means, the number of clusters (K) must be chosen before running the algorithm. Selecting the right value for K can be challenging, and methods like the Elbow Method are used to estimate it.<br><br>
+        **Elbow Method**:<br>
+        1. Run K-means with different values of K.<br>
+        2. Plot the sum of squared distances for each K.<br>
+        3. Choose K at the "elbow" point, where the reduction in the sum of squared distances slows down significantly.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) The algorithm is too slow</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) The value of K must be specified in advance</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) K-means cannot handle large datasets</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) K-means is not scalable</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. What is the role of centroids in the K-means clustering algorithm?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) They represent the center of each cluster</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In K-means clustering, centroids are used to represent the center of each cluster. The algorithm assigns each data point to the closest centroid and iterates to adjust the centroids.<br><br>
+        **Centroid Update**:<br>
+        1. Calculate the mean of the data points assigned to each cluster.<br>
+        2. Update the centroid to the mean value.<br>
+        3. Repeat until the centroids no longer change significantly.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) They represent the center of each cluster</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) They represent the nearest data point</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) They are the boundaries of each cluster</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) They are random data points selected initially</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. Which of the following is a limitation of K-means clustering?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) K-means is sensitive to the initial placement of centroids</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        K-means can be sensitive to the initial placement of centroids, which may lead to suboptimal results. Running the algorithm multiple times with different initializations or using techniques like K-means++ can help mitigate this.<br><br>
+        **K-means++ Initialization**:<br>
+        1. Select the first centroid randomly.<br>
+        2. Choose subsequent centroids based on the distance from existing centroids.<br>
+        3. This initialization helps improve clustering quality and convergence speed.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) K-means cannot handle categorical data</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) K-means works best with uneven clusters</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) K-means requires large amounts of labeled data</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) K-means is sensitive to the initial placement of centroids</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+<!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is the primary purpose of dimensionality reduction in data science?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To reduce the number of features in the dataset while retaining important information</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Dimensionality reduction is used to reduce the number of features (dimensions) in a dataset while preserving as much of the important information as possible. This helps improve model performance and reduces overfitting.<br><br>
+        **Common Techniques**:<br>
+        1. Principal Component Analysis (PCA)<br>
+        2. t-SNE (t-Distributed Stochastic Neighbor Embedding)<br>
+        3. LDA (Linear Discriminant Analysis)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) To increase the number of features for better analysis</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) To reduce the number of features in the dataset while retaining important information</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) To categorize data into labeled groups</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) To increase the dimensionality of the data for better clustering</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. Which of the following is a popular technique for dimensionality reduction?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Principal Component Analysis (PCA)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        PCA is one of the most widely used techniques for dimensionality reduction. It works by transforming the data into a new coordinate system, where the greatest variance comes to lie along the first few coordinates (principal components).<br><br>
+        **PCA Process**:<br>
+        1. Standardize the data.<br>
+        2. Calculate the covariance matrix.<br>
+        3. Compute the eigenvalues and eigenvectors.<br>
+        4. Sort the eigenvectors by eigenvalues and select the top k.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) K-means Clustering</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Decision Trees</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Principal Component Analysis (PCA)</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Random Forest</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What is a key advantage of using t-SNE for dimensionality reduction?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) t-SNE is particularly useful for visualizing high-dimensional data in lower dimensions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        t-SNE is a technique that is commonly used to visualize high-dimensional data by mapping it to lower-dimensional spaces, typically two or three dimensions, while preserving the local structure of the data.<br><br>
+        **t-SNE Steps**:<br>
+        1. Compute pairwise similarities between data points.<br>
+        2. Minimize the divergence between pairwise similarities in higher and lower dimensions.<br>
+        3. Visualize the data in 2D or 3D plots.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) t-SNE helps with feature selection for classification tasks</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) t-SNE is mainly used to handle missing data</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) t-SNE increases the dimensionality of data</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) t-SNE is particularly useful for visualizing high-dimensional data in lower dimensions</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. What is one limitation of PCA?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) PCA is sensitive to the scaling of the data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        PCA is sensitive to the scale of the features. Features with larger scales can dominate the principal components, which is why it's often necessary to standardize the data before applying PCA.<br><br>
+        **PCA Preprocessing**:<br>
+        1. Standardize the data (mean = 0, variance = 1).<br>
+        2. Apply PCA to reduce dimensionality.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) PCA is not applicable for high-dimensional data</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) PCA is sensitive to the scaling of the data</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) PCA requires labeled data</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) PCA does not work well with correlated features</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. What does the term "explained variance" mean in PCA?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The proportion of the total variance captured by a principal component</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Explained variance in PCA refers to the amount of variance captured by each principal component. It helps determine how much of the original data's information is retained after dimensionality reduction.<br><br>
+        **Calculating Explained Variance**:<br>
+        1. Compute the eigenvalues of the covariance matrix.<br>
+        2. The explained variance for each component is the ratio of the eigenvalue to the sum of all eigenvalues.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) The amount of noise in the data</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) The number of features retained in the data</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) The proportion of the total variance captured by a principal component</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) The amount of data removed during the reduction</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is the primary goal of anomaly detection in data science?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To identify patterns in data that do not conform to expected behavior</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Anomaly detection is used to find rare items or events in datasets that do not conform to general patterns. It is useful for detecting fraud, network intrusions, or equipment malfunctions.<br><br>
+        **Common Techniques**:<br>
+        1. Statistical Methods<br>
+        2. Machine Learning Methods<br>
+        3. Proximity-based Methods<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) To classify data into predefined categories</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) To identify patterns in data that do not conform to expected behavior</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) To improve the accuracy of regression models</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) To find relationships between variables</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. Which of the following is a common method for detecting anomalies in high-dimensional data?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) One-Class SVM</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One-Class SVM is a popular method for anomaly detection in high-dimensional data. It works by learning a decision function for a given dataset, identifying the regions of the feature space that contain the majority of data points, and detecting anomalies as those points outside of this region.<br><br>
+        **One-Class SVM Characteristics**:<br>
+        1. Works well with high-dimensional datasets.<br>
+        2. Suitable for unsupervised anomaly detection.<br>
+        3. Identifies outliers as data points that deviate from the norm.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) K-means Clustering</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) Principal Component Analysis (PCA)</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) One-Class SVM</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) Linear Regression</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What is the key difference between supervised and unsupervised anomaly detection?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Unsupervised anomaly detection does not require labeled data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The key difference is that supervised anomaly detection requires labeled data, meaning the algorithm learns from both normal and anomalous examples. In contrast, unsupervised anomaly detection does not require labeled data and attempts to find anomalies based solely on the structure of the data.<br><br>
+        **Supervised vs. Unsupervised Anomaly Detection**:<br>
+        1. Supervised: Requires labeled training data.<br>
+        2. Unsupervised: Does not require labeled data and identifies anomalies based on patterns.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) Unsupervised anomaly detection does not require labeled data</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) Supervised anomaly detection does not require labeled data</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) Unsupervised anomaly detection uses labeled data to detect anomalies</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) Supervised anomaly detection does not need to be trained on data</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. What does an "outlier" refer to in the context of anomaly detection?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) A data point that deviates significantly from the rest of the data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        An outlier is a data point that differs significantly from other observations in a dataset. Outliers can be indicative of errors in data collection or represent significant but rare events that need attention, such as fraud or equipment failures.<br><br>
+        **Handling Outliers**:<br>
+        1. Detection using statistical methods or machine learning.<br>
+        2. Removal or treatment depending on the context.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) A data point that is irrelevant to the analysis</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) A data point that is very common in the dataset</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) A data point that deviates significantly from the rest of the data</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) A data point that is the most frequent in the dataset</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. Which of the following is an example of a distance-based anomaly detection method?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) K-Nearest Neighbors (KNN)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        K-Nearest Neighbors (KNN) is a distance-based anomaly detection method. It works by measuring the distance between data points, with anomalies being identified as points that are far away from their neighbors.<br><br>
+        **KNN Algorithm for Anomaly Detection**:<br>
+        1. Calculate the distance between points.<br>
+        2. Identify points that are isolated (large distances from neighbors).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) Decision Trees</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) K-Nearest Neighbors (KNN)</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) Linear Regression</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) Support Vector Machines (SVM)</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. What is the primary goal of Association Rule Learning in data science?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To find interesting relationships between variables in large datasets</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Association Rule Learning is used to discover interesting relationships between variables in large datasets, such as identifying products that are often bought together in market basket analysis.<br><br>
+        **Common Applications**:<br>
+        1. Market Basket Analysis<br>
+        2. Cross-selling<br>
+        3. Recommender Systems<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) To predict future outcomes based on historical data</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) To find interesting relationships between variables in large datasets</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) To group similar data points together</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) To predict numerical values based on existing data</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. Which algorithm is commonly used for Association Rule Learning?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Apriori Algorithm</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Apriori Algorithm is one of the most common algorithms used for Association Rule Learning. It finds frequent item sets and generates association rules based on these frequent item sets.<br><br>
+        **Apriori Algorithm Process**:<br>
+        1. Find frequent item sets in the dataset.<br>
+        2. Generate association rules with a minimum support and confidence threshold.<br>
+        3. Evaluate the rules based on their significance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) K-Means Clustering</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) DBSCAN</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) Apriori Algorithm</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) Support Vector Machine</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. What does the support of an itemset mean in Association Rule Learning?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The proportion of transactions in the dataset that contain the itemset</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Association Rule Learning, **support** is a measure of how frequently an itemset appears in the dataset. It is calculated as the ratio of transactions containing the itemset to the total number of transactions.<br><br>
+        **Support Formula**:<br>
+        Support(A) = (Number of transactions containing A) / (Total number of transactions)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) The proportion of transactions in the dataset that contain the itemset</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) The confidence of the rule</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) The likelihood of the itemset occurring in the future</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) The strength of the association between items</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What does the confidence of an association rule indicate?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The likelihood that the rule holds true for a given transaction</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Confidence is a measure of the reliability of the rule. It is the conditional probability that item B is bought when item A is bought. Higher confidence values indicate stronger relationships.<br><br>
+        **Confidence Formula**:<br>
+        Confidence(A -> B) = Support(A ∩ B) / Support(A)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) The number of items in the dataset that are related</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) The likelihood that the rule holds true for a given transaction</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) The frequency of the itemset occurring in the dataset</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) The number of items involved in the rule</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. Which of the following metrics is commonly used to evaluate the quality of association rules?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Lift</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Lift is a metric used to evaluate the strength of a rule. It measures how much more likely the consequent of a rule is to occur, given the antecedent, than it would be by chance.<br><br>
+        **Lift Formula**:<br>
+        Lift(A -> B) = Confidence(A -> B) / Support(B)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) Mean Squared Error</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) R-Squared</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) Lift</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) Precision</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. What is the main purpose of using Self-Organizing Maps (SOM) in machine learning?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To reduce the dimensionality of data while preserving the topological structure</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        SOM is an unsupervised learning technique used for dimensionality reduction. It maps high-dimensional data to a lower-dimensional grid while maintaining the topological properties of the original data.<br><br>
+        **Key Features of SOM**:<br>
+        1. Helps visualize high-dimensional data in 2D.<br>
+        2. Groups similar data points together.<br>
+        3. Used for clustering and visualization.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) To increase the dimensionality of data for better representation</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) To reduce the dimensionality of data while preserving the topological structure</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) To classify data into predefined categories</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) To predict numerical values from given data</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. How does the Self-Organizing Map (SOM) learn the patterns in the data?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By adjusting the weights of neurons to match the input data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        SOM learns by using an unsupervised training process where the weights of the neurons are adjusted iteratively to represent the patterns in the input data.<br><br>
+        **SOM Training Process**:<br>
+        1. Initialize the weights randomly.<br>
+        2. For each data point, identify the best matching unit (BMU).<br>
+        3. Adjust the weights of the BMU and its neighbors to move closer to the input data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) By using a decision tree to classify the data points</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) By clustering data into distinct categories based on features</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) By adjusting the weights of neurons to match the input data</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) By applying a gradient descent algorithm to minimize error</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. In a Self-Organizing Map, what does the "best matching unit" (BMU) represent?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The neuron whose weights are closest to the input data point</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Best Matching Unit (BMU) is the neuron in the Self-Organizing Map whose weight vector is most similar to the input data point. The BMU is used to represent the data point in the map.<br><br>
+        **BMU Identification**:<br>
+        1. Compute the distance between the input data point and the weight vectors of all neurons.<br>
+        2. Select the neuron with the smallest distance as the BMU.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) The neuron whose weights are closest to the input data point</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) The neuron that represents the most frequent data point</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) The neuron with the highest activation value</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) The neuron that is closest to the center of the map</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. What is the main advantage of using Self-Organizing Maps over traditional clustering algorithms like K-Means?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) SOM preserves the topological relationships between data points</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One of the main advantages of SOM over traditional clustering algorithms like K-Means is that SOM preserves the topological relationships between data points, meaning that similar data points are mapped to nearby neurons on the map.<br><br>
+        **Topological Preservation**:<br>
+        1. SOM maps similar data points to neighboring neurons.<br>
+        2. K-Means does not guarantee that similar points are clustered together spatially.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) SOM can handle categorical data better than K-Means</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) SOM requires fewer parameters to be set compared to K-Means</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) SOM is faster and more efficient than K-Means</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) SOM preserves the topological relationships between data points</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. What kind of data does Self-Organizing Maps (SOM) work best with?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) High-dimensional numerical data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        SOM works best with high-dimensional numerical data, as it helps to reduce the dimensionality and visualize the relationships between data points in lower dimensions (usually 2D).<br><br>
+        **Use Cases of SOM**:<br>
+        1. Visualizing high-dimensional data.<br>
+        2. Dimensionality reduction.<br>
+        3. Clustering data in high-dimensional space.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) Categorical data with few attributes</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) High-dimensional numerical data</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) Time series data</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) Text data with a large vocabulary</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. What is the primary objective of generative models in machine learning?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To model the distribution of data and generate new samples</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Generative models learn the underlying distribution of a dataset, allowing them to generate new samples that resemble the original data.<br><br>
+        **Key Objective**:<br>
+        1. Learn the data distribution.<br>
+        2. Generate new, similar data points.<br>
+        3. Used in tasks like image generation, text generation, and more.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) To model the distribution of data and generate new samples</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) To classify data into predefined categories</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) To optimize parameters of a supervised learning model</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) To evaluate the quality of data</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. Which of the following is a popular example of a generative model?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Generative Adversarial Networks (GANs)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Generative Adversarial Networks (GANs) consist of two neural networks— a generator and a discriminator— that are trained together. The generator creates fake data, while the discriminator tries to distinguish it from real data.<br><br>
+        **Key Features of GANs**:<br>
+        1. GANs are used for generating realistic images, videos, and other types of data.<br>
+        2. They are based on an adversarial process between two networks.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) Support Vector Machines (SVM)</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) Generative Adversarial Networks (GANs)</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) Convolutional Neural Networks (CNN)</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) K-Nearest Neighbors (KNN)</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. How does a Variational Autoencoder (VAE) work as a generative model?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By learning the distribution of the latent variables and generating samples from it</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Variational Autoencoders (VAEs) are generative models that learn the distribution of latent variables by encoding input data into a lower-dimensional space, and then decoding it back to generate new data.<br><br>
+        **VAE Process**:<br>
+        1. Encodes the data into a probabilistic latent space.<br>
+        2. Samples from the latent space.<br>
+        3. Decodes the samples back to generate new data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) By applying reinforcement learning to generate samples</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) By using a probabilistic model to generate synthetic data</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) By learning the distribution of the latent variables and generating samples from it</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) By optimizing the data generation process using genetic algorithms</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. What is the main challenge in training Generative Adversarial Networks (GANs)?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) The generator and discriminator must balance each other during training</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GANs require careful training because the generator and discriminator are in a constant competition. The generator improves by trying to deceive the discriminator, while the discriminator becomes better at distinguishing fake from real data. Achieving a balance is challenging.<br><br>
+        **Challenges in GAN Training**:<br>
+        1. Mode collapse (generator produces limited diversity of samples).<br>
+        2. Training instability due to poor balance between generator and discriminator.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) The generator creates unrealistic data</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) The discriminator cannot distinguish real data from fake data</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) The generator and discriminator never reach a convergence point</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) The generator and discriminator must balance each other during training</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. Which of the following is NOT a common application of generative models?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Predicting the price of a stock</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Generative models are typically used for generating new data that is similar to existing data. They are commonly used in image generation, text generation, and other tasks, but predicting the price of a stock is a task for predictive models, not generative models.<br><br>
+        **Common Applications**:<br>
+        1. Image generation (e.g., generating realistic images of faces).<br>
+        2. Text generation (e.g., writing articles or stories).<br>
+        3. Data augmentation for training other machine learning models.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) Image generation</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) Text generation</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) Predicting the price of a stock</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) Data augmentation for training other models</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. What is the primary purpose of density estimation in machine learning?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To estimate the underlying probability distribution of data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Density estimation involves estimating the probability distribution that generated a given dataset. This is useful for tasks such as anomaly detection and generating new data.<br><br>
+        **Key Points**:<br>
+        1. Estimate the probability distribution.<br>
+        2. Helps in understanding the data's structure.<br>
+        3. Used in tasks such as outlier detection, modeling, and simulation.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) To estimate the underlying probability distribution of data</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) To reduce the dimensionality of the data</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) To find the most frequent data points</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) To classify data into distinct categories</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. Which method is commonly used for non-parametric density estimation?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Kernel Density Estimation (KDE)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Kernel Density Estimation (KDE) is a non-parametric method for estimating the probability density function of a random variable. It smooths the data by applying a kernel function to each data point.<br><br>
+        **Key Concepts**:<br>
+        1. Non-parametric method (no assumptions about the data's distribution).<br>
+        2. The kernel function smooths the data.<br>
+        3. Widely used for density estimation in continuous data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) Gaussian Mixture Models (GMM)</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) Decision Trees</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) Kernel Density Estimation (KDE)</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) Principal Component Analysis (PCA)</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. What is a common advantage of using Kernel Density Estimation (KDE) over histogram-based density estimation?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) KDE provides a smoother and more continuous estimate of the probability distribution</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        KDE provides a smoother and more continuous density estimate compared to histograms, which can be sensitive to the bin width. This smoothness makes KDE more suitable for modeling real-world data distributions.<br><br>
+        **Key Advantages of KDE**:<br>
+        1. No binning required.<br>
+        2. Smooth, continuous estimates of density.<br>
+        3. Better at capturing multimodal distributions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) KDE is faster than histograms</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) KDE provides a smoother and more continuous estimate of the probability distribution</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) KDE requires less memory</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) KDE is easier to interpret than histograms</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. In density estimation, what is a common challenge when applying Kernel Density Estimation (KDE) to high-dimensional data?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Curse of dimensionality can lead to less effective density estimation</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The curse of dimensionality refers to the difficulty of estimating densities in high-dimensional spaces. As the number of dimensions increases, the data points become more sparse, and KDE can become less effective.<br><br>
+        **Key Issues in High-Dimensional KDE**:<br>
+        1. Sparsity of data in high-dimensional spaces.<br>
+        2. Difficulty in selecting the optimal kernel bandwidth.<br>
+        3. Computational challenges.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) KDE requires large amounts of data to perform effectively</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) KDE is only effective for binary data</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) KDE works best with categorical data</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) Curse of dimensionality can lead to less effective density estimation</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. What is a Gaussian Mixture Model (GMM) in the context of density estimation?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) A probabilistic model that assumes the data is generated from a mixture of several Gaussian distributions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A Gaussian Mixture Model (GMM) is a model that assumes data points are generated from a mixture of several Gaussian distributions, each with its own mean and variance. It is commonly used for clustering and density estimation.<br><br>
+        **Key Concepts of GMM**:<br>
+        1. Each data point is assumed to be drawn from one of several Gaussian distributions.<br>
+        2. Uses the Expectation-Maximization (EM) algorithm for parameter estimation.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) A machine learning algorithm that uses decision trees</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) A non-parametric model that uses kernel functions</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) A probabilistic model that assumes the data is generated from a mixture of several Gaussian distributions</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) A supervised learning model used for classification</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. What is the primary purpose of using Autoencoders in machine learning?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To learn a compressed representation of data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Autoencoders are used to learn a compact and compressed representation of the input data, typically for the purposes of dimensionality reduction, feature learning, or denoising.<br><br>
+        **Key Concepts**:<br>
+        1. Encoder compresses the input data into a smaller latent space representation.<br>
+        2. Decoder reconstructs the original data from the compressed representation.<br>
+        3. Used in applications like anomaly detection and unsupervised learning.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) To classify data into categories</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) To learn a compressed representation of data</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) To increase the complexity of the data</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) To classify data based on external labels</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. Which part of the Autoencoder architecture is responsible for learning the compressed representation of the input data?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The encoder</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The encoder part of an autoencoder is responsible for learning the compressed or latent representation of the input data. This is typically a lower-dimensional space that retains the essential features of the data.<br><br>
+        **Key Concepts**:<br>
+        1. The encoder reduces the dimensionality of the input data.<br>
+        2. It maps input data to a smaller latent space.<br>
+        3. The decoder reconstructs the data from this representation.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) The encoder</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) The decoder</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) The activation function</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) The loss function</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. What is the main advantage of using Autoencoders for dimensionality reduction over traditional techniques like PCA?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Autoencoders can learn non-linear representations, unlike PCA which is linear</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Autoencoders can learn complex, non-linear transformations of the data, whereas PCA is limited to linear transformations. This gives Autoencoders an advantage in handling more complex data distributions.<br><br>
+        **Key Concepts**:<br>
+        1. PCA is a linear technique, while Autoencoders are non-linear.<br>
+        2. Autoencoders can capture more complex patterns in the data.<br>
+        3. Both are used for dimensionality reduction, but Autoencoders can work better with non-linear data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) Autoencoders are faster to train than PCA</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) Autoencoders are easier to interpret than PCA</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) Autoencoders can learn non-linear representations, unlike PCA which is linear</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) PCA works better with noisy data compared to Autoencoders</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. Which of the following is a typical application of Autoencoders?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Anomaly detection</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Autoencoders are often used in anomaly detection tasks because they can learn a normal data representation and then detect outliers by measuring how poorly they are reconstructed.<br><br>
+        **Key Applications**:<br>
+        1. Anomaly detection (detecting outliers or rare events).<br>
+        2. Denoising (removing noise from data).<br>
+        3. Dimensionality reduction and feature learning.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) Supervised classification</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) Regression tasks</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) Predicting future time-series values</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) Anomaly detection</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. What is the purpose of the latent space in Autoencoders?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To represent the compressed, low-dimensional version of the input data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The latent space in an Autoencoder represents a compressed and typically lower-dimensional version of the input data. It captures the essential features while discarding unnecessary information.<br><br>
+        **Key Concepts**:<br>
+        1. The encoder compresses data into the latent space.<br>
+        2. The latent space contains the essential features needed to reconstruct the data.<br>
+        3. Used for various tasks like anomaly detection and feature extraction.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) To store the original data</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) To represent the compressed, low-dimensional version of the input data</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) To generate new data points</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) To classify data into categories</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. What is the primary purpose of using Gaussian Mixture Models (GMM)?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To model data that is generated from a mixture of several Gaussian distributions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GMM is a probabilistic model used to represent a mixture of several Gaussian distributions that can be used to model complex datasets where data points are assumed to come from multiple normal distributions.<br><br>
+        **Key Concepts**:<br>
+        1. GMM assumes that the data is generated from a mixture of several Gaussian distributions.<br>
+        2. It uses the Expectation-Maximization (EM) algorithm for parameter estimation.<br>
+        3. It is useful in clustering, density estimation, and anomaly detection.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) To perform linear regression</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) To model data that is generated from a mixture of several Gaussian distributions</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) To perform dimensionality reduction</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) To compute the distance between data points</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. Which algorithm is commonly used for estimating the parameters of a Gaussian Mixture Model?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Expectation-Maximization (EM) algorithm</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Expectation-Maximization (EM) algorithm is commonly used to estimate the parameters of Gaussian Mixture Models (GMM). It iteratively maximizes the likelihood of the observed data by estimating the parameters (mean, variance, and mixture weights) of each Gaussian component.<br><br>
+        **Key Concepts**:<br>
+        1. The EM algorithm alternates between the E-step (Expectation) and the M-step (Maximization).<br>
+        2. It finds the parameters that maximize the likelihood of the data.<br>
+        3. It is widely used for unsupervised learning tasks like clustering.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) K-Means clustering</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) Gradient Descent</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) Expectation-Maximization (EM) algorithm</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) Principal Component Analysis (PCA)</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. How does a Gaussian Mixture Model (GMM) differ from K-Means clustering?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) GMM assumes that data is generated from a mixture of Gaussian distributions, while K-Means assumes hard clustering</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GMM is a probabilistic model that assumes that the data is generated from a mixture of several Gaussian distributions, and each data point can belong to more than one cluster with different probabilities. In contrast, K-Means assigns each data point to exactly one cluster.<br><br>
+        **Key Concepts**:<br>
+        1. GMM uses a probabilistic approach (soft clustering) while K-Means is deterministic (hard clustering).<br>
+        2. GMM models the data as a mixture of multiple Gaussian distributions.<br>
+        3. K-Means uses Euclidean distance to assign points to clusters, while GMM uses likelihood estimation.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) GMM uses fewer Gaussian components than K-Means</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) K-Means is a generative model, while GMM is a discriminative model</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) K-Means assigns a hard cluster, while GMM assigns probabilities for belonging to each cluster</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) GMM assumes that data is generated from a mixture of Gaussian distributions, while K-Means assumes hard clustering</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. In a Gaussian Mixture Model (GMM), what is the role of the mixing coefficient?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It represents the weight or probability that each Gaussian distribution contributes to the overall model</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The mixing coefficient in a GMM represents the proportion or weight of each Gaussian component in the mixture. It determines the contribution of each Gaussian distribution to the overall model and must sum up to 1.<br><br>
+        **Key Concepts**:<br>
+        1. The mixing coefficient is a value between 0 and 1.<br>
+        2. It defines the weight or probability of a specific Gaussian distribution in the mixture.<br>
+        3. The sum of all mixing coefficients equals 1.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) It defines the covariance of the Gaussian distributions</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) It represents the weight or probability that each Gaussian distribution contributes to the overall model</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) It defines the mean of each Gaussian distribution</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) It determines the dimensionality of the Gaussian distributions</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. Which of the following is a limitation of Gaussian Mixture Models (GMM)?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) GMM can struggle with highly non-Gaussian data distributions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A limitation of GMM is that it assumes that the data is generated from Gaussian distributions. It may struggle to model data that does not follow a Gaussian distribution or when the data is highly non-Gaussian.<br><br>
+        **Key Concepts**:<br>
+        1. GMM is limited by the assumption that data comes from a mixture of Gaussian distributions.<br>
+        2. It may not work well on non-Gaussian data or data with highly complex structures.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) GMM is too slow to compute for large datasets</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) GMM cannot model high-dimensional data</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) GMM is a supervised model</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) GMM can struggle with highly non-Gaussian data distributions</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. What is the primary use of Hidden Markov Models (HMM)?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To model sequential data where the system state is hidden</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        HMMs are used for modeling systems that evolve over time and are governed by hidden states. The states are not directly observable, but the output is dependent on the state. HMMs are widely used in time series analysis, speech recognition, and other sequential data problems.<br><br>
+        **Key Concepts**:<br>
+        1. The system is modeled as a Markov process with hidden states.<br>
+        2. Each hidden state generates an observable output.<br>
+        3. HMMs are used to make predictions about the hidden states based on observable data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) To predict categorical outcomes in a dataset</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) To model sequential data where the system state is hidden</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) To classify data points into distinct categories</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) To find the optimal clustering of data</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. What are the key components of a Hidden Markov Model (HMM)?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) States, transition probabilities, and observation probabilities</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The key components of an HMM are the hidden states, the probabilities of transitioning between states, and the probabilities of observing certain outputs given the hidden state.<br><br>
+        **Key Components**:<br>
+        1. States: The hidden states of the system.<br>
+        2. Transition probabilities: The probabilities of moving from one state to another.<br>
+        3. Observation probabilities: The likelihood of observing a particular output given the current state.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) Input features, output labels, and loss function</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) Clusters, distances, and centroids</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) Training data, model weights, and hyperparameters</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) States, transition probabilities, and observation probabilities</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. Which algorithm is commonly used for training a Hidden Markov Model (HMM)?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Expectation-Maximization (EM) algorithm</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Expectation-Maximization (EM) algorithm is commonly used to estimate the parameters of a Hidden Markov Model (HMM). The algorithm alternates between an E-step (Expectation) where the probabilities of the hidden states are estimated, and an M-step (Maximization) where the model parameters are updated based on the current estimates.<br><br>
+        **Key Concepts**:<br>
+        1. The EM algorithm is used for unsupervised learning of the HMM parameters.<br>
+        2. It finds the parameters that maximize the likelihood of the observed data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) K-Means clustering</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) Gradient Descent</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) Expectation-Maximization (EM) algorithm</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) Principal Component Analysis (PCA)</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. What is the primary difference between a Markov Chain and a Hidden Markov Model (HMM)?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) In HMM, the states are hidden and not directly observable</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In a Markov Chain, the system's state is observable, while in a Hidden Markov Model (HMM), the states are hidden, and only the observations based on those states are visible. The goal in HMM is to infer the hidden states from the observed data.<br><br>
+        **Key Concepts**:<br>
+        1. A Markov Chain has observable states, whereas an HMM has hidden states.<br>
+        2. HMMs are used to model time series where the state cannot be directly observed.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) In HMM, the transitions between states are deterministic</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) Markov Chains can only be used for classification tasks</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) In HMM, the states are hidden and not directly observable</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) In HMM, the output is discrete</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. In a Hidden Markov Model (HMM), what does the observation sequence represent?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The sequence of observations generated by the hidden states</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The observation sequence in an HMM is a series of outputs that are dependent on the hidden states. Each observation is generated by a corresponding hidden state, but the state itself is not directly visible.<br><br>
+        **Key Concepts**:<br>
+        1. Observations are the visible outputs of the system.<br>
+        2. The goal is to infer the sequence of hidden states that led to the observed sequence.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) The sequence of hidden states</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) The sequence of observations generated by the hidden states</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) The transition probabilities between states</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) The output sequence predicted by the model</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+
+
+
+
+
+
+
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

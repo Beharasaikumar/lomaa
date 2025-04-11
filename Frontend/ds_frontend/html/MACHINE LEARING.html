@@ -1,0 +1,2682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MACHINE LEARING</title>
+    <link rel="stylesheet" href="../css/data science.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'B', 'B', 'A', 'B', 'B', 'B', 'A', 'B',
+            'B', 'C', 'A', 'D', 'A', 'B', 'A', 'B', 'C', 'A',
+            'C', 'A', 'B', 'C', 'A', 'B', 'A', 'C', 'D', 'B',
+            'B', 'A', 'C', 'B', 'D', 'B', 'A', 'B', 'C', 'D',
+            'B', 'A', 'C', 'B', 'D', 'A', 'B', 'D', 'C', 'A',
+            'A', 'B', 'C', 'B', 'D', 'A', 'C', 'B', 'D', 'A',   
+            'A', 'B', 'A', 'C', 'D', 'A', 'B', 'A', 'D', 'C',
+            'C', 'B', 'D', 'B', 'C', 'A', 'B', 'A', 'B', 'C',
+            'A', 'A', 'A', 'C', 'A', 'B', 'D', 'A', 'C', 'A'
+
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>MACHINE LEARING</h3>
+        <div class="inner-border">
+            <div class="qee">
+                <!-- Question 1 -->
+                <div class="que">
+                    <p>1. What is the primary goal of supervised learning?</p>
+                    <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+                </div>
+                <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To learn a mapping function from input to output using labeled data.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Supervised learning involves training a model on labeled data, where the input data comes with corresponding output labels. The goal is to learn a function that maps inputs to the correct outputs.<br><br>
+                    **Key Features of Supervised Learning:**<br>
+                    1. Requires labeled data.<br>
+                    2. Used for classification and regression tasks.<br>
+                    3. The model learns from the training data to make predictions on new data.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+                    <label for="optionA0">A) To cluster data into groups without labels.</label><br>
+                    <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+                    <label for="optionB0">B) To learn a mapping function from input to output using labeled data.</label><br>
+                    <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+                    <label for="optionC0">C) To reduce the complexity of the data.</label><br>
+                    <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+                    <label for="optionD0">D) To find hidden patterns without supervision.</label><br>
+                </div>
+                <div id="result0" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 2 -->
+                <div class="que">
+                    <p>2. Which of the following is an example of a supervised learning algorithm?</p>
+                    <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+                </div>
+                <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Support Vector Machine (SVM)</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Supervised learning algorithms are designed to learn from labeled data. Support Vector Machine (SVM) is one of the popular algorithms used for classification tasks.<br><br>
+                    **Common Supervised Learning Algorithms:**<br>
+                    1. Linear Regression<br>
+                    2. Logistic Regression<br>
+                    3. Decision Trees<br>
+                    4. Support Vector Machine (SVM)<br>
+                    5. Neural Networks<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+                    <label for="optionA1">A) K-means Clustering</label><br>
+                    <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+                    <label for="optionB1">B) Support Vector Machine (SVM)</label><br>
+                    <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+                    <label for="optionC1">C) DBSCAN</label><br>
+                    <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+                    <label for="optionD1">D) Hierarchical Clustering</label><br>
+                </div>
+                <div id="result1" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 3 -->
+                <div class="que">
+                    <p>3. What type of output does a regression algorithm predict?</p>
+                    <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+                </div>
+                <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Continuous numerical values</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Regression algorithms predict continuous numerical values based on input features. They are used in tasks like predicting prices, temperatures, or any measurable quantity.<br><br>
+                    **Examples of Regression Algorithms:**<br>
+                    1. Linear Regression<br>
+                    2. Polynomial Regression<br>
+                    3. Decision Tree Regression<br>
+                    4. Support Vector Regression (SVR)<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+                    <label for="optionA2">A) Categorical labels</label><br>
+                    <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+                    <label for="optionB2">B) Continuous numerical values</label><br>
+                    <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+                    <label for="optionC2">C) Binary outputs only</label><br>
+                    <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+                    <label for="optionD2">D) Discrete events</label><br>
+                </div>
+                <div id="result2" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 4 -->
+                <div class="que">
+                    <p>4. Which of the following is a common evaluation metric for classification problems?</p>
+                    <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+                </div>
+                <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Accuracy</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Accuracy is a widely used evaluation metric for classification problems. It measures the proportion of correctly predicted instances out of the total instances.<br><br>
+                    **Common Classification Metrics:**<br>
+                    1. Accuracy<br>
+                    2. Precision<br>
+                    3. Recall<br>
+                    4. F1 Score<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+                    <label for="optionA3">A) Mean Squared Error (MSE)</label><br>
+                    <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+                    <label for="optionB3">B) Accuracy</label><br>
+                    <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+                    <label for="optionC3">C) R-Squared</label><br>
+                    <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+                    <label for="optionD3">D) Root Mean Squared Error (RMSE)</label><br>
+                </div>
+                <div id="result3" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 5 -->
+                <div class="que">
+                    <p>5. Which of the following is an example of a classification problem?</p>
+                    <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+                </div>
+                <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Predicting whether an email is spam or not.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Classification problems involve predicting discrete labels or categories. Predicting whether an email is spam or not is a classic binary classification problem.<br><br>
+                    **Examples of Classification Problems:**<br>
+                    1. Spam email detection<br>
+                    2. Disease diagnosis<br>
+                    3. Sentiment analysis<br>
+                    4. Image recognition<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+                    <label for="optionA4">A) Predicting whether an email is spam or not.</label><br>
+                    <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+                    <label for="optionB4">B) Predicting the price of a house.</label><br>
+                    <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+                    <label for="optionC4">C) Forecasting stock market trends.</label><br>
+                    <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+                    <label for="optionD4">D) Estimating the distance between two cities.</label><br>
+                </div>
+                <div id="result4" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 6 -->
+                <div class="que">
+                    <p>6. What is the main goal of unsupervised learning?</p>
+                    <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+                </div>
+                <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To find hidden patterns or structures in unlabeled data.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Unsupervised learning aims to discover patterns, relationships, or structures in data without using labeled outcomes. It’s commonly used for clustering and dimensionality reduction.<br><br>
+                    **Key Features of Unsupervised Learning:**<br>
+                    1. No labeled data required.<br>
+                    2. Used for clustering, anomaly detection, and association rule learning.<br>
+                    3. Helps in data exploration and feature extraction.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+                    <label for="optionA5">A) To predict outcomes based on labeled data.</label><br>
+                    <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+                    <label for="optionB5">B) To find hidden patterns or structures in unlabeled data.</label><br>
+                    <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+                    <label for="optionC5">C) To enhance image quality.</label><br>
+                    <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+                    <label for="optionD5">D) To classify data into predefined categories.</label><br>
+                </div>
+                <div id="result5" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 7 -->
+                <div class="que">
+                    <p>7. Which of the following is a common algorithm used for clustering?</p>
+                    <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+                </div>
+                <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) K-means Clustering</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    K-means clustering is a widely used unsupervised learning algorithm that partitions data into K distinct clusters based on feature similarity.<br><br>
+                    **Steps in K-means Clustering:**<br>
+                    1. Choose the number of clusters (K).<br>
+                    2. Initialize cluster centroids randomly.<br>
+                    3. Assign each data point to the nearest centroid.<br>
+                    4. Recalculate centroids based on assigned points.<br>
+                    5. Repeat steps 3 and 4 until convergence.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+                    <label for="optionA6">A) Linear Regression</label><br>
+                    <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+                    <label for="optionB6">B) K-means Clustering</label><br>
+                    <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+                    <label for="optionC6">C) Decision Tree</label><br>
+                    <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+                    <label for="optionD6">D) Support Vector Machine (SVM)</label><br>
+                </div>
+                <div id="result6" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 8 -->
+                <div class="que">
+                    <p>8. What is the purpose of dimensionality reduction in unsupervised learning?</p>
+                    <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+                </div>
+                <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To reduce the number of features while preserving important information.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Dimensionality reduction simplifies data by reducing the number of features, making it easier to analyze and visualize, while retaining the core information.<br><br>
+                    **Common Dimensionality Reduction Techniques:**<br>
+                    1. Principal Component Analysis (PCA)<br>
+                    2. t-Distributed Stochastic Neighbor Embedding (t-SNE)<br>
+                    3. Autoencoders<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+                    <label for="optionA7">A) To increase the dataset size.</label><br>
+                    <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+                    <label for="optionB7">B) To reduce the number of features while preserving important information.</label><br>
+                    <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+                    <label for="optionC7">C) To classify data into categories.</label><br>
+                    <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+                    <label for="optionD7">D) To apply filters to the data.</label><br>
+                </div>
+                <div id="result7" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 9 -->
+                <div class="que">
+                    <p>9. Which algorithm is commonly used for anomaly detection in unsupervised learning?</p>
+                    <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+                </div>
+                <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Isolation Forest</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The Isolation Forest algorithm is widely used for anomaly detection. It isolates anomalies instead of profiling normal data, making it efficient for large datasets.<br><br>
+                    **Key Features of Isolation Forest:**<br>
+                    1. Works well with high-dimensional data.<br>
+                    2. Efficient and scalable.<br>
+                    3. Detects anomalies quickly by isolating them.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+                    <label for="optionA8">A) Isolation Forest</label><br>
+                    <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+                    <label for="optionB8">B) Linear Regression</label><br>
+                    <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+                    <label for="optionC8">C) Decision Tree</label><br>
+                    <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+                    <label for="optionD8">D) Support Vector Machine (SVM)</label><br>
+                </div>
+                <div id="result8" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 10 -->
+                <div class="que">
+                    <p>10. What is the key difference between supervised and unsupervised learning?</p>
+                    <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+                </div>
+                <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Supervised learning uses labeled data, while unsupervised learning uses unlabeled data.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The key distinction is that supervised learning requires labeled data to train models, while unsupervised learning works with unlabeled data to discover patterns.<br><br>
+                    **Supervised Learning:**<br>
+                    - Example: Classification, Regression<br>
+                    **Unsupervised Learning:**<br>
+                    - Example: Clustering, Dimensionality Reduction<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+                    <label for="optionA9">A) Supervised learning requires no data, while unsupervised learning does.</label><br>
+                    <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+                    <label for="optionB9">B) Supervised learning uses labeled data, while unsupervised learning uses unlabeled data.</label><br>
+                    <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+                    <label for="optionC9">C) Both use labeled data for training.</label><br>
+                    <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+                    <label for="optionD9">D) Unsupervised learning is only used for image processing.</label><br>
+                </div>
+                <div id="result9" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 11 -->
+                <div class="que">
+                    <p>11. What is the main goal of reinforcement learning?</p>
+                    <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+                </div>
+                <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To learn optimal actions through trial and error to maximize rewards.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Reinforcement learning involves an agent interacting with an environment to learn the best actions to take in order to maximize cumulative rewards.<br><br>
+                    **Key Components of Reinforcement Learning:**<br>
+                    1. **Agent:** Learns to make decisions.<br>
+                    2. **Environment:** The world with which the agent interacts.<br>
+                    3. **Actions:** Choices available to the agent.<br>
+                    4. **Rewards:** Feedback received after taking an action.<br>
+                    5. **Policy:** Strategy for choosing actions.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+                    <label for="optionA10">A) To classify data into predefined categories.</label><br>
+                    <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+                    <label for="optionB10">B) To learn optimal actions through trial and error to maximize rewards.</label><br>
+                    <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+                    <label for="optionC10">C) To reduce noise in data.</label><br>
+                    <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+                    <label for="optionD10">D) To apply filters to improve image quality.</label><br>
+                </div>
+                <div id="result10" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 12 -->
+                <div class="que">
+                    <p>12. Which of the following is a key concept in reinforcement learning?</p>
+                    <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+                </div>
+                <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Reward signal</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The reward signal is crucial in reinforcement learning as it guides the agent to learn which actions are beneficial by providing feedback.<br><br>
+                    **Key Concepts in Reinforcement Learning:**<br>
+                    - **Reward:** Feedback for actions taken.<br>
+                    - **State:** The current situation of the agent.<br>
+                    - **Action:** The choice made by the agent.<br>
+                    - **Policy:** A strategy for choosing actions.<br>
+                    - **Value Function:** Predicts future rewards.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+                    <label for="optionA11">A) Supervised learning algorithm</label><br>
+                    <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+                    <label for="optionB11">B) Loss function</label><br>
+                    <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+                    <label for="optionC11">C) Reward signal</label><br>
+                    <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+                    <label for="optionD11">D) Feature scaling</label><br>
+                </div>
+                <div id="result11" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 13 -->
+                <div class="que">
+                    <p>13. What is the difference between exploration and exploitation in reinforcement learning?</p>
+                    <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+                </div>
+                <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Exploration involves trying new actions, while exploitation involves using known actions for maximum rewards.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    In reinforcement learning, agents balance **exploration** (trying new actions to discover their effects) and **exploitation** (using known actions that yield high rewards).<br><br>
+                    **Importance:**<br>
+                    - **Exploration:** Helps discover better strategies.<br>
+                    - **Exploitation:** Maximizes known rewards.<br>
+                    The goal is to balance both for optimal learning.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+                    <label for="optionA12">A) Exploration involves trying new actions, while exploitation involves using known actions for maximum rewards.</label><br>
+                    <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+                    <label for="optionB12">B) Both mean the same in reinforcement learning.</label><br>
+                    <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+                    <label for="optionC12">C) Exploration is only used in supervised learning.</label><br>
+                    <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+                    <label for="optionD12">D) Exploitation is not important in reinforcement learning.</label><br>
+                </div>
+                <div id="result12" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 14 -->
+                <div class="que">
+                    <p>14. Which algorithm is commonly used for solving reinforcement learning problems?</p>
+                    <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+                </div>
+                <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Q-learning</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Q-learning is a popular reinforcement learning algorithm that helps an agent learn the value of actions in different states to maximize rewards.<br><br>
+                    **How Q-learning Works:**<br>
+                    1. Initialize Q-values arbitrarily.<br>
+                    2. Choose actions using an exploration strategy (e.g., ε-greedy).<br>
+                    3. Update Q-values based on the received rewards.<br>
+                    4. Repeat until convergence.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+                    <label for="optionA13">A) Linear Regression</label><br>
+                    <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+                    <label for="optionB13">B) Decision Tree</label><br>
+                    <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+                    <label for="optionC13">C) K-means Clustering</label><br>
+                    <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+                    <label for="optionD13">D) Q-learning</label><br>
+                </div>
+                <div id="result13" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 15 -->
+                <div class="que">
+                    <p>15. In reinforcement learning, what is the purpose of the discount factor?</p>
+                    <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+                </div>
+                <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To prioritize immediate rewards over future rewards.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The discount factor determines how much the agent values future rewards compared to immediate rewards.<br><br>
+                    **Key Points:**<br>
+                    - A discount factor close to 1 values future rewards more.<br>
+                    - A discount factor close to 0 focuses on immediate rewards.<br>
+                    - It helps balance short-term and long-term rewards.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+                    <label for="optionA14">A) To prioritize immediate rewards over future rewards.</label><br>
+                    <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+                    <label for="optionB14">B) To ignore future rewards entirely.</label><br>
+                    <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+                    <label for="optionC14">C) To make future rewards more uncertain.</label><br>
+                    <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+                    <label for="optionD14">D) To maximize the number of actions taken.</label><br>
+                </div>
+                <div id="result14" class="result"></div>
+            </div>
+
+            <div class="qee">
+                <!-- Question 16 -->
+                <div class="que">
+                    <p>16. What is the main purpose of deep learning?</p>
+                    <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+                </div>
+                <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To learn patterns and representations from large amounts of data.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Deep learning is a subset of machine learning that uses neural networks with multiple layers to learn complex patterns in large datasets.<br><br>
+                    **Key Features:**<br>
+                    - Handles unstructured data like images, audio, and text.<br>
+                    - Requires large datasets for effective training.<br>
+                    - Powerful for tasks like image recognition, natural language processing, and more.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+                    <label for="optionA15">A) To manually program rules for data processing.</label><br>
+                    <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+                    <label for="optionB15">B) To learn patterns and representations from large amounts of data.</label><br>
+                    <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+                    <label for="optionC15">C) To replace traditional algorithms in all tasks.</label><br>
+                    <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+                    <label for="optionD15">D) To reduce the size of datasets for faster processing.</label><br>
+                </div>
+                <div id="result15" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 17 -->
+                <div class="que">
+                    <p>17. Which of the following is a common architecture used in deep learning?</p>
+                    <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+                </div>
+                <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Convolutional Neural Network (CNN)</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Convolutional Neural Networks (CNNs) are widely used for image and video recognition tasks because they can automatically detect patterns and features from raw pixel data.<br><br>
+                    **Key Features of CNNs:**<br>
+                    - Convolutional layers to detect patterns.<br>
+                    - Pooling layers to reduce dimensionality.<br>
+                    - Fully connected layers for final classification.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+                    <label for="optionA16">A) Convolutional Neural Network (CNN)</label><br>
+                    <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+                    <label for="optionB16">B) Decision Tree</label><br>
+                    <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+                    <label for="optionC16">C) K-means Clustering</label><br>
+                    <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+                    <label for="optionD16">D) Linear Regression</label><br>
+                </div>
+                <div id="result16" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 18 -->
+                <div class="que">
+                    <p>18. What activation function is commonly used in deep neural networks?</p>
+                    <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+                </div>
+                <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) ReLU (Rectified Linear Unit)</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    ReLU is one of the most commonly used activation functions in deep learning because it helps introduce non-linearity while maintaining computational efficiency.<br><br>
+                    **Why ReLU?**<br>
+                    - Reduces the likelihood of vanishing gradient problem.<br>
+                    - Fast to compute.<br>
+                    - Helps networks learn complex patterns effectively.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+                    <label for="optionA17">A) Sigmoid</label><br>
+                    <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+                    <label for="optionB17">B) ReLU (Rectified Linear Unit)</label><br>
+                    <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+                    <label for="optionC17">C) Tanh</label><br>
+                    <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+                    <label for="optionD17">D) Linear</label><br>
+                </div>
+                <div id="result17" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 19 -->
+                <div class="que">
+                    <p>19. Which optimization algorithm is commonly used for training deep neural networks?</p>
+                    <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+                </div>
+                <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Stochastic Gradient Descent (SGD)</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Stochastic Gradient Descent (SGD) is a widely used optimization algorithm that helps in minimizing the loss function during the training of deep learning models.<br><br>
+                    **Why SGD?**<br>
+                    - Efficient for large datasets.<br>
+                    - Reduces the computational burden compared to batch gradient descent.<br>
+                    - Can escape local minima due to its stochastic nature.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+                    <label for="optionA18">A) Naive Bayes</label><br>
+                    <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+                    <label for="optionB18">B) K-means Clustering</label><br>
+                    <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+                    <label for="optionC18">C) Stochastic Gradient Descent (SGD)</label><br>
+                    <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+                    <label for="optionD18">D) Linear Regression</label><br>
+                </div>
+                <div id="result18" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 20 -->
+                <div class="que">
+                    <p>20. What is the primary advantage of using deep learning over traditional machine learning?</p>
+                    <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+                </div>
+                <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) It can automatically extract features from raw data without manual intervention.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Deep learning models excel at automatically learning hierarchical features from raw data, eliminating the need for manual feature engineering.<br><br>
+                    **Key Advantages:**<br>
+                    - Handles unstructured data like images, text, and audio effectively.<br>
+                    - Requires less manual feature extraction.<br>
+                    - Scales well with large datasets.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+                    <label for="optionA19">A) It can automatically extract features from raw data without manual intervention.</label><br>
+                    <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+                    <label for="optionB19">B) It requires less data for training compared to traditional methods.</label><br>
+                    <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+                    <label for="optionC19">C) It works better with small datasets.</label><br>
+                    <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+                    <label for="optionD19">D) It doesn't require any preprocessing of data.</label><br>
+                </div>
+                <div id="result19" class="result"></div>
+            </div>
+                      
+            <div class="qee">
+                <!-- Question 21 -->
+                <div class="que">
+                    <p>21. What is the basic building block of a neural network?</p>
+                    <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+                </div>
+                <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Neuron</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    A neuron, also known as a node or unit, is the fundamental unit in a neural network. It receives inputs, processes them, and passes the output to the next layer.<br><br>
+                    **Key Functions of a Neuron:**<br>
+                    - Receives weighted inputs.<br>
+                    - Applies an activation function.<br>
+                    - Outputs the result to the next layer.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+                    <label for="optionA20">A) Weight</label><br>
+                    <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+                    <label for="optionB20">B) Bias</label><br>
+                    <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+                    <label for="optionC20">C) Neuron</label><br>
+                    <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+                    <label for="optionD20">D) Layer</label><br>
+                </div>
+                <div id="result20" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 22 -->
+                <div class="que">
+                    <p>22. What is the purpose of the activation function in a neural network?</p>
+                    <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+                </div>
+                <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To introduce non-linearity into the model.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Activation functions introduce non-linearities, enabling neural networks to learn complex patterns and functions.<br><br>
+                    **Common Activation Functions:**<br>
+                    - Sigmoid<br>
+                    - ReLU (Rectified Linear Unit)<br>
+                    - Tanh<br>
+                    - Softmax<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+                    <label for="optionA21">A) To introduce non-linearity into the model.</label><br>
+                    <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+                    <label for="optionB21">B) To reduce the size of the dataset.</label><br>
+                    <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+                    <label for="optionC21">C) To increase the learning rate.</label><br>
+                    <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+                    <label for="optionD21">D) To minimize the loss function.</label><br>
+                </div>
+                <div id="result21" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 23 -->
+                <div class="que">
+                    <p>23. What is the role of the loss function in a neural network?</p>
+                    <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+                </div>
+                <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To measure the difference between predicted and actual outputs.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The loss function quantifies how well or poorly the neural network is performing by comparing its predictions with actual values.<br><br>
+                    **Common Loss Functions:**<br>
+                    - Mean Squared Error (MSE)<br>
+                    - Cross-Entropy Loss<br>
+                    - Hinge Loss<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+                    <label for="optionA22">A) To adjust the learning rate dynamically.</label><br>
+                    <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+                    <label for="optionB22">B) To measure the difference between predicted and actual outputs.</label><br>
+                    <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+                    <label for="optionC22">C) To increase the complexity of the model.</label><br>
+                    <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+                    <label for="optionD22">D) To reduce overfitting in the network.</label><br>
+                </div>
+                <div id="result22" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 24 -->
+                <div class="que">
+                    <p>24. What is backpropagation in neural networks?</p>
+                    <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+                </div>
+                <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) A method to update weights based on the gradient of the loss function.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Backpropagation is an algorithm used to minimize the loss function by adjusting the weights of the neural network based on the gradient of the error.<br><br>
+                    **Key Steps in Backpropagation:**<br>
+                    1. Forward pass to calculate output.<br>
+                    2. Calculate the loss.<br>
+                    3. Backward pass to compute gradients.<br>
+                    4. Update weights using gradient descent.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+                    <label for="optionA23">A) A method to initialize the network parameters.</label><br>
+                    <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+                    <label for="optionB23">B) A technique to prevent overfitting in neural networks.</label><br>
+                    <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+                    <label for="optionC23">C) A method to update weights based on the gradient of the loss function.</label><br>
+                    <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+                    <label for="optionD23">D) A method to increase the model's complexity.</label><br>
+                </div>
+                <div id="result23" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 25 -->
+                <div class="que">
+                    <p>25. What type of neural network is best suited for image recognition tasks?</p>
+                    <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+                </div>
+                <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Convolutional Neural Network (CNN)</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Convolutional Neural Networks (CNNs) are highly effective for image recognition tasks because they can automatically detect and learn features from images.<br><br>
+                    **Why CNN for Image Recognition?**<br>
+                    - Handles spatial hierarchies effectively.<br>
+                    - Reduces the number of parameters compared to fully connected networks.<br>
+                    - Captures local patterns through convolutional filters.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+                    <label for="optionA24">A) Convolutional Neural Network (CNN)</label><br>
+                    <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+                    <label for="optionB24">B) Recurrent Neural Network (RNN)</label><br>
+                    <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+                    <label for="optionC24">C) Fully Connected Neural Network</label><br>
+                    <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+                    <label for="optionD24">D) Generative Adversarial Network (GAN)</label><br>
+                </div>
+                <div id="result24" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 26 -->
+                <div class="que">
+                    <p>26. What is the primary purpose of a decision tree in machine learning?</p>
+                    <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+                </div>
+                <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To make decisions or predictions based on input features.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    A decision tree is a supervised learning algorithm used for classification and regression tasks. It splits data into subsets based on feature values to make predictions.<br><br>
+                    **Key Features of Decision Trees:**<br>
+                    - Easy to understand and interpret.<br>
+                    - Handles both numerical and categorical data.<br>
+                    - Can be visualized as a tree structure with nodes and branches.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+                    <label for="optionA25">A) To reduce the complexity of data.</label><br>
+                    <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+                    <label for="optionB25">B) To make decisions or predictions based on input features.</label><br>
+                    <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+                    <label for="optionC25">C) To cluster similar data points together.</label><br>
+                    <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+                    <label for="optionD25">D) To perform dimensionality reduction.</label><br>
+                </div>
+                <div id="result25" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 27 -->
+                <div class="que">
+                    <p>27. What criterion is commonly used to split nodes in a decision tree?</p>
+                    <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+                </div>
+                <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Gini Impurity or Entropy</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Decision trees use measures like Gini Impurity or Entropy to decide the best feature to split on at each node. These criteria help in making the decision tree more efficient and accurate.<br><br>
+                    **Gini Impurity and Entropy:**<br>
+                    - **Gini Impurity:** Measures how often a randomly chosen element would be incorrectly classified.<br>
+                    - **Entropy:** Measures the amount of disorder or impurity in the data.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+                    <label for="optionA26">A) Gini Impurity or Entropy</label><br>
+                    <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+                    <label for="optionB26">B) Mean Squared Error (MSE)</label><br>
+                    <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+                    <label for="optionC26">C) Cross-Entropy Loss</label><br>
+                    <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+                    <label for="optionD26">D) Pearson Correlation Coefficient</label><br>
+                </div>
+                <div id="result26" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 28 -->
+                <div class="que">
+                    <p>28. What is overfitting in the context of decision trees?</p>
+                    <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+                </div>
+                <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) When the tree learns the training data too well, including noise and outliers.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Overfitting occurs when a decision tree becomes too complex and captures noise in the training data instead of general patterns. This leads to poor performance on new, unseen data.<br><br>
+                    **Ways to Prevent Overfitting:**<br>
+                    - Pruning the tree.<br>
+                    - Setting a maximum depth.<br>
+                    - Using minimum samples per leaf.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+                    <label for="optionA27">A) When the tree ignores important features.</label><br>
+                    <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+                    <label for="optionB27">B) When the tree has too few nodes to make accurate predictions.</label><br>
+                    <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+                    <label for="optionC27">C) When the tree learns the training data too well, including noise and outliers.</label><br>
+                    <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+                    <label for="optionD27">D) When the tree cannot capture any patterns in the data.</label><br>
+                </div>
+                <div id="result27" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 29 -->
+                <div class="que">
+                    <p>29. What is pruning in decision trees?</p>
+                    <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+                </div>
+                <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) The process of removing parts of the tree that do not provide additional predictive power.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Pruning helps reduce the complexity of a decision tree, which improves its ability to generalize to new data and reduces overfitting.<br><br>
+                    **Types of Pruning:**<br>
+                    - **Pre-pruning:** Stopping the tree growth early.<br>
+                    - **Post-pruning:** Removing branches after the tree has been fully grown.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+                    <label for="optionA28">A) Adding more branches to the tree to improve accuracy.</label><br>
+                    <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+                    <label for="optionB28">B) Adjusting the thresholds for splits in the tree.</label><br>
+                    <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+                    <label for="optionC28">C) Increasing the depth of the tree to improve performance.</label><br>
+                    <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+                    <label for="optionD28">D) The process of removing parts of the tree that do not provide additional predictive power.</label><br>
+                </div>
+                <div id="result28" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 30 -->
+                <div class="que">
+                    <p>30. Which algorithm is commonly used to build decision trees?</p>
+                    <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+                </div>
+                <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) CART (Classification and Regression Trees)</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    CART is one of the most popular algorithms used to build decision trees. It can handle both classification and regression tasks and builds binary trees.<br><br>
+                    **Key Features of CART:**<br>
+                    - Splits nodes based on the best criterion (Gini Impurity or Entropy for classification).<br>
+                    - Produces binary trees with yes/no branches.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+                    <label for="optionA29">A) K-means Clustering</label><br>
+                    <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+                    <label for="optionB29">B) CART (Classification and Regression Trees)</label><br>
+                    <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+                    <label for="optionC29">C) Support Vector Machines (SVM)</label><br>
+                    <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+                    <label for="optionD29">D) Principal Component Analysis (PCA)</label><br>
+                </div>
+                <div id="result29" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 31 -->
+                <div class="que">
+                    <p>31. What is the primary objective of a Support Vector Machine (SVM)?</p>
+                    <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+                </div>
+                <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To find the optimal hyperplane that separates classes with the maximum margin.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    SVM aims to find the best boundary (hyperplane) that separates data points of different classes. The optimal hyperplane maximizes the margin between classes.<br><br>
+                    **Key Concepts in SVM:**<br>
+                    - **Hyperplane:** A decision boundary that separates data into different classes.<br>
+                    - **Margin:** The distance between the hyperplane and the nearest data points (support vectors).<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+                    <label for="optionA30">A) To minimize the variance in the data.</label><br>
+                    <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+                    <label for="optionB30">B) To find the optimal hyperplane that separates classes with the maximum margin.</label><br>
+                    <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+                    <label for="optionC30">C) To cluster similar data points together.</label><br>
+                    <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+                    <label for="optionD30">D) To perform dimensionality reduction.</label><br>
+                </div>
+                <div id="result30" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 32 -->
+                <div class="que">
+                    <p>32. Which of the following kernels is commonly used in SVM?</p>
+                    <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+                </div>
+                <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Radial Basis Function (RBF) kernel</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The RBF kernel is widely used in SVM because it can handle non-linear data by transforming it into a higher-dimensional space where a linear hyperplane can separate the classes.<br><br>
+                    **Other Common Kernels:**<br>
+                    - Linear Kernel<br>
+                    - Polynomial Kernel<br>
+                    - Sigmoid Kernel<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+                    <label for="optionA31">A) Radial Basis Function (RBF) kernel</label><br>
+                    <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+                    <label for="optionB31">B) Euclidean Kernel</label><br>
+                    <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+                    <label for="optionC31">C) Gaussian Mixture Kernel</label><br>
+                    <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+                    <label for="optionD31">D) Manhattan Kernel</label><br>
+                </div>
+                <div id="result31" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 33 -->
+                <div class="que">
+                    <p>33. What is the role of support vectors in SVM?</p>
+                    <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+                </div>
+                <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) They are the data points closest to the decision boundary and influence the position of the hyperplane.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Support vectors are the critical data points that lie closest to the decision boundary. They help in defining the optimal hyperplane and are essential for the model's accuracy.<br><br>
+                    **Importance of Support Vectors:**<br>
+                    - They determine the margin of separation.<br>
+                    - Removing support vectors can change the decision boundary.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+                    <label for="optionA32">A) They are the data points with the highest feature values.</label><br>
+                    <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+                    <label for="optionB32">B) They are the data points with the lowest feature values.</label><br>
+                    <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+                    <label for="optionC32">C) They are the data points closest to the decision boundary and influence the position of the hyperplane.</label><br>
+                    <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+                    <label for="optionD32">D) They are the data points that are farthest from the decision boundary.</label><br>
+                </div>
+                <div id="result32" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 34 -->
+                <div class="que">
+                    <p>34. What is the advantage of using the kernel trick in SVM?</p>
+                    <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+                </div>
+                <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) It allows SVM to handle non-linear data by implicitly mapping it to a higher-dimensional space.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The kernel trick enables SVM to find a linear separation in a transformed feature space without explicitly computing the transformation, making it efficient for non-linear problems.<br><br>
+                    **Common Kernels Used in the Kernel Trick:**<br>
+                    - Linear Kernel<br>
+                    - Polynomial Kernel<br>
+                    - Radial Basis Function (RBF) Kernel<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+                    <label for="optionA33">A) It reduces the number of features in the dataset.</label><br>
+                    <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+                    <label for="optionB33">B) It allows SVM to handle non-linear data by implicitly mapping it to a higher-dimensional space.</label><br>
+                    <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+                    <label for="optionC33">C) It eliminates the need for support vectors.</label><br>
+                    <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+                    <label for="optionD33">D) It makes the model faster by reducing computation time.</label><br>
+                </div>
+                <div id="result33" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 35 -->
+                <div class="que">
+                    <p>35. How does SVM handle multi-class classification problems?</p>
+                    <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+                </div>
+                <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Using strategies like One-vs-One (OvO) or One-vs-All (OvA).</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    SVM is inherently a binary classifier, but multi-class classification is handled using strategies like:<br>
+                    - **One-vs-One (OvO):** Builds a classifier for every pair of classes.<br>
+                    - **One-vs-All (OvA):** Builds one classifier per class against all other classes.<br><br>
+                    **OvO vs OvA:**<br>
+                    - OvO requires more classifiers but can be more accurate in complex datasets.<br>
+                    - OvA is simpler but might be less effective when classes are not linearly separable.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+                    <label for="optionA34">A) By using only linear kernels.</label><br>
+                    <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+                    <label for="optionB34">B) By reducing the number of features.</label><br>
+                    <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+                    <label for="optionC34">C) By applying clustering algorithms.</label><br>
+                    <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+                    <label for="optionD34">D) Using strategies like One-vs-One (OvO) or One-vs-All (OvA).</label><br>
+                </div>
+                <div id="result34" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 36 -->
+                <div class="que">
+                    <p>36. What is the primary idea behind the K-Nearest Neighbors (KNN) algorithm?</p>
+                    <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+                </div>
+                <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Classify data points based on the majority class of their nearest neighbors.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    KNN is a simple, non-parametric algorithm used for classification and regression. It predicts the class of a data point based on the majority class among its **k** nearest neighbors.<br><br>
+                    **Key Concepts:**<br>
+                    - **k:** The number of nearest neighbors to consider.<br>
+                    - **Distance Metrics:** Euclidean, Manhattan, or Minkowski distances are commonly used.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+                    <label for="optionA35">A) It creates complex decision boundaries based on statistical models.</label><br>
+                    <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+                    <label for="optionB35">B) Classify data points based on the majority class of their nearest neighbors.</label><br>
+                    <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+                    <label for="optionC35">C) It reduces dimensionality using principal component analysis.</label><br>
+                    <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+                    <label for="optionD35">D) It applies linear regression for predicting continuous values.</label><br>
+                </div>
+                <div id="result35" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 37 -->
+                <div class="que">
+                    <p>37. Which distance metric is commonly used in KNN for calculating the similarity between data points?</p>
+                    <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+                </div>
+                <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Euclidean distance</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Euclidean distance** is the most commonly used metric in KNN, especially for continuous data. It measures the straight-line distance between two points in space.<br><br>
+                    **Other Distance Metrics:**<br>
+                    - Manhattan distance (city block distance)<br>
+                    - Minkowski distance<br>
+                    - Cosine similarity (for text data)<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+                    <label for="optionA36">A) Euclidean distance</label><br>
+                    <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+                    <label for="optionB36">B) Hamming distance</label><br>
+                    <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+                    <label for="optionC36">C) Jaccard index</label><br>
+                    <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+                    <label for="optionD36">D) Mahalanobis distance</label><br>
+                </div>
+                <div id="result36" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 38 -->
+                <div class="que">
+                    <p>38. How does the choice of **k** affect the performance of KNN?</p>
+                    <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+                </div>
+                <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) A small **k** can lead to overfitting, while a large **k** may cause underfitting.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The value of **k** determines the number of neighbors considered when making predictions:<br>
+                    - **Small k:** Sensitive to noise and may overfit the data.<br>
+                    - **Large k:** Smooths out noise but may miss subtle patterns (underfitting).<br><br>
+                    **Best Practice:** Use cross-validation to find the optimal **k** for your dataset.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+                    <label for="optionA37">A) A small k always improves model accuracy.</label><br>
+                    <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+                    <label for="optionB37">B) A small k can lead to overfitting, while a large k may cause underfitting.</label><br>
+                    <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+                    <label for="optionC37">C) The value of k has no effect on the model's performance.</label><br>
+                    <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+                    <label for="optionD37">D) A larger k always improves the model's precision.</label><br>
+                </div>
+                <div id="result37" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 39 -->
+                <div class="que">
+                    <p>39. Which of the following is a drawback of the KNN algorithm?</p>
+                    <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+                </div>
+                <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) It can be computationally expensive for large datasets.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    KNN requires calculating the distance between the query point and all points in the dataset, which can be slow for large datasets.<br><br>
+                    **Other Limitations:**<br>
+                    - Sensitive to irrelevant features.<br>
+                    - Performance degrades with high-dimensional data (curse of dimensionality).<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+                    <label for="optionA38">A) It does not work for classification tasks.</label><br>
+                    <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+                    <label for="optionB38">B) It requires extensive feature engineering.</label><br>
+                    <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+                    <label for="optionC38">C) It can be computationally expensive for large datasets.</label><br>
+                    <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+                    <label for="optionD38">D) It only works with numerical data.</label><br>
+                </div>
+                <div id="result38" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 40 -->
+                <div class="que">
+                    <p>40. How can the performance of KNN be improved for high-dimensional data?</p>
+                    <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+                </div>
+                <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) By applying dimensionality reduction techniques like PCA (Principal Component Analysis).</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    High-dimensional data can cause the **curse of dimensionality**, reducing the performance of KNN.<br><br>
+                    **Dimensionality Reduction Techniques:**<br>
+                    - **PCA (Principal Component Analysis):** Reduces data to its most important features.<br>
+                    - **t-SNE, LDA:** For visualization and classification tasks.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+                    <label for="optionA39">A) By increasing the value of k.</label><br>
+                    <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+                    <label for="optionB39">B) By using complex algorithms like neural networks.</label><br>
+                    <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+                    <label for="optionC39">C) By removing all outliers from the dataset.</label><br>
+                    <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+                    <label for="optionD39">D) By applying dimensionality reduction techniques like PCA (Principal Component Analysis).</label><br>
+                </div>
+                <div id="result39" class="result"></div>
+            </div>
+                    
+            <div class="qee">
+                <!-- Question 41 -->
+                <div class="que">
+                    <p>41. What is the primary goal of clustering algorithms in machine learning?</p>
+                    <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+                </div>
+                <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To group similar data points together based on their features.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Clustering is an **unsupervised learning** technique used to find natural groupings in data based on similarity.<br><br>
+                    **Common Applications:**<br>
+                    - Customer segmentation<br>
+                    - Anomaly detection<br>
+                    - Image segmentation<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+                    <label for="optionA40">A) To predict future data points.</label><br>
+                    <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+                    <label for="optionB40">B) To group similar data points together based on their features.</label><br>
+                    <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+                    <label for="optionC40">C) To minimize the data size for faster processing.</label><br>
+                    <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+                    <label for="optionD40">D) To convert data into numerical format.</label><br>
+                </div>
+                <div id="result40" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 42 -->
+                <div class="que">
+                    <p>42. Which of the following is a popular clustering algorithm?</p>
+                    <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+                </div>
+                <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) K-Means Clustering</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **K-Means Clustering** is one of the most widely used clustering algorithms. It partitions data into **k** clusters based on the mean of the points in each cluster.<br><br>
+                    **Key Steps:**<br>
+                    1. Initialize **k** cluster centroids randomly.<br>
+                    2. Assign each data point to the nearest centroid.<br>
+                    3. Update centroids as the mean of assigned points.<br>
+                    4. Repeat until convergence (no changes in centroids).<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+                    <label for="optionA41">A) K-Means Clustering</label><br>
+                    <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+                    <label for="optionB41">B) Linear Regression</label><br>
+                    <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+                    <label for="optionC41">C) Decision Tree</label><br>
+                    <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+                    <label for="optionD41">D) Support Vector Machine (SVM)</label><br>
+                </div>
+                <div id="result41" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 43 -->
+                <div class="que">
+                    <p>43. How do hierarchical clustering algorithms differ from K-means clustering?</p>
+                    <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+                </div>
+                <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Hierarchical clustering builds a tree-like structure, while K-means partitions data into clusters.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Hierarchical Clustering** creates a **dendrogram** (tree-like structure) representing data relationships:<br>
+                    - **Agglomerative:** Starts with individual points and merges them.<br>
+                    - **Divisive:** Starts with all data and splits it recursively.<br><br>
+                    **K-means** requires the number of clusters to be specified beforehand, while hierarchical clustering does not.  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+                    <label for="optionA42">A) Hierarchical clustering uses linear models.</label><br>
+                    <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+                    <label for="optionB42">B) K-means requires a distance matrix, while hierarchical does not.</label><br>
+                    <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+                    <label for="optionC42">C) Hierarchical clustering builds a tree-like structure, while K-means partitions data into clusters.</label><br>
+                    <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+                    <label for="optionD42">D) K-means is used for regression tasks, while hierarchical is for classification.</label><br>
+                </div>
+                <div id="result42" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 44 -->
+                <div class="que">
+                    <p>44. What is the main limitation of K-means clustering?</p>
+                    <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+                </div>
+                <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) It assumes clusters are spherical and equally sized.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **K-means** works well when clusters are spherical and well-separated. However, it struggles with:<br>
+                    - **Non-spherical clusters**<br>
+                    - **Clusters of varying densities and sizes**<br>
+                    - **Outliers affecting centroid positions**<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+                    <label for="optionA43">A) It requires labeled data for training.</label><br>
+                    <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+                    <label for="optionB43">B) It assumes clusters are spherical and equally sized.</label><br>
+                    <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+                    <label for="optionC43">C) It cannot handle missing data.</label><br>
+                    <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+                    <label for="optionD43">D) It requires feature scaling for all types of data.</label><br>
+                </div>
+                <div id="result43" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 45 -->
+                <div class="que">
+                    <p>45. Which evaluation metric is commonly used to assess the performance of clustering algorithms?</p>
+                    <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+                </div>
+                <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Silhouette Score</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **Silhouette Score** measures how similar an object is to its own cluster compared to other clusters.  
+                    - **Score Range:** -1 to +1  
+                    - **High Score:** Well-defined clusters  
+                    - **Low Score:** Poor clustering performance<br><br>
+                    **Other Metrics:**  
+                    - **Davies-Bouldin Index**  
+                    - **Calinski-Harabasz Index**  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+                    <label for="optionA44">A) Mean Squared Error (MSE)</label><br>
+                    <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+                    <label for="optionB44">B) Root Mean Squared Error (RMSE)</label><br>
+                    <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+                    <label for="optionC44">C) F1 Score</label><br>
+                    <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+                    <label for="optionD44">D) Silhouette Score</label><br>
+                </div>
+                <div id="result44" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 46 -->
+                <div class="que">
+                    <p>46. What is the primary purpose of dimensionality reduction in machine learning?</p>
+                    <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+                </div>
+                <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To reduce the number of features while preserving important information.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Dimensionality Reduction** helps in reducing the complexity of data by decreasing the number of input features.<br><br>
+                    **Key Benefits:**<br>
+                    - Reduces overfitting<br>
+                    - Improves model performance<br>
+                    - Simplifies visualization<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+                    <label for="optionA45">A) To reduce the number of features while preserving important information.</label><br>
+                    <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+                    <label for="optionB45">B) To increase the size of the dataset.</label><br>
+                    <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+                    <label for="optionC45">C) To make data more complex for better analysis.</label><br>
+                    <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+                    <label for="optionD45">D) To convert data into categorical variables.</label><br>
+                </div>
+                <div id="result45" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 47 -->
+                <div class="que">
+                    <p>47. Which of the following is a common technique for dimensionality reduction?</p>
+                    <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+                </div>
+                <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Principal Component Analysis (PCA)</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **PCA (Principal Component Analysis)** is widely used for dimensionality reduction. It transforms data into a new coordinate system where the greatest variances lie on the first principal components.<br><br>
+                    **Steps in PCA:**<br>
+                    1. Standardize the data.<br>
+                    2. Compute the covariance matrix.<br>
+                    3. Perform eigen decomposition.<br>
+                    4. Select the top principal components.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+                    <label for="optionA46">A) Linear Regression</label><br>
+                    <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+                    <label for="optionB46">B) Principal Component Analysis (PCA)</label><br>
+                    <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+                    <label for="optionC46">C) Decision Tree</label><br>
+                    <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+                    <label for="optionD46">D) K-Nearest Neighbors (KNN)</label><br>
+                </div>
+                <div id="result46" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 48 -->
+                <div class="que">
+                    <p>48. What is the main difference between PCA and t-SNE for dimensionality reduction?</p>
+                    <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+                </div>
+                <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) PCA reduces dimensionality for linear data, while t-SNE is better for non-linear data.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **PCA** is best for linear data relationships and focuses on variance.<br>
+                    **t-SNE (t-distributed Stochastic Neighbor Embedding)** is effective for **non-linear data** and is often used for **visualizing high-dimensional data** in 2D or 3D.<br><br>
+                    **Key Use Cases:**<br>
+                    - PCA: Feature reduction, data compression.<br>
+                    - t-SNE: Data visualization, clustering analysis.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+                    <label for="optionA47">A) PCA is faster than t-SNE for large datasets.</label><br>
+                    <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+                    <label for="optionB47">B) t-SNE is a supervised learning technique.</label><br>
+                    <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+                    <label for="optionC47">C) PCA works better with non-linear data.</label><br>
+                    <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+                    <label for="optionD47">D) PCA reduces dimensionality for linear data, while t-SNE is better for non-linear data.</label><br>
+                </div>
+                <div id="result47" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 49 -->
+                <div class="que">
+                    <p>49. Which of the following is a key assumption of PCA?</p>
+                    <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+                </div>
+                <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Data is linearly correlated.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    PCA assumes that the data has **linear relationships** between features. It focuses on finding directions (principal components) with the highest variance.<br><br>
+                    **Other Important Assumptions:**<br>
+                    - Data should be scaled appropriately.<br>
+                    - The features should have meaningful variance.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+                    <label for="optionA48">A) Data is normally distributed.</label><br>
+                    <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+                    <label for="optionB48">B) Data must be categorical.</label><br>
+                    <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+                    <label for="optionC48">C) Data is linearly correlated.</label><br>
+                    <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+                    <label for="optionD48">D) Data must be high-dimensional.</label><br>
+                </div>
+                <div id="result48" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 50 -->
+                <div class="que">
+                    <p>50. How does PCA handle multicollinearity in data?</p>
+                    <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+                </div>
+                <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) PCA eliminates multicollinearity by transforming correlated features into uncorrelated principal components.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Multicollinearity** occurs when features are highly correlated. PCA reduces multicollinearity by:<br>
+                    - **Transforming correlated variables** into a new set of uncorrelated components.<br>
+                    - **Focusing on variance** instead of original feature relationships.<br><br>
+                    This helps improve model performance and stability.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+                    <label for="optionA49">A) PCA eliminates multicollinearity by transforming correlated features into uncorrelated principal components.</label><br>
+                    <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+                    <label for="optionB49">B) PCA increases multicollinearity to improve data diversity.</label><br>
+                    <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+                    <label for="optionC49">C) PCA ignores multicollinearity while processing data.</label><br>
+                    <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+                    <label for="optionD49">D) PCA reduces data to a single dimension.</label><br>
+                </div>
+                <div id="result49" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 51 -->
+                <div class="que">
+                    <p>51. What is the primary goal of Natural Language Processing (NLP) in machine learning?</p>
+                    <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+                </div>
+                <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To enable machines to understand, interpret, and generate human language.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **NLP (Natural Language Processing)** focuses on the interaction between computers and human languages.<br><br>
+                    **Key NLP Tasks:**<br>
+                    - Text classification<br>
+                    - Sentiment analysis<br>
+                    - Named entity recognition (NER)<br>
+                    - Machine translation<br>
+                    - Text generation<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+                    <label for="optionA50">A) To enable machines to understand, interpret, and generate human language.</label><br>
+                    <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+                    <label for="optionB50">B) To convert images into text.</label><br>
+                    <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+                    <label for="optionC50">C) To optimize algorithms for faster processing.</label><br>
+                    <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+                    <label for="optionD50">D) To create graphical representations of data.</label><br>
+                </div>
+                <div id="result50" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 52 -->
+                <div class="que">
+                    <p>52. Which of the following is a common technique used for tokenization in NLP?</p>
+                    <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+                </div>
+                <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Splitting text into words or sentences.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Tokenization** is the process of breaking down text into smaller units (tokens) such as words, phrases, or sentences.<br><br>
+                    **Common Tokenization Methods:**<br>
+                    - **Word Tokenization:** Breaking text into individual words.<br>
+                    - **Sentence Tokenization:** Breaking text into sentences.<br>
+                    - **Subword Tokenization:** Useful for languages with complex morphology.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+                    <label for="optionA51">A) Removing stop words from text.</label><br>
+                    <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+                    <label for="optionB51">B) Splitting text into words or sentences.</label><br>
+                    <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+                    <label for="optionC51">C) Converting text to numerical vectors.</label><br>
+                    <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+                    <label for="optionD51">D) Applying deep learning models to text.</label><br>
+                </div>
+                <div id="result51" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 53 -->
+                <div class="que">
+                    <p>53. What does TF-IDF stand for in NLP?</p>
+                    <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+                </div>
+                <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Term Frequency-Inverse Document Frequency.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **TF-IDF (Term Frequency-Inverse Document Frequency)** is a statistical measure used to evaluate the importance of a word in a document relative to a collection of documents (corpus).<br><br>
+                    **Components:**<br>
+                    - **Term Frequency (TF):** Measures how often a term appears in a document.<br>
+                    - **Inverse Document Frequency (IDF):** Measures how important a term is across all documents.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+                    <label for="optionA52">A) Total Frequency-Inverse Document Factor</label><br>
+                    <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+                    <label for="optionB52">B) Term Frequency-Inverse Data Frequency</label><br>
+                    <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+                    <label for="optionC52">C) Term Frequency-Inverse Document Frequency</label><br>
+                    <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+                    <label for="optionD52">D) Total Frequency-Inverse Data Factor</label><br>
+                </div>
+                <div id="result52" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 54 -->
+                <div class="que">
+                    <p>54. Which of the following algorithms is commonly used for text classification in NLP?</p>
+                    <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+                </div>
+                <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Naive Bayes.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Naive Bayes** is a probabilistic classifier based on Bayes' theorem and is widely used for text classification tasks.<br><br>
+                    **Why Naive Bayes?**<br>
+                    - Efficient for large datasets<br>
+                    - Handles high-dimensional data well<br>
+                    - Simple and effective for spam detection, sentiment analysis, etc.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+                    <label for="optionA53">A) K-Nearest Neighbors (KNN)</label><br>
+                    <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+                    <label for="optionB53">B) Naive Bayes</label><br>
+                    <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+                    <label for="optionC53">C) Linear Regression</label><br>
+                    <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+                    <label for="optionD53">D) Decision Tree</label><br>
+                </div>
+                <div id="result53" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 55 -->
+                <div class="que">
+                    <p>55. What does Named Entity Recognition (NER) identify in NLP?</p>
+                    <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+                </div>
+                <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Names of entities like people, organizations, and locations.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **NER (Named Entity Recognition)** is a technique to identify and classify entities such as:<br>
+                    - **Person Names** (e.g., John Doe)<br>
+                    - **Organizations** (e.g., Microsoft)<br>
+                    - **Locations** (e.g., New York)<br>
+                    - **Dates, Time, Quantities**, etc.<br><br>
+                    **Applications:**<br>
+                    - Information extraction<br>
+                    - Search engines<br>
+                    - Chatbots<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+                    <label for="optionA54">A) Sentiment analysis in text.</label><br>
+                    <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+                    <label for="optionB54">B) Converting text into numerical vectors.</label><br>
+                    <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+                    <label for="optionC54">C) Tokenizing words in sentences.</label><br>
+                    <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+                    <label for="optionD54">D) Names of entities like people, organizations, and locations.</label><br>
+                </div>
+                <div id="result54" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 56 -->
+                <div class="que">
+                    <p>56. What is the primary goal of computer vision in machine learning?</p>
+                    <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+                </div>
+                <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To enable machines to interpret and make decisions based on visual data.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Computer Vision** allows machines to interpret and analyze visual information from the world, such as images and videos.<br><br>
+                    **Key Tasks in Computer Vision:**<br>
+                    - Image classification<br>
+                    - Object detection<br>
+                    - Image segmentation<br>
+                    - Facial recognition<br>
+                    - Optical character recognition (OCR)<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+                    <label for="optionA55">A) To enable machines to interpret and make decisions based on visual data.</label><br>
+                    <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+                    <label for="optionB55">B) To convert images into text.</label><br>
+                    <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+                    <label for="optionC55">C) To apply filters for image enhancement.</label><br>
+                    <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+                    <label for="optionD55">D) To increase the resolution of images.</label><br>
+                </div>
+                <div id="result55" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 57 -->
+                <div class="que">
+                    <p>57. Which algorithm is commonly used for image classification tasks?</p>
+                    <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+                </div>
+                <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Convolutional Neural Networks (CNNs).</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Convolutional Neural Networks (CNNs)** are widely used for image classification due to their ability to automatically learn spatial hierarchies of features.<br><br>
+                    **Key Components:**<br>
+                    - Convolutional layers<br>
+                    - Pooling layers<br>
+                    - Fully connected layers<br>
+                    - Activation functions (e.g., ReLU)<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+                    <label for="optionA56">A) Support Vector Machines (SVM)</label><br>
+                    <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+                    <label for="optionB56">B) K-Nearest Neighbors (KNN)</label><br>
+                    <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+                    <label for="optionC56">C) Convolutional Neural Networks (CNNs)</label><br>
+                    <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+                    <label for="optionD56">D) Decision Trees</label><br>
+                </div>
+                <div id="result56" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 58 -->
+                <div class="que">
+                    <p>58. What is the purpose of pooling layers in CNNs?</p>
+                    <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+                </div>
+                <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) To reduce the spatial dimensions of the feature maps.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Pooling layers** help reduce the computational load, control overfitting, and retain the most important features.<br><br>
+                    **Types of Pooling:**<br>
+                    - **Max Pooling:** Selects the maximum value from a feature map region.<br>
+                    - **Average Pooling:** Computes the average of values in the region.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+                    <label for="optionA57">A) To increase the number of features in the network.</label><br>
+                    <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+                    <label for="optionB57">B) To reduce the spatial dimensions of the feature maps.</label><br>
+                    <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+                    <label for="optionC57">C) To apply filters to enhance image edges.</label><br>
+                    <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+                    <label for="optionD57">D) To normalize the pixel values of images.</label><br>
+                </div>
+                <div id="result57" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 59 -->
+                <div class="que">
+                    <p>59. Which of the following techniques is used for object detection?</p>
+                    <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+                </div>
+                <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) YOLO (You Only Look Once).</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **YOLO (You Only Look Once)** is a real-time object detection algorithm that predicts multiple bounding boxes and class probabilities in a single forward pass.<br><br>
+                    **Key Features:**<br>
+                    - Fast and efficient<br>
+                    - High accuracy for real-time applications<br>
+                    - Suitable for various object detection tasks<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+                    <label for="optionA58">A) Linear Regression</label><br>
+                    <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+                    <label for="optionB58">B) K-Nearest Neighbors (KNN)</label><br>
+                    <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+                    <label for="optionC58">C) Naive Bayes</label><br>
+                    <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+                    <label for="optionD58">D) YOLO (You Only Look Once)</label><br>
+                </div>
+                <div id="result58" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 60 -->
+                <div class="que">
+                    <p>60. What is image segmentation in computer vision?</p>
+                    <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+                </div>
+                <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) The process of partitioning an image into segments for easier analysis.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Image segmentation** is the process of dividing an image into multiple segments to simplify its representation and make it easier to analyze.<br><br>
+                    **Common Techniques:**<br>
+                    - Thresholding<br>
+                    - Edge detection<br>
+                    - Clustering (e.g., K-means)<br>
+                    - Deep learning-based methods (e.g., Mask R-CNN)<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+                    <label for="optionA59">A) The process of partitioning an image into segments for easier analysis.</label><br>
+                    <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+                    <label for="optionB59">B) The process of enhancing image brightness.</label><br>
+                    <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+                    <label for="optionC59">C) The process of converting images to grayscale.</label><br>
+                    <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+                    <label for="optionD59">D) The process of compressing image files.</label><br>
+                </div>
+                <div id="result59" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 61 -->
+                <div class="que">
+                    <p>61. What is the primary goal of anomaly detection in machine learning?</p>
+                    <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+                </div>
+                <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To identify rare or unusual patterns in data.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Anomaly detection** is used to identify data points that deviate significantly from the normal distribution, often indicating unusual events or errors.<br><br>
+                    **Common Applications:**<br>
+                    - Fraud detection<br>
+                    - Network security<br>
+                    - Industrial monitoring<br>
+                    - Healthcare diagnostics<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+                    <label for="optionA60">A) To identify rare or unusual patterns in data.</label><br>
+                    <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+                    <label for="optionB60">B) To enhance data visualization techniques.</label><br>
+                    <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+                    <label for="optionC60">C) To reduce the size of large datasets.</label><br>
+                    <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+                    <label for="optionD60">D) To normalize data for better accuracy.</label><br>
+                </div>
+                <div id="result60" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 62 -->
+                <div class="que">
+                    <p>62. Which of the following is a common algorithm used for anomaly detection?</p>
+                    <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+                </div>
+                <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Isolation Forest.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Isolation Forest** is a popular algorithm for anomaly detection, especially effective for high-dimensional datasets.<br><br>
+                    **Key Features:**<br>
+                    - It isolates anomalies instead of profiling normal data.<br>
+                    - Works well with large datasets.<br>
+                    - Scalable and efficient.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+                    <label for="optionA61">A) Linear Regression</label><br>
+                    <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+                    <label for="optionB61">B) Isolation Forest</label><br>
+                    <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+                    <label for="optionC61">C) K-Means Clustering</label><br>
+                    <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+                    <label for="optionD61">D) Support Vector Machines (SVM)</label><br>
+                </div>
+                <div id="result61" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 63 -->
+                <div class="que">
+                    <p>63. What is the main difference between supervised and unsupervised anomaly detection?</p>
+                    <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+                </div>
+                <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Supervised anomaly detection requires labeled data, while unsupervised does not.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    - **Supervised Anomaly Detection:** Requires labeled datasets with normal and abnormal instances.<br>
+                    - **Unsupervised Anomaly Detection:** Works without labeled data, identifying anomalies based on statistical properties.<br><br>
+                    **Use Cases:**<br>
+                    - Supervised: Fraud detection in banking.<br>
+                    - Unsupervised: Network intrusion detection.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+                    <label for="optionA62">A) Supervised anomaly detection requires labeled data, while unsupervised does not.</label><br>
+                    <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+                    <label for="optionB62">B) Supervised anomaly detection uses clustering techniques, while unsupervised uses regression.</label><br>
+                    <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+                    <label for="optionC62">C) Supervised anomaly detection is faster than unsupervised.</label><br>
+                    <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+                    <label for="optionD62">D) Supervised anomaly detection is only used in image processing.</label><br>
+                </div>
+                <div id="result62" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 64 -->
+                <div class="que">
+                    <p>64. Which of the following metrics is commonly used to evaluate the performance of anomaly detection algorithms?</p>
+                    <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+                </div>
+                <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) F1 Score.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **F1 Score** balances precision and recall, making it a preferred metric for evaluating anomaly detection models, especially in imbalanced datasets.<br><br>
+                    **Other Metrics:**<br>
+                    - Precision<br>
+                    - Recall<br>
+                    - ROC-AUC<br>
+                    - Mean Squared Error (MSE) for regression-based models<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+                    <label for="optionA63">A) Accuracy</label><br>
+                    <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+                    <label for="optionB63">B) Mean Squared Error (MSE)</label><br>
+                    <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+                    <label for="optionC63">C) F1 Score</label><br>
+                    <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+                    <label for="optionD63">D) Confusion Matrix</label><br>
+                </div>
+                <div id="result63" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 65 -->
+                <div class="que">
+                    <p>65. Which of the following is an application of anomaly detection in real-world scenarios?</p>
+                    <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+                </div>
+                <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Detecting fraudulent transactions in banking systems.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Anomaly detection plays a crucial role in identifying unusual patterns that may indicate fraud, system breaches, or rare events.<br><br>
+                    **Other Applications:**<br>
+                    - Intrusion detection systems<br>
+                    - Equipment failure prediction<br>
+                    - Quality control in manufacturing<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+                    <label for="optionA64">A) Increasing data storage capacity</label><br>
+                    <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+                    <label for="optionB64">B) Enhancing image resolution</label><br>
+                    <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+                    <label for="optionC64">C) Generating synthetic data</label><br>
+                    <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+                    <label for="optionD64">D) Detecting fraudulent transactions in banking systems</label><br>
+                </div>
+                <div id="result64" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 66 -->
+                <div class="que">
+                    <p>66. What is the purpose of model evaluation in machine learning?</p>
+                    <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+                </div>
+                <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To assess the performance of a machine learning model.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Model evaluation helps determine how well a model generalizes to unseen data, ensuring it performs effectively in real-world scenarios.<br><br>
+                    **Key Evaluation Metrics:**<br>
+                    - Accuracy<br>
+                    - Precision and Recall<br>
+                    - F1 Score<br>
+                    - ROC-AUC<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+                    <label for="optionA65">A) To assess the performance of a machine learning model.</label><br>
+                    <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+                    <label for="optionB65">B) To increase the complexity of the model.</label><br>
+                    <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+                    <label for="optionC65">C) To reduce the dataset size for faster processing.</label><br>
+                    <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+                    <label for="optionD65">D) To normalize features in the dataset.</label><br>
+                </div>
+                <div id="result65" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 67 -->
+                <div class="que">
+                    <p>67. Which of the following metrics is used to evaluate the performance of classification models?</p>
+                    <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+                </div>
+                <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Accuracy.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Accuracy** measures the proportion of correctly predicted instances out of the total instances, making it a common metric for classification tasks.<br><br>
+                    **Other Metrics:**<br>
+                    - Precision<br>
+                    - Recall<br>
+                    - F1 Score<br>
+                    - ROC-AUC<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+                    <label for="optionA66">A) Mean Squared Error (MSE)</label><br>
+                    <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+                    <label for="optionB66">B) Accuracy</label><br>
+                    <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+                    <label for="optionC66">C) R-Squared (R²)</label><br>
+                    <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+                    <label for="optionD66">D) Mean Absolute Error (MAE)</label><br>
+                </div>
+                <div id="result66" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 68 -->
+                <div class="que">
+                    <p>68. What does the F1 Score measure in model evaluation?</p>
+                    <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+                </div>
+                <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) The balance between precision and recall.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **F1 Score** is the harmonic mean of precision and recall, providing a single metric to evaluate models, especially when dealing with imbalanced datasets.<br><br>
+                    **Formula:**<br>
+                    F1 = 2 × (Precision × Recall) / (Precision + Recall)
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+                    <label for="optionA67">A) The balance between precision and recall.</label><br>
+                    <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+                    <label for="optionB67">B) The average error in predictions.</label><br>
+                    <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+                    <label for="optionC67">C) The difference between predicted and actual values.</label><br>
+                    <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+                    <label for="optionD67">D) The ratio of true positives to true negatives.</label><br>
+                </div>
+                <div id="result67" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 69 -->
+                <div class="que">
+                    <p>69. What does ROC-AUC measure in model evaluation?</p>
+                    <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+                </div>
+                <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) The ability of a model to distinguish between classes.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **ROC-AUC** measures how well a model can differentiate between positive and negative classes.<br><br>
+                    **ROC Curve:** Plots True Positive Rate (TPR) against False Positive Rate (FPR).<br>
+                    **AUC Score:** Ranges from 0 to 1, with 1 indicating perfect classification.
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+                    <label for="optionA68">A) The accuracy of model predictions.</label><br>
+                    <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+                    <label for="optionB68">B) The number of false positives in a dataset.</label><br>
+                    <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+                    <label for="optionC68">C) The mean squared error of predictions.</label><br>
+                    <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+                    <label for="optionD68">D) The ability of a model to distinguish between classes.</label><br>
+                </div>
+                <div id="result68" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 70 -->
+                <div class="que">
+                    <p>70. What is overfitting in machine learning?</p>
+                    <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+                </div>
+                <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) When a model learns the training data too well, including noise, leading to poor generalization on new data.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Overfitting occurs when a model is too complex, capturing not only the underlying patterns but also the noise in the training data, leading to high accuracy on training data but poor performance on unseen data.<br><br>
+                    **Common Signs:**<br>
+                    - High training accuracy<br>
+                    - Low validation/testing accuracy<br>
+                    **Solutions:**<br>
+                    - Regularization<br>
+                    - Pruning (for decision trees)<br>
+                    - Cross-validation<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+                    <label for="optionA69">A) A model that performs well on unseen data but poorly on training data.</label><br>
+                    <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+                    <label for="optionB69">B) A model with too few parameters to capture data patterns.</label><br>
+                    <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+                    <label for="optionC69">C) When a model learns the training data too well, including noise, leading to poor generalization on new data.</label><br>
+                    <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+                    <label for="optionD69">D) A model that ignores the training data entirely.</label><br>
+                </div>
+                <div id="result69" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 71 -->
+                <div class="que">
+                    <p>71. What is overfitting in machine learning?</p>
+                    <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+                </div>
+                <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) When a model learns the training data too well, including noise, leading to poor generalization on new data.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Overfitting occurs when a model is too complex, capturing not only the underlying patterns but also the noise in the training data, leading to high accuracy on training data but poor performance on unseen data.<br><br>
+                    **Common Signs:**<br>
+                    - High training accuracy<br>
+                    - Low validation/testing accuracy<br>
+                    **Solutions:**<br>
+                    - Regularization<br>
+                    - Pruning (for decision trees)<br>
+                    - Cross-validation<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+                    <label for="optionA70">A) A model that performs well on unseen data but poorly on training data.</label><br>
+                    <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+                    <label for="optionB70">B) A model with too few parameters to capture data patterns.</label><br>
+                    <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+                    <label for="optionC70">C) When a model learns the training data too well, including noise, leading to poor generalization on new data.</label><br>
+                    <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+                    <label for="optionD70">D) A model that ignores the training data entirely.</label><br>
+                </div>
+                <div id="result70" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 72 -->
+                <div class="que">
+                    <p>72. What is underfitting in machine learning?</p>
+                    <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+                </div>
+                <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) When a model is too simple to capture the underlying patterns in the data.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Underfitting occurs when a model is too simple, failing to capture important patterns in the data, leading to poor performance on both training and test datasets.<br><br>
+                    **Common Signs:**<br>
+                    - Low training and validation accuracy<br>
+                    **Solutions:**<br>
+                    - Use more complex models<br>
+                    - Add more features<br>
+                    - Reduce regularization<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+                    <label for="optionA71">A) A model that overfits the training data.</label><br>
+                    <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+                    <label for="optionB71">B) When a model is too simple to capture the underlying patterns in the data.</label><br>
+                    <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+                    <label for="optionC71">C) A model that predicts perfectly on both training and testing data.</label><br>
+                    <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+                    <label for="optionD71">D) A model that ignores the training data entirely.</label><br>
+                </div>
+                <div id="result71" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 73 -->
+                <div class="que">
+                    <p>73. Which of the following techniques can help prevent overfitting?</p>
+                    <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+                </div>
+                <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Regularization techniques like L1 and L2 regularization.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Regularization techniques add a penalty term to the loss function to discourage complex models that fit the noise in the data.<br><br>
+                    **Common Techniques:**<br>
+                    - L1 Regularization (Lasso)<br>
+                    - L2 Regularization (Ridge)<br>
+                    - Dropout (for neural networks)<br>
+                    - Early stopping<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+                    <label for="optionA72">A) Using a small dataset</label><br>
+                    <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+                    <label for="optionB72">B) Increasing model complexity</label><br>
+                    <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+                    <label for="optionC72">C) Ignoring validation data</label><br>
+                    <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+                    <label for="optionD72">D) Regularization techniques like L1 and L2 regularization</label><br>
+                </div>
+                <div id="result72" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 74 -->
+                <div class="que">
+                    <p>74. Which scenario indicates an underfitting model?</p>
+                    <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+                </div>
+                <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Low training accuracy and low validation accuracy.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    An underfitting model fails to learn the underlying patterns, resulting in poor performance on both training and validation datasets.<br><br>
+                    **Signs of Underfitting:**<br>
+                    - Simple models with limited features<br>
+                    - High bias errors<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+                    <label for="optionA73">A) High training accuracy and low validation accuracy</label><br>
+                    <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+                    <label for="optionB73">B) Low training accuracy and low validation accuracy</label><br>
+                    <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+                    <label for="optionC73">C) High training accuracy and high validation accuracy</label><br>
+                    <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+                    <label for="optionD73">D) Low training accuracy and high validation accuracy</label><br>
+                </div>
+                <div id="result73" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 75 -->
+                <div class="que">
+                    <p>75. Which technique is commonly used to address overfitting in deep learning models?</p>
+                    <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+                </div>
+                <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Dropout regularization.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Dropout** is a regularization technique where randomly selected neurons are ignored during training, preventing the model from becoming too reliant on specific features and thus reducing overfitting.<br><br>
+                    **Other Techniques:**<br>
+                    - Batch normalization<br>
+                    - Data augmentation<br>
+                    - Early stopping<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+                    <label for="optionA74">A) Increasing the number of layers</label><br>
+                    <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+                    <label for="optionB74">B) Using a smaller dataset</label><br>
+                    <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+                    <label for="optionC74">C) Dropout regularization</label><br>
+                    <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+                    <label for="optionD74">D) Removing features from the model</label><br>
+                </div>
+                <div id="result74" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 76 -->
+                <div class="que">
+                    <p>76. What is the main goal of feature engineering in machine learning?</p>
+                    <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+                </div>
+                <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To create new features or modify existing ones to improve model performance.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Feature engineering involves transforming raw data into meaningful features that help machine learning models perform better. This process includes selecting, modifying, or creating new features from the data.<br><br>
+                    **Common Techniques:**<br>
+                    - **Encoding categorical variables** (e.g., one-hot encoding)<br>
+                    - **Scaling numerical features** (e.g., Min-Max, Standardization)<br>
+                    - **Creating interaction features** (e.g., combining two features)<br>
+                    - **Polynomial features** for capturing non-linear relationships<br>
+                    - **Handling missing data** effectively<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+                    <label for="optionA75">A) To create new features or modify existing ones to improve model performance.</label><br>
+                    <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+                    <label for="optionB75">B) To reduce the size of the dataset without losing information.</label><br>
+                    <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+                    <label for="optionC75">C) To remove all irrelevant data from the dataset.</label><br>
+                    <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+                    <label for="optionD75">D) To randomly shuffle the dataset before training.</label><br>
+                </div>
+                <div id="result75" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 77 -->
+                <div class="que">
+                    <p>77. Which of the following is a common method for handling missing values in a dataset?</p>
+                    <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+                </div>
+                <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Imputation using mean, median, or mode.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Handling missing data is crucial because it can affect model performance. One common technique is **imputation**, where missing values are replaced with statistical measures like the mean, median, or mode of the feature.<br><br>
+                    **Other Methods:**<br>
+                    - Removing rows or columns with missing data<br>
+                    - Using advanced imputation techniques like KNN imputation<br>
+                    - Predicting missing values with machine learning models<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+                    <label for="optionA76">A) Ignoring missing values without any modification.</label><br>
+                    <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+                    <label for="optionB76">B) Imputation using mean, median, or mode.</label><br>
+                    <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+                    <label for="optionC76">C) Removing all features with missing values.</label><br>
+                    <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+                    <label for="optionD76">D) Adding random numbers to missing values.</label><br>
+                </div>
+                <div id="result76" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 78 -->
+                <div class="que">
+                    <p>78. What is the purpose of feature scaling in machine learning?</p>
+                    <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+                </div>
+                <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To normalize the range of independent variables to improve model performance.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Feature scaling adjusts the range of features to ensure that no feature dominates others due to its magnitude. This is especially important for algorithms like KNN, SVM, and gradient descent-based models.<br><br>
+                    **Common Techniques:**<br>
+                    - Min-Max Scaling (rescaling data between 0 and 1)<br>
+                    - Standardization (mean = 0, standard deviation = 1)<br>
+                    - Robust Scaling (uses median and IQR)<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+                    <label for="optionA77">A) To normalize the range of independent variables to improve model performance.</label><br>
+                    <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+                    <label for="optionB77">B) To remove outliers from the dataset.</label><br>
+                    <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+                    <label for="optionC77">C) To randomly shuffle the data for better results.</label><br>
+                    <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+                    <label for="optionD77">D) To increase the number of features for the model.</label><br>
+                </div>
+                <div id="result77" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 79 -->
+                <div class="que">
+                    <p>79. What does one-hot encoding do in feature engineering?</p>
+                    <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+                </div>
+                <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) Converts categorical variables into binary vectors.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    One-hot encoding is used to convert categorical variables into a format that can be provided to ML algorithms, as they work with numerical data. It creates a binary column for each category.<br><br>
+                    **Example:**<br>
+                    If the feature is "Color" with categories ["Red", "Blue", "Green"], one-hot encoding will create three new binary features:  
+                    - Red: [1, 0, 0]  
+                    - Blue: [0, 1, 0]  
+                    - Green: [0, 0, 1]  
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+                    <label for="optionA78">A) Converts numerical data into categorical variables.</label><br>
+                    <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+                    <label for="optionB78">B) Converts categorical variables into binary vectors.</label><br>
+                    <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+                    <label for="optionC78">C) Combines multiple features into a single feature.</label><br>
+                    <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+                    <label for="optionD78">D) Normalizes numerical features to a range of 0 to 1.</label><br>
+                </div>
+                <div id="result78" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 80 -->
+                <div class="que">
+                    <p>80. Which technique is used to reduce the dimensionality of data while retaining its essential features?</p>
+                    <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+                </div>
+                <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Principal Component Analysis (PCA).</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **Principal Component Analysis (PCA)** is a technique for reducing the number of features in a dataset while preserving the most important variance in the data. It transforms the original features into a new set of uncorrelated features called principal components.<br><br>
+                    **Benefits:**<br>
+                    - Reduces computational cost<br>
+                    - Minimizes overfitting<br>
+                    - Helps in visualizing high-dimensional data<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+                    <label for="optionA79">A) K-Nearest Neighbors (KNN)</label><br>
+                    <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+                    <label for="optionB79">B) Decision Trees</label><br>
+                    <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+                    <label for="optionC79">C) Principal Component Analysis (PCA)</label><br>
+                    <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+                    <label for="optionD79">D) Support Vector Machines (SVM)</label><br>
+                </div>
+                <div id="result79" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 81 -->
+                <div class="que">
+                    <p>81. What is the primary concept behind Bayesian methods in machine learning?</p>
+                    <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+                </div>
+                <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Updating probabilities based on new evidence using Bayes' theorem.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    Bayesian methods are based on **Bayes' theorem**, which allows us to update the probability of a hypothesis as more evidence becomes available. This approach is widely used in probabilistic models and decision-making systems.<br><br>
+                    **Bayes' Theorem Formula:**<br>
+                    \[
+                    P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
+                    \]
+                    Where:<br>
+                    - \( P(A|B) \) = Posterior Probability<br>
+                    - \( P(B|A) \) = Likelihood<br>
+                    - \( P(A) \) = Prior Probability<br>
+                    - \( P(B) \) = Evidence (normalization factor)<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+                    <label for="optionA80">A) Updating probabilities based on new evidence using Bayes' theorem.</label><br>
+                    <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+                    <label for="optionB80">B) Using fixed probabilities without considering new data.</label><br>
+                    <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+                    <label for="optionC80">C) Applying random guessing to make predictions.</label><br>
+                    <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+                    <label for="optionD80">D) Ignoring prior knowledge and focusing only on data.</label><br>
+                </div>
+                <div id="result80" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 82 -->
+                <div class="que">
+                    <p>82. What is the primary objective of a Generative Adversarial Network (GAN)?</p>
+                    <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+                </div>
+                <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) To generate realistic data by competing two neural networks.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    A **Generative Adversarial Network (GAN)** consists of two neural networks:  
+                    - **Generator:** Creates synthetic data (images, text, etc.).  
+                    - **Discriminator:** Evaluates whether the data is real or fake.  
+                    The two networks are trained together in a competitive process where the generator tries to fool the discriminator, and the discriminator tries to correctly identify real vs. fake data.<br><br>
+                    **Key Applications:**<br>
+                    - Image generation<br>
+                    - Data augmentation<br>
+                    - Video prediction<br>
+                    - Art and style transfer<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+                    <label for="optionA81">A) To generate realistic data by competing two neural networks.</label><br>
+                    <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+                    <label for="optionB81">B) To classify data into predefined categories.</label><br>
+                    <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+                    <label for="optionC81">C) To convert numerical data into categorical values.</label><br>
+                    <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+                    <label for="optionD81">D) To reduce the dimensionality of data.</label><br>
+                </div>
+                <div id="result81" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 83 -->
+                <div class="que">
+                    <p>83. What is the key feature of Recurrent Neural Networks (RNNs)?</p>
+                    <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+                </div>
+                <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) The ability to process sequences of data.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **RNNs** are designed to process sequences of data (like time series, text, or speech) by maintaining a memory of previous inputs through recurrent connections. This enables them to capture temporal dependencies in data.<br><br>
+                    **Applications:**<br>
+                    - Language modeling<br>
+                    - Speech recognition<br>
+                    - Time series forecasting<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+                    <label for="optionA82">A) The ability to process sequences of data.</label><br>
+                    <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+                    <label for="optionB82">B) The ability to handle only static data.</label><br>
+                    <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+                    <label for="optionC82">C) The ability to ignore past data while processing new inputs.</label><br>
+                    <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+                    <label for="optionD82">D) The ability to focus only on the latest input.</label><br>
+                </div>
+                <div id="result82" class="result"></div>
+            </div>
+            
+            <div class="qee">
+                <!-- Question 84 -->
+                <div class="que">
+                    <p>84. What problem do RNNs face when dealing with long sequences?</p>
+                    <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+                </div>
+                <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) Vanishing and exploding gradient problems.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    RNNs struggle with **long-term dependencies** due to the **vanishing gradient problem**, where gradients become very small, making it hard to learn long-term patterns. Conversely, the **exploding gradient problem** occurs when gradients become too large, causing instability.<br><br>
+                    **Solutions:**<br>
+                    - Using **LSTM (Long Short-Term Memory)** or **GRU (Gated Recurrent Units)** architectures.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+                    <label for="optionA83">A) Overfitting on small datasets.</label><br>
+                    <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+                    <label for="optionB83">B) Lack of computational resources.</label><br>
+                    <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+                    <label for="optionC83">C) Vanishing and exploding gradient problems.</label><br>
+                    <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+                    <label for="optionD83">D) Inability to process numerical data.</label><br>
+                </div>
+                <div id="result83" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 85 -->
+                <div class="que">
+                    <p>85. Which architecture is an improvement over standard RNNs to address their limitations?</p>
+                    <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+                </div>
+                <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Long Short-Term Memory (LSTM) networks.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    **LSTM networks** are a type of RNN that include special units called **gates** to control the flow of information. This helps them remember long-term dependencies and mitigate the vanishing gradient problem.<br><br>
+                    **Key Features:**<br>
+                    - Forget gate<br>
+                    - Input gate<br>
+                    - Output gate<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+                    <label for="optionA84">A) Long Short-Term Memory (LSTM) networks.</label><br>
+                    <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+                    <label for="optionB84">B) Convolutional Neural Networks (CNNs).</label><br>
+                    <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+                    <label for="optionC84">C) Support Vector Machines (SVM).</label><br>
+                    <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+                    <label for="optionD84">D) Decision Trees.</label><br>
+                </div>
+                <div id="result84" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 86 -->
+                <div class="que">
+                    <p>86. In RNNs, what does the "hidden state" represent?</p>
+                    <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+                </div>
+                <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: B) A representation of information from previous time steps.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    The **hidden state** in an RNN captures information from past inputs and helps in making predictions based on both current and past data.<br><br>
+                    **Key Points:**<br>
+                    - Updated at each time step.<br>
+                    - Passed along the sequence.<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+                    <label for="optionA85">A) The output of the RNN.</label><br>
+                    <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+                    <label for="optionB85">B) A representation of information from previous time steps.</label><br>
+                    <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+                    <label for="optionC85">C) The input data itself.</label><br>
+                    <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+                    <label for="optionD85">D) The weight matrix of the network.</label><br>
+                </div>
+                <div id="result85" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 87 -->
+                <div class="que">
+                    <p>87. Which of the following is NOT an application of RNNs?</p>
+                    <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+                </div>
+                <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: D) Image classification with fixed-size inputs.</strong><br><br>
+                    <strong>Solution and Explanation:</strong><br>
+                    While RNNs are powerful for sequence data, **image classification** with fixed-size inputs is better handled by **Convolutional Neural Networks (CNNs)**.<br><br>
+                    **RNN Applications:**<br>
+                    - Text generation<br>
+                    - Speech recognition<br>
+                    - Time series prediction<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+                    <label for="optionA86">A) Language translation.</label><br>
+                    <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+                    <label for="optionB86">B) Speech-to-text conversion.</label><br>
+                    <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+                    <label for="optionC86">C) Predicting stock prices.</label><br>
+                    <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+                    <label for="optionD86">D) Image classification with fixed-size inputs.</label><br>
+                </div>
+                <div id="result86" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 88 -->
+                <div class="que">
+                    <p>88. Which of the following is an RNN variant designed to handle long-term dependencies?</p>
+                    <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+                </div>
+                <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Long Short-Term Memory (LSTM).</strong><br><br>
+                    **LSTM** is specifically designed to capture long-term dependencies in sequence data, overcoming the vanishing gradient problem faced by standard RNNs.<br><br>
+                    **Key Features:**<br>
+                    - Memory cells<br>
+                    - Gate mechanisms<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+                    <label for="optionA87">A) Long Short-Term Memory (LSTM).</label><br>
+                    <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+                    <label for="optionB87">B) Support Vector Machines (SVM).</label><br>
+                    <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+                    <label for="optionC87">C) Decision Trees.</label><br>
+                    <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+                    <label for="optionD87">D) Convolutional Neural Networks (CNNs).</label><br>
+                </div>
+                <div id="result87" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 89 -->
+                <div class="que">
+                    <p>89. What is the main difference between LSTM and GRU?</p>
+                    <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+                </div>
+                <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: C) GRU has fewer gates than LSTM, making it simpler.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    **GRU (Gated Recurrent Unit)** has a simpler structure than **LSTM** because it combines the forget and input gates into a single update gate. This makes GRUs computationally more efficient while still capturing long-term dependencies effectively.<br><br>
+                    **Key Differences:**<br>
+                    - LSTM: 3 gates (input, forget, output)<br>
+                    - GRU: 2 gates (reset, update)<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+                    <label for="optionA88">A) LSTM is faster to train than GRU.</label><br>
+                    <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+                    <label for="optionB88">B) LSTM requires less memory than GRU.</label><br>
+                    <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+                    <label for="optionC88">C) GRU has fewer gates than LSTM, making it simpler.</label><br>
+                    <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+                    <label for="optionD88">D) GRU cannot capture long-term dependencies.</label><br>
+                </div>
+                <div id="result88" class="result"></div>
+            </div>
+            <div class="qee">
+                <!-- Question 90 -->
+                <div class="que">
+                    <p>90. Which of the following tasks is best suited for RNNs?</p>
+                    <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+                </div>
+                <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+                    <strong>Correct Option: A) Language translation.</strong><br><br>
+                    **Solution and Explanation:**<br>
+                    RNNs excel at tasks involving **sequential data**. **Language translation** requires understanding the context of words in a sequence, making it ideal for RNNs, especially with attention mechanisms.<br><br>
+                    **Other Suitable Tasks:**<br>
+                    - Speech recognition<br>
+                    - Time series forecasting<br>
+                </div>
+                <div class="options">
+                    <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+                    <label for="optionA89">A) Language translation.</label><br>
+                    <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+                    <label for="optionB89">B) Image classification with static data.</label><br>
+                    <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+                    <label for="optionC89">C) Clustering data into groups.</label><br>
+                    <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+                    <label for="optionD89">D) Linear regression on numerical data.</label><br>
+                </div>
+                <div id="result89" class="result"></div>
+            </div>
+            
+            
+                        <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

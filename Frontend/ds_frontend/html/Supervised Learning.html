@@ -1,0 +1,2129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supervised Learning
+    </title>
+    <link rel="stylesheet" href="../css/data science.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'A', 'C', 'B', 'D', 'C',  'B', 'A', 'C', 'D', 'B',
+            'C', 'D', 'B', 'C', 'A',  'B', 'A', 'C', 'D', 'A',
+            'B', 'C', 'A', 'D', 'C',  'A', 'B', 'C', 'D', 'B',
+            'D', 'A', 'C', 'B', 'A',  'A', 'B', 'D', 'C', 'B',
+            'A', 'C', 'B', 'D', 'A',  'C', 'B', 'C', 'A', 'D',
+
+            'A', 'B', 'D', 'A', 'A',  'C', 'A', 'D', 'B', 'C',   
+            'A', 'C', 'B', 'A', 'C',  'B', 'A', 'D', 'B', 'A',
+            'A', 'B', 'D', 'A', 'C',  'B', 'D', 'A', 'C', 'B',
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>Supervised Learning</h3>
+        <div class="inner-border">
+            <div class="qee">               
+<!-- Question 1 -->
+<div class="que">
+    <p>1. What is the main goal of supervised learning in data science?</p>
+    <button class="hint-button" onclick="showHint('hint1')">Show Hint</button>
+  </div>
+  <div id="hint1" style="display: none; color: #555;">
+    <strong>Correct Option: A) To predict outputs based on labeled input data</strong><br><br>
+    <strong>Solution and Explanation:</strong><br>
+    Supervised learning uses labeled datasets to train algorithms to classify data or predict outcomes accurately.<br><br>
+    Key Points:<br>
+    1. Input and output data are both provided.<br>
+    2. The model learns a mapping function from input to output.<br>
+    3. Examples include regression and classification tasks.<br>
+  </div>
+  <div class="options">
+    <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+    <label for="optionA0">A) To predict outputs based on labeled input data</label><br>
+    <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+    <label for="optionB0">B) To group data without labels</label><br>
+    <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+    <label for="optionC0">C) To visualize data only</label><br>
+    <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+    <label for="optionD0">D) To encrypt sensitive data</label><br>
+  </div>
+  <div id="result0" class="result"></div>
+            </div>
+  <!-- Question 2 -->
+  <div class="qee">
+    <div class="que">
+      <p>2. Which of the following is an example of a supervised learning algorithm?</p>
+      <button class="hint-button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; color: #555;">
+      <strong>Correct Option: C) Linear Regression</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Linear Regression is a popular supervised learning algorithm used to predict numerical values based on input features.<br><br>
+      Examples of Supervised Algorithms:<br>
+      1. Linear Regression (for regression tasks).<br>
+      2. Decision Trees, SVM, KNN (for classification tasks).<br>
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+      <label for="optionA1">A) K-Means Clustering</label><br>
+      <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+      <label for="optionB1">B) Principal Component Analysis</label><br>
+      <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+      <label for="optionC1">C) Linear Regression</label><br>
+      <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+      <label for="optionD1">D) Apriori Algorithm</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+  </div>
+  
+  <!-- Question 3 -->
+  <div class="qee">
+    <div class="que">
+      <p>3. In supervised learning, what type of data is required to train the model?</p>
+      <button class="hint-button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; color: #555;">
+      <strong>Correct Option: B) Labeled data</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Labeled data includes both input features and their corresponding correct outputs, which are essential for supervised learning models to learn relationships.<br><br>
+      Why it matters:<br>
+      1. Provides feedback to the model.<br>
+      2. Essential for training accurate models.<br>
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+      <label for="optionA2">A) Unlabeled data</label><br>
+      <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+      <label for="optionB2">B) Labeled data</label><br>
+      <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+      <label for="optionC2">C) Randomized data</label><br>
+      <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+      <label for="optionD2">D) No data required</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+  </div>
+  
+  <!-- Question 4 -->
+  <div class="qee">
+    <div class="que">
+      <p>4. Which task is typically NOT solved using supervised learning?</p>
+      <button class="hint-button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; color: #555;">
+      <strong>Correct Option: D) Grouping customers without prior labels</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Grouping without prior labels is a clustering task, which falls under unsupervised learning, not supervised learning.<br><br>
+      Supervised vs Unsupervised:<br>
+      - Supervised: Classification, Regression<br>
+      - Unsupervised: Clustering, Association<br>
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+      <label for="optionA3">A) Predicting house prices</label><br>
+      <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+      <label for="optionB3">B) Email spam detection</label><br>
+      <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+      <label for="optionC3">C) Sentiment analysis</label><br>
+      <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+      <label for="optionD3">D) Grouping customers without prior labels</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+  </div>
+  
+  <!-- Question 5 -->
+  <div class="qee">
+    <div class="que">
+      <p>5. What are the two main types of problems in supervised learning?</p>
+      <button class="hint-button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; color: #555;">
+      <strong>Correct Option: C) Classification and Regression</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Supervised learning deals with two main types of problems:<br><br>
+      Classification – Predicting categories (e.g., spam or not spam).<br>
+      Regression – Predicting continuous values (e.g., price of a house).<br>
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+      <label for="optionA4">A) Clustering and Association</label><br>
+      <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+      <label for="optionB4">B) Sorting and Filtering</label><br>
+      <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+      <label for="optionC4">C) Classification and Regression</label><br>
+      <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+      <label for="optionD4">D) Ranking and Matching</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+  </div>
+                              
+<!-- Types of Supervised Learning -->
+
+<!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+      <p>6. Which of the following is a type of supervised learning that deals with predicting continuous values?</p>
+      <button class="hint-button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; color: #555;">
+      <strong>Correct Option: B) Regression</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Regression is used in supervised learning to predict continuous numerical outcomes based on input variables.<br><br>
+      Example: Predicting salary based on experience and education.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+      <label for="optionA5">A) Classification</label><br>
+      <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+      <label for="optionB5">B) Regression</label><br>
+      <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+      <label for="optionC5">C) Clustering</label><br>
+      <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+      <label for="optionD5">D) Association</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+  </div>
+  
+  <!-- Question 7 -->
+  <div class="qee">
+    <div class="que">
+      <p>7. In classification problems, what is the nature of the output variable?</p>
+      <button class="hint-button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; color: #555;">
+      <strong>Correct Option: A) Categorical</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Classification problems aim to categorize inputs into discrete classes or categories.<br><br>
+      Example: Classifying emails into spam or not spam.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+      <label for="optionA6">A) Categorical</label><br>
+      <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+      <label for="optionB6">B) Continuous</label><br>
+      <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+      <label for="optionC6">C) Numerical</label><br>
+      <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+      <label for="optionD6">D) Binary only</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+  </div>
+  
+  <!-- Question 8 -->
+  <div class="qee">
+    <div class="que">
+      <p>8. Which algorithm is commonly used for classification tasks?</p>
+      <button class="hint-button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; color: #555;">
+      <strong>Correct Option: C) Decision Trees</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Decision Trees are widely used for classification due to their simplicity and interpretability.<br><br>
+      Other classification algorithms include KNN, SVM, and Logistic Regression.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+      <label for="optionA7">A) K-Means</label><br>
+      <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+      <label for="optionB7">B) Apriori</label><br>
+      <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+      <label for="optionC7">C) Decision Trees</label><br>
+      <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+      <label for="optionD7">D) PCA</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+  </div>
+  
+  <!-- Question 9 -->
+  <div class="qee">
+    <div class="que">
+      <p>9. What type of supervised learning problem is best suited for predicting stock prices?</p>
+      <button class="hint-button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; color: #555;">
+      <strong>Correct Option: D) Regression</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Stock prices are continuous numerical values, making regression the ideal supervised learning approach for prediction tasks.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+      <label for="optionA8">A) Clustering</label><br>
+      <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+      <label for="optionB8">B) Classification</label><br>
+      <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+      <label for="optionC8">C) Dimensionality Reduction</label><br>
+      <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+      <label for="optionD8">D) Regression</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+  </div>
+  
+  <!-- Question 10 -->
+  <div class="qee">
+    <div class="que">
+      <p>10. Which of the following best describes the difference between classification and regression?</p>
+      <button class="hint-button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; color: #555;">
+      <strong>Correct Option: B) Classification predicts categories, regression predicts numeric values</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Classification is used when the output is a discrete label, whereas regression is used for continuous outcomes.<br>
+      Example: Classification → Spam/Not spam<br>
+      Regression → Predicting temperature
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+      <label for="optionA9">A) Regression is for images, classification is for text</label><br>
+      <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+      <label for="optionB9">B) Classification predicts categories, regression predicts numeric values</label><br>
+      <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+      <label for="optionC9">C) Classification uses unlabeled data, regression does not</label><br>
+      <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+      <label for="optionD9">D) Regression uses categories, classification uses numbers</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+  </div>
+
+  <!-- Data Preprocessing -->
+
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+      <p>11. What is the main purpose of data preprocessing in a machine learning pipeline?</p>
+      <button class="hint-button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; color: #555;">
+      <strong>Correct Option: C) To clean and prepare raw data for model training</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Data preprocessing involves cleaning, transforming, and organizing data to improve the performance of machine learning models.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+      <label for="optionA10">A) To build deep learning models</label><br>
+      <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+      <label for="optionB10">B) To tune model hyperparameters</label><br>
+      <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+      <label for="optionC10">C) To clean and prepare raw data for model training</label><br>
+      <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+      <label for="optionD10">D) To visualize the final output</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+  </div>
+  
+  <!-- Question 12 -->
+  <div class="qee">
+    <div class="que">
+      <p>12. Which of the following is NOT a common data preprocessing step?</p>
+      <button class="hint-button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; color: #555;">
+      <strong>Correct Option: D) Model evaluation</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Model evaluation is part of model assessment, not data preprocessing. Preprocessing includes handling missing data, scaling, and encoding.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+      <label for="optionA11">A) Normalization</label><br>
+      <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+      <label for="optionB11">B) Handling missing values</label><br>
+      <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+      <label for="optionC11">C) Encoding categorical variables</label><br>
+      <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+      <label for="optionD11">D) Model evaluation</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+  </div>
+  
+  <!-- Question 13 -->
+  <div class="qee">
+    <div class="que">
+      <p>13. Which method is used to handle missing values in a dataset?</p>
+      <button class="hint-button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; color: #555;">
+      <strong>Correct Option: B) Imputation</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Imputation fills in missing values using statistical techniques such as mean, median, or mode substitution.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+      <label for="optionA12">A) Encoding</label><br>
+      <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+      <label for="optionB12">B) Imputation</label><br>
+      <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+      <label for="optionC12">C) Clustering</label><br>
+      <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+      <label for="optionD12">D) Transformation</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+  </div>
+  
+  <!-- Question 14 -->
+  <div class="qee">
+    <div class="que">
+      <p>14. What does normalization do to the data?</p>
+      <button class="hint-button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; color: #555;">
+      <strong>Correct Option: C) Scales the data to a specific range</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Normalization transforms data into a fixed range (like 0 to 1), helping models converge faster and improve performance.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+      <label for="optionA13">A) Removes all outliers</label><br>
+      <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+      <label for="optionB13">B) Converts text into numbers</label><br>
+      <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+      <label for="optionC13">C) Scales the data to a specific range</label><br>
+      <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+      <label for="optionD13">D) Fills missing values</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+  </div>
+  
+  <!-- Question 15 -->
+  <div class="qee">
+    <div class="que">
+      <p>15. One-hot encoding is typically used for:</p>
+      <button class="hint-button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; color: #555;">
+      <strong>Correct Option: A) Converting categorical data into binary vectors</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      One-hot encoding is used to represent categorical variables as binary vectors to be used in machine learning models.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+      <label for="optionA14">A) Converting categorical data into binary vectors</label><br>
+      <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+      <label for="optionB14">B) Scaling numeric data</label><br>
+      <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+      <label for="optionC14">C) Filling missing values</label><br>
+      <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+      <label for="optionD14">D) Normalizing images</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+  </div>
+
+  <!-- Feature Engineering -->
+
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+      <p>16. What is feature engineering in machine learning?</p>
+      <button class="hint-button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; color: #555;">
+      <strong>Correct Option: B) The process of creating new input features from existing ones</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Feature engineering involves creating new variables or transforming existing ones to improve model performance.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+      <label for="optionA15">A) Removing irrelevant features</label><br>
+      <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+      <label for="optionB15">B) The process of creating new input features from existing ones</label><br>
+      <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+      <label for="optionC15">C) Evaluating model accuracy</label><br>
+      <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+      <label for="optionD15">D) Hyperparameter tuning</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+  </div>
+  
+  <!-- Question 17 -->
+  <div class="qee">
+    <div class="que">
+      <p>17. Which of the following is a feature extraction technique?</p>
+      <button class="hint-button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; color: #555;">
+      <strong>Correct Option: A) Principal Component Analysis (PCA)</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      PCA reduces the dimensionality of data by extracting important features (principal components) from it.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+      <label for="optionA16">A) Principal Component Analysis (PCA)</label><br>
+      <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+      <label for="optionB16">B) Gradient Descent</label><br>
+      <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+      <label for="optionC16">C) Decision Tree</label><br>
+      <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+      <label for="optionD16">D) K-Means Clustering</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+  </div>
+  
+  <!-- Question 18 -->
+  <div class="qee">
+    <div class="que">
+      <p>18. What is one advantage of using polynomial features in feature engineering?</p>
+      <button class="hint-button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; color: #555;">
+      <strong>Correct Option: C) It allows the model to capture non-linear relationships</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Polynomial features help models detect curves or higher-order patterns that simple linear models can't capture.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+      <label for="optionA17">A) It reduces the number of features</label><br>
+      <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+      <label for="optionB17">B) It eliminates overfitting</label><br>
+      <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+      <label for="optionC17">C) It allows the model to capture non-linear relationships</label><br>
+      <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+      <label for="optionD17">D) It increases training speed</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+  </div>
+  
+  <!-- Question 19 -->
+  <div class="qee">
+    <div class="que">
+      <p>19. What is the purpose of feature selection?</p>
+      <button class="hint-button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; color: #555;">
+      <strong>Correct Option: D) To reduce overfitting and improve model performance</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Feature selection removes irrelevant or redundant features, improving generalization and reducing computational cost.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+      <label for="optionA18">A) To normalize data</label><br>
+      <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+      <label for="optionB18">B) To build new features</label><br>
+      <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+      <label for="optionC18">C) To create deep learning models</label><br>
+      <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+      <label for="optionD18">D) To reduce overfitting and improve model performance</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+  </div>
+  
+  <!-- Question 20 -->
+  <div class="qee">
+    <div class="que">
+      <p>20. Which of the following can be considered a domain-specific feature engineering task?</p>
+      <button class="hint-button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; color: #555;">
+      <strong>Correct Option: A) Extracting month from a date field in a sales dataset</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Domain-specific feature engineering uses knowledge of the dataset's context (e.g., sales, health) to create meaningful features.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+      <label for="optionA19">A) Extracting month from a date field in a sales dataset</label><br>
+      <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+      <label for="optionB19">B) Standardizing features</label><br>
+      <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+      <label for="optionC19">C) One-hot encoding</label><br>
+      <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+      <label for="optionD19">D) Applying PCA</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+  </div>
+  
+  <!-- Train-Test Split -->
+
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+      <p>21. What is the purpose of train-test split in machine learning?</p>
+      <button class="hint-button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; color: #555;">
+      <strong>Correct Option: B) To evaluate model performance on unseen data</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Train-test split separates data into training and testing sets to assess how well the model generalizes to new data.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+      <label for="optionA20">A) To remove missing values</label><br>
+      <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+      <label for="optionB20">B) To evaluate model performance on unseen data</label><br>
+      <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+      <label for="optionC20">C) To reduce overfitting during training</label><br>
+      <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+      <label for="optionD20">D) To balance classes in classification tasks</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+  </div>
+  
+  <!-- Question 22 -->
+  <div class="qee">
+    <div class="que">
+      <p>22. What is a common ratio used in train-test splitting?</p>
+      <button class="hint-button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; color: #555;">
+      <strong>Correct Option: C) 80% training, 20% testing</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      A typical split is 80% of the data for training and 20% for testing, though this may vary based on dataset size and context.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+      <label for="optionA21">A) 90% training, 10% testing</label><br>
+      <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+      <label for="optionB21">B) 70% training, 30% testing</label><br>
+      <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+      <label for="optionC21">C) 80% training, 20% testing</label><br>
+      <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+      <label for="optionD21">D) 50% training, 50% testing</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+  </div>
+  
+  <!-- Question 23 -->
+  <div class="qee">
+    <div class="que">
+      <p>23. Why is it important that the test data is never seen by the model during training?</p>
+      <button class="hint-button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; color: #555;">
+      <strong>Correct Option: A) To fairly assess how the model performs on new, unseen data</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Using unseen test data ensures a realistic evaluation of the model's generalization performance.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+      <label for="optionA22">A) To fairly assess how the model performs on new, unseen data</label><br>
+      <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+      <label for="optionB22">B) To increase training time</label><br>
+      <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+      <label for="optionC22">C) To apply data augmentation</label><br>
+      <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+      <label for="optionD22">D) To reduce the size of training data</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+  </div>
+  
+  <!-- Question 24 -->
+  <div class="qee">
+    <div class="que">
+      <p>24. Which library function is commonly used to perform train-test split in Python?</p>
+      <button class="hint-button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; color: #555;">
+      <strong>Correct Option: D) train_test_split() from sklearn.model_selection</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      `train_test_split()` is a utility from Scikit-learn used to divide data into training and test sets.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+      <label for="optionA23">A) split_data()</label><br>
+      <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+      <label for="optionB23">B) split_dataset()</label><br>
+      <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+      <label for="optionC23">C) train_test_divide()</label><br>
+      <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+      <label for="optionD23">D) train_test_split() from sklearn.model_selection</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+  </div>
+  
+  <!-- Question 25 -->
+  <div class="qee">
+    <div class="que">
+      <p>25. What issue might occur if you don’t perform a proper train-test split?</p>
+      <button class="hint-button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; color: #555;">
+      <strong>Correct Option: C) The model may overfit and perform poorly on unseen data</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Without a proper train-test split, the model might learn patterns from both sets, leading to high training accuracy but poor generalization.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+      <label for="optionA24">A) It will improve model performance</label><br>
+      <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+      <label for="optionB24">B) The model won’t be trained</label><br>
+      <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+      <label for="optionC24">C) The model may overfit and perform poorly on unseen data</label><br>
+      <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+      <label for="optionD24">D) The dataset size will increase</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+  </div>
+
+  <!-- Cross-Validation -->
+
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+      <p>26. What is the main goal of cross-validation in machine learning?</p>
+      <button class="hint-button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; color: #555;">
+      <strong>Correct Option: A) To evaluate model performance more reliably</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Cross-validation helps assess a model's performance by averaging results over multiple splits of the data, reducing bias and variance.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+      <label for="optionA25">A) To evaluate model performance more reliably</label><br>
+      <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+      <label for="optionB25">B) To speed up training</label><br>
+      <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+      <label for="optionC25">C) To generate more training data</label><br>
+      <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+      <label for="optionD25">D) To tune model hyperparameters</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+  </div>
+  
+  <!-- Question 27 -->
+  <div class="qee">
+    <div class="que">
+      <p>27. In K-Fold Cross-Validation, what does 'K' represent?</p>
+      <button class="hint-button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; color: #555;">
+      <strong>Correct Option: B) The number of groups data is split into</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      In K-Fold, the dataset is divided into K parts (folds), and the model is trained and validated K times, each time with a different fold as validation.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+      <label for="optionA26">A) Number of output classes</label><br>
+      <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+      <label for="optionB26">B) The number of groups data is split into</label><br>
+      <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+      <label for="optionC26">C) Number of features used</label><br>
+      <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+      <label for="optionD26">D) Training iterations</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+  </div>
+  
+  <!-- Question 28 -->
+  <div class="qee">
+    <div class="que">
+      <p>28. What is a common value of K in K-Fold Cross-Validation?</p>
+      <button class="hint-button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; color: #555;">
+      <strong>Correct Option: C) 5 or 10</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      5-fold and 10-fold are widely used as they provide a good balance between bias and variance.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+      <label for="optionA27">A) 2 or 3</label><br>
+      <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+      <label for="optionB27">B) 20 or 30</label><br>
+      <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+      <label for="optionC27">C) 5 or 10</label><br>
+      <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+      <label for="optionD27">D) 50 or 100</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+  </div>
+  
+  <!-- Question 29 -->
+  <div class="qee">
+    <div class="que">
+      <p>29. What is one downside of using cross-validation?</p>
+      <button class="hint-button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; color: #555;">
+      <strong>Correct Option: D) It increases computational cost</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Since the model is trained multiple times, cross-validation requires more computation and time.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+      <label for="optionA28">A) Reduces data accuracy</label><br>
+      <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+      <label for="optionB28">B) Removes training data</label><br>
+      <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+      <label for="optionC28">C) Requires labeled data only</label><br>
+      <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+      <label for="optionD28">D) It increases computational cost</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+  </div>
+  
+  <!-- Question 30 -->
+  <div class="qee">
+    <div class="que">
+      <p>30. Which cross-validation strategy ensures each fold has the same class distribution as the whole dataset?</p>
+      <button class="hint-button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; color: #555;">
+      <strong>Correct Option: B) Stratified K-Fold</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Stratified K-Fold keeps the class ratio balanced across each fold, which is especially important in imbalanced classification tasks.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+      <label for="optionA29">A) Random K-Fold</label><br>
+      <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+      <label for="optionB29">B) Stratified K-Fold</label><br>
+      <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+      <label for="optionC29">C) Holdout validation</label><br>
+      <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+      <label for="optionD29">D) Shuffle Split</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+  </div>
+
+  <!-- Evaluation Metrics for Classification -->
+
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+      <p>31. Which of the following is NOT an evaluation metric for classification?</p>
+      <button class="hint-button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; color: #555;">
+      <strong>Correct Option: D) Mean Squared Error</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Mean Squared Error (MSE) is used in regression problems, not classification. Classification metrics include accuracy, precision, recall, etc.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+      <label for="optionA30">A) Accuracy</label><br>
+      <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+      <label for="optionB30">B) Precision</label><br>
+      <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+      <label for="optionC30">C) Recall</label><br>
+      <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+      <label for="optionD30">D) Mean Squared Error</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+  </div>
+  
+  <!-- Question 32 -->
+  <div class="qee">
+    <div class="que">
+      <p>32. What does precision measure in a classification problem?</p>
+      <button class="hint-button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; color: #555;">
+      <strong>Correct Option: A) Correct positive predictions out of total predicted positives</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Precision = True Positives / (True Positives + False Positives). It tells how many predicted positives are actually correct.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+      <label for="optionA31">A) Correct positive predictions out of total predicted positives</label><br>
+      <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+      <label for="optionB31">B) Correct predictions out of total predictions</label><br>
+      <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+      <label for="optionC31">C) Total incorrect predictions</label><br>
+      <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+      <label for="optionD31">D) Correct negatives out of total negatives</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+  </div>
+  
+  <!-- Question 33 -->
+  <div class="qee">
+    <div class="que">
+      <p>33. What does recall (or sensitivity) measure?</p>
+      <button class="hint-button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; color: #555;">
+      <strong>Correct Option: C) Correct positive predictions out of actual positives</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Recall = True Positives / (True Positives + False Negatives). It measures the ability to detect all actual positives.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+      <label for="optionA32">A) True positives out of total predictions</label><br>
+      <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+      <label for="optionB32">B) False positives out of total predicted positives</label><br>
+      <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+      <label for="optionC32">C) Correct positive predictions out of actual positives</label><br>
+      <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+      <label for="optionD32">D) Total true predictions</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+  </div>
+  
+  <!-- Question 34 -->
+  <div class="qee">
+    <div class="que">
+      <p>34. Which metric gives a balance between precision and recall?</p>
+      <button class="hint-button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; color: #555;">
+      <strong>Correct Option: B) F1 Score</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      F1 Score is the harmonic mean of precision and recall. It provides a single metric that balances both concerns.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+      <label for="optionA33">A) Accuracy</label><br>
+      <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+      <label for="optionB33">B) F1 Score</label><br>
+      <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+      <label for="optionC33">C) ROC AUC</label><br>
+      <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+      <label for="optionD33">D) Log Loss</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+  </div>
+  
+  <!-- Question 35 -->
+  <div class="qee">
+    <div class="que">
+      <p>35. What does the ROC curve represent?</p>
+      <button class="hint-button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; color: #555;">
+      <strong>Correct Option: A) Trade-off between true positive rate and false positive rate</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      The ROC (Receiver Operating Characteristic) curve plots TPR vs. FPR to show the diagnostic ability of a binary classifier at various thresholds.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+      <label for="optionA34">A) Trade-off between true positive rate and false positive rate</label><br>
+      <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+      <label for="optionB34">B) Precision vs. recall</label><br>
+      <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+      <label for="optionC34">C) Accuracy vs. threshold</label><br>
+      <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+      <label for="optionD34">D) Confusion matrix visualization</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+  </div>
+
+  <!-- Evaluation Metrics for Regression -->
+
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+      <p>36. Which of the following is a commonly used metric to evaluate regression models?</p>
+      <button class="hint-button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; color: #555;">
+      <strong>Correct Option: A) Mean Absolute Error</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Mean Absolute Error (MAE) measures the average magnitude of errors in a set of predictions, without considering their direction.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+      <label for="optionA35">A) Mean Absolute Error</label><br>
+      <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+      <label for="optionB35">B) Accuracy</label><br>
+      <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+      <label for="optionC35">C) Precision</label><br>
+      <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+      <label for="optionD35">D) Recall</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+  </div>
+  
+  <!-- Question 37 -->
+  <div class="qee">
+    <div class="que">
+      <p>37. What does Mean Squared Error (MSE) measure in regression?</p>
+      <button class="hint-button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; color: #555;">
+      <strong>Correct Option: B) The average of the squares of the errors</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      MSE calculates the average of the squared differences between actual and predicted values. Squaring penalizes larger errors more.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+      <label for="optionA36">A) The absolute value of errors</label><br>
+      <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+      <label for="optionB36">B) The average of the squares of the errors</label><br>
+      <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+      <label for="optionC36">C) The square root of errors</label><br>
+      <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+      <label for="optionD36">D) Sum of residuals</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+  </div>
+  
+  <!-- Question 38 -->
+  <div class="qee">
+    <div class="que">
+      <p>38. Which metric is the square root of Mean Squared Error?</p>
+      <button class="hint-button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; color: #555;">
+      <strong>Correct Option: D) Root Mean Squared Error</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      RMSE = √MSE. It interprets the error in the same unit as the target variable and penalizes large errors more heavily.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+      <label for="optionA37">A) Mean Absolute Error</label><br>
+      <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+      <label for="optionB37">B) Median Absolute Error</label><br>
+      <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+      <label for="optionC37">C) Mean Squared Log Error</label><br>
+      <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+      <label for="optionD37">D) Root Mean Squared Error</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+  </div>
+  
+  <!-- Question 39 -->
+  <div class="qee">
+    <div class="que">
+      <p>39. What does R² score (coefficient of determination) indicate?</p>
+      <button class="hint-button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; color: #555;">
+      <strong>Correct Option: C) Proportion of variance explained by the model</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      R² explains how much variability in the target variable can be explained by the model. 1 means perfect prediction, 0 means no explanatory power.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+      <label for="optionA38">A) Average prediction error</label><br>
+      <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+      <label for="optionB38">B) Median of squared errors</label><br>
+      <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+      <label for="optionC38">C) Proportion of variance explained by the model</label><br>
+      <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+      <label for="optionD38">D) Sum of squared errors</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+  </div>
+  
+  <!-- Question 40 -->
+  <div class="qee">
+    <div class="que">
+      <p>40. Which of the following regression metrics is most sensitive to outliers?</p>
+      <button class="hint-button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; color: #555;">
+      <strong>Correct Option: B) Mean Squared Error</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      MSE squares the errors, so larger errors contribute more to the total, making it sensitive to outliers compared to MAE.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+      <label for="optionA39">A) Mean Absolute Error</label><br>
+      <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+      <label for="optionB39">B) Mean Squared Error</label><br>
+      <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+      <label for="optionC39">C) R² Score</label><br>
+      <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+      <label for="optionD39">D) Adjusted R²</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+  </div>
+  
+  <!-- Linear Regression -->
+
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+      <p>41. What is the primary goal of Linear Regression?</p>
+      <button class="hint-button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; color: #555;">
+      <strong>Correct Option: A) To find the best-fitting line through the data</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Linear Regression aims to model the relationship between independent and dependent variables by fitting a linear equation to the data.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+      <label for="optionA40">A) To find the best-fitting line through the data</label><br>
+      <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+      <label for="optionB40">B) To cluster the data points</label><br>
+      <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+      <label for="optionC40">C) To reduce dimensionality</label><br>
+      <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+      <label for="optionD40">D) To visualize categorical data</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+  </div>
+  
+  <!-- Question 42 -->
+  <div class="qee">
+    <div class="que">
+      <p>42. What is the equation of a simple linear regression model?</p>
+      <button class="hint-button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; color: #555;">
+      <strong>Correct Option: C) y = β₀ + β₁x</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Simple Linear Regression represents the relationship between one independent variable x and a dependent variable y using the formula y = β₀ + β₁x.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+      <label for="optionA41">A) y = x + x²</label><br>
+      <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+      <label for="optionB41">B) y = x / β</label><br>
+      <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+      <label for="optionC41">C) y = β₀ + β₁x</label><br>
+      <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+      <label for="optionD41">D) y = β₀ * β₁ * x</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+  </div>
+  
+  <!-- Question 43 -->
+  <div class="qee">
+    <div class="que">
+      <p>43. Which method is commonly used to find the best-fit line in Linear Regression?</p>
+      <button class="hint-button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; color: #555;">
+      <strong>Correct Option: B) Least Squares Method</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      The least squares method minimizes the sum of the squares of the differences between observed and predicted values.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+      <label for="optionA42">A) Gradient Clustering</label><br>
+      <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+      <label for="optionB42">B) Least Squares Method</label><br>
+      <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+      <label for="optionC42">C) Backpropagation</label><br>
+      <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+      <label for="optionD42">D) K-Means</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+  </div>
+  
+  <!-- Question 44 -->
+  <div class="qee">
+    <div class="que">
+      <p>44. What does the coefficient β₁ represent in the linear regression equation?</p>
+      <button class="hint-button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; color: #555;">
+      <strong>Correct Option: D) The slope of the regression line</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      β₁ represents the change in the dependent variable y for each one-unit change in the independent variable x.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+      <label for="optionA43">A) The intercept of the line</label><br>
+      <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+      <label for="optionB43">B) The residual value</label><br>
+      <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+      <label for="optionC43">C) The mean of y</label><br>
+      <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+      <label for="optionD43">D) The slope of the regression line</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+  </div>
+  
+  <!-- Question 45 -->
+  <div class="qee">
+    <div class="que">
+      <p>45. Which assumption is NOT required for simple linear regression?</p>
+      <button class="hint-button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; color: #555;">
+      <strong>Correct Option: A) Multicollinearity</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Multicollinearity is an issue in multiple regression, not simple linear regression which involves only one independent variable.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+      <label for="optionA44">A) Multicollinearity</label><br>
+      <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+      <label for="optionB44">B) Linearity</label><br>
+      <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+      <label for="optionC44">C) Homoscedasticity</label><br>
+      <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+      <label for="optionD44">D) Independence of errors</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+  </div>
+
+  <!-- Logistic Regression -->
+
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+      <p>46. What type of problem is Logistic Regression used to solve?</p>
+      <button class="hint-button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; color: #555;">
+      <strong>Correct Option: C) Classification problems</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Logistic Regression is used for binary or multiclass classification tasks, predicting probabilities of categories.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+      <label for="optionA45">A) Clustering problems</label><br>
+      <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+      <label for="optionB45">B) Regression problems</label><br>
+      <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+      <label for="optionC45">C) Classification problems</label><br>
+      <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+      <label for="optionD45">D) Dimensionality reduction</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+  </div>
+  
+  <!-- Question 47 -->
+  <div class="qee">
+    <div class="que">
+      <p>47. What is the output of a Logistic Regression model?</p>
+      <button class="hint-button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; color: #555;">
+      <strong>Correct Option: B) Probability between 0 and 1</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Logistic Regression uses the sigmoid function to output probabilities between 0 and 1 which represent the likelihood of a class.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+      <label for="optionA46">A) Any real number</label><br>
+      <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+      <label for="optionB46">B) Probability between 0 and 1</label><br>
+      <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+      <label for="optionC46">C) Binary value only</label><br>
+      <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+      <label for="optionD46">D) A categorical label</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+  </div>
+  
+  <!-- Question 48 -->
+  <div class="qee">
+    <div class="que">
+      <p>48. Which function is used in Logistic Regression to map values to probabilities?</p>
+      <button class="hint-button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; color: #555;">
+      <strong>Correct Option: C) Sigmoid function</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      The sigmoid function maps the linear combination of inputs to a value between 0 and 1, enabling classification.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+      <label for="optionA47">A) ReLU</label><br>
+      <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+      <label for="optionB47">B) Tanh</label><br>
+      <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+      <label for="optionC47">C) Sigmoid function</label><br>
+      <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+      <label for="optionD47">D) Softmax function</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+  </div>
+  
+  <!-- Question 49 -->
+  <div class="qee">
+    <div class="que">
+      <p>49. What loss function is used in Logistic Regression?</p>
+      <button class="hint-button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; color: #555;">
+      <strong>Correct Option: A) Log Loss (Binary Cross-Entropy)</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Logistic Regression minimizes the Log Loss, which measures the performance of a classification model with probability outputs.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+      <label for="optionA48">A) Log Loss (Binary Cross-Entropy)</label><br>
+      <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+      <label for="optionB48">B) Mean Squared Error</label><br>
+      <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+      <label for="optionC48">C) Hinge Loss</label><br>
+      <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+      <label for="optionD48">D) Absolute Error</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+  </div>
+  
+  <!-- Question 50 -->
+  <div class="qee">
+    <div class="que">
+      <p>50. Which of the following is a limitation of Logistic Regression?</p>
+      <button class="hint-button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; color: #555;">
+      <strong>Correct Option: D) It assumes linearity between independent variables and the log-odds</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Logistic Regression assumes a linear relationship between the input variables and the log-odds of the output, which may not always hold true.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+      <label for="optionA49">A) It cannot handle binary outputs</label><br>
+      <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+      <label for="optionB49">B) It requires discrete variables</label><br>
+      <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+      <label for="optionC49">C) It cannot output probabilities</label><br>
+      <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+      <label for="optionD49">D) It assumes linearity between independent variables and the log-odds</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+  </div>
+
+  
+  <!-- Decision Trees -->
+
+<!-- Question 51 -->
+<div class="qee">
+    <div class="que">
+      <p>51. What is the main idea behind Decision Trees?</p>
+      <button class="hint-button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; color: #555;">
+      <strong>Correct Option: A) Splitting data based on feature values to make decisions</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Decision Trees split the data based on the values of features to create branches leading to a decision outcome.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+      <label for="optionA50">A) Splitting data based on feature values to make decisions</label><br>
+      <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+      <label for="optionB50">B) Grouping similar data points</label><br>
+      <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+      <label for="optionC50">C) Maximizing the distance between classes</label><br>
+      <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+      <label for="optionD50">D) Calculating average predictions</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+  </div>
+  
+  <!-- Question 52 -->
+  <div class="qee">
+    <div class="que">
+      <p>52. Which of the following is used to measure the quality of a split in Decision Trees?</p>
+      <button class="hint-button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; color: #555;">
+      <strong>Correct Option: B) Gini Impurity</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Gini Impurity is commonly used in classification trees to measure the impurity of a dataset after a split.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+      <label for="optionA51">A) R-squared</label><br>
+      <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+      <label for="optionB51">B) Gini Impurity</label><br>
+      <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+      <label for="optionC51">C) Cosine similarity</label><br>
+      <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+      <label for="optionD51">D) Euclidean distance</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+  </div>
+  
+  <!-- Question 53 -->
+  <div class="qee">
+    <div class="que">
+      <p>53. What does a leaf node represent in a Decision Tree?</p>
+      <button class="hint-button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; color: #555;">
+      <strong>Correct Option: D) Final decision or classification</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Leaf nodes represent the final predicted output after all splits have been made in the decision process.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+      <label for="optionA52">A) Feature split</label><br>
+      <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+      <label for="optionB52">B) Root decision</label><br>
+      <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+      <label for="optionC52">C) Missing data</label><br>
+      <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+      <label for="optionD52">D) Final decision or classification</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+  </div>
+  
+  <!-- Question 54 -->
+  <div class="qee">
+    <div class="que">
+      <p>54. Which of the following is a disadvantage of Decision Trees?</p>
+      <button class="hint-button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; color: #555;">
+      <strong>Correct Option: A) They are prone to overfitting</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Decision Trees can overfit the training data, especially if not properly pruned or regularized.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+      <label for="optionA53">A) They are prone to overfitting</label><br>
+      <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+      <label for="optionB53">B) They do not support classification</label><br>
+      <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+      <label for="optionC53">C) They cannot work with numerical data</label><br>
+      <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+      <label for="optionD53">D) They always require ensemble methods</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+  </div>
+  
+  <!-- Question 55 -->
+  <div class="qee">
+    <div class="que">
+      <p>55. What is pruning in the context of Decision Trees?</p>
+      <button class="hint-button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; color: #555;">
+      <strong>Correct Option: B) Removing branches that have little importance</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Pruning is a technique used to reduce the size of a tree by removing sections that provide little power to classify instances.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+      <label for="optionA54">A) Expanding the tree for better accuracy</label><br>
+      <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+      <label for="optionB54">B) Removing branches that have little importance</label><br>
+      <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+      <label for="optionC54">C) Sorting the features alphabetically</label><br>
+      <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+      <label for="optionD54">D) Removing the root node</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+  </div>
+  
+  <!-- Random Forest -->
+
+<!-- Question 56 -->
+<div class="qee">
+    <div class="que">
+      <p>56. What is a Random Forest in machine learning?</p>
+      <button class="hint-button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; color: #555;">
+      <strong>Correct Option: C) An ensemble of decision trees</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Random Forest is an ensemble learning method that builds multiple decision trees and merges their results for better accuracy and stability.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+      <label for="optionA55">A) A single deep decision tree</label><br>
+      <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+      <label for="optionB55">B) A clustering algorithm</label><br>
+      <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+      <label for="optionC55">C) An ensemble of decision trees</label><br>
+      <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+      <label for="optionD55">D) A boosting technique</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+  </div>
+  
+  <!-- Question 57 -->
+  <div class="qee">
+    <div class="que">
+      <p>57. What technique does Random Forest use to ensure diversity among the trees?</p>
+      <button class="hint-button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; color: #555;">
+      <strong>Correct Option: A) Bagging (Bootstrap Aggregation)</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Random Forest uses Bagging, where multiple datasets are sampled with replacement, ensuring varied training data for each tree.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+      <label for="optionA56">A) Bagging (Bootstrap Aggregation)</label><br>
+      <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+      <label for="optionB56">B) Feature scaling</label><br>
+      <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+      <label for="optionC56">C) Label encoding</label><br>
+      <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+      <label for="optionD56">D) Grid search</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+  </div>
+  
+  <!-- Question 58 -->
+  <div class="qee">
+    <div class="que">
+      <p>58. In Random Forest, what happens during prediction for classification?</p>
+      <button class="hint-button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; color: #555;">
+      <strong>Correct Option: D) Majority voting from all trees</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      In classification problems, each tree gives a prediction and the Random Forest takes the majority vote to decide the final output.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+      <label for="optionA57">A) Maximum depth selection</label><br>
+      <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+      <label for="optionB57">B) Average of tree probabilities</label><br>
+      <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+      <label for="optionC57">C) First tree’s prediction</label><br>
+      <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+      <label for="optionD57">D) Majority voting from all trees</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+  </div>
+  
+  <!-- Question 59 -->
+  <div class="qee">
+    <div class="que">
+      <p>59. What is one of the advantages of Random Forest over a single Decision Tree?</p>
+      <button class="hint-button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; color: #555;">
+      <strong>Correct Option: B) It reduces overfitting</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Combining multiple trees helps generalize better and reduces the overfitting problem common in single decision trees.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+      <label for="optionA58">A) It uses more complex rules</label><br>
+      <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+      <label for="optionB58">B) It reduces overfitting</label><br>
+      <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+      <label for="optionC58">C) It requires less computation</label><br>
+      <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+      <label for="optionD58">D) It eliminates the need for preprocessing</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+  </div>
+  
+  <!-- Question 60 -->
+  <div class="qee">
+    <div class="que">
+      <p>60. Which hyperparameter in Random Forest controls the number of trees in the model?</p>
+      <button class="hint-button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; color: #555;">
+      <strong>Correct Option: C) n_estimators</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      The `n_estimators` parameter defines how many decision trees will be created in the forest.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+      <label for="optionA59">A) max_depth</label><br>
+      <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+      <label for="optionB59">B) min_samples_split</label><br>
+      <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+      <label for="optionC59">C) n_estimators</label><br>
+      <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+      <label for="optionD59">D) max_features</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+  </div>
+
+  <!-- Gradient Boosting -->
+
+<!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+      <p>61. What is the main idea behind Gradient Boosting?</p>
+      <button class="hint-button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; color: #555;">
+      <strong>Correct Option: A) Combine weak learners to minimize errors</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Gradient Boosting builds an ensemble of weak learners (usually decision trees) sequentially, each trying to correct the errors of the previous one.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+      <label for="optionA60">A) Combine weak learners to minimize errors</label><br>
+      <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+      <label for="optionB60">B) Average predictions of models</label><br>
+      <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+      <label for="optionC60">C) Select the best tree</label><br>
+      <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+      <label for="optionD60">D) Apply clustering to trees</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+  </div>
+  
+  <!-- Question 62 -->
+  <div class="qee">
+    <div class="que">
+      <p>62. How does Gradient Boosting update its model?</p>
+      <button class="hint-button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; color: #555;">
+      <strong>Correct Option: C) By fitting new models to residuals</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Gradient Boosting trains each new model on the residual errors of the previous model to reduce the overall prediction error.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+      <label for="optionA61">A) By averaging outputs</label><br>
+      <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+      <label for="optionB61">B) By majority voting</label><br>
+      <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+      <label for="optionC61">C) By fitting new models to residuals</label><br>
+      <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+      <label for="optionD61">D) By combining feature importance</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+  </div>
+  
+  <!-- Question 63 -->
+  <div class="qee">
+    <div class="que">
+      <p>63. Which type of learners are typically used in Gradient Boosting?</p>
+      <button class="hint-button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; color: #555;">
+      <strong>Correct Option: B) Decision trees</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Gradient Boosting usually uses shallow decision trees (also called stumps) as base learners to build the model.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+      <label for="optionA62">A) Neural networks</label><br>
+      <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+      <label for="optionB62">B) Decision trees</label><br>
+      <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+      <label for="optionC62">C) SVMs</label><br>
+      <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+      <label for="optionD62">D) K-means models</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+  </div>
+  
+  <!-- Question 64 -->
+  <div class="qee">
+    <div class="que">
+      <p>64. What does the learning rate in Gradient Boosting control?</p>
+      <button class="hint-button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; color: #555;">
+      <strong>Correct Option: A) The contribution of each tree to the final model</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      The learning rate scales the impact of each additional model. A lower learning rate means slower learning but possibly better accuracy.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+      <label for="optionA63">A) The contribution of each tree to the final model</label><br>
+      <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+      <label for="optionB63">B) The tree depth</label><br>
+      <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+      <label for="optionC63">C) The number of features used</label><br>
+      <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+      <label for="optionD63">D) The residual threshold</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+  </div>
+  
+  <!-- Question 65 -->
+  <div class="qee">
+    <div class="que">
+      <p>65. Which of the following is a common problem with Gradient Boosting?</p>
+      <button class="hint-button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; color: #555;">
+      <strong>Correct Option: C) Overfitting on noisy data</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      Gradient Boosting is powerful but sensitive to noise, and can overfit easily without careful tuning and regularization.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+      <label for="optionA64">A) High bias</label><br>
+      <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+      <label for="optionB64">B) Low variance</label><br>
+      <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+      <label for="optionC64">C) Overfitting on noisy data</label><br>
+      <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+      <label for="optionD64">D) Lack of interpretability</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+  </div>
+
+  <!-- XGBoost -->
+
+<!-- Question 66 -->
+<div class="qee">
+    <div class="que">
+      <p>66. What does XGBoost stand for?</p>
+      <button class="hint-button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; color: #555;">
+      <strong>Correct Option: B) Extreme Gradient Boosting</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      XGBoost stands for Extreme Gradient Boosting. It's a scalable and efficient implementation of gradient boosting machines.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+      <label for="optionA65">A) Extra Gradient Boost</label><br>
+      <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+      <label for="optionB65">B) Extreme Gradient Boosting</label><br>
+      <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+      <label for="optionC65">C) Extended Gradient Backprop</label><br>
+      <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+      <label for="optionD65">D) Extra Growth Boost</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+  </div>
+  
+  <!-- Question 67 -->
+  <div class="qee">
+    <div class="que">
+      <p>67. What makes XGBoost faster than traditional Gradient Boosting?</p>
+      <button class="hint-button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; color: #555;">
+      <strong>Correct Option: A) Parallel processing and regularization</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      XGBoost uses system optimization like parallel processing, cache awareness, and regularization techniques to speed up training and reduce overfitting.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+      <label for="optionA66">A) Parallel processing and regularization</label><br>
+      <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+      <label for="optionB66">B) Uses shallow trees only</label><br>
+      <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+      <label for="optionC66">C) Works without gradients</label><br>
+      <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+      <label for="optionD66">D) Avoids feature splitting</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+  </div>
+  
+  <!-- Question 68 -->
+  <div class="qee">
+    <div class="que">
+      <p>68. Which regularization techniques are used in XGBoost?</p>
+      <button class="hint-button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; color: #555;">
+      <strong>Correct Option: D) L1 and L2 regularization</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      XGBoost incorporates both L1 (Lasso) and L2 (Ridge) regularization to reduce overfitting and control complexity of the trees.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+      <label for="optionA67">A) Dropout only</label><br>
+      <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+      <label for="optionB67">B) Batch normalization</label><br>
+      <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+      <label for="optionC67">C) Data augmentation</label><br>
+      <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+      <label for="optionD67">D) L1 and L2 regularization</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+  </div>
+  
+  <!-- Question 69 -->
+  <div class="qee">
+    <div class="que">
+      <p>69. What type of data structure does XGBoost use for efficient computation?</p>
+      <button class="hint-button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; color: #555;">
+      <strong>Correct Option: B) DMatrix</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      XGBoost uses a special data structure called DMatrix which is optimized for memory and computation speed.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+      <label for="optionA68">A) Pandas DataFrame</label><br>
+      <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+      <label for="optionB68">B) DMatrix</label><br>
+      <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+      <label for="optionC68">C) NumPy Matrix</label><br>
+      <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+      <label for="optionD68">D) SparseList</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+  </div>
+  
+  <!-- Question 70 -->
+  <div class="qee">
+    <div class="que">
+      <p>70. What is the objective function in XGBoost composed of?</p>
+      <button class="hint-button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; color: #555;">
+      <strong>Correct Option: A) Loss function + Regularization term</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      The objective function in XGBoost is composed of a loss function (measuring training error) and a regularization term (to avoid overfitting).
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+      <label for="optionA69">A) Loss function + Regularization term</label><br>
+      <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+      <label for="optionB69">B) Accuracy and F1 score</label><br>
+      <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+      <label for="optionC69">C) Only squared error</label><br>
+      <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+      <label for="optionD69">D) Gradient average</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+  </div>
+
+  <!-- LightGBM -->
+
+<!-- Question 71 -->
+<div class="qee">
+    <div class="que">
+      <p>71. What is LightGBM mainly designed for?</p>
+      <button class="hint-button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; color: #555;">
+      <strong>Correct Option: A) High performance and efficiency on large datasets</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      LightGBM is optimized for high speed and performance, particularly with large datasets and high-dimensional data.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+      <label for="optionA70">A) High performance and efficiency on large datasets</label><br>
+      <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+      <label for="optionB70">B) Low memory usage only</label><br>
+      <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+      <label for="optionC70">C) NLP tasks only</label><br>
+      <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+      <label for="optionD70">D) Image classification</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+  </div>
+  
+  <!-- Question 72 -->
+  <div class="qee">
+    <div class="que">
+      <p>72. Which technique does LightGBM use for tree growth?</p>
+      <button class="hint-button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; color: #555;">
+      <strong>Correct Option: B) Leaf-wise growth</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      LightGBM grows trees leaf-wise (best-first) instead of level-wise like traditional methods, which increases accuracy.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+      <label for="optionA71">A) Level-wise</label><br>
+      <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+      <label for="optionB71">B) Leaf-wise growth</label><br>
+      <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+      <label for="optionC71">C) Random depth growth</label><br>
+      <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+      <label for="optionD71">D) Horizontal splitting</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+  </div>
+  
+  <!-- Question 73 -->
+  <div class="qee">
+    <div class="que">
+      <p>73. What data structure helps LightGBM handle large datasets efficiently?</p>
+      <button class="hint-button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; color: #555;">
+      <strong>Correct Option: D) Histogram-based algorithm</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      LightGBM uses a histogram-based algorithm for faster training and reduced memory usage.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+      <label for="optionA72">A) Pandas DataFrame</label><br>
+      <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+      <label for="optionB72">B) DMatrix</label><br>
+      <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+      <label for="optionC72">C) NumPy matrix</label><br>
+      <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+      <label for="optionD72">D) Histogram-based algorithm</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+  </div>
+  
+  <!-- Question 74 -->
+  <div class="qee">
+    <div class="que">
+      <p>74. LightGBM is sensitive to which kind of feature?</p>
+      <button class="hint-button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; color: #555;">
+      <strong>Correct Option: A) Categorical features</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      LightGBM supports categorical features natively, but improper encoding or treatment can affect performance.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+      <label for="optionA73">A) Categorical features</label><br>
+      <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+      <label for="optionB73">B) Binary features</label><br>
+      <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+      <label for="optionC73">C) Label-encoded features only</label><br>
+      <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+      <label for="optionD73">D) Normalized numeric features</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+  </div>
+  
+  <!-- Question 75 -->
+  <div class="qee">
+    <div class="que">
+      <p>75. What is one disadvantage of LightGBM?</p>
+      <button class="hint-button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; color: #555;">
+      <strong>Correct Option: C) May overfit on small datasets</strong><br><br>
+      <strong>Solution and Explanation:</strong><br>
+      LightGBM is very powerful but can easily overfit if used on small datasets or without proper parameter tuning.
+    </div>
+    <div class="options">
+      <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+      <label for="optionA74">A) Too slow for large data</label><br>
+      <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+      <label for="optionB74">B) Doesn’t support classification</label><br>
+      <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+      <label for="optionC74">C) May overfit on small datasets</label><br>
+      <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+      <label for="optionD74">D) Cannot use numerical features</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+  </div>
+
+<!-- Scikit-learn -->
+
+<!-- Question 76 -->
+<div class="qee">
+  <div class="que">
+    <p>76. What is Scikit-learn primarily used for in data science?</p>
+    <button class="hint-button" onclick="showHint('hint76')">Show Hint</button>
+  </div>
+  <div id="hint76" style="display: none; color: #555;">
+    <strong>Correct Option: B) Machine learning modeling and evaluation</strong><br><br>
+    <strong>Solution and Explanation:</strong><br>
+    Scikit-learn is a Python library widely used for machine learning tasks including model building, training, and evaluation.
+  </div>
+  <div class="options">
+    <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+    <label for="optionA75">A) Web development</label><br>
+    <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+    <label for="optionB75">B) Machine learning modeling and evaluation</label><br>
+    <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+    <label for="optionC75">C) Image rendering</label><br>
+    <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+    <label for="optionD75">D) Cloud computing</label><br>
+  </div>
+  <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee">
+  <div class="que">
+    <p>77. Which of the following tasks can be performed using Scikit-learn?</p>
+    <button class="hint-button" onclick="showHint('hint77')">Show Hint</button>
+  </div>
+  <div id="hint77" style="display: none; color: #555;">
+    <strong>Correct Option: D) All of the above</strong><br><br>
+    <strong>Solution and Explanation:</strong><br>
+    Scikit-learn supports classification, regression, clustering, dimensionality reduction, model selection, and preprocessing.
+  </div>
+  <div class="options">
+    <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+    <label for="optionA76">A) Classification</label><br>
+    <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+    <label for="optionB76">B) Clustering</label><br>
+    <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+    <label for="optionC76">C) Dimensionality reduction</label><br>
+    <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+    <label for="optionD76">D) All of the above</label><br>
+  </div>
+  <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee">
+  <div class="que">
+    <p>78. Which method is used to split data into training and testing sets in Scikit-learn?</p>
+    <button class="hint-button" onclick="showHint('hint78')">Show Hint</button>
+  </div>
+  <div id="hint78" style="display: none; color: #555;">
+    <strong>Correct Option: A) train_test_split()</strong><br><br>
+    <strong>Solution and Explanation:</strong><br>
+    The function <code>train_test_split()</code> from <code>sklearn.model_selection</code> is used to split arrays or matrices into random train and test subsets.
+  </div>
+  <div class="options">
+    <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+    <label for="optionA77">A) train_test_split()</label><br>
+    <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+    <label for="optionB77">B) split_data()</label><br>
+    <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+    <label for="optionC77">C) divide_data()</label><br>
+    <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+    <label for="optionD77">D) test_train_split()</label><br>
+  </div>
+  <div id="result77" class="result"></div>
+</div>
+
+<!-- Question 79 -->
+<div class="qee">
+  <div class="que">
+    <p>79. What is the purpose of StandardScaler in Scikit-learn?</p>
+    <button class="hint-button" onclick="showHint('hint79')">Show Hint</button>
+  </div>
+  <div id="hint79" style="display: none; color: #555;">
+    <strong>Correct Option: C) Standardize features by removing the mean and scaling to unit variance</strong><br><br>
+    <strong>Solution and Explanation:</strong><br>
+    StandardScaler standardizes a dataset’s features so that they have a mean of 0 and a variance of 1. This is essential for many ML models.
+  </div>
+  <div class="options">
+    <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+    <label for="optionA78">A) Convert text to lowercase</label><br>
+    <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+    <label for="optionB78">B) Encode categorical features</label><br>
+    <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+    <label for="optionC78">C) Standardize features by removing the mean and scaling to unit variance</label><br>
+    <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+    <label for="optionD78">D) Normalize text values</label><br>
+  </div>
+  <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee">
+  <div class="que">
+    <p>80. How do you import a linear regression model from Scikit-learn?</p>
+    <button class="hint-button" onclick="showHint('hint80')">Show Hint</button>
+  </div>
+  <div id="hint80" style="display: none; color: #555;">
+    <strong>Correct Option: B) from sklearn.linear_model import LinearRegression</strong><br><br>
+    <strong>Solution and Explanation:</strong><br>
+    Scikit-learn's LinearRegression class is located in the <code>linear_model</code> module and is used for creating regression models.
+  </div>
+  <div class="options">
+    <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+    <label for="optionA79">A) import LinearRegression from sklearn</label><br>
+    <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+    <label for="optionB79">B) from sklearn.linear_model import LinearRegression</label><br>
+    <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+    <label for="optionC79">C) import linear_model from LinearRegression</label><br>
+    <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+    <label for="optionD79">D) from sklearn.model import LinearRegression</label><br>
+  </div>
+  <div id="result79" class="result"></div>
+</div>
+  
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

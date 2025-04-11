@@ -1,0 +1,2913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIME SERIES FORECASTING</title>
+    <link rel="stylesheet" href="../css/data science.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'C', 'B', 'B', 'B', 'B', 'C', 'C', 'B',
+            'B', 'C', 'B', 'A', 'D', 'B', 'C', 'D', 'C', 'A',
+            'C', 'A', 'D', 'C', 'B', 'B', 'C', 'A', 'C', 'D',
+            'B', 'C', 'D', 'C', 'A', 'B', 'A', 'D', 'A', 'C',
+            'B', 'A', 'D', 'A', 'C', 'B', 'C', 'A', 'D', 'B',
+            'B', 'D', 'B', 'A', 'D', 'B', 'A', 'C', 'A', 'D',
+            'B', 'C', 'A', 'B', 'D', 'C', 'A', 'B', 'A', 'D',
+            'C', 'A', 'C', 'B', 'A', 'B', 'A', 'D', 'C', 'D',
+            'B', 'C', 'D', 'A', 'B', 'B', 'A', 'C', 'D', 'C',
+            'B', 'C', 'A', 'D', 'C', 'B', 'A', 'C', 'B', 'A',
+
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>TIME SERIES FORECASTING</h3>
+        <div class="inner-border">
+                         
+<!-- Question 1 -->
+<div class="qee"> 
+    <div class="que">
+        <p>1. What is the main purpose of the ARIMA model in time series forecasting?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To model and forecast time series data by capturing temporal dependencies</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        ARIMA is used to model and forecast time series data by capturing autoregressive (AR) and moving average (MA) dependencies, along with differencing (I) to make the data stationary.<br><br>
+        **Key Components of ARIMA**:<br>
+        1. Autoregressive (AR) term.<br>
+        2. Integrated (I) term (for differencing).<br>
+        3. Moving Average (MA) term.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) To analyze correlation between features</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) To model and forecast time series data by capturing temporal dependencies</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) To classify time series data</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) To smooth the data</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee"> 
+    <div class="que">
+        <p>2. What does the "I" term in ARIMA stand for?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Integrated (for differencing the time series to make it stationary)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The "I" term in ARIMA refers to "Integration," which is used to make the time series data stationary by differencing the series to remove trends or seasonal components.<br><br>
+        **Steps for Stationarity**:<br>
+        1. Differencing the time series.<br>
+        2. Checking for stationarity with tests like ADF.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Indicator (for seasonal variation)</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Integrated (for differencing the time series to make it stationary)</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) Inflation (for adjusting trends)</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Interval (for smoothing data)</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee"> 
+    <div class="que">
+        <p>3. Which of the following is a key assumption in ARIMA modeling?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The time series should be stationary</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One of the main assumptions of ARIMA is that the time series should be stationary. If the series is not stationary, differencing is applied to make it stationary.<br><br>
+        **Stationarity Requirements**:<br>
+        1. Constant mean.<br>
+        2. Constant variance.<br>
+        3. Constant autocovariance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) The time series must be normally distributed</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) The time series must have a constant trend</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) The time series should be stationary</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) The time series should have no autocorrelation</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee"> 
+    <div class="que">
+        <p>4. Which of the following is used to determine the optimal order of AR and MA terms in an ARIMA model?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) ACF and PACF plots</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The autocorrelation function (ACF) and partial autocorrelation function (PACF) plots are used to determine the appropriate orders for the AR and MA terms of the ARIMA model.<br><br>
+        **Using ACF and PACF**:<br>
+        1. ACF is used for determining the MA term.<br>
+        2. PACF is used for determining the AR term.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) Cross-validation</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) ACF and PACF plots</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) A/B testing</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) Decision trees</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee"> 
+    <div class="que">
+        <p>5. What does the "AR" term in ARIMA represent?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Autoregressive (the relationship between the current observation and its previous values)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The "AR" term in ARIMA refers to the autoregressive component, which captures the dependency between an observation and a number of lagged observations.<br><br>
+        **Autoregressive Process**:<br>
+        1. Models the relationship between a time series and its past values.<br>
+        2. Uses lagged values of the series.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) Auto-correlation of the time series</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) Autoregressive (the relationship between the current observation and its previous values)</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) Automated regression</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) Adjusted regression</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+
+<!-- Question 6 -->
+<div class="qee"> 
+    <div class="que">
+        <p>6. What is the key difference between ARIMA and SARIMA models?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) SARIMA includes seasonal components in addition to the AR, I, and MA terms</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        SARIMA extends ARIMA by adding seasonal components to account for periodic fluctuations in the time series, such as seasonal trends or cycles.<br><br>
+        **SARIMA Model Components**:<br>
+        1. Seasonal AR (AutoRegressive).<br>
+        2. Seasonal I (Integrated).<br>
+        3. Seasonal MA (Moving Average).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) ARIMA is only used for stationary data, while SARIMA handles non-stationary data</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) SARIMA includes seasonal components in addition to the AR, I, and MA terms</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) SARIMA models require no differencing, unlike ARIMA</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) SARIMA is used only for short-term forecasting</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee"> 
+    <div class="que">
+        <p>7. In SARIMA, what does the "S" in the model acronym represent?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Seasonal</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The "S" in SARIMA stands for "Seasonal," indicating that the model takes seasonal patterns into account, in addition to the regular autoregressive, integrated, and moving average components.<br><br>
+        **Seasonal Effects**:<br>
+        1. Repeating patterns at regular intervals.<br>
+        2. Account for cyclical trends, such as yearly, quarterly, or monthly patterns.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Smoothing</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Seasonal</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Stability</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Symmetry</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee"> 
+    <div class="que">
+        <p>8. Which of the following is true about seasonal differencing in SARIMA?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Seasonal differencing helps to remove seasonal trends by subtracting the value of a previous season from the current value</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Seasonal differencing is used to handle seasonality in time series. It involves subtracting the value of the previous season (e.g., one year ago) from the current value to remove seasonal trends.<br><br>
+        **Seasonal Differencing Formula**:<br>
+        \( Y_t = Y_t - Y_{t-s} \)<br>
+        Where \( s \) is the length of the season (e.g., 12 for monthly data with yearly seasonality).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) Seasonal differencing is used to remove outliers</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) Seasonal differencing is applied to remove noise in the data</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) Seasonal differencing helps to remove seasonal trends by subtracting the value of a previous season from the current value</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) Seasonal differencing is not necessary if the time series is already stationary</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee"> 
+    <div class="que">
+        <p>9. What is the role of the "MA" term in SARIMA?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To model the relationship between the observation and a residual error from a moving average model applied to lagged observations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The "MA" (Moving Average) term in SARIMA captures the relationship between an observation and the residual error from a moving average model applied to lagged observations.<br><br>
+        **Moving Average Process**:<br>
+        1. Models the error term of the series.<br>
+        2. Uses weighted average of past residual errors.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) To model the relationship between current and past values</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) To integrate time series for non-stationary data</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) To model the relationship between the observation and a residual error from a moving average model applied to lagged observations</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) To capture the seasonal component of the time series</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee"> 
+    <div class="que">
+        <p>10. How do you identify the seasonal period (s) for SARIMA?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By identifying the periodicity in the time series, such as yearly, quarterly, or monthly patterns</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The seasonal period (s) in SARIMA is determined by identifying the periodicity in the time series, such as cycles occurring every year, every quarter, or every month.<br><br>
+        **Seasonal Periodicity**:<br>
+        1. Yearly: s = 12 (monthly data with yearly seasonality).<br>
+        2. Quarterly: s = 4.<br>
+        3. Weekly: s = 7.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) By performing a statistical test</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) By identifying the periodicity in the time series, such as yearly, quarterly, or monthly patterns</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) By observing the moving averages of the series</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) By comparing the autocorrelations of the data</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+
+<!-- Question 11 -->
+<div class="qee"> 
+    <div class="que">
+        <p>11. What is the main idea behind Exponential Smoothing (Holt-Winters) models?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To give more weight to recent observations while smoothing out past data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Exponential Smoothing models, including Holt-Winters, assign exponentially decreasing weights to past observations, with more weight given to recent data. This allows the model to react quickly to changes in the time series.<br><br>
+        **Key Concepts**:<br>
+        1. Recent data has more influence on predictions.<br>
+        2. Smoothing past observations to capture the trend and seasonality.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) To focus only on the long-term trends of the data</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) To give more weight to recent observations while smoothing out past data</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) To remove all seasonal effects from the time series</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) To focus on long-term forecasts with minimal updates</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee"> 
+    <div class="que">
+        <p>12. Which component is added to the basic Exponential Smoothing model in the Holt-Winters method to handle seasonality?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Seasonal component</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Holt-Winters method extends the basic Exponential Smoothing model by adding a seasonal component. This allows the model to capture seasonal patterns in the time series, making it suitable for data with repeating seasonal variations.<br><br>
+        **Holt-Winters Components**:<br>
+        1. Level.<br>
+        2. Trend.<br>
+        3. Seasonal.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) Trend component</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) Error component</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) Seasonal component</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) Level component</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee"> 
+    <div class="que">
+        <p>13. In the Holt-Winters method, what is the purpose of the trend component?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To model the underlying trend in the data, either increasing or decreasing over time</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The trend component in the Holt-Winters method models the direction of the time series (increasing or decreasing). It adjusts the forecast to account for long-term upward or downward trends in the data.<br><br>
+        **Trend Component**:<br>
+        1. Captures linear trends.<br>
+        2. Helps adjust forecasts for growth or decline.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) To remove any noise from the data</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) To model the underlying trend in the data, either increasing or decreasing over time</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) To adjust for irregular fluctuations in the data</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) To handle missing data in the time series</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee"> 
+    <div class="que">
+        <p>14. How does the Holt-Winters method handle seasonality in the data?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By adding a seasonal component that adjusts for seasonal variations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Holt-Winters method adds a seasonal component to the model, which adjusts the forecast to account for repetitive seasonal patterns such as yearly, monthly, or weekly cycles.<br><br>
+        **Seasonal Adjustment**:<br>
+        1. The seasonal component captures periodic fluctuations.<br>
+        2. The model adjusts for seasonality, allowing for better forecasting of periodic data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) By adding a seasonal component that adjusts for seasonal variations</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) By removing seasonal variations before modeling</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) By modeling seasonality only for short-term forecasts</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) By smoothing out the seasonal patterns from the data</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee"> 
+    <div class="que">
+        <p>15. What is the main advantage of using the Holt-Winters method over simple Exponential Smoothing?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Holt-Winters accounts for both trend and seasonality, while simple Exponential Smoothing only accounts for the level of the series</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The main advantage of the Holt-Winters method is its ability to model both the trend and seasonality of a time series, whereas simple Exponential Smoothing only smooths the level component, ignoring any trends or seasonal patterns.<br><br>
+        **Simple Exponential Smoothing**:<br>
+        1. Only accounts for the level.<br>
+        **Holt-Winters Method**:<br>
+        1. Accounts for level, trend, and seasonality.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) Holt-Winters requires fewer parameters to be estimated</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) Holt-Winters is faster to compute than simple Exponential Smoothing</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) Holt-Winters works better for non-seasonal data</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) Holt-Winters accounts for both trend and seasonality, while simple Exponential Smoothing only accounts for the level of the series</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee"> 
+    <div class="que">
+        <p>16. What is the primary purpose of the Prophet model in time series forecasting?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To handle time series data with daily, weekly, and yearly seasonality and holidays</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Prophet model is designed to handle complex seasonality, including daily, weekly, and yearly trends, and incorporates holidays and special events that may impact the time series data.<br><br>
+        **Key Features of Prophet**:<br>
+        1. Flexibility to model multiple seasonalities.<br>
+        2. Inclusion of holidays and special events.<br>
+        3. Robustness to missing data and outliers.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) To model time series with a linear trend only</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) To handle time series data with daily, weekly, and yearly seasonality and holidays</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) To forecast only for short-term horizons</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) To minimize the effect of outliers in the data</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee"> 
+    <div class="que">
+        <p>17. What is a key strength of the Prophet model compared to traditional forecasting methods?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It automatically handles missing data and outliers</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One of the key strengths of the Prophet model is its ability to automatically handle missing data and outliers, making it easier to use for real-world datasets with irregularities.<br><br>
+        **Advantages of Prophet**:<br>
+        1. Handling missing data.<br>
+        2. Robust to outliers.<br>
+        3. Easy to implement and tune.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) It requires minimal data preprocessing</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) It automatically selects the best model based on the data</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) It automatically handles missing data and outliers</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) It works only with stationary time series data</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee"> 
+    <div class="que">
+        <p>18. In the Prophet model, how does the model handle holidays and special events?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By adding a special holiday effect to the time series data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Prophet allows the inclusion of holidays and special events by adding extra regressors to the model, which adjust the forecast for known holidays or events that may impact the time series.<br><br>
+        **Handling Holidays in Prophet**:<br>
+        1. Holidays can be added manually as regressors.<br>
+        2. Adjusts the time series forecast to account for the impact of holidays.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) By removing holiday-related data before forecasting</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) By ignoring the impact of holidays and events</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) By modeling holiday data separately and ignoring other trends</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) By adding a special holiday effect to the time series data</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee"> 
+    <div class="que">
+        <p>19. What type of trend can the Prophet model handle?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Both linear and logistic trends</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Prophet can model both linear and logistic trends. The logistic trend is useful when the data has an upper bound, such as population or sales data with a maximum capacity.<br><br>
+        **Types of Trends in Prophet**:<br>
+        1. Linear trend (for continuous growth/decline).<br>
+        2. Logistic trend (for bounded growth/decline).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) Exponential trends</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) Seasonal trends only</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) Both linear and logistic trends</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) Polynomial trends</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee"> 
+    <div class="que">
+        <p>20. Which of the following is a key feature of the Prophet model?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It automatically tunes hyperparameters to fit the model</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One of the strengths of the Prophet model is that it automatically tunes hyperparameters to fit the model, making it easier to use for time series forecasting without requiring deep expertise.<br><br>
+        **Key Features of Prophet**:<br>
+        1. Automatic hyperparameter tuning.<br>
+        2. Robust to missing data and outliers.<br>
+        3. Incorporates holidays and special events.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) It automatically tunes hyperparameters to fit the model</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) It can only forecast with linear trends</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) It requires extensive data preprocessing</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) It only works with univariate time series data</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee"> 
+    <div class="que">
+        <p>21. What is the primary advantage of using LSTM networks for time series forecasting?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The ability to capture long-term dependencies in sequential data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        LSTM networks are a type of recurrent neural network (RNN) that are specifically designed to handle long-term dependencies in sequential data, making them effective for time series forecasting where past data influences future values over extended periods.<br><br>
+        **Advantages of LSTM**:<br>
+        1. Long-term memory retention.<br>
+        2. Effective for sequential data.<br>
+        3. Can learn complex patterns over time.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) The ability to ignore short-term dependencies in the data</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) The ability to process time series data in parallel</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) The ability to capture long-term dependencies in sequential data</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) The ability to handle missing data without preprocessing</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee"> 
+    <div class="que">
+        <p>22. Which of the following is a key feature of LSTM networks?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Use of gates to control the flow of information</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        LSTM networks use gates (input, forget, and output gates) to control the flow of information. This allows them to retain important information over time and forget irrelevant information, which is essential for learning long-term dependencies.<br><br>
+        **LSTM Gates**:<br>
+        1. Input gate (decides what information to store).<br>
+        2. Forget gate (decides what information to discard).<br>
+        3. Output gate (decides what information to output).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) Use of gates to control the flow of information</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) Use of convolutional layers to process sequential data</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) Use of pooling layers to reduce dimensionality</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) Use of linear activation functions for all layers</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee"> 
+    <div class="que">
+        <p>23. In LSTM networks, what is the purpose of the forget gate?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To decide which information should be discarded from the memory cell</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The forget gate in LSTM networks is responsible for deciding which information should be discarded from the memory cell. This gate helps the model forget irrelevant or outdated information, allowing it to focus on more important data.<br><br>
+        **LSTM Gates**:<br>
+        1. Input gate (decides what to store).<br>
+        2. Forget gate (decides what to forget).<br>
+        3. Output gate (decides what to output).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) To determine the next state of the memory cell</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) To decide which features to scale in the input data</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) To generate the output from the memory cell</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) To decide which information should be discarded from the memory cell</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee"> 
+    <div class="que">
+        <p>24. What type of problems are LSTM networks particularly good at solving?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Problems involving long-term dependencies in sequential data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        LSTM networks excel at problems where the model needs to remember information over long time periods, such as speech recognition, machine translation, and time series forecasting.<br><br>
+        **Types of Problems for LSTM**:<br>
+        1. Sequential data analysis.<br>
+        2. Time series forecasting.<br>
+        3. Text and speech processing.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) Problems requiring image processing</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) Problems involving supervised learning of categorical data</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) Problems involving long-term dependencies in sequential data</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) Problems that only require short-term forecasting</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee"> 
+    <div class="que">
+        <p>25. What is a key difference between LSTM networks and traditional RNNs?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) LSTMs are designed to avoid the vanishing gradient problem that affects traditional RNNs</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The main advantage of LSTMs over traditional RNNs is their ability to handle long-term dependencies and avoid the vanishing gradient problem, which makes them more effective for time series forecasting.<br><br>
+        **Differences Between LSTM and RNN**:<br>
+        1. LSTMs can remember long-term dependencies.<br>
+        2. LSTMs avoid the vanishing gradient problem.<br>
+        3. Traditional RNNs struggle with long-term dependencies.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) LSTMs have more parameters than traditional RNNs</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) LSTMs are designed to avoid the vanishing gradient problem that affects traditional RNNs</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) LSTMs are faster to train than traditional RNNs</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) LSTMs do not require backpropagation</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+
+<!-- Question 26 -->
+<div class="qee"> 
+    <div class="que">
+        <p>26. What is the primary advantage of using GRU networks over traditional RNNs?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) GRUs have fewer gates and are computationally more efficient than LSTMs</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GRUs are a simpler and more computationally efficient alternative to LSTMs. They combine the input and forget gates into a single update gate, making them faster to train while still being effective at capturing long-term dependencies.<br><br>
+        **Advantages of GRUs**:<br>
+        1. Fewer parameters than LSTMs.<br>
+        2. Faster to train.<br>
+        3. Effective at learning long-term dependencies.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) GRUs are more complex than LSTMs but provide better results</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) GRUs have fewer gates and are computationally more efficient than LSTMs</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) GRUs are less effective at capturing long-term dependencies compared to LSTMs</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) GRUs require more data to perform well compared to LSTMs</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee"> 
+    <div class="que">
+        <p>27. Which of the following is a key feature of GRU networks?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) GRUs use update and reset gates to control the flow of information</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GRUs use two gates—an update gate and a reset gate—unlike LSTMs, which use three gates (input, forget, and output). The update gate controls how much of the previous memory should be carried forward, and the reset gate decides how much of the past information to forget.<br><br>
+        **GRU Gates**:<br>
+        1. Update gate (controls how much of the past state is carried forward).<br>
+        2. Reset gate (decides how much past information to forget).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) GRUs use a single gate for both forget and input operations</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) GRUs do not use any gates for controlling the flow of information</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) GRUs use update and reset gates to control the flow of information</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) GRUs use only an output gate for information flow control</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee"> 
+    <div class="que">
+        <p>28. How do GRU networks handle the vanishing gradient problem?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using update and reset gates to control the flow of gradients</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GRUs, like LSTMs, help mitigate the vanishing gradient problem by controlling how much of the previous memory is retained or forgotten. The update and reset gates regulate the flow of gradients, preventing them from diminishing too quickly during training.<br><br>
+        **Vanishing Gradient Problem**:<br>
+        1. Occurs in traditional RNNs during training with long sequences.<br>
+        2. Both GRUs and LSTMs solve this issue by using gates to control information flow.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) By using update and reset gates to control the flow of gradients</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) By using a fixed learning rate to stabilize the training process</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) By using smaller hidden layers to reduce the weight update</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) By skipping long-term dependencies during training</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee"> 
+    <div class="que">
+        <p>29. What is the primary difference between GRU and LSTM networks?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) GRUs have fewer gates and are computationally simpler than LSTMs</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The key difference is that GRUs have fewer gates (update and reset gates) compared to LSTMs (input, forget, and output gates). This makes GRUs computationally more efficient while still being capable of capturing long-term dependencies in sequential data.<br><br>
+        **Differences between GRU and LSTM**:<br>
+        1. GRUs have fewer gates.<br>
+        2. LSTMs can store more complex memory patterns.<br>
+        3. GRUs are faster to train.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) GRUs use more gates than LSTMs to capture memory patterns</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) GRUs and LSTMs are identical in terms of their architecture</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) GRUs have fewer gates and are computationally simpler than LSTMs</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) GRUs are not effective at learning long-term dependencies compared to LSTMs</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee"> 
+    <div class="que">
+        <p>30. In what kind of scenarios are GRU networks typically used?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Time series forecasting and sequence modeling tasks</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GRU networks are commonly used in sequence modeling tasks such as time series forecasting, speech recognition, and natural language processing, where capturing sequential dependencies is essential.<br><br>
+        **Applications of GRUs**:<br>
+        1. Time series forecasting.<br>
+        2. Speech recognition.<br>
+        3. Natural language processing (NLP).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) Image classification tasks</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) Static data analysis</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) Video processing tasks</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) Time series forecasting and sequence modeling tasks</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+
+<!-- Question 31 -->
+<div class="qee"> 
+    <div class="que">
+        <p>31. What is the primary advantage of using Facebook Prophet for time series forecasting?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Prophet is designed to handle missing data and outliers effectively</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Facebook Prophet is specifically designed to handle common forecasting issues such as missing data, outliers, and seasonal effects. Its robustness to these problems makes it suitable for business applications with irregular data.<br><br>
+        **Advantages of Prophet**:<br>
+        1. Handles missing data well.<br>
+        2. Accommodates seasonal trends.<br>
+        3. Robust to outliers.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) Prophet is only effective for short-term forecasting tasks</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) Prophet is designed to handle missing data and outliers effectively</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) Prophet requires a large amount of data to make accurate predictions</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) Prophet is primarily used for image classification tasks</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee"> 
+    <div class="que">
+        <p>32. Which of the following is a key feature of Facebook Prophet?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It allows the inclusion of holiday effects in the model</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Facebook Prophet allows users to include the effect of holidays and special events, which can have significant impacts on time series data. This feature makes it suitable for business data that may be affected by these factors.<br><br>
+        **Key Features of Prophet**:<br>
+        1. Allows modeling of holiday effects.<br>
+        2. Can handle seasonality.<br>
+        3. Robust to missing data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) Prophet only supports linear trends</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) Prophet does not allow seasonal effects to be modeled</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) It allows the inclusion of holiday effects in the model</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) Prophet only works with univariate time series data</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee"> 
+    <div class="que">
+        <p>33. In Facebook Prophet, what is the default behavior when it encounters missing data?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Prophet fills missing values using an interpolation method</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Facebook Prophet automatically handles missing data by filling the gaps using an interpolation method. This ensures that the model can be trained without manually imputing missing values.<br><br>
+        **Handling Missing Data in Prophet**:<br>
+        1. Prophet uses interpolation to fill in missing values.<br>
+        2. The missing values are treated as part of the time series, making the forecast more robust.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) Prophet removes all rows with missing data before fitting the model</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) Prophet drops the columns with missing values</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) Prophet fills missing values by using a constant value</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) Prophet fills missing values using an interpolation method</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee"> 
+    <div class="que">
+        <p>34. What type of seasonality can Facebook Prophet model?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Both yearly and weekly seasonality</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Facebook Prophet is capable of modeling both yearly and weekly seasonal patterns. This feature is particularly useful for time series data with clear seasonal cycles like retail sales, website traffic, or demand forecasting.<br><br>
+        **Seasonality in Prophet**:<br>
+        1. Yearly seasonality (e.g., annual trends).<br>
+        2. Weekly seasonality (e.g., weekly patterns).<br>
+        3. Daily seasonality (if specified by the user).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) Only yearly seasonality</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) Only weekly seasonality</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) Both yearly and weekly seasonality</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) Prophet cannot model any seasonality</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee"> 
+    <div class="que">
+        <p>35. In Facebook Prophet, what is the purpose of the "changepoint" parameter?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To detect and model abrupt changes in the time series</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The "changepoint" parameter in Prophet allows the model to detect and account for abrupt changes in the trend of the time series. These changepoints are typically used when there are sudden shifts in the data that need to be modeled separately.<br><br>
+        **Changepoint Detection**:<br>
+        1. Detects abrupt changes in trends.<br>
+        2. Provides flexibility to adjust the trend of the model.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) To detect and model abrupt changes in the time series</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) To model holiday effects</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) To adjust the weekly seasonality</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) To fill missing values in the time series</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+
+<!-- Question 36 -->
+<div class="qee"> 
+    <div class="que">
+        <p>36. What is the primary purpose of the Seasonal Decomposition of Time Series (STL)?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To separate a time series into trend, seasonal, and residual components</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        STL (Seasonal and Trend decomposition using Loess) is used to decompose a time series into three main components: trend, seasonal, and residual. This decomposition helps in better understanding of the underlying patterns of the data.<br><br>
+        **STL Components**:<br>
+        1. Trend: Long-term movements in the data.<br>
+        2. Seasonal: Regular patterns that repeat over time.<br>
+        3. Residual: Random noise or irregular components.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) To smooth out the time series for forecasting</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) To separate a time series into trend, seasonal, and residual components</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) To increase the overall accuracy of the model</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) To adjust the frequency of time series data</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee"> 
+    <div class="que">
+        <p>37. Which method is commonly used for performing seasonal decomposition in STL?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) LOESS (Locally Estimated Scatterplot Smoothing)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        STL uses LOESS (Locally Estimated Scatterplot Smoothing) to perform the seasonal decomposition. LOESS is a non-parametric method that fits a series of local polynomials to data points to smooth out trends and seasonal patterns.<br><br>
+        **STL and LOESS**:<br>
+        1. LOESS helps in smoothing the trend and seasonal components.<br>
+        2. It is useful in cases where data shows irregular patterns.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) LOESS (Locally Estimated Scatterplot Smoothing)</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) Fourier Transform</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) Fast Fourier Transform</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) Simple Moving Average</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee"> 
+    <div class="que">
+        <p>38. Which of the following is a key advantage of using STL for time series decomposition?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) STL can handle both additive and multiplicative seasonality</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        STL is flexible in that it can model both additive and multiplicative seasonality, making it suitable for a variety of time series data. This flexibility allows STL to handle different types of seasonal patterns in the data.<br><br>
+        **Additive vs. Multiplicative**:<br>
+        1. Additive: The seasonal component is added to the trend.<br>
+        2. Multiplicative: The seasonal component multiplies the trend.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) STL is only useful for univariate time series</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) STL requires stationary data for decomposition</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) STL cannot handle missing data</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) STL can handle both additive and multiplicative seasonality</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee"> 
+    <div class="que">
+        <p>39. What does the residual component of the STL decomposition represent?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The noise or irregular component of the time series</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The residual component represents the random noise or irregular fluctuations in the time series that cannot be explained by the trend or seasonal components. It is typically used to assess how well the model has fit the data.<br><br>
+        **Residual Component**:<br>
+        1. Represents unexplained variations.<br>
+        2. Can be used to assess model accuracy.<br>
+        3. Should ideally show no pattern if the decomposition is effective.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) The noise or irregular component of the time series</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) The overall trend in the data</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) The seasonal fluctuations in the data</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) The difference between predicted and actual values</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee"> 
+    <div class="que">
+        <p>40. How does STL handle irregular time series data?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) STL can handle irregularly spaced data by using an interpolation method</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        STL can be applied to irregularly spaced time series data by using interpolation to create a regular time grid. This allows for decomposition even when the time intervals between observations are not uniform.<br><br>
+        **Handling Irregular Data in STL**:<br>
+        1. Interpolation is used to regularize the data.<br>
+        2. Makes it suitable for various types of time series data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) STL cannot handle irregular time series data</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) STL ignores missing values in irregular time series data</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) STL can handle irregularly spaced data by using an interpolation method</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) STL only works with regularly spaced time series data</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+
+<!-- Question 41 -->
+<div class="qee"> 
+    <div class="que">
+        <p>41. What is the primary purpose of the ARMA model in time series forecasting?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To model time series data using past values and past forecast errors</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The ARMA model combines two components: Autoregressive (AR) and Moving Average (MA). The AR part models the relationship between an observation and a number of lagged observations, while the MA part models the relationship between an observation and a number of lagged forecast errors.<br><br>
+        **ARMA Components**:<br>
+        1. Autoregressive (AR) part: Uses past values.<br>
+        2. Moving Average (MA) part: Uses past forecast errors.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) To predict future values based on a weighted average of past values</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) To model time series data using past values and past forecast errors</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) To adjust seasonality patterns in time series data</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) To perform exponential smoothing on time series data</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee"> 
+    <div class="que">
+        <p>42. Which of the following is a key assumption of the ARMA model?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The time series should be stationary</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One of the key assumptions of the ARMA model is that the time series should be stationary, meaning its statistical properties (mean, variance, autocorrelation) should not change over time. If the data is not stationary, it must be transformed to become stationary before applying the ARMA model.<br><br>
+        **Stationarity**:<br>
+        1. A stationary series has constant mean and variance.<br>
+        2. The autocorrelation structure does not change over time.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) The time series should be stationary</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) The time series should have a trend component</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) The time series should be seasonal</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) The time series should have non-constant variance</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee"> 
+    <div class="que">
+        <p>43. What are the components of an ARMA model?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Autoregressive (AR) and Moving Average (MA) components</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The ARMA model is composed of two key components: the Autoregressive (AR) part and the Moving Average (MA) part. The AR part uses past values to predict the current value, while the MA part uses past forecast errors to predict the current value.<br><br>
+        **Components of ARMA**:<br>
+        1. Autoregressive (AR): Models the dependency between an observation and several lagged observations.<br>
+        2. Moving Average (MA): Models the dependency between an observation and residual errors from previous predictions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) Autoregressive and Exponential Smoothing components</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) Autoregressive and Seasonal components</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) Moving Average and Trend components</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) Autoregressive (AR) and Moving Average (MA) components</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee"> 
+    <div class="que">
+        <p>44. In an ARMA model, what does the Autoregressive (AR) component represent?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) A model of the dependency between an observation and several lagged observations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Autoregressive (AR) component models the relationship between the current observation and one or more previous observations. It suggests that past values have an influence on the current value of the time series.<br><br>
+        **AR Component**:<br>
+        1. AR(1) refers to a model that uses the previous time step.<br>
+        2. Higher AR values use multiple previous steps.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) A model of the dependency between an observation and several lagged observations</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) A model of the trend in the time series data</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) A model of the random noise in the data</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) A model of the seasonal patterns in the data</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee"> 
+    <div class="que">
+        <p>45. How does the Moving Average (MA) component in an ARMA model work?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It models the dependency between an observation and past forecast errors</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Moving Average (MA) component models the relationship between the current observation and the past residuals or forecast errors. This component helps to account for the random noise that affects time series data.<br><br>
+        **MA Component**:<br>
+        1. MA(1) models the dependency on the first lagged error.<br>
+        2. Higher-order MA models depend on multiple lagged errors.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) It models the trend in the data based on past values</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) It models the seasonal patterns in the data</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) It models the dependency between an observation and past forecast errors</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) It adjusts the data to make it stationary</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Question 46 -->
+<div class="qee"> 
+    <div class="que">
+        <p>46. What is the main objective of Time Series Cross-Validation?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To evaluate the model’s performance over different time periods</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Time Series Cross-Validation is used to assess how a model performs when trained and tested on different time periods. Unlike traditional cross-validation, this method takes into account the temporal order of data.<br><br>
+        **Key Points of Time Series Cross-Validation**:<br>
+        1. Uses a rolling or expanding window approach.<br>
+        2. Ensures that data from future points is not used to predict past data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) To split the data into training and test sets randomly</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) To evaluate the model’s performance over different time periods</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) To identify the seasonal patterns in the data</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) To ensure the model overfits the data</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee"> 
+    <div class="que">
+        <p>47. Which method is commonly used in Time Series Cross-Validation to split the data?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Rolling or Expanding Window</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The most common methods for splitting the data in Time Series Cross-Validation are the Rolling Window and Expanding Window approaches. In Rolling Window, the training and test sets are shifted forward in time. In Expanding Window, the training set expands as the time moves forward, while the test set remains the same size.<br><br>
+        **Methods for Splitting Data**:<br>
+        1. Rolling Window: Keeps the size of the training set fixed.<br>
+        2. Expanding Window: Expands the training set over time.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) Random splitting of the data</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) K-fold cross-validation</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) Rolling or Expanding Window</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) Stratified splitting based on time</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee"> 
+    <div class="que">
+        <p>48. Why is it important to maintain the temporal order of the data in Time Series Cross-Validation?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To prevent future data from influencing past predictions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In time series forecasting, future data should not be used to predict past or present values. Maintaining the temporal order ensures that the model is trained only on past information when making predictions for future values.<br><br>
+        **Importance of Temporal Order**:<br>
+        1. Ensures model generalizes properly to unseen future data.<br>
+        2. Prevents data leakage and unrealistic predictions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) To prevent future data from influencing past predictions</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) To increase the speed of model training</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) To allow for random selection of test sets</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) To ensure that the model overfits to the data</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee"> 
+    <div class="que">
+        <p>49. Which of the following is a challenge when using Time Series Cross-Validation?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) The training set might not have enough data at the start</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One challenge in Time Series Cross-Validation is that at the beginning of the dataset, the training set may be too small to provide meaningful results. As you move forward in time, the training set increases, but early validation splits may suffer from limited data.<br><br>
+        **Challenges**:<br>
+        1. Small training sets at the beginning.<br>
+        2. Computational cost for large datasets.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) The model overfits the data during validation</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) It is difficult to account for seasonality</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) Randomness in time series data creates bias</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) The training set might not have enough data at the start</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee"> 
+    <div class="que">
+        <p>50. How can Time Series Cross-Validation help in model selection?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By providing performance estimates across different time periods</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Time Series Cross-Validation helps evaluate how well a model generalizes by testing it across multiple time periods. This gives a better indication of its stability and performance in real-world scenarios.<br><br>
+        **Benefits of Time Series Cross-Validation**:<br>
+        1. Helps identify overfitting.<br>
+        2. Provides more robust performance estimates.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) By randomly selecting different subsets of the data</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) By providing performance estimates across different time periods</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) By evaluating model performance based on random data splits</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) By optimizing model parameters automatically</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+
+<!-- Question 51 -->
+<div class="qee"> 
+    <div class="que">
+        <p>51. How can Random Forest be used for time series forecasting?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By creating lag features and predicting future values</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Random Forest can be applied to time series by transforming the data to include lagged observations as features. This way, it can predict future values by learning from the past.<br><br>
+        **Steps for Using Random Forest in Time Series**:<br>
+        1. Create lag features (previous time steps as features).<br>
+        2. Train a Random Forest model on the dataset.<br>
+        3. Forecast future values based on the learned patterns.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) By applying clustering on time series data</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) By creating lag features and predicting future values</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) By reducing the dimensionality of time series data</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) By dividing time series into training and test sets randomly</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee"> 
+    <div class="que">
+        <p>52. What is a common limitation of using Random Forest for time series forecasting?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Random Forest does not naturally account for temporal dependencies</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        While Random Forest can model time series data by creating lag features, it does not inherently capture the sequential nature of time series, which can be a limitation when modeling long-term dependencies.<br><br>
+        **Limitations of Random Forest for Time Series**:<br>
+        1. Does not inherently model sequential data.<br>
+        2. May struggle with capturing long-term dependencies.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) Random Forest requires very large datasets</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) It cannot be used for regression tasks</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) Random Forest is too slow for time series forecasting</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) Random Forest does not naturally account for temporal dependencies</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee"> 
+    <div class="que">
+        <p>53. How does XGBoost handle time series forecasting?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By creating lag features and using gradient boosting for predictions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        XGBoost can be used for time series forecasting by creating lagged features from the data. The model uses gradient boosting to optimize prediction accuracy by minimizing the loss function.<br><br>
+        **Steps for Using XGBoost for Time Series**:<br>
+        1. Create lag features.<br>
+        2. Train the model using gradient boosting.<br>
+        3. Make predictions based on the lagged data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) By using deep learning to capture temporal dependencies</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) By creating lag features and using gradient boosting for predictions</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) By predicting seasonal components of the data</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) By decomposing the time series into trend, seasonality, and noise</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee"> 
+    <div class="que">
+        <p>54. What is the advantage of using XGBoost for time series forecasting compared to traditional time series models?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) XGBoost can handle non-linear relationships and large datasets effectively</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        XGBoost is highly effective for time series forecasting because it can capture non-linear relationships in the data and perform well with large datasets. It also incorporates feature importance, which helps in understanding model behavior.<br><br>
+        **Advantages of XGBoost for Time Series**:<br>
+        1. Handles non-linearities effectively.<br>
+        2. Works well with large datasets.<br>
+        3. Feature importance can be easily interpreted.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) XGBoost can handle non-linear relationships and large datasets effectively</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) XGBoost automatically detects and removes seasonality</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) XGBoost is better than ARIMA for all time series problems</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) XGBoost does not require feature engineering for time series</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee"> 
+    <div class="que">
+        <p>55. What is a potential limitation of using XGBoost for time series forecasting?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) XGBoost requires careful tuning of hyperparameters</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A potential limitation of XGBoost is the need for careful tuning of hyperparameters, such as learning rate, number of trees, and max depth, to achieve optimal performance for time series forecasting.<br><br>
+        **Challenges with XGBoost**:<br>
+        1. Requires careful tuning of hyperparameters.<br>
+        2. Can be computationally expensive with large datasets.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) XGBoost is not suitable for time series with long-term dependencies</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) XGBoost does not support multi-step forecasting</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) XGBoost is sensitive to noisy data in time series</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) XGBoost requires careful tuning of hyperparameters</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+
+<!-- Question 56 -->
+<div class="qee"> 
+    <div class="que">
+        <p>56. How do ensemble methods improve time series forecasting?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By combining predictions from multiple models to reduce bias and variance</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Ensemble methods combine predictions from multiple individual models to improve forecasting accuracy. This reduces bias and variance, providing more robust and reliable predictions.<br><br>
+        **Benefits of Ensemble Methods**:<br>
+        1. Reduces overfitting.<br>
+        2. Combines the strengths of various models.<br>
+        3. Increases forecasting accuracy by considering different perspectives.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) By focusing on a single model’s prediction</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) By combining predictions from multiple models to reduce bias and variance</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) By removing the influence of noisy data</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) By choosing the best model from multiple options</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee"> 
+    <div class="que">
+        <p>57. Which ensemble method is most commonly used for time series forecasting?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Random Forest</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Random Forest is an ensemble method based on decision trees that is commonly used for time series forecasting. It works well for capturing complex patterns in the data.<br><br>
+        **Popular Ensemble Methods**:<br>
+        1. Random Forest.<br>
+        2. Gradient Boosting Machines (GBM).<br>
+        3. AdaBoost.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) Random Forest</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) K-means Clustering</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) Support Vector Machine</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) Linear Regression</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee"> 
+    <div class="que">
+        <p>58. What is the role of cross-validation in ensemble methods for time series forecasting?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To validate the model performance on different subsets of data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Cross-validation helps to assess the generalization ability of an ensemble model by splitting the data into training and testing sets multiple times and evaluating its performance on each subset.<br><br>
+        **Benefits of Cross-Validation**:<br>
+        1. Helps avoid overfitting.<br>
+        2. Ensures the model generalizes well on unseen data.<br>
+        3. Provides more reliable performance estimates.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) To fine-tune hyperparameters</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) To optimize the model’s feature selection process</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) To validate the model performance on different subsets of data</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) To visualize data distributions</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee"> 
+    <div class="que">
+        <p>59. What is the advantage of using ensemble methods in time series forecasting over a single model?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Ensemble methods combine the strengths of different models to improve accuracy and reduce errors</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        By combining the predictions of multiple models, ensemble methods can reduce the likelihood of errors and provide a more accurate forecast than relying on a single model.<br><br>
+        **Advantages of Ensemble Methods**:<br>
+        1. Combine strengths of multiple models.<br>
+        2. Reduce bias and variance.<br>
+        3. More robust and reliable forecasts.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) Ensemble methods combine the strengths of different models to improve accuracy and reduce errors</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) Ensemble methods always outperform single models in every scenario</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) Ensemble methods are faster to train than single models</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) Ensemble methods simplify the model training process</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee"> 
+    <div class="que">
+        <p>60. What is the primary challenge when using ensemble methods for time series forecasting?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Managing model diversity and combining the predictions effectively</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One of the main challenges in ensemble methods is ensuring diversity among the individual models and effectively combining their predictions to get the best possible results.<br><br>
+        **Challenges with Ensemble Methods**:<br>
+        1. Ensuring model diversity.<br>
+        2. Effectively combining predictions.<br>
+        3. Managing computational complexity.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) Ensuring all models have similar performance</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) Reducing the number of models used</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) Avoiding overfitting in each individual model</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) Managing model diversity and combining the predictions effectively</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+
+<!-- Question 61 -->
+<div class="qee"> 
+    <div class="que">
+        <p>61. What does stationarity mean in time series analysis?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A time series whose statistical properties, such as mean and variance, do not change over time</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A stationary time series has constant mean, variance, and autocovariance over time, making it suitable for modeling and forecasting.<br><br>
+        **Key Characteristics of Stationarity**:<br>
+        1. Constant mean.<br>
+        2. Constant variance.<br>
+        3. Constant autocovariance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) A time series with no missing values</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) A time series whose statistical properties, such as mean and variance, do not change over time</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) A time series with an increasing trend over time</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) A time series with seasonal fluctuations</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee"> 
+    <div class="que">
+        <p>62. Why is stationarity important in time series forecasting?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Many forecasting models, such as ARIMA, assume that the time series is stationary</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Many statistical and machine learning models, such as ARIMA, require stationarity because they rely on the assumption that the time series' properties do not change over time.<br><br>
+        **Importance of Stationarity**:<br>
+        1. Enables reliable forecasting.<br>
+        2. Ensures model assumptions are met.<br>
+        3. Helps identify underlying patterns in data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) It simplifies data visualization</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) It allows for more complex models to be used</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) Many forecasting models, such as ARIMA, assume that the time series is stationary</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) It increases the size of the dataset</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee"> 
+    <div class="que">
+        <p>63. Which of the following is a common method to achieve stationarity in a time series?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Differencing the series</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Differencing involves subtracting the previous observation from the current one to remove trends and achieve stationarity.<br><br>
+        **Methods to Achieve Stationarity**:<br>
+        1. Differencing.<br>
+        2. Transformation (log, square root, etc.).<br>
+        3. Seasonal decomposition.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) Differencing the series</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) Increasing the sample size</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) Smoothing the data</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) Using higher-order polynomials</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee"> 
+    <div class="que">
+        <p>64. What is the purpose of Feature Engineering in time series forecasting?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To create new input features from the existing time series data to improve model performance</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Feature engineering involves transforming raw time series data into meaningful features, such as lag values, rolling averages, or seasonal indicators, which can enhance model performance.<br><br>
+        **Feature Engineering Techniques**:<br>
+        1. Lag features.<br>
+        2. Rolling statistics.<br>
+        3. Date and time-based features.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) To reduce the size of the dataset</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) To create new input features from the existing time series data to improve model performance</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) To remove outliers from the dataset</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) To standardize the data for machine learning models</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee"> 
+    <div class="que">
+        <p>65. Which of the following is a common feature used in time series forecasting models?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Lag features</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Lag features are previous values from the time series, used to predict future values. They help capture temporal dependencies in the data.<br><br>
+        **Common Time Series Features**:<br>
+        1. Lag features.<br>
+        2. Moving averages.<br>
+        3. Rolling statistics.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) Date and time of observation</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) Random noise in the data</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) Exogenous variables</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) Lag features</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+
+<!-- Question 66 -->
+<div class="qee"> 
+    <div class="que">
+        <p>66. What is the primary goal of hyperparameter tuning in time series models?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To find the best combination of hyperparameters that maximizes model performance</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Hyperparameter tuning involves adjusting model parameters, such as the number of lags or learning rate, to optimize the model's forecasting accuracy.<br><br>
+        **Hyperparameter Tuning Methods**:<br>
+        1. Grid search.<br>
+        2. Random search.<br>
+        3. Bayesian optimization.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) To minimize the computational cost of the model</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) To increase the size of the training dataset</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) To find the best combination of hyperparameters that maximizes model performance</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) To reduce overfitting by increasing model complexity</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee"> 
+    <div class="que">
+        <p>67. Which of the following is a commonly used method for hyperparameter tuning in time series models?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Grid Search</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Grid search involves specifying a range of values for each hyperparameter and systematically evaluating all possible combinations to find the best set.<br><br>
+        **Hyperparameter Tuning Methods**:<br>
+        1. Grid search.<br>
+        2. Random search.<br>
+        3. Bayesian optimization.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) Grid Search</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) Feature scaling</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) Random forest</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) Data augmentation</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee"> 
+    <div class="que">
+        <p>68. What is the key difference between univariate and multivariate time series?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Univariate time series involves one variable, while multivariate time series involves multiple variables</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Univariate time series involves data for a single variable over time, while multivariate time series includes multiple variables observed at the same time.<br><br>
+        **Differences**:<br>
+        1. Univariate: One variable over time.<br>
+        2. Multivariate: Multiple variables over time.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) Univariate time series includes seasonal trends, while multivariate does not</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) Univariate time series involves one variable, while multivariate time series involves multiple variables</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) Univariate time series is based on historical data, while multivariate time series uses predictions</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) Univariate time series does not require models, while multivariate time series does</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee"> 
+    <div class="que">
+        <p>69. In which situation is multivariate time series analysis most useful?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) When forecasting multiple interrelated variables simultaneously</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Multivariate time series analysis is useful when you need to predict multiple time-dependent variables that are related to each other, such as sales and temperature.<br><br>
+        **Applications of Multivariate Time Series**:<br>
+        1. Forecasting multiple interrelated variables.<br>
+        2. Analyzing the relationship between different time series.<br>
+        3. Multi-factor modeling.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) When forecasting multiple interrelated variables simultaneously</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) When there is no correlation between variables</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) When only one variable is available for forecasting</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) When the data is missing or inconsistent</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee"> 
+    <div class="que">
+        <p>70. What is a key advantage of using multivariate time series over univariate time series?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It allows for modeling the relationships between multiple time-dependent variables</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Multivariate time series analysis allows you to model the relationships and interactions between multiple variables, making it more powerful for complex forecasting problems.<br><br>
+        **Advantages of Multivariate Time Series**:<br>
+        1. Modeling interdependencies between variables.<br>
+        2. Enhanced forecasting accuracy with related variables.<br>
+        3. Better decision-making with multiple data streams.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) It is easier to interpret than univariate time series</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) It requires less data for accurate forecasting</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) It is faster to compute than univariate time series</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) It allows for modeling the relationships between multiple time-dependent variables</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+
+<!-- Question 71 -->
+<div class="qee"> 
+    <div class="que">
+        <p>71. What is the primary purpose of data augmentation in time series forecasting?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To increase the amount of training data by generating synthetic data points</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Data augmentation is used to enhance the model’s generalization by artificially increasing the amount of training data, helping to avoid overfitting.<br><br>
+        **Common Data Augmentation Techniques**:<br>
+        1. Time warping.<br>
+        2. Jittering.<br>
+        3. Seasonal pattern changes.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) To improve the accuracy of test data</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) To reduce the complexity of the model</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) To increase the amount of training data by generating synthetic data points</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) To make the model more interpretable</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee"> 
+    <div class="que">
+        <p>72. Which of the following is a common data augmentation technique for time series data?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Time warping</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Time warping involves modifying the time axis of the data to create new synthetic data points, which can help improve model robustness.<br><br>
+        **Other Augmentation Techniques**:<br>
+        1. Jittering.<br>
+        2. Scaling.<br>
+        3. Flipping the time series.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) Time warping</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) Feature scaling</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) Data normalization</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) Data imputation</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee"> 
+    <div class="que">
+        <p>73. What does MAE (Mean Absolute Error) measure in time series forecasting?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The average absolute difference between predicted and actual values</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        MAE measures the accuracy of the model by averaging the absolute differences between predicted and observed values, with lower values indicating better performance.<br><br>
+        **Evaluation Metrics for Forecasting**:<br>
+        1. MAE.<br>
+        2. RMSE.<br>
+        3. MAPE.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) The square of the difference between predicted and actual values</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) The ratio of predicted to actual values</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) The average absolute difference between predicted and actual values</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) The percentage difference between predicted and actual values</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee"> 
+    <div class="que">
+        <p>74. What does RMSE (Root Mean Square Error) emphasize in forecasting?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Large errors in the forecast</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        RMSE calculates the square root of the average of squared differences between predicted and actual values, making it sensitive to large errors.<br><br>
+        **Evaluation Metrics for Forecasting**:<br>
+        1. MAE.<br>
+        2. RMSE.<br>
+        3. MAPE.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) Small errors in the forecast</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) Large errors in the forecast</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) The percentage difference between predicted and actual values</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) The average absolute difference between predicted and actual values</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<!-- Question 75 -->
+<div class="qee"> 
+    <div class="que">
+        <p>75. What does MAPE (Mean Absolute Percentage Error) measure in time series forecasting?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The percentage error between predicted and actual values</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        MAPE measures the accuracy of a forecast by calculating the percentage difference between predicted and actual values, with lower values indicating better performance.<br><br>
+        **Evaluation Metrics for Forecasting**:<br>
+        1. MAE.<br>
+        2. RMSE.<br>
+        3. MAPE.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) The percentage error between predicted and actual values</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) The average absolute difference between predicted and actual values</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) The square root of the squared error</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) The ratio of predicted to actual values</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+
+<!-- Question 76 -->
+<div class="qee"> 
+    <div class="que">
+        <p>76. What is the primary goal of anomaly detection in time series forecasting?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To identify unusual patterns that deviate from expected behavior</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Anomaly detection helps to identify data points or patterns that significantly differ from the rest of the time series data, indicating potential outliers or changes in trends.<br><br>
+        **Techniques for Anomaly Detection**:<br>
+        1. Statistical methods (e.g., Z-score).<br>
+        2. Machine learning algorithms.<br>
+        3. Decomposition-based methods.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) To remove duplicate data points</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) To identify unusual patterns that deviate from expected behavior</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) To predict future values based on historical trends</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) To smooth the time series data</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee"> 
+    <div class="que">
+        <p>77. Which method is commonly used for anomaly detection in time series data?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Z-score</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Z-score is a statistical method that measures how far a data point deviates from the mean in terms of standard deviations, helping identify outliers in time series data.<br><br>
+        **Common Anomaly Detection Methods**:<br>
+        1. Z-score.<br>
+        2. Moving average.<br>
+        3. Machine learning algorithms like Isolation Forest.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) Z-score</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) Linear regression</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) Decision trees</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) K-means clustering</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee"> 
+    <div class="que">
+        <p>78. Which of the following is a key challenge in anomaly detection for time series data?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Differentiating between natural fluctuations and true anomalies</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One of the main challenges in anomaly detection is distinguishing between genuine anomalies (e.g., system failures) and natural fluctuations or noise within the data.<br><br>
+        **Challenges in Anomaly Detection**:<br>
+        1. Noisy data.<br>
+        2. Identifying true anomalies versus fluctuations.<br>
+        3. Seasonal patterns.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) Lack of sufficient historical data</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) High dimensionality of time series data</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) Inconsistent time intervals</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) Differentiating between natural fluctuations and true anomalies</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+
+<!-- Question 79 -->
+<div class="qee"> 
+    <div class="que">
+        <p>79. What is the main advantage of using structural time series models?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To explicitly model the underlying components of the time series</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Structural time series models allow for decomposition of the data into various components, such as trend, seasonality, and noise, offering a better understanding of the underlying process.<br><br>
+        **Key Features of Structural Models**:<br>
+        1. Decomposition into trend, seasonal, and irregular components.<br>
+        2. Flexibility to model various time series structures.<br>
+        3. Handling non-stationary data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) To improve the accuracy of the model</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) To model only the trend component</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) To explicitly model the underlying components of the time series</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) To reduce the dimensionality of the dataset</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee"> 
+    <div class="que">
+        <p>80. Which of the following is NOT a component typically modeled by structural time series models?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Predictor variable</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Structural time series models typically model trend, seasonality, and irregular components, but not predictor variables (those are usually modeled with other techniques).<br><br>
+        **Components of Structural Models**:<br>
+        1. Trend.<br>
+        2. Seasonality.<br>
+        3. Irregular components.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) Trend</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) Seasonality</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) Irregular component</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) Predictor variable</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+<!-- Question 81 -->
+<div class="qee"> 
+    <div class="que">
+        <p>81. What is the key advantage of using the DeepAR model for time series forecasting?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It can handle multiple time series and learn from common patterns</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        DeepAR is a probabilistic forecasting model that utilizes a recurrent neural network (RNN) to learn patterns from multiple related time series, making it effective for datasets with common trends and seasonality.<br><br>
+        **Key Features of DeepAR**:<br>
+        1. Handles multiple time series.<br>
+        2. Can predict both point forecasts and uncertainty intervals.<br>
+        3. Learns common patterns across different series.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) It only works with univariate time series data</label><br>
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) It can handle multiple time series and learn from common patterns</label><br>
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) It requires no prior knowledge of seasonality or trend</label><br>
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) It only performs deterministic forecasting</label><br>
+    </div>
+    <div id="result80" class="result"></div>
+</div>
+
+<!-- Question 82 -->
+<div class="qee"> 
+    <div class="que">
+        <p>82. Which type of neural network is most commonly used in the DeepAR model for time series forecasting?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Recurrent Neural Networks (RNN)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        DeepAR utilizes Recurrent Neural Networks (RNNs) to model the temporal dependencies within time series data, which makes them well-suited for handling sequential patterns.<br><br>
+        **RNNs and Time Series**:<br>
+        1. RNNs are designed to capture dependencies in sequential data.<br>
+        2. They can process data one time step at a time.<br>
+        3. LSTM (Long Short-Term Memory) is a type of RNN that can capture long-range dependencies.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) Convolutional Neural Networks (CNN)</label><br>
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) Feedforward Neural Networks</label><br>
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) Recurrent Neural Networks (RNN)</label><br>
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) Generative Adversarial Networks (GAN)</label><br>
+    </div>
+    <div id="result81" class="result"></div>
+</div>
+
+<!-- Question 83 -->
+<div class="qee"> 
+    <div class="que">
+        <p>83. What type of forecasting does the DeepAR model perform?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Probabilistic forecasting</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        DeepAR performs probabilistic forecasting, which provides a range of possible future values and their associated probabilities, allowing for uncertainty quantification in the forecasts.<br><br>
+        **Types of Forecasting**:<br>
+        1. Deterministic forecasting: Predicts a single value.<br>
+        2. Probabilistic forecasting: Provides a distribution of possible values.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) Deterministic forecasting</label><br>
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) Univariate forecasting</label><br>
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) Short-term forecasting</label><br>
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) Probabilistic forecasting</label><br>
+    </div>
+    <div id="result82" class="result"></div>
+</div>
+
+<!-- Question 84 -->
+<div class="qee"> 
+    <div class="que">
+        <p>84. What is the primary benefit of using Bayesian Time Series Forecasting?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It allows for incorporating prior knowledge and uncertainty into the forecasting process</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Bayesian Time Series Forecasting allows the integration of prior beliefs or knowledge about the data (expressed as prior distributions) and updates these beliefs as new data becomes available.<br><br>
+        **Bayesian Forecasting Benefits**:<br>
+        1. Incorporates prior knowledge.<br>
+        2. Quantifies uncertainty.<br>
+        3. Can improve forecast accuracy in uncertain environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) It allows for incorporating prior knowledge and uncertainty into the forecasting process</label><br>
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) It focuses on short-term forecasting only</label><br>
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) It is less computationally expensive than other models</label><br>
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) It only works with univariate time series data</label><br>
+    </div>
+    <div id="result83" class="result"></div>
+</div>
+
+<!-- Question 85 -->
+<div class="qee"> 
+    <div class="que">
+        <p>85. Which of the following is a core principle of Bayesian Time Series Forecasting?</p>
+        <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+    </div>
+    <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The use of prior distributions to express beliefs about the data before observing it</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Bayesian Time Series Forecasting relies on prior distributions that represent the modeler’s beliefs or knowledge before any data is observed. These priors are updated using the data (posterior distributions).<br><br>
+        **Bayesian Approach**:<br>
+        1. Prior distributions.<br>
+        2. Likelihood function.<br>
+        3. Posterior distributions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+        <label for="optionA84">A) Linear regression for time series data</label><br>
+        <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+        <label for="optionB84">B) The use of prior distributions to express beliefs about the data before observing it</label><br>
+        <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+        <label for="optionC84">C) Only applying simple moving averages</label><br>
+        <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+        <label for="optionD84">D) Only focusing on short-term predictions</label><br>
+    </div>
+    <div id="result84" class="result"></div>
+</div>
+
+<!-- Question 86 -->
+<div class="qee"> 
+    <div class="que">
+        <p>86. What is the primary purpose of using Variational Autoencoders (VAEs) in time series forecasting?</p>
+        <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+    </div>
+    <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To learn a probabilistic latent space representation of the time series data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Variational Autoencoders (VAEs) are used to learn a compact probabilistic representation of the time series data in a lower-dimensional latent space, which helps in generating new time series data or for other tasks like anomaly detection.<br><br>
+        **Key Features of VAEs**:<br>
+        1. Learn a distribution in latent space.<br>
+        2. Useful for generative tasks.<br>
+        3. Provide uncertainty estimation for predictions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+        <label for="optionA85">A) To apply deterministic forecasting</label><br>
+        <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+        <label for="optionB85">B) To learn a probabilistic latent space representation of the time series data</label><br>
+        <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+        <label for="optionC85">C) To directly forecast future values without using latent representations</label><br>
+        <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+        <label for="optionD85">D) To avoid the use of neural networks</label><br>
+    </div>
+    <div id="result85" class="result"></div>
+</div>
+
+<!-- Question 87 -->
+<div class="qee"> 
+    <div class="que">
+        <p>87. What is a key advantage of using Variational Autoencoders (VAEs) for time series anomaly detection?</p>
+        <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+    </div>
+    <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) They can model complex distributions and detect unusual patterns effectively</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        VAEs allow for the modeling of complex data distributions and can detect deviations from learned distributions, making them particularly useful for identifying anomalies in time series data.<br><br>
+        **Anomaly Detection with VAEs**:<br>
+        1. Learn the normal patterns of time series.<br>
+        2. Identify deviations from normal patterns as anomalies.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+        <label for="optionA86">A) They can model complex distributions and detect unusual patterns effectively</label><br>
+        <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+        <label for="optionB86">B) They focus only on time series without seasonal patterns</label><br>
+        <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+        <label for="optionC86">C) They work exclusively with univariate time series data</label><br>
+        <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+        <label for="optionD86">D) They require no training data for anomaly detection</label><br>
+    </div>
+    <div id="result86" class="result"></div>
+</div>
+
+<!-- Question 88 -->
+<div class="qee"> 
+    <div class="que">
+        <p>88. What is the architecture commonly used for Temporal Convolutional Networks (TCNs)?</p>
+        <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+    </div>
+    <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) 1D convolutions and residual connections</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Temporal Convolutional Networks (TCNs) use 1D convolutions to process sequential data and incorporate residual connections to allow for better gradient flow during training. This architecture helps model long-range dependencies in time series data.<br><br>
+        **Key Features of TCNs**:<br>
+        1. 1D convolutions for sequential data.<br>
+        2. Residual connections for efficient training.<br>
+        3. Can capture long-range dependencies.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+        <label for="optionA87">A) Fully connected layers and recurrent connections</label><br>
+        <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+        <label for="optionB87">B) Multi-layer perceptron (MLP) architecture</label><br>
+        <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+        <label for="optionC87">C) 1D convolutions and residual connections</label><br>
+        <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+        <label for="optionD87">D) Autoencoder-based architecture</label><br>
+    </div>
+    <div id="result87" class="result"></div>
+</div>
+
+<!-- Question 89 -->
+<div class="qee"> 
+    <div class="que">
+        <p>89. How do Temporal Convolutional Networks (TCNs) handle long-range dependencies in time series data?</p>
+        <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+    </div>
+    <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using dilated convolutions to expand the receptive field</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        TCNs use dilated convolutions to increase the receptive field without increasing the number of parameters. This allows the model to capture long-range dependencies in the time series data efficiently.<br><br>
+        **Dilated Convolutions**:<br>
+        1. Expands the receptive field without increasing computational complexity.<br>
+        2. Enables capturing long-range dependencies in time series data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+        <label for="optionA88">A) By using recurrent layers to capture long-term patterns</label><br>
+        <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+        <label for="optionB88">B) By using a simple moving average filter</label><br>
+        <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+        <label for="optionC88">C) By using a 2D convolutional layer</label><br>
+        <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+        <label for="optionD88">D) By using dilated convolutions to expand the receptive field</label><br>
+    </div>
+    <div id="result88" class="result"></div>
+</div>
+
+<!-- Question 90 -->
+<div class="qee"> 
+    <div class="que">
+        <p>90. What is the primary benefit of using Temporal Convolutional Networks (TCNs) for time series forecasting?</p>
+        <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+    </div>
+    <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Efficiently modeling long-range dependencies without the need for recurrent layers</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        TCNs provide an efficient way to model long-range dependencies in time series data by using dilated convolutions. This method avoids the challenges faced by recurrent layers in learning long-term dependencies.<br><br>
+        **Advantages of TCNs**:<br>
+        1. No vanishing/exploding gradient issues like RNNs.<br>
+        2. Faster parallel training due to convolutional operations.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+        <label for="optionA89">A) Simplifying the architecture for time series prediction</label><br>
+        <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+        <label for="optionB89">B) Reducing the need for data preprocessing</label><br>
+        <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+        <label for="optionC89">C) Efficiently modeling long-range dependencies without the need for recurrent layers</label><br>
+        <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+        <label for="optionD89">D) Avoiding the use of convolutions in time series data</label><br>
+    </div>
+    <div id="result89" class="result"></div>
+</div>
+
+<!-- Question 91 -->
+<div class="qee"> 
+    <div class="que">
+        <p>91. What is the primary goal of Change Point Detection in time series analysis?</p>
+        <button id="hintButton90" class="hint-button" type="button" onclick="showHint('hint91')">Show Hint</button>
+    </div>
+    <div id="hint91" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To identify points where the statistical properties of a time series change</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Change Point Detection is used to identify moments when the behavior of a time series shifts. These shifts can be in the mean, variance, or other statistical properties.<br><br>
+        **Common Applications**:<br>
+        1. Detecting regime changes in financial markets.<br>
+        2. Monitoring industrial processes for sudden shifts.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA90" name="answer90" value="A" onclick="checkAnswer(90)">
+        <label for="optionA90">A) To forecast future values in the time series</label><br>
+        <input type="radio" id="optionB90" name="answer90" value="B" onclick="checkAnswer(90)">
+        <label for="optionB90">B) To identify points where the statistical properties of a time series change</label><br>
+        <input type="radio" id="optionC90" name="answer90" value="C" onclick="checkAnswer(90)">
+        <label for="optionC90">C) To smooth the time series data for better predictions</label><br>
+        <input type="radio" id="optionD90" name="answer90" value="D" onclick="checkAnswer(90)">
+        <label for="optionD90">D) To eliminate missing data in the time series</label><br>
+    </div>
+    <div id="result90" class="result"></div>
+</div>
+
+<!-- Question 92 -->
+<div class="qee"> 
+    <div class="que">
+        <p>92. Which of the following methods is commonly used for Change Point Detection in time series?</p>
+        <button id="hintButton91" class="hint-button" type="button" onclick="showHint('hint92')">Show Hint</button>
+    </div>
+    <div id="hint92" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) CUSUM (Cumulative Sum Control Chart)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The CUSUM method is one of the most commonly used techniques for detecting shifts in the mean of a time series. It calculates the cumulative sum of deviations from the target mean and identifies significant changes.<br><br>
+        **Other Methods**:<br>
+        1. Bayesian Change Point Detection.<br>
+        2. Moving Average Control Charts.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA91" name="answer91" value="A" onclick="checkAnswer(91)">
+        <label for="optionA91">A) K-Means Clustering</label><br>
+        <input type="radio" id="optionB91" name="answer91" value="B" onclick="checkAnswer(91)">
+        <label for="optionB91">B) Principal Component Analysis (PCA)</label><br>
+        <input type="radio" id="optionC91" name="answer91" value="C" onclick="checkAnswer(91)">
+        <label for="optionC91">C) CUSUM (Cumulative Sum Control Chart)</label><br>
+        <input type="radio" id="optionD91" name="answer91" value="D" onclick="checkAnswer(91)">
+        <label for="optionD91">D) ARIMA Model</label><br>
+    </div>
+    <div id="result91" class="result"></div>
+</div>
+
+<!-- Question 93 -->
+<div class="qee"> 
+    <div class="que">
+        <p>93. In Time Series Clustering, what is the primary challenge when dealing with high-dimensional data?</p>
+        <button id="hintButton92" class="hint-button" type="button" onclick="showHint('hint93')">Show Hint</button>
+    </div>
+    <div id="hint93" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The curse of dimensionality, leading to overfitting and difficulty in interpreting clusters</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        High-dimensional data in time series clustering can lead to overfitting and make it difficult to interpret clusters. The "curse of dimensionality" means that as the number of features increases, the data becomes sparse, which makes it harder to find meaningful patterns.<br><br>
+        **Dimensionality Reduction** techniques like PCA and t-SNE are often used to address this challenge.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA92" name="answer92" value="A" onclick="checkAnswer(92)">
+        <label for="optionA92">A) The curse of dimensionality, leading to overfitting and difficulty in interpreting clusters</label><br>
+        <input type="radio" id="optionB92" name="answer92" value="B" onclick="checkAnswer(92)">
+        <label for="optionB92">B) The need for large amounts of labeled data</label><br>
+        <input type="radio" id="optionC92" name="answer92" value="C" onclick="checkAnswer(92)">
+        <label for="optionC92">C) Difficulty in scaling the clustering algorithm</label><br>
+        <input type="radio" id="optionD92" name="answer92" value="D" onclick="checkAnswer(92)">
+        <label for="optionD92">D) High computational cost due to time series length</label><br>
+    </div>
+    <div id="result92" class="result"></div>
+</div>
+
+<!-- Question 94 -->
+<div class="qee"> 
+    <div class="que">
+        <p>94. What is the most common similarity measure used in Time Series Clustering?</p>
+        <button id="hintButton93" class="hint-button" type="button" onclick="showHint('hint94')">Show Hint</button>
+    </div>
+    <div id="hint94" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Dynamic Time Warping (DTW)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Dynamic Time Warping (DTW) is a popular similarity measure for time series data. It calculates the optimal alignment between two time series by allowing shifts in time, making it suitable for comparing time series with different lengths or speeds.<br><br>
+        **Other Measures**:<br>
+        1. Euclidean Distance<br>
+        2. Pearson Correlation<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA93" name="answer93" value="A" onclick="checkAnswer(93)">
+        <label for="optionA93">A) Euclidean Distance</label><br>
+        <input type="radio" id="optionB93" name="answer93" value="B" onclick="checkAnswer(93)">
+        <label for="optionB93">B) Pearson Correlation</label><br>
+        <input type="radio" id="optionC93" name="answer93" value="C" onclick="checkAnswer(93)">
+        <label for="optionC93">C) Cosine Similarity</label><br>
+        <input type="radio" id="optionD93" name="answer93" value="D" onclick="checkAnswer(93)">
+        <label for="optionD93">D) Dynamic Time Warping (DTW)</label><br>
+    </div>
+    <div id="result93" class="result"></div>
+</div>
+
+<!-- Question 95 -->
+<div class="qee"> 
+    <div class="que">
+        <p>95. Which of the following clustering algorithms is most commonly used for Time Series Clustering?</p>
+        <button id="hintButton94" class="hint-button" type="button" onclick="showHint('hint95')">Show Hint</button>
+    </div>
+    <div id="hint95" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) K-Means clustering</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        K-Means clustering is a widely used algorithm for clustering time series data. It works by grouping data into 'k' clusters based on the similarity of the time series data, often measured using DTW or Euclidean distance.<br><br>
+        **Other Algorithms**:<br>
+        1. DBSCAN<br>
+        2. Hierarchical Clustering<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA94" name="answer94" value="A" onclick="checkAnswer(94)">
+        <label for="optionA94">A) DBSCAN</label><br>
+        <input type="radio" id="optionB94" name="answer94" value="B" onclick="checkAnswer(94)">
+        <label for="optionB94">B) Agglomerative Clustering</label><br>
+        <input type="radio" id="optionC94" name="answer94" value="C" onclick="checkAnswer(94)">
+        <label for="optionC94">C) K-Means clustering</label><br>
+        <input type="radio" id="optionD94" name="answer94" value="D" onclick="checkAnswer(94)">
+        <label for="optionD94">D) Expectation-Maximization (EM)</label><br>
+    </div>
+    <div id="result94" class="result"></div>
+</div>
+
+<!-- Question 96 -->
+<div class="qee"> 
+    <div class="que">
+        <p>96. What is the role of external regressors in time series forecasting?</p>
+        <button id="hintButton95" class="hint-button" type="button" onclick="showHint('hint96')">Show Hint</button>
+    </div>
+    <div id="hint96" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) They provide additional explanatory variables to improve forecast accuracy</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        External regressors (also called exogenous variables) are additional variables that can help improve the predictive power of a time series model. They provide extra information that may explain or influence the time series being modeled.<br><br>
+        **Examples of External Regressors**:<br>
+        1. Economic indicators in sales forecasting.<br>
+        2. Weather data for energy demand forecasting.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA95" name="answer95" value="A" onclick="checkAnswer(95)">
+        <label for="optionA95">A) They represent the target variable's past values</label><br>
+        <input type="radio" id="optionB95" name="answer95" value="B" onclick="checkAnswer(95)">
+        <label for="optionB95">B) They provide additional explanatory variables to improve forecast accuracy</label><br>
+        <input type="radio" id="optionC95" name="answer95" value="C" onclick="checkAnswer(95)">
+        <label for="optionC95">C) They represent the forecast errors</label><br>
+        <input type="radio" id="optionD95" name="answer95" value="D" onclick="checkAnswer(95)">
+        <label for="optionD95">D) They smooth the time series data</label><br>
+    </div>
+    <div id="result95" class="result"></div>
+</div>
+
+<!-- Question 97 -->
+<div class="qee"> 
+    <div class="que">
+        <p>97. In which of the following cases is forecasting with external regressors particularly useful?</p>
+        <button id="hintButton96" class="hint-button" type="button" onclick="showHint('hint97')">Show Hint</button>
+    </div>
+    <div id="hint97" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) When the target variable is influenced by external factors</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Forecasting with external regressors is particularly useful when the target variable depends on external factors that are not part of the time series data itself. For instance, a retail store’s sales may depend on holidays, promotions, and economic factors.<br><br>
+        **Example**:<br>
+        Predicting electricity consumption based on external weather data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA96" name="answer96" value="A" onclick="checkAnswer(96)">
+        <label for="optionA96">A) When the target variable is influenced by external factors</label><br>
+        <input type="radio" id="optionB96" name="answer96" value="B" onclick="checkAnswer(96)">
+        <label for="optionB96">B) When the data is highly seasonal</label><br>
+        <input type="radio" id="optionC96" name="answer96" value="C" onclick="checkAnswer(96)">
+        <label for="optionC96">C) When the series is stationary</label><br>
+        <input type="radio" id="optionD96" name="answer96" value="D" onclick="checkAnswer(96)">
+        <label for="optionD96">D) When the data has a strong trend</label><br>
+    </div>
+    <div id="result96" class="result"></div>
+</div>
+
+<!-- Question 98 -->
+<div class="qee"> 
+    <div class="que">
+        <p>98. What is causal inference in time series analysis?</p>
+        <button id="hintButton97" class="hint-button" type="button" onclick="showHint('hint98')">Show Hint</button>
+    </div>
+    <div id="hint98" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The process of determining whether and how one time series causes changes in another</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Causal inference in time series analysis focuses on identifying and quantifying the cause-and-effect relationships between time series variables. This involves determining whether changes in one variable (e.g., temperature) lead to changes in another (e.g., electricity demand).<br><br>
+        **Techniques**:<br>
+        1. Granger Causality Test.<br>
+        2. Structural Equation Modeling (SEM).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA97" name="answer97" value="A" onclick="checkAnswer(97)">
+        <label for="optionA97">A) Identifying trends in time series data</label><br>
+        <input type="radio" id="optionB97" name="answer97" value="B" onclick="checkAnswer(97)">
+        <label for="optionB97">B) Predicting future values based on historical data</label><br>
+        <input type="radio" id="optionC97" name="answer97" value="C" onclick="checkAnswer(97)">
+        <label for="optionC97">C) The process of determining whether and how one time series causes changes in another</label><br>
+        <input type="radio" id="optionD97" name="answer97" value="D" onclick="checkAnswer(97)">
+        <label for="optionD97">D) The process of removing noise from time series data</label><br>
+    </div>
+    <div id="result97" class="result"></div>
+</div>
+
+<!-- Question 99 -->
+<div class="qee"> 
+    <div class="que">
+        <p>99. Which of the following tests is commonly used for causal inference in time series data?</p>
+        <button id="hintButton98" class="hint-button" type="button" onclick="showHint('hint99')">Show Hint</button>
+    </div>
+    <div id="hint99" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Granger Causality Test</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Granger Causality test is widely used in time series analysis to determine whether one time series can predict another. It tests whether past values of one variable contain information about future values of another.<br><br>
+        **Other Methods**:<br>
+        1. Structural Equation Modeling (SEM).<br>
+        2. Vector Autoregressive (VAR) Models.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA98" name="answer98" value="A" onclick="checkAnswer(98)">
+        <label for="optionA98">A) ADF Test</label><br>
+        <input type="radio" id="optionB98" name="answer98" value="B" onclick="checkAnswer(98)">
+        <label for="optionB98">B) Granger Causality Test</label><br>
+        <input type="radio" id="optionC98" name="answer98" value="C" onclick="checkAnswer(98)">
+        <label for="optionC98">C) KPSS Test</label><br>
+        <input type="radio" id="optionD98" name="answer98" value="D" onclick="checkAnswer(98)">
+        <label for="optionD98">D) Shapiro-Wilk Test</label><br>
+    </div>
+    <div id="result98" class="result"></div>
+</div>
+
+<!-- Question 100 -->
+<div class="qee"> 
+    <div class="que">
+        <p>100. In causal inference, which type of relationship does Granger causality test for?</p>
+        <button id="hintButton99" class="hint-button" type="button" onclick="showHint('hint100')">Show Hint</button>
+    </div>
+    <div id="hint100" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Temporal causality, where past values of one series help predict future values of another series</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Granger causality test determines whether past values of one time series can predict future values of another, thereby testing for temporal causality between the series.<br><br>
+        **Important Notes**:<br>
+        1. Granger causality does not imply direct causality but indicates a predictive relationship.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA99" name="answer99" value="A" onclick="checkAnswer(99)">
+        <label for="optionA99">A) Temporal causality, where past values of one series help predict future values of another series</label><br>
+        <input type="radio" id="optionB99" name="answer99" value="B" onclick="checkAnswer(99)">
+        <label for="optionB99">B) Cointegration between two time series</label><br>
+        <input type="radio" id="optionC99" name="answer99" value="C" onclick="checkAnswer(99)">
+        <label for="optionC99">C) The cause-and-effect relationship between two variables in the present</label><br>
+        <input type="radio" id="optionD99" name="answer99" value="D" onclick="checkAnswer(99)">
+        <label for="optionD99">D) Structural causality, based on a physical or theoretical model</label><br>
+    </div>
+    <div id="result99" class="result"></div>
+</div>
+
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

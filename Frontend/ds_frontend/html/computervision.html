@@ -1,0 +1,2918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMPUTER VISION</title>
+    <link rel="stylesheet" href="../css/data science.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'C', 'B', 'B', 'B', 'B', 'C', 'B', 'C',
+            'B', 'B', 'B', 'B', 'C', 'B', 'B', 'C', 'A', 'D',
+            'B', 'B', 'D', 'C', 'A', 'B', 'C', 'D', 'B', 'C',
+            'B', 'C', 'A', 'D', 'B', 'B', 'B', 'A', 'C', 'D',
+            'B', 'C', 'A', 'D', 'A', 'B', 'C', 'A', 'B', 'C',
+            'B', 'A', 'B', 'C', 'A', 'D', 'B', 'A', 'C', 'D',
+            'B', 'A', 'C', 'B', 'D', 'B', 'A', 'D', 'A', 'C',
+            'B', 'C', 'A', 'C', 'B', 'B', 'A', 'C', 'B', 'A',
+            'B', 'A', 'C', 'A', 'A', 'A', 'C', 'C', 'B', 'A',
+            'B', 'A', 'C', 'B', 'A', 'B', 'A', 'C', 'A', 'B',
+
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>COMPUTER VISION</h3>
+        <div class="inner-border">
+                
+            <!-- Question 1 -->
+<div class="qee"> 
+    <div class="que">
+        <p>1. What is the main objective of image classification in machine learning?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To categorize images into predefined classes based on their features</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Image classification is a process where machine learning models are trained to assign a label or category to an image based on its features.<br><br>
+        **Key Concepts of Image Classification**:<br>
+        1. Labeling images based on patterns.<br>
+        2. Using algorithms like CNN for automatic feature extraction.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) To detect edges in the image</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) To categorize images into predefined classes based on their features</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) To reduce image size for faster processing</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) To extract text from images</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee"> 
+    <div class="que">
+        <p>2. Which deep learning architecture is commonly used for image classification tasks?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Convolutional Neural Networks (CNN)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        CNNs are widely used in image classification because they are designed to automatically detect patterns in images, such as edges, textures, and shapes.<br><br>
+        **Key Features of CNNs**:<br>
+        1. Convolutional layers for feature extraction.<br>
+        2. Pooling layers to reduce dimensionality.<br>
+        3. Fully connected layers for classification.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Recurrent Neural Networks (RNN)</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Convolutional Neural Networks (CNN)</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) Decision Trees</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Support Vector Machines (SVM)</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee"> 
+    <div class="que">
+        <p>3. What does data augmentation do in the context of image classification?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It generates new training images by applying transformations to existing ones</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Data augmentation involves applying random transformations (like rotation, flipping, or zooming) to images to artificially increase the size of the dataset and prevent overfitting.<br><br>
+        **Common Augmentation Techniques**:<br>
+        1. Rotation.<br>
+        2. Zooming.<br>
+        3. Flipping.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) It enhances the quality of the image by removing noise</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) It increases the size of the image by adding pixels</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) It generates new training images by applying transformations to existing ones</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) It reduces the number of images required for training</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee"> 
+    <div class="que">
+        <p>4. What is the role of the "Softmax" activation function in image classification tasks?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To convert the output of the neural network into probability distributions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Softmax is used in classification problems to transform the raw output values of the neural network (logits) into a probability distribution, which can be used to determine the most likely class.<br><br>
+        **Key Points of Softmax**:<br>
+        1. It ensures all output values sum to 1.<br>
+        2. Converts logits to probabilities for classification.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) To normalize the image data before feeding it to the network</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) To convert the output of the neural network into probability distributions</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) To activate neurons in the hidden layers of the network</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) To reduce the complexity of the model</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee"> 
+    <div class="que">
+        <p>5. Which technique can be used to handle imbalanced classes in an image classification dataset?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Using class weighting or oversampling the minority class</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In case of class imbalance, techniques like oversampling the minority class or using class weights during training help the model to learn the underrepresented classes better.<br><br>
+        **Methods to Handle Class Imbalance**:<br>
+        1. Class weighting.<br>
+        2. Oversampling the minority class.<br>
+        3. Synthetic data generation (SMOTE).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) Removing images from the majority class</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) Using class weighting or oversampling the minority class</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) Using only grayscale images</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) Reducing the number of features in the image</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+
+<!-- Question 6 -->
+<div class="qee"> 
+    <div class="que">
+        <p>6. What is the main goal of object detection in computer vision?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To identify and localize objects within an image or video</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Object detection aims to not only classify objects in an image but also to locate them by drawing bounding boxes around each object.<br><br>
+        **Key Concepts of Object Detection**:<br>
+        1. Object classification.<br>
+        2. Object localization (bounding box).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) To segment the image into regions</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) To identify and localize objects within an image or video</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) To enhance image resolution</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) To extract features for facial recognition</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee"> 
+    <div class="que">
+        <p>7. Which deep learning architecture is commonly used for object detection tasks?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) You Only Look Once (YOLO)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        YOLO is a popular object detection architecture that divides the image into grids and predicts bounding boxes and class probabilities for each grid cell in a single pass.<br><br>
+        **Key Features of YOLO**:<br>
+        1. Real-time object detection.<br>
+        2. Single-pass predictions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Convolutional Neural Networks (CNN)</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) You Only Look Once (YOLO)</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Generative Adversarial Networks (GAN)</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Long Short-Term Memory (LSTM)</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee"> 
+    <div class="que">
+        <p>8. What does the "Intersection over Union" (IoU) metric measure in object detection?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The overlap between the predicted and ground truth bounding boxes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Intersection over Union (IoU) is a metric that calculates the ratio of the area of overlap between the predicted bounding box and the ground truth bounding box to the area of their union.<br><br>
+        **IoU Formula**:<br>
+        1. IoU = (Area of Intersection) / (Area of Union)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) The accuracy of the object detection model</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) The speed of object detection in real-time</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) The overlap between the predicted and ground truth bounding boxes</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) The classification accuracy of objects</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee"> 
+    <div class="que">
+        <p>9. What does the "Region Proposal Network" (RPN) do in Faster R-CNN?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It generates candidate object regions in an image</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Faster R-CNN, the Region Proposal Network (RPN) is responsible for proposing regions of interest (RoIs) that might contain objects, which are then used by the following layers to classify and refine the bounding boxes.<br><br>
+        **RPN Process**:<br>
+        1. Proposes regions of interest.<br>
+        2. Uses a sliding window to generate object proposals.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) It classifies objects in the image</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) It generates candidate object regions in an image</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) It performs object tracking</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) It performs image segmentation</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee"> 
+    <div class="que">
+        <p>10. Which of the following is a common challenge in object detection?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Handling objects at different scales and orientations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A major challenge in object detection is detecting objects that appear at various scales, sizes, and orientations, especially in cluttered or dynamic environments.<br><br>
+        **Challenges in Object Detection**:<br>
+        1. Variation in object size and orientation.<br>
+        2. Occlusion and overlapping objects.<br>
+        3. Background noise and distractions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) Limited number of classes</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) Lack of labeled data</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) Handling objects at different scales and orientations</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) Too many false positives in the predictions</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+
+<!-- Question 11 -->
+<div class="qee"> 
+    <div class="que">
+        <p>11. What is the primary goal of semantic segmentation in computer vision?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To assign a class label to each pixel in the image</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The goal of semantic segmentation is to categorize every pixel of an image into a predefined class, such as sky, road, person, etc., thereby creating a pixel-wise classification map.<br><br>
+        **Key Characteristics of Semantic Segmentation**:<br>
+        1. Pixel-wise classification.<br>
+        2. No distinction between instances of the same class.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) To classify the entire image into categories</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) To assign a class label to each pixel in the image</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) To detect objects in the image</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) To segment objects from the background</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee"> 
+    <div class="que">
+        <p>12. Which architecture is commonly used for semantic segmentation tasks?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) U-Net</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        U-Net is a popular deep learning architecture designed for semantic segmentation. It consists of an encoder-decoder structure with skip connections to preserve spatial information.<br><br>
+        **Key Features of U-Net**:<br>
+        1. Encoder-decoder architecture.<br>
+        2. Skip connections to preserve details.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) ResNet</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) U-Net</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) VGGNet</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) MobileNet</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee"> 
+    <div class="que">
+        <p>13. What is a key difference between semantic segmentation and instance segmentation?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Semantic segmentation assigns the same label to all pixels of the same class, while instance segmentation distinguishes between different objects of the same class</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        While semantic segmentation labels each pixel with a class (e.g., 'car' or 'tree'), instance segmentation not only labels the pixels but also differentiates between individual objects of the same class.<br><br>
+        **Key Concepts**:<br>
+        1. Semantic segmentation: Same class label for all pixels of an object.<br>
+        2. Instance segmentation: Distinguishes between different instances of the same class.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) Semantic segmentation assigns the same label to all objects in an image, while instance segmentation does not</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) Semantic segmentation assigns the same label to all pixels of the same class, while instance segmentation distinguishes between different objects of the same class</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) Semantic segmentation only works on images with a single object</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) Instance segmentation does not require pixel-wise classification</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee"> 
+    <div class="que">
+        <p>14. What loss function is commonly used to train semantic segmentation models?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Cross-entropy loss</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Cross-entropy loss is commonly used in classification tasks, including semantic segmentation, to compare the predicted pixel-wise class probabilities with the ground truth labels.<br><br>
+        **Why Cross-Entropy Loss?**:<br>
+        1. Measures the difference between predicted and true class distributions.<br>
+        2. Minimizes the classification error.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) Mean squared error (MSE)</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) Cross-entropy loss</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) Hinge loss</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) Triplet loss</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee"> 
+    <div class="que">
+        <p>15. What technique is often used to handle class imbalance in semantic segmentation tasks?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Weighted loss function</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        When dealing with imbalanced datasets, a weighted loss function can assign more importance to less frequent classes to improve their detection in the segmentation output.<br><br>
+        **Other Techniques**:<br>
+        1. Data augmentation.<br>
+        2. Synthetic data generation.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) Oversampling the majority class</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) Using a smaller model architecture</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) Weighted loss function</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) Reducing image resolution</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee"> 
+    <div class="que">
+        <p>16. What distinguishes instance segmentation from semantic segmentation?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Instance segmentation differentiates between different objects of the same class, while semantic segmentation does not</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In instance segmentation, each individual object instance is segmented and labeled separately, even if they belong to the same class (e.g., multiple cars), while semantic segmentation assigns the same label to all pixels of the same class.<br><br>
+        **Key Differences**:<br>
+        1. Instance segmentation distinguishes individual object instances.<br>
+        2. Semantic segmentation does not differentiate between instances of the same class.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) Instance segmentation labels the entire image, while semantic segmentation works pixel-wise</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) Instance segmentation differentiates between different objects of the same class, while semantic segmentation does not</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) Instance segmentation is faster than semantic segmentation</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) Instance segmentation is only used for 2D images</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee"> 
+    <div class="que">
+        <p>17. Which of the following techniques is often used to combine object detection and semantic segmentation for instance segmentation?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Mask R-CNN</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Mask R-CNN is a popular instance segmentation model that extends Faster R-CNN (an object detection model) by adding a branch for predicting segmentation masks for each detected object.<br><br>
+        **Key Features of Mask R-CNN**:<br>
+        1. Adds a mask prediction branch to Faster R-CNN.<br>
+        2. Predicts segmentation masks for each detected object instance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) YOLO</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) Mask R-CNN</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) SSD</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) R-CNN</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee"> 
+    <div class="que">
+        <p>18. Which of the following is a key feature of instance segmentation algorithms like Mask R-CNN?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Predicting a binary mask for each object instance</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In instance segmentation, algorithms like Mask R-CNN predict a binary mask for each detected object instance. This mask indicates which pixels belong to the object in the image.<br><br>
+        **Key Features of Instance Segmentation**:<br>
+        1. Predicts a binary mask for each object.<br>
+        2. Identifies and separates overlapping objects.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) Classifying objects without masks</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) Predicting bounding boxes for objects only</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) Predicting a binary mask for each object instance</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) Using a fixed number of object classes</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee"> 
+    <div class="que">
+        <p>19. In instance segmentation, what is the role of the Region Proposal Network (RPN) in Mask R-CNN?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To generate candidate object proposals that are passed to the subsequent network layers for classification and mask prediction</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Region Proposal Network (RPN) generates region proposals (i.e., potential object locations) that are used by the subsequent layers of Mask R-CNN to classify the objects and predict segmentation masks.<br><br>
+        **Role of RPN**:<br>
+        1. Proposes candidate object regions.<br>
+        2. Reduces the search space for object detection.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) To generate candidate object proposals that are passed to the subsequent network layers for classification and mask prediction</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) To detect object categories directly from the image</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) To reduce the number of object instances in an image</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) To predict bounding box coordinates directly from image pixels</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee"> 
+    <div class="que">
+        <p>20. Which of the following is the primary challenge in instance segmentation?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Handling overlapping objects and distinguishing between instances of the same class</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The main challenge in instance segmentation is handling overlapping objects, where it is difficult to distinguish between different instances of the same class (e.g., multiple cars overlapping in the same image).<br><br>
+        **Challenges in Instance Segmentation**:<br>
+        1. Overlapping instances of the same class.<br>
+        2. Accurate mask prediction for each instance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) Detecting small objects</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) Classifying object categories</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) Detecting objects in real-time</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) Handling overlapping objects and distinguishing between instances of the same class</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee"> 
+    <div class="que">
+        <p>21. What is the main objective of Image Super-Resolution?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To increase the resolution of an image and recover high-frequency details</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The goal of Image Super-Resolution (SR) is to generate a high-resolution (HR) image from a low-resolution (LR) image by recovering high-frequency details and enhancing the image quality.<br><br>
+        **Key Objectives of Super-Resolution**:<br>
+        1. Enhance image resolution.<br>
+        2. Recover finer details and textures.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) To reduce the noise in the image</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) To increase the resolution of an image and recover high-frequency details</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) To classify the objects in an image</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) To detect objects in low-resolution images</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee"> 
+    <div class="que">
+        <p>22. Which of the following techniques is commonly used for Image Super-Resolution?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Convolutional Neural Networks (CNNs)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Convolutional Neural Networks (CNNs) have been widely used in image super-resolution tasks. CNNs can learn the mapping between low-resolution and high-resolution images, allowing them to generate high-quality, high-resolution images.<br><br>
+        **Super-Resolution with CNNs**:<br>
+        1. CNNs are trained on large datasets of images.<br>
+        2. The network learns to upscale low-resolution images while preserving fine details.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) Generative Adversarial Networks (GANs)</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) Convolutional Neural Networks (CNNs)</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) Recurrent Neural Networks (RNNs)</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) Support Vector Machines (SVMs)</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee"> 
+    <div class="que">
+        <p>23. What is the challenge of generating high-quality super-resolved images from low-resolution images?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Recovering high-frequency details without introducing artifacts or blurriness</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The main challenge in image super-resolution is to recover fine details from low-resolution images without introducing visual artifacts such as blurring or noise. This is especially difficult in the absence of detailed high-frequency information in the low-resolution image.<br><br>
+        **Challenges in Super-Resolution**:<br>
+        1. Balancing sharpness and noise.<br>
+        2. Recovering fine details from low-resolution data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) Ensuring the resolution is not too high</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) Reducing the noise in the image during the process</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) Increasing the image size significantly without losing resolution</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) Recovering high-frequency details without introducing artifacts or blurriness</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee"> 
+    <div class="que">
+        <p>24. Which of the following is a method used to evaluate the quality of super-resolved images?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Peak Signal-to-Noise Ratio (PSNR)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Peak Signal-to-Noise Ratio (PSNR) is a common metric for evaluating the quality of super-resolved images. It compares the difference between the original high-resolution image and the super-resolved image, with higher values indicating better quality.<br><br>
+        **Common Evaluation Metrics**:<br>
+        1. PSNR (Peak Signal-to-Noise Ratio).<br>
+        2. SSIM (Structural Similarity Index).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) F1 Score</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) Accuracy</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) Peak Signal-to-Noise Ratio (PSNR)</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) Mean Squared Error (MSE)</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee"> 
+    <div class="que">
+        <p>25. Which deep learning architecture is commonly used for Image Super-Resolution tasks?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Convolutional Neural Networks (CNNs)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Convolutional Neural Networks (CNNs) are widely used for image super-resolution tasks. They are effective at learning spatial hierarchies of features and can model complex mappings between low-resolution and high-resolution images.<br><br>
+        **CNNs in Super-Resolution**:<br>
+        1. Used for extracting local features from images.<br>
+        2. Can generate high-resolution images from low-resolution input.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) Convolutional Neural Networks (CNNs)</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) Long Short-Term Memory Networks (LSTMs)</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) Generative Adversarial Networks (GANs)</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) Autoencoders</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+
+<!-- Question 26 -->
+<div class="qee"> 
+    <div class="que">
+        <p>26. What is the main purpose of Facial Recognition technology?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To identify or verify individuals based on facial features</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Facial Recognition is primarily used to identify or verify individuals by analyzing their facial features. It is widely used in security systems, user authentication, and surveillance.<br><br>
+        **Applications of Facial Recognition**:<br>
+        1. Security and surveillance.<br>
+        2. User authentication.<br>
+        3. Marketing and customer analysis.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) To detect the age of individuals</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) To identify or verify individuals based on facial features</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) To track eye movement</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) To identify emotions of individuals</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee"> 
+    <div class="que">
+        <p>27. Which machine learning technique is commonly used in facial recognition?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Deep Learning (particularly CNNs)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Deep Learning, specifically Convolutional Neural Networks (CNNs), is commonly used in facial recognition tasks. CNNs are able to automatically extract hierarchical features from images, making them ideal for facial feature extraction and recognition.<br><br>
+        **Deep Learning in Facial Recognition**:<br>
+        1. CNNs can learn face representations from large datasets.<br>
+        2. Used to classify or verify identities based on facial features.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) Decision Trees</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) Support Vector Machines</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) Deep Learning (particularly CNNs)</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) K-Nearest Neighbors</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee"> 
+    <div class="que">
+        <p>28. What is a key challenge in facial recognition systems?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Variations in lighting, angle, and facial expression</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One of the key challenges in facial recognition is handling variations in lighting conditions, the angle of the face, and facial expressions. These factors can affect the accuracy of facial feature extraction and recognition.<br><br>
+        **Challenges in Facial Recognition**:<br>
+        1. Lighting variations.<br>
+        2. Facial angle and orientation.<br>
+        3. Changes in facial expressions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) Limited facial data</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) Noisy background</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) Lack of diverse datasets</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) Variations in lighting, angle, and facial expression</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee"> 
+    <div class="que">
+        <p>29. What is one of the common uses of facial recognition in security systems?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Access control to secure areas</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Facial recognition is commonly used in security systems for access control to secure areas. By identifying individuals based on their facial features, systems can grant or deny access to restricted locations.<br><br>
+        **Applications in Security**:<br>
+        1. Access control.<br>
+        2. Surveillance and monitoring.<br>
+        3. Authentication systems.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) Identifying emotions in security footage</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) Access control to secure areas</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) Monitoring people’s health</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) Recognizing emotions in video calls</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee"> 
+    <div class="que">
+        <p>30. Which of the following is a privacy concern regarding facial recognition systems?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Unauthorized surveillance and data collection</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A major privacy concern with facial recognition is unauthorized surveillance and data collection. The use of facial recognition in public spaces without consent can lead to potential misuse of personal data.<br><br>
+        **Privacy Concerns**:<br>
+        1. Surveillance without consent.<br>
+        2. Unauthorized data collection.<br>
+        3. Risk of data breaches.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) High cost of implementation</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) Limited application in law enforcement</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) Unauthorized surveillance and data collection</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) Difficulty in deploying facial recognition hardware</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+
+<!-- Question 31 -->
+<div class="qee"> 
+    <div class="que">
+        <p>31. What is the main purpose of Optical Character Recognition (OCR)?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To convert printed or handwritten text into machine-readable text</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        OCR technology is used to convert printed or handwritten text from scanned documents, images, or PDFs into machine-readable text. It is widely used in digitizing documents, forms, and invoices.<br><br>
+        **Applications of OCR**:<br>
+        1. Document digitization.<br>
+        2. Invoice and form processing.<br>
+        3. Text extraction from images.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) To convert audio into text</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) To convert printed or handwritten text into machine-readable text</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) To extract features from text for analysis</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) To translate text from one language to another</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee"> 
+    <div class="que">
+        <p>32. Which type of text is most commonly recognized by OCR technology?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Printed text in documents or images</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        OCR technology is primarily designed to recognize printed text found in documents, books, or images. It can also recognize handwritten text, but the accuracy may be lower compared to printed text.<br><br>
+        **OCR Recognition**:<br>
+        1. Printed text in scanned documents.<br>
+        2. Handwritten text in some cases.<br>
+        3. Text in images (e.g., street signs, product labels).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) Handwritten text only</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) Barcodes and QR codes</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) Printed text in documents or images</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) Text embedded in audio files</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee"> 
+    <div class="que">
+        <p>33. What is a major limitation of OCR for handwritten text recognition?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Variability in handwriting styles</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A major limitation of OCR for handwritten text is the variability in handwriting styles. Different individuals write in unique ways, which can make it difficult for OCR software to accurately recognize the characters.<br><br>
+        **Handwriting Recognition Challenges**:<br>
+        1. Variability in handwriting.<br>
+        2. Unconventional letter shapes.<br>
+        3. Overlapping or misaligned strokes.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) Variability in handwriting styles</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) Lack of available fonts for recognition</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) Limited support for printed text</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) Difficulty in recognizing punctuation marks</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee"> 
+    <div class="que">
+        <p>34. Which technique is commonly used to improve OCR accuracy for handwritten text?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Using machine learning models for feature extraction</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Machine learning models, particularly deep learning models such as Convolutional Neural Networks (CNNs), are used to extract features from handwritten text and improve OCR accuracy. These models are trained to recognize complex patterns in handwriting.<br><br>
+        **Improving OCR for Handwriting**:<br>
+        1. Using deep learning models for feature extraction.<br>
+        2. Data augmentation techniques.<br>
+        3. Training on diverse handwriting datasets.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) Increasing image resolution</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) Reducing noise in the image</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) Using traditional image processing techniques</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) Using machine learning models for feature extraction</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee"> 
+    <div class="que">
+        <p>35. Which of the following is a common use of OCR in business?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Automating invoice processing</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        OCR is commonly used in businesses to automate processes like invoice processing, where OCR extracts text from invoices and automatically inputs it into accounting systems. This eliminates the need for manual data entry.<br><br>
+        **Business Applications of OCR**:<br>
+        1. Invoice and receipt processing.<br>
+        2. Form data extraction.<br>
+        3. Document management.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) Data analysis for marketing</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) Automating invoice processing</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) Detecting fraudulent activities in business</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) Sorting customer feedback emails</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+
+<!-- Question 36 -->
+<div class="qee"> 
+    <div class="que">
+        <p>36. What is the primary purpose of keypoint detection in computer vision?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To identify specific points in an image that are unique and invariant to transformations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Keypoint detection is used to identify points in an image that are distinct and robust to various transformations, such as scaling, rotation, or translation. These points are crucial for tasks like matching, alignment, and object recognition.<br><br>
+        **Applications of Keypoint Detection**:<br>
+        1. Object matching and recognition.<br>
+        2. Image stitching.<br>
+        3. 3D reconstruction.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) To detect edges in an image</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) To identify specific points in an image that are unique and invariant to transformations</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) To segment regions of interest in an image</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) To classify objects in an image</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee"> 
+    <div class="que">
+        <p>37. Which of the following algorithms is commonly used for keypoint detection?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) SIFT (Scale-Invariant Feature Transform)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        SIFT (Scale-Invariant Feature Transform) is one of the most popular algorithms for keypoint detection. It detects keypoints in different scales and is invariant to rotation, scaling, and noise.<br><br>
+        **Other Keypoint Detection Algorithms**:<br>
+        1. SURF (Speeded-Up Robust Features).<br>
+        2. ORB (Oriented FAST and Rotated BRIEF).<br>
+        3. Harris Corner Detector.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) K-means clustering</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) SIFT (Scale-Invariant Feature Transform)</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) KNN (K-Nearest Neighbors)</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) Naive Bayes</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee"> 
+    <div class="que">
+        <p>38. What is a key characteristic of the keypoints detected by the SIFT algorithm?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) They are invariant to scale and rotation</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A key feature of SIFT keypoints is that they are invariant to scale and rotation. This means that the keypoints can be detected even if the object is resized or rotated.<br><br>
+        **Invariance Properties of SIFT**:<br>
+        1. Scale-invariance.<br>
+        2. Rotation-invariance.<br>
+        3. Robustness to noise.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) They are invariant to scale and rotation</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) They are always at the center of objects</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) They are limited to certain object types</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) They can only detect edges in the image</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee"> 
+    <div class="que">
+        <p>39. What is the purpose of using keypoints for image matching?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To find corresponding points between two images</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Keypoint matching is used to find corresponding points between two images. These keypoints help in tasks such as object recognition, image stitching, and 3D reconstruction by establishing correspondences between images of the same object taken from different viewpoints.<br><br>
+        **Keypoint Matching Applications**:<br>
+        1. Image stitching.<br>
+        2. Object tracking.<br>
+        3. 3D reconstruction.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) To detect objects in the image</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) To segment the image into regions</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) To find corresponding points between two images</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) To filter out irrelevant regions in the image</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee"> 
+    <div class="que">
+        <p>40. How does keypoint detection assist in 3D reconstruction?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By identifying corresponding points in multiple images</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In 3D reconstruction, keypoint detection helps identify corresponding points across multiple images. By matching these points, it is possible to reconstruct the 3D structure of an object or scene from different viewpoints.<br><br>
+        **Keypoint Detection in 3D Reconstruction**:<br>
+        1. Matching points from different camera angles.<br>
+        2. Triangulating 3D coordinates from the matched points.<br>
+        3. Creating 3D models of objects or environments.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) By reducing image noise</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) By segmenting objects in the image</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) By classifying different parts of the object</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) By identifying corresponding points in multiple images</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+
+<!-- Question 41 -->
+<div class="qee"> 
+    <div class="que">
+        <p>41. What is the primary purpose of gesture recognition in computer vision?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To interpret human gestures as input for controlling devices or systems</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Gesture recognition is used to interpret human gestures (such as hand movements, facial expressions, or body motions) and convert them into commands or actions for controlling systems, devices, or applications.<br><br>
+        **Applications of Gesture Recognition**:<br>
+        1. Virtual and augmented reality.<br>
+        2. Human-computer interaction.<br>
+        3. Gaming and robotics.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) To identify objects in an image</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) To interpret human gestures as input for controlling devices or systems</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) To segment regions of interest in an image</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) To enhance image resolution</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee"> 
+    <div class="que">
+        <p>42. Which type of sensors are most commonly used in gesture recognition systems?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Depth sensors (e.g., Kinect, Intel RealSense)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Depth sensors, such as the Kinect and Intel RealSense, are widely used in gesture recognition systems. These sensors capture 3D information, allowing the system to track hand movements and body poses in real-time.<br><br>
+        **Other Sensors in Gesture Recognition**:<br>
+        1. Camera-based systems.<br>
+        2. Accelerometers and gyroscopes.<br>
+        3. Infrared sensors.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) Camera sensors only</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) Microphones</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) Depth sensors (e.g., Kinect, Intel RealSense)</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) Heart rate sensors</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee"> 
+    <div class="que">
+        <p>43. What type of machine learning models are typically used in gesture recognition?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Convolutional Neural Networks (CNNs) and Recurrent Neural Networks (RNNs)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Convolutional Neural Networks (CNNs) are used to recognize spatial features in images, while Recurrent Neural Networks (RNNs) are effective for modeling sequential data, such as hand movements in gesture recognition tasks.<br><br>
+        **Other Models for Gesture Recognition**:<br>
+        1. Support Vector Machines (SVMs).<br>
+        2. Decision Trees.<br>
+        3. Random Forests.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) Convolutional Neural Networks (CNNs) and Recurrent Neural Networks (RNNs)</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) Random Forests and Naive Bayes</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) K-means Clustering and PCA</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) Linear Regression and LDA</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee"> 
+    <div class="que">
+        <p>44. What challenge is often faced when implementing gesture recognition systems?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Variability in hand shapes and orientations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Gesture recognition systems often struggle with the variability in hand shapes, sizes, and orientations, especially when gestures are performed in different lighting conditions or by different people.<br><br>
+        **Challenges in Gesture Recognition**:<br>
+        1. Variability in gestures.<br>
+        2. Occlusion (e.g., hands blocking each other).<br>
+        3. Real-time processing constraints.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) Limited dataset availability</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) High computational cost</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) Difficulty in detecting emotions</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) Variability in hand shapes and orientations</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee"> 
+    <div class="que">
+        <p>45. Which of the following is a common application of gesture recognition technology?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Virtual reality and gaming</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Gesture recognition is commonly used in virtual reality and gaming, where users can interact with the environment using their hand movements, body motions, or facial expressions.<br><br>
+        **Other Applications of Gesture Recognition**:<br>
+        1. Healthcare (e.g., physical rehabilitation).<br>
+        2. Automotive industry (e.g., touchless controls).<br>
+        3. Smart homes (e.g., controlling lighting and appliances).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) Virtual reality and gaming</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) Traffic monitoring</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) Natural disaster prediction</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) Crop disease detection</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Question 46 -->
+<div class="qee"> 
+    <div class="que">
+        <p>46. What is the main goal of scene understanding in computer vision?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To interpret and analyze the elements and relationships within an image or video scene</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Scene understanding aims to interpret the content of an image or video by identifying objects, recognizing their interactions, and understanding the spatial and contextual relationships between them.<br><br>
+        **Components of Scene Understanding**:<br>
+        1. Object detection and recognition.<br>
+        2. Semantic segmentation.<br>
+        3. Contextual relationships between objects.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) To detect faces in an image</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) To interpret and analyze the elements and relationships within an image or video scene</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) To apply filters to an image</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) To track objects in video sequences</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee"> 
+    <div class="que">
+        <p>47. Which of the following is a key challenge in scene understanding?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Dealing with occlusions and complex scenes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A major challenge in scene understanding is dealing with occlusions (where objects are partially blocked by others) and interpreting complex scenes with varying lighting, clutter, and object arrangements.<br><br>
+        **Challenges in Scene Understanding**:<br>
+        1. Occlusion of objects.<br>
+        2. Complex lighting and shadows.<br>
+        3. Ambiguity in object relationships.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) Limited computing resources</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) The need for real-time processing</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) Dealing with occlusions and complex scenes</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) Lack of training data</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee"> 
+    <div class="que">
+        <p>48. Which deep learning model is commonly used for scene understanding tasks such as segmentation and object recognition?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Convolutional Neural Networks (CNNs)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Convolutional Neural Networks (CNNs) are highly effective for scene understanding tasks, particularly in image classification, segmentation, and object detection due to their ability to capture spatial hierarchies in images.<br><br>
+        **CNN Architectures for Scene Understanding**:<br>
+        1. Fully Convolutional Networks (FCNs) for segmentation.<br>
+        2. Region-based CNNs (R-CNNs) for object detection.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) Convolutional Neural Networks (CNNs)</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) Recurrent Neural Networks (RNNs)</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) Support Vector Machines (SVMs)</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) K-means Clustering</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee"> 
+    <div class="que">
+        <p>49. What does semantic segmentation in scene understanding involve?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Assigning a class label to each pixel in an image</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Semantic segmentation involves dividing an image into regions or segments, and assigning a class label (such as "car", "tree", or "sky") to each pixel in the image, thereby providing a pixel-level understanding of the scene.<br><br>
+        **Other Types of Segmentation**:<br>
+        1. Instance segmentation (distinguishing between different objects of the same class).<br>
+        2. Panoptic segmentation (combining semantic and instance segmentation).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) Detecting boundaries between objects in an image</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) Assigning a class label to each pixel in an image</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) Tracking objects through video frames</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) Enhancing the resolution of images</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee"> 
+    <div class="que">
+        <p>50. Which of the following is an application of scene understanding in autonomous vehicles?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Real-time object detection and scene analysis for navigation</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Scene understanding plays a critical role in autonomous vehicles by enabling them to analyze the road environment, detect objects (such as pedestrians, vehicles, and traffic signs), and make navigation decisions in real-time.<br><br>
+        **Other Applications**:<br>
+        1. Robot navigation.<br>
+        2. Augmented reality.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Facial recognition for driver identification</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Gesture control for vehicle functions</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Real-time object detection and scene analysis for navigation</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) Predicting fuel consumption</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+
+<!-- Question 51 -->
+<div class="qee"> 
+    <div class="que">
+        <p>51. What is the primary objective of optical flow in video analysis?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To estimate the motion of objects between two consecutive frames</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Optical flow is used to track the apparent motion of objects within a sequence of video frames by analyzing the changes in pixel intensities between frames.<br><br>
+        **Key Concepts of Optical Flow**:<br>
+        1. Motion estimation.<br>
+        2. Pixel displacement.<br>
+        3. Temporal consistency.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) To classify objects in a video sequence</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) To estimate the motion of objects between two consecutive frames</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) To detect objects in a video stream</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) To smooth the video frames</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee"> 
+    <div class="que">
+        <p>52. Which of the following methods is commonly used to compute optical flow?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Horn-Schunck method</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Horn-Schunck method is a widely used technique for computing optical flow by considering smoothness constraints and intensity variations across the image.<br><br>
+        **Other Methods for Optical Flow**:<br>
+        1. Lucas-Kanade method.<br>
+        2. Farnebäck method.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) Horn-Schunck method</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) Kalman filter</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) K-means clustering</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) Support vector machine</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee"> 
+    <div class="que">
+        <p>53. What is the optical flow constraint equation used for?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To relate the movement of pixel intensities over time</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The optical flow constraint equation describes the relationship between the movement of pixel intensities in an image over time, helping to estimate the velocity of moving objects.<br><br>
+        **Optical Flow Equation**:<br>
+        1. \( I_x u + I_y v + I_t = 0 \), where u and v are the components of the optical flow.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) To detect edges in the image</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) To relate the movement of pixel intensities over time</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) To classify objects based on their motion</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) To track a single object across frames</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee"> 
+    <div class="que">
+        <p>54. What is one limitation of optical flow methods?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It struggles with large motions between frames</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Optical flow methods can be inaccurate when there are large motions between consecutive frames, as they rely on small changes in pixel intensities. This issue is known as the "aperture problem".<br><br>
+        **Challenges with Optical Flow**:<br>
+        1. Assumes small motions.<br>
+        2. Sensitive to noise and illumination changes.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) It requires high computational resources</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) It cannot track fast-moving objects</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) It struggles with large motions between frames</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) It requires labeled training data</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee"> 
+    <div class="que">
+        <p>55. In optical flow, what does the 'aperture problem' refer to?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The difficulty in detecting motion from a small part of the image</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The aperture problem arises when only a small portion of the image is analyzed, making it difficult to determine the correct direction and speed of motion because of limited spatial information.<br><br>
+        **Impact of the Aperture Problem**:<br>
+        1. Can lead to ambiguous motion estimates.<br>
+        2. Affects the accuracy of optical flow in certain conditions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) The difficulty in detecting motion from a small part of the image</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) The inability to track objects at different scales</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) The problem of differentiating between object speed and camera motion</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) The loss of information when tracking multiple objects</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+
+<!-- Question 56 -->
+<div class="qee"> 
+    <div class="que">
+        <p>56. Which of the following is a potential application of optical flow in video analysis?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Object tracking in surveillance systems</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Optical flow is commonly used for tracking objects in videos, such as people or vehicles, in applications like surveillance systems, where motion needs to be detected and analyzed.<br><br>
+        **Applications of Optical Flow**:<br>
+        1. Motion tracking.<br>
+        2. Video stabilization.<br>
+        3. Scene analysis.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) Voice recognition in video</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) Object classification</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) Scene segmentation</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) Object tracking in surveillance systems</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee"> 
+    <div class="que">
+        <p>57. What is the main goal of image captioning in computer vision?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To generate descriptive captions for images using natural language</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Image captioning involves generating meaningful textual descriptions of an image by combining image understanding and language generation. It helps bridge the gap between visual and language modalities.<br><br>
+        **Key Concepts of Image Captioning**:<br>
+        1. Image understanding.<br>
+        2. Text generation.<br>
+        3. Natural language processing.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) To classify the content of an image into categories</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) To generate descriptive captions for images using natural language</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) To generate realistic images from text descriptions</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) To identify objects in an image</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee"> 
+    <div class="que">
+        <p>58. Which deep learning architecture is commonly used for image captioning?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Encoder-Decoder model with attention mechanisms</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The encoder-decoder model is commonly used for image captioning, where the encoder processes the image, and the decoder generates the caption. Attention mechanisms help focus on relevant parts of the image during caption generation.<br><br>
+        **Image Captioning Models**:<br>
+        1. CNN (for feature extraction).<br>
+        2. RNNs, LSTMs, or GRUs (for sequence generation).<br>
+        3. Attention mechanisms.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) Encoder-Decoder model with attention mechanisms</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) Support Vector Machines</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) GANs (Generative Adversarial Networks)</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) Decision Trees</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee"> 
+    <div class="que">
+        <p>59. Which of the following techniques can be used to improve image captioning models?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Attention mechanism</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The attention mechanism allows the model to focus on specific parts of the image when generating the caption. This improves the quality and relevance of the generated captions by associating certain words with specific visual features.<br><br>
+        **Improvement Techniques**:<br>
+        1. Attention mechanisms.<br>
+        2. Pre-trained models (e.g., Inception, ResNet).<br>
+        3. Fine-tuning.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) Using shallow neural networks</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) Reducing the number of layers in the network</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) Attention mechanism</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) Decreasing the learning rate</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee"> 
+    <div class="que">
+        <p>60. In image captioning, what does the term "beam search" refer to?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) A search strategy to select the most likely sequence of words during caption generation</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Beam search is used during the decoding phase of image captioning to explore multiple possible caption sequences and select the one with the highest probability.<br><br>
+        **Key Concepts of Beam Search**:<br>
+        1. It keeps track of multiple sequences at each time step.<br>
+        2. It helps in avoiding greedy decoding.<br>
+        3. It balances between exploring new possibilities and exploiting known ones.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) A technique to optimize image features</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) A method for reducing the complexity of the model</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) A way to speed up the training process</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) A search strategy to select the most likely sequence of words during caption generation</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+
+<!-- Question 61 -->
+<div class="qee"> 
+    <div class="que">
+        <p>61. What is the primary goal of Visual Question Answering (VQA) in computer vision?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To answer questions about an image using natural language</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Visual Question Answering (VQA) involves a model answering natural language questions about the content of an image. The model must understand both the visual elements of the image and the linguistic structure of the question to provide accurate answers.<br><br>
+        **Key Concepts in VQA**:<br>
+        1. Image understanding.<br>
+        2. Natural language processing.<br>
+        3. Question answering.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) To generate captions from images</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) To answer questions about an image using natural language</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) To classify images into predefined categories</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) To track objects in a video</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee"> 
+    <div class="que">
+        <p>62. Which type of neural network is commonly used in Visual Question Answering (VQA) tasks?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Multimodal networks combining CNNs and RNNs</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        VQA models typically combine Convolutional Neural Networks (CNNs) for image feature extraction with Recurrent Neural Networks (RNNs) or other sequence models for processing the natural language question.<br><br>
+        **VQA Model Components**:<br>
+        1. CNN for image feature extraction.<br>
+        2. RNN, LSTM, or Transformer for question processing.<br>
+        3. Fusion of image and question features for answering.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) Multimodal networks combining CNNs and RNNs</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) Fully connected networks</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) GANs (Generative Adversarial Networks)</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) Autoencoders</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee"> 
+    <div class="que">
+        <p>63. What type of questions can Visual Question Answering (VQA) models typically answer?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Both factual and reasoning questions about the image content</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        VQA models can answer a wide range of questions, including factual questions (e.g., "What color is the cat?") and reasoning questions (e.g., "How many people are in the image?").<br><br>
+        **Types of Questions in VQA**:<br>
+        1. Factual questions.<br>
+        2. Counting and numerical questions.<br>
+        3. Reasoning and inference questions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) Only descriptive questions about objects</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) Only yes/no questions about the image</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) Both factual and reasoning questions about the image content</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) Only questions regarding image quality</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee"> 
+    <div class="que">
+        <p>64. Which of the following is a common challenge in Visual Question Answering (VQA) tasks?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Handling ambiguous or subjective questions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One of the main challenges in VQA is handling ambiguous or subjective questions, as there may be multiple valid answers depending on interpretation.<br><br>
+        **VQA Challenges**:<br>
+        1. Ambiguity in questions.<br>
+        2. Image interpretation.<br>
+        3. Need for common sense and reasoning.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) Lack of training data</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) Handling ambiguous or subjective questions</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) Lack of computational resources</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) Insufficient object recognition accuracy</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee"> 
+    <div class="que">
+        <p>65. How is depth estimation typically performed in computer vision?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By analyzing the disparity between two images from different viewpoints</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Depth estimation involves computing the distance of objects from the camera. It is often performed by analyzing stereo images (two images captured from different viewpoints) and calculating the disparity between them.<br><br>
+        **Depth Estimation Techniques**:<br>
+        1. Stereo vision.<br>
+        2. Monocular depth estimation.<br>
+        3. Structured light.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) By measuring the object's size in the image</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) By calculating the brightness of each pixel</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) By using machine learning classification</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) By analyzing the disparity between two images from different viewpoints</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+
+<!-- Question 66 -->
+<div class="qee"> 
+    <div class="que">
+        <p>66. What is the primary goal of Image Style Transfer in computer vision?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To apply the artistic style of one image to the content of another image</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Image style transfer aims to blend the artistic style of one image (such as a painting) with the content of another image (such as a photo). This is achieved by separating the content and style representations using deep learning models, and then combining them in a novel way.<br><br>
+        **Key Concepts in Image Style Transfer**:<br>
+        1. Content loss.<br>
+        2. Style loss.<br>
+        3. Optimization techniques (e.g., gradient descent).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) To classify images into different art styles</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) To apply the artistic style of one image to the content of another image</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) To enhance the resolution of an image</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) To remove noise from an image</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee"> 
+    <div class="que">
+        <p>67. Which neural network architecture is commonly used for Image Style Transfer?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Convolutional Neural Networks (CNNs)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Convolutional Neural Networks (CNNs) are widely used in Image Style Transfer due to their ability to capture both the content and style information in images. CNNs can effectively learn feature representations that are used for the content and style components of the transfer.<br><br>
+        **CNNs in Style Transfer**:<br>
+        1. Used to extract deep features from images.<br>
+        2. Allows the combination of style and content in a coherent way.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) Convolutional Neural Networks (CNNs)</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) Recurrent Neural Networks (RNNs)</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) Generative Adversarial Networks (GANs)</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) Fully Connected Networks</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee"> 
+    <div class="que">
+        <p>68. What is the key difference between content loss and style loss in Image Style Transfer?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Content loss focuses on preserving the image's structure, while style loss focuses on replicating the artistic elements</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Image Style Transfer, the content loss ensures that the transferred image retains the structural features of the original content image, while style loss ensures that the transferred image adopts the texture, color, and artistic features of the style image.<br><br>
+        **Loss Functions in Style Transfer**:<br>
+        1. Content loss: Measures the difference in feature maps between the content image and the generated image.<br>
+        2. Style loss: Measures the difference in style between the style image and the generated image.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) Content loss focuses on the color of the image, while style loss focuses on the structure</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) Content loss focuses on the size of the image, while style loss focuses on the texture</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) Content loss focuses on the background, while style loss focuses on the foreground</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) Content loss focuses on preserving the image's structure, while style loss focuses on replicating the artistic elements</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee"> 
+    <div class="que">
+        <p>69. What is the purpose of Transfer Learning in Vision tasks?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To leverage pre-trained models on large datasets and fine-tune them for specific tasks</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Transfer learning involves taking a pre-trained model that has learned features from a large dataset and adapting it to a different, but related, task. This allows the model to learn more efficiently and effectively when there is limited task-specific data available.<br><br>
+        **Benefits of Transfer Learning**:<br>
+        1. Faster convergence.<br>
+        2. Better generalization on small datasets.<br>
+        3. Leverages large pre-trained datasets like ImageNet.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) To leverage pre-trained models on large datasets and fine-tune them for specific tasks</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) To train a model from scratch without using any pre-trained data</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) To combine multiple models into one for increased accuracy</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) To reduce the model's complexity by removing layers</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee"> 
+    <div class="que">
+        <p>70. Which of the following is a typical application of Transfer Learning in Computer Vision?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Image classification tasks with limited data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Transfer learning is especially useful in scenarios where labeled data is limited, such as in medical imaging or specific object classification tasks. By leveraging pre-trained models, we can significantly improve performance on these tasks with fewer labeled images.<br><br>
+        **Applications of Transfer Learning**:<br>
+        1. Image classification.<br>
+        2. Object detection.<br>
+        3. Fine-grained recognition.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) Autonomous driving</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) Face recognition in social media</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) Image classification tasks with limited data</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) Real-time video processing</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+
+<!-- Question 71 -->
+<div class="qee"> 
+    <div class="que">
+        <p>71. What is the main advantage of using Convolutional Neural Networks (CNNs) for image classification tasks?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) CNNs automatically learn hierarchical features from images</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The key advantage of CNNs is their ability to automatically learn hierarchical features from input images. These models are capable of capturing low-level features (such as edges) in the first layers, and more complex features (such as shapes or objects) in deeper layers.<br><br>
+        **Key Points about CNNs**:<br>
+        1. Use convolutional layers to detect spatial hierarchies.<br>
+        2. Pooling layers reduce dimensionality.<br>
+        3. Fully connected layers for classification.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) CNNs require manual feature extraction before classification</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) CNNs automatically learn hierarchical features from images</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) CNNs are not suitable for image data</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) CNNs require a large amount of labeled data to work effectively</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee"> 
+    <div class="que">
+        <p>72. Which of the following layers is commonly used in Convolutional Neural Networks (CNNs) to reduce the spatial dimensions of the feature maps?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Pooling layers</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Pooling layers, such as max-pooling, are used to reduce the spatial dimensions (height and width) of the feature maps, thus decreasing the computational load and the number of parameters in the model. This helps prevent overfitting and enhances the efficiency of CNNs.<br><br>
+        **Types of Pooling**:<br>
+        1. Max pooling: Selects the maximum value from the feature map.<br>
+        2. Average pooling: Computes the average value of the feature map.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) ReLU activation layers</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) Fully connected layers</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) Pooling layers</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) Dropout layers</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee"> 
+    <div class="que">
+        <p>73. What is the core concept of Generative Adversarial Networks (GANs)?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) A generator and a discriminator work in opposition to improve the generation of realistic data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GANs consist of two neural networks: the generator, which creates synthetic data, and the discriminator, which tries to distinguish between real and generated data. The two networks are trained together in a game-theoretic manner, with the generator improving its ability to create realistic data and the discriminator improving its ability to differentiate between real and fake data.<br><br>
+        **Key GAN Concepts**:<br>
+        1. Generator: Creates synthetic data.<br>
+        2. Discriminator: Evaluates the authenticity of data.<br>
+        3. Adversarial training: The two networks compete against each other.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) A generator and a discriminator work in opposition to improve the generation of realistic data</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) A single network generates data based on prior probabilities</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) GANs are used primarily for classification tasks</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) GANs use a single neural network to generate synthetic data</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee"> 
+    <div class="que">
+        <p>74. In GANs, what does the discriminator's role primarily involve?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The discriminator distinguishes between real and generated data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The discriminator in a GAN is responsible for evaluating the authenticity of data. It tries to classify data as real (from the training set) or fake (from the generator). The goal is for the generator to produce data that is indistinguishable from real data, thereby fooling the discriminator.<br><br>
+        **Discriminator's Role in GANs**:<br>
+        1. Receives real or generated data as input.<br>
+        2. Outputs a probability indicating if the data is real or fake.<br>
+        3. Helps improve the generator's ability to create realistic data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) The discriminator generates new data</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) The discriminator classifies data into predefined categories</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) The discriminator distinguishes between real and generated data</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) The discriminator removes noise from generated data</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<!-- Question 75 -->
+<div class="qee"> 
+    <div class="que">
+        <p>75. Which type of output is typically generated by the generator network in a GAN?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Synthetic data that resembles real data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The generator in a GAN is responsible for creating synthetic data that closely resembles real data. The output of the generator is a data sample (e.g., an image) that the discriminator evaluates for authenticity. The generator aims to improve its output to the point where it can "fool" the discriminator into thinking the generated data is real.<br><br>
+        **Generator's Role in GANs**:<br>
+        1. Generates synthetic data (e.g., images, text, etc.).<br>
+        2. Trains to improve the quality of its outputs.<br>
+        3. Competes with the discriminator to produce more realistic data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) Labeled data</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) Synthetic data that resembles real data</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) Predefined categories</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) Noise-free data</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+
+<!-- Question 76 -->
+<div class="qee"> 
+    <div class="que">
+        <p>76. What is the primary purpose of feature extraction in computer vision tasks?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To extract relevant information from an image for further processing</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Feature extraction is the process of identifying important patterns or features (such as edges, textures, and corners) in an image. These features are used to help identify objects, track movements, or classify images in subsequent stages of computer vision pipelines.<br><br>
+        **Key Points**:<br>
+        1. Helps in reducing the dimensionality of the data.<br>
+        2. Enables efficient pattern recognition.<br>
+        3. Aids in object detection and recognition.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) To classify the entire image into predefined categories</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) To extract relevant information from an image for further processing</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) To generate synthetic images from real images</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) To create new training data by augmentation</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee"> 
+    <div class="que">
+        <p>77. Which of the following techniques is commonly used in feature matching for object recognition tasks?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) SIFT (Scale-Invariant Feature Transform)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        SIFT is a popular technique used for feature extraction and matching, particularly in object recognition tasks. It detects key points in an image that are invariant to scale, rotation, and affine transformations, making it ideal for matching objects across different views.<br><br>
+        **Other Feature Matching Techniques**:<br>
+        1. SURF (Speeded-Up Robust Features): Faster version of SIFT.<br>
+        2. ORB (Oriented FAST and Rotated BRIEF): A more efficient and faster method.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) SIFT (Scale-Invariant Feature Transform)</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) k-NN (k-Nearest Neighbors)</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) Decision Trees</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) Random Forest</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee"> 
+    <div class="que">
+        <p>78. In human pose estimation, what is typically the output of the model?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Keypoints of human body joints</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Human pose estimation aims to predict the locations of key body joints (e.g., elbows, knees, wrists) from an input image or video. These predicted keypoints help understand the position and orientation of the human body in the scene.<br><br>
+        **Key Points in Pose Estimation**:<br>
+        1. Human body joints such as shoulders, knees, and elbows.<br>
+        2. Used in applications like action recognition and human-computer interaction.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) Bounding box coordinates</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) Object class labels</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) Keypoints of human body joints</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) Segmentation masks</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+
+<!-- Question 79 -->
+<div class="qee"> 
+    <div class="que">
+        <p>79. Which dataset is commonly used for benchmarking human pose estimation models?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) COCO (Common Objects in Context)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The COCO dataset is widely used for human pose estimation because it contains a large number of annotated images with human keypoints, making it suitable for training and evaluating pose estimation models.<br><br>
+        **Other Pose Estimation Datasets**:<br>
+        1. MPII (Max Planck Institute for Informatics)<br>
+        2. LSP (Leeds Sports Pose)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) ImageNet</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) COCO (Common Objects in Context)</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) CIFAR-10</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) Pascal VOC</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee"> 
+    <div class="que">
+        <p>80. Which technique is commonly used to improve the accuracy of human pose estimation in complex scenes?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Temporal information from video frames</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Temporal information (from video frames) is commonly used to improve pose estimation accuracy in dynamic scenes. By utilizing multiple frames, models can better track the movement of body parts and reduce errors due to occlusions or fast motion.<br><br>
+        **Other Techniques for Pose Estimation Improvement**:<br>
+        1. Multi-view cameras for better spatial understanding.<br>
+        2. Part-based models for better local feature detection.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) Temporal information from video frames</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) Using more annotated images for training</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) Using larger models</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) Reducing the model size</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+<!-- Question 81 -->
+<div class="qee"> 
+    <div class="que">
+        <p>81. What is the main goal of anomaly detection in images?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To detect unusual patterns or outliers in an image</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Anomaly detection in images is used to identify patterns that deviate from the norm, such as defective items in manufacturing, unusual activities in surveillance, or medical abnormalities in diagnostic images.<br><br>
+        **Key Points**:<br>
+        1. Focuses on identifying outliers.<br>
+        2. Applications in fraud detection, medical imaging, and quality control.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) To segment an image into different regions</label><br>
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) To detect unusual patterns or outliers in an image</label><br>
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) To classify images into predefined categories</label><br>
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) To improve the image resolution</label><br>
+    </div>
+    <div id="result80" class="result"></div>
+</div>
+
+<!-- Question 82 -->
+<div class="qee"> 
+    <div class="que">
+        <p>82. Which technique is commonly used in anomaly detection for images?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Autoencoders</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Autoencoders are a type of neural network commonly used for anomaly detection. They learn to encode an input into a lower-dimensional representation and then reconstruct it. Anomalies can be detected by measuring the reconstruction error — higher errors indicate anomalies.<br><br>
+        **Other Techniques**:<br>
+        1. One-Class SVM<br>
+        2. K-means clustering<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) Autoencoders</label><br>
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) Convolutional Neural Networks</label><br>
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) Decision Trees</label><br>
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) Random Forest</label><br>
+    </div>
+    <div id="result81" class="result"></div>
+</div>
+
+<!-- Question 83 -->
+<div class="qee"> 
+    <div class="que">
+        <p>83. What type of anomaly detection approach is commonly used in video surveillance for detecting unusual activities?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Temporal anomaly detection</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Temporal anomaly detection focuses on detecting unusual behavior over time in video surveillance. It analyzes sequences of frames to identify behaviors that deviate from normal patterns (e.g., abnormal motion or activity). This approach is commonly used in security and monitoring.<br><br>
+        **Other Approaches**:<br>
+        1. Spatial anomaly detection: Focuses on anomalies in individual images.<br>
+        2. Hybrid approaches combining both spatial and temporal factors.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) Image segmentation-based anomaly detection</label><br>
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) Pixel-wise anomaly detection</label><br>
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) Temporal anomaly detection</label><br>
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) Background subtraction</label><br>
+    </div>
+    <div id="result82" class="result"></div>
+</div>
+
+<!-- Question 84 -->
+<div class="qee"> 
+    <div class="que">
+        <p>84. In object tracking, what is the primary task of a tracking algorithm?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To continuously estimate the position of an object over time</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Object tracking involves determining the location of an object in a sequence of frames. The goal is to track the object consistently despite possible occlusions, motion, or changes in appearance.<br><br>
+        **Tracking Techniques**:<br>
+        1. Kalman Filter<br>
+        2. Optical Flow<br>
+        3. Deep learning-based trackers<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) To classify objects in each frame</label><br>
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) To continuously estimate the position of an object over time</label><br>
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) To segment the object from the background</label><br>
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) To detect new objects in each frame</label><br>
+    </div>
+    <div id="result83" class="result"></div>
+</div>
+
+<!-- Question 85 -->
+<div class="qee"> 
+    <div class="que">
+        <p>85. Which algorithm is commonly used for tracking objects in video sequences?</p>
+        <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+    </div>
+    <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Kalman Filter</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Kalman Filter is a recursive algorithm used to estimate the state of a moving object based on noisy measurements. It is commonly used for object tracking in computer vision because of its ability to predict the position and velocity of an object with uncertainty.<br><br>
+        **Other Tracking Algorithms**:<br>
+        1. Mean-Shift Tracking<br>
+        2. Discriminative Correlation Filter (DCF)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+        <label for="optionA84">A) Kalman Filter</label><br>
+        <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+        <label for="optionB84">B) SIFT (Scale-Invariant Feature Transform)</label><br>
+        <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+        <label for="optionC84">C) YOLO (You Only Look Once)</label><br>
+        <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+        <label for="optionD84">D) AlexNet</label><br>
+    </div>
+    <div id="result84" class="result"></div>
+</div>
+
+<!-- Question 86 -->
+<div class="qee"> 
+    <div class="que">
+        <p>86. What is the main goal of 3D reconstruction in computer vision?</p>
+        <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+    </div>
+    <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To create a 3D model from 2D images</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        3D reconstruction refers to the process of capturing the shape and structure of a physical object or scene from multiple 2D images. It creates a 3D model of the object or environment, which can be used for virtual reality, gaming, and robotics.<br><br>
+        **Key Techniques**:<br>
+        1. Stereo vision<br>
+        2. Structure from motion (SfM)<br>
+        3. Multi-view stereo (MVS)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+        <label for="optionA85">A) To detect objects in images</label><br>
+        <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+        <label for="optionB85">B) To create a 3D model from 2D images</label><br>
+        <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+        <label for="optionC85">C) To improve image resolution</label><br>
+        <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+        <label for="optionD85">D) To track object movement over time</label><br>
+    </div>
+    <div id="result85" class="result"></div>
+</div>
+
+<!-- Question 87 -->
+<div class="qee"> 
+    <div class="que">
+        <p>87. Which technique is commonly used in 3D reconstruction for depth estimation?</p>
+        <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+    </div>
+    <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Stereo vision</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Stereo vision involves using two or more cameras to capture images of the same scene from different viewpoints. By comparing the disparities between corresponding points in the images, depth information can be extracted, allowing for the creation of a 3D reconstruction.<br><br>
+        **Other Techniques**:<br>
+        1. Structured light<br>
+        2. Time-of-flight sensors<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+        <label for="optionA86">A) Stereo vision</label><br>
+        <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+        <label for="optionB86">B) Image segmentation</label><br>
+        <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+        <label for="optionC86">C) Optical flow</label><br>
+        <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+        <label for="optionD86">D) Convolutional neural networks</label><br>
+    </div>
+    <div id="result86" class="result"></div>
+</div>
+
+<!-- Question 88 -->
+<div class="qee"> 
+    <div class="que">
+        <p>88. What is the primary challenge in 3D reconstruction from images?</p>
+        <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+    </div>
+    <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Dealing with occlusions and missing data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One of the main challenges in 3D reconstruction is handling occlusions and missing data. When parts of an object or scene are not visible in the 2D images (due to obstacles or angle), it can be difficult to reconstruct the full 3D model.<br><br>
+        **Other Challenges**:<br>
+        1. High computational complexity<br>
+        2. Accurate camera calibration<br>
+        3. Noise in image data<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+        <label for="optionA87">A) Managing large datasets</label><br>
+        <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+        <label for="optionB87">B) Camera calibration</label><br>
+        <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+        <label for="optionC87">C) Dealing with occlusions and missing data</label><br>
+        <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+        <label for="optionD87">D) Color consistency</label><br>
+    </div>
+    <div id="result87" class="result"></div>
+</div>
+
+<!-- Question 89 -->
+<div class="qee"> 
+    <div class="que">
+        <p>89. In image clustering, what is the main goal?</p>
+        <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+    </div>
+    <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To group similar images into clusters</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Image clustering is a type of unsupervised learning where the goal is to automatically group similar images based on their features, such as color, texture, or shape. Clustering can be used for tasks like image retrieval, content-based image search, and organizing large image datasets.<br><br>
+        **Common Clustering Algorithms**:<br>
+        1. K-means clustering<br>
+        2. Hierarchical clustering<br>
+        3. DBSCAN<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+        <label for="optionA88">A) To classify images into categories</label><br>
+        <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+        <label for="optionB88">B) To group similar images into clusters</label><br>
+        <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+        <label for="optionC88">C) To improve the quality of images</label><br>
+        <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+        <label for="optionD88">D) To remove noise from images</label><br>
+    </div>
+    <div id="result88" class="result"></div>
+</div>
+
+<!-- Question 90 -->
+<div class="qee"> 
+    <div class="que">
+        <p>90. Which algorithm is frequently used for image clustering based on pixel intensity values?</p>
+        <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+    </div>
+    <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) K-means clustering</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        K-means clustering is commonly used to group images based on pixel intensity values. It works by partitioning the image into a predefined number of clusters (k), minimizing the distance between pixels in the same cluster. This algorithm is simple and effective for many image clustering tasks.<br><br>
+        **Other Algorithms**:<br>
+        1. DBSCAN<br>
+        2. Agglomerative hierarchical clustering<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+        <label for="optionA89">A) K-means clustering</label><br>
+        <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+        <label for="optionB89">B) Support Vector Machine</label><br>
+        <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+        <label for="optionC89">C) Naive Bayes</label><br>
+        <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+        <label for="optionD89">D) Decision Tree</label><br>
+    </div>
+    <div id="result89" class="result"></div>
+</div>
+
+<!-- Question 91 -->
+<div class="qee"> 
+    <div class="que">
+        <p>91. What is the primary goal of image denoising?</p>
+        <button id="hintButton90" class="hint-button" type="button" onclick="showHint('hint91')">Show Hint</button>
+    </div>
+    <div id="hint91" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To remove noise from an image while preserving details</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Image denoising aims to remove unwanted noise from an image without losing important details. It is essential for improving image quality, especially in low-light conditions or with low-quality sensors. Techniques include filtering methods such as Gaussian blur, median filtering, and deep learning-based approaches.<br><br>
+        **Common Techniques**:<br>
+        1. Gaussian filtering<br>
+        2. Wavelet transform<br>
+        3. Deep learning-based models like denoising autoencoders<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA90" name="answer90" value="A" onclick="checkAnswer(90)">
+        <label for="optionA90">A) To increase the brightness of an image</label><br>
+        <input type="radio" id="optionB90" name="answer90" value="B" onclick="checkAnswer(90)">
+        <label for="optionB90">B) To remove noise from an image while preserving details</label><br>
+        <input type="radio" id="optionC90" name="answer90" value="C" onclick="checkAnswer(90)">
+        <label for="optionC90">C) To enhance the colors of an image</label><br>
+        <input type="radio" id="optionD90" name="answer90" value="D" onclick="checkAnswer(90)">
+        <label for="optionD90">D) To increase the resolution of an image</label><br>
+    </div>
+    <div id="result90" class="result"></div>
+</div>
+
+<!-- Question 92 -->
+<div class="qee"> 
+    <div class="que">
+        <p>92. Which method is commonly used for image denoising in traditional computer vision?</p>
+        <button id="hintButton91" class="hint-button" type="button" onclick="showHint('hint92')">Show Hint</button>
+    </div>
+    <div id="hint92" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Gaussian filtering</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Gaussian filtering is a common method used in image denoising. It smooths the image by applying a Gaussian kernel to reduce noise while preserving edges and other important details. However, it can blur sharp edges if not used carefully.<br><br>
+        **Other Methods**:<br>
+        1. Median filtering<br>
+        2. Bilateral filtering<br>
+        3. Non-local means denoising<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA91" name="answer91" value="A" onclick="checkAnswer(91)">
+        <label for="optionA91">A) Gaussian filtering</label><br>
+        <input type="radio" id="optionB91" name="answer91" value="B" onclick="checkAnswer(91)">
+        <label for="optionB91">B) Sobel edge detection</label><br>
+        <input type="radio" id="optionC91" name="answer91" value="C" onclick="checkAnswer(91)">
+        <label for="optionC91">C) Histogram equalization</label><br>
+        <input type="radio" id="optionD91" name="answer91" value="D" onclick="checkAnswer(91)">
+        <label for="optionD91">D) Image segmentation</label><br>
+    </div>
+    <div id="result91" class="result"></div>
+</div>
+
+<!-- Question 93 -->
+<div class="qee"> 
+    <div class="que">
+        <p>93. What is the main challenge in image denoising for deep learning models?</p>
+        <button id="hintButton92" class="hint-button" type="button" onclick="showHint('hint93')">Show Hint</button>
+    </div>
+    <div id="hint93" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Balancing noise removal with the preservation of important details</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The main challenge in deep learning-based denoising is to effectively remove noise without losing important image details, such as edges, textures, and fine structures. Over-smoothing the image can result in blurred details and reduced quality.<br><br>
+        **Important Considerations**:<br>
+        1. Training data quality<br>
+        2. Loss functions that preserve fine details<br>
+        3. Model complexity and generalization<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA92" name="answer92" value="A" onclick="checkAnswer(92)">
+        <label for="optionA92">A) Managing large training datasets</label><br>
+        <input type="radio" id="optionB92" name="answer92" value="B" onclick="checkAnswer(92)">
+        <label for="optionB92">B) Minimizing the model's computational cost</label><br>
+        <input type="radio" id="optionC92" name="answer92" value="C" onclick="checkAnswer(92)">
+        <label for="optionC92">C) Balancing noise removal with the preservation of important details</label><br>
+        <input type="radio" id="optionD92" name="answer92" value="D" onclick="checkAnswer(92)">
+        <label for="optionD92">D) Avoiding overfitting</label><br>
+    </div>
+    <div id="result92" class="result"></div>
+</div>
+
+<!-- Question 94 -->
+<div class="qee"> 
+    <div class="que">
+        <p>94. What is Augmented Reality (AR)?</p>
+        <button id="hintButton93" class="hint-button" type="button" onclick="showHint('hint94')">Show Hint</button>
+    </div>
+    <div id="hint94" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A technology that overlays digital content onto the real world</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Augmented Reality (AR) is a technology that combines real-world environments with computer-generated content, creating an interactive experience. AR enhances the real world by overlaying virtual objects or information onto it through devices like smartphones, tablets, or AR glasses.<br><br>
+        **AR Applications**:<br>
+        1. Navigation systems<br>
+        2. Education and training<br>
+        3. Interactive gaming and entertainment<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA93" name="answer93" value="A" onclick="checkAnswer(93)">
+        <label for="optionA93">A) A technology that immerses users in a completely virtual world</label><br>
+        <input type="radio" id="optionB93" name="answer93" value="B" onclick="checkAnswer(93)">
+        <label for="optionB93">B) A technology that overlays digital content onto the real world</label><br>
+        <input type="radio" id="optionC93" name="answer93" value="C" onclick="checkAnswer(93)">
+        <label for="optionC93">C) A technology that creates virtual simulations of real-world objects</label><br>
+        <input type="radio" id="optionD93" name="answer93" value="D" onclick="checkAnswer(93)">
+        <label for="optionD93">D) A technology that enables video streaming in real-time</label><br>
+    </div>
+    <div id="result93" class="result"></div>
+</div>
+
+<!-- Question 95 -->
+<div class="qee"> 
+    <div class="que">
+        <p>95. Which of the following devices is commonly used for Augmented Reality (AR) applications?</p>
+        <button id="hintButton94" class="hint-button" type="button" onclick="showHint('hint95')">Show Hint</button>
+    </div>
+    <div id="hint95" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) AR glasses</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Augmented Reality (AR) typically uses devices such as AR glasses or headsets that allow the user to interact with the real world while viewing and interacting with digital content. These devices superimpose virtual elements onto the user's field of view.<br><br>
+        **Other AR Devices**:<br>
+        1. Smartphones<br>
+        2. Tablets<br>
+        3. Smart contact lenses (emerging technology)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA94" name="answer94" value="A" onclick="checkAnswer(94)">
+        <label for="optionA94">A) AR glasses</label><br>
+        <input type="radio" id="optionB94" name="answer94" value="B" onclick="checkAnswer(94)">
+        <label for="optionB94">B) Smartwatch</label><br>
+        <input type="radio" id="optionC94" name="answer94" value="C" onclick="checkAnswer(94)">
+        <label for="optionC94">C) Virtual reality headset</label><br>
+        <input type="radio" id="optionD94" name="answer94" value="D" onclick="checkAnswer(94)">
+        <label for="optionD94">D) Fitness tracker</label><br>
+    </div>
+    <div id="result94" class="result"></div>
+</div>
+
+<!-- Question 96 -->
+<div class="qee"> 
+    <div class="que">
+        <p>96. What is the main idea behind self-supervised learning in computer vision?</p>
+        <button id="hintButton95" class="hint-button" type="button" onclick="showHint('hint96')">Show Hint</button>
+    </div>
+    <div id="hint96" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Learning representations from unlabeled data by creating pseudo-labels</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Self-supervised learning aims to leverage unlabeled data by creating auxiliary tasks or pseudo-labels to learn meaningful representations of the data. These tasks could involve predicting parts of the input data (e.g., predicting missing parts of an image). This method helps avoid the need for labeled data, which is often expensive to obtain.<br><br>
+        **Examples of Self-Supervised Tasks**:<br>
+        1. Predicting missing parts of an image (image inpainting)<br>
+        2. Contrastive learning (e.g., SimCLR)<br>
+        3. Predicting rotations or transformations of images<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA95" name="answer95" value="A" onclick="checkAnswer(95)">
+        <label for="optionA95">A) Training models with labeled data only</label><br>
+        <input type="radio" id="optionB95" name="answer95" value="B" onclick="checkAnswer(95)">
+        <label for="optionB95">B) Learning representations from unlabeled data by creating pseudo-labels</label><br>
+        <input type="radio" id="optionC95" name="answer95" value="C" onclick="checkAnswer(95)">
+        <label for="optionC95">C) Using reinforcement learning to build representations</label><br>
+        <input type="radio" id="optionD95" name="answer95" value="D" onclick="checkAnswer(95)">
+        <label for="optionD95">D) Using supervised learning with a small labeled dataset</label><br>
+    </div>
+    <div id="result95" class="result"></div>
+</div>
+
+<!-- Question 97 -->
+<div class="qee"> 
+    <div class="que">
+        <p>97. Which technique is commonly used in self-supervised learning for computer vision?</p>
+        <button id="hintButton96" class="hint-button" type="button" onclick="showHint('hint97')">Show Hint</button>
+    </div>
+    <div id="hint97" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Contrastive learning</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Contrastive learning is a popular self-supervised learning technique where the model is trained to distinguish between similar and dissimilar examples by comparing pairs of data points. A common method is SimCLR, where augmented versions of the same image are treated as positive pairs, while different images are negative pairs. The goal is to learn embeddings that bring similar images closer together and push dissimilar ones apart.<br><br>
+        **Other Techniques**:<br>
+        1. Predicting future frames (video) or parts of the data (image inpainting)<br>
+        2. RotNet (predicting the rotation of images)<br>
+        3. Autoencoders<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA96" name="answer96" value="A" onclick="checkAnswer(96)">
+        <label for="optionA96">A) Contrastive learning</label><br>
+        <input type="radio" id="optionB96" name="answer96" value="B" onclick="checkAnswer(96)">
+        <label for="optionB96">B) Transfer learning</label><br>
+        <input type="radio" id="optionC96" name="answer96" value="C" onclick="checkAnswer(96)">
+        <label for="optionC96">C) Generative adversarial networks (GANs)</label><br>
+        <input type="radio" id="optionD96" name="answer96" value="D" onclick="checkAnswer(96)">
+        <label for="optionD96">D) Fully supervised learning</label><br>
+    </div>
+    <div id="result96" class="result"></div>
+</div>
+
+<!-- Question 98 -->
+<div class="qee"> 
+    <div class="que">
+        <p>98. What is the benefit of self-supervised learning in computer vision?</p>
+        <button id="hintButton97" class="hint-button" type="button" onclick="showHint('hint98')">Show Hint</button>
+    </div>
+    <div id="hint98" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It eliminates the need for labeled data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The primary benefit of self-supervised learning is that it eliminates the need for large labeled datasets, which are often expensive and time-consuming to create. By using unlabeled data and generating pseudo-labels, self-supervised learning can train models effectively without the dependence on labeled examples.<br><br>
+        **Other Benefits**:<br>
+        1. Better generalization to unseen data<br>
+        2. Reduced data labeling costs<br>
+        3. Can be used to pretrain models for downstream tasks<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA97" name="answer97" value="A" onclick="checkAnswer(97)">
+        <label for="optionA97">A) It increases the training time of models</label><br>
+        <input type="radio" id="optionB97" name="answer97" value="B" onclick="checkAnswer(97)">
+        <label for="optionB97">B) It requires large labeled datasets</label><br>
+        <input type="radio" id="optionC97" name="answer97" value="C" onclick="checkAnswer(97)">
+        <label for="optionC97">C) It eliminates the need for labeled data</label><br>
+        <input type="radio" id="optionD97" name="answer97" value="D" onclick="checkAnswer(97)">
+        <label for="optionD97">D) It simplifies the model architecture</label><br>
+    </div>
+    <div id="result97" class="result"></div>
+</div>
+
+<!-- Question 99 -->
+<div class="qee"> 
+    <div class="que">
+        <p>99. What is multimodal learning in the context of computer vision?</p>
+        <button id="hintButton98" class="hint-button" type="button" onclick="showHint('hint99')">Show Hint</button>
+    </div>
+    <div id="hint99" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Learning from multiple types of data, such as images and text</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Multimodal learning refers to the process of learning from multiple types of data (e.g., images, text, audio) to improve the performance of models. In the case of computer vision, this involves combining visual data (e.g., images or videos) with textual data (e.g., captions or descriptions) to provide richer and more comprehensive understanding of the content.<br><br>
+        **Applications of Multimodal Learning**:<br>
+        1. Image captioning<br>
+        2. Visual question answering (VQA)<br>
+        3. Video-text retrieval<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA98" name="answer98" value="A" onclick="checkAnswer(98)">
+        <label for="optionA98">A) Learning from multiple types of data, such as images and text</label><br>
+        <input type="radio" id="optionB98" name="answer98" value="B" onclick="checkAnswer(98)">
+        <label for="optionB98">B) Learning from a single type of data, such as text</label><br>
+        <input type="radio" id="optionC98" name="answer98" value="C" onclick="checkAnswer(98)">
+        <label for="optionC98">C) Learning from unsupervised data only</label><br>
+        <input type="radio" id="optionD98" name="answer98" value="D" onclick="checkAnswer(98)">
+        <label for="optionD98">D) Learning from supervised data only</label><br>
+    </div>
+    <div id="result98" class="result"></div>
+</div>
+
+<!-- Question 100 -->
+<div class="qee"> 
+    <div class="que">
+        <p>100. What is the primary challenge in multimodal learning for vision and text?</p>
+        <button id="hintButton99" class="hint-button" type="button" onclick="showHint('hint100')">Show Hint</button>
+    </div>
+    <div id="hint100" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Aligning and merging different data modalities effectively</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The primary challenge in multimodal learning is to effectively align and merge the different data modalities (e.g., text and images) to create meaningful and cohesive representations. Each modality has its own structure and characteristics, so combining them requires sophisticated techniques to ensure they complement each other effectively.<br><br>
+        **Other Challenges**:<br>
+        1. Handling noise or discrepancies between modalities<br>
+        2. Ensuring a proper balance between different modalities during training<br>
+        3. Scaling models to handle large, complex multimodal datasets<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA99" name="answer99" value="A" onclick="checkAnswer(99)">
+        <label for="optionA99">A) Reducing the number of features</label><br>
+        <input type="radio" id="optionB99" name="answer99" value="B" onclick="checkAnswer(99)">
+        <label for="optionB99">B) Aligning and merging different data modalities effectively</label><br>
+        <input type="radio" id="optionC99" name="answer99" value="C" onclick="checkAnswer(99)">
+        <label for="optionC99">C) Reducing the training time</label><br>
+        <input type="radio" id="optionD99" name="answer99" value="D" onclick="checkAnswer(99)">
+        <label for="optionD99">D) Ensuring high accuracy for single-modal data</label><br>
+    </div>
+    <div id="result99" class="result"></div>
+</div>
+
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

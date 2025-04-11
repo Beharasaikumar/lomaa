@@ -1,0 +1,2786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PYTHON FOR DATA SCIENCE</title>
+    <link rel="stylesheet" href="../css/data science.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'A', 'C', 'B', 'A', 'D', 'C', 'D', 'B', 'C', 'A',
+            'B', 'C', 'D', 'C', 'C', 'A', 'A', 'B', 'C', 'A',
+            'A', 'B', 'A', 'A', 'C', 'A', 'A', 'B', 'C', 'A',
+            'A', 'D', 'B', 'B', 'D', 'A', 'A', 'C', 'A', 'B',
+            'A', 'B', 'A', 'A', 'B', 'A', 'B', 'A', 'B', 'A',
+            'A', 'C', 'A', 'B', 'D', 'A', 'A', 'B', 'A', 'D',   
+            'A', 'D', 'C', 'D', 'A', 'A', 'B', 'C', 'A', 'B',
+            'A', 'B', 'C', 'D', 'B', 'A', 'B', 'D', 'A', 'C',
+            'B', 'A', 'C', 'B', 'B', 'B', 'A', 'A', 'C', 'C'
+
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>PYTHON FOR DATA SCIENCE</h3>
+        <div class="inner-border">
+            <div class="qee">
+<!-- Question 1 -->
+    <div class="que">
+        <p>1. What is the correct file extension for a Python file?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) .py</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Python source code files are saved with the **.py** file extension, indicating they contain Python code.<br><br>
+        **Example:**<br>
+        `script.py`, `data_analysis.py`, `hello_world.py`
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) .py</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) .java</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) .html</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) .exe</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. Which of the following is a correct way to write a comment in Python?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) # This is a comment</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Python, comments are written using the `#` symbol. Everything after `#` on the same line is considered a comment.<br><br>
+        **Example:**<br>
+        `# This is a single-line comment`<br>
+        `# This helps explain the code to humans.`
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) // This is a comment</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) /* This is a comment */</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) # This is a comment</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) <!-- This is a comment --></label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. Which data type is immutable in Python?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Tuple</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Python, **tuples** are immutable, meaning once created, their elements cannot be changed, added, or removed.<br><br>
+        **Example:**<br>
+        `my_tuple = (1, 2, 3)`<br>
+        Trying to modify `my_tuple[0] = 4` will raise an error.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) List</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) Tuple</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) Dictionary</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) Set</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. What is the output of the following Python code: `print(2 ** 3)`?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) 8</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Python, `**` is the exponentiation operator. The expression `2 ** 3` means "2 raised to the power of 3".<br><br>
+        **Calculation:**<br>
+        `2 ** 3 = 2 × 2 × 2 = 8`
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) 8</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) 6</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) 9</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) 12</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. Which of the following is NOT a valid Python data type?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) int64</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Python, common data types include `int`, `float`, `str`, `list`, `tuple`, etc. There is no built-in `int64` data type.<br><br>
+        **Note:** `int64` is used in libraries like NumPy but not as a native Python data type.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) int</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) str</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) list</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) int64</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+            
+<!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. Which of the following is an immutable data type in Python?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) String</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Python, **strings** are immutable, meaning once created, their content cannot be changed.<br><br>
+        **Example:**<br>
+        `s = "Hello"`<br>
+        `s[0] = "h"` will raise an error because you cannot modify individual characters of a string.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) List</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) Dictionary</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) String</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) Set</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. What is the default data type of a variable in Python if no explicit data type is assigned?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Dynamic</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Python is a **dynamically typed** language, meaning you don’t need to declare the data type of a variable explicitly.<br><br>
+        **Example:**<br>
+        `x = 10` → Python infers `x` as an integer without explicit declaration.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Static</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Explicit</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Strongly Typed</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Dynamic</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. Which of the following is NOT a valid variable name in Python?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) 2nd_name</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Python, variable names must start with a letter or an underscore (`_`). They cannot begin with a digit.<br><br>
+        **Invalid Example:**<br>
+        `2nd_name` is invalid because it starts with a number.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) my_var</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) 2nd_name</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) _hidden</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) Name123</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. What will be the output of `print(5 // 2)` in Python?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) 2</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `//` operator in Python performs **integer division**, which returns the floor value of the division.<br><br>
+        **Calculation:**<br>
+        `5 // 2` equals `2` because 2 is the integer part of the division.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) 2.5</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) 3</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) 2</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) 1</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. Which of the following is used to get the length of a list in Python?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) len()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `len()` function in Python returns the number of items in a list, string, or other iterable objects.<br><br>
+        **Example:**<br>
+        `len([1, 2, 3, 4])` returns `4`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) len()</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) count()</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) size()</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) length()</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. Which of the following is the correct syntax for a for loop in Python?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) for item in iterable:</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Python, a **for loop** is used to iterate over a sequence (like a list, tuple, or string).<br><br>
+        **Example:**<br>
+        `for item in [1, 2, 3]:`<br>
+        `    print(item)`<br>
+        This prints each item in the list.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) for (item in iterable):</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) for item in iterable:</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) loop item in iterable:</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) foreach item in iterable:</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. What is the output of the following code?<br>
+        <code>for i in range(3):<br>    print(i)</code></p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) 0, 1, 2</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `range(3)` generates numbers from **0 to 2** (3 is exclusive).<br><br>
+        **Output:**<br>
+        ```
+        0
+        1
+        2
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) 1, 2, 3</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) 0, 1</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) 0, 1, 2</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) 1, 2, 3, 4</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. Which keyword is used to stop a loop in Python?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) break</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **`break`** statement is used to exit a loop prematurely when a condition is met.<br><br>
+        **Example:**<br>
+        ```
+        for i in range(5):
+            if i == 3:
+                break
+            print(i)
+        ```
+        This will print `0, 1, 2` and then stop when `i == 3`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) stop</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) exit</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) continue</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) break</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. Which of the following is used to skip the current iteration of a loop?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) continue</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **`continue`** statement skips the rest of the code inside the loop for the current iteration and moves to the next iteration.<br><br>
+        **Example:**<br>
+        ```
+        for i in range(5):
+            if i == 2:
+                continue
+            print(i)
+        ```
+        This will print `0, 1, 3, 4` (skipping `2`).
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) break</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) pass</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) continue</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) exit</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What is the output of the following code?<br>
+        <code>if 5 > 3:<br>    print("Yes")<br>else:<br>    print("No")</code></p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Yes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The condition `5 > 3` is **True**, so the code under the `if` block will execute, printing **"Yes"**.<br><br>
+        **Output:**<br>
+        ```
+        Yes
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) Yes</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) No</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) Error</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) None</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+          <!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. What is the correct way to define a function in Python?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) def function_name():</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Functions in Python are defined using the **`def`** keyword followed by the function name and parentheses.<br><br>
+        **Example:**<br>
+        ```
+        def greet():
+            print("Hello, World!")
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) function greet():</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) def greet():</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) create greet():</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) function greet {}</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. What is the purpose of the `return` statement in a function?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To send the result back to the caller</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **`return`** statement is used to send the output of a function back to the part of the program that called it.<br><br>
+        **Example:**<br>
+        ```
+        def add(a, b):
+            return a + b
+        result = add(5, 3)
+        print(result)
+        ```
+        This will print `8`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) To send the result back to the caller</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) To end the program</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) To print the output directly</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) To store values in variables</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. Which of the following is used to import a module in Python?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) import module_name</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **`import`** statement is used to include external Python modules into your program.<br><br>
+        **Example:**<br>
+        ```
+        import math
+        print(math.sqrt(16))
+        ```
+        This will print `4.0`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) use module_name</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) import module_name</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) include module_name</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) require module_name</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What is the difference between `is` and `==` in Python?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) `is` checks for object identity, `==` checks for value equality</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        - **`is`** compares whether two variables refer to the same object in memory.<br>
+        - **`==`** compares whether the values of the objects are the same.<br><br>
+        **Example:**<br>
+        ```
+        a = [1, 2, 3]
+        b = [1, 2, 3]
+        print(a == b)  # True (same values)
+        print(a is b)  # False (different objects)
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) `is` compares value, `==` compares identity</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) Both compare the same thing</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) `is` checks for object identity, `==` checks for value equality</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) `is` is used for functions only</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. How do you define a module in Python?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) A file containing Python definitions and functions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A **module** is a file that contains Python code (functions, classes, variables) and can be imported into other Python scripts.<br><br>
+        **Example:**<br>
+        Create a file `mymodule.py`:
+        ```
+        def greet():
+            print("Hello from my module!")
+        ```
+        Import it:
+        ```
+        import mymodule
+        mymodule.greet()
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) A file containing Python definitions and functions</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) A Python keyword</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) A type of Python loop</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) A data structure in Python</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+  <!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. What is the primary purpose of NumPy in Python?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To perform numerical computations efficiently</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **NumPy** is used for numerical computations, providing support for multi-dimensional arrays and mathematical functions.<br><br>
+        **Example:**<br>
+        ```
+        import numpy as np
+        arr = np.array([1, 2, 3, 4])
+        print(arr + 5)
+        ```
+        This will output: `[6 7 8 9]`
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) To perform numerical computations efficiently</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) To create graphical plots</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) To manage databases</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) To perform web scraping</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. Which of the following is a key feature of Pandas?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Data manipulation and analysis using DataFrames</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Pandas** is used for data manipulation and analysis, providing data structures like **DataFrames** and **Series**.<br><br>
+        **Example:**<br>
+        ```
+        import pandas as pd
+        data = {'Name': ['Alice', 'Bob'], 'Age': [25, 30]}
+        df = pd.DataFrame(data)
+        print(df)
+        ```
+        This will display:
+        ```
+           Name  Age
+        0  Alice   25
+        1    Bob   30
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) Creating 3D graphics</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) Data manipulation and analysis using DataFrames</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) Web development</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) Image processing</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. What does the NumPy function `np.mean()` do?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Calculates the average of an array</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **`np.mean()`** function calculates the **mean (average)** of the elements in an array.<br><br>
+        **Example:**<br>
+        ```
+        import numpy as np
+        arr = np.array([1, 2, 3, 4, 5])
+        print(np.mean(arr))
+        ```
+        This will output: `3.0`
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) Calculates the average of an array</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) Finds the maximum value in an array</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) Converts array elements to strings</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) Sorts the array in descending order</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. How do you read a CSV file using Pandas?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) pd.read_csv('filename.csv')</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To read a **CSV file**, you can use the **`pd.read_csv()`** function from Pandas.<br><br>
+        **Example:**<br>
+        ```
+        import pandas as pd
+        df = pd.read_csv('data.csv')
+        print(df)
+        ```
+        This will display the contents of `data.csv` in a DataFrame format.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) pd.load_csv('filename.csv')</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) pd.read_csv('filename.csv')</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) pd.import_csv('filename.csv')</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) pd.open_csv('filename.csv')</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. What is the difference between `loc[]` and `iloc[]` in Pandas?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) `loc[]` is label-based, `iloc[]` is integer position-based</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        - **`loc[]`** is used for **label-based** indexing (using row/column names).<br>
+        - **`iloc[]`** is used for **integer position-based** indexing (using integer index positions).<br><br>
+        **Example:**<br>
+        ```
+        import pandas as pd
+        data = {'Name': ['Alice', 'Bob'], 'Age': [25, 30]}
+        df = pd.DataFrame(data, index=['a', 'b'])
+        print(df.loc['a'])   # Label-based
+        print(df.iloc[0])    # Integer-based
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) Both are used for sorting data</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) `loc[]` is for filtering, `iloc[]` is for grouping</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) `loc[]` is label-based, `iloc[]` is integer position-based</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) `loc[]` is for reading files, `iloc[]` is for writing files</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. What is the primary purpose of Matplotlib in Python?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To create static, animated, and interactive visualizations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Matplotlib** is widely used for creating various types of plots and visualizations in Python, including line plots, bar charts, histograms, etc.<br><br>
+        **Example:**<br>
+        ```
+        import matplotlib.pyplot as plt
+        x = [1, 2, 3, 4, 5]
+        y = [2, 4, 6, 8, 10]
+        plt.plot(x, y)
+        plt.show()
+        ```
+        This will display a simple line plot.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) To create static, animated, and interactive visualizations</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) To analyze large datasets</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) To perform mathematical calculations</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) To manage databases</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. Which of the following is used to create a histogram in Matplotlib?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) plt.hist()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **`plt.hist()`** function in Matplotlib is used to create histograms to visualize the distribution of data.<br><br>
+        **Example:**<br>
+        ```
+        import matplotlib.pyplot as plt
+        data = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
+        plt.hist(data, bins=4)
+        plt.show()
+        ```
+        This will display a histogram showing the frequency distribution of the data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) plt.hist()</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) plt.plot()</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) plt.bar()</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) plt.scatter()</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. What is Seaborn primarily used for?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To create statistical data visualizations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Seaborn** is a Python data visualization library based on Matplotlib, designed for creating **statistical graphics** like heatmaps, violin plots, pair plots, etc.<br><br>
+        **Example:**<br>
+        ```
+        import seaborn as sns
+        import matplotlib.pyplot as plt
+        tips = sns.load_dataset('tips')
+        sns.scatterplot(x='total_bill', y='tip', data=tips)
+        plt.show()
+        ```
+        This will create a scatter plot showing the relationship between total bill and tip.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) To manage large datasets</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) To create statistical data visualizations</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) To clean and preprocess data</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) To perform machine learning tasks</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. How do you customize the color of a line in a Matplotlib plot?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using the `color` parameter in `plt.plot()`</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can customize the color of a line in a plot using the **`color`** parameter in the **`plt.plot()`** function.<br><br>
+        **Example:**<br>
+        ```
+        import matplotlib.pyplot as plt
+        x = [1, 2, 3, 4, 5]
+        y = [2, 4, 6, 8, 10]
+        plt.plot(x, y, color='red')  # Custom color
+        plt.show()
+        ```
+        This will display a red line plot.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) By using the `style` parameter</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) By changing the background color</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) By using the `color` parameter in `plt.plot()`</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) By adjusting the line thickness only</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. Which function in Seaborn is used to create a heatmap?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) sns.heatmap()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **`sns.heatmap()`** function in Seaborn is used to create heatmaps, which are useful for visualizing matrix-like data.<br><br>
+        **Example:**<br>
+        ```
+        import seaborn as sns
+        import matplotlib.pyplot as plt
+        import numpy as np
+        data = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        sns.heatmap(data)
+        plt.show()
+        ```
+        This will display a heatmap showing the intensity of values.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) sns.heatmap()</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) sns.scatterplot()</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) sns.barplot()</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) sns.lineplot()</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. What is the primary purpose of data cleaning in data science?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To improve data quality by removing errors and inconsistencies</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Data cleaning** is the process of identifying and correcting (or removing) errors, inconsistencies, and inaccuracies in the data to ensure its quality for analysis.<br><br>
+        **Common data cleaning tasks:**<br>
+        - Handling missing values<br>
+        - Removing duplicates<br>
+        - Correcting data types<br>
+        - Handling outliers<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) To improve data quality by removing errors and inconsistencies</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) To make the data more complex</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) To add unnecessary information to the data</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) To store data in a database</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. Which of the following methods can be used to handle missing values in a dataset?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) All of the above</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Missing values can be handled in various ways, including:<br>
+        - **Removing rows/columns** with missing values<br>
+        - **Imputing** missing values with mean, median, mode, or predictive models<br>
+        - **Using placeholders** or special values to indicate missingness<br><br>
+        **Example (using pandas):**<br>
+        ```
+        import pandas as pd
+        df = pd.DataFrame({'A': [1, 2, None, 4]})
+        df.fillna(df['A'].mean(), inplace=True)
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) Removing rows or columns with missing values</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) Imputing missing values with statistical measures</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) Using placeholders for missing values</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) All of the above</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. What is data normalization?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Scaling data to a specific range, usually [0, 1]</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Data normalization** is the process of scaling data to a specific range, often [0, 1], to improve the performance of machine learning algorithms.<br><br>
+        **Example (using pandas and sklearn):**<br>
+        ```
+        from sklearn.preprocessing import MinMaxScaler
+        import numpy as np
+        data = np.array([[1, 2], [3, 4], [5, 6]])
+        scaler = MinMaxScaler()
+        normalized_data = scaler.fit_transform(data)
+        print(normalized_data)
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) Converting text data to numerical data</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) Scaling data to a specific range, usually [0, 1]</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) Removing outliers from data</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) Encoding categorical data into numerical values</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. Which pandas function is used to detect and handle duplicate data?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) `drop_duplicates()`</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **`drop_duplicates()`** function in pandas is used to remove duplicate rows from a DataFrame.<br><br>
+        **Example:**<br>
+        ```
+        import pandas as pd
+        df = pd.DataFrame({'A': [1, 2, 2, 3], 'B': [4, 5, 5, 6]})
+        df = df.drop_duplicates()
+        print(df)
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) `drop_duplicates()`</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) `fillna()`</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) `groupby()`</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) `merge()`</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. Which of the following techniques is used to handle outliers in data?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) All of the above</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Outliers can be handled using various techniques:<br>
+        - **Removing outliers** if they are errors<br>
+        - **Transforming the data** (e.g., log transformation)<br>
+        - **Using robust statistical methods**<br><br>
+        **Example (using IQR method):**<br>
+        ```
+        import pandas as pd
+        Q1 = df['A'].quantile(0.25)
+        Q3 = df['A'].quantile(0.75)
+        IQR = Q3 - Q1
+        df = df[(df['A'] >= (Q1 - 1.5 * IQR)) & (df['A'] <= (Q3 + 1.5 * IQR))]
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) Removing outliers</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) Applying transformations to reduce their effect</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) Using robust statistical methods</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) All of the above</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. What is the primary goal of Exploratory Data Analysis (EDA)?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To understand the main characteristics of the data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Exploratory Data Analysis (EDA)** helps in understanding the main characteristics of the data through visualization and statistical analysis.<br><br>
+        **Common EDA techniques:**<br>
+        - Summary statistics (mean, median, variance)<br>
+        - Data visualization (histograms, box plots, scatter plots)<br>
+        - Identifying missing values and outliers<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) To understand the main characteristics of the data</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) To create machine learning models</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) To store large datasets efficiently</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) To reduce the dimensionality of data</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. Which plot is commonly used to visualize the distribution of a single variable?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Histogram</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A **histogram** is commonly used to visualize the distribution of a single variable by showing the frequency of data points within specified ranges (bins).<br><br>
+        **Example (using matplotlib):**<br>
+        ```
+        import matplotlib.pyplot as plt
+        import numpy as np
+        data = np.random.randn(1000)
+        plt.hist(data, bins=20)
+        plt.show()
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) Histogram</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) Scatter plot</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) Line plot</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) Box plot</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. What does a box plot help to identify in a dataset?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Outliers and data distribution</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A **box plot** helps visualize the distribution of data and identify outliers by showing the median, quartiles, and potential outliers.<br><br>
+        **Example (using seaborn):**<br>
+        ```
+        import seaborn as sns
+        import matplotlib.pyplot as plt
+        import numpy as np
+        data = np.random.randn(100)
+        sns.boxplot(data)
+        plt.show()
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) Correlation between variables</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) Frequency of data points</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) Outliers and data distribution</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) Time trends in data</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. Which pandas function is used to calculate summary statistics of a DataFrame?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) `describe()`</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **`describe()`** function in pandas provides summary statistics such as count, mean, standard deviation, min, and max for numerical columns.<br><br>
+        **Example:**<br>
+        ```
+        import pandas as pd
+        df = pd.DataFrame({'A': [1, 2, 3, 4, 5]})
+        print(df.describe())
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) `describe()`</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) `info()`</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) `groupby()`</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) `merge()`</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. What is the purpose of correlation analysis in EDA?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To identify relationships between variables</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Correlation analysis** helps identify the strength and direction of relationships between variables in a dataset.<br><br>
+        **Example (using pandas):**<br>
+        ```
+        import pandas as pd
+        df = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6]})
+        print(df.corr())
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) To sort data in ascending order</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) To identify relationships between variables</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) To eliminate missing values</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) To normalize the data</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. What is the purpose of statistical analysis in data science?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To extract meaningful insights from data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Statistical analysis** helps to summarize, explore, and make inferences from data. It is essential for understanding patterns, making predictions, and supporting decision-making.<br><br>
+        **Key techniques include:**<br>
+        - Descriptive statistics (mean, median, mode)<br>
+        - Inferential statistics (hypothesis testing, confidence intervals)<br>
+        - Regression analysis<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) To extract meaningful insights from data</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) To store data efficiently</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) To clean data for analysis</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) To visualize data in plots</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. Which Python library is commonly used for performing statistical operations?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) SciPy</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **SciPy** is a powerful Python library for scientific and technical computing. It provides modules for optimization, integration, interpolation, eigenvalue problems, algebraic equations, and statistical analysis.<br><br>
+        **Example (t-test in SciPy):**<br>
+        ```
+        from scipy import stats
+        data1 = [2, 4, 6, 8, 10]
+        data2 = [1, 3, 5, 7, 9]
+        t_stat, p_value = stats.ttest_ind(data1, data2)
+        print("t-statistic:", t_stat, "p-value:", p_value)
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) NumPy</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) SciPy</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) Matplotlib</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) Seaborn</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. What is the purpose of a p-value in hypothesis testing?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To determine the statistical significance of the results</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A **p-value** helps determine the statistical significance of the observed data in hypothesis testing. It indicates the probability of obtaining the observed results, or more extreme, if the null hypothesis is true.<br><br>
+        **Interpretation:**<br>
+        - p-value < 0.05: Reject the null hypothesis (significant result)<br>
+        - p-value ≥ 0.05: Fail to reject the null hypothesis (not significant)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) To determine the statistical significance of the results</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) To calculate the mean of the dataset</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) To measure data variance</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) To determine the correlation between variables</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. Which test is used to compare the means of two independent groups?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Independent t-test</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **independent t-test** compares the means of two independent groups to determine if there is a statistically significant difference between them.<br><br>
+        **Example (using SciPy):**<br>
+        ```
+        from scipy import stats
+        group1 = [5, 6, 7, 8, 9]
+        group2 = [2, 3, 4, 5, 6]
+        t_stat, p_value = stats.ttest_ind(group1, group2)
+        print("t-statistic:", t_stat, "p-value:", p_value)
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) Independent t-test</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) Paired t-test</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) Chi-square test</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) ANOVA</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. What is the purpose of correlation analysis in statistics?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To measure the strength and direction of a linear relationship between variables</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Correlation analysis** identifies the strength and direction of a linear relationship between two variables. The **correlation coefficient** (r) ranges from -1 to 1:<br>
+        - **1**: Perfect positive correlation<br>
+        - **-1**: Perfect negative correlation<br>
+        - **0**: No correlation<br><br>
+        **Example (using NumPy):**<br>
+        ```
+        import numpy as np
+        x = [1, 2, 3, 4, 5]
+        y = [2, 4, 6, 8, 10]
+        correlation = np.corrcoef(x, y)[0, 1]
+        print("Correlation coefficient:", correlation)
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) To compare means of datasets</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) To measure the strength and direction of a linear relationship between variables</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) To predict future trends based on past data</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) To calculate the variance of data</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. What is the primary goal of machine learning?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To enable computers to learn from data and make decisions without being explicitly programmed</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Machine Learning (ML)** enables systems to learn from data, identify patterns, and make decisions with minimal human intervention.<br><br>
+        **Key types of ML:**<br>
+        - **Supervised Learning:** Learning from labeled data (e.g., classification, regression).<br>
+        - **Unsupervised Learning:** Finding patterns in unlabeled data (e.g., clustering, dimensionality reduction).<br>
+        - **Reinforcement Learning:** Learning through trial and error to maximize rewards.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) To enable computers to learn from data and make decisions without being explicitly programmed</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) To program computers with specific instructions</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) To replace human intelligence completely</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) To create random data for testing purposes</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. Which of the following is a common algorithm used in supervised learning?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Linear Regression</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Linear Regression** is a widely used algorithm in supervised learning for predicting continuous values. It finds the best-fit line through the data points to predict the target variable.<br><br>
+        **Example (using Scikit-learn):**<br>
+        ```
+        from sklearn.linear_model import LinearRegression
+        X = [[1], [2], [3], [4], [5]]
+        y = [2, 4, 6, 8, 10]
+        model = LinearRegression().fit(X, y)
+        print("Prediction for 6:", model.predict([[6]]))
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) K-means Clustering</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) Linear Regression</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) Principal Component Analysis (PCA)</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) DBSCAN</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. What is the purpose of a confusion matrix in classification tasks?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To evaluate the performance of a classification model</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A **confusion matrix** summarizes the performance of a classification model. It shows the counts of true positives (TP), true negatives (TN), false positives (FP), and false negatives (FN).<br><br>
+        **Key metrics derived from it:**<br>
+        - **Accuracy:** (TP + TN) / Total<br>
+        - **Precision:** TP / (TP + FP)<br>
+        - **Recall:** TP / (TP + FN)<br>
+        - **F1 Score:** 2 * (Precision * Recall) / (Precision + Recall)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) To evaluate the performance of a classification model</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) To perform data preprocessing</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) To cluster similar data points</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) To visualize data trends</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. Which Python library is commonly used for building machine learning models?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Scikit-learn</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Scikit-learn** is one of the most popular Python libraries for building machine learning models. It provides tools for classification, regression, clustering, dimensionality reduction, and model evaluation.<br><br>
+        **Example (Simple Linear Regression):**<br>
+        ```
+        from sklearn.linear_model import LinearRegression
+        import numpy as np
+        X = np.array([[1], [2], [3], [4], [5]])
+        y = np.array([2, 4, 6, 8, 10])
+        model = LinearRegression().fit(X, y)
+        print("Prediction for 6:", model.predict([[6]]))
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) TensorFlow</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) Scikit-learn</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) Keras</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) Matplotlib</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. What is overfitting in machine learning?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) When a model learns the training data too well, including noise, leading to poor generalization to new data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Overfitting** occurs when a machine learning model performs well on training data but poorly on unseen data. The model memorizes noise and details in the training set instead of learning general patterns.<br><br>
+        **Ways to prevent overfitting:**<br>
+        - Use regularization techniques (L1, L2)<br>
+        - Prune decision trees<br>
+        - Use cross-validation<br>
+        - Simplify the model<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) When a model learns the training data too well, including noise, leading to poor generalization to new data</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) When a model performs poorly on both training and test data</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) When a model is too simple to capture patterns in the data</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) When a model generalizes well to new data without any issues</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+<!-- Question 51 -->
+<div class="qee">
+    <div class="que">
+        <p>51. What is the primary goal of regression in supervised learning?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To predict continuous numerical values</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Regression** is used in supervised learning to predict continuous values, such as temperature, price, or age. It models the relationship between dependent and independent variables.<br><br>
+        **Common Regression Algorithms:**<br>
+        - Linear Regression<br>
+        - Polynomial Regression<br>
+        - Ridge Regression<br>
+        - Lasso Regression<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) To predict continuous numerical values</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) To classify data into categories</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) To cluster similar data points</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) To reduce data dimensions</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee">
+    <div class="que">
+        <p>52. Which of the following is a classification algorithm?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Logistic Regression</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Classification algorithms** are used to categorize data into classes. **Logistic Regression** is a common classification algorithm that predicts binary outcomes (e.g., yes/no, true/false).<br><br>
+        **Example (using Scikit-learn):**<br>
+        ```
+        from sklearn.linear_model import LogisticRegression
+        from sklearn.datasets import load_iris
+        X, y = load_iris(return_X_y=True)
+        model = LogisticRegression().fit(X, y)
+        print("Prediction for new data:", model.predict([[5.1, 3.5, 1.4, 0.2]]))
+        ```
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) Linear Regression</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) K-means Clustering</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) Logistic Regression</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) PCA (Principal Component Analysis)</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee">
+    <div class="que">
+        <p>53. What does the term "accuracy" measure in a classification model?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The proportion of correctly predicted instances out of the total instances</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Accuracy** is a metric used to evaluate classification models. It measures how often the model makes correct predictions.<br><br>
+        **Formula:**<br>
+        \[
+        Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
+        \]
+        where:<br>
+        - **TP:** True Positives<br>
+        - **TN:** True Negatives<br>
+        - **FP:** False Positives<br>
+        - **FN:** False Negatives<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) The proportion of correctly predicted instances out of the total instances</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) The number of features used in the model</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) The model's training time</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) The complexity of the algorithm</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee">
+    <div class="que">
+        <p>54. Which of the following is an example of a regression problem?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Predicting house prices based on features like size, location, and number of rooms</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Regression problems** involve predicting continuous values. **Predicting house prices** based on features like size, location, and number of rooms is a classic regression problem.<br><br>
+        **Other examples:**<br>
+        - Predicting stock prices<br>
+        - Estimating temperature<br>
+        - Forecasting sales<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) Classifying emails as spam or not spam</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) Predicting house prices based on features like size, location, and number of rooms</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) Detecting fraudulent credit card transactions</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) Categorizing images into different classes</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee">
+    <div class="que">
+        <p>55. Which evaluation metric is most suitable for imbalanced classification datasets?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) F1 Score</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        When dealing with **imbalanced datasets**, the **F1 Score** is a better evaluation metric than accuracy. It considers both precision and recall.<br><br>
+        **Formula:**<br>
+        \[
+        F1 = 2 \times \frac{Precision \times Recall}{Precision + Recall}
+        \]
+        - **Precision:** Correct positive predictions / Total predicted positives<br>
+        - **Recall:** Correct positive predictions / Total actual positives<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) Accuracy</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) ROC-AUC Score</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) Log Loss</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) F1 Score</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+<!-- Question 56 -->
+<div class="qee">
+    <div class="que">
+        <p>56. What is the primary goal of clustering in unsupervised learning?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To group similar data points together based on their features</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Clustering** is used to group data points into clusters where items in the same cluster are more similar to each other than to those in other clusters.<br><br>
+        **Common Clustering Algorithms:**<br>
+        - K-means Clustering<br>
+        - Hierarchical Clustering<br>
+        - DBSCAN<br>
+        - Gaussian Mixture Models (GMM)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) To group similar data points together based on their features</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) To classify data into predefined categories</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) To reduce the size of the dataset</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) To predict future data points</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee">
+    <div class="que">
+        <p>57. Which algorithm is commonly used for partitioning data into clusters?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) K-means Clustering</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **K-means Clustering** is one of the most widely used partitioning algorithms. It divides data into K clusters by minimizing the variance within each cluster.<br><br>
+        **Steps in K-means Clustering:**<br>
+        1. Choose the number of clusters (K).<br>
+        2. Initialize centroids randomly.<br>
+        3. Assign each data point to the nearest centroid.<br>
+        4. Update centroids by calculating the mean of points in each cluster.<br>
+        5. Repeat steps 3-4 until convergence.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) K-means Clustering</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) Logistic Regression</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) Decision Tree</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) Support Vector Machine (SVM)</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee">
+    <div class="que">
+        <p>58. What is dimensionality reduction in unsupervised learning?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The process of reducing the number of input variables while preserving essential information</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Dimensionality Reduction** helps simplify models by reducing the number of features while retaining key information. This improves performance and reduces overfitting.<br><br>
+        **Common Techniques:**<br>
+        - Principal Component Analysis (PCA)<br>
+        - t-Distributed Stochastic Neighbor Embedding (t-SNE)<br>
+        - Linear Discriminant Analysis (LDA)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) The process of increasing the number of features</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) The process of reducing the number of input variables while preserving essential information</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) The method of clustering data into groups</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) The process of normalizing data to a specific range</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee">
+    <div class="que">
+        <p>59. Which of the following is a popular algorithm for dimensionality reduction?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Principal Component Analysis (PCA)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Principal Component Analysis (PCA)** is widely used for dimensionality reduction. It transforms the original data into a new set of variables called principal components, which capture the maximum variance.<br><br>
+        **Steps in PCA:**<br>
+        1. Standardize the data.<br>
+        2. Compute the covariance matrix.<br>
+        3. Calculate eigenvalues and eigenvectors.<br>
+        4. Select the top principal components.<br>
+        5. Project the data onto these components.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) Principal Component Analysis (PCA)</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) K-means Clustering</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) Logistic Regression</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) Decision Tree</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee">
+    <div class="que">
+        <p>60. Which evaluation metric is commonly used to assess the performance of clustering algorithms?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Silhouette Score</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Silhouette Score** measures how similar an object is to its own cluster compared to other clusters. A higher silhouette score indicates better-defined clusters.<br><br>
+        **Formula:**<br>
+        \[
+        s = \frac{b - a}{\max(a, b)}
+        \]
+        - **a:** Average distance to other points in the same cluster<br>
+        - **b:** Average distance to points in the nearest cluster<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) Accuracy</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) Precision</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) Recall</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) Silhouette Score</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+<!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+        <p>61. What is the purpose of model evaluation in machine learning?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To assess the performance of a model on unseen data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Model Evaluation** helps determine how well a machine learning model performs. It provides insights into its accuracy, reliability, and generalization ability.<br><br>
+        **Common Evaluation Metrics:**<br>
+        - Accuracy<br>
+        - Precision and Recall<br>
+        - F1 Score<br>
+        - ROC-AUC Score<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) To assess the performance of a model on unseen data</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) To increase the model's training speed</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) To modify the model’s architecture</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) To eliminate the need for data preprocessing</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee">
+    <div class="que">
+        <p>62. Which of the following is NOT a common model validation technique?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Data Augmentation</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Model Validation Techniques** ensure that a model generalizes well to new, unseen data.<br><br>
+        **Common Techniques:**<br>
+        - K-Fold Cross-Validation<br>
+        - Leave-One-Out Cross-Validation (LOOCV)<br>
+        - Train-Test Split<br>
+        **Data Augmentation** is a data preprocessing technique, not a model validation method.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) K-Fold Cross-Validation</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) Leave-One-Out Cross-Validation (LOOCV)</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) Train-Test Split</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) Data Augmentation</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee">
+    <div class="que">
+        <p>63. What does overfitting refer to in model training?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) A model that performs well on training data but poorly on unseen data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Overfitting** occurs when a model learns the noise and details in the training data to the extent that it negatively impacts its performance on new data.<br><br>
+        **Ways to Prevent Overfitting:**<br>
+        - Cross-validation<br>
+        - Regularization (L1, L2)<br>
+        - Pruning (for decision trees)<br>
+        - Simplifying the model<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) A model that performs equally well on both training and test data</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) A model with too many features for the data</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) A model that performs well on training data but poorly on unseen data</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) A model that underperforms even on training data</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee">
+    <div class="que">
+        <p>64. Which metric is best suited for evaluating the performance of a binary classification model?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) F1 Score</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **F1 Score** is a good metric for binary classification, especially when the classes are imbalanced. It balances precision and recall.<br><br>
+        **Formula:**<br>
+        \[
+        F1 = 2 \times \frac{Precision \times Recall}{Precision + Recall}
+        \]
+        **Other Metrics:**<br>
+        - Accuracy: Good for balanced datasets<br>
+        - ROC-AUC: Evaluates classification performance across different thresholds<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) Accuracy</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) ROC-AUC Score</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) Log Loss</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) F1 Score</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee">
+    <div class="que">
+        <p>65. What does cross-validation help to prevent?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Overfitting</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Cross-validation** is a technique used to assess how the results of a statistical analysis will generalize to an independent dataset. It helps in detecting overfitting by ensuring the model performs well on unseen data.<br><br>
+        **Common Methods:**<br>
+        - K-Fold Cross-Validation<br>
+        - Leave-One-Out Cross-Validation (LOOCV)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) Overfitting</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) Underfitting</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) Bias</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) Variance</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+<!-- Question 66 -->
+<div class="qee">
+    <div class="que">
+        <p>66. What is the main characteristic of time series data?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Data points collected over time at regular intervals</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Time Series Data** consists of observations collected sequentially over time. It shows trends, seasonal patterns, and cyclic behaviors.<br><br>
+        **Examples:**<br>
+        - Stock prices over time<br>
+        - Weather data<br>
+        - Sales figures<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) Data points collected over time at regular intervals</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) Data points collected randomly without time order</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) Data points from different datasets combined together</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) Data points that do not change over time</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee">
+    <div class="que">
+        <p>67. Which of the following is a common technique used for time series forecasting?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) ARIMA (AutoRegressive Integrated Moving Average)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **ARIMA** is widely used for forecasting time series data, especially when data shows trends and seasonality.<br><br>
+        **Components of ARIMA:**<br>
+        - **AR (AutoRegressive):** Uses past values to predict future values<br>
+        - **I (Integrated):** Differencing the data to make it stationary<br>
+        - **MA (Moving Average):** Uses past forecast errors for prediction<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) K-Means Clustering</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) ARIMA (AutoRegressive Integrated Moving Average)</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) PCA (Principal Component Analysis)</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) Decision Trees</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee">
+    <div class="que">
+        <p>68. What is the purpose of seasonal decomposition in time series analysis?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To separate the time series into trend, seasonal, and residual components</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Seasonal Decomposition** helps in understanding the underlying patterns in time series data by breaking it down into:<br>
+        - **Trend:** Long-term movement<br>
+        - **Seasonal:** Regular, repeating patterns<br>
+        - **Residual:** Random noise<br>
+        This separation helps in better forecasting and analysis.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) To increase the complexity of the data</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) To merge different time series datasets</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) To separate the time series into trend, seasonal, and residual components</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) To apply clustering algorithms to the data</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee">
+    <div class="que">
+        <p>69. Which of the following is a key assumption in time series forecasting models like ARIMA?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The data is stationary</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Stationarity** means that the statistical properties of the time series (mean, variance) do not change over time.<br><br>
+        **Why Important?**<br>
+        - ARIMA models perform well when the data is stationary.<br>
+        - If data is non-stationary, differencing or transformations are applied before modeling.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) The data is stationary</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) The data has no missing values</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) The data is highly correlated</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) The data contains no outliers</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee">
+    <div class="que">
+        <p>70. What does the term "lag" refer to in time series analysis?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The time delay between observations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Lag** refers to the delay or the number of time periods between observations in a time series.<br><br>
+        **Example:**<br>
+        - A lag of 1 means comparing the current observation with the previous one.<br>
+        - Lags are often used in autocorrelation and forecasting models.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) The difference in data between two time points</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) The time delay between observations</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) The rate of change in the data</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) The variance in the dataset</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+<!-- Question 71 -->
+<div class="qee">
+    <div class="que">
+        <p>71. What is the primary goal of Natural Language Processing (NLP)?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To enable computers to understand, interpret, and generate human language</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **NLP** enables machines to process and analyze large amounts of natural language data. It helps in tasks like:<br>
+        - Text classification<br>
+        - Sentiment analysis<br>
+        - Language translation<br>
+        - Chatbots and virtual assistants<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) To enable computers to understand, interpret, and generate human language</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) To convert images into text</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) To process numerical data in real-time</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) To perform advanced mathematical calculations</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee">
+    <div class="que">
+        <p>72. Which of the following is a common NLP task?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Sentiment Analysis</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Sentiment Analysis** involves determining the emotional tone behind a body of text. It's commonly used in:<br>
+        - Social media monitoring<br>
+        - Customer feedback analysis<br>
+        - Brand reputation management<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) Image Classification</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) Sentiment Analysis</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) Data Clustering</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) Time Series Forecasting</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee">
+    <div class="que">
+        <p>73. What does tokenization refer to in NLP?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The process of breaking text into smaller units (tokens)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Tokenization** is the process of splitting text into smaller units like words, phrases, or sentences. It helps in:<br>
+        - Text analysis<br>
+        - Language modeling<br>
+        - Building features for machine learning models<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) Removing all stop words from text</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) Converting text to numerical data</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) The process of breaking text into smaller units (tokens)</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) Applying sentiment analysis to text</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee">
+    <div class="que">
+        <p>74. Which library is commonly used for NLP tasks in Python?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) NLTK (Natural Language Toolkit)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **NLTK** is a popular library for NLP tasks in Python, providing tools for:<br>
+        - Tokenization<br>
+        - Stemming and Lemmatization<br>
+        - Part-of-speech tagging<br>
+        - Named Entity Recognition (NER)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) Matplotlib</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) OpenCV</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) Scikit-learn</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) NLTK (Natural Language Toolkit)</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<!-- Question 75 -->
+<div class="qee">
+    <div class="que">
+        <p>75. What is Named Entity Recognition (NER) in NLP?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Identifying and classifying named entities like persons, organizations, and locations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **NER** is a process in NLP that identifies and categorizes entities in text, such as:<br>
+        - People (e.g., "Albert Einstein")<br>
+        - Organizations (e.g., "Google")<br>
+        - Locations (e.g., "Paris")<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) Translating text from one language to another</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) Identifying and classifying named entities like persons, organizations, and locations</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) Removing all punctuation from the text</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) Converting text to lowercase</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+<!-- Question 76 -->
+<div class="qee">
+    <div class="que">
+        <p>76. What is the primary purpose of Apache Spark?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To process large-scale data quickly in-memory</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Apache Spark** is a fast, in-memory data processing engine suitable for big data applications. It supports:<br>
+        - Batch processing<br>
+        - Stream processing<br>
+        - Machine learning<br>
+        - Graph processing<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) To process large-scale data quickly in-memory</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) To store large volumes of data efficiently</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) To create complex data visualizations</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) To clean and preprocess small datasets</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee">
+    <div class="que">
+        <p>77. Which of the following is a core component of the Hadoop ecosystem?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) HDFS (Hadoop Distributed File System)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **HDFS** is the distributed file system used by Hadoop to store large datasets across multiple machines. Key features include:<br>
+        - Fault tolerance<br>
+        - Scalability<br>
+        - High throughput<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) MySQL</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) HDFS (Hadoop Distributed File System)</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) MongoDB</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) PostgreSQL</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee">
+    <div class="que">
+        <p>78. Which Python library is commonly used for big data processing with Spark?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) PySpark</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **PySpark** is the Python API for Apache Spark, allowing data scientists to perform big data processing and analytics using Python.<br>
+        - Supports data manipulation, machine learning, and SQL queries<br>
+        - Integrates seamlessly with Hadoop<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) NumPy</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) Pandas</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) Matplotlib</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) PySpark</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+
+<!-- Question 79 -->
+<div class="qee">
+    <div class="que">
+        <p>79. What is the function of the MapReduce programming model?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To process large datasets by dividing tasks into smaller chunks</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **MapReduce** is a programming model for processing and generating large datasets. It consists of:<br>
+        - **Map** phase: Processes input data and generates key-value pairs<br>
+        - **Reduce** phase: Aggregates the results from the Map phase<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) To process large datasets by dividing tasks into smaller chunks</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) To store large volumes of unstructured data</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) To visualize data in real-time dashboards</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) To perform relational database queries</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee">
+    <div class="que">
+        <p>80. Which of the following is a key advantage of using Hadoop for big data processing?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Scalability and fault tolerance</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Hadoop** offers:<br>
+        - **Scalability:** Can handle increasing amounts of data<br>
+        - **Fault tolerance:** Automatically recovers from hardware failures<br>
+        - **Cost-effectiveness:** Uses commodity hardware<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) High-speed processing for small datasets</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) Built-in data visualization tools</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) Scalability and fault tolerance</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) Real-time data processing without latency</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+<!-- Question 81 -->
+<div class="qee">
+    <div class="que">
+        <p>81. What is the primary purpose of using APIs in data analysis?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To access and retrieve data from external sources</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **APIs (Application Programming Interfaces)** allow applications to communicate and share data. In data analysis, APIs are used to:<br>
+        - Fetch real-time data from external services (e.g., Twitter, Google Maps)<br>
+        - Automate data retrieval processes<br>
+        - Integrate with various platforms<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) To perform data visualization</label><br>
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) To access and retrieve data from external sources</label><br>
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) To clean and preprocess data</label><br>
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) To store large datasets efficiently</label><br>
+    </div>
+    <div id="result80" class="result"></div>
+</div>
+
+<!-- Question 82 -->
+<div class="qee">
+    <div class="que">
+        <p>82. Which Python library is commonly used for making HTTP requests to APIs?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Requests</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **Requests** library simplifies making HTTP requests in Python, including:<br>
+        - Sending GET, POST, PUT, DELETE requests<br>
+        - Handling JSON and XML data<br>
+        - Managing authentication and headers<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) Requests</label><br>
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) Matplotlib</label><br>
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) Pandas</label><br>
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) NumPy</label><br>
+    </div>
+    <div id="result81" class="result"></div>
+</div>
+
+<!-- Question 83 -->
+<div class="qee">
+    <div class="que">
+        <p>83. What is the primary purpose of web scraping?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To extract data from websites</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Web scraping** involves extracting data from websites using:<br>
+        - Parsing HTML pages<br>
+        - Navigating DOM structures<br>
+        - Automating data collection for analysis<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) To create dynamic web applications</label><br>
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) To perform real-time data analysis</label><br>
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) To extract data from websites</label><br>
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) To visualize data in graphs</label><br>
+    </div>
+    <div id="result82" class="result"></div>
+</div>
+
+<!-- Question 84 -->
+<div class="qee">
+    <div class="que">
+        <p>84. Which Python library is commonly used for web scraping?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) BeautifulSoup</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **BeautifulSoup** is a popular library for parsing HTML and XML documents. It allows:<br>
+        - Navigating and searching the DOM<br>
+        - Extracting data easily<br>
+        - Handling complex web pages<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) Pandas</label><br>
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) BeautifulSoup</label><br>
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) Scikit-learn</label><br>
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) OpenCV</label><br>
+    </div>
+    <div id="result83" class="result"></div>
+</div>
+
+<!-- Question 85 -->
+<div class="qee">
+    <div class="que">
+        <p>85. What is the primary purpose of SQL in data analysis?</p>
+        <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+    </div>
+    <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To manage and query relational databases</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **SQL (Structured Query Language)** is used to:<br>
+        - Insert, update, and delete data in databases<br>
+        - Query and retrieve specific data efficiently<br>
+        - Perform aggregations and complex joins<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+        <label for="optionA84">A) To create machine learning models</label><br>
+        <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+        <label for="optionB84">B) To manage and query relational databases</label><br>
+        <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+        <label for="optionC84">C) To perform real-time data visualization</label><br>
+        <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+        <label for="optionD84">D) To preprocess raw data</label><br>
+    </div>
+    <div id="result84" class="result"></div>
+</div>
+<!-- Question 86 -->
+<div class="qee">
+    <div class="que">
+        <p>86. What is the primary purpose of SQL in data analysis?</p>
+        <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+    </div>
+    <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To manage and query relational databases</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **SQL (Structured Query Language)** is used to:<br>
+        - Insert, update, and delete data in databases<br>
+        - Query and retrieve specific data efficiently<br>
+        - Perform aggregations and complex joins<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+        <label for="optionA85">A) To create machine learning models</label><br>
+        <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+        <label for="optionB85">B) To manage and query relational databases</label><br>
+        <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+        <label for="optionC85">C) To perform real-time data visualization</label><br>
+        <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+        <label for="optionD85">D) To preprocess raw data</label><br>
+    </div>
+    <div id="result85" class="result"></div>
+</div>
+
+<!-- Question 87 -->
+<div class="qee">
+    <div class="que">
+        <p>87. Which Python library is commonly used to connect to SQL databases?</p>
+        <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+    </div>
+    <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) SQLAlchemy</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **SQLAlchemy** is a powerful library for:<br>
+        - Connecting to various SQL databases (MySQL, PostgreSQL, SQLite)<br>
+        - Executing SQL queries in Python<br>
+        - Managing database schemas and ORM (Object-Relational Mapping)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+        <label for="optionA86">A) SQLAlchemy</label><br>
+        <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+        <label for="optionB86">B) Matplotlib</label><br>
+        <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+        <label for="optionC86">C) Pandas</label><br>
+        <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+        <label for="optionD86">D) NumPy</label><br>
+    </div>
+    <div id="result86" class="result"></div>
+</div>
+
+<!-- Question 88 -->
+<div class="qee">
+    <div class="que">
+        <p>88. Which SQL command is used to retrieve data from a database?</p>
+        <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+    </div>
+    <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) SELECT</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **SELECT** statement is used to:<br>
+        - Retrieve specific columns from a table<br>
+        - Filter data using conditions<br>
+        - Aggregate data with functions like COUNT, SUM, AVG<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+        <label for="optionA87">A) SELECT</label><br>
+        <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+        <label for="optionB87">B) UPDATE</label><br>
+        <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+        <label for="optionC87">C) DELETE</label><br>
+        <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+        <label for="optionD87">D) INSERT</label><br>
+    </div>
+    <div id="result87" class="result"></div>
+</div>
+
+<!-- Question 89 -->
+<div class="qee">
+    <div class="que">
+        <p>89. How do you execute SQL queries directly in Python using Pandas?</p>
+        <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+    </div>
+    <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Using the `read_sql_query()` function</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Pandas allows SQL queries via:<br>
+        - `pd.read_sql_query(query, connection)`<br>
+        - This function retrieves query results directly into a DataFrame<br>
+        - Useful for integrating SQL with data analysis workflows<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+        <label for="optionA88">A) Using `to_sql()` function</label><br>
+        <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+        <label for="optionB88">B) Using `query()` method</label><br>
+        <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+        <label for="optionC88">C) Using the `read_sql_query()` function</label><br>
+        <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+        <label for="optionD88">D) Using `sqlalchemy.connect()` method</label><br>
+    </div>
+    <div id="result88" class="result"></div>
+</div>
+
+<!-- Question 90 -->
+<div class="qee">
+    <div class="que">
+        <p>90. What SQL clause is used to filter the results of a query?</p>
+        <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+    </div>
+    <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) WHERE</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **WHERE** clause filters records based on conditions:<br>
+        - Applied after the FROM clause<br>
+        - Used with comparison operators (e.g., =, >, <, LIKE)<br>
+        - Essential for narrowing down large datasets<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+        <label for="optionA89">A) GROUP BY</label><br>
+        <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+        <label for="optionB89">B) HAVING</label><br>
+        <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+        <label for="optionC89">C) WHERE</label><br>
+        <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+        <label for="optionD89">D) ORDER BY</label><br>
+    </div>
+    <div id="result89" class="result"></div>
+</div>
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

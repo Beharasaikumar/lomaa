@@ -1,0 +1,2672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLOps Overview</title>
+    <link rel="stylesheet" href="../css/data science.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'B', 'B', 'A', 'B', 'B', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',  
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',    
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'C', 'B'   
+
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>MLOps Overview</h3>
+        <div class="inner-border">
+<!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is the primary goal of model development in machine learning?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To create a model that can make accurate predictions on new, unseen data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model development involves selecting an appropriate algorithm, training it on the data, and tuning it to make accurate predictions. The main goal is to ensure generalization, meaning the model performs well on unseen data.<br><br>
+        **Key Steps in Model Development:**<br>
+        1. Selecting the right algorithm<br>
+        2. Data preprocessing and feature engineering<br>
+        3. Training the model<br>
+        4. Hyperparameter tuning<br>
+        5. Model evaluation<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) To increase the size of the dataset artificially.</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) To create a model that can make accurate predictions on new, unseen data.</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) To optimize the computational efficiency of algorithms.</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) To collect and store data for future experiments.</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. Which of the following is an essential step in model experimentation?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Tuning hyperparameters for better model performance.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Hyperparameter tuning is crucial in model experimentation. It involves adjusting parameters such as learning rate, batch size, and regularization to optimize model performance.<br><br>
+        **Common Hyperparameter Tuning Methods:**<br>
+        1. Grid Search<br>
+        2. Random Search<br>
+        3. Bayesian Optimization<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Collecting raw data from different sources.</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Tuning hyperparameters for better model performance.</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) Performing data augmentation to create new data.</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Reducing the dataset size to improve model speed.</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What is cross-validation used for in model experimentation?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To evaluate the model's performance on different subsets of the data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Cross-validation helps assess how well a model generalizes to unseen data by training the model on different subsets of the dataset and testing it on the remaining data.<br><br>
+        **Common Cross-Validation Techniques:**<br>
+        1. K-Fold Cross-Validation<br>
+        2. Leave-One-Out Cross-Validation (LOOCV)<br>
+        3. Stratified K-Fold Cross-Validation<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) To train the model on the entire dataset.</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) To evaluate the model's performance on different subsets of the data.</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) To tune the hyperparameters of the model.</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) To reduce the dimensionality of the data.</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. What is model overfitting in machine learning?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) When the model learns the training data too well, but fails to generalize to new data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Overfitting occurs when the model learns not just the underlying patterns, but also the noise and details specific to the training data. This makes it perform poorly on unseen data.<br><br>
+        **Ways to Prevent Overfitting:**<br>
+        1. Using regularization techniques<br>
+        2. Collecting more data<br>
+        3. Cross-validation<br>
+        4. Reducing model complexity<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) When the model performs well on both training and test data.</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) When the model learns the training data too well, but fails to generalize to new data.</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) When the model is too simple to learn any useful patterns.</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) When the model makes accurate predictions on test data but not on training data.</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. Which of the following is used to evaluate the model's performance on unseen data?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Test set evaluation.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        After training a model, the test set is used to evaluate its performance on unseen data, ensuring the model generalizes well to new, unseen examples.<br><br>
+        **Model Evaluation Metrics:**<br>
+        1. Accuracy<br>
+        2. Precision and Recall<br>
+        3. F1 Score<br>
+        4. ROC AUC<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) Test set evaluation.</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) Training set evaluation.</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) Validation set evaluation.</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) Cross-validation set evaluation.</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+<!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is the primary goal of model deployment?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To make the trained model available for making predictions on new data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model deployment involves making the trained machine learning model accessible in a production environment so it can receive new data and make predictions. This ensures that the model can be used by real users or systems.<br><br>
+        **Steps in Model Deployment:**<br>
+        1. Model Export<br>
+        2. Setting up APIs for interaction<br>
+        3. Model monitoring<br>
+        4. Continuous integration and updates<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) To evaluate the model's performance on training data.</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) To make the trained model available for making predictions on new data.</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) To improve the accuracy of the model by retraining it.</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) To store the model for later experimentation.</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. Which of the following is a key component of model deployment?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Setting up an API for the model to interact with other applications.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To integrate a deployed model into other applications, APIs are often used. APIs allow the model to interact with external systems and receive inputs (new data) and provide outputs (predictions).<br><br>
+        **Common API Tools for Model Deployment:**<br>
+        1. Flask<br>
+        2. FastAPI<br>
+        3. Docker<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Data collection and preprocessing.</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Setting up an API for the model to interact with other applications.</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Training the model with new data.</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Running model evaluations on the test data.</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What is a common approach to monitor deployed models?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Setting up performance tracking and alert systems to detect issues.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Monitoring a deployed model ensures that it is performing as expected in production. This often involves setting up alert systems to detect model drift, poor performance, or other issues that may require retraining.<br><br>
+        **Common Monitoring Tools:**<br>
+        1. Grafana<br>
+        2. Prometheus<br>
+        3. Model performance dashboards<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) Continuously retraining the model with new data.</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) Setting up performance tracking and alert systems to detect issues.</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) Collecting data from the deployed model's predictions.</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) Disabling the model when performance drops below a threshold.</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. How can model drift be handled in a deployed model?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By retraining the model with new data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model drift occurs when the data distribution changes over time, leading to a decrease in model performance. To combat this, the model can be retrained with new data to adapt to the changes in the environment.<br><br>
+        **Approaches to Handle Model Drift:**<br>
+        1. Regular model retraining<br>
+        2. Online learning<br>
+        3. Performance monitoring and adjustments<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) By optimizing the model's hyperparameters.</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) By retraining the model with new data.</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) By increasing the model's complexity.</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) By increasing the training data size.</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. What is the purpose of containerization in model deployment?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To package the model and its dependencies into a portable and consistent environment.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Containerization involves packaging the model, along with its libraries and dependencies, into a container. This ensures that the model runs consistently across different environments, making deployment more reliable.<br><br>
+        **Common Containerization Tools:**<br>
+        1. Docker<br>
+        2. Kubernetes<br>
+        3. AWS ECS<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) To increase the computational power of the deployed model.</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) To package the model and its dependencies into a portable and consistent environment.</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) To increase the training speed of the model.</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) To visualize the model's performance on the production data.</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is the primary purpose of data management in MLOps?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To ensure that data is properly stored, processed, and made accessible for modeling and analysis.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Data management involves organizing, storing, processing, and ensuring that data is available and usable for model development, deployment, and analysis. Proper data management ensures high data quality and helps to avoid issues during model training and evaluation.<br><br>
+        **Key Aspects of Data Management:**<br>
+        1. Data Collection<br>
+        2. Data Storage<br>
+        3. Data Processing and Cleaning<br>
+        4. Data Accessibility<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) To visualize data trends.</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) To ensure that data is properly stored, processed, and made accessible for modeling and analysis.</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) To process raw data into numerical features.</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) To store data in unstructured formats.</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. Which of the following is an important aspect of data versioning in MLOps?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To track changes in data over time and ensure reproducibility of experiments.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Data versioning allows tracking and managing changes in the data used for model training and evaluation. It helps in ensuring reproducibility of results, which is critical for debugging and improving models.<br><br>
+        **Tools for Data Versioning:**<br>
+        1. DVC (Data Version Control)<br>
+        2. Delta Lake<br>
+        3. Git LFS<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) To automate data preprocessing steps.</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) To track changes in data over time and ensure reproducibility of experiments.</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) To increase data storage efficiency.</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) To visualize the data distribution.</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What does data preprocessing involve in MLOps?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Cleaning, transforming, and organizing raw data for use in machine learning models.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Data preprocessing is the process of cleaning and organizing raw data into a format that is suitable for machine learning. This can include handling missing values, normalizing data, and transforming features into useful forms for training.<br><br>
+        **Steps in Data Preprocessing:**<br>
+        1. Handling Missing Values<br>
+        2. Feature Scaling and Transformation<br>
+        3. Data Normalization<br>
+        4. Encoding Categorical Variables<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) Organizing raw data into a structured format.</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) Cleaning, transforming, and organizing raw data for use in machine learning models.</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) Analyzing data trends to identify key features.</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) Storing data in a centralized database for easy retrieval.</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. Why is it important to handle missing data in the context of data management for MLOps?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To avoid bias and inaccuracies in model training.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Missing data can introduce biases or inaccuracies in machine learning models if not handled properly. Techniques such as imputation or removal of missing values are used to address this issue, ensuring better model performance.<br><br>
+        **Methods to Handle Missing Data:**<br>
+        1. Imputation (e.g., mean or median imputation)<br>
+        2. Deleting rows with missing values<br>
+        3. Using algorithms that handle missing data<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) To ensure that data is stored in the cloud.</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) To avoid bias and inaccuracies in model training.</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) To reduce the size of the dataset.</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) To improve the performance of data storage systems.</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. Which of the following tools is commonly used for data management in MLOps?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) DVC (Data Version Control)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        DVC is a popular tool for managing data and model versioning in machine learning pipelines. It allows users to track data changes, share datasets, and keep experiments reproducible.<br><br>
+        **Other Tools for Data Management:**<br>
+        1. Delta Lake<br>
+        2. Apache Kafka<br>
+        3. AWS S3<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) TensorFlow</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) DVC (Data Version Control)</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) GitHub</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) Keras</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. What is the primary goal of model monitoring in MLOps?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To track the performance and behavior of a model in production.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model monitoring ensures that a deployed model continues to perform well over time and in real-world conditions. It involves tracking various metrics like accuracy, latency, and resource usage to detect performance degradation or anomalies.<br><br>
+        **Key Metrics in Model Monitoring:**<br>
+        1. Accuracy<br>
+        2. Precision/Recall/F1 Score<br>
+        3. Latency<br>
+        4. Model Drift<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) To generate data visualizations of model predictions.</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) To track the performance and behavior of a model in production.</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) To train the model on new data.</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) To visualize the model architecture.</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. What is model drift in the context of model maintenance?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The gradual degradation of model performance due to changes in the underlying data over time.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model drift occurs when the statistical properties of the model's input data change over time, causing the model to lose accuracy. This can happen due to shifts in the data distribution, concept drift, or other factors.<br><br>
+        **Types of Model Drift:**<br>
+        1. Data Drift<br>
+        2. Concept Drift<br>
+        3. Label Drift<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) The sudden failure of a model due to incorrect training data.</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) The gradual degradation of model performance due to changes in the underlying data over time.</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) The model’s inability to adapt to new training data.</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) The initial setup of a model before deployment.</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. How can you detect model drift in production?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By comparing the model’s performance on real-time data against the expected performance.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model drift can be detected by monitoring key performance metrics over time, such as accuracy, precision, and recall, and comparing them with baseline values or thresholds. A significant drop in these metrics may indicate drift.<br><br>
+        **Methods for Detecting Model Drift:**<br>
+        1. Performance monitoring<br>
+        2. Statistical tests<br>
+        3. Drift detection algorithms<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) By updating the model’s parameters.</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) By comparing the model’s performance on real-time data against the expected performance.</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) By manually inspecting the model’s code.</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) By re-training the model using the same dataset.</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What is the role of model retraining in model maintenance?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To improve the model’s performance by training it on new data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model retraining helps to ensure that the model remains relevant and effective by incorporating new data, especially when the underlying data distribution changes. Retraining is necessary to keep the model aligned with the latest trends in the data.<br><br>
+        **When to Retrain a Model:**<br>
+        1. Data Drift or Concept Drift<br>
+        2. New data becomes available<br>
+        3. Performance degradation<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) To change the model’s algorithm.</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) To improve the model’s performance by training it on new data.</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) To tune the model’s hyperparameters.</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) To evaluate the model using test data.</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. What is the purpose of logging in model monitoring?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To record detailed information about model performance and behavior over time.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Logging helps track model performance metrics, errors, and other important events in production. It provides a valuable audit trail for troubleshooting issues and improving model performance.<br><br>
+        **Common Logging Tools:**<br>
+        1. MLflow<br>
+        2. TensorBoard<br>
+        3. Prometheus<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) To store model data in a centralized database.</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) To record detailed information about model performance and behavior over time.</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) To visualize the model’s decision-making process.</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) To update the model’s weights and biases.</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. What is the primary goal of model governance in MLOps?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To ensure that the model meets ethical, legal, and regulatory standards.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model governance refers to the policies, procedures, and tools that ensure models are developed, deployed, and monitored in a way that meets ethical, legal, and regulatory standards. This includes addressing issues such as fairness, transparency, accountability, and privacy.<br><br>
+        **Key Areas of Model Governance:**<br>
+        1. Ethical considerations<br>
+        2. Regulatory compliance<br>
+        3. Risk management<br>
+        4. Transparency and accountability<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) To ensure the model is trained on the largest dataset possible.</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) To ensure that the model meets ethical, legal, and regulatory standards.</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) To track the model’s performance metrics in real-time.</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) To continuously improve the model by adding new features.</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. Why is it important to maintain fairness in machine learning models?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To prevent the model from making biased or discriminatory decisions.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Fairness in machine learning is essential to prevent biased decisions that may disadvantage certain groups, leading to ethical concerns or legal challenges. Ensuring fairness requires careful design and monitoring of models to mitigate bias.<br><br>
+        **Key Methods for Ensuring Fairness:**<br>
+        1. Bias detection<br>
+        2. Data preprocessing<br>
+        3. Fairness-aware algorithms<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) To make the model faster.</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) To prevent the model from making biased or discriminatory decisions.</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) To reduce the amount of training data needed.</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) To make the model more interpretable.</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. How does compliance with privacy regulations impact model development?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It requires careful data handling, ensuring that personal data is protected and anonymized.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Compliance with privacy regulations such as GDPR or CCPA is crucial for model development. It mandates that personal data used for training and testing models must be handled with care, ensuring privacy is maintained and any sensitive information is anonymized or pseudonymized.<br><br>
+        **Privacy Considerations in Model Development:**<br>
+        1. Data anonymization<br>
+        2. Secure data storage and processing<br>
+        3. Transparent data usage policies<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) It requires using only public datasets.</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) It requires careful data handling, ensuring that personal data is protected and anonymized.</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) It requires creating more complex models to handle privacy concerns.</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) It requires reducing the size of the dataset to avoid data breaches.</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. Which of the following is a common strategy to address ethical concerns in machine learning?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Ensuring transparency and accountability in the decision-making process.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Ethical concerns in machine learning can be mitigated by ensuring that models are transparent, meaning the decision-making process is understandable and traceable. This helps in identifying and correcting biases or errors.<br><br>
+        **Strategies for Ethical Machine Learning:**<br>
+        1. Transparency and explainability<br>
+        2. Bias detection and mitigation<br>
+        3. Fairness audits<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) Using a small, non-diverse dataset for training the model.</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) Ensuring transparency and accountability in the decision-making process.</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) Focusing only on model accuracy.</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) Reducing the complexity of the model to avoid ethical issues.</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. What is the role of auditing in model governance?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To ensure that the model operates in compliance with established policies and regulations.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Auditing in model governance involves reviewing the development, deployment, and operation of models to ensure they comply with regulations and ethical guidelines. This process also includes checking for fairness, transparency, and accountability.<br><br>
+        **Key Aspects of Model Auditing:**<br>
+        1. Compliance with regulatory standards<br>
+        2. Ethical considerations<br>
+        3. Review of data usage and privacy practices<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) To monitor the real-time performance of the model.</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) To ensure that the model operates in compliance with established policies and regulations.</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) To tune the model’s hyperparameters.</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) To visualize the model’s predictions.</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. What is the primary purpose of collaboration in MLOps?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To ensure seamless teamwork and sharing of model development and deployment tasks.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Collaboration in MLOps ensures that data scientists, engineers, and other stakeholders can effectively work together, share knowledge, and contribute to various aspects of the machine learning lifecycle, such as model development, deployment, and monitoring.<br><br>
+        **Key Benefits of Collaboration in MLOps:**<br>
+        1. Sharing code, data, and models<br>
+        2. Enhanced communication across teams<br>
+        3. Better problem-solving through collective expertise<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) To automate the model training process.</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) To ensure seamless teamwork and sharing of model development and deployment tasks.</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) To track model performance over time.</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) To clean the data before training the model.</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. Why is reproducibility important in machine learning projects?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To ensure that the model’s results can be consistently replicated under the same conditions.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Reproducibility allows for validating the model’s results and ensuring that experiments and analysis are consistent across different environments, teams, and future iterations of the model.<br><br>
+        **Key Principles of Reproducibility in MLOps:**<br>
+        1. Using version control for code and data<br>
+        2. Documenting the environment and dependencies<br>
+        3. Ensuring the same pre-processing steps are followed<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) To make the model perform better.</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) To ensure that the model’s results can be consistently replicated under the same conditions.</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) To reduce the size of the dataset.</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) To increase model complexity.</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. What tool is commonly used for version control in machine learning projects?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Git</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Git is the most widely used tool for version control in software development, including machine learning projects. It allows tracking changes to code, collaborating with others, and maintaining the integrity of different versions of the project.<br><br>
+        **Benefits of Using Git for MLOps:**<br>
+        1. Version control for code and datasets<br>
+        2. Collaboration between multiple team members<br>
+        3. Ability to track and revert to previous versions<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) Docker</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) Git</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) Kubernetes</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) Apache Spark</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. What is the role of containerization in MLOps?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To create a consistent and isolated environment for running models.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Containerization, often with tools like Docker, is used in MLOps to ensure that models and their dependencies run consistently across different environments, avoiding issues related to compatibility and environment drift.<br><br>
+        **Key Benefits of Containerization in MLOps:**<br>
+        1. Environment isolation<br>
+        2. Consistent execution across platforms<br>
+        3. Simplified deployment and scaling<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) To improve the model's accuracy.</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) To create a consistent and isolated environment for running models.</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) To monitor the model's performance in real-time.</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) To reduce the size of the model.</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. How can you ensure that the models you deploy are reproducible in different environments?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By containerizing the model and using version-controlled code and data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Reproducibility can be ensured by using containerization technologies (like Docker) to encapsulate the model and its environment, alongside version control systems to track code, data, and configuration changes. This makes the model executable in any environment with the same results.<br><br>
+        **Steps to Ensure Reproducibility:**<br>
+        1. Containerization (e.g., Docker)<br>
+        2. Code and data versioning (e.g., Git)<br>
+        3. Documentation of dependencies and environment<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) By training the model multiple times.</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) By containerizing the model and using version-controlled code and data.</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) By optimizing the model’s hyperparameters.</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) By reducing the model size.</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. What is the primary benefit of using cloud platforms in MLOps?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To provide scalable and flexible resources for model development and deployment.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Cloud platforms like AWS, GCP, and Azure offer scalable resources for compute, storage, and networking, which are essential for running machine learning models efficiently. They enable teams to scale resources on-demand, reducing costs and enhancing performance.<br><br>
+        **Benefits of Cloud Platforms for MLOps:**<br>
+        1. Elastic scalability<br>
+        2. Cost efficiency<br>
+        3. Easy integration with ML tools and frameworks<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) To automate model training processes.</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) To provide scalable and flexible resources for model development and deployment.</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) To ensure that models perform better.</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) To enhance data security.</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. What is Infrastructure as Code (IaC) in the context of MLOps?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The practice of managing and provisioning infrastructure through code instead of manual processes.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Infrastructure as Code (IaC) allows teams to automate the management and provisioning of infrastructure using code. This ensures consistency, repeatability, and easier scaling when deploying machine learning models.<br><br>
+        **Benefits of IaC in MLOps:**<br>
+        1. Faster provisioning and scaling<br>
+        2. Consistency across environments<br>
+        3. Version control for infrastructure configurations<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) A method for storing and backing up data in the cloud.</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) The practice of managing and provisioning infrastructure through code instead of manual processes.</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) A tool for automating machine learning workflows.</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) A system for monitoring model performance.</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. Which cloud service is commonly used for container orchestration in MLOps?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Kubernetes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Kubernetes is widely used in MLOps for automating the deployment, scaling, and management of containerized applications. It helps in efficiently managing machine learning models and workflows in a distributed environment.<br><br>
+        **Benefits of Kubernetes in MLOps:**<br>
+        1. Scalability of applications<br>
+        2. Automated deployment and management<br>
+        3. Resource optimization<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) Docker Swarm</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) Kubernetes</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) Jenkins</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) Apache Spark</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. What is the role of a cloud-native architecture in MLOps?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To build scalable and efficient machine learning systems using cloud services.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Cloud-native architecture enables teams to design and deploy machine learning applications that leverage the full potential of cloud computing, providing high scalability, flexibility, and resilience.<br><br>
+        **Key Features of Cloud-Native Architecture in MLOps:**<br>
+        1. Microservices-based architecture<br>
+        2. Autoscaling and load balancing<br>
+        3. Easy integration with cloud services (e.g., databases, storage)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) To increase the complexity of model deployment.</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) To build scalable and efficient machine learning systems using cloud services.</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) To monitor the health of machine learning models.</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) To store large datasets for analysis.</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. What is the advantage of using cloud object storage in MLOps?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To store large volumes of unstructured data efficiently and access it globally.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Cloud object storage solutions like AWS S3, GCP Cloud Storage, and Azure Blob Storage allow teams to store and access vast amounts of unstructured data (such as images, text, and model files) with high durability, availability, and global access.<br><br>
+        **Benefits of Cloud Object Storage in MLOps:**<br>
+        1. Scalability to store large datasets<br>
+        2. High availability and durability<br>
+        3. Global accessibility for teams<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) To speed up model training times.</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) To store large volumes of unstructured data efficiently and access it globally.</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) To improve model accuracy.</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) To automate model deployment.</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. What is the primary goal of scalability in MLOps?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To ensure that machine learning systems can handle increased workloads efficiently.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Scalability ensures that machine learning systems can handle an increasing amount of data or traffic by expanding resources without compromising performance.<br><br>
+        **Key Aspects of Scalability in MLOps:**<br>
+        1. Vertical scaling (increasing resources on a single machine)<br>
+        2. Horizontal scaling (distributing the load across multiple machines)<br>
+        3. Auto-scaling based on demand<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) To improve the complexity of machine learning models.</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) To ensure that machine learning systems can handle increased workloads efficiently.</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) To enhance the accuracy of machine learning models.</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) To decrease the amount of training data required.</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. Which method is commonly used for performance optimization in MLOps?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Hyperparameter tuning</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Hyperparameter tuning is a process of selecting the best set of parameters for a machine learning model to improve its performance. This can be done manually or using techniques like grid search or random search.<br><br>
+        **Common Performance Optimization Techniques in MLOps:**<br>
+        1. Hyperparameter tuning<br>
+        2. Feature engineering<br>
+        3. Model pruning<br>
+        4. Parallelization of training<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) Changing the architecture of the model.</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) Hyperparameter tuning</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) Increasing the training data size.</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) Reducing the number of training iterations.</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. What is the role of load balancing in MLOps scalability?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To distribute the workload evenly across multiple machines to optimize performance.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Load balancing is a technique used to distribute incoming traffic or requests across multiple servers to ensure that no single machine is overwhelmed, improving performance and uptime.<br><br>
+        **Benefits of Load Balancing in MLOps:**<br>
+        1. Improved system performance<br>
+        2. High availability and fault tolerance<br>
+        3. Efficient resource utilization<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) To decrease the complexity of machine learning models.</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) To distribute the workload evenly across multiple machines to optimize performance.</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) To reduce the number of machines required.</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) To speed up model training.</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. What is the benefit of using parallel processing in MLOps?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To speed up the model training and inference processes by using multiple processors or machines.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Parallel processing allows multiple computations to occur simultaneously, which can significantly reduce the time required for model training and inference by utilizing multiple CPUs or GPUs.<br><br>
+        **Benefits of Parallel Processing in MLOps:**<br>
+        1. Faster model training and deployment<br>
+        2. Efficient use of computational resources<br>
+        3. Reduces overall time for experimentation<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) To increase the complexity of machine learning models.</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) To speed up the model training and inference processes by using multiple processors or machines.</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) To reduce the training data size.</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) To make the model more accurate.</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. How does caching contribute to performance optimization in MLOps?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By storing frequently used data or results to reduce redundant computations.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Caching helps speed up the system by storing results from expensive operations in memory so that subsequent requests for the same data do not require recalculating, thus improving the response time and performance.<br><br>
+        **Benefits of Caching in MLOps:**<br>
+        1. Reduced latency<br>
+        2. Faster response time<br>
+        3. Improved system performance<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) To reduce the size of training data.</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) By storing frequently used data or results to reduce redundant computations.</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) To increase the training data size.</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) To optimize model accuracy.</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. What is the main purpose of model versioning in MLOps?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To track and manage different iterations of machine learning models over time.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model versioning helps keep track of the different versions of models, making it easier to manage updates, experiments, and changes over time. This also allows you to compare models and roll back to previous versions if needed.<br><br>
+        **Key Benefits of Model Versioning:**<br>
+        1. Tracking model improvements<br>
+        2. Rolling back to previous models if new versions underperform<br>
+        3. Facilitating collaboration among team members<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) To reduce the complexity of machine learning models.</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) To track and manage different iterations of machine learning models over time.</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) To increase the training data size.</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) To optimize model accuracy.</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. Which of the following best describes a rollback in MLOps?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Reverting to a previous model version due to issues with the current model.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Rollback is the process of reverting to a previous stable version of a model, typically used when a newly deployed version is performing poorly or has issues.<br><br>
+        **Reasons for Model Rollbacks:**<br>
+        1. Degradation in model performance<br>
+        2. Bugs or errors in the new version<br>
+        3. Unexpected behavior in production<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) Updating the model with more training data.</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) Reverting to a previous model version due to issues with the current model.</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) Introducing a new feature to improve the model.</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) Decreasing the number of model parameters.</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. How does version control for models help improve collaboration in MLOps?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It allows team members to work on different versions of the model without conflicts and easily merge changes.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Version control systems, such as Git, help manage multiple versions of a model, enabling collaborative work where team members can develop and test different model iterations simultaneously without affecting others' work.<br><br>
+        **Benefits of Version Control in MLOps:**<br>
+        1. Facilitates collaboration and team productivity<br>
+        2. Tracks changes and allows reverting to previous versions<br>
+        3. Reduces the risk of conflicts between team members' contributions<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) It increases the complexity of model training.</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) It allows team members to work on different versions of the model without conflicts and easily merge changes.</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) It ensures that the model accuracy remains constant.</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) It eliminates the need for model testing.</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. Which practice helps in maintaining model versioning in MLOps?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Using a model registry to store and track model versions.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A model registry is a central repository used to store and manage machine learning models, ensuring that the correct version is used in production and making it easier to track updates and rollbacks.<br><br>
+        **Benefits of Using a Model Registry:**<br>
+        1. Simplifies model management and versioning<br>
+        2. Helps maintain consistency across environments<br>
+        3. Facilitates collaboration and auditing of models<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) Reducing the number of models in the system.</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) Using a model registry to store and track model versions.</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) Implementing a single-model approach.</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) Using manual tracking to monitor model changes.</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. Why is it important to roll back to previous model versions in MLOps?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To address performance degradation or errors in the newly deployed model.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Rolling back to a previous model version is crucial when a new deployment underperforms, or when errors or issues are detected in the new model, to ensure that the system continues functioning optimally.<br><br>
+        **Reasons for Rollbacks:**<br>
+        1. Decreased model performance<br>
+        2. Bugs or errors in new models<br>
+        3. Compatibility issues in production<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) To increase the number of model features.</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) To address performance degradation or errors in the newly deployed model.</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) To add new data sources for training.</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) To reduce the size of the model.</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. What is the primary goal of security in MLOps?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To protect the model, data, and infrastructure from potential security threats.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Security in MLOps ensures that the machine learning models, data, and associated infrastructure are safeguarded against unauthorized access, data breaches, adversarial attacks, and other security risks.<br><br>
+        **Key Aspects of Security in MLOps:**<br>
+        1. Protecting model integrity<br>
+        2. Ensuring data privacy and confidentiality<br>
+        3. Implementing secure deployment practices<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) To reduce the size of the machine learning model.</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) To protect the model, data, and infrastructure from potential security threats.</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) To optimize the performance of the machine learning model.</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) To increase the training dataset size.</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. Which of the following is a common security risk associated with machine learning models?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Adversarial attacks that manipulate model predictions.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Adversarial attacks are a common security risk where attackers input specially crafted data to manipulate or mislead the model into making incorrect predictions, causing the model to fail or behave maliciously.<br><br>
+        **Other Common Security Risks:**<br>
+        1. Data poisoning<br>
+        2. Model theft or reverse engineering<br>
+        3. Unauthorized access to model and data<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) Overfitting of the model.</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) Adversarial attacks that manipulate model predictions.</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) Redundant feature selection.</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) Data normalization.</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. Which of the following methods can help secure machine learning models from adversarial attacks?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Adversarial training to make the model more resilient to attacks.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Adversarial training involves including adversarial examples in the training data, which helps the model learn to recognize and resist such attacks, improving its security.<br><br>
+        **Other Techniques for Securing Models:**<br>
+        1. Model robustness testing<br>
+        2. Regularization techniques<br>
+        3. Input data validation<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) Using a more complex model architecture.</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) Adversarial training to make the model more resilient to attacks.</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) Using a smaller dataset to reduce exposure to threats.</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) Avoiding any model updates.</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. How can data privacy be ensured in MLOps?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By applying techniques like differential privacy and encryption to the data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Differential privacy and encryption are techniques used to protect sensitive information during the data collection, training, and inference phases, ensuring that the privacy of individuals is maintained.<br><br>
+        **Other Techniques for Data Privacy:**<br>
+        1. Data anonymization<br>
+        2. Secure multi-party computation<br>
+        3. Privacy-preserving machine learning<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) Using publicly available datasets.</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) By applying techniques like differential privacy and encryption to the data.</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) Collecting only non-sensitive data.</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) Limiting model access to external APIs.</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. Which of the following is a security measure to protect models in production?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Implementing model access control to restrict who can use or modify the model.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model access control ensures that only authorized users or systems can interact with the model, preventing unauthorized access or tampering with the model in production.<br><br>
+        **Other Security Measures for Models:**<br>
+        1. Secure deployment pipelines<br>
+        2. Regular security audits<br>
+        3. Intrusion detection systems<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Using open-source frameworks for model deployment.</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Implementing model access control to restrict who can use or modify the model.</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Reducing the size of the model.</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) Using multiple models for the same task.</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+<!-- Question 51 -->
+<div class="qee">
+    <div class="que">
+        <p>51. What is the main advantage of using Automated Machine Learning (AutoML)?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automate the process of selecting and tuning machine learning models.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        AutoML automates the process of model selection, hyperparameter tuning, feature engineering, and evaluation, making machine learning accessible to non-experts and reducing the time and effort required to deploy models.<br><br>
+        **Benefits of AutoML:**<br>
+        1. Faster model development<br>
+        2. Reduced need for expert intervention<br>
+        3. Optimization of model performance<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) To improve the interpretability of machine learning models.</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) To automate the process of selecting and tuning machine learning models.</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) To visualize the results of machine learning models.</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) To manually select the best model.</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee">
+    <div class="que">
+        <p>52. Which of the following tasks can AutoML help automate?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Hyperparameter tuning, feature selection, and model selection.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        AutoML can automatically perform tasks such as hyperparameter optimization, feature engineering, and selecting the best-performing models. This saves time and reduces the need for manual intervention.<br><br>
+        **Tasks Automated by AutoML:**<br>
+        1. Hyperparameter tuning<br>
+        2. Feature selection<br>
+        3. Model selection<br>
+        4. Model evaluation<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) Only hyperparameter tuning.</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) Hyperparameter tuning, feature selection, and model selection.</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) Data preprocessing only.</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) Training models only.</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee">
+    <div class="que">
+        <p>53. What is the role of neural architecture search (NAS) in AutoML?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automatically search for the best neural network architecture for a given task.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        NAS is a technique in AutoML used to automatically find the optimal neural network architecture. It saves time by reducing the manual effort required to design and tune deep learning models.<br><br>
+        **Applications of NAS:**<br>
+        1. Architecture search for deep learning models<br>
+        2. Optimization of model performance<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) To optimize hyperparameters of a model.</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) To automatically search for the best neural network architecture for a given task.</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) To train models more efficiently.</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) To visualize the structure of neural networks.</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee">
+    <div class="que">
+        <p>54. Which of the following is a key benefit of AutoML for non-experts in machine learning?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It allows non-experts to build high-quality models without deep machine learning expertise.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        AutoML makes it possible for individuals without a strong background in machine learning to automatically build and deploy models by abstracting away the complexities of model selection, training, and tuning.<br><br>
+        **Benefits for Non-Experts:**<br>
+        1. Simplifies the model-building process<br>
+        2. Reduces the need for specialized knowledge<br>
+        3. Speeds up model development<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) It replaces the need for data preprocessing.</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) It allows non-experts to build high-quality models without deep machine learning expertise.</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) It eliminates the need for model evaluation.</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) It eliminates the need for data analysis.</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee">
+    <div class="que">
+        <p>55. Which of the following is an example of an AutoML tool?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Google Cloud AutoML.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Google Cloud AutoML is an AutoML tool that automates the process of training machine learning models on custom datasets, simplifying the process for users.<br><br>
+        **Popular AutoML Tools:**<br>
+        1. Google Cloud AutoML<br>
+        2. H2O.ai<br>
+        3. Microsoft Azure AutoML<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) TensorFlow.</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) Google Cloud AutoML.</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) Scikit-learn.</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) PyTorch.</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+<!-- Question 56 -->
+<div class="qee">
+    <div class="que">
+        <p>56. What is the primary purpose of container orchestration in MLOps?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automate the deployment, scaling, and management of containerized applications.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Container orchestration automates the management of containers, such as deploying, scaling, and ensuring they operate as expected. It reduces the operational overhead and ensures reliable and consistent deployment in production environments.<br><br>
+        **Key Benefits of Container Orchestration:**<br>
+        1. Automated scaling<br>
+        2. Load balancing<br>
+        3. Self-healing capabilities<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) To monitor machine learning model performance.</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) To automate the deployment, scaling, and management of containerized applications.</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) To analyze the results of machine learning models.</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) To collect data for model training.</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee">
+    <div class="que">
+        <p>57. Which of the following is a popular tool for container orchestration in MLOps?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Kubernetes.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Kubernetes is the most widely used container orchestration platform. It automates the deployment, scaling, and management of containerized applications, making it ideal for MLOps workflows.<br><br>
+        **Other Container Orchestration Tools:**<br>
+        1. Docker Swarm<br>
+        2. Apache Mesos<br>
+        3. OpenShift<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) Apache Kafka.</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) Kubernetes.</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) TensorFlow.</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) Scikit-learn.</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee">
+    <div class="que">
+        <p>58. How does Kubernetes handle scaling of containerized applications?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Kubernetes automatically scales the number of container instances based on the workload.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Kubernetes offers horizontal scaling, where the number of containers (pods) is automatically increased or decreased depending on CPU or memory usage, ensuring the application remains responsive.<br><br>
+        **Key Kubernetes Features:**<br>
+        1. Auto-scaling<br>
+        2. Load balancing<br>
+        3. Self-healing pods<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) Kubernetes manually assigns resources to each container.</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) Kubernetes automatically scales the number of container instances based on the workload.</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) Kubernetes requires manual scaling configuration.</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) Kubernetes does not support scaling.</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee">
+    <div class="que">
+        <p>59. What is the function of a container registry in containerized environments?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A container registry stores and manages container images that can be used in deployment.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A container registry is a central repository where container images are stored. These images can be pulled by container orchestration systems like Kubernetes to deploy applications.<br><br>
+        **Popular Container Registries:**<br>
+        1. Docker Hub<br>
+        2. Google Container Registry (GCR)<br>
+        3. Amazon Elastic Container Registry (ECR)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) A tool for visualizing containerized applications.</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) A container registry stores and manages container images that can be used in deployment.</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) A platform for monitoring container health.</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) A tool to create containerized applications.</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee">
+    <div class="que">
+        <p>60. Which Kubernetes object is responsible for defining and managing containerized applications in a cluster?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Pod.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A Pod is the smallest and simplest Kubernetes object, used to represent a single instance of a running process in a cluster. It can hold one or more containers that share the same storage and network resources.<br><br>
+        **Kubernetes Objects:**<br>
+        1. Pod<br>
+        2. Deployment<br>
+        3. Service<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) Deployment.</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) Pod.</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) Service.</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) ReplicaSet.</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+<!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+        <p>61. What is the primary goal of using an end-to-end MLOps framework?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To streamline the process of developing, deploying, and managing machine learning models.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        An end-to-end MLOps framework integrates various stages of the machine learning lifecycle, including data preparation, model training, deployment, and monitoring, to ensure smooth operations and collaboration across teams.<br><br>
+        **Key Features of an End-to-End MLOps Framework:**<br>
+        1. Automation of model lifecycle<br>
+        2. Continuous integration and delivery (CI/CD)<br>
+        3. Monitoring and feedback loops<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) To focus only on model training and evaluation.</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) To streamline the process of developing, deploying, and managing machine learning models.</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) To manually manage the machine learning workflow.</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) To focus only on the deployment stage of machine learning.</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee">
+    <div class="que">
+        <p>62. Which of the following is a key benefit of using an end-to-end MLOps framework?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It ensures automation, reproducibility, and scalability of machine learning workflows.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        An end-to-end MLOps framework helps automate key stages of the machine learning lifecycle, ensuring that models are reproducible, scalable, and consistent across different environments.<br><br>
+        **Key Benefits of an MLOps Framework:**<br>
+        1. Automated workflows<br>
+        2. Enhanced collaboration between teams<br>
+        3. Improved model governance and compliance<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) It only focuses on improving model accuracy.</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) It ensures automation, reproducibility, and scalability of machine learning workflows.</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) It replaces the need for manual data analysis.</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) It only automates data preprocessing steps.</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee">
+    <div class="que">
+        <p>63. Which of the following tools is commonly used in end-to-end MLOps frameworks for continuous integration and delivery (CI/CD)?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Jenkins.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Jenkins is a widely used open-source tool for continuous integration and continuous delivery (CI/CD). It helps automate the building, testing, and deployment of machine learning models in an end-to-end MLOps workflow.<br><br>
+        **Other CI/CD Tools:**<br>
+        1. GitLab CI<br>
+        2. CircleCI<br>
+        3. Travis CI<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) Jupyter Notebook.</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) Jenkins.</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) PyCharm.</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) RStudio.</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee">
+    <div class="que">
+        <p>64. How does an end-to-end MLOps framework enhance model deployment?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By automating the deployment process and ensuring consistency across environments.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        An end-to-end MLOps framework allows for automated model deployment, ensuring that models are consistently deployed across different environments with minimal manual intervention.<br><br>
+        **Model Deployment Best Practices:**<br>
+        1. Use of containerization (e.g., Docker)<br>
+        2. Version control for models<br>
+        3. Automation of deployment pipelines<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) By manually managing the deployment process.</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) By automating the deployment process and ensuring consistency across environments.</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) By testing models only in a development environment.</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) By requiring manual intervention at each step of deployment.</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee">
+    <div class="que">
+        <p>65. Which of the following is a challenge in implementing end-to-end MLOps frameworks?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Ensuring smooth collaboration between data scientists, DevOps, and operations teams.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One of the main challenges in MLOps is fostering collaboration between data scientists, who focus on building models, and DevOps/operations teams, who manage the deployment and scaling of models.<br><br>
+        **Other Challenges in MLOps Implementation:**<br>
+        1. Automating the entire machine learning pipeline<br>
+        2. Managing version control for models and data<br>
+        3. Ensuring data quality and consistency<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) Managing large datasets manually.</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) Ensuring smooth collaboration between data scientists, DevOps, and operations teams.</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) Removing irrelevant features from the dataset.</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) Performing data augmentation for model improvement.</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+<!-- Question 66 -->
+<div class="qee">
+    <div class="que">
+        <p>66. What is the role of version control in an end-to-end MLOps framework?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To track and manage changes to models, datasets, and code over time.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Version control ensures that changes made to models, code, and datasets are tracked, allowing teams to collaborate effectively and maintain reproducibility of machine learning experiments.<br><br>
+        **Common Version Control Systems:**<br>
+        1. Git<br>
+        2. DVC (Data Version Control)<br>
+        3. MLflow<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) To automatically deploy models without human intervention.</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) To track and manage changes to models, datasets, and code over time.</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) To provide a centralized platform for storing data.</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) To improve the computational power of the system.</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee">
+    <div class="que">
+        <p>67. Which of the following is essential for managing reproducibility in an end-to-end MLOps framework?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Using containers and environment management tools like Docker and Conda.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Using containers like Docker and managing environments with tools like Conda helps ensure that the same software dependencies and configurations are used across all stages of the machine learning pipeline, supporting reproducibility.<br><br>
+        **Best Practices for Reproducibility:**<br>
+        1. Dockerizing models<br>
+        2. Environment management with Conda or virtual environments<br>
+        3. Using version control for code and data<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) Deploying models manually on different servers.</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) Using containers and environment management tools like Docker and Conda.</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) Ignoring software dependencies and focusing on model accuracy.</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) Manually configuring dependencies each time a model is deployed.</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee">
+    <div class="que">
+        <p>68. What does continuous monitoring in an end-to-end MLOps framework ensure?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It ensures the model’s performance remains optimal over time and under changing conditions.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Continuous monitoring helps track the performance of deployed models, ensuring that they remain accurate and effective even as data or environment conditions change. This includes detecting model drift and taking corrective actions.<br><br>
+        **Continuous Monitoring Tools:**<br>
+        1. Prometheus<br>
+        2. Grafana<br>
+        3. ELK Stack (Elasticsearch, Logstash, Kibana)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) It ensures models are only deployed once and never updated.</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) It ensures the model’s performance remains optimal over time and under changing conditions.</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) It automatically updates the model on a daily basis.</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) It prevents models from being retrained.</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee">
+    <div class="que">
+        <p>69. Which of the following best describes the role of a model registry in an end-to-end MLOps framework?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It is a central repository where different versions of models are stored and managed.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A model registry stores different versions of machine learning models, allowing teams to manage, compare, and deploy models efficiently. This centralization ensures traceability and governance.<br><br>
+        **Popular Model Registries:**<br>
+        1. MLflow<br>
+        2. DVC (Data Version Control)<br>
+        3. Neptune.ai<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) A system that visualizes model predictions.</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) It is a central repository where different versions of models are stored and managed.</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) A library for training models automatically.</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) A tool for optimizing model hyperparameters.</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee">
+    <div class="que">
+        <p>70. How does an end-to-end MLOps framework handle model scaling?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By using tools like Kubernetes to automate deployment and scaling based on demand.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        End-to-end MLOps frameworks often use container orchestration tools like Kubernetes to automate the scaling of machine learning models in response to increased demand. This helps ensure efficient resource use and model availability.<br><br>
+        **Tools for Model Scaling:**<br>
+        1. Kubernetes<br>
+        2. Docker Swarm<br>
+        3. AWS SageMaker<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) By manually deploying models on multiple machines.</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) By using tools like Kubernetes to automate deployment and scaling based on demand.</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) By limiting model usage to a single server.</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) By disabling automatic scaling features in the deployment pipeline.</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+<!-- Question 71 -->
+<div class="qee">
+    <div class="que">
+        <p>71. How does an end-to-end MLOps framework support continuous integration (CI) for machine learning models?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By automating the process of testing, validating, and deploying model changes.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Continuous integration (CI) for machine learning automates testing, validation, and deployment pipelines for model updates. This ensures that any new changes to the model or data do not break the system and are ready for production.<br><br>
+        **Common CI Tools for MLOps:**<br>
+        1. Jenkins<br>
+        2. GitLab CI/CD<br>
+        3. CircleCI<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) By manually testing models before each deployment.</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) By automating the process of testing, validating, and deploying model changes.</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) By updating models only when errors are detected in production.</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) By manually merging model code with the main branch.</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee">
+    <div class="que">
+        <p>72. What is the purpose of model serving in an end-to-end MLOps pipeline?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To expose the trained model as an API endpoint for real-time inference.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model serving involves deploying the trained machine learning model to a production environment where it can be accessed for real-time predictions via an API endpoint.<br><br>
+        **Popular Model Serving Tools:**<br>
+        1. TensorFlow Serving<br>
+        2. TorchServe<br>
+        3. MLflow<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) To store the model for offline training.</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) To expose the trained model as an API endpoint for real-time inference.</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) To analyze the model performance post-deployment.</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) To automatically retrain models without human intervention.</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee">
+    <div class="que">
+        <p>73. What is the main advantage of using an end-to-end MLOps framework for model deployment?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It streamlines the entire lifecycle from development to deployment and monitoring.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        An end-to-end MLOps framework integrates various components like model development, testing, deployment, and monitoring into a cohesive pipeline, improving collaboration and efficiency in delivering production-ready models.<br><br>
+        **Benefits of End-to-End MLOps Frameworks:**<br>
+        1. Reduced time to market<br>
+        2. Improved collaboration between teams<br>
+        3. Automation of repetitive tasks<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) It automates the training of models without any manual intervention.</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) It streamlines the entire lifecycle from development to deployment and monitoring.</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) It reduces the number of models required for production.</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) It eliminates the need for manual model evaluation.</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee">
+    <div class="que">
+        <p>74. How does an end-to-end MLOps framework help in handling model drift?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By continuously monitoring the model’s performance and triggering retraining when necessary.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model drift occurs when the performance of a model degrades over time due to changes in the input data distribution. An MLOps framework helps detect drift and triggers automatic retraining to keep the model accurate.<br><br>
+        **Model Drift Handling:**<br>
+        1. Monitor model performance metrics regularly.<br>
+        2. Automatically trigger retraining when performance falls below a threshold.<br>
+        3. Use rolling-window or batch retraining strategies.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) By freezing the model once deployed to prevent any changes.</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) By continuously monitoring the model’s performance and triggering retraining when necessary.</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) By limiting the number of data samples the model processes.</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) By manually inspecting the model's outputs periodically.</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+<!-- Question 75 -->
+<div class="qee">
+    <div class="que">
+        <p>75. What role does version control play in an end-to-end MLOps framework?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It ensures that code, models, and data are tracked and managed effectively across the pipeline.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Version control helps manage changes to models, code, and data, ensuring consistency and traceability across the lifecycle of machine learning projects. This makes it easier to roll back to previous versions if needed and improves collaboration.<br><br>
+        **Popular Version Control Tools:**<br>
+        1. Git<br>
+        2. DVC (Data Version Control)<br>
+        3. MLflow<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) It helps reduce the size of the dataset for faster processing.</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) It ensures that code, models, and data are tracked and managed effectively across the pipeline.</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) It automates model evaluation during deployment.</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) It provides detailed insights into model performance in real-time.</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+
+<!-- Question 76 -->
+<div class="qee">
+    <div class="que">
+        <p>76. How can model explainability be integrated into an end-to-end MLOps framework?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By incorporating tools for explaining model predictions and making them accessible to stakeholders.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model explainability tools, such as SHAP or LIME, can be integrated into the pipeline to help explain how models make decisions. This ensures transparency and trust, especially when models are deployed in sensitive domains like healthcare or finance.<br><br>
+        **Popular Explainability Tools:**<br>
+        1. SHAP (Shapley Additive Explanations)<br>
+        2. LIME (Local Interpretable Model-agnostic Explanations)<br>
+        3. ELI5<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) By using automated retraining whenever model accuracy drops.</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) By incorporating tools for explaining model predictions and making them accessible to stakeholders.</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) By focusing only on improving model accuracy without worrying about interpretability.</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) By using complex, hard-to-understand models that are highly accurate.</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee">
+    <div class="que">
+        <p>77. Why is continuous monitoring of models important in an end-to-end MLOps framework?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To ensure that the model remains accurate and reliable over time, even as data changes.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Continuous monitoring tracks a model’s performance in production to detect issues like model drift, data anomalies, or performance degradation. This allows for timely interventions like retraining or adjustments.<br><br>
+        **Monitoring Tools for MLOps:**<br>
+        1. Prometheus<br>
+        2. Grafana<br>
+        3. ModelDB<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) To prevent models from becoming too large to manage.</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) To ensure that the model remains accurate and reliable over time, even as data changes.</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) To check the availability of hardware resources for running models.</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) To track the status of data pipelines used for model training.</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee">
+    <div class="que">
+        <p>78. How does an end-to-end MLOps framework help with compliance and regulatory requirements?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By enabling traceability, auditability, and transparency throughout the model lifecycle.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        MLOps frameworks provide mechanisms for tracking and auditing the development, deployment, and monitoring of machine learning models. This ensures that models comply with relevant regulations, such as GDPR or HIPAA.<br><br>
+        **Compliance and Regulatory Tools in MLOps:**<br>
+        1. MLflow<br>
+        2. DataRobot<br>
+        3. Amazon SageMaker Model Registry<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) By restricting access to models to authorized users only.</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) By enabling traceability, auditability, and transparency throughout the model lifecycle.</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) By automating the removal of models that don’t meet regulatory standards.</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) By only using open-source tools for model training and evaluation.</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+<!-- Question 79 -->
+<div class="qee">
+    <div class="que">
+        <p>79. How can an end-to-end MLOps framework help in automating model retraining?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By setting up triggers based on model performance or data drift to automatically retrain the model.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In an MLOps framework, automated model retraining is triggered based on performance metrics or detection of data drift. This ensures that the model is always up-to-date and performs optimally in production.<br><br>
+        **Tools for Automating Retraining:**<br>
+        1. Kubeflow Pipelines<br>
+        2. Airflow<br>
+        3. MLflow<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) By manually inspecting the model every time performance drops.</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) By setting up triggers based on model performance or data drift to automatically retrain the model.</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) By reducing the number of features used in the model.</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) By freezing the model and not making any changes once it's deployed.</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee">
+    <div class="que">
+        <p>80. Which of the following is essential for efficient deployment in an MLOps framework?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Containerization of models for consistency and portability across environments.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Containerization, using technologies like Docker, ensures that models and their dependencies are bundled together. This makes it easier to deploy the model consistently across different environments (e.g., development, staging, production).<br><br>
+        **Popular Containerization Tools:**<br>
+        1. Docker<br>
+        2. Kubernetes<br>
+        3. OpenShift<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) Using only single-server deployments to avoid complexity.</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) Containerization of models for consistency and portability across environments.</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) Using only cloud-based services for model deployment.</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) Restricting model deployment to batch processing only.</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+<!-- Question 81 -->
+<div class="qee">
+    <div class="que">
+        <p>81. What is the role of CI/CD in an end-to-end MLOps framework?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automate the process of testing, integrating, and deploying models in production.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        CI/CD (Continuous Integration/Continuous Deployment) ensures that every change to the codebase is tested, integrated, and deployed automatically, enabling a seamless flow of updates to models in production. This improves speed and reliability in the development lifecycle.<br><br>
+        **Popular CI/CD Tools:**<br>
+        1. Jenkins<br>
+        2. GitLab CI<br>
+        3. CircleCI<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) It helps automate the process of data cleaning and preprocessing.</label><br>
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) To automate the process of testing, integrating, and deploying models in production.</label><br>
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) To handle the manual deployment of models on each server.</label><br>
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) To monitor the performance of deployed models.</label><br>
+    </div>
+    <div id="result80" class="result"></div>
+</div>
+
+<!-- Question 82 -->
+<div class="qee">
+    <div class="que">
+        <p>82. What is the main advantage of using automated hyperparameter tuning in an end-to-end MLOps pipeline?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To optimize model performance by automatically selecting the best hyperparameters.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Automated hyperparameter tuning tools, such as Optuna or Hyperopt, help find the optimal set of hyperparameters for a given model. This can improve model performance significantly without manual intervention.<br><br>
+        **Popular Hyperparameter Tuning Tools:**<br>
+        1. Optuna<br>
+        2. Hyperopt<br>
+        3. Random Search<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) To manually adjust hyperparameters for every model update.</label><br>
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) To optimize model performance by automatically selecting the best hyperparameters.</label><br>
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) To decrease model training time.</label><br>
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) To visualize model performance in real-time.</label><br>
+    </div>
+    <div id="result81" class="result"></div>
+</div>
+<!-- Question 83 -->
+<div class="qee">
+    <div class="que">
+        <p>83. What is a key feature of using Kubernetes in an MLOps framework?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To manage and scale containerized machine learning models in production.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Kubernetes allows for the automated deployment, scaling, and management of containerized applications. In an MLOps framework, Kubernetes is often used to deploy and scale models, ensuring that they can handle variable traffic loads and maintain high availability.<br><br>
+        **Key Kubernetes Features for MLOps:**<br>
+        1. Automated scaling<br>
+        2. Easy management of model versions<br>
+        3. Simplified rollbacks<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) To manually adjust the hardware resources for each model.</label><br>
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) To manage and scale containerized machine learning models in production.</label><br>
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) To simplify the data preprocessing steps.</label><br>
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) To automatically retrain models based on performance metrics.</label><br>
+    </div>
+    <div id="result82" class="result"></div>
+</div>
+
+<!-- Question 84 -->
+<div class="qee">
+    <div class="que">
+        <p>84. How does version control for models contribute to an MLOps pipeline?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By tracking changes to models and ensuring consistency in deployment.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model versioning helps maintain a clear record of model changes over time. This allows for easy rollbacks to previous versions, ensures reproducibility of experiments, and makes it easier to track the impact of updates.<br><br>
+        **Tools for Model Versioning:**<br>
+        1. DVC (Data Version Control)<br>
+        2. MLflow<br>
+        3. Git-LFS (Large File Storage)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) By deleting older models to save storage space.</label><br>
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) By tracking changes to models and ensuring consistency in deployment.</label><br>
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) By improving the efficiency of model training.</label><br>
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) By increasing the speed of model predictions in production.</label><br>
+    </div>
+    <div id="result83" class="result"></div>
+</div>
+
+<!-- Question 85 -->
+<div class="qee">
+    <div class="que">
+        <p>85. What is the purpose of A/B testing in the context of an MLOps pipeline?</p>
+        <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+    </div>
+    <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To compare two versions of a model and determine which one performs better.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A/B testing in MLOps allows the comparison of two different versions of a model by splitting the traffic and evaluating performance. This helps identify which version provides better accuracy, speed, or other relevant metrics.<br><br>
+        **Common A/B Testing Frameworks:**<br>
+        1. Google Optimize<br>
+        2. AWS SageMaker Model Monitor<br>
+        3. Optimizely<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+        <label for="optionA84">A) To train multiple models simultaneously.</label><br>
+        <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+        <label for="optionB84">B) To compare two versions of a model and determine which one performs better.</label><br>
+        <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+        <label for="optionC84">C) To reduce the amount of data required for training.</label><br>
+        <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+        <label for="optionD84">D) To increase the model's generalization ability.</label><br>
+    </div>
+    <div id="result84" class="result"></div>
+</div>
+<!-- Question 86 -->
+<div class="qee">
+    <div class="que">
+        <p>86. What is the significance of CI/CD in an MLOps pipeline?</p>
+        <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+    </div>
+    <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To automate the process of building, testing, and deploying machine learning models.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        CI/CD (Continuous Integration/Continuous Deployment) enables automated building, testing, and deployment of machine learning models. It ensures faster updates and rollbacks, minimizes human errors, and accelerates the delivery of models into production.<br><br>
+        **Benefits of CI/CD for MLOps:**<br>
+        1. Faster model iteration<br>
+        2. Reduced risk of errors<br>
+        3. Easy integration with other MLOps tools<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+        <label for="optionA85">A) To manually deploy machine learning models on a server.</label><br>
+        <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+        <label for="optionB85">B) To automate the process of building, testing, and deploying machine learning models.</label><br>
+        <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+        <label for="optionC85">C) To reduce the complexity of data preprocessing tasks.</label><br>
+        <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+        <label for="optionD85">D) To manually monitor model performance over time.</label><br>
+    </div>
+    <div id="result85" class="result"></div>
+</div>
+
+<!-- Question 87 -->
+<div class="qee">
+    <div class="que">
+        <p>87. Which of the following is an important aspect of monitoring machine learning models in production?</p>
+        <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+    </div>
+    <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Monitoring the model's performance over time to ensure it remains accurate.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In production, machine learning models may degrade in performance due to changes in data patterns, a phenomenon known as "model drift." Continuous monitoring helps detect such issues and trigger necessary model retraining.<br><br>
+        **Key Metrics for Model Monitoring:**<br>
+        1. Accuracy<br>
+        2. Precision and Recall<br>
+        3. Latency and Throughput<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+        <label for="optionA86">A) Ignoring data inconsistencies in the model's predictions.</label><br>
+        <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+        <label for="optionB86">B) Monitoring the model's performance over time to ensure it remains accurate.</label><br>
+        <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+        <label for="optionC86">C) Focusing on training models faster without evaluating their performance.</label><br>
+        <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+        <label for="optionD86">D) Ensuring that the model is only trained once and never retrained.</label><br>
+    </div>
+    <div id="result86" class="result"></div>
+</div>
+
+<!-- Question 88 -->
+<div class="qee">
+    <div class="que">
+        <p>88. Which of the following tools is commonly used for model monitoring in an MLOps pipeline?</p>
+        <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+    </div>
+    <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Prometheus</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Prometheus is a popular open-source tool for monitoring and alerting. It can collect time-series data from different systems, including machine learning models, and allow teams to monitor model performance in real time.<br><br>
+        **Other Monitoring Tools:**<br>
+        1. Grafana<br>
+        2. MLflow<br>
+        3. Seldon<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+        <label for="optionA87">A) TensorFlow Extended (TFX)</label><br>
+        <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+        <label for="optionB87">B) Prometheus</label><br>
+        <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+        <label for="optionC87">C) Apache Kafka</label><br>
+        <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+        <label for="optionD87">D) Apache Spark</label><br>
+    </div>
+    <div id="result87" class="result"></div>
+</div>
+
+<!-- Question 89 -->
+<div class="qee">
+    <div class="que">
+        <p>89. What is the role of model validation in the MLOps lifecycle?</p>
+        <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+    </div>
+    <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To evaluate the model's performance on unseen data before deploying it to production.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model validation involves assessing the model's ability to generalize to new, unseen data. This step ensures that the model is not overfitting to the training data and will perform well on real-world data once deployed.<br><br>
+        **Validation Techniques:**<br>
+        1. Cross-validation<br>
+        2. Holdout validation<br>
+        3. A/B testing<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+        <label for="optionA88">A) To remove unnecessary features from the model.</label><br>
+        <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+        <label for="optionB88">B) To evaluate the model's performance on unseen data before deploying it to production.</label><br>
+        <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+        <label for="optionC88">C) To improve the speed of model training.</label><br>
+        <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+        <label for="optionD88">D) To track the hardware resources used by the model.</label><br>
+    </div>
+    <div id="result88" class="result"></div>
+</div>
+
+<!-- Question 90 -->
+<div class="qee">
+    <div class="que">
+        <p>90. What is the purpose of model drift monitoring in MLOps?</p>
+        <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+    </div>
+    <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To detect when the model’s performance deteriorates due to changes in data distribution.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Monitoring model drift helps track changes in the data over time and allows the model to be retrained or updated as necessary. This ensures the model remains accurate and effective in production.<br><br>
+        **Types of Model Drift:**<br>
+        1. Concept Drift<br>
+        2. Data Drift<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+        <label for="optionA89">A) To increase the performance of the model by updating it constantly.</label><br>
+        <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+        <label for="optionB89">B) To detect when the model’s performance deteriorates due to changes in data distribution.</label><br>
+        <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+        <label for="optionC89">C) To track model parameters during training.</label><br>
+        <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+        <label for="optionD89">D) To reduce the computational load of the model.</label><br>
+    </div>
+    <div id="result89" class="result"></div>
+</div>
+
+
+            
+            
+                        <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

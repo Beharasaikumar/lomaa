@@ -1,0 +1,2505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Data Wrangling </title>
+    <link rel="stylesheet" href="../css/data science.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'C', 'A', 'D', 'B', 'B', 'C', 'D', 'B', 'A',
+            'B', 'C', 'D', 'C', 'A', 'A', 'C', 'D', 'C', 'B',
+            'B', 'D', 'A', 'C', 'B', 'C', 'A', 'B', 'D', 'C',
+            'B', 'C', 'B', 'A', 'D', 'A', 'B', 'C', 'A', 'C',
+            'A', 'C', 'B', 'D', 'A', 'A', 'C', 'D', 'B', 'A',
+            'A', 'C', 'B', 'C', 'A', 'A', 'C', 'B', 'A',
+            '','A', 'B', 'D', 'C', 'B', 'A', 'B', 'D', 'C', 'A',
+            'A', 'C', 'D', 'A', 'C', 'B', 'A', 'C', 'B', 'D',
+            'B', 'C', 'D', 'A', 'C', 'A', 'C', 'B', 'A', 'C',
+
+
+
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>Data Wrangling </h3>
+        <div class="inner-border">
+<!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is the primary purpose of using DataFrames in Pandas?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To handle and manipulate structured data efficiently</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        DataFrames are a two-dimensional labeled data structure in Pandas, designed to hold structured data like tables. They provide powerful and flexible tools to manipulate, filter, and analyze data.<br><br>
+        **Key advantages of DataFrames**:<br>
+        1. Label-based indexing for rows and columns.<br>
+        2. Handling of missing data.<br>
+        3. Easy data filtering and transformation.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) To store unstructured data like text and images</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) To handle and manipulate structured data efficiently</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) To enhance the speed of machine learning algorithms</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) To visualize data directly</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. How can you create a DataFrame from a dictionary in Pandas?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using pd.DataFrame() and passing the dictionary as an argument</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can easily create a DataFrame by passing a dictionary to the `pd.DataFrame()` constructor. The keys in the dictionary represent the column names, and the values represent the data for those columns.<br><br>
+        **Example**:<br>
+        `df = pd.DataFrame({'A': [1, 2], 'B': [3, 4]})`<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) By using pd.create_dataframe()</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) By using pd.DataFrame.from_dict()</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) By using pd.DataFrame() and passing the dictionary as an argument</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) By using pd.DataFrame.from_list()</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What is the default index type when creating a DataFrame in Pandas?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) RangeIndex</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        By default, when you create a DataFrame without specifying an index, Pandas will use the `RangeIndex`, which is a simple integer index starting from 0.<br><br>
+        **Example**:<br>
+        `df = pd.DataFrame([1, 2, 3])` results in a DataFrame with a `RangeIndex` starting at 0.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) RangeIndex</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) IndexRange</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) DatetimeIndex</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) MultiIndex</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. Which method is used to get a quick overview of the first few rows of a DataFrame?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) head()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `head()` method is used to return the first few rows (default 5 rows) of a DataFrame. This is useful for quickly inspecting the data.<br><br>
+        **Example**:<br>
+        `df.head()` will return the first 5 rows of the DataFrame `df`.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) top()</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) first()</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) preview()</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) head()</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. How can you filter rows in a DataFrame based on a condition?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By using boolean indexing</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can filter rows in a DataFrame by applying a condition and using boolean indexing. This allows you to select rows that satisfy the condition.<br><br>
+        **Example**:<br>
+        `df[df['age'] > 30]` will return rows where the value in the 'age' column is greater than 30.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) By using df.filter()</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) By using boolean indexing</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) By using df.select()</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) By using df.loc()</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+
+  <!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is a Series in Pandas?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A one-dimensional labeled array</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A Series in Pandas is a one-dimensional labeled array, capable of holding any data type (integers, strings, floats, etc.). It is similar to a column in a DataFrame.<br><br>
+        **Key features of Series**:<br>
+        1. One-dimensional structure.<br>
+        2. Labels (index) are optional but useful.<br>
+        3. Can hold any data type.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) A two-dimensional array with labeled rows and columns</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) A one-dimensional labeled array</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) A matrix-like data structure</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) A table with rows and columns</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. How can you create a Series from a list in Pandas?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By using pd.Series() and passing the list as an argument</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A Series can be created by passing a list or an array to the `pd.Series()` constructor.<br><br>
+        **Example**:<br>
+        `s = pd.Series([1, 2, 3, 4])` creates a Series with the values 1, 2, 3, and 4.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) By using pd.create_series()</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) By using pd.from_list()</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) By using pd.Series() and passing the list as an argument</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) By using pd.array()</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. How can you access a value in a Pandas Series by its index?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By using the index label in square brackets</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can access a value in a Series by using its index label inside square brackets. If no index label is specified, the default integer-based index is used.<br><br>
+        **Example**:<br>
+        `s[0]` will access the first value in the Series `s`.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) By using s.get()</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) By using s.index()</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) By using s.loc()</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) By using the index label in square brackets</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. What will be the result of a Series operation like `s + 10`?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The value 10 will be added to each element in the Series</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        When performing arithmetic operations on a Series, the operation is applied element-wise to each item. In this case, `s + 10` adds 10 to each value in the Series.<br><br>
+        **Example**:<br>
+        If `s = pd.Series([1, 2, 3])`, then `s + 10` results in `pd.Series([11, 12, 13])`.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) The result will be a scalar value of 10</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) The value 10 will be added to each element in the Series</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) An error will occur</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) Only the first element will be modified</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. How can you check for missing values in a Pandas Series?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By using the isnull() method</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `isnull()` method is used to detect missing values (NaNs) in a Series. It returns a boolean Series indicating whether each element is null or not.<br><br>
+        **Example**:<br>
+        `s.isnull()` returns a boolean Series, where `True` indicates a missing value.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) By using the isnull() method</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) By using the is_missing() method</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) By using the checknull() method</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) By using the findnull() method</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is the correct way to slice a Pandas Series to get elements from index 2 to index 4?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) s[2:5]</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        When slicing a Pandas Series, the syntax is `s[start:stop]`, where `start` is inclusive, and `stop` is exclusive. So, `s[2:5]` will return elements at index 2, 3, and 4.<br><br>
+        **Example**:<br>
+        `s = pd.Series([10, 20, 30, 40, 50])`<br>
+        `s[2:5]` will give `[30, 40, 50]`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) s[2, 4]</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) s[2:5]</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) s[2, 5]</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) s[5:2]</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. How can you slice a DataFrame to select specific columns in Pandas?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) df[['col1', 'col2']]</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To select specific columns from a DataFrame, you can use double square brackets `df[['col1', 'col2']]`. This will return a DataFrame with only the specified columns.<br><br>
+        **Example**:<br>
+        `df = pd.DataFrame({'A': [1, 2], 'B': [3, 4], 'C': [5, 6]})`<br>
+        `df[['A', 'B']]` will return the columns 'A' and 'B'.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) df('col1', 'col2')</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) df[col1, col2]</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) df[['col1', 'col2']]</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) df.col1, df.col2</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. How do you access a single value in a DataFrame using indexing?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) df.loc[row, col]</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To access a single value in a DataFrame, you use `.loc[]`, where the row index and column name are provided.<br><br>
+        **Example**:<br>
+        `df.loc[0, 'A']` will give the value in the first row and column 'A'.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) df[row, col]</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) df(row, col)</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) df[row][col]</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) df.loc[row, col]</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. How can you use slicing to select the first 3 rows of a DataFrame?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) df[:3]</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To select the first 3 rows of a DataFrame, you can use the slice notation `df[:3]`. This selects the rows from index 0 to index 2.<br><br>
+        **Example**:<br>
+        `df[:3]` will return the first 3 rows of the DataFrame.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) df(3)</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) df[0:3]</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) df[:3]</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) df[3]</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. How can you filter a DataFrame by rows based on a condition?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) df[df['column'] > value]</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can filter a DataFrame by applying a condition on a column. For example, `df[df['column'] > value]` will return rows where the condition is true.<br><br>
+        **Example**:<br>
+        `df[df['A'] > 2]` will return all rows where the values in column 'A' are greater than 2.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) df[df['column'] > value]</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) df.filter('column', value)</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) df.select_rows('column', value)</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) df.get_rows('column', value)</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. Which function can be used to detect missing values in a Pandas DataFrame?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) isnull()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `isnull()` function is used to detect missing values in a DataFrame or Series. It returns a DataFrame of the same shape, with `True` indicating the position of missing values and `False` for non-missing values.<br><br>
+        **Example**:<br>
+        `df.isnull()` will return a DataFrame with `True` for missing values.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) isnull()</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) missing()</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) notna()</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) detect_missing()</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. How can you fill missing values with a specific value in Pandas?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) fillna()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `fillna()` function is used to fill missing values in a DataFrame or Series with a specific value or method (such as forward or backward filling).<br><br>
+        **Example**:<br>
+        `df.fillna(0)` will replace all missing values with 0.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) replace_missing()</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) impute()</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) fillna()</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) fill_missing()</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. What is the default method for filling missing values with the `fillna()` function in Pandas?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It does not fill anything by default</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        By default, the `fillna()` function in Pandas does not fill any missing values unless a value or method is specified. The method parameter allows you to specify how to fill missing values (e.g., with a specific value or method like 'ffill' for forward fill).<br><br>
+        **Example**:<br>
+        `df.fillna()` will not change the DataFrame unless a value or method is provided.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) Forward fill</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) Backward fill</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) Fill with 0</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) It does not fill anything by default</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What function can you use to drop rows with missing values in Pandas?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) dropna()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `dropna()` function is used to drop rows (or columns) that contain missing values in a DataFrame or Series.<br><br>
+        **Example**:<br>
+        `df.dropna()` will return a DataFrame with rows that have missing values removed.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) remove_na()</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) discard_na()</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) dropna()</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) delete_na()</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. How can you replace missing values with the previous value in Pandas?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) fillna(method='ffill')</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `fillna()` function with the `method='ffill'` argument can be used to forward fill missing values with the previous available value in the DataFrame.<br><br>
+        **Example**:<br>
+        `df.fillna(method='ffill')` will fill missing values with the previous non-missing value.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) fillna(method='bfill')</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) fillna(method='ffill')</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) forward_fill()</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) replace_na(method='ffill')</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. Which function is used to combine two DataFrames based on a common column in Pandas?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) merge()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `merge()` function in Pandas is used to combine two DataFrames based on a common column (or index). It works similar to SQL JOIN.<br><br>
+        **Example**:<br>
+        `pd.merge(df1, df2, on='key')` will combine `df1` and `df2` using the column `key` as the common key.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) combine()</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) merge()</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) join_data()</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) concat()</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. What is the default type of join when using the `merge()` function in Pandas?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Inner Join</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The default join type in the `merge()` function is an inner join, which returns only the rows where there is a match in both DataFrames based on the specified key.<br><br>
+        **Example**:<br>
+        `pd.merge(df1, df2, on='key')` will perform an inner join by default.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) Left Join</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) Right Join</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) Outer Join</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) Inner Join</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. What function is used to concatenate DataFrames along rows (axis=0) in Pandas?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) concat()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `concat()` function is used to concatenate DataFrames either along rows (axis=0) or columns (axis=1). By default, it concatenates along rows.<br><br>
+        **Example**:<br>
+        `pd.concat([df1, df2])` will concatenate `df1` and `df2` along rows.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) concat()</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) join()</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) merge()</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) append()</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. Which of the following join types includes all records from both DataFrames in Pandas?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Outer Join</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        An outer join returns all records from both DataFrames. Missing values are filled with `NaN` for the unmatched rows.<br><br>
+        **Example**:<br>
+        `pd.merge(df1, df2, how='outer')` will return an outer join, including all records from both DataFrames.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) Left Join</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) Right Join</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) Outer Join</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) Inner Join</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. How do you merge two DataFrames in Pandas using a specific column as a key?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Using the `on` parameter in `merge()`</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `merge()` function can be used to merge two DataFrames based on a specific column by passing the column name to the `on` parameter.<br><br>
+        **Example**:<br>
+        `pd.merge(df1, df2, on='key')` will merge `df1` and `df2` using the column `key` as the key.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) Using `index_col` parameter</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) Using the `on` parameter in `merge()`</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) Using the `key` parameter in `concat()`</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) Using `column_name` parameter in `join()`</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+
+
+ <!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. Which function is used to group data based on a column in Pandas?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) groupby()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `groupby()` function in Pandas is used to split the data into groups based on some criteria (e.g., column values), which can then be aggregated or transformed.<br><br>
+        **Example**:<br>
+        `df.groupby('column_name')` will group the data by the values in `column_name`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) group()</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) split()</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) groupby()</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) aggregate()</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. What function is commonly used to calculate the mean for each group in a Pandas groupby operation?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) mean()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `mean()` function is used to calculate the mean (average) of each group in a `groupby()` operation.<br><br>
+        **Example**:<br>
+        `df.groupby('column_name').mean()` will calculate the mean for each group in the DataFrame.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) mean()</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) sum()</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) count()</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) std()</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. How can you apply an aggregation function to each group in Pandas?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Using the `agg()` function</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `agg()` function allows you to apply one or more aggregation functions to the grouped data.<br><br>
+        **Example**:<br>
+        `df.groupby('column_name').agg('sum')` will apply the sum function to each group in the DataFrame.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) apply()</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) agg()</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) transform()</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) map()</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. What is the purpose of the `groupby()` function's `as_index` parameter in Pandas?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It controls whether the group labels are used as the index in the resulting DataFrame</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `as_index` parameter controls whether the group labels are included as an index in the resulting DataFrame. By default, it is set to `True`, meaning the group labels become the index.<br><br>
+        **Example**:<br>
+        `df.groupby('column_name', as_index=False).sum()` will return a DataFrame without the group labels as the index.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) It allows you to sort the groups</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) It filters out missing values</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) It aggregates the data using custom functions</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) It controls whether the group labels are used as the index in the resulting DataFrame</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. Which function is used to count the number of non-null entries in each group in a groupby operation?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) count()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `count()` function is used to count the number of non-null entries in each group for a `groupby()` operation.<br><br>
+        **Example**:<br>
+        `df.groupby('column_name').count()` will count the non-null entries in each group.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) sum()</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) mean()</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) count()</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) std()</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+
+
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. Which function is used to pivot a DataFrame in Pandas?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) pivot()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `pivot()` function is used to reshape data by turning unique values from one column into multiple columns in the DataFrame.<br><br>
+        **Example**:<br>
+        `df.pivot(index='column1', columns='column2', values='column3')` will reshape the DataFrame with column1 as the index, column2 as new columns, and column3 as the values.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) stack()</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) pivot()</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) melt()</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) transpose()</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. How can you reshape data to "long" format in Pandas?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) melt()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `melt()` function is used to reshape data from a "wide" format to a "long" format by unpivoting the DataFrame.<br><br>
+        **Example**:<br>
+        `df.melt(id_vars='column1', value_vars=['column2', 'column3'])` will melt the columns `column2` and `column3` into long format.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) stack()</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) unstack()</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) melt()</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) pivot()</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. What function is used to reshape data from long format to wide format in Pandas?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) pivot()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `pivot()` function is used to reshape data from long format into wide format by creating new columns.<br><br>
+        **Example**:<br>
+        `df.pivot(index='column1', columns='column2', values='column3')` will pivot the long format data into a wide format.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) stack()</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) pivot()</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) unstack()</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) melt()</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. What is the purpose of the `pivot_table()` function in Pandas?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To create a pivot table with aggregated values</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `pivot_table()` function is used to create a pivot table, which can aggregate data by applying aggregation functions like `sum()`, `mean()`, etc., to the data.<br><br>
+        **Example**:<br>
+        `df.pivot_table(values='column1', index='column2', aggfunc='sum')` will aggregate the data by summing values in `column1` based on `column2`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) To create a pivot table with aggregated values</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) To transpose the data</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) To melt the data into long format</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) To merge two DataFrames</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. Which of the following functions can be used to reshape the columns of a DataFrame?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) melt()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `melt()` function is used to reshape the columns of a DataFrame into a long format, turning columns into rows.<br><br>
+        **Example**:<br>
+        `df.melt(id_vars='column1', value_vars=['column2', 'column3'])` will reshape `column2` and `column3` into a long format.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) unstack()</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) pivot()</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) stack()</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) melt()</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. Which function is used to sort a DataFrame by a specific column in Pandas?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) sort_values()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `sort_values()` function is used to sort the DataFrame by one or more columns.<br><br>
+        **Example**:<br>
+        `df.sort_values(by='column1')` will sort the DataFrame based on the values in `column1`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) sort_values()</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) sort_index()</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) sort()</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) order_by()</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. What parameter would you use to sort the DataFrame in descending order using `sort_values()`?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) ascending=False</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To sort the DataFrame in descending order, you can set the `ascending` parameter to `False`.<br><br>
+        **Example**:<br>
+        `df.sort_values(by='column1', ascending=False)` will sort the DataFrame in descending order based on `column1`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) reverse=True</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) ascending=False</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) descending=True</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) order=False</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. How can you sort a DataFrame by multiple columns in Pandas?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By passing a list of column names to the `by` parameter</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To sort a DataFrame by multiple columns, you can pass a list of column names to the `by` parameter in `sort_values()`.<br><br>
+        **Example**:<br>
+        `df.sort_values(by=['column1', 'column2'])` will sort first by `column1` and then by `column2` if there are ties in `column1`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) By using the `sort()` function</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) By chaining multiple `sort_values()` calls</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) By passing a list of column names to the `by` parameter</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) By using `ascending=True` on each column</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. How can you sort a DataFrame by its index in Pandas?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) sort_index()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `sort_index()` function is used to sort a DataFrame by its index.<br><br>
+        **Example**:<br>
+        `df.sort_index()` will sort the DataFrame by its index in ascending order.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) sort_index()</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) sort_values()</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) order_by()</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) rank_index()</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. What does the `inplace=True` parameter do in the sorting functions in Pandas?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Modifies the DataFrame in place without returning a new one</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `inplace=True` parameter modifies the original DataFrame directly, without needing to create a new one.<br><br>
+        **Example**:<br>
+        `df.sort_values(by='column1', inplace=True)` will sort the DataFrame and update it without creating a new DataFrame.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) Sorts the values in place</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) Sorts the DataFrame in reverse order</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) Modifies the DataFrame in place without returning a new one</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) Returns a sorted DataFrame but doesn't modify the original one</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+
+
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. Which function is used to convert a column in a DataFrame to a specific data type in Pandas?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) astype()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `astype()` function is used to cast a DataFrame or Series to a specified data type.<br><br>
+        **Example**:<br>
+        `df['column1'] = df['column1'].astype(int)` will convert `column1` to an integer data type.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) astype()</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) convert_dtype()</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) to_numeric()</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) set_dtype()</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. Which of the following methods can be used to convert a string column to a numeric type in Pandas?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) to_numeric()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `to_numeric()` function is used to convert a column or Series to a numeric data type.<br><br>
+        **Example**:<br>
+        `df['column1'] = pd.to_numeric(df['column1'], errors='coerce')` will convert `column1` to numeric, invalid parsing will be set as `NaN`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) convert()</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) as_numeric()</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) to_numeric()</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) to_type()</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. How can you convert a column with mixed types (e.g., strings and integers) to a numeric type, handling errors gracefully in Pandas?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By using `pd.to_numeric()` with the `errors='coerce'` parameter</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `errors='coerce'` parameter will convert invalid parsing to `NaN`, handling mixed types and non-convertible values gracefully.<br><br>
+        **Example**:<br>
+        `df['column1'] = pd.to_numeric(df['column1'], errors='coerce')` will ensure invalid values are replaced by `NaN`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) By using `astype(str)` and then to_numeric()</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) By using `pd.to_numeric()` with the `errors='coerce'` parameter</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) By using `astype(float)`</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) By using `convert_dtype()`</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. What will happen if you try to convert a column to an incompatible data type in Pandas?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It will raise a `ValueError` unless handled with `errors='coerce'`</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        If you try to convert a column to an incompatible data type without handling errors, Pandas will raise a `ValueError`. However, by using `errors='coerce'`, it can convert invalid values to `NaN`.<br><br>
+        **Example**:<br>
+        `df['column1'] = pd.to_numeric(df['column1'], errors='coerce')` will handle incompatible values by replacing them with `NaN`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) It will silently skip the conversion</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) It will convert incompatible values to `None`</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) It will convert incompatible values to `NaN`</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) It will raise a `ValueError` unless handled with `errors='coerce'`</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. What is the purpose of the `errors` parameter in the `pd.to_numeric()` function?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It controls how to handle invalid parsing of data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `errors` parameter in `pd.to_numeric()` allows you to control how to handle invalid parsing. It can be set to `'raise'` (default), `'coerce'`, or `'ignore'`.<br><br>
+        - `'raise'`: Raises an error if parsing fails.<br>
+        - `'coerce'`: Converts invalid values to `NaN`.<br>
+        - `'ignore'`: Ignores errors and returns the original data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) It controls how to handle invalid parsing of data</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) It specifies the number of invalid entries to ignore</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) It forces the conversion of all invalid entries</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) It specifies the data type to convert to</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. Which method is used to convert all characters in a string column to lowercase in Pandas?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) str.lower()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `str.lower()` method is used to convert all characters in a string column to lowercase.<br><br>
+        **Example**:<br>
+        `df['column1'] = df['column1'].str.lower()` will convert all strings in `column1` to lowercase.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) str.lower()</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) str.capitalize()</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) str.upcase()</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) str.toLower()</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. Which method is used to check if each string in a column contains a specific substring in Pandas?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) str.contains()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `str.contains()` method is used to check if each string in a column contains a specific substring.<br><br>
+        **Example**:<br>
+        `df['column1'].str.contains('abc')` will return a boolean series indicating whether the string `'abc'` is present in each entry of `column1`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) str.has_substring()</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) str.find()</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) str.contains()</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) str.match()</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. How can you replace all occurrences of a substring within a string column with another substring in Pandas?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) str.replace()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `str.replace()` method is used to replace occurrences of a substring with another substring in a string column.<br><br>
+        **Example**:<br>
+        `df['column1'] = df['column1'].str.replace('old', 'new')` will replace all occurrences of `'old'` with `'new'` in `column1`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) str.change()</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) str.substitute()</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) str.modify()</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) str.replace()</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. Which method can be used to strip leading and trailing spaces from strings in a Pandas column?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) str.strip()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `str.strip()` method is used to remove leading and trailing whitespace characters from the strings in a column.<br><br>
+        **Example**:<br>
+        `df['column1'] = df['column1'].str.strip()` will remove spaces at the beginning and end of the strings in `column1`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) str.trim()</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) str.strip()</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) str.clean()</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) str.sanitize()</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. How can you concatenate two string columns into a single column in Pandas?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Using `+` operator or `str.cat()` method</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can concatenate two string columns using the `+` operator or `str.cat()` method.<br><br>
+        **Example**:<br>
+        `df['new_column'] = df['column1'] + df['column2']` or `df['new_column'] = df['column1'].str.cat(df['column2'], sep=' ')`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Using `+` operator or `str.cat()` method</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Using `str.append()`</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Using `concat()` function</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) Using `str.merge()`</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+
+
+<!-- Question 51 -->
+<div class="qee">
+    <div class="que">
+        <p>51. How can you create a NumPy array from a Python list?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Using np.array()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can create a NumPy array from a Python list using the `np.array()` function.<br><br>
+        **Example**:<br>
+        `arr = np.array([1, 2, 3, 4])` will create a NumPy array from the given Python list.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) Using np.array()</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) Using np.toArray()</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) Using np.list()</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) Using np.convert()</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee">
+    <div class="que">
+        <p>52. Which method is used to reshape a NumPy array into a different shape?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) reshape()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `reshape()` method is used to change the shape of a NumPy array without changing its data.<br><br>
+        **Example**:<br>
+        `arr = np.array([1, 2, 3, 4, 5, 6])`<br>
+        `reshaped = arr.reshape(2, 3)` will reshape the array into a 2x3 matrix.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) resize()</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) change_shape()</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) reshape()</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) transform()</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee">
+    <div class="que">
+        <p>53. How do you find the number of dimensions of a NumPy array?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Using ndim attribute</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `ndim` attribute is used to get the number of dimensions of a NumPy array.<br><br>
+        **Example**:<br>
+        `arr.ndim` will return the number of dimensions of the array.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) Using num_dim()</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) Using ndim attribute</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) Using dim_count()</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) Using dimensions()</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee">
+    <div class="que">
+        <p>54. How can you convert a NumPy array to a Python list?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Using tolist()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `tolist()` method is used to convert a NumPy array into a Python list.<br><br>
+        **Example**:<br>
+        `arr.tolist()` will convert the NumPy array `arr` to a Python list.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) to_list()</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) convert_to_list()</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) tolist()</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) list_from_array()</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee">
+    <div class="que">
+        <p>55. Which method is used to concatenate two NumPy arrays along a specified axis?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) np.concatenate()</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `np.concatenate()` function is used to concatenate two or more arrays along a specified axis.<br><br>
+        **Example**:<br>
+        `np.concatenate((arr1, arr2), axis=0)` will concatenate `arr1` and `arr2` along the 0th axis (vertically).
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) np.concatenate()</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) np.concat()</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) np.merge()</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) np.stack()</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+
+
+<!-- Question 56 -->
+<div class="qee">
+    <div class="que">
+        <p>56. How do you access a specific element in a NumPy array?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Using indexing</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can access an element in a NumPy array using indexing with square brackets `[]`.<br><br>
+        **Example**:<br>
+        `arr[0]` will access the first element of the array.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) Using indexing</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) Using iteration</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) Using list() method</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) Using slicing</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee">
+    <div class="que">
+        <p>57. How do you slice a NumPy array to get the first 3 elements?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Using arr[:3]</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can slice a NumPy array to get the first 3 elements using `arr[:3]`.<br><br>
+        **Example**:<br>
+        `arr[:3]` will return the elements at indices 0, 1, and 2.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) Using arr[0:3]</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) Using arr[1:3]</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) Using arr[:3]</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) Using arr[3:]</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee">
+    <div class="que">
+        <p>58. How can you select all elements in a NumPy array that are greater than a specific value?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Using a boolean mask</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can use a boolean mask to select elements greater than a specific value in a NumPy array.<br><br>
+        **Example**:<br>
+        `arr[arr > 5]` will return all elements greater than 5 from the array.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) Using arr.greater_than(5)</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) Using a boolean mask</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) Using arr.select()</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) Using arr.get()</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee">
+    <div class="que">
+        <p>59. How do you access a specific row in a 2D NumPy array?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Using row index</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        You can access a specific row in a 2D NumPy array by using its row index.<br><br>
+        **Example**:<br>
+        `arr[1]` will return the second row of the array.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) Using row index</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) Using arr.row()</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) Using arr.get_row()</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) Using arr.select_row()</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+        <p>61. What is broadcasting in NumPy?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It allows NumPy to perform element-wise operations on arrays of different shapes.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Broadcasting refers to NumPy’s ability to perform arithmetic operations on arrays of different shapes by automatically expanding the smaller array to match the shape of the larger one.<br><br>
+        **Example**:<br>
+        `arr1 = np.array([1, 2, 3])`<br>
+        `arr2 = np.array([10])`<br>
+        `arr1 + arr2` will broadcast `arr2` to the shape of `arr1` and perform element-wise addition.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) It allows NumPy to perform element-wise operations on arrays of different shapes.</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) It is a method for reshaping arrays.</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) It is used to concatenate arrays.</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) It is a method for creating arrays.</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee">
+    <div class="que">
+        <p>62. What will be the result of broadcasting a 2x3 array with a 1x3 array?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The 1x3 array will be broadcasted to a 2x3 array and then the element-wise operation will be performed.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        When a 1x3 array is broadcasted with a 2x3 array, the 1x3 array will be expanded across the rows to match the shape of the 2x3 array. The operation will then be performed element-wise.<br><br>
+        **Example**:<br>
+        `arr1 = np.array([[1, 2, 3], [4, 5, 6]])`<br>
+        `arr2 = np.array([1, 2, 3])`<br>
+        `arr1 + arr2` will result in `[[2, 4, 6], [5, 7, 9]]`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) The 1x3 array will be ignored.</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) The 1x3 array will be broadcasted to a 2x3 array and then the element-wise operation will be performed.</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) An error will occur because the arrays have different shapes.</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) Only the first row will be used in the operation.</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee">
+    <div class="que">
+        <p>63. Which of the following is a necessary condition for broadcasting to work?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) The size of the dimensions must be compatible.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        For broadcasting to work, the dimensions of the two arrays must be compatible. This means that for each dimension, the size of one array must be either 1 or the same as the other array.<br><br>
+        **Example**:<br>
+        `arr1 = np.array([1, 2, 3])`<br>
+        `arr2 = np.array([[10], [20]])`<br>
+        These arrays can be broadcasted to perform element-wise operations.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) The arrays must have the same number of dimensions.</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) The arrays must have the same shape.</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) The arrays must have the same data type.</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) The size of the dimensions must be compatible.</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee">
+    <div class="que">
+        <p>64. What happens if broadcasting is not possible due to incompatible shapes?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) An error will be raised.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        If broadcasting is not possible due to incompatible shapes, NumPy will raise a `ValueError` indicating that the shapes are not aligned for broadcasting.<br><br>
+        **Example**:<br>
+        `arr1 = np.array([1, 2, 3])`<br>
+        `arr2 = np.array([10, 20])`<br>
+        This will raise a `ValueError` because the shapes are incompatible.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) A warning will be issued.</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) The operation will be skipped.</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) An error will be raised.</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) The arrays will be reshaped automatically.</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee">
+    <div class="que">
+        <p>65. How does broadcasting handle arrays with dimensions of size 1?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The dimension of size 1 is stretched to match the larger array.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        When broadcasting involves an array with a dimension of size 1, NumPy will "stretch" that dimension to match the shape of the larger array.<br><br>
+        **Example**:<br>
+        `arr1 = np.array([1, 2, 3])`<br>
+        `arr2 = np.array([[10], [20]])`<br>
+        The second array will be broadcasted across the rows of the first array to perform the operation element-wise.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) The dimension of size 1 is ignored.</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) The dimension of size 1 is stretched to match the larger array.</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) The dimension of size 1 is removed.</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) The dimension of size 1 is duplicated.</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+
+
+<!-- Question 66 -->
+<div class="qee">
+    <div class="que">
+        <p>66. What is vectorization in NumPy?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It is the process of performing operations on whole arrays without the need for explicit loops.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Vectorization refers to performing operations on whole arrays in a single operation, without the need for explicit loops. It allows NumPy to perform calculations efficiently and faster.<br><br>
+        **Example**:<br>
+        `arr = np.array([1, 2, 3])`<br>
+        `arr * 2` will multiply each element of the array by 2 without using any loops.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) It is the process of performing operations on whole arrays without the need for explicit loops.</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) It is the process of converting arrays into lists.</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) It is the process of reshaping arrays.</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) It is the process of splitting arrays into multiple sub-arrays.</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee">
+    <div class="que">
+        <p>67. Why is vectorization faster than using loops in NumPy?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Vectorized operations are implemented in C, which avoids the overhead of Python loops.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Vectorization in NumPy is faster because the operations are performed in highly optimized C code, avoiding the overhead of Python loops. This allows NumPy to process data much more efficiently.<br><br>
+        **Example**:<br>
+        `arr1 = np.array([1, 2, 3])`<br>
+        `arr2 = np.array([4, 5, 6])`<br>
+        `arr1 + arr2` performs element-wise addition without the need for a Python loop.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) Vectorization is slower because it avoids loops.</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) Vectorized operations are implemented in C, which avoids the overhead of Python loops.</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) Vectorization runs in Python itself.</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) Vectorization requires more memory than loops.</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee">
+    <div class="que">
+        <p>68. Which of the following is an example of vectorization in NumPy?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) arr = np.array([1, 2, 3]) * 2</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        This is an example of vectorization where each element of the array `arr` is multiplied by 2 without the need for a loop.<br><br>
+        **Example**:<br>
+        `arr = np.array([1, 2, 3])`<br>
+        `arr * 2` will result in `[2, 4, 6]`.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) for i in range(len(arr)): arr[i] = arr[i] * 2</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) arr = np.array([1, 2, 3]); for i in arr: i = i * 2</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) arr = np.array([1, 2, 3]); for i in range(3): arr[i] = arr[i] * 2</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) arr = np.array([1, 2, 3]) * 2</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee">
+    <div class="que">
+        <p>69. How does vectorization improve the performance of NumPy operations?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By eliminating the need for Python loops, allowing operations to be executed at a lower level.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Vectorization improves performance by executing operations at a lower level (in C) without relying on slower Python loops. This reduces overhead and speeds up computations.<br><br>
+        **Example**:<br>
+        `arr = np.array([1, 2, 3])`<br>
+        `arr + 2` will quickly add 2 to each element of the array without looping.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) By using more memory.</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) By using more CPU resources.</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) By eliminating the need for Python loops, allowing operations to be executed at a lower level.</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) By performing operations one element at a time in Python.</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee">
+    <div class="que">
+        <p>70. Which of the following is true about vectorization in NumPy?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Vectorization improves the performance of operations by performing them more efficiently.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Vectorization improves performance by eliminating Python loops and using more efficient array-based operations under the hood.<br><br>
+        **Example**:<br>
+        `arr = np.array([1, 2, 3])`<br>
+        `arr * 2` will be faster than looping through the array and multiplying each element manually.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) Vectorization improves the performance of operations by performing them more efficiently.</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) Vectorization only works for small arrays.</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) Vectorization increases the memory usage.</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) Vectorization is slower than using loops.</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+<!-- Question 71 -->
+<div class="qee">
+    <div class="que">
+        <p>71. What is the purpose of aggregation in data analysis?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To summarize and interpret large datasets.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Aggregation helps to summarize large datasets, often by applying mathematical or statistical operations to derive insights from the data.<br><br>
+        **Example**:<br>
+        Aggregating sales data by calculating the total sales per region helps in summarizing regional performance.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) To summarize and interpret large datasets.</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) To filter data by specific conditions.</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) To visualize data in a chart.</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) To split data into smaller segments.</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee">
+    <div class="que">
+        <p>72. Which of the following is an aggregation function in SQL?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) COUNT</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        COUNT is a commonly used aggregation function in SQL to calculate the number of rows in a specified column.<br><br>
+        **Example**:<br>
+        `SELECT COUNT(*) FROM sales WHERE region='North';`
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) SELECT</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) FROM</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) COUNT</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) WHERE</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee">
+    <div class="que">
+        <p>73. Which aggregation function would you use to calculate the average of a dataset?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) AVERAGE</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The AVERAGE function calculates the mean of a dataset by summing the values and dividing by the number of values.<br><br>
+        **Example**:<br>
+        `SELECT AVG(salary) FROM employees;`
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) SUM</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) AVERAGE</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) COUNT</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) MAX</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee">
+    <div class="que">
+        <p>74. In which scenario would you use the GROUP BY clause in SQL?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) When you need to perform aggregation on grouped data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The GROUP BY clause is used to aggregate data by one or more columns and apply aggregation functions to each group.<br><br>
+        **Example**:<br>
+        `SELECT department, AVG(salary) FROM employees GROUP BY department;`
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) When you need to perform aggregation on grouped data.</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) When you need to filter specific rows of data.</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) When you need to order the data.</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) When you need to insert new data into a table.</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<!-- Question 75 -->
+<div class="qee">
+    <div class="que">
+        <p>75. Which of the following is an example of a data aggregation technique in Python using pandas?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) df.groupby('column_name').agg('sum')</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The `groupby` function in pandas is used to group data, and the `agg` method allows you to apply aggregation functions like 'sum', 'mean', etc., to the groups.<br><br>
+        **Example**:<br>
+        `df.groupby('region').agg('sum')`
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) df.filter('sum')</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) df.sort_values('column_name')</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) df.groupby('column_name').agg('sum')</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) df.apply('sum')</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+
+<!-- Question 76 -->
+<div class="qee">
+    <div class="que">
+        <p>76. What is the rank of a matrix?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The rank of a matrix is the maximum number of linearly independent rows or columns.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The rank of a matrix is defined as the number of linearly independent rows or columns in the matrix. It represents the dimension of the vector space spanned by its rows or columns.<br><br>
+        **Example**:<br>
+        For a 3x3 matrix, if two rows are linearly dependent, the rank will be 2.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) The rank of a matrix is the number of elements in the matrix.</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) The rank of a matrix is the maximum number of linearly independent rows or columns.</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) The rank of a matrix is always equal to its row count.</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) The rank of a matrix is the number of non-zero elements in the matrix.</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee">
+    <div class="que">
+        <p>77. What is the inverse of a matrix?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The inverse of a matrix is a matrix that, when multiplied with the original matrix, results in the identity matrix.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        If a matrix A has an inverse, it is denoted as A⁻¹. When matrix A is multiplied by its inverse A⁻¹, the result is the identity matrix I, i.e., A * A⁻¹ = I.<br><br>
+        **Example**:<br>
+        If A = [[1, 2], [3, 4]], then the inverse matrix A⁻¹ will satisfy A * A⁻¹ = I.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) The inverse of a matrix is a matrix that, when multiplied with the original matrix, results in the identity matrix.</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) The inverse of a matrix is always the matrix with all elements being zero.</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) The inverse of a matrix is the transpose of the matrix.</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) The inverse of a matrix is the same as the matrix itself.</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee">
+    <div class="que">
+        <p>78. What does it mean if two vectors are orthogonal?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The dot product of the two vectors is zero.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Two vectors are orthogonal if the angle between them is 90°, which is equivalent to their dot product being zero.<br><br>
+        **Example**:<br>
+        If v₁ = [1, 2] and v₂ = [-2, 1], then v₁ • v₂ = 1*(-2) + 2*1 = 0, meaning the vectors are orthogonal.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) The vectors have equal magnitudes.</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) The vectors are parallel to each other.</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) The dot product of the two vectors is zero.</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) The vectors are linearly dependent.</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+
+<!-- Question 79 -->
+<div class="qee">
+    <div class="que">
+        <p>79. What is the determinant of a matrix used for?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The determinant indicates whether a matrix is invertible and gives the scaling factor for the transformation.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The determinant of a square matrix provides information about the matrix's invertibility. If the determinant is zero, the matrix is singular and not invertible.<br><br>
+        **Example**:<br>
+        For matrix A = [[1, 2], [3, 4]], the determinant det(A) = (1)(4) - (2)(3) = -2.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) The determinant indicates the number of rows in the matrix.</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) The determinant indicates whether a matrix is invertible and gives the scaling factor for the transformation.</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) The determinant tells you the dimensions of the matrix.</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) The determinant gives the transpose of the matrix.</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee">
+    <div class="que">
+        <p>80. Which of the following is true for eigenvectors and eigenvalues?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Eigenvectors are vectors that do not change direction when a linear transformation is applied, and eigenvalues represent the scale factor.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Eigenvectors are vectors that remain in the same direction after a linear transformation. The corresponding eigenvalue represents the factor by which the eigenvector is scaled.<br><br>
+        **Example**:<br>
+        For a matrix A, if A*v = λ*v, then v is an eigenvector and λ is the eigenvalue.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) Eigenvectors and eigenvalues are only applicable to square matrices.</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) Eigenvectors represent the direction of a matrix, and eigenvalues represent the matrix's trace.</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) Eigenvectors and eigenvalues are always complex numbers.</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) Eigenvectors are vectors that do not change direction when a linear transformation is applied, and eigenvalues represent the scale factor.</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+<!-- Question 81 -->
+<div class="qee">
+    <div class="que">
+        <p>81. What is the purpose of stacking arrays in NumPy?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Stacking arrays combines multiple arrays along a new axis.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In NumPy, stacking arrays refers to combining multiple arrays along a new axis. This can be done using functions like `np.vstack()`, `np.hstack()`, or `np.dstack()` depending on the axis along which the stacking is done.<br><br>
+        **Example**:<br>
+        Using `np.vstack([arr1, arr2])` stacks `arr1` and `arr2` vertically (along rows).
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) Stacking arrays is used to reshape a single array into multiple arrays.</label><br>
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) Stacking arrays combines multiple arrays along a new axis.</label><br>
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) Stacking arrays is used to delete an array.</label><br>
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) Stacking arrays is used to find the maximum value in an array.</label><br>
+    </div>
+    <div id="result80" class="result"></div>
+</div>
+
+<!-- Question 82 -->
+<div class="qee">
+    <div class="que">
+        <p>82. What does the function `np.split()` do in NumPy?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) `np.split()` splits an array into multiple sub-arrays.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The function `np.split()` divides a single array into multiple sub-arrays along a specified axis. You can specify how many sub-arrays you want or where to split the array.<br><br>
+        **Example**:<br>
+        `np.split(arr, 3)` will split the array `arr` into 3 sub-arrays.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) `np.split()` merges multiple arrays into one array.</label><br>
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) `np.split()` reverses the order of elements in an array.</label><br>
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) `np.split()` splits an array into multiple sub-arrays.</label><br>
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) `np.split()` concatenates two arrays along a specific axis.</label><br>
+    </div>
+    <div id="result81" class="result"></div>
+</div>
+
+<!-- Question 83 -->
+<div class="qee">
+    <div class="que">
+        <p>83. Which function in NumPy is used to stack arrays horizontally?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) `np.hstack()` is used to stack arrays horizontally.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        `np.hstack()` is the function used in NumPy to stack arrays horizontally (i.e., along the second axis or columns). This combines arrays side-by-side.<br><br>
+        **Example**:<br>
+        `np.hstack([arr1, arr2])` stacks `arr1` and `arr2` horizontally.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) `np.vstack()` is used to stack arrays horizontally.</label><br>
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) `np.stack()` is used to stack arrays horizontally.</label><br>
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) `np.dstack()` is used to stack arrays horizontally.</label><br>
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) `np.hstack()` is used to stack arrays horizontally.</label><br>
+    </div>
+    <div id="result82" class="result"></div>
+</div>
+
+<!-- Question 84 -->
+<div class="qee">
+    <div class="que">
+        <p>84. How can you split a 2D array into multiple sub-arrays along the columns in NumPy?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Use `np.split()` along axis 1 to split the array into columns.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To split a 2D array along the columns, you can use `np.split()` with `axis=1`. This will divide the array into sub-arrays along the second dimension.<br><br>
+        **Example**:<br>
+        `np.split(arr, 3, axis=1)` will split the 2D array `arr` into 3 sub-arrays along the columns.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) Use `np.split()` along axis 1 to split the array into columns.</label><br>
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) Use `np.split()` along axis 0 to split the array into columns.</label><br>
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) Use `np.hsplit()` to split the array into columns.</label><br>
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) Use `np.stack()` to split the array into columns.</label><br>
+    </div>
+    <div id="result83" class="result"></div>
+</div>
+
+<!-- Question 85 -->
+<div class="qee">
+    <div class="que">
+        <p>85. Which of the following methods is used to split an array into multiple sub-arrays based on indices?</p>
+        <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+    </div>
+    <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) `np.array_split()` splits an array based on indices.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        `np.array_split()` allows splitting an array into multiple sub-arrays based on the specified indices or number of splits, even if the array cannot be evenly divided.<br><br>
+        **Example**:<br>
+        `np.array_split(arr, 4)` will split the array `arr` into 4 sub-arrays.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+        <label for="optionA84">A) `np.split()` splits an array based on indices.</label><br>
+        <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+        <label for="optionB84">B) `np.hsplit()` splits an array based on indices.</label><br>
+        <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+        <label for="optionC84">C) `np.array_split()` splits an array based on indices.</label><br>
+        <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+        <label for="optionD84">D) `np.vstack()` splits an array based on indices.</label><br>
+    </div>
+    <div id="result84" class="result"></div>
+</div>
+
+<!-- Question 86 -->
+<div class="qee">
+    <div class="que">
+        <p>86. What function in NumPy is used for generating random numbers from a uniform distribution?</p>
+        <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+    </div>
+    <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) `np.random.rand()` is used to generate random numbers from a uniform distribution.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        `np.random.rand()` generates random numbers from a uniform distribution over the interval [0, 1). You can specify the shape of the array you want to generate.<br><br>
+        **Example**:<br>
+        `np.random.rand(3, 2)` generates a 3x2 array with random numbers between 0 and 1.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+        <label for="optionA85">A) `np.random.rand()` is used to generate random numbers from a uniform distribution.</label><br>
+        <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+        <label for="optionB85">B) `np.random.random()` is used to generate random numbers from a uniform distribution.</label><br>
+        <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+        <label for="optionC85">C) `np.random.randn()` is used to generate random numbers from a uniform distribution.</label><br>
+        <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+        <label for="optionD85">D) `np.random.normal()` is used to generate random numbers from a uniform distribution.</label><br>
+    </div>
+    <div id="result85" class="result"></div>
+</div>
+
+<!-- Question 87 -->
+<div class="qee">
+    <div class="que">
+        <p>87. Which function in NumPy is used to generate random numbers from a normal (Gaussian) distribution?</p>
+        <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+    </div>
+    <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) `np.random.randn()` is used to generate random numbers from a normal distribution.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        `np.random.randn()` generates random numbers from a standard normal distribution (mean 0, standard deviation 1). You can specify the shape of the output array.<br><br>
+        **Example**:<br>
+        `np.random.randn(2, 3)` generates a 2x3 array with random numbers drawn from a standard normal distribution.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+        <label for="optionA86">A) `np.random.random()` generates random numbers from a normal distribution.</label><br>
+        <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+        <label for="optionB86">B) `np.random.uniform()` generates random numbers from a normal distribution.</label><br>
+        <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+        <label for="optionC86">C) `np.random.randn()` generates random numbers from a normal distribution.</label><br>
+        <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+        <label for="optionD86">D) `np.random.normal()` generates random numbers from a normal distribution.</label><br>
+    </div>
+    <div id="result86" class="result"></div>
+</div>
+
+<!-- Question 88 -->
+<div class="qee">
+    <div class="que">
+        <p>88. Which NumPy function allows you to generate random integers within a specific range?</p>
+        <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+    </div>
+    <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) `np.random.randint()` generates random integers within a specified range.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        `np.random.randint()` allows you to generate random integers within a specified range, including the lower bound and excluding the upper bound.<br><br>
+        **Example**:<br>
+        `np.random.randint(1, 10, size=5)` generates 5 random integers between 1 and 9.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+        <label for="optionA87">A) `np.random.uniform()` generates random integers within a specific range.</label><br>
+        <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+        <label for="optionB87">B) `np.random.randint()` generates random integers within a specified range.</label><br>
+        <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+        <label for="optionC87">C) `np.random.random()` generates random integers within a specified range.</label><br>
+        <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+        <label for="optionD87">D) `np.random.randn()` generates random integers within a specified range.</label><br>
+    </div>
+    <div id="result87" class="result"></div>
+</div>
+
+<!-- Question 89 -->
+<div class="qee">
+    <div class="que">
+        <p>89. How can you generate a random sample of elements from an existing NumPy array without replacement?</p>
+        <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+    </div>
+    <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Use `np.random.choice()` to randomly sample elements without replacement.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        `np.random.choice()` allows you to randomly sample elements from an array. By setting the `replace=False` parameter, you ensure that elements are sampled without replacement.<br><br>
+        **Example**:<br>
+        `np.random.choice(arr, size=3, replace=False)` will randomly sample 3 elements from `arr` without replacement.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+        <label for="optionA88">A) Use `np.random.choice()` to randomly sample elements without replacement.</label><br>
+        <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+        <label for="optionB88">B) Use `np.random.random()` to randomly sample elements without replacement.</label><br>
+        <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+        <label for="optionC88">C) Use `np.random.shuffle()` to randomly sample elements without replacement.</label><br>
+        <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+        <label for="optionD88">D) Use `np.random.permutation()` to randomly sample elements without replacement.</label><br>
+    </div>
+    <div id="result88" class="result"></div>
+</div>
+
+<!-- Question 90 -->
+<div class="qee">
+    <div class="que">
+        <p>90. Which NumPy function can be used to randomly shuffle the elements of an array?</p>
+        <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+    </div>
+    <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) `np.random.shuffle()` randomly shuffles the elements of an array.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        `np.random.shuffle()` randomly shuffles the elements of an array along the first axis (in-place). It modifies the array directly.<br><br>
+        **Example**:<br>
+        `np.random.shuffle(arr)` will shuffle the elements of `arr` in place.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+        <label for="optionA89">A) `np.random.permutation()` randomly shuffles the elements of an array.</label><br>
+        <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+        <label for="optionB89">B) `np.random.random()` randomly shuffles the elements of an array.</label><br>
+        <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+        <label for="optionC89">C) `np.random.shuffle()` randomly shuffles the elements of an array.</label><br>
+        <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+        <label for="optionD89">D) `np.random.choice()` randomly shuffles the elements of an array.</label><br>
+    </div>
+    <div id="result89" class="result"></div>
+</div>
+
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

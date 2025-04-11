@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Evaluation </title>
+    <link rel="stylesheet" href="../css/data science.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'B', 'B', 'C', 'B', 'A', 'A', 'A', 'B',
+            'C', 'A', 'B', 'D', 'C', 'A', 'B', 'B', 'B', 'C',
+            'A', 'C', 'B', 'A', 'C', 'A', 'B', 'A', 'C', 'D',
+            'B', 'C', 'D', 'A', 'C', 'B', 'A', 'C', 'D', 'C',
+            'C', 'B', 'D', 'A', 'C', 'B', 'C', 'A', 'D', 'B',
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>Model Evaluation </h3>
+        <div class="inner-border">
+<!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is the purpose of evaluation metrics in machine learning?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To assess the performance of a machine learning model.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Evaluation metrics are used to measure how well a machine learning model performs on a given task. Common metrics include accuracy, precision, recall, and F1 score.<br><br>
+        **Steps in Evaluating a Model**:<br>
+        1. Select the appropriate evaluation metric(s) for the problem.<br>
+        2. Apply the model to a test dataset.<br>
+        3. Calculate the metric(s) to quantify model performance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) To train a machine learning model.</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) To assess the performance of a machine learning model.</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) To create a training dataset for a model.</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) To select features for the model.</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. Which of the following is an evaluation metric used for classification models?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) F1 Score</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        For classification tasks, common evaluation metrics include accuracy, precision, recall, and F1 score. The F1 score is the harmonic mean of precision and recall.<br><br>
+        **Evaluation Metrics for Classification**:<br>
+        1. **Accuracy**: Overall correctness of the model.<br>
+        2. **Precision**: Proportion of true positive predictions out of all positive predictions.<br>
+        3. **Recall**: Proportion of true positive predictions out of all actual positives.<br>
+        4. **F1 Score**: Balance between precision and recall.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Mean Squared Error (MSE)</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) F1 Score</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) R-Squared</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Confusion Matrix</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What does the ROC curve represent in model evaluation?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The trade-off between sensitivity and specificity.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The ROC (Receiver Operating Characteristic) curve plots the True Positive Rate (sensitivity) against the False Positive Rate (1 - specificity). The area under the ROC curve (AUC) is often used as a performance metric.<br><br>
+        **Steps in Evaluating with ROC**:<br>
+        1. Calculate True Positive Rate (TPR) and False Positive Rate (FPR).<br>
+        2. Plot TPR vs. FPR at various threshold settings.<br>
+        3. The area under the curve (AUC) indicates the model's discriminatory power.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) The number of misclassifications in the dataset.</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) The trade-off between sensitivity and specificity.</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) The distribution of residuals in the dataset.</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) The relationship between predicted and actual values.</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. What does the confusion matrix show in classification model evaluation?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The counts of true positives, false positives, true negatives, and false negatives.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A confusion matrix is a table used to evaluate the performance of a classification model. It shows how many predictions were correct or incorrect, broken down by class.<br><br>
+        **Confusion Matrix Components**:<br>
+        - **True Positive (TP)**: Correctly predicted positive outcomes.<br>
+        - **False Positive (FP)**: Incorrectly predicted positive outcomes.<br>
+        - **True Negative (TN)**: Correctly predicted negative outcomes.<br>
+        - **False Negative (FN)**: Incorrectly predicted negative outcomes.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) The distribution of errors across the dataset.</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) The counts of true positives, false positives, true negatives, and false negatives.</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) The accuracy of the model.</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) The precision of the model.</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. What is the purpose of the Area Under the Curve (AUC) in model evaluation?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To measure the overall performance of a classification model.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        AUC is a performance metric used to evaluate classification models. It measures the area under the ROC curve. The higher the AUC, the better the model is at distinguishing between classes.<br><br>
+        **AUC Details**:<br>
+        - AUC ranges from 0 to 1.<br>
+        - AUC = 0.5 indicates random performance.<br>
+        - AUC = 1 indicates perfect performance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) To measure the recall of the model.</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) To calculate the precision of the model.</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) To measure the overall performance of a classification model.</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) To calculate the F1 score of the model.</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+
+<!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. How can increasing the amount of training data help with overfitting?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It helps the model generalize better by reducing noise and fitting to actual patterns.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Adding more training data helps the model learn the true patterns more effectively, reducing the chance of overfitting to noise or outliers in a smaller dataset.<br><br>
+        **Why More Data Helps**:<br>
+        - More data provides a better representation of the underlying distribution.<br>
+        - The model is less likely to memorize the noise when there is enough data to learn from.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) It reduces the model’s complexity, forcing it to become simpler.</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) It helps the model generalize better by reducing noise and fitting to actual patterns.</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) It makes the model overfit even more by memorizing the additional data.</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) It prevents the model from learning any patterns in the data.</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. Which of the following techniques is commonly used to prevent overfitting in deep learning models?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Dropout regularization.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Dropout is a regularization technique used in deep learning to prevent overfitting. It randomly "drops out" (sets to zero) a fraction of the neurons during training, forcing the model to learn more robust features.<br><br>
+        **Dropout Regularization**:<br>
+        - Helps prevent the model from becoming too reliant on specific neurons.<br>
+        - Encourages the model to generalize better to unseen data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Dropout regularization.</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Adding more layers to the model.</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Increasing the size of the training dataset.</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Removing all regularization techniques.</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. How does cross-validation help in preventing overfitting?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It ensures the model is tested on different subsets of the data, providing a better estimate of its performance.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Cross-validation involves splitting the data into multiple subsets (folds) and training/testing the model on different folds. This helps detect overfitting by providing a more reliable estimate of the model's ability to generalize to new data.<br><br>
+        **Cross-Validation Benefits**:<br>
+        - Helps to assess model performance on different data subsets.<br>
+        - Reduces the risk of overfitting to a specific split of the data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) It ensures the model is tested on different subsets of the data, providing a better estimate of its performance.</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) It reduces the size of the training data.</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) It increases the model’s complexity by testing on multiple folds.</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) It prevents the model from learning any data patterns.</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+       <!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. What is the primary purpose of cross-validation in machine learning?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To estimate the model's performance and generalization ability on unseen data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The main goal of cross-validation is to evaluate the model’s ability to generalize to an independent data set. It helps to reduce overfitting by testing the model on different subsets of the data.<br><br>
+        **Benefits of Cross-Validation**:<br>
+        - Provides a better estimate of model performance.<br>
+        - Helps identify issues such as overfitting and underfitting early in the training process.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) To estimate the model's performance and generalization ability on unseen data.</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) To reduce the complexity of the model by training on less data.</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) To speed up the training process by using the entire dataset.</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) To prevent the model from learning from any data patterns.</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. Which of the following is a common method of performing cross-validation?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) K-fold cross-validation.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        K-fold cross-validation is one of the most common methods where the dataset is split into 'K' equally sized folds. The model is trained on K-1 folds and tested on the remaining fold. This is repeated K times, and the model's performance is averaged.<br><br>
+        **Other Cross-Validation Methods**:<br>
+        - Leave-One-Out Cross-Validation (LOO): A special case of k-fold with K = n (where n is the number of data points).<br>
+        - Stratified K-Fold: Ensures each fold has the same distribution of target classes.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) Leave-One-Out Cross-Validation (LOO).</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) K-fold cross-validation.</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) Single Split Validation.</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) Random Cross-Validation.</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is "stratified" cross-validation, and when is it used?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It ensures that each fold has the same distribution of the target variable classes.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Stratified cross-validation is used when the dataset is imbalanced, i.e., the classes of the target variable are not equally distributed. It ensures that each fold in the cross-validation has the same proportion of each class as the entire dataset.<br><br>
+        **When to Use Stratified Cross-Validation**:<br>
+        - For classification problems with imbalanced classes.<br>
+        - To ensure that the model gets a good representation of all classes during training and testing.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) It randomly selects the training and testing folds.</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) It increases the number of folds in the cross-validation.</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) It ensures that each fold has the same distribution of the target variable classes.</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) It uses a single fold to train and test the model.</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. What does "Leave-One-Out Cross-Validation (LOO)" refer to?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It is a special case of k-fold cross-validation where the number of folds equals the number of data points.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In Leave-One-Out Cross-Validation (LOO), the model is trained using all but one data point (as training data), and then tested on that one left-out data point. This process is repeated for each data point in the dataset.<br><br>
+        **Advantages and Disadvantages** of LOO:<br>
+        - **Advantages**: Works well for small datasets, provides a nearly unbiased estimate.<br>
+        - **Disadvantages**: Computationally expensive and can lead to high variance in performance evaluation.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) It is a special case of k-fold cross-validation where the number of folds equals the number of data points.</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) It uses only one fold for both training and testing.</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) It splits the dataset into two parts, training and testing, and repeats the process for each fold.</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) It randomly selects a portion of data for testing and repeats the process multiple times.</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What is the purpose of a confusion matrix in machine learning?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To evaluate the performance of a classification model by comparing predicted and actual values.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A confusion matrix is a table used to describe the performance of a classification model. It compares the predicted class labels to the true class labels.<br><br>
+        **Components of a Confusion Matrix**:<br>
+        - True Positive (TP): Correctly predicted positive class.<br>
+        - True Negative (TN): Correctly predicted negative class.<br>
+        - False Positive (FP): Incorrectly predicted positive class.<br>
+        - False Negative (FN): Incorrectly predicted negative class.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) To calculate the precision and recall of the model.</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) To evaluate the performance of a classification model by comparing predicted and actual values.</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) To visualize the correlation between features and predictions.</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) To split the data into training and testing sets.</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. Which of the following is NOT a metric derived from the confusion matrix?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) R-squared.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The metrics derived from a confusion matrix include precision, recall, F1-score, accuracy, etc. R-squared is not derived from a confusion matrix. It is typically used for regression models to evaluate the goodness of fit.<br><br>
+        **Common Metrics Derived from a Confusion Matrix**:<br>
+        - Precision: TP / (TP + FP)<br>
+        - Recall: TP / (TP + FN)<br>
+        - F1-score: 2 * (Precision * Recall) / (Precision + Recall)<br>
+        - Accuracy: (TP + TN) / (TP + TN + FP + FN)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) Precision</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) Recall</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) F1-score</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) R-squared</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What does the term "False Positive" mean in the context of a confusion matrix?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) A result where the model incorrectly classifies a negative instance as positive.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A False Positive (FP) occurs when the model predicts a positive class for an instance that actually belongs to the negative class. This is often seen as a type I error in classification.<br><br>
+        **False Positive Example**:<br>
+        - A model for detecting spam emails classifies a legitimate email as spam. This is a False Positive.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) A result where the model correctly classifies a positive instance as positive.</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) A result where the model correctly classifies a negative instance as negative.</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) A result where the model incorrectly classifies a negative instance as positive.</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) A result where the model incorrectly classifies a positive instance as negative.</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. What does "Accuracy" measure in the confusion matrix?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The proportion of correct predictions (both positive and negative) made by the model.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Accuracy is the ratio of correctly predicted observations to the total observations. It provides an overall measure of the model's performance.<br><br>
+        **Accuracy Formula**:<br>
+        Accuracy = (TP + TN) / (TP + TN + FP + FN)<br><br>
+        **Note**: Accuracy can be misleading in imbalanced datasets, where it may be high despite poor performance for the minority class.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) The proportion of correct predictions (both positive and negative) made by the model.</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) The proportion of correctly predicted positive instances out of all instances.</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) The proportion of correctly predicted negative instances out of all instances.</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) The proportion of incorrectly predicted instances out of all instances.</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. Which metric derived from the confusion matrix is a good indicator of a model’s performance on imbalanced datasets?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) F1-score.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The F1-score is the harmonic mean of precision and recall. It is a useful metric when dealing with imbalanced datasets because it balances both false positives and false negatives.<br><br>
+        **F1-score Formula**:<br>
+        F1-score = 2 * (Precision * Recall) / (Precision + Recall)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) Precision</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) F1-score</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) Accuracy</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) Specificity</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. What is hyperparameter tuning in machine learning?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The process of selecting the best set of hyperparameters for a machine learning model.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Hyperparameters are parameters that are set before the learning process begins, and they control the training process. Hyperparameter tuning involves searching for the optimal set of hyperparameters to improve the model's performance.<br><br>
+        **Common Hyperparameters**:<br>
+        - Learning rate<br>
+        - Number of trees in a random forest<br>
+        - Regularization strength<br>
+        - Batch size<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) The process of selecting the optimal algorithm for a machine learning task.</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) The process of selecting the best set of hyperparameters for a machine learning model.</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) The process of selecting the best dataset for training a model.</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) The process of selecting the best evaluation metric for model performance.</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. Which method is commonly used for hyperparameter tuning?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Grid Search.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Grid search is a popular method where you define a grid of hyperparameters to search over. It performs an exhaustive search through all the hyperparameter combinations to find the best one.<br><br>
+        **Alternative Methods**:<br>
+        - Random search: Randomly samples hyperparameter combinations.<br>
+        - Bayesian optimization: Uses probabilistic models to guide the search.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) Principal Component Analysis (PCA)</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) Grid Search</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) K-fold Cross-Validation</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) Recursive Feature Elimination (RFE)</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. What is the difference between Grid Search and Random Search in hyperparameter tuning?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Grid search exhaustively tests all combinations of hyperparameters, while random search selects random combinations.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        - **Grid Search**: Evaluates every possible combination of a predefined set of hyperparameters.<br>
+        - **Random Search**: Randomly samples combinations of hyperparameters, and may sometimes find better results with fewer computations.<br><br>
+        **Pros of Grid Search**: Thorough, but computationally expensive.<br>
+        **Pros of Random Search**: Can be more efficient with large hyperparameter spaces.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) Grid search is faster than random search.</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) Random search always outperforms grid search.</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) Grid search exhaustively tests all combinations of hyperparameters, while random search selects random combinations.</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) Grid search only works for small datasets, while random search works for large datasets.</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. Which of the following is a disadvantage of Grid Search?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It can be computationally expensive and time-consuming, especially for large datasets.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Grid search performs an exhaustive search through all hyperparameter combinations. This can be computationally expensive and time-consuming when the hyperparameter space is large.<br><br>
+        **Alternatives**:<br>
+        - Random Search: Faster but less exhaustive.<br>
+        - Bayesian Optimization: More efficient but requires more sophisticated modeling.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) It can be computationally expensive and time-consuming, especially for large datasets.</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) It can only be used for regression models.</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) It does not work for deep learning models.</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) It only works for small hyperparameter spaces.</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. What is a potential advantage of using Random Search over Grid Search?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Random search can find good hyperparameters faster, especially in large search spaces.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Random search does not evaluate all combinations of hyperparameters, making it computationally more efficient, especially when the search space is large.<br><br>
+        **Advantages of Random Search**:<br>
+        - Faster search for large hyperparameter spaces.<br>
+        - May outperform Grid Search if the hyperparameter space is large and not all parameters significantly impact model performance.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) Random search guarantees better performance than grid search.</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) Random search always finds the optimal solution.</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) Random search can find good hyperparameters faster, especially in large search spaces.</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) Random search requires fewer computational resources than grid search.</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. What does the bias-variance tradeoff refer to in machine learning?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The tradeoff between model complexity and training error.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The bias-variance tradeoff is a fundamental concept in machine learning. It refers to the balance between two sources of error that affect model performance: bias and variance.<br><br>
+        - **Bias**: Error due to overly simplistic models that fail to capture the complexity of the data.<br>
+        - **Variance**: Error due to overly complex models that overfit the training data and fail to generalize.<br><br>
+        **Tradeoff**: Reducing bias often increases variance, and reducing variance increases bias. The goal is to find the optimal balance.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) The relationship between model accuracy and training time.</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) The tradeoff between model complexity and training error.</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) The balance between bias and model interpretability.</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) The relationship between variance and generalization error.</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. What happens if a model has high bias?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The model underfits the data and cannot capture the underlying patterns.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        High bias means that the model is too simplistic and fails to capture important patterns in the data. This results in underfitting, where the model has poor performance on both training and test data.<br><br>
+        **Examples** of models with high bias include linear models applied to non-linear data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) The model underfits the data and cannot capture the underlying patterns.</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) The model performs very well on both the training and test data.</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) The model overfits the data and generalizes poorly.</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) The model achieves perfect generalization.</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. What happens if a model has high variance?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The model overfits the training data and performs poorly on unseen data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        High variance means that the model is too complex and learns the noise in the training data. This leads to overfitting, where the model performs well on the training data but poorly on new, unseen data.<br><br>
+        **Examples** of models with high variance include decision trees with deep branches.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) The model underfits the data.</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) The model performs well on unseen data.</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) The model overfits the training data and performs poorly on unseen data.</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) The model captures all the underlying patterns in the data.</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. What is the effect of increasing model complexity on bias and variance?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Increasing complexity reduces bias but increases variance.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        As you increase model complexity, bias tends to decrease because the model is better able to fit the data. However, variance increases because the model becomes more sensitive to fluctuations and noise in the data.<br><br>
+        **Example**: A simple linear model has high bias and low variance, whereas a highly complex decision tree has low bias but high variance.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) Increasing complexity reduces bias but increases variance.</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) Increasing complexity increases both bias and variance.</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) Increasing complexity reduces both bias and variance.</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) Increasing complexity increases bias but reduces variance.</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. What does a learning curve in machine learning represent?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The relationship between training performance and the amount of training data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A learning curve shows how the performance of a model changes as the size of the training data increases. It typically plots the model's error or accuracy as a function of the number of training samples.<br><br>
+        **Key Takeaways**:
+        - A steep learning curve indicates the model is quickly learning from more data.
+        - A flat learning curve suggests the model is no longer improving with more data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) The relationship between model accuracy and test data.</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) The relationship between training performance and the amount of training data.</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) The tradeoff between bias and variance.</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) The effect of model complexity on performance.</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. What does a high training error and low test error indicate on a learning curve?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Overfitting, as the model performs well on the training data but poorly on unseen data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        High training error and low test error indicate that the model is not able to fit the training data well (underfitting) but might generalize well to unseen data. However, if both errors are high, this suggests the model is underperforming across both datasets.<br><br>
+        **Underfitting** occurs when the model is too simple, while **Overfitting** occurs when the model is too complex.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) Overfitting, as the model performs well on the training data but poorly on unseen data.</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) The model is underfitting, as both training and test errors are high.</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) The model is well-fit, with low errors on both training and test data.</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) The model is overfitting, as training error is low but test error is high.</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. How does a learning curve help in model selection?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It helps identify whether a model is underfitting or overfitting and guides the choice of model complexity.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Learning curves can be used to diagnose whether a model is underfitting (high error) or overfitting (low training error and high test error). This allows you to adjust model complexity, data quantity, or other parameters to improve performance.<br><br>
+        **Model Selection**: By examining the learning curve, you can determine if your model needs more data, more complexity, or more regularization.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) It shows the relationship between model training time and error.</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) It helps in selecting the best feature set for the model.</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) It helps identify whether a model is underfitting or overfitting and guides the choice of model complexity.</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) It indicates the tradeoff between bias and variance for the selected model.</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. What is a characteristic of a learning curve that indicates a model is overfitting?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) The training error decreases while the test error increases.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        When a model overfits, it memorizes the training data, resulting in a very low training error. However, the model's performance on unseen test data deteriorates, leading to an increase in test error.<br><br>
+        **Overfitting** can be addressed by using more data, applying regularization, or simplifying the model.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) Both training error and test error decrease.</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) Both training error and test error increase.</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) Training error increases while test error decreases.</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) The training error decreases while the test error increases.</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. What is the main purpose of comparing different models in machine learning?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To identify the best-performing model based on evaluation metrics.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Comparing different models helps determine which one performs best in terms of metrics like accuracy, precision, recall, F1-score, and others. It's essential to use the right metric depending on the type of problem and the data.<br><br>
+        **Key Factors to Compare**:
+        - Accuracy
+        - Speed of prediction
+        - Interpretability
+        - Generalization capability
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) To find the model that is the fastest to train.</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) To identify the best-performing model based on evaluation metrics.</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) To analyze the complexity of different models.</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) To evaluate the interpretability of a model.</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. When comparing models, why is cross-validation often used?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To evaluate model performance in a more reliable and unbiased way.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Cross-validation helps to ensure that a model’s evaluation is not dependent on a single train-test split. By dividing the data into multiple folds and evaluating the model multiple times, it provides a more reliable estimate of performance.<br><br>
+        **Benefits of Cross-Validation**:
+        - Reduces overfitting
+        - Provides more generalizable results
+        - Allows for better model comparison
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) To speed up the model evaluation process.</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) To simplify the model comparison process.</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) To evaluate model performance in a more reliable and unbiased way.</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) To reduce the computational cost of model training.</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. What metric is often used to compare classification models?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) F1-Score</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The F1-score is a balance between precision and recall, making it a valuable metric for imbalanced classification problems. It gives a more holistic view of a model's performance than accuracy alone, especially when the classes are not equally distributed.<br><br>
+        **Key Classification Metrics**:
+        - **Accuracy**: Percentage of correct predictions.
+        - **Precision**: Proportion of true positives to all predicted positives.
+        - **Recall**: Proportion of true positives to all actual positives.
+        - **F1-Score**: Harmonic mean of precision and recall.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) Accuracy</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) Precision</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) Recall</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) F1-Score</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. Why is model interpretability important when comparing machine learning models?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To understand how the model makes decisions and ensure its fairness and trustworthiness.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model interpretability is crucial because it helps stakeholders understand how a model works, which is important for both model performance and ethical considerations. Interpretability can help ensure that the model is making decisions for the right reasons, and not based on biased or unfair factors.<br><br>
+        **Importance of Interpretability**:
+        - **Trust**: Users need to trust the model’s predictions.
+        - **Fairness**: Helps in identifying bias in the model.
+        - **Transparency**: Stakeholders may require explanations for model decisions.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) To understand how the model makes decisions and ensure its fairness and trustworthiness.</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) To determine which features are most important for prediction.</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) To evaluate the model’s computational efficiency.</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) To compare the performance of different models.</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. What is the role of an ROC curve in model comparison?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To assess the tradeoff between sensitivity and specificity at different thresholds.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The ROC (Receiver Operating Characteristic) curve visualizes the tradeoff between true positive rate (sensitivity) and false positive rate (1 - specificity) as the decision threshold varies. It is used to compare different classifiers based on their ability to discriminate between classes.<br><br>
+        **ROC Curve**:
+        - **AUC**: The area under the ROC curve gives a single number that summarizes the classifier’s ability to distinguish between classes.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) To compare model accuracy across different datasets.</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) To evaluate the precision and recall of a model.</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) To assess the tradeoff between sensitivity and specificity at different thresholds.</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) To determine which model has the lowest error rate.</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. What is the main difference between model interpretability and model explainability?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Interpretability refers to understanding the internal workings of the model, while explainability involves explaining the model's decisions to humans.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Interpretability** refers to how easily a human can understand the internal logic of a model (e.g., understanding the weights in a linear regression model). **Explainability** refers to the process of providing explanations for a model's predictions in a way that is understandable to humans, even if the model itself is complex (e.g., using SHAP or LIME for deep learning models).<br><br>
+        **Key Differences**:
+        - **Interpretability**: Focuses on the model’s structure and parameters.
+        - **Explainability**: Focuses on making the model’s predictions comprehensible to non-experts.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) Interpretability is more focused on the model’s predictive accuracy, while explainability is concerned with making the model understandable.</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) Interpretability refers to understanding the internal workings of the model, while explainability involves explaining the model's decisions to humans.</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) Interpretability and explainability are essentially the same concept.</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) Interpretability is focused on the final prediction, while explainability focuses on training the model.</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. Which of the following is an example of a model-agnostic explainability technique?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) LIME</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **LIME** (Local Interpretable Model-agnostic Explanations) is a model-agnostic technique that explains individual predictions made by any black-box model. It works by approximating the model locally with an interpretable surrogate model, allowing the user to understand how the complex model made specific predictions.<br><br>
+        **Other Techniques**:
+        - **SHAP** (SHapley Additive exPlanations): Another model-agnostic explanation technique.
+        - **Feature Importance**: Can be model-specific (e.g., for tree-based models) but can sometimes be applied to other models.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) LIME</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) Decision Trees</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) Logistic Regression</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) K-Nearest Neighbors (KNN)</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. What does SHAP (SHapley Additive exPlanations) value represent in model explainability?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The contribution of each feature to the model’s prediction.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        SHAP values break down a model’s prediction into the sum of the contributions of each feature. SHAP provides a consistent and theoretically sound approach to attributing the output of a model to its input features, allowing for better interpretability and fairness.<br><br>
+        **SHAP Key Points**:
+        - **Global Interpretability**: Helps understand the importance of features across the entire dataset.
+        - **Local Interpretability**: Provides insights into individual predictions.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) The general accuracy of the model.</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) The relationship between input features.</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) The contribution of each feature to the model’s prediction.</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) The overall complexity of the model.</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. Why is model explainability important in high-stakes domains such as healthcare or finance?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To ensure that the model’s decisions can be trusted and are fair and transparent.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In high-stakes domains, such as healthcare or finance, decisions made by machine learning models can significantly impact individuals' lives. Explainability ensures that the model’s predictions are understandable, transparent, and justifiable, which is crucial for trust and accountability.<br><br>
+        **Why Explainability Matters**:
+        - **Trust**: Users are more likely to trust a model whose decisions they can understand.
+        - **Accountability**: If a decision goes wrong, it's essential to explain why the model made that choice.
+        - **Fairness**: Explainability can reveal and address biases in the model.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) To increase the model's computational efficiency.</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) To make the model more complex.</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) To reduce the time taken by the model for predictions.</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) To ensure that the model’s decisions can be trusted and are fair and transparent.</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. What is the primary goal of post-hoc interpretability techniques in machine learning?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To explain the behavior of a complex model after it has been trained.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Post-hoc interpretability techniques are used to explain and understand the behavior of machine learning models after they have been trained. These methods allow users to interpret and gain insights into the decision-making process of models that are otherwise opaque, such as deep neural networks.<br><br>
+        **Examples of Post-Hoc Techniques**:
+        - **LIME** and **SHAP** are common post-hoc techniques for interpreting complex models.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) To increase the model’s accuracy.</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) To improve the model’s prediction speed.</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) To explain the behavior of a complex model after it has been trained.</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) To simplify the model’s architecture.</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. What is a common problem when working with imbalanced data in classification tasks?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The model may predict the majority class more often, ignoring the minority class.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In imbalanced datasets, where one class significantly outnumbers the other, the model tends to predict the majority class more frequently. This can lead to poor performance on the minority class, which is often the class of greater interest in real-world applications.<br><br>
+        **Common Problems**:
+        - Bias towards the majority class.
+        - Low performance (e.g., accuracy) on the minority class.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) The model will be biased towards predicting the minority class.</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) The model will have difficulty handling continuous features.</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) The model may predict the majority class more often, ignoring the minority class.</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) The model’s predictions will always be perfectly balanced.</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. Which evaluation metric is most suitable for imbalanced data?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) F1-score</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **F1-score** is the harmonic mean of precision and recall, and it is particularly useful for evaluating models on imbalanced datasets. While accuracy may not be informative on imbalanced data (since the model could predict the majority class most of the time), the F1-score balances precision and recall, thus providing a better measure of the model's performance on the minority class.<br><br>
+        **Other Metrics**:
+        - **Precision**: Proportion of true positives out of all predicted positives.
+        - **Recall**: Proportion of true positives out of all actual positives.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) Accuracy</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) F1-score</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) ROC AUC</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) Mean squared error</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. What technique can be used to handle imbalanced data during model training?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Both oversampling and undersampling</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        To address class imbalance, one can either **oversample** the minority class (e.g., using techniques like SMOTE) or **undersample** the majority class. These techniques adjust the class distribution in the training set to make the model less biased towards the majority class.<br><br>
+        **Other Approaches**:
+        - **Class weight adjustment**: Some algorithms allow you to assign higher weights to the minority class to compensate for the imbalance.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) Only undersampling</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) Only oversampling</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) Only class weight adjustment</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) Both oversampling and undersampling</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. How does the ROC-AUC score help evaluate models on imbalanced data?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It evaluates how well the model distinguishes between the classes, irrespective of class imbalance.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **ROC-AUC (Receiver Operating Characteristic - Area Under the Curve)** score helps assess a model's ability to discriminate between classes. It plots the true positive rate (sensitivity) against the false positive rate (1-specificity) at different classification thresholds. A higher AUC indicates better model performance, and it is particularly useful for imbalanced datasets because it is insensitive to class distribution.<br><br>
+        **Key Points**:
+        - **ROC-AUC** ranges from 0 to 1.
+        - A score of 0.5 indicates random performance, while a score of 1.0 indicates perfect performance.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) It evaluates how well the model distinguishes between the classes, irrespective of class imbalance.</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) It focuses on maximizing the accuracy of the majority class.</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) It measures how well the model predicts the minority class.</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) It only evaluates the model’s precision.</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. What is the purpose of using Synthetic Minority Over-sampling Technique (SMOTE)?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To create synthetic samples of the minority class to balance the dataset.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        SMOTE is a technique that generates synthetic samples for the minority class by interpolating between existing minority class examples. It helps to balance the class distribution by creating more diverse examples of the minority class, which can improve the model's ability to generalize.<br><br>
+        **Key Steps in SMOTE**:
+        - Select a minority class sample.
+        - Find its nearest neighbors.
+        - Create new samples by interpolating between the sample and its neighbors.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) To reduce the size of the majority class.</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) To adjust the class weights during model training.</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) To create synthetic samples of the minority class to balance the dataset.</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) To remove redundant samples from the dataset.</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. What is model drift in machine learning?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It refers to changes in model performance over time due to shifts in data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model drift occurs when the statistical properties of the target variable, features, or both change over time, causing the model’s predictions to become less accurate. This can happen due to external factors like seasonality, trends, or shifts in user behavior.<br><br>
+        **Types of Model Drift**:
+        - **Concept Drift**: Change in the underlying data distribution.
+        - **Data Drift**: Change in the input features, causing the model to misinterpret the data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) It refers to a sudden drop in model performance due to external conditions.</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) It refers to changes in model performance over time due to shifts in data.</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) It refers to the model’s inability to generalize to new data.</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) It refers to a model being too complex to interpret.</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. How can model drift be detected?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) By comparing model performance metrics over time and monitoring data distribution.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model drift can be detected by regularly evaluating the model’s performance and comparing it to baseline metrics. Monitoring data distribution (e.g., using tools like data validation checks) and performance metrics (e.g., accuracy, precision, recall) can help identify shifts in model behavior.<br><br>
+        **Techniques for Detection**:
+        - **Performance Monitoring**: Track metrics like accuracy, AUC, or F1-score over time.
+        - **Statistical Tests**: Use tests like the Kolmogorov-Smirnov test to detect shifts in data distributions.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) By manually checking the model’s predictions.</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) By re-training the model on the same data.</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) By comparing model performance metrics over time and monitoring data distribution.</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) By testing the model on new data only after several months.</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. What is the role of concept drift in model monitoring?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It refers to changes in the relationship between input features and the target variable.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Concept drift occurs when the underlying patterns or relationships in the data change over time, such as changes in user behavior or market conditions. In monitoring models, identifying concept drift is important because the model may no longer capture the correct relationships, resulting in a decline in prediction accuracy.<br><br>
+        **Types of Drift**:
+        - **Concept Drift**: Change in the relationship between inputs and target.
+        - **Data Drift**: Change in the distribution of the input features.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) It refers to changes in the relationship between input features and the target variable.</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) It refers to fluctuations in model prediction scores.</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) It refers to a decrease in data size.</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) It refers to the temporal gaps in model testing.</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. Which monitoring technique is commonly used to track the performance of a model in production?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Continuous performance tracking using metrics like accuracy, precision, and recall.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Continuous monitoring of a model’s performance using metrics such as accuracy, precision, recall, and F1-score ensures that the model continues to meet performance standards over time. These metrics help detect issues like model drift and performance degradation.<br><br>
+        **Techniques for Continuous Monitoring**:
+        - **Real-time monitoring**: Keep track of the model’s output in real-time to detect any performance drops.
+        - **Alerts and notifications**: Set up alerts for significant performance deviations.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) A/B testing with different models.</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) Random sampling of model predictions for testing.</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) Quarterly model performance audits.</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) Continuous performance tracking using metrics like accuracy, precision, and recall.</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. Which approach can be used to mitigate model drift?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Regular model re-training and updating the training dataset.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Regular re-training of the model with updated data helps ensure that the model stays relevant and performs well as the data distribution changes over time. Incorporating new data from real-world events or shifts can help reduce the impact of model drift.<br><br>
+        **Methods to Mitigate Model Drift**:
+        - **Re-training**: Update the model with recent data.
+        - **Ensemble Learning**: Combine multiple models to account for changes in the data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Use a static dataset to train the model periodically.</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Regular model re-training and updating the training dataset.</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Decrease the complexity of the model.</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) Ignore changes in data and re-train when necessary.</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+     
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics & Probability </title>
+    <link rel="stylesheet" href="../css/data science.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'B', 'B', 'A', 'B', 'B', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'A', 'B', 'C',
+            'B', 'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',
+            'A', 'A', 'B', 'D', 'C', 'B', 'C', 'A', 'C', 'D',
+           
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>Statistics & Probability </h3>
+        <div class="inner-border">
+<!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is the main purpose of descriptive statistics in data analysis?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To summarize and describe the main features of a dataset.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Descriptive statistics help summarize the characteristics of a dataset using measures like mean, median, mode, variance, and standard deviation.<br><br>
+        **Steps in Descriptive Statistics**:<br>
+        1. Collect the data.<br>
+        2. Calculate central tendency (mean, median, mode).<br>
+        3. Compute dispersion (variance, standard deviation).<br>
+        4. Present findings using tables, charts, and graphs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) To predict future trends based on data.</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) To summarize and describe the main features of a dataset.</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) To analyze the correlation between two variables.</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) To calculate the probability of an event.</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. Which of the following is a measure of central tendency in descriptive statistics?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Mean</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Measures of central tendency include the mean, median, and mode. These metrics summarize the center of a dataset.<br><br>
+        **Central Tendency Measures**:<br>
+        1. **Mean**: Average of all data points.<br>
+        2. **Median**: Middle value when data is sorted.<br>
+        3. **Mode**: Most frequent value in the dataset.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Variance</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Mean</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) Standard deviation</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Range</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What is the purpose of calculating the standard deviation in descriptive statistics?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To measure the spread or dispersion of a dataset.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Standard deviation quantifies the amount of variation or dispersion in a dataset. A high standard deviation indicates that data points are spread out widely, while a low standard deviation indicates they are close to the mean.<br><br>
+        **Steps in Calculating Standard Deviation**:<br>
+        1. Find the mean of the dataset.<br>
+        2. Subtract the mean from each data point and square the result.<br>
+        3. Find the average of these squared differences.<br>
+        4. Take the square root of the average.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) To measure the central value of the dataset.</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) To measure the spread or dispersion of a dataset.</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) To calculate the median of the dataset.</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) To determine the most frequent value in the dataset.</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. What is the mode in descriptive statistics?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The most frequent value in a dataset.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The mode represents the value that appears most frequently in a dataset. A dataset can have one mode (unimodal), more than one mode (bimodal or multimodal), or no mode at all.<br><br>
+        **Steps in Finding the Mode**:<br>
+        1. Count the frequency of each value in the dataset.<br>
+        2. The value with the highest frequency is the mode.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) The middle value in a sorted dataset.</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) The most frequent value in a dataset.</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) The difference between the highest and lowest values.</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) The average value of the dataset.</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. What is a histogram used for in descriptive statistics?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To visualize the distribution of data across different intervals.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A histogram is a graphical representation of the distribution of numerical data. It shows how data is distributed across intervals or bins.<br><br>
+        **Steps in Creating a Histogram**:<br>
+        1. Divide the range of values into intervals (bins).<br>
+        2. Count how many data points fall into each bin.<br>
+        3. Plot the bins on the horizontal axis and the frequencies on the vertical axis.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) To visualize the distribution of data across different intervals.</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) To calculate the correlation between variables.</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) To determine the mode of the dataset.</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) To find the central value of the dataset.</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+            
+<!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is the primary purpose of probability theory in statistics?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To model uncertainty and quantify the likelihood of events.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Probability theory helps quantify uncertainty. It provides a framework to model random events and compute the likelihood of their occurrence.<br><br>
+        **Steps in Probability Theory**:<br>
+        1. Define the sample space of all possible outcomes.<br>
+        2. Assign probabilities to the events in the sample space.<br>
+        3. Use probability laws (such as Bayes’ theorem, law of total probability) to compute the likelihood of complex events.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) To determine the mean of a dataset.</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) To model uncertainty and quantify the likelihood of events.</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) To measure the spread of data.</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) To summarize the data using central tendency measures.</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. What is the definition of conditional probability?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The probability of an event occurring given that another event has already occurred.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Conditional probability is the probability of an event happening under the condition that another related event has already occurred.<br><br>
+        **Formula**: P(A|B) = P(A ∩ B) / P(B), where P(A|B) is the probability of A given B.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) The probability of two events happening together.</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) The probability of an event occurring given that another event has already occurred.</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) The probability of an event that cannot happen.</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) The probability of an event that happens with certainty.</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What does the Law of Total Probability describe?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It provides a way to calculate the probability of an event by considering all possible ways it can happen.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Law of Total Probability allows us to calculate the probability of an event by breaking it down into multiple mutually exclusive scenarios.<br><br>
+        **Formula**: P(A) = Σ P(A|B) * P(B), where the sum is over all possible events B.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) It describes the probability of independent events occurring.</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) It provides a way to calculate the probability of an event by considering all possible ways it can happen.</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) It defines the relationship between dependent and independent events.</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) It calculates the joint probability of two events.</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. What is the formula for Bayes' Theorem?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) P(A|B) = (P(B|A) * P(A)) / P(B)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Bayes' Theorem is a way of finding a probability when other probabilities are known. It relates the conditional probabilities of two events.<br><br>
+        **Formula**: P(A|B) = (P(B|A) * P(A)) / P(B), where P(A|B) is the probability of A given B.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) P(A|B) = P(A) * P(B)</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) P(A|B) = (P(B|A) * P(A)) / P(B)</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) P(A|B) = P(A) + P(B)</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) P(A|B) = P(A) / P(B)</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. In probability theory, what does a "random variable" represent?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A variable whose value is determined by a random event.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A random variable is a variable that takes on different values depending on the outcome of a random event or experiment.<br><br>
+        **Types of Random Variables**:<br>
+        1. Discrete random variables take specific values (e.g., number of heads in coin tosses).<br>
+        2. Continuous random variables take any value within a range (e.g., height or weight).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) A fixed value determined by the outcome of an event.</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) A variable whose value is determined by a random event.</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) A value that is always constant.</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) A value that is always predictable.</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is the main goal of inferential statistics?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To make predictions or inferences about a population based on sample data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Inferential statistics uses sample data to draw conclusions about a population. It helps make predictions, test hypotheses, and estimate parameters.<br><br>
+        **Examples**: Hypothesis testing, confidence intervals, regression analysis.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) To summarize the data of a population.</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) To make predictions or inferences about a population based on sample data.</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) To visualize the distribution of data in a population.</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) To calculate the central tendency of a sample.</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. Which of the following is a common method used for hypothesis testing?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) t-test</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A **t-test** is used to determine if there is a significant difference between the means of two groups. It's commonly used in hypothesis testing.<br><br>
+        **Types of t-tests**: One-sample t-test, independent t-test, paired t-test.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) Linear regression</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) t-test</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) Analysis of variance (ANOVA)</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) Chi-square test</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What is a p-value in hypothesis testing?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The probability of obtaining results as extreme as the observed results, assuming the null hypothesis is true.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The p-value helps determine the statistical significance of the test result. A small p-value (typically < 0.05) suggests that the null hypothesis can be rejected.<br><br>
+        **Steps**: 
+        1. Calculate the test statistic (e.g., t-statistic, z-statistic).<br>
+        2. Find the p-value.<br>
+        3. Compare the p-value with the significance level (α), typically 0.05.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) The probability that the alternative hypothesis is true.</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) The probability of obtaining results as extreme as the observed results, assuming the null hypothesis is true.</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) The probability of the null hypothesis being true.</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) The probability that the sample mean equals the population mean.</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. What is a confidence interval in statistics?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A range of values that is likely to contain the population parameter with a certain level of confidence.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A confidence interval provides an estimated range of values that is likely to contain the true population parameter. The level of confidence (e.g., 95%) represents the probability that the interval contains the true parameter.<br><br>
+        **Formula**: CI = sample statistic ± margin of error<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) A single value estimate of the population parameter.</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) A range of values that is likely to contain the population parameter with a certain level of confidence.</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) A test to compare the means of two populations.</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) A method to calculate the sample size for a study.</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. In which situation would a z-test be used in hypothesis testing?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) When the sample size is large and the population variance is known.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A z-test is used when the sample size is large (usually n > 30) and the population standard deviation (variance) is known.<br><br>
+        **Formula**: z = (sample mean - population mean) / (population standard deviation / √n)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) When the sample size is small and the population variance is unknown.</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) When the sample size is large and the population variance is known.</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) When the population is normally distributed.</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) When the sample mean is known.</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. What is the primary purpose of regression analysis?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To model the relationship between a dependent variable and one or more independent variables.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Regression analysis helps understand the relationship between variables. In simple linear regression, you model the relationship between one dependent and one independent variable.<br><br>
+        **Formula**: Y = β₀ + β₁X + ε, where Y is the dependent variable, X is the independent variable, and β₀ and β₁ are coefficients.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) To measure the strength of the data points.</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) To model the relationship between a dependent variable and one or more independent variables.</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) To calculate the mean of the dataset.</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) To visualize the relationship between data points.</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. Which of the following is the simplest form of regression analysis?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Simple linear regression</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Simple linear regression** models the relationship between two variables by fitting a linear equation to observed data. It involves one dependent variable and one independent variable.<br><br>
+        **Formula**: Y = β₀ + β₁X, where Y is the dependent variable and X is the independent variable.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) Multiple linear regression</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) Simple linear regression</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) Logistic regression</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) Polynomial regression</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. What is the assumption made by simple linear regression about the relationship between the variables?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The relationship between the independent and dependent variable is linear.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Simple linear regression assumes that the relationship between the dependent variable and the independent variable is linear (i.e., can be represented by a straight line).<br><br>
+        **Formula**: Y = β₀ + β₁X + ε, where Y is the dependent variable, X is the independent variable, and β₀ and β₁ are the regression coefficients.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) The relationship between the independent and dependent variable is quadratic.</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) The relationship between the independent and dependent variable is linear.</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) The dependent variable has a constant rate of change.</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) The dependent variable is normally distributed.</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What does the coefficient of determination (R²) indicate in regression analysis?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The proportion of the variance in the dependent variable that is predictable from the independent variable(s).</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **coefficient of determination (R²)** measures how well the independent variable(s) explain the variability in the dependent variable. An R² value closer to 1 indicates a better fit.<br><br>
+        **Formula**: R² = 1 - (Sum of Squared Residuals / Total Sum of Squares)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) The strength of the linear relationship between the independent and dependent variable.</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) The proportion of the variance in the dependent variable that is predictable from the independent variable(s).</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) The error margin in the regression model.</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) The degree of correlation between the independent and dependent variables.</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. What does multicollinearity refer to in multiple regression analysis?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) When two or more independent variables are highly correlated with each other.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Multicollinearity** occurs when independent variables in a multiple regression model are highly correlated with each other. This can make it difficult to isolate the individual effect of each variable.<br><br>
+        **Effects**: It can inflate the standard errors of the coefficients, leading to less reliable estimates.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) When the dependent variable is normally distributed.</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) When two or more independent variables are highly correlated with each other.</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) When the independent variable is normally distributed.</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) When there is no correlation between the independent variables.</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. What does Bayes' Theorem allow us to calculate?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The posterior probability given prior information and likelihood.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        **Bayes' Theorem** provides a way to update the probability estimate of a hypothesis based on new evidence.<br><br>
+        **Formula**: P(H|E) = [P(E|H) * P(H)] / P(E), where:<br>
+        - P(H|E) is the posterior probability (what we want to calculate).<br>
+        - P(E|H) is the likelihood of the evidence given the hypothesis.<br>
+        - P(H) is the prior probability (the initial belief about the hypothesis).<br>
+        - P(E) is the total probability of the evidence.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) The probability of future events occurring.</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) The posterior probability given prior information and likelihood.</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) The likelihood of data given a hypothesis.</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) The probability of the hypothesis being true without evidence.</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. What is the role of the prior probability in Bayesian statistics?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It represents the initial belief about a hypothesis before considering new evidence.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The **prior probability** is the initial estimate of the probability of a hypothesis before any new data or evidence is taken into account. It is updated as new evidence is observed.<br><br>
+        **Formula**: P(H|E) = [P(E|H) * P(H)] / P(E), where P(H) is the prior.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) It is the probability of evidence occurring given a hypothesis.</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) It represents the initial belief about a hypothesis before considering new evidence.</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) It is the probability of future events occurring.</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) It represents the likelihood of a hypothesis given the evidence.</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. What is the difference between prior probability and posterior probability in Bayesian statistics?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Prior probability is the initial belief, while posterior probability is the updated belief after considering new evidence.</strong><br><br>
+        **Solution and Explanation:**<br>
+        - **Prior probability**: The initial belief about a hypothesis, before any data is observed.<br>
+        - **Posterior probability**: The updated belief about the hypothesis, after considering new data or evidence using Bayes' Theorem.<br><br>
+        **Formula**: P(H|E) = [P(E|H) * P(H)] / P(E), where P(H|E) is the posterior.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) Prior probability is always 1, and posterior probability is the probability of a hypothesis.</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) Prior probability is the initial belief, while posterior probability is the updated belief after considering new evidence.</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) Prior probability is the probability of the evidence, while posterior probability is the likelihood of a hypothesis.</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) There is no difference between prior and posterior probability.</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. In Bayesian statistics, what does likelihood represent?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The probability of observing the data given a hypothesis.</strong><br><br>
+        **Solution and Explanation:**<br>
+        The **likelihood** is the probability of observing the evidence or data given the hypothesis. It is a key component of Bayes' Theorem.<br><br>
+        **Formula**: P(E|H), where E is the evidence and H is the hypothesis.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) The probability of the hypothesis being true.</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) The probability of observing the data given a hypothesis.</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) The probability of the evidence occurring without a hypothesis.</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) The probability of the hypothesis given the evidence.</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. In Bayesian statistics, what does the term "posterior" refer to?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The updated probability of the hypothesis after considering new evidence.</strong><br><br>
+        **Solution and Explanation:**<br>
+        The **posterior** is the probability of the hypothesis being true after taking into account the new evidence. It is computed using Bayes' Theorem.<br><br>
+        **Formula**: P(H|E) = [P(E|H) * P(H)] / P(E), where P(H|E) is the posterior probability.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) The initial probability before observing any data.</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) The updated probability of the hypothesis after considering new evidence.</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) The probability of the evidence occurring given a hypothesis.</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) The probability of a hypothesis being true without considering evidence.</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. Which of the following is a supervised learning technique?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Linear Regression</strong><br><br>
+        **Solution and Explanation:**<br>
+        **Supervised learning** refers to learning from labeled data, where both the input features and the target output are provided. Techniques such as **linear regression** are supervised, as the model is trained on labeled data.<br><br>
+        Other techniques like unsupervised learning methods do not rely on labeled data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) K-Means Clustering</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) Linear Regression</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) PCA (Principal Component Analysis)</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) DBSCAN</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. What is the primary goal of supervised learning?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To learn a mapping from input features to known output labels.</strong><br><br>
+        **Solution and Explanation:**<br>
+        The primary goal of **supervised learning** is to learn a mapping from input features (data) to known output labels (targets) based on labeled training data.<br><br>
+        Once the model has been trained on this data, it can predict the outputs for unseen data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) To reduce the variance in data.</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) To learn a mapping from input features to known output labels.</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) To detect patterns without supervision.</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) To identify outliers in the data.</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. Which of the following is a type of unsupervised learning?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) K-Means Clustering</strong><br><br>
+        **Solution and Explanation:**<br>
+        **Unsupervised learning** is a type of machine learning where the algorithm is given data without labeled responses. **K-Means Clustering** is a popular unsupervised learning algorithm that groups data points into clusters based on similarity.<br><br>
+        In contrast, supervised learning requires labeled data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) K-Means Clustering</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) Linear Regression</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) Logistic Regression</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) Naive Bayes</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. What is overfitting in machine learning?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) When the model performs well on training data but poorly on new, unseen data.</strong><br><br>
+        **Solution and Explanation:**<br>
+        **Overfitting** occurs when a machine learning model learns the details and noise in the training data to such an extent that it negatively impacts the performance of the model on new data.<br><br>
+        This can happen if the model is too complex relative to the amount of data.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) When the model generalizes well on unseen data.</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) When the model performs well on training data but poorly on new, unseen data.</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) When the model is trained on a very small dataset.</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) When the model underperforms on both training and testing data.</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. Which method is commonly used to prevent overfitting in machine learning models?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Cross-validation</strong><br><br>
+        **Solution and Explanation:**<br>
+        **Cross-validation** is a technique used to assess the model's performance and generalization by splitting the data into multiple subsets. It helps prevent overfitting by ensuring that the model is evaluated on different portions of the data.<br><br>
+        Other techniques such as **regularization** or **pruning** can also help prevent overfitting.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) Increasing the complexity of the model.</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) Using fewer data points.</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) Cross-validation</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) Ignoring the validation set.</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. In a Markov process, what property does the system exhibit?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The system’s future state depends only on its present state.</strong><br><br>
+        **Solution and Explanation:**<br>
+        A **Markov process** has the **Markov property**, meaning the future state of the system only depends on the present state, not on the sequence of events that preceded it.<br><br>
+        This is known as "memoryless" behavior.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) The system’s future state is determined by its past states.</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) The system’s future state depends only on its present state.</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) The system’s state is completely independent of previous states.</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) The system’s behavior is completely random.</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. Which of the following is an example of a discrete-time Markov chain?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) A board game where players move between spaces based on dice rolls.</strong><br><br>
+        **Solution and Explanation:**<br>
+        A **discrete-time Markov chain** involves transitions between states at fixed time steps. The **board game** example fits this definition, where the states represent spaces on the board, and the transitions depend on the dice roll at each time step.<br><br>
+        In contrast, continuous-time Markov processes involve events happening continuously over time.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) A board game where players move between spaces based on dice rolls.</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) A stock price fluctuating continuously in the market.</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) The random movement of particles in a fluid.</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) A person walking randomly in a continuous space.</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. In a Markov chain, what is the transition matrix?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A matrix that defines the probabilities of moving from one state to another.</strong><br><br>
+        **Solution and Explanation:**<br>
+        The **transition matrix** in a Markov chain represents the probabilities of moving from one state to another. Each entry in the matrix corresponds to the probability of transitioning from a specific state to another at the next time step.<br><br>
+        These probabilities must sum to 1 for each row of the matrix.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) A matrix that tracks the frequency of states visited.</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) A matrix that defines the probabilities of moving from one state to another.</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) A matrix that represents the possible number of steps taken in the system.</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) A matrix that defines the initial probabilities of being in a state.</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. What is a steady-state distribution in a Markov chain?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The long-term probability distribution of states that remains unchanged after transitions.</strong><br><br>
+        **Solution and Explanation:**<br>
+        The **steady-state distribution** is a vector that gives the probabilities of being in each state after a large number of transitions, where these probabilities do not change over time.<br><br>
+        This distribution is useful for understanding the long-term behavior of a Markov chain.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) The probabilities of transitioning between states after one step.</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) The long-term probability distribution of states that remains unchanged after transitions.</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) The probability of returning to the starting state.</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) The initial probability distribution of the states.</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. What does the term "absorbing state" refer to in a Markov chain?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A state that, once entered, cannot be left.</strong><br><br>
+        **Solution and Explanation:**<br>
+        An **absorbing state** is a state in a Markov chain that, once the system enters that state, it cannot leave. The system "absorbs" into that state and remains there permanently.<br><br>
+        Such states can be important for analyzing the long-term behavior of the system.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) A state that the system visits frequently but leaves after a few transitions.</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) A state that, once entered, cannot be left.</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) A state that the system never visits.</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) A state where the system remains for a random period before transitioning to another state.</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. In experimental design, what is the primary purpose of randomization?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To eliminate bias and ensure that the groups are comparable.</strong><br><br>
+        **Solution and Explanation:**<br>
+        **Randomization** is used in experimental design to randomly assign participants to different treatment groups, which helps eliminate selection bias. It ensures that differences observed in the outcomes are due to the treatment rather than any other external factors.<br><br>
+        This process helps in making valid inferences from the experiment.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) To select the most appropriate treatment for each participant.</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) To eliminate bias and ensure that the groups are comparable.</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) To ensure that the sample size is large enough.</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) To measure the exact effect of the treatment.</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. Which of the following is a type of experimental design?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Randomized Controlled Trial (RCT)</strong><br><br>
+        **Solution and Explanation:**<br>
+        A **Randomized Controlled Trial (RCT)** is one of the most rigorous types of experimental designs, where participants are randomly assigned to either the treatment group or the control group. This helps in establishing causal relationships between the treatment and the outcome.<br><br>
+        Other designs like observational studies do not involve randomization.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) Survey-based research</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) Randomized Controlled Trial (RCT)</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) Case study analysis</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) Cohort study</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. What is a control group in experimental design?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A group that does not receive the experimental treatment and is used for comparison.</strong><br><br>
+        **Solution and Explanation:**<br>
+        The **control group** is a group in an experiment that does not receive the treatment or intervention being tested. It is used to compare the outcomes with the experimental group, which receives the treatment. This comparison helps to isolate the effect of the treatment.<br><br>
+        The control group is critical for evaluating the effectiveness of the treatment.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) A group that receives a placebo treatment.</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) A group that does not receive the experimental treatment and is used for comparison.</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) A group that receives multiple treatments for comparison.</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) A group that is randomly selected from the population.</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. What is the significance of blinding in experimental design?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To prevent bias by keeping participants or experimenters unaware of group assignments.</strong><br><br>
+        **Solution and Explanation:**<br>
+        **Blinding** is used to prevent bias in an experiment by ensuring that either the participants, the experimenters, or both are unaware of which treatment the participants are receiving. This helps eliminate conscious or unconscious influence on the results.<br><br>
+        There are different levels of blinding, such as single-blind or double-blind.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) To ensure that only the treatment group receives the experimental treatment.</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) To prevent bias by keeping participants or experimenters unaware of group assignments.</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) To ensure that the sample size is large enough to detect differences.</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) To ensure that all groups receive the same treatment.</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. What does "statistical power" refer to in experimental design?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The probability of correctly rejecting the null hypothesis when it is false.</strong><br><br>
+        **Solution and Explanation:**<br>
+        **Statistical power** is the probability that an experiment will detect an effect or difference if one truly exists. It is related to the likelihood of correctly rejecting the null hypothesis when it is false, thus avoiding Type II errors.<br><br>
+        Power is influenced by sample size, effect size, and significance level.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) The likelihood that a study will yield the desired outcome.</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) The probability of correctly rejecting the null hypothesis when it is false.</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) The probability of incorrectly accepting the null hypothesis.</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) The probability of detecting a random effect.</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. Which of the following is a typical use case of Monte Carlo simulations?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Estimating the value of π (Pi) using random sampling.</strong><br><br>
+        **Solution and Explanation:**<br>
+        A typical use case of **Monte Carlo simulations** is to estimate the value of π (Pi) by randomly sampling points within a square and calculating how many fall inside a circle inscribed within that square. This is an example of using random sampling to solve a problem with a known mathematical solution.<br><br>
+        The method is often used to estimate values when a direct approach is difficult.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) Estimating the value of π (Pi) using random sampling.</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) Solving linear systems of equations directly.</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) Predicting stock prices using historical data.</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) Generating exact values for probability distributions.</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. In the context of Monte Carlo simulations, what does "sampling from the distribution" mean?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Drawing random values from a specified probability distribution.</strong><br><br>
+        **Solution and Explanation:**<br>
+        "Sampling from the distribution" refers to the process of generating random values according to a specified probability distribution, such as a normal or uniform distribution. These random samples are then used to estimate the outcome of a simulation.<br><br>
+        In Monte Carlo simulations, this random sampling helps to model complex problems by approximating the behavior of random variables.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) Drawing random values from a specified probability distribution.</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) Using deterministic methods to generate values.</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) Creating a uniform distribution of values for all scenarios.</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) Avoiding randomness and using fixed values for all simulations.</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. Which of the following is a key challenge when applying Monte Carlo simulations to real-world problems?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The computational cost of running a large number of simulations.</strong><br><br>
+        **Solution and Explanation:**<br>
+        A key challenge when applying **Monte Carlo simulations** to real-world problems is the **computational cost**. Depending on the complexity of the problem, running a large number of simulations can be time-consuming and require significant computational resources. This issue is particularly important in high-dimensional spaces or with problems that require a large number of iterations.<br><br>
+        While Monte Carlo methods are versatile, they can be resource-intensive.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) The inability to generate random numbers effectively.</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) The computational cost of running a large number of simulations.</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) The difficulty of modeling random variables accurately.</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) The requirement for deterministic outcomes in all simulations.</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. In Monte Carlo simulations, which of the following techniques is often used to improve the accuracy of the results?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Importance sampling.</strong><br><br>
+        **Solution and Explanation:**<br>
+        **Importance sampling** is a technique often used to improve the accuracy of Monte Carlo simulations. It involves drawing samples from a distribution that is different from the target distribution, with the goal of reducing the variance of the estimate. By focusing sampling on the most important areas of the distribution, this technique can yield more accurate results with fewer samples.<br><br>
+        Importance sampling is commonly used in situations where certain regions of the distribution are more critical to the outcome than others.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) Random sampling from a uniform distribution.</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) Bootstrap sampling.</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) Stratified sampling.</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) Importance sampling.</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. Which of the following is a limitation of Monte Carlo simulations?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) They can be computationally expensive, especially for high-dimensional problems.</strong><br><br>
+        **Solution and Explanation:**<br>
+        A key limitation of **Monte Carlo simulations** is that they can be **computationally expensive**, particularly for problems that involve high-dimensional spaces or require a large number of iterations. The accuracy of Monte Carlo simulations improves with more samples, but this increases the computational cost.<br><br>
+        As the dimensionality of a problem increases, the number of samples needed to achieve accurate results grows exponentially.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) They are limited to only a few types of probability distributions.</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) They cannot handle problems with uncertainty.</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) They can be computationally expensive, especially for high-dimensional problems.</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) They require exact solutions to be meaningful.</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. What does the term "convergence" refer to in the context of Monte Carlo simulations?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The tendency of the simulation results to approach the true value as the number of samples increases.</strong><br><br>
+        **Solution and Explanation:**<br>
+        In the context of **Monte Carlo simulations**, **convergence** refers to the idea that as the number of samples increases, the simulation results tend to approach the **true value** or expected value of the problem being modeled. This is a fundamental concept in simulation, as the accuracy of results improves with larger sample sizes.<br><br>
+        Convergence ensures that the Monte Carlo simulation is providing meaningful estimates.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) The ability of the simulation to generate random numbers.</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) The tendency of the simulation results to approach the true value as the number of samples increases.</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) The speed at which the simulation runs.</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) The ability to produce exact answers in all cases.</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. What is the primary purpose of using Monte Carlo simulations in risk analysis?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To model and assess the impact of uncertainty in decision-making.</strong><br><br>
+        **Solution and Explanation:**<br>
+        In risk analysis, **Monte Carlo simulations** are used to **model and assess the impact of uncertainty** in decision-making. By simulating many possible scenarios, Monte Carlo methods allow analysts to quantify risks and uncertainties, helping decision-makers understand the potential range of outcomes and the likelihood of different results.<br><br>
+        This makes it easier to make decisions under uncertainty.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) To eliminate uncertainty from the decision-making process.</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) To calculate exact probabilities for all possible outcomes.</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) To model and assess the impact of uncertainty in decision-making.</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) To predict the most likely outcome with high certainty.</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. In Monte Carlo simulations, why is random sampling used?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To simulate a wide range of possible scenarios and approximate the distribution of outcomes.</strong><br><br>
+        **Solution and Explanation:**<br>
+        **Random sampling** is used in Monte Carlo simulations to simulate a wide range of possible scenarios. By randomly drawing from a distribution, Monte Carlo methods approximate the distribution of outcomes and model the behavior of complex systems. This randomness helps in exploring all possible outcomes without needing to evaluate every possible scenario explicitly.<br><br>
+        It’s a key feature that allows Monte Carlo simulations to handle problems with uncertainty.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) To simulate a wide range of possible scenarios and approximate the distribution of outcomes.</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) To eliminate randomness from the model.</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) To produce deterministic results for every scenario.</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) To reduce the number of simulations required.</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. What is the role of variance reduction techniques in Monte Carlo simulations?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To improve the accuracy of the simulation with fewer samples.</strong><br><br>
+        **Solution and Explanation:**<br>
+        **Variance reduction techniques** in Monte Carlo simulations are used to **improve the accuracy** of the simulation with fewer samples. By reducing the variance of the estimates, these techniques make it possible to achieve more reliable results without increasing the number of samples. Common methods include **importance sampling**, **control variates**, and **antithetic variates**.<br><br>
+        This is particularly useful when simulations are expensive or time-consuming.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) To generate more samples to increase the accuracy of the results.</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) To ensure that the simulation results are deterministic.</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) To improve the accuracy of the simulation with fewer samples.</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) To eliminate the need for random sampling in the simulation.</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. In Monte Carlo simulations, which of the following is a common use case?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Estimating the value of complex integrals that are difficult to compute analytically.</strong><br><br>
+        **Solution and Explanation:**<br>
+        **Monte Carlo simulations** are commonly used to estimate the value of complex integrals, especially when they are difficult or impossible to compute analytically. This is a standard technique in numerical analysis, particularly for high-dimensional integrals or those involving complicated domains.<br><br>
+        Other applications include **pricing options**, **modeling physical systems**, and **risk analysis**.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Solving systems of linear equations.</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Predicting the behavior of deterministic systems.</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Estimating derivatives of functions.</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) Estimating the value of complex integrals that are difficult to compute analytically.</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+
+            
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

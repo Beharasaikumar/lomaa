@@ -1,0 +1,2684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Deep Learning  </title>
+    <link rel="stylesheet" href="../css/data science.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'C', 'A', 'B', 'D', 'B', 'A', 'C', 'D', 'B',
+            'B', 'C', 'A', 'B', 'D', 'B', 'C', 'A', 'B', 'A',
+            'B', 'A', 'C', 'B', 'C', 'B', 'C', 'D', 'B', 'C',
+            'B', 'A', 'C', 'B', 'A', 'B', 'D', 'A', 'C', 'D',
+            'B', 'C', 'A', 'D', 'B', 'B', 'A', 'D', 'C', 'A',
+            'B', 'A', 'C', 'A', 'D', 'B', 'C', 'D', 'B', 'D',
+            'B', 'C', 'A', 'D', 'C', 'B', 'C', 'A', 'B', 'D',
+            'B', 'C', 'A', 'B', 'C', 'B', 'C', 'B', 'C', 'D',
+            'C', 'B', 'D', 'C', 'A', 'B', 'C', 'A', 'D', 'C',
+            'B', 'C', 'A', 'D', 'C', 'B', 'C', 'A', 'D', 'C'  
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>Deep Learning </h3>
+        <div class="inner-border">
+
+            <!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is the primary function of an activation function in a neural network?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To introduce non-linearity into the model</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The activation function is used to introduce non-linearity in the neural network, which helps the model learn complex patterns and functions.<br><br>
+        **Common Activation Functions**:<br>
+        1. Sigmoid<br>
+        2. ReLU<br>
+        3. Tanh<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) To calculate the output of the network</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) To introduce non-linearity into the model</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) To normalize the output values</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) To adjust the weights in the network</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. What is the purpose of the backpropagation algorithm in training neural networks?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To update the weights based on the error gradient</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Backpropagation is a method for updating the weights in a neural network by computing the gradient of the loss function with respect to the weights and adjusting the weights to minimize the loss.<br><br>
+        **Steps in Backpropagation**:<br>
+        1. Compute the output.<br>
+        2. Calculate the error.<br>
+        3. Update the weights by propagating the error backward through the network.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) To calculate the output of the neural network</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) To evaluate the performance of the model</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) To update the weights based on the error gradient</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) To improve the architecture of the network</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. Which of the following is a commonly used activation function in neural networks?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) ReLU</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Rectified Linear Unit (ReLU) activation function is commonly used in neural networks due to its simplicity and efficiency in training deep networks.<br><br>
+        **ReLU Formula**: `f(x) = max(0, x)`<br>
+        It is preferred because it helps with the vanishing gradient problem and speeds up the training process.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) ReLU</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) Softmax</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) Tanh</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) Sigmoid</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. What is the vanishing gradient problem in deep learning?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The gradients become very small during backpropagation in deep networks</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The vanishing gradient problem occurs when the gradients of the loss function become very small, leading to very slow or no weight updates during training, especially in deep networks.<br><br>
+        **Cause**:<br>
+        It happens when activation functions like sigmoid or tanh squash their input into small ranges, leading to very small gradients.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) The gradients become too large during backpropagation</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) The gradients become very small during backpropagation in deep networks</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) The weights are updated too frequently during training</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) The model overfits the training data</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. What is the role of the optimizer in neural network training?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To minimize the loss function by adjusting the weights</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        An optimizer is responsible for adjusting the weights of the neural network during training to minimize the loss function.<br><br>
+        **Popular Optimizers**:<br>
+        1. Gradient Descent<br>
+        2. Adam<br>
+        3. RMSprop<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) To initialize the weights of the network</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) To calculate the forward pass in the network</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) To evaluate the accuracy of the model</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) To minimize the loss function by adjusting the weights</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+
+
+  <!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is the basic function of an artificial neuron in a neural network?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To compute a weighted sum of inputs and apply an activation function</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        An artificial neuron receives inputs, calculates a weighted sum of those inputs, and passes the result through an activation function to produce an output.<br><br>
+        **Basic Neuron Model**:<br>
+        1. Weighted sum of inputs.<br>
+        2. Bias term.<br>
+        3. Activation function (e.g., ReLU, Sigmoid).<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) To generate random numbers for initialization</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) To compute a weighted sum of inputs and apply an activation function</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) To calculate the error during training</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) To normalize the outputs of the network</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. Which component of an artificial neuron determines how much influence a particular input has on the output?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Weights</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Weights are the parameters in an artificial neuron that determine the importance of each input. Larger weights give more influence to the corresponding inputs.<br><br>
+        **Weights**: Represent the strength or importance of an input in the neuron.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) Weights</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) Bias</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) Activation function</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Output</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. What does the bias term in an artificial neuron do?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It allows the neuron to shift the activation function</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The bias term allows the activation function to be shifted, enabling the model to fit the data better. It helps the neuron activate even when all inputs are zero.<br><br>
+        **Bias**: A constant added to the weighted sum before applying the activation function.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) It prevents overfitting by reducing the model complexity</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) It normalizes the input values to the neuron</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) It allows the neuron to shift the activation function</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) It defines the output range of the neuron</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. In a neural network, how is the output of an artificial neuron determined?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By applying an activation function to the weighted sum of inputs and bias</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The output of a neuron is determined by applying an activation function to the weighted sum of the inputs, plus a bias term.<br><br>
+        **Formula**: `output = activation_function(weighted_sum + bias)`<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) By averaging the weighted sum of inputs</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) By using the maximum value of inputs</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) By calculating the dot product of inputs and weights</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) By applying an activation function to the weighted sum of inputs and bias</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. Which of the following is a commonly used activation function in artificial neurons?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Sigmoid</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Sigmoid function is a commonly used activation function that maps any input to a value between 0 and 1, often used for binary classification tasks.<br><br>
+        **Sigmoid Function**: `f(x) = 1 / (1 + exp(-x))`<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) ReLU</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) Sigmoid</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) Tanh</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) Softmax</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+
+
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is the primary purpose of an activation function in a neural network?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To introduce non-linearity into the model</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The activation function allows neural networks to learn non-linear relationships. Without activation functions, the network would behave like a linear model, limiting its ability to learn complex patterns.<br><br>
+        **Importance of Non-Linearity**: Neural networks can only learn non-linear patterns if an activation function is used.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) To improve the speed of training</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) To introduce non-linearity into the model</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) To normalize the input data</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) To calculate the loss function</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. Which of the following is a characteristic of the Sigmoid activation function?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It maps the input values to a range between 0 and 1</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Sigmoid function squashes any input into the range (0, 1), making it useful for binary classification problems, where the output needs to be between 0 and 1.<br><br>
+        **Sigmoid Function**: `f(x) = 1 / (1 + exp(-x))`<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) It is always linear</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) It maps the input values to a range between -1 and 1</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) It maps the input values to a range between 0 and 1</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) It does not affect the output</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What is the main disadvantage of the Sigmoid activation function?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It suffers from vanishing gradient problem</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Sigmoid function has a very small gradient for very large or very small input values, which can make it difficult for the model to learn during backpropagation.<br><br>
+        **Vanishing Gradient Problem**: The gradient becomes very small, slowing down or even halting the learning process in deep networks.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) It suffers from vanishing gradient problem</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) It cannot handle negative input values</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) It is computationally expensive</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) It has no practical use</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. Which of the following activation functions is most commonly used in deep learning models?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) ReLU (Rectified Linear Unit)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The ReLU function is widely used in deep learning models because it is simple, computationally efficient, and helps avoid the vanishing gradient problem.<br><br>
+        **ReLU Function**: `f(x) = max(0, x)`<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) Sigmoid</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) ReLU (Rectified Linear Unit)</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) Tanh</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) Softmax</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What does the ReLU activation function do?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It outputs the input directly if positive, otherwise, it outputs zero</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        ReLU is a simple function that replaces all negative values with zero and keeps all positive values as they are, which helps the model learn faster and reduce the risk of vanishing gradients.<br><br>
+        **ReLU Function**: `f(x) = max(0, x)`<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) It squashes the input between -1 and 1</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) It applies a logarithmic function to the input</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) It applies a quadratic function to the input</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) It outputs the input directly if positive, otherwise, it outputs zero</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. What is the main characteristic of a Feedforward Neural Network (FNN)?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The data flows in one direction, from input to output</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In a Feedforward Neural Network, the flow of information is unidirectional, from the input layer to the output layer through hidden layers. There are no cycles or loops in this architecture.<br><br>
+        **FNN Characteristics**: No feedback or recurrent connections between neurons.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) It uses recurrent connections between neurons</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) The data flows in one direction, from input to output</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) The data is processed in multiple directions</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) The neurons have feedback loops</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. In a Feedforward Neural Network, what is the role of the hidden layers?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To learn complex patterns and features from the input data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The hidden layers in a Feedforward Neural Network are responsible for transforming the input data into representations that allow the network to learn complex patterns and features. Each neuron in a hidden layer performs a weighted sum of the inputs followed by an activation function.<br><br>
+        **Hidden Layer Functions**: Feature extraction and transformation.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) To connect the input layer to the output layer</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) To store the final output of the model</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) To learn complex patterns and features from the input data</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) To reduce the number of neurons in the output layer</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. Which of the following describes the main limitation of Feedforward Neural Networks (FNN)?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) They cannot handle sequential or temporal data effectively</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        FNNs are not suitable for handling sequential or time-dependent data because they lack feedback connections. This makes them ineffective for tasks such as speech recognition or time series forecasting, where previous states influence future predictions.<br><br>
+        **Limitations of FNN**: No memory of past inputs or sequential relationships.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) They cannot handle sequential or temporal data effectively</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) They are slow in processing simple tasks</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) They are unable to learn complex patterns</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) They always require a large amount of labeled data</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What is the output of a Feedforward Neural Network with a single output neuron and a sigmoid activation function?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A value between 0 and 1</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        When a Feedforward Neural Network has a single output neuron and a sigmoid activation function, it will output a value between 0 and 1, which is typically used for binary classification tasks.<br><br>
+        **Sigmoid Function**: Maps the input to a probability between 0 and 1.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) A value between -1 and 1</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) A value between 0 and 1</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) A value between -∞ and +∞</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) A binary output (0 or 1)</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. What is typically used as the loss function in training a Feedforward Neural Network for classification?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Cross-entropy loss</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Cross-entropy loss is commonly used in classification problems because it measures the difference between the predicted class probabilities and the true class labels. This loss function works well when the output of the neural network represents class probabilities (e.g., using softmax or sigmoid).<br><br>
+        **Cross-entropy Loss**: It calculates how well the predicted probabilities match the actual labels.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) Cross-entropy loss</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) Mean squared error</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) Hinge loss</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) L2 regularization loss</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. What is the primary purpose of backpropagation in neural networks?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To update the weights of the network based on the error</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Backpropagation is the algorithm used to minimize the loss function by updating the weights of the network. It calculates the gradient of the loss function with respect to each weight by applying the chain rule, and adjusts the weights accordingly.<br><br>
+        **Purpose of Backpropagation**: Efficiently training neural networks by adjusting weights to reduce error.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) To calculate the output of the network</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) To update the weights of the network based on the error</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) To calculate the loss of the network</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) To initialize the weights of the network</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. Which of the following steps is part of the backpropagation algorithm?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Calculating the gradient of the loss function with respect to the weights</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Backpropagation involves calculating the gradient of the loss function with respect to the weights of the neural network, and then using this gradient to update the weights in the direction that reduces the loss.<br><br>
+        **Key step**: Gradient calculation and weight adjustment to minimize error.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) Calculating the gradient of the loss function with respect to the weights</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) Performing feature selection on the data</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) Randomly initializing the weights</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) Scaling the input features</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. What is the role of the learning rate in backpropagation?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To control the size of the weight updates during training</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The learning rate controls how much the weights are adjusted during each update. If the learning rate is too high, the model may overshoot the optimal weights, while if it is too low, the training process may be too slow.<br><br>
+        **Learning Rate**: Key factor for controlling the speed and stability of training.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) To determine how many epochs are required for training</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) To scale the input features before training</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) To control the size of the weight updates during training</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) To prevent overfitting by reducing the network's complexity</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. In backpropagation, what is the purpose of the chain rule of calculus?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To compute the gradient of the loss function with respect to each weight</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The chain rule is used to compute the gradient of the loss function by breaking down the complex derivative calculations into manageable parts. This allows the gradient of the loss to be propagated backward through the network and used to update the weights.<br><br>
+        **Chain Rule**: Essential for efficiently computing gradients in deep networks.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) To determine the final output of the network</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) To compute the gradient of the loss function with respect to each weight</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) To initialize the weights of the network</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) To select the optimal activation function for each layer</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. What happens during the weight update phase in backpropagation?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The weights are adjusted in the opposite direction of the gradient</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In backpropagation, the weights are updated by subtracting a fraction of the gradient (scaled by the learning rate) from the current weights. This adjustment reduces the error and improves the model's performance.<br><br>
+        **Weight Update**: Key to minimizing the loss function and optimizing the model.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) The weights are kept constant</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) The weights are randomly reset</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) The weights are adjusted in the opposite direction of the gradient</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) The weights are updated based on the input data</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+
+
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. What is the primary function of the convolutional layer in a CNN?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To apply filters (kernels) to the input data and extract features</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The convolutional layer applies a set of filters (or kernels) to the input data (such as an image) to extract features like edges, textures, and patterns. These features are then used to identify more complex structures in deeper layers.<br><br>
+        **Convolutional Layer**: Key to feature extraction and pattern recognition in CNNs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) To flatten the data for fully connected layers</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) To apply filters (kernels) to the input data and extract features</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) To reduce the dimensions of the data</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) To initialize the weights of the network</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. What is the purpose of the pooling layer in a CNN?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To reduce the spatial dimensions of the feature maps</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The pooling layer is used to reduce the spatial dimensions (height and width) of the feature maps, which helps in reducing the computational cost and preventing overfitting. Max pooling and average pooling are the most common types.<br><br>
+        **Pooling Layer**: Reduces dimensionality and emphasizes important features.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) To increase the number of filters</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) To apply convolution operations to the feature maps</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) To reduce the spatial dimensions of the feature maps</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) To introduce non-linearity in the network</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. What is the role of the activation function in CNNs?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To introduce non-linearity in the network</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Activation functions introduce non-linearity to the model, allowing it to learn and represent complex patterns. Without activation functions, the CNN would only be able to learn linear transformations of the data.<br><br>
+        **Activation Functions**: Essential for learning complex patterns and representations.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) To initialize the weights of the network</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) To perform feature scaling on the data</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) To enhance the computational efficiency of the network</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) To introduce non-linearity in the network</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. What is a common activation function used in CNNs?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) ReLU (Rectified Linear Unit)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        ReLU is the most commonly used activation function in CNNs. It outputs the input if it is positive and zero otherwise, introducing non-linearity while being computationally efficient.<br><br>
+        **ReLU**: Simple, efficient, and commonly used in CNNs for non-linearity.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) Sigmoid</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) ReLU (Rectified Linear Unit)</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) Tanh</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) Softmax</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. In a CNN, what is the role of the fully connected layer (dense layer)?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To make predictions based on the features extracted by previous layers</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The fully connected layer connects every neuron from the previous layer to each neuron in the current layer. It uses the features extracted from the convolutional and pooling layers to make final predictions or classifications.<br><br>
+        **Fully Connected Layer**: Takes extracted features and performs classification or prediction.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) To apply filters to the input image</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) To reduce the spatial dimensions of the feature maps</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) To make predictions based on the features extracted by previous layers</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) To introduce non-linearity in the network</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. What is the primary feature of a Recurrent Neural Network (RNN)?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The ability to maintain a hidden state over time</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The primary feature of RNNs is their ability to maintain a hidden state that captures information from previous time steps, allowing the network to process sequences of data effectively.<br><br>
+        **RNN**: Best suited for sequential data where the current output depends on previous inputs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) The ability to perform parallel processing</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) The ability to maintain a hidden state over time</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) The ability to extract spatial features from images</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) The ability to perform classification on non-sequential data</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. What is a common problem faced by traditional RNNs during training?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Vanishing gradient problem</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The vanishing gradient problem occurs when gradients used in the backpropagation process become extremely small, causing the model to stop learning effectively over long sequences.<br><br>
+        **Vanishing Gradients**: A key challenge for training traditional RNNs on long sequences.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) Vanishing gradient problem</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) Exploding gradient problem</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) Overfitting</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) Underfitting</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. Which variant of RNN is specifically designed to handle the vanishing gradient problem?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Long Short-Term Memory (LSTM)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        LSTMs are a type of RNN designed to combat the vanishing gradient problem by using special memory cells that store and regulate information over long sequences.<br><br>
+        **LSTM**: Uses gates to control the flow of information and mitigate the vanishing gradient problem.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) Simple RNN</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) Gated Recurrent Unit (GRU)</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) Long Short-Term Memory (LSTM)</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) Bidirectional RNN</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. What is the main advantage of a Bidirectional RNN (BiRNN)?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It processes sequences in both forward and backward directions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A Bidirectional RNN processes sequences both forwards and backwards, allowing it to capture dependencies from both past and future context, improving performance on many tasks.<br><br>
+        **Bidirectional RNN**: Useful for tasks where context from both directions (past and future) is important.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) It uses multiple layers of hidden states</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) It processes sequences in both forward and backward directions</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) It speeds up the training process significantly</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) It reduces the number of parameters in the model</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. What is the primary difference between an RNN and a standard feedforward neural network (FNN)?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) RNNs have connections that loop back to previous time steps</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Unlike feedforward neural networks (FNNs), RNNs have feedback loops that allow information to persist across time steps. This makes RNNs suitable for sequential data.<br><br>
+        **RNN**: Designed to handle sequential data by using loops to retain memory of previous inputs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) RNNs have connections that loop back to previous time steps</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) FNNs have memory cells to store information</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) RNNs use only linear activation functions</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) FNNs are better suited for sequential data</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. What is the primary advantage of Long Short-Term Memory (LSTM) over traditional RNNs?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) LSTM can capture long-range dependencies in data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        LSTMs are designed to overcome the vanishing gradient problem in traditional RNNs, allowing them to capture long-term dependencies in sequences more effectively.<br><br>
+        **LSTM**: Uses memory cells and gating mechanisms to maintain information over long sequences.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) LSTM can process data in parallel</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) LSTM can capture long-range dependencies in data</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) LSTM does not require backpropagation through time</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) LSTM is faster than traditional RNNs</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. What are the components of an LSTM unit?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Forget gate, input gate, and output gate</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        LSTMs have three main components called gates: forget gate, input gate, and output gate. These gates help regulate the flow of information into and out of the memory cell.<br><br>
+        **LSTM Gates**: They control the memory cell's state and output based on the current input and the previous hidden state.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) Input gate, output gate, and memory cell</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) Forget gate, memory cell, and activation function</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) Input gate, memory cell, and output layer</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) Forget gate, input gate, and output gate</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. How does the forget gate in an LSTM work?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It decides which information to discard from the memory cell</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The forget gate in an LSTM decides which part of the memory from the previous time step should be discarded, allowing the model to forget irrelevant information.<br><br>
+        **Forget Gate**: Helps prevent irrelevant information from being passed along the sequence.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) It decides which information to discard from the memory cell</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) It decides which information to add to the memory cell</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) It decides when to activate the output layer</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) It decides when to stop training the model</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. In an LSTM, what does the input gate control?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It decides which new information to store in the memory cell</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The input gate in an LSTM controls the addition of new information to the memory cell by deciding which part of the current input should be stored.<br><br>
+        **Input Gate**: Helps to regulate the flow of new information into the memory cell.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) It decides which existing memory should be updated</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) It decides which information to discard from the memory cell</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) It decides which new information to store in the memory cell</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) It decides when to generate the output</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. What is the main function of the output gate in an LSTM?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) It decides what the next hidden state should be</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The output gate in an LSTM controls the generation of the hidden state, determining what information should be passed to the next layer or time step.<br><br>
+        **Output Gate**: Helps regulate the flow of information from the memory cell to the next step in the sequence.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) It decides which memory cells to use for output</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) It decides when to stop training the network</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) It decides which new information to store</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) It decides what the next hidden state should be</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. What is the primary objective of a Generative Adversarial Network (GAN)?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To generate realistic data by training a generator and a discriminator</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A GAN consists of two neural networks: the generator and the discriminator. The generator creates fake data, and the discriminator tries to distinguish between real and fake data. The goal is for the generator to produce data that the discriminator cannot distinguish from real data.<br><br>
+        **Key idea**: The generator and discriminator are in a game-like process where the generator improves to fool the discriminator, and the discriminator improves to detect fakes.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) To classify data into real or fake</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) To generate realistic data by training a generator and a discriminator</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) To combine data from multiple sources</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) To perform unsupervised learning</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. In a GAN, what role does the generator play?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The generator creates fake data to deceive the discriminator</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The generator in a GAN takes random noise as input and tries to produce data that resembles the real data. Its goal is to "fool" the discriminator into thinking the generated data is real.<br><br>
+        **Generator's task**: It continuously improves its data generation abilities to fool the discriminator.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) The generator classifies real data from fake data</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) The generator provides feedback to the discriminator</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) The generator creates fake data to deceive the discriminator</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) The generator classifies data into categories</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. What role does the discriminator play in a GAN?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) The discriminator tries to distinguish between real and fake data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The discriminator evaluates data to determine whether it is real or fake. It tries to accurately classify data by distinguishing between the output of the generator and real data. The discriminator's feedback helps improve the generator.<br><br>
+        **Discriminator's task**: It serves as a critic of the generator's output and provides feedback for improvement.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) The discriminator tries to distinguish between real and fake data</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) The discriminator generates fake data</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) The discriminator combines real and fake data</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) The discriminator classifies data into different categories</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. What is the key challenge when training GANs?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Ensuring that the generator and discriminator converge at the same time</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The main challenge in training GANs is balancing the generator and discriminator's learning. If one network becomes too strong too quickly, the other will fail to improve, causing instability in training.<br><br>
+        **Training GANs**: The generator and discriminator must improve together in a balanced way for the GAN to converge successfully.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) Ensuring the discriminator always generates real data</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) Ensuring the generator always produces fake data</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) Ensuring the generator works faster than the discriminator</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) Ensuring that the generator and discriminator converge at the same time</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. What happens if the generator and discriminator in a GAN are perfectly balanced during training?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The generator will produce data that is indistinguishable from real data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        If the generator and discriminator reach a perfect balance, the generator produces data that the discriminator can no longer distinguish from real data. This is the ideal scenario in GAN training.<br><br>
+        **Ideal case**: Both networks are performing optimally and the generator successfully learns to mimic the real data distribution.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) The discriminator will be able to detect all fake data</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) The generator will produce data that is indistinguishable from real data</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) The generator will stop improving</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) The training will fail to converge</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. What is the primary goal of an autoencoder?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To learn a compressed representation of the input data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        An autoencoder is an unsupervised learning algorithm that learns to map the input data to a lower-dimensional space (encoding) and then reconstruct the data from that space (decoding). The primary objective is to reduce the dimensionality of the data while preserving its essential features.<br><br>
+        **Key Concept**: The autoencoder network learns the most important features of the input through its encoding-decoding process.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) To classify data into multiple categories</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) To learn a compressed representation of the input data</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) To predict the next data point in a sequence</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) To visualize high-dimensional data in 2D or 3D</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. Which part of an autoencoder is responsible for reducing the dimensionality of the input data?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Encoder</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The encoder is the part of the autoencoder responsible for compressing the input data into a lower-dimensional representation. It maps the input data to a smaller latent space, capturing the essential features.<br><br>
+        **Encoder's task**: The encoder network compresses the data into a compact form that retains the most important information for later reconstruction.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) Encoder</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) Decoder</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) Bottleneck</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) Reconstruction Layer</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. What is the purpose of the bottleneck layer in an autoencoder?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To serve as the compressed representation of the input data</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The bottleneck layer in an autoencoder represents the lowest-dimensional space that contains the most important information about the input data. It serves as the compressed version of the input and is the point from which the data is reconstructed by the decoder.<br><br>
+        **Bottleneck's role**: The bottleneck enforces the network to learn the most important features of the input data for reconstruction.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) To randomly transform the input data</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) To generate synthetic data based on the input</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) To increase the input data's dimensionality</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) To serve as the compressed representation of the input data</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. In which scenario would autoencoders most commonly be used?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) For dimensionality reduction and feature extraction</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Autoencoders are commonly used for dimensionality reduction, where they learn to represent high-dimensional data in a lower-dimensional form while retaining the most important features. They are also useful for feature extraction and unsupervised learning tasks.<br><br>
+        **Applications**: Autoencoders are widely used for anomaly detection, denoising, and image compression.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) For generating data based on input samples</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) For supervised learning classification tasks</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) For dimensionality reduction and feature extraction</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) For training deep neural networks</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. What type of loss function is commonly used in the training of autoencoders?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Mean Squared Error (MSE)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Autoencoders typically use Mean Squared Error (MSE) as the loss function during training. The objective is to minimize the difference between the input and the reconstructed output, measured by the MSE.<br><br>
+        **MSE's role**: It penalizes large differences between the input and the output, encouraging the model to produce accurate reconstructions.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Mean Squared Error (MSE)</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Cross-Entropy Loss</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Hinge Loss</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) Kullback-Leibler Divergence</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+
+
+
+<!-- Question 51 -->
+<div class="qee">
+    <div class="que">
+        <p>51. Which of the following is a popular deep learning architecture for processing sequential data?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Recurrent Neural Networks (RNN)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Recurrent Neural Networks (RNNs) are designed to process sequences of data, such as time series or natural language. They have loops that allow information to persist over time, making them suitable for tasks like language modeling, speech recognition, and time series forecasting.<br><br>
+        **Key Feature**: RNNs use their hidden state to capture the temporal dependencies in sequential data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) Convolutional Neural Networks (CNN)</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) Recurrent Neural Networks (RNN)</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) Generative Adversarial Networks (GAN)</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) Deep Belief Networks (DBN)</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee">
+    <div class="que">
+        <p>52. What is the main difference between a Convolutional Neural Network (CNN) and a Fully Connected Network (FCN)?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) CNNs use convolutional layers to extract spatial features, while FCNs use fully connected layers</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        CNNs apply convolutional layers to detect spatial hierarchies of features in images (e.g., edges, shapes). In contrast, Fully Connected Networks (FCNs) use layers where each neuron is connected to every neuron in the previous layer, making them more suitable for tasks like classification when features are already extracted.<br><br>
+        **CNNs** are primarily used in image recognition, while **FCNs** are commonly used in tasks like tabular data classification.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) CNNs use convolutional layers to extract spatial features, while FCNs use fully connected layers</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) CNNs are used only for image recognition, while FCNs are used for all other tasks</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) FCNs use convolutional layers for image analysis, while CNNs use fully connected layers</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) CNNs and FCNs are the same in structure and performance</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee">
+    <div class="que">
+        <p>53. What is the role of the pooling layer in a Convolutional Neural Network (CNN)?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To reduce the spatial dimensions of the input</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The pooling layer in a CNN is responsible for reducing the spatial dimensions (height and width) of the input while retaining the most important features. This helps reduce computation and prevents overfitting.<br><br>
+        **Max pooling** is a common pooling operation that selects the maximum value in a sub-region, reducing the size of the input.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) To increase the resolution of the image</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) To apply a linear transformation to the data</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) To reduce the spatial dimensions of the input</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) To normalize the data</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee">
+    <div class="que">
+        <p>54. Which deep learning architecture is commonly used for image classification tasks?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Convolutional Neural Networks (CNN)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Convolutional Neural Networks (CNNs) are the most commonly used architecture for image classification tasks. Their ability to detect spatial hierarchies and features makes them ideal for tasks like object recognition in images.<br><br>
+        **Key Advantage**: CNNs can automatically learn features from raw pixel data, reducing the need for manual feature engineering.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) Convolutional Neural Networks (CNN)</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) Recurrent Neural Networks (RNN)</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) Deep Belief Networks (DBN)</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) Long Short-Term Memory (LSTM)</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee">
+    <div class="que">
+        <p>55. In a Generative Adversarial Network (GAN), which two models are trained simultaneously?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Generator and Discriminator</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In a GAN, two models are trained simultaneously: the generator and the discriminator. The generator creates fake data, and the discriminator tries to distinguish between real and fake data. The goal is for the generator to produce data that is indistinguishable from real data.<br><br>
+        **Key Concept**: The adversarial process helps both models improve during training.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) Encoder and Decoder</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) Classifier and Regressor</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) Generator and Classifier</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) Generator and Discriminator</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+
+<!-- Question 56 -->
+<div class="qee">
+    <div class="que">
+        <p>56. What is the primary goal of gradient descent in training deep learning models?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To minimize the loss function by updating model weights</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Gradient descent is an optimization algorithm used to minimize the loss function in deep learning models. It updates the model's weights in the direction of the negative gradient to reduce the error.<br><br>
+        **Key Feature**: The learning rate controls how much the weights are updated during each iteration.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) To increase the learning rate during training</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) To minimize the loss function by updating model weights</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) To compute the accuracy of the model during training</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) To add noise to the training data</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee">
+    <div class="que">
+        <p>57. What is the purpose of using mini-batch gradient descent in deep learning?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To reduce computation time and improve convergence</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Mini-batch gradient descent is used to update the model weights using a small subset of the training data, rather than the full dataset. This reduces computation time and can lead to better convergence than using full-batch gradient descent.<br><br>
+        **Key Advantage**: Mini-batches allow the model to learn faster and generalize better.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) To improve the model's performance on small datasets</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) To minimize the loss function in one pass through the data</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) To reduce computation time and improve convergence</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) To increase the size of the training data</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee">
+    <div class="que">
+        <p>58. What is the role of dropout in training deep learning models?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To prevent overfitting by randomly dropping units during training</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Dropout is a regularization technique used to prevent overfitting. During training, a fraction of the neurons in the network are randomly "dropped" (set to zero) on each forward pass, which forces the model to learn more robust features.<br><br>
+        **Key Advantage**: Dropout helps the model generalize better to new data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) To increase the learning rate during training</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) To reduce the model size during training</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) To improve the model's performance on the training data</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) To prevent overfitting by randomly dropping units during training</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee">
+    <div class="que">
+        <p>59. What is the purpose of using learning rate schedules in deep learning training?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To adjust the learning rate during training for better convergence</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A learning rate schedule gradually decreases the learning rate as training progresses, which can help the model converge more effectively. A high learning rate at the beginning allows the model to make significant progress, while a lower learning rate later helps fine-tune the model.<br><br>
+        **Key Advantage**: It improves both convergence speed and final model performance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) To speed up the training process</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) To adjust the learning rate during training for better convergence</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) To prevent the model from overfitting</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) To increase the model's complexity</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee">
+    <div class="que">
+        <p>60. Which technique can be used to prevent a model from overfitting by stopping training early?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Early Stopping</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Early stopping is a technique used to prevent overfitting during training by monitoring the model's performance on a validation set. If the performance stops improving or starts degrading, training is halted early to avoid overfitting to the training data.<br><br>
+        **Key Feature**: It helps in finding the optimal point where the model generalizes well without overfitting.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) L1 and L2 Regularization</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) Batch Normalization</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) Dropout</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) Early Stopping</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+
+
+<!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+        <p>61. What is the main purpose of regularization in machine learning models?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To prevent overfitting by penalizing large weights</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Regularization techniques are used to prevent a model from overfitting the training data by adding a penalty term to the loss function that discourages overly complex models with large weights.<br><br>
+        **Key Techniques**: L1 and L2 regularization are common methods to penalize large coefficients in linear models.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) To increase the complexity of the model</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) To prevent overfitting by penalizing large weights</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) To enhance the learning rate</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) To reduce the size of the training data</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee">
+    <div class="que">
+        <p>62. Which regularization technique is commonly used to penalize large weights in neural networks?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) L2 regularization (Ridge regression)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        L2 regularization, also known as Ridge regression, adds a penalty proportional to the square of the model weights. This helps to prevent overfitting by discouraging the model from assigning large weights to features.<br><br>
+        **Example**: L2 regularization term: $\lambda \sum w_i^2$, where $w_i$ is the weight of the model and $\lambda$ is the regularization parameter.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) L1 regularization (Lasso)</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) Elastic Net regularization</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) L2 regularization (Ridge regression)</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) Dropout regularization</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee">
+    <div class="que">
+        <p>63. What is the primary benefit of using L1 regularization in machine learning models?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To promote sparsity by forcing some feature weights to zero</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        L1 regularization (Lasso) adds a penalty term to the loss function that promotes sparsity by driving some of the weights to zero. This results in feature selection, as the model may choose to completely ignore some features.<br><br>
+        **Example**: L1 regularization term: $\lambda \sum |w_i|$, where $w_i$ is the weight of the model and $\lambda$ is the regularization parameter.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) To promote sparsity by forcing some feature weights to zero</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) To increase the complexity of the model</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) To prevent the model from overfitting by adding noise</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) To speed up training by reducing model size</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee">
+    <div class="que">
+        <p>64. How does early stopping contribute to model generalization?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) By halting training when performance on the validation set deteriorates</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Early stopping is a regularization technique that halts the training process when the model’s performance on the validation set begins to deteriorate, which prevents overfitting and ensures better generalization.<br><br>
+        **Key Advantage**: It helps avoid overfitting by not allowing the model to continue learning patterns that are specific to the training data and not generalizable.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) By increasing the complexity of the model</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) By adding noise to the training data</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) By allowing the model to learn more complex patterns</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) By halting training when performance on the validation set deteriorates</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee">
+    <div class="que">
+        <p>65. What does the term "bias-variance tradeoff" refer to in machine learning?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The tradeoff between underfitting and overfitting</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The bias-variance tradeoff is the balance between bias (error due to overly simplistic models) and variance (error due to overly complex models). A model with high bias may underfit the data, while a model with high variance may overfit the data.<br><br>
+        **Goal**: To find a model that balances both bias and variance to achieve good generalization.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) The relationship between the learning rate and model accuracy</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) The tradeoff between the number of training samples and model complexity</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) The tradeoff between underfitting and overfitting</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) The tradeoff between the number of features and the model performance</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+
+<!-- Question 66 -->
+<div class="qee">
+    <div class="que">
+        <p>66. What is the primary purpose of a loss function in machine learning?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To quantify the difference between predicted and actual values</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A loss function is used to measure how well the model's predictions match the actual outcomes. It computes a scalar value indicating the performance of the model, with the goal of minimizing this loss during training.<br><br>
+        **Common Loss Functions**: Mean Squared Error (MSE), Cross-Entropy, Hinge Loss.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) To optimize the hyperparameters of the model</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) To quantify the difference between predicted and actual values</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) To perform feature scaling in the model</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) To reduce the complexity of the model</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee">
+    <div class="que">
+        <p>67. Which of the following loss functions is typically used for binary classification tasks?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Binary Cross-Entropy</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Binary Cross-Entropy is commonly used for binary classification problems, where the output is either 0 or 1. It measures the difference between the true labels and the predicted probabilities, penalizing large errors.<br><br>
+        **Formula**: $-\frac{1}{N} \sum (y \log(p) + (1 - y) \log(1 - p))$, where $y$ is the true label and $p$ is the predicted probability.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) Mean Squared Error (MSE)</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) Hinge Loss</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) Binary Cross-Entropy</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) Categorical Cross-Entropy</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee">
+    <div class="que">
+        <p>68. Which evaluation metric is commonly used to measure the performance of classification models?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Accuracy</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Accuracy is the most commonly used metric for classification tasks, representing the proportion of correctly predicted instances to the total number of instances.<br><br>
+        **Formula**: $Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$, where TP, TN, FP, FN are the true positives, true negatives, false positives, and false negatives, respectively.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) Accuracy</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) Precision</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) Recall</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) F1-Score</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee">
+    <div class="que">
+        <p>69. What does Precision measure in the context of classification models?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) The proportion of true positive predictions among all positive predictions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Precision is the ratio of true positives (TP) to the total number of instances predicted as positive (TP + FP). It is a measure of how accurate the positive predictions are.<br><br>
+        **Formula**: $Precision = \frac{TP}{TP + FP}$.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) The proportion of true positive predictions among all predictions</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) The proportion of true positive predictions among all positive predictions</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) The proportion of false positives among all predictions</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) The proportion of true negatives among all predictions</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee">
+    <div class="que">
+        <p>70. Which of the following metrics combines both precision and recall into a single value?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) F1-Score</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The F1-Score is the harmonic mean of precision and recall, offering a single metric that balances both measures. It is useful when you need a balance between precision and recall.<br><br>
+        **Formula**: $F1 = 2 \times \frac{Precision \times Recall}{Precision + Recall}$<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) Accuracy</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) Precision</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) Recall</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) F1-Score</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+
+<!-- Question 71 -->
+<div class="qee">
+    <div class="que">
+        <p>71. What is the primary goal of transfer learning in deep learning?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To use a pre-trained model on a similar task to improve performance</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Transfer learning allows you to leverage a model trained on a large dataset to improve performance on a new, related task. The pre-trained model helps the new model learn faster and generalize better by using previously learned features.<br><br>
+        **Common Example**: Using a model trained on ImageNet and fine-tuning it for a different image classification task.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) To train a model from scratch for a new task</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) To use a pre-trained model on a similar task to improve performance</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) To build a model that can only perform one task</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) To make a model work on multiple tasks simultaneously</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee">
+    <div class="que">
+        <p>72. Which part of a pre-trained model is typically fine-tuned in transfer learning?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) The top layers (fully connected layers)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In transfer learning, the lower layers of the model are often frozen (not updated), as they capture general features like edges and textures. The top layers, which are more task-specific, are fine-tuned for the new task.<br><br>
+        **Example**: In image classification, lower layers capture basic image features, while the final layers are adjusted for specific categories in the new dataset.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) The entire model is fine-tuned</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) Only the middle layers are fine-tuned</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) The top layers (fully connected layers)</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) The input layer is fine-tuned</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee">
+    <div class="que">
+        <p>73. What is the benefit of using transfer learning in terms of training time?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It reduces the time required to train the model on a new task</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Transfer learning allows the model to leverage the knowledge from a pre-trained model, enabling it to converge faster and requiring fewer epochs to train on the new task.<br><br>
+        **Example**: A model pre-trained on ImageNet can be adapted to a new image classification problem much faster than training a model from scratch.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) It reduces the time required to train the model on a new task</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) It makes the model train longer than usual</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) It has no effect on the training time</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) It increases the time needed for training by a factor of 10</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee">
+    <div class="que">
+        <p>74. When using transfer learning, what is the general approach for training a model on a new task?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Freeze the early layers and fine-tune the later layers for the new task</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The early layers capture general features (e.g., edges in images), so they are typically frozen. The later layers are more task-specific, so they are fine-tuned for the new task.<br><br>
+        **Example**: In a neural network for image classification, you might freeze the first 80% of layers and fine-tune the remaining layers for the specific task.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) Fine-tune all layers for the new task</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) Freeze the early layers and fine-tune the later layers for the new task</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) Train all layers from scratch</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) Freeze all layers and only modify the output layer</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<!-- Question 75 -->
+<div class="qee">
+    <div class="que">
+        <p>75. Which of the following is a key advantage of using fine-tuning in transfer learning?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) It allows the model to adapt to a new task without training from scratch</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Fine-tuning a pre-trained model helps the model quickly adapt to a new task by adjusting the higher-level layers, saving time and computational resources compared to training a model from scratch.<br><br>
+        **Example**: Fine-tuning a model pre-trained on ImageNet for a custom image classification task requires fewer epochs and data.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) It increases the computational cost significantly</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) It requires the entire dataset to be retrained</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) It allows the model to adapt to a new task without training from scratch</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) It makes the model less flexible</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+
+
+<!-- Question 76 -->
+<div class="qee">
+    <div class="que">
+        <p>76. What is the purpose of hyperparameter tuning in deep learning?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To find the optimal hyperparameters for better model performance</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Hyperparameter tuning involves adjusting the hyperparameters (e.g., learning rate, batch size, number of layers) of a model to improve its performance on a given task. This is a critical step in achieving the best possible results from the model.<br><br>
+        **Example**: Choosing the optimal learning rate or number of layers to get the best validation accuracy.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) To modify the model architecture</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) To find the optimal hyperparameters for better model performance</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) To train a model from scratch</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) To reduce the complexity of the model</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee">
+    <div class="que">
+        <p>77. Which of the following is a common method for hyperparameter tuning?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Grid Search</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Grid search is a popular technique for hyperparameter tuning where you define a grid of hyperparameters to search over and evaluate the model performance for each combination of hyperparameters.<br><br>
+        **Example**: Trying different combinations of learning rate, batch size, and number of hidden layers to find the best performance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) Random Search</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) Cross-validation</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) Grid Search</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) Early Stopping</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee">
+    <div class="que">
+        <p>78. What does Random Search in hyperparameter tuning do?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It randomly samples hyperparameters from a defined distribution</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Random search involves sampling hyperparameters randomly from a specified range or distribution, instead of exhaustively searching all possible combinations like grid search. This can be more efficient when the hyperparameter space is large.<br><br>
+        **Example**: Randomly selecting values for learning rate, batch size, and optimizer from predefined ranges to find the best performance.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) It evaluates every possible combination of hyperparameters</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) It randomly samples hyperparameters from a defined distribution</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) It only selects one hyperparameter and fixes others</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) It tunes only the learning rate of the model</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+
+<!-- Question 79 -->
+<div class="qee">
+    <div class="que">
+        <p>79. Which hyperparameter is typically tuned when training a deep neural network?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Learning Rate</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The learning rate is one of the most important hyperparameters to tune because it controls how much the model weights are updated during training. A high learning rate can cause the model to converge too quickly, while a low learning rate can slow down the convergence process.<br><br>
+        **Example**: Testing different learning rates like 0.001, 0.01, and 0.1 to find the optimal value.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) Number of layers</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) Batch size</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) Learning Rate</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) Activation function</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee">
+    <div class="que">
+        <p>80. What is the main difference between Grid Search and Random Search in hyperparameter tuning?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Grid Search evaluates all combinations, while Random Search evaluates random combinations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Grid search exhaustively evaluates all combinations of hyperparameters within a specified range, whereas random search samples hyperparameters randomly, making it more computationally efficient for larger search spaces.<br><br>
+        **Example**: Grid search might evaluate all combinations of learning rate and batch size from a grid, while random search only samples a subset of those combinations.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) Grid search is faster than random search</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) Grid search uses fewer resources than random search</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) Random search evaluates all possible combinations</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) Grid search evaluates all combinations, while random search evaluates random combinations</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+
+<!-- Question 81 -->
+<div class="qee">
+    <div class="que">
+        <p>81. Which of the following is a popular deep learning framework?</p>
+        <button id="hintButton80" class="hint-button" type="button" onclick="showHint('hint81')">Show Hint</button>
+    </div>
+    <div id="hint81" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) TensorFlow</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        TensorFlow is one of the most widely used deep learning frameworks developed by Google. It provides flexible tools, libraries, and community resources to help researchers and developers build machine learning models.<br><br>
+        **Example**: TensorFlow is commonly used for training neural networks, including CNNs and RNNs.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA80" name="answer80" value="A" onclick="checkAnswer(80)">
+        <label for="optionA80">A) Excel</label><br>
+        <input type="radio" id="optionB80" name="answer80" value="B" onclick="checkAnswer(80)">
+        <label for="optionB80">B) MATLAB</label><br>
+        <input type="radio" id="optionC80" name="answer80" value="C" onclick="checkAnswer(80)">
+        <label for="optionC80">C) TensorFlow</label><br>
+        <input type="radio" id="optionD80" name="answer80" value="D" onclick="checkAnswer(80)">
+        <label for="optionD80">D) WordPress</label><br>
+    </div>
+    <div id="result80" class="result"></div>
+</div>
+
+<!-- Question 82 -->
+<div class="qee">
+    <div class="que">
+        <p>82. What is PyTorch primarily used for?</p>
+        <button id="hintButton81" class="hint-button" type="button" onclick="showHint('hint82')">Show Hint</button>
+    </div>
+    <div id="hint82" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Deep learning research and development</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        PyTorch is an open-source machine learning library developed by Facebook's AI Research lab. It is primarily used for deep learning research and development, and it provides flexibility and ease of use for dynamic neural networks.<br><br>
+        **Example**: PyTorch is popular for tasks like image classification, object detection, and natural language processing.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA81" name="answer81" value="A" onclick="checkAnswer(81)">
+        <label for="optionA81">A) Data visualization</label><br>
+        <input type="radio" id="optionB81" name="answer81" value="B" onclick="checkAnswer(81)">
+        <label for="optionB81">B) Deep learning research and development</label><br>
+        <input type="radio" id="optionC81" name="answer81" value="C" onclick="checkAnswer(81)">
+        <label for="optionC81">C) Web development</label><br>
+        <input type="radio" id="optionD81" name="answer81" value="D" onclick="checkAnswer(81)">
+        <label for="optionD81">D) Spreadsheet calculations</label><br>
+    </div>
+    <div id="result81" class="result"></div>
+</div>
+
+<!-- Question 83 -->
+<div class="qee">
+    <div class="que">
+        <p>83. Which framework is known for its ease of use and simplicity in building deep learning models?</p>
+        <button id="hintButton82" class="hint-button" type="button" onclick="showHint('hint83')">Show Hint</button>
+    </div>
+    <div id="hint83" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Keras</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Keras is a high-level neural networks API written in Python. It is designed to be user-friendly, modular, and extensible. It runs on top of other deep learning frameworks such as TensorFlow and Theano.<br><br>
+        **Example**: Keras is widely used for rapid prototyping and for beginners in deep learning.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA82" name="answer82" value="A" onclick="checkAnswer(82)">
+        <label for="optionA82">A) OpenCV</label><br>
+        <input type="radio" id="optionB82" name="answer82" value="B" onclick="checkAnswer(82)">
+        <label for="optionB82">B) Scikit-learn</label><br>
+        <input type="radio" id="optionC82" name="answer82" value="C" onclick="checkAnswer(82)">
+        <label for="optionC82">C) NumPy</label><br>
+        <input type="radio" id="optionD82" name="answer82" value="D" onclick="checkAnswer(82)">
+        <label for="optionD82">D) Keras</label><br>
+    </div>
+    <div id="result82" class="result"></div>
+</div>
+
+<!-- Question 84 -->
+<div class="qee">
+    <div class="que">
+        <p>84. Which of the following deep learning frameworks is best known for its high performance and scalability?</p>
+        <button id="hintButton83" class="hint-button" type="button" onclick="showHint('hint84')">Show Hint</button>
+    </div>
+    <div id="hint84" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) TensorFlow</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        TensorFlow is known for its ability to scale efficiently across different hardware configurations, from CPUs to GPUs, and even TPUs. It is optimized for both research and production use.<br><br>
+        **Example**: TensorFlow is often used in production environments where performance and scalability are critical.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA83" name="answer83" value="A" onclick="checkAnswer(83)">
+        <label for="optionA83">A) PyTorch</label><br>
+        <input type="radio" id="optionB83" name="answer83" value="B" onclick="checkAnswer(83)">
+        <label for="optionB83">B) Theano</label><br>
+        <input type="radio" id="optionC83" name="answer83" value="C" onclick="checkAnswer(83)">
+        <label for="optionC83">C) TensorFlow</label><br>
+        <input type="radio" id="optionD83" name="answer83" value="D" onclick="checkAnswer(83)">
+        <label for="optionD83">D) Caffe</label><br>
+    </div>
+    <div id="result83" class="result"></div>
+</div>
+
+<!-- Question 85 -->
+<div class="qee">
+    <div class="que">
+        <p>85. What is a key feature of the Keras library?</p>
+        <button id="hintButton84" class="hint-button" type="button" onclick="showHint('hint85')">Show Hint</button>
+    </div>
+    <div id="hint85" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) It provides an easy-to-use interface for building neural networks</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Keras is designed to make building and experimenting with deep learning models simple. It provides a high-level, user-friendly API that allows users to quickly prototype neural networks without worrying too much about implementation details.<br><br>
+        **Example**: Keras allows you to define a neural network with just a few lines of code, making it a great choice for rapid prototyping.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA84" name="answer84" value="A" onclick="checkAnswer(84)">
+        <label for="optionA84">A) It provides an easy-to-use interface for building neural networks</label><br>
+        <input type="radio" id="optionB84" name="answer84" value="B" onclick="checkAnswer(84)">
+        <label for="optionB84">B) It is a data preprocessing library</label><br>
+        <input type="radio" id="optionC84" name="answer84" value="C" onclick="checkAnswer(84)">
+        <label for="optionC84">C) It provides a specialized library for image processing</label><br>
+        <input type="radio" id="optionD84" name="answer84" value="D" onclick="checkAnswer(84)">
+        <label for="optionD84">D) It is only used for reinforcement learning</label><br>
+    </div>
+    <div id="result84" class="result"></div>
+</div>
+
+
+<!-- Question 86 -->
+<div class="qee">
+    <div class="que">
+        <p>86. What is the primary purpose of model deployment in machine learning?</p>
+        <button id="hintButton85" class="hint-button" type="button" onclick="showHint('hint86')">Show Hint</button>
+    </div>
+    <div id="hint86" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To make the model accessible for real-time predictions</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The primary goal of model deployment is to make the trained model available to end-users or applications for making real-time predictions or decisions. This can involve serving the model through an API, integrating it into a software product, or using it in automated systems.<br><br>
+        **Example**: A deployed model can be used in a web application that suggests products to customers based on their browsing history.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA85" name="answer85" value="A" onclick="checkAnswer(85)">
+        <label for="optionA85">A) To improve the accuracy of the model</label><br>
+        <input type="radio" id="optionB85" name="answer85" value="B" onclick="checkAnswer(85)">
+        <label for="optionB85">B) To make the model accessible for real-time predictions</label><br>
+        <input type="radio" id="optionC85" name="answer85" value="C" onclick="checkAnswer(85)">
+        <label for="optionC85">C) To evaluate the model’s performance</label><br>
+        <input type="radio" id="optionD85" name="answer85" value="D" onclick="checkAnswer(85)">
+        <label for="optionD85">D) To optimize the model’s hyperparameters</label><br>
+    </div>
+    <div id="result85" class="result"></div>
+</div>
+
+<!-- Question 87 -->
+<div class="qee">
+    <div class="que">
+        <p>87. Which of the following techniques is commonly used for model optimization?</p>
+        <button id="hintButton86" class="hint-button" type="button" onclick="showHint('hint87')">Show Hint</button>
+    </div>
+    <div id="hint87" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Pruning</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Pruning is a model optimization technique that involves removing parts of the model, such as neurons or weights, that contribute little to the model’s performance. This helps reduce the model's complexity and improve its efficiency, often leading to faster inference times.<br><br>
+        **Example**: In neural networks, pruning can involve removing neurons that have small weights or do not activate often during training.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA86" name="answer86" value="A" onclick="checkAnswer(86)">
+        <label for="optionA86">A) Overfitting</label><br>
+        <input type="radio" id="optionB86" name="answer86" value="B" onclick="checkAnswer(86)">
+        <label for="optionB86">B) Cross-validation</label><br>
+        <input type="radio" id="optionC86" name="answer86" value="C" onclick="checkAnswer(86)">
+        <label for="optionC86">C) Pruning</label><br>
+        <input type="radio" id="optionD86" name="answer86" value="D" onclick="checkAnswer(86)">
+        <label for="optionD86">D) Regularization</label><br>
+    </div>
+    <div id="result86" class="result"></div>
+</div>
+
+<!-- Question 88 -->
+<div class="qee">
+    <div class="que">
+        <p>88. What is the purpose of model quantization in deep learning?</p>
+        <button id="hintButton87" class="hint-button" type="button" onclick="showHint('hint88')">Show Hint</button>
+    </div>
+    <div id="hint88" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) To reduce the model size and speed up inference</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model quantization reduces the precision of the weights in a deep learning model, which reduces the model size and increases the inference speed. This is particularly useful for deploying models on edge devices with limited computational resources.<br><br>
+        **Example**: Converting 32-bit floating-point weights to 8-bit integers can dramatically reduce the memory footprint of the model while maintaining a high level of accuracy.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA87" name="answer87" value="A" onclick="checkAnswer(87)">
+        <label for="optionA87">A) To reduce the model size and speed up inference</label><br>
+        <input type="radio" id="optionB87" name="answer87" value="B" onclick="checkAnswer(87)">
+        <label for="optionB87">B) To increase the training time of the model</label><br>
+        <input type="radio" id="optionC87" name="answer87" value="C" onclick="checkAnswer(87)">
+        <label for="optionC87">C) To improve the accuracy of the model</label><br>
+        <input type="radio" id="optionD87" name="answer87" value="D" onclick="checkAnswer(87)">
+        <label for="optionD87">D) To add more layers to the model</label><br>
+    </div>
+    <div id="result87" class="result"></div>
+</div>
+
+<!-- Question 89 -->
+<div class="qee">
+    <div class="que">
+        <p>89. What is model compression?</p>
+        <button id="hintButton88" class="hint-button" type="button" onclick="showHint('hint89')">Show Hint</button>
+    </div>
+    <div id="hint89" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Reducing the model size while preserving performance</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Model compression refers to techniques that reduce the size of a machine learning model without significantly impacting its performance. This can include pruning, quantization, knowledge distillation, and other strategies.<br><br>
+        **Example**: Compressing a deep neural network model can help deploy it on mobile devices, where memory and computational resources are limited.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA88" name="answer88" value="A" onclick="checkAnswer(88)">
+        <label for="optionA88">A) Increasing the model complexity</label><br>
+        <input type="radio" id="optionB88" name="answer88" value="B" onclick="checkAnswer(88)">
+        <label for="optionB88">B) Adding more layers to the model</label><br>
+        <input type="radio" id="optionC88" name="answer88" value="C" onclick="checkAnswer(88)">
+        <label for="optionC88">C) Making the model more interpretable</label><br>
+        <input type="radio" id="optionD88" name="answer88" value="D" onclick="checkAnswer(88)">
+        <label for="optionD88">D) Reducing the model size while preserving performance</label><br>
+    </div>
+    <div id="result88" class="result"></div>
+</div>
+
+<!-- Question 90 -->
+<div class="qee">
+    <div class="que">
+        <p>90. What is the role of containerization in deploying deep learning models?</p>
+        <button id="hintButton89" class="hint-button" type="button" onclick="showHint('hint90')">Show Hint</button>
+    </div>
+    <div id="hint90" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) To package the model and its dependencies into a portable container</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Containerization, such as using Docker, allows you to package the model along with its environment (dependencies, libraries, etc.) into a container. This ensures that the model can be deployed and run consistently across different environments without compatibility issues.<br><br>
+        **Example**: A deep learning model packaged in a Docker container can be deployed on a cloud server, on-premise machines, or even edge devices without worrying about missing dependencies.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA89" name="answer89" value="A" onclick="checkAnswer(89)">
+        <label for="optionA89">A) To improve the model’s accuracy</label><br>
+        <input type="radio" id="optionB89" name="answer89" value="B" onclick="checkAnswer(89)">
+        <label for="optionB89">B) To make the model faster during training</label><br>
+        <input type="radio" id="optionC89" name="answer89" value="C" onclick="checkAnswer(89)">
+        <label for="optionC89">C) To package the model and its dependencies into a portable container</label><br>
+        <input type="radio" id="optionD89" name="answer89" value="D" onclick="checkAnswer(89)">
+        <label for="optionD89">D) To optimize the model's memory usage</label><br>
+    </div>
+    <div id="result89" class="result"></div>
+</div>
+
+<!-- Question 91 -->
+<div class="qee">
+    <div class="que">
+        <p>91. What is the primary purpose of using attention mechanisms in neural networks?</p>
+        <button id="hintButton90" class="hint-button" type="button" onclick="showHint('hint91')">Show Hint</button>
+    </div>
+    <div id="hint91" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To focus on important parts of the input sequence during processing</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Attention mechanisms allow a model to focus on specific parts of the input sequence that are more relevant to the current task. This is particularly useful in tasks like machine translation or text summarization where different parts of the input have varying degrees of importance.<br><br>
+        **Example**: In machine translation, the attention mechanism can help the model focus on relevant words in the source sentence when translating each word in the target sentence.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA90" name="answer90" value="A" onclick="checkAnswer(90)">
+        <label for="optionA90">A) To increase the depth of the neural network</label><br>
+        <input type="radio" id="optionB90" name="answer90" value="B" onclick="checkAnswer(90)">
+        <label for="optionB90">B) To focus on important parts of the input sequence during processing</label><br>
+        <input type="radio" id="optionC90" name="answer90" value="C" onclick="checkAnswer(90)">
+        <label for="optionC90">C) To reduce the computational cost of the model</label><br>
+        <input type="radio" id="optionD90" name="answer90" value="D" onclick="checkAnswer(90)">
+        <label for="optionD90">D) To improve the generalization of the model</label><br>
+    </div>
+    <div id="result90" class="result"></div>
+</div>
+
+<!-- Question 92 -->
+<div class="qee">
+    <div class="que">
+        <p>92. Which type of attention mechanism is commonly used in machine translation models like Transformers?</p>
+        <button id="hintButton91" class="hint-button" type="button" onclick="showHint('hint92')">Show Hint</button>
+    </div>
+    <div id="hint92" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Self-attention</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In machine translation models like the Transformer, self-attention is used to allow each word in a sentence to focus on different parts of the sentence. This enables the model to consider the relationships between words regardless of their position in the sequence.<br><br>
+        **Example**: In a sentence like "The cat sat on the mat," self-attention enables the model to consider the relationships between "cat" and "sat," and "on" and "mat" for translation.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA91" name="answer91" value="A" onclick="checkAnswer(91)">
+        <label for="optionA91">A) Global attention</label><br>
+        <input type="radio" id="optionB91" name="answer91" value="B" onclick="checkAnswer(91)">
+        <label for="optionB91">B) Local attention</label><br>
+        <input type="radio" id="optionC91" name="answer91" value="C" onclick="checkAnswer(91)">
+        <label for="optionC91">C) Self-attention</label><br>
+        <input type="radio" id="optionD91" name="answer91" value="D" onclick="checkAnswer(91)">
+        <label for="optionD91">D) Cross-attention</label><br>
+    </div>
+    <div id="result91" class="result"></div>
+</div>
+
+<!-- Question 93 -->
+<div class="qee">
+    <div class="que">
+        <p>93. How does attention improve the performance of neural networks in sequence tasks?</p>
+        <button id="hintButton92" class="hint-button" type="button" onclick="showHint('hint93')">Show Hint</button>
+    </div>
+    <div id="hint93" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) By allowing the model to focus on the most relevant parts of the sequence</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Attention helps the model to focus on important parts of the input sequence, thereby reducing the need to process all the information equally. This selective focus improves performance by enhancing the model's ability to capture long-range dependencies and complex relationships.<br><br>
+        **Example**: In a text summarization task, attention mechanisms enable the model to prioritize important sentences or keywords in the input text.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA92" name="answer92" value="A" onclick="checkAnswer(92)">
+        <label for="optionA92">A) By allowing the model to focus on the most relevant parts of the sequence</label><br>
+        <input type="radio" id="optionB92" name="answer92" value="B" onclick="checkAnswer(92)">
+        <label for="optionB92">B) By increasing the model size and complexity</label><br>
+        <input type="radio" id="optionC92" name="answer92" value="C" onclick="checkAnswer(92)">
+        <label for="optionC92">C) By simplifying the model architecture</label><br>
+        <input type="radio" id="optionD92" name="answer92" value="D" onclick="checkAnswer(92)">
+        <label for="optionD92">D) By reducing the number of training parameters</label><br>
+    </div>
+    <div id="result92" class="result"></div>
+</div>
+
+<!-- Question 94 -->
+<div class="qee">
+    <div class="que">
+        <p>94. What is multi-head attention in the context of attention mechanisms?</p>
+        <button id="hintButton93" class="hint-button" type="button" onclick="showHint('hint94')">Show Hint</button>
+    </div>
+    <div id="hint94" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Using multiple attention mechanisms in parallel to capture different features</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Multi-head attention involves using multiple attention mechanisms in parallel, each focusing on different aspects or parts of the input sequence. This allows the model to capture a broader range of features and relationships in the data.<br><br>
+        **Example**: In a Transformer model, multi-head attention helps the model capture various linguistic relationships, such as syntax and semantics, from the input text.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA93" name="answer93" value="A" onclick="checkAnswer(93)">
+        <label for="optionA93">A) Using a single attention mechanism with a large attention window</label><br>
+        <input type="radio" id="optionB93" name="answer93" value="B" onclick="checkAnswer(93)">
+        <label for="optionB93">B) Using multiple attention mechanisms in series</label><br>
+        <input type="radio" id="optionC93" name="answer93" value="C" onclick="checkAnswer(93)">
+        <label for="optionC93">C) Using attention on different parts of the input sequentially</label><br>
+        <input type="radio" id="optionD93" name="answer93" value="D" onclick="checkAnswer(93)">
+        <label for="optionD93">D) Using multiple attention mechanisms in parallel to capture different features</label><br>
+    </div>
+    <div id="result93" class="result"></div>
+</div>
+
+<!-- Question 95 -->
+<div class="qee">
+    <div class="que">
+        <p>95. In which of the following applications are attention mechanisms especially useful?</p>
+        <button id="hintButton94" class="hint-button" type="button" onclick="showHint('hint95')">Show Hint</button>
+    </div>
+    <div id="hint95" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Machine translation and text summarization</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Attention mechanisms are particularly useful in tasks like machine translation and text summarization, where the model needs to focus on specific parts of a long sequence to generate meaningful outputs.<br><br>
+        **Example**: In machine translation, attention allows the model to focus on relevant words in the source language when generating translations in the target language.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA94" name="answer94" value="A" onclick="checkAnswer(94)">
+        <label for="optionA94">A) Image classification</label><br>
+        <input type="radio" id="optionB94" name="answer94" value="B" onclick="checkAnswer(94)">
+        <label for="optionB94">B) Object detection</label><br>
+        <input type="radio" id="optionC94" name="answer94" value="C" onclick="checkAnswer(94)">
+        <label for="optionC94">C) Machine translation and text summarization</label><br>
+        <input type="radio" id="optionD94" name="answer94" value="D" onclick="checkAnswer(94)">
+        <label for="optionD94">D) Speech recognition</label><br>
+    </div>
+    <div id="result94" class="result"></div>
+</div>
+
+<!-- Question 96 -->
+<div class="qee">
+    <div class="que">
+        <p>96. What is the primary innovation behind BERT compared to previous NLP models?</p>
+        <button id="hintButton95" class="hint-button" type="button" onclick="showHint('hint96')">Show Hint</button>
+    </div>
+    <div id="hint96" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) BERT uses bidirectional context for pretraining</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The key innovation behind BERT is its bidirectional training method. Unlike previous models like GPT, which only use left-to-right or right-to-left context, BERT considers both directions simultaneously, providing a richer understanding of the context.<br><br>
+        **Example**: In a sentence like "The dog chased the cat," BERT can understand the relationship between "dog" and "cat" by processing the sentence both left-to-right and right-to-left during training.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA95" name="answer95" value="A" onclick="checkAnswer(95)">
+        <label for="optionA95">A) BERT uses a simple RNN architecture</label><br>
+        <input type="radio" id="optionB95" name="answer95" value="B" onclick="checkAnswer(95)">
+        <label for="optionB95">B) BERT uses bidirectional context for pretraining</label><br>
+        <input type="radio" id="optionC95" name="answer95" value="C" onclick="checkAnswer(95)">
+        <label for="optionC95">C) BERT uses a one-way context for pretraining</label><br>
+        <input type="radio" id="optionD95" name="answer95" value="D" onclick="checkAnswer(95)">
+        <label for="optionD95">D) BERT does not use pretraining</label><br>
+    </div>
+    <div id="result95" class="result"></div>
+</div>
+
+<!-- Question 97 -->
+<div class="qee">
+    <div class="que">
+        <p>97. Which of the following tasks is BERT primarily used for in NLP?</p>
+        <button id="hintButton96" class="hint-button" type="button" onclick="showHint('hint97')">Show Hint</button>
+    </div>
+    <div id="hint97" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Sentence classification and question answering</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        BERT is designed to perform a wide range of NLP tasks, especially sentence-level tasks like classification, sentiment analysis, and question answering. Its pretraining on large corpora enables it to generalize to various downstream tasks.<br><br>
+        **Example**: In a question-answering task, BERT can predict the answer to a question by considering both the question and the context in the same manner during its training.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA96" name="answer96" value="A" onclick="checkAnswer(96)">
+        <label for="optionA96">A) Image classification</label><br>
+        <input type="radio" id="optionB96" name="answer96" value="B" onclick="checkAnswer(96)">
+        <label for="optionB96">B) Video processing</label><br>
+        <input type="radio" id="optionC96" name="answer96" value="C" onclick="checkAnswer(96)">
+        <label for="optionC96">C) Sentence classification and question answering</label><br>
+        <input type="radio" id="optionD96" name="answer96" value="D" onclick="checkAnswer(96)">
+        <label for="optionD96">D) Audio transcription</label><br>
+    </div>
+    <div id="result96" class="result"></div>
+</div>
+
+<!-- Question 98 -->
+<div class="qee">
+    <div class="que">
+        <p>98. What is the key difference between BERT and traditional language models like GPT?</p>
+        <button id="hintButton97" class="hint-button" type="button" onclick="showHint('hint98')">Show Hint</button>
+    </div>
+    <div id="hint98" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) BERT is bidirectional, whereas GPT is unidirectional</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The main difference is that BERT uses bidirectional context (considering both the left and right parts of a sentence), while GPT uses unidirectional (left-to-right) context. This bidirectional approach allows BERT to better understand the full context of a sentence.<br><br>
+        **Example**: In a sentence like "She read the book," BERT can understand "book" based on the full sentence context, whereas GPT only considers "She read" before predicting the next word.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA97" name="answer97" value="A" onclick="checkAnswer(97)">
+        <label for="optionA97">A) BERT is bidirectional, whereas GPT is unidirectional</label><br>
+        <input type="radio" id="optionB97" name="answer97" value="B" onclick="checkAnswer(97)">
+        <label for="optionB97">B) BERT is unidirectional, whereas GPT is bidirectional</label><br>
+        <input type="radio" id="optionC97" name="answer97" value="C" onclick="checkAnswer(97)">
+        <label for="optionC97">C) BERT and GPT are both bidirectional</label><br>
+        <input type="radio" id="optionD97" name="answer97" value="D" onclick="checkAnswer(97)">
+        <label for="optionD97">D) There is no difference between BERT and GPT</label><br>
+    </div>
+    <div id="result97" class="result"></div>
+</div>
+
+<!-- Question 99 -->
+<div class="qee">
+    <div class="que">
+        <p>99. What is the significance of the "masking" process in BERT's pretraining?</p>
+        <button id="hintButton98" class="hint-button" type="button" onclick="showHint('hint99')">Show Hint</button>
+    </div>
+    <div id="hint99" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) To prevent the model from seeing the target word during training</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Masking in BERT involves randomly masking some of the words in the input sequence during pretraining. This forces the model to predict the missing words based on the surrounding context, allowing it to learn contextualized representations of words.<br><br>
+        **Example**: If the sentence is "The cat sat on the mat," BERT might mask the word "cat" and train to predict it using the rest of the sentence.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA98" name="answer98" value="A" onclick="checkAnswer(98)">
+        <label for="optionA98">A) To enhance the speed of training</label><br>
+        <input type="radio" id="optionB98" name="answer98" value="B" onclick="checkAnswer(98)">
+        <label for="optionB98">B) To add noise to the input data</label><br>
+        <input type="radio" id="optionC98" name="answer98" value="C" onclick="checkAnswer(98)">
+        <label for="optionC98">C) To reduce overfitting in the model</label><br>
+        <input type="radio" id="optionD98" name="answer98" value="D" onclick="checkAnswer(98)">
+        <label for="optionD98">D) To prevent the model from seeing the target word during training</label><br>
+    </div>
+    <div id="result98" class="result"></div>
+</div>
+
+<!-- Question 100 -->
+<div class="qee">
+    <div class="que">
+        <p>100. In BERT, what are the two main tasks used during pretraining?</p>
+        <button id="hintButton99" class="hint-button" type="button" onclick="showHint('hint100')">Show Hint</button>
+    </div>
+    <div id="hint100" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) Masked Language Model (MLM) and Next Sentence Prediction (NSP)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        BERT uses two tasks during pretraining: Masked Language Model (MLM), where random words are masked and predicted, and Next Sentence Prediction (NSP), where the model predicts if two sentences are logically consecutive.<br><br>
+        **Example**: In MLM, BERT might mask a word like "cat" in the sentence "The cat sat on the mat," and it needs to predict the masked word.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA99" name="answer99" value="A" onclick="checkAnswer(99)">
+        <label for="optionA99">A) Word Prediction and Sentence Generation</label><br>
+        <input type="radio" id="optionB99" name="answer99" value="B" onclick="checkAnswer(99)">
+        <label for="optionB99">B) Text Classification and Named Entity Recognition</label><br>
+        <input type="radio" id="optionC99" name="answer99" value="C" onclick="checkAnswer(99)">
+        <label for="optionC99">C) Masked Language Model (MLM) and Next Sentence Prediction (NSP)</label><br>
+        <input type="radio" id="optionD99" name="answer99" value="D" onclick="checkAnswer(99)">
+        <label for="optionD99">D) Feature Extraction and Sequence Labeling</label><br>
+    </div>
+    <div id="result99" class="result"></div>
+</div>
+
+
+
+            <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

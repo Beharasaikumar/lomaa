@@ -1,0 +1,2380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Language Processing</title>
+    <link rel="stylesheet" href="../css/data science.css">
+    <script>
+        let currentQuestionIndex = 0; // To track the current question
+
+        // Correct answers for each question as per the requested pattern
+        const correctAnswers = [
+            'B', 'B', 'B', 'B', 'A', 'B', 'B', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'D', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',  
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',  
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'C', 'B',    
+
+        ];
+
+        // Function to show the hint (toggle between show and hide)
+        function showHint(hintId) {
+            const hint = document.querySelector(`#${hintId}`);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Function to show a specific question based on the index
+        function showQuestion(index) {
+            const questions = document.querySelectorAll('.qee');
+
+            // Hide all questions
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+
+            // Show the current question
+            questions[index].style.display = 'block';
+
+            // Update the current question index
+            currentQuestionIndex = index;
+
+            // Show the navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            // Disable the Previous button if we're on the first question
+            prevButton.disabled = currentQuestionIndex === 0;
+
+            // Disable the Next button if we're on the last question
+            nextButton.disabled = currentQuestionIndex === questions.length - 1;
+        }
+
+        // Function to go to the next question
+        function nextQuestion() {
+            const questions = document.querySelectorAll('.qee');
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // Function to go to the previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                showQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Function to handle when an option is selected
+        function checkAnswer(questionIndex) {
+            const resultElement = document.querySelector(`#result${questionIndex}`);
+            const selectedOption = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === correctAnswers[questionIndex]) {
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                    resultElement.style.color = 'red';
+                }
+            }
+        }
+
+        // Initialize the first question when the page loads
+        window.onload = function() {
+            showQuestion(currentQuestionIndex);
+        };
+
+        // Function to handle all the radio button clicks for the dynamic questions
+        document.addEventListener('change', function(event) {
+            if (event.target.name && event.target.name.startsWith('answer')) {
+                const questionIndex = event.target.name.replace('answer', '') - 1;
+                checkAnswer(questionIndex);
+            }
+        });
+    </script>
+    <style>
+        .hint-button {
+            cursor: pointer;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-border">
+        <h3>Natural Language Processing</h3>
+        <div class="inner-border">
+<!-- Question 1 -->
+<div class="qee">
+    <div class="que">
+        <p>1. What is the primary goal of text preprocessing in NLP?</p>
+        <button id="hintButton0" class="hint-button" type="button" onclick="showHint('hint1')">Show Hint</button>
+    </div>
+    <div id="hint1" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To clean and prepare the text data for analysis and modeling.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Text preprocessing involves cleaning and preparing text data by removing unwanted characters, normalizing text, and splitting it into useful components to help models better understand the data.<br><br>
+        **Key Steps in Text Preprocessing:**<br>
+        1. Lowercasing<br>
+        2. Tokenization<br>
+        3. Removing stopwords<br>
+        4. Lemmatization/Stemming<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA0" name="answer0" value="A" onclick="checkAnswer(0)">
+        <label for="optionA0">A) To collect raw data for training models.</label><br>
+        <input type="radio" id="optionB0" name="answer0" value="B" onclick="checkAnswer(0)">
+        <label for="optionB0">B) To clean and prepare the text data for analysis and modeling.</label><br>
+        <input type="radio" id="optionC0" name="answer0" value="C" onclick="checkAnswer(0)">
+        <label for="optionC0">C) To visualize the results of model predictions.</label><br>
+        <input type="radio" id="optionD0" name="answer0" value="D" onclick="checkAnswer(0)">
+        <label for="optionD0">D) To increase the size of the dataset artificially.</label><br>
+    </div>
+    <div id="result0" class="result"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="qee">
+    <div class="que">
+        <p>2. Which of the following is a common technique used to remove unnecessary words in text preprocessing?</p>
+        <button id="hintButton1" class="hint-button" type="button" onclick="showHint('hint2')">Show Hint</button>
+    </div>
+    <div id="hint2" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Removing stopwords</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Stopwords are common words (like "and", "the", "is") that don't provide significant meaning in the analysis. Removing them helps reduce the size of the data and makes the model more efficient.<br><br>
+        **Common Text Preprocessing Techniques:**<br>
+        1. Lowercasing<br>
+        2. Tokenization<br>
+        3. Removing stopwords<br>
+        4. Lemmatization/Stemming<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA1" name="answer1" value="A" onclick="checkAnswer(1)">
+        <label for="optionA1">A) Tokenization</label><br>
+        <input type="radio" id="optionB1" name="answer1" value="B" onclick="checkAnswer(1)">
+        <label for="optionB1">B) Removing stopwords</label><br>
+        <input type="radio" id="optionC1" name="answer1" value="C" onclick="checkAnswer(1)">
+        <label for="optionC1">C) Stemming</label><br>
+        <input type="radio" id="optionD1" name="answer1" value="D" onclick="checkAnswer(1)">
+        <label for="optionD1">D) Lemmatization</label><br>
+    </div>
+    <div id="result1" class="result"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="qee">
+    <div class="que">
+        <p>3. What does tokenization refer to in text preprocessing?</p>
+        <button id="hintButton2" class="hint-button" type="button" onclick="showHint('hint3')">Show Hint</button>
+    </div>
+    <div id="hint3" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Splitting text into smaller components such as words or sentences.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Tokenization is the process of breaking down text into individual components like words or sentences. These tokens are then used for further analysis or modeling.<br><br>
+        **Types of Tokenization:**<br>
+        1. Word Tokenization<br>
+        2. Sentence Tokenization<br>
+        3. Subword Tokenization<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA2" name="answer2" value="A" onclick="checkAnswer(2)">
+        <label for="optionA2">A) Combining words into one string</label><br>
+        <input type="radio" id="optionB2" name="answer2" value="B" onclick="checkAnswer(2)">
+        <label for="optionB2">B) Splitting text into smaller components such as words or sentences.</label><br>
+        <input type="radio" id="optionC2" name="answer2" value="C" onclick="checkAnswer(2)">
+        <label for="optionC2">C) Assigning categories to different words</label><br>
+        <input type="radio" id="optionD2" name="answer2" value="D" onclick="checkAnswer(2)">
+        <label for="optionD2">D) Removing irrelevant characters from text</label><br>
+    </div>
+    <div id="result2" class="result"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="qee">
+    <div class="que">
+        <p>4. What is the purpose of stemming in text preprocessing?</p>
+        <button id="hintButton3" class="hint-button" type="button" onclick="showHint('hint4')">Show Hint</button>
+    </div>
+    <div id="hint4" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To reduce words to their root form.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Stemming involves reducing words to their base or root form (e.g., "running" becomes "run"). This helps to group similar words together for better analysis.<br><br>
+        **Common Stemming Algorithms:**<br>
+        1. Porter Stemmer<br>
+        2. Snowball Stemmer<br>
+        3. Lancaster Stemmer<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA3" name="answer3" value="A" onclick="checkAnswer(3)">
+        <label for="optionA3">A) To convert words to their plural form</label><br>
+        <input type="radio" id="optionB3" name="answer3" value="B" onclick="checkAnswer(3)">
+        <label for="optionB3">B) To reduce words to their root form.</label><br>
+        <input type="radio" id="optionC3" name="answer3" value="C" onclick="checkAnswer(3)">
+        <label for="optionC3">C) To split text into meaningful parts</label><br>
+        <input type="radio" id="optionD3" name="answer3" value="D" onclick="checkAnswer(3)">
+        <label for="optionD3">D) To convert text into numerical data</label><br>
+    </div>
+    <div id="result3" class="result"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="qee">
+    <div class="que">
+        <p>5. Which of the following is an example of lemmatization in text preprocessing?</p>
+        <button id="hintButton4" class="hint-button" type="button" onclick="showHint('hint5')">Show Hint</button>
+    </div>
+    <div id="hint5" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: A) Reducing "better" to "good".</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Lemmatization is the process of converting words into their base or dictionary form (e.g., "better" becomes "good"). Unlike stemming, lemmatization uses context to determine the correct base form.<br><br>
+        **Common Lemmatization Libraries:**<br>
+        1. WordNet Lemmatizer<br>
+        2. Spacy Lemmatizer<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA4" name="answer4" value="A" onclick="checkAnswer(4)">
+        <label for="optionA4">A) Reducing "better" to "good".</label><br>
+        <input type="radio" id="optionB4" name="answer4" value="B" onclick="checkAnswer(4)">
+        <label for="optionB4">B) Removing punctuation marks from the text.</label><br>
+        <input type="radio" id="optionC4" name="answer4" value="C" onclick="checkAnswer(4)">
+        <label for="optionC4">C) Combining two similar words into one.</label><br>
+        <input type="radio" id="optionD4" name="answer4" value="D" onclick="checkAnswer(4)">
+        <label for="optionD4">D) Removing stopwords from the text.</label><br>
+    </div>
+    <div id="result4" class="result"></div>
+</div>
+<!-- Question 6 -->
+<div class="qee">
+    <div class="que">
+        <p>6. What is the purpose of text representation in NLP?</p>
+        <button id="hintButton5" class="hint-button" type="button" onclick="showHint('hint6')">Show Hint</button>
+    </div>
+    <div id="hint6" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To convert text into a numerical format that can be used by machine learning algorithms.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Text representation involves converting raw text data into a structured format (such as numerical vectors) that machine learning models can interpret and process.<br><br>
+        **Common Text Representation Techniques:**<br>
+        1. Bag of Words (BoW)<br>
+        2. Term Frequency-Inverse Document Frequency (TF-IDF)<br>
+        3. Word Embeddings (e.g., Word2Vec, GloVe)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA5" name="answer5" value="A" onclick="checkAnswer(5)">
+        <label for="optionA5">A) To remove irrelevant words from the text.</label><br>
+        <input type="radio" id="optionB5" name="answer5" value="B" onclick="checkAnswer(5)">
+        <label for="optionB5">B) To convert text into a numerical format that can be used by machine learning algorithms.</label><br>
+        <input type="radio" id="optionC5" name="answer5" value="C" onclick="checkAnswer(5)">
+        <label for="optionC5">C) To break down text into smaller components like words or sentences.</label><br>
+        <input type="radio" id="optionD5" name="answer5" value="D" onclick="checkAnswer(5)">
+        <label for="optionD5">D) To increase the diversity of the vocabulary.</label><br>
+    </div>
+    <div id="result5" class="result"></div>
+</div>
+
+<!-- Question 7 -->
+<div class="qee">
+    <div class="que">
+        <p>7. Which of the following is a common method for representing text in NLP?</p>
+        <button id="hintButton6" class="hint-button" type="button" onclick="showHint('hint7')">Show Hint</button>
+    </div>
+    <div id="hint7" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) TF-IDF (Term Frequency-Inverse Document Frequency)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        TF-IDF is a popular technique used for text representation that measures the importance of a word in a document relative to a collection of documents.<br><br>
+        **Text Representation Techniques:**<br>
+        1. Bag of Words (BoW)<br>
+        2. TF-IDF<br>
+        3. Word2Vec<br>
+        4. GloVe<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA6" name="answer6" value="A" onclick="checkAnswer(6)">
+        <label for="optionA6">A) One-Hot Encoding</label><br>
+        <input type="radio" id="optionB6" name="answer6" value="B" onclick="checkAnswer(6)">
+        <label for="optionB6">B) TF-IDF (Term Frequency-Inverse Document Frequency)</label><br>
+        <input type="radio" id="optionC6" name="answer6" value="C" onclick="checkAnswer(6)">
+        <label for="optionC6">C) K-means clustering</label><br>
+        <input type="radio" id="optionD6" name="answer6" value="D" onclick="checkAnswer(6)">
+        <label for="optionD6">D) Principal Component Analysis (PCA)</label><br>
+    </div>
+    <div id="result6" class="result"></div>
+</div>
+
+<!-- Question 8 -->
+<div class="qee">
+    <div class="que">
+        <p>8. Which of the following is a drawback of the Bag of Words (BoW) model?</p>
+        <button id="hintButton7" class="hint-button" type="button" onclick="showHint('hint8')">Show Hint</button>
+    </div>
+    <div id="hint8" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It ignores the order of words in the text.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Bag of Words (BoW) model is a simple text representation method, but it ignores word order, which can lead to the loss of important context in some cases.<br><br>
+        **Drawbacks of BoW:**<br>
+        1. Ignores word order.<br>
+        2. Can create a large sparse matrix.<br>
+        3. Doesn’t capture semantic meaning.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA7" name="answer7" value="A" onclick="checkAnswer(7)">
+        <label for="optionA7">A) It doesn’t work with larger datasets.</label><br>
+        <input type="radio" id="optionB7" name="answer7" value="B" onclick="checkAnswer(7)">
+        <label for="optionB7">B) It ignores the order of words in the text.</label><br>
+        <input type="radio" id="optionC7" name="answer7" value="C" onclick="checkAnswer(7)">
+        <label for="optionC7">C) It requires more computational resources than other models.</label><br>
+        <input type="radio" id="optionD7" name="answer7" value="D" onclick="checkAnswer(7)">
+        <label for="optionD7">D) It is difficult to implement and understand.</label><br>
+    </div>
+    <div id="result7" class="result"></div>
+</div>
+
+<!-- Question 9 -->
+<div class="qee">
+    <div class="que">
+        <p>9. What does Word2Vec do in text representation?</p>
+        <button id="hintButton8" class="hint-button" type="button" onclick="showHint('hint9')">Show Hint</button>
+    </div>
+    <div id="hint9" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It maps words to dense vector representations based on their context in a text corpus.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Word2Vec is a technique that learns distributed representations of words, where each word is represented by a vector. This model captures semantic relationships between words.<br><br>
+        **Word2Vec Models:**<br>
+        1. Continuous Bag of Words (CBOW)<br>
+        2. Skip-gram<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA8" name="answer8" value="A" onclick="checkAnswer(8)">
+        <label for="optionA8">A) It encodes text as a sequence of characters.</label><br>
+        <input type="radio" id="optionB8" name="answer8" value="B" onclick="checkAnswer(8)">
+        <label for="optionB8">B) It maps words to dense vector representations based on their context in a text corpus.</label><br>
+        <input type="radio" id="optionC8" name="answer8" value="C" onclick="checkAnswer(8)">
+        <label for="optionC8">C) It creates a one-hot encoding of each word.</label><br>
+        <input type="radio" id="optionD8" name="answer8" value="D" onclick="checkAnswer(8)">
+        <label for="optionD8">D) It groups words into predefined categories.</label><br>
+    </div>
+    <div id="result8" class="result"></div>
+</div>
+
+<!-- Question 10 -->
+<div class="qee">
+    <div class="que">
+        <p>10. What is the advantage of using GloVe for text representation?</p>
+        <button id="hintButton9" class="hint-button" type="button" onclick="showHint('hint10')">Show Hint</button>
+    </div>
+    <div id="hint10" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It captures global statistical information of the corpus and constructs word vectors based on co-occurrence.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GloVe (Global Vectors for Word Representation) captures global statistical information of a corpus by factoring the word co-occurrence matrix. It is highly effective for capturing relationships between words.<br><br>
+        **GloVe Features:**<br>
+        1. Captures global co-occurrence patterns.<br>
+        2. Produces dense word vectors.<br>
+        3. Effective for semantic similarity tasks.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA9" name="answer9" value="A" onclick="checkAnswer(9)">
+        <label for="optionA9">A) It uses a simple word frequency count.</label><br>
+        <input type="radio" id="optionB9" name="answer9" value="B" onclick="checkAnswer(9)">
+        <label for="optionB9">B) It captures global statistical information of the corpus and constructs word vectors based on co-occurrence.</label><br>
+        <input type="radio" id="optionC9" name="answer9" value="C" onclick="checkAnswer(9)">
+        <label for="optionC9">C) It represents words as discrete labels.</label><br>
+        <input type="radio" id="optionD9" name="answer9" value="D" onclick="checkAnswer(9)">
+        <label for="optionD9">D) It directly encodes each word into a sequence of characters.</label><br>
+    </div>
+    <div id="result9" class="result"></div>
+</div>
+<!-- Question 11 -->
+<div class="qee">
+    <div class="que">
+        <p>11. What is the main goal of text classification?</p>
+        <button id="hintButton10" class="hint-button" type="button" onclick="showHint('hint11')">Show Hint</button>
+    </div>
+    <div id="hint11" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To assign predefined categories or labels to text data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Text classification involves categorizing text into predefined labels or categories, such as spam detection, sentiment analysis, or topic categorization.<br><br>
+        **Applications of Text Classification:**<br>
+        1. Sentiment Analysis<br>
+        2. Spam Filtering<br>
+        3. News Categorization<br>
+        4. Language Detection<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA10" name="answer10" value="A" onclick="checkAnswer(10)">
+        <label for="optionA10">A) To predict continuous numerical values from text data.</label><br>
+        <input type="radio" id="optionB10" name="answer10" value="B" onclick="checkAnswer(10)">
+        <label for="optionB10">B) To assign predefined categories or labels to text data.</label><br>
+        <input type="radio" id="optionC10" name="answer10" value="C" onclick="checkAnswer(10)">
+        <label for="optionC10">C) To cluster text into similar groups based on content.</label><br>
+        <input type="radio" id="optionD10" name="answer10" value="D" onclick="checkAnswer(10)">
+        <label for="optionD10">D) To find hidden relationships between words in the text.</label><br>
+    </div>
+    <div id="result10" class="result"></div>
+</div>
+
+<!-- Question 12 -->
+<div class="qee">
+    <div class="que">
+        <p>12. Which algorithm is commonly used for text classification?</p>
+        <button id="hintButton11" class="hint-button" type="button" onclick="showHint('hint12')">Show Hint</button>
+    </div>
+    <div id="hint12" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Naive Bayes</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Naive Bayes is a popular algorithm for text classification due to its simplicity and effectiveness, especially for tasks like spam detection and sentiment analysis.<br><br>
+        **Common Algorithms for Text Classification:**<br>
+        1. Naive Bayes<br>
+        2. Support Vector Machines (SVM)<br>
+        3. Logistic Regression<br>
+        4. Neural Networks<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA11" name="answer11" value="A" onclick="checkAnswer(11)">
+        <label for="optionA11">A) K-means clustering</label><br>
+        <input type="radio" id="optionB11" name="answer11" value="B" onclick="checkAnswer(11)">
+        <label for="optionB11">B) Naive Bayes</label><br>
+        <input type="radio" id="optionC11" name="answer11" value="C" onclick="checkAnswer(11)">
+        <label for="optionC11">C) DBSCAN</label><br>
+        <input type="radio" id="optionD11" name="answer11" value="D" onclick="checkAnswer(11)">
+        <label for="optionD11">D) K-Nearest Neighbors (KNN)</label><br>
+    </div>
+    <div id="result11" class="result"></div>
+</div>
+
+<!-- Question 13 -->
+<div class="qee">
+    <div class="que">
+        <p>13. What is the key feature of the Naive Bayes algorithm for text classification?</p>
+        <button id="hintButton12" class="hint-button" type="button" onclick="showHint('hint13')">Show Hint</button>
+    </div>
+    <div id="hint13" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It assumes that the features (words) are conditionally independent given the class.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Naive Bayes assumes that each feature in the text is independent, given the class label. This assumption simplifies computation and makes the algorithm effective for large datasets.<br><br>
+        **Key Assumptions of Naive Bayes:**<br>
+        1. Features are conditionally independent given the class.<br>
+        2. The likelihood of each feature is computed separately for each class.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA12" name="answer12" value="A" onclick="checkAnswer(12)">
+        <label for="optionA12">A) It uses a linear combination of features to calculate probabilities.</label><br>
+        <input type="radio" id="optionB12" name="answer12" value="B" onclick="checkAnswer(12)">
+        <label for="optionB12">B) It assumes that the features (words) are conditionally independent given the class.</label><br>
+        <input type="radio" id="optionC12" name="answer12" value="C" onclick="checkAnswer(12)">
+        <label for="optionC12">C) It uses a decision tree to classify text.</label><br>
+        <input type="radio" id="optionD12" name="answer12" value="D" onclick="checkAnswer(12)">
+        <label for="optionD12">D) It computes the similarity between the text and predefined categories.</label><br>
+    </div>
+    <div id="result12" class="result"></div>
+</div>
+
+<!-- Question 14 -->
+<div class="qee">
+    <div class="que">
+        <p>14. Which evaluation metric is commonly used for text classification tasks?</p>
+        <button id="hintButton13" class="hint-button" type="button" onclick="showHint('hint14')">Show Hint</button>
+    </div>
+    <div id="hint14" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Accuracy</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Accuracy is one of the most commonly used evaluation metrics for text classification tasks. It measures the proportion of correctly classified instances.<br><br>
+        **Other Evaluation Metrics for Text Classification:**<br>
+        1. Precision<br>
+        2. Recall<br>
+        3. F1 Score<br>
+        4. AUC-ROC<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA13" name="answer13" value="A" onclick="checkAnswer(13)">
+        <label for="optionA13">A) Precision</label><br>
+        <input type="radio" id="optionB13" name="answer13" value="B" onclick="checkAnswer(13)">
+        <label for="optionB13">B) Accuracy</label><br>
+        <input type="radio" id="optionC13" name="answer13" value="C" onclick="checkAnswer(13)">
+        <label for="optionC13">C) Mean Squared Error (MSE)</label><br>
+        <input type="radio" id="optionD13" name="answer13" value="D" onclick="checkAnswer(13)">
+        <label for="optionD13">D) Root Mean Squared Error (RMSE)</label><br>
+    </div>
+    <div id="result13" class="result"></div>
+</div>
+
+<!-- Question 15 -->
+<div class="qee">
+    <div class="que">
+        <p>15. What is the key difference between binary and multi-class text classification?</p>
+        <button id="hintButton14" class="hint-button" type="button" onclick="showHint('hint15')">Show Hint</button>
+    </div>
+    <div id="hint15" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Binary classification involves two classes, while multi-class classification involves more than two classes.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Binary classification involves classifying text into two categories (e.g., spam or not spam), while multi-class classification involves classifying text into more than two categories (e.g., categorizing news articles into multiple topics).<br><br>
+        **Binary vs Multi-Class Classification:**<br>
+        1. Binary Classification: Two classes<br>
+        2. Multi-Class Classification: More than two classes<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA14" name="answer14" value="A" onclick="checkAnswer(14)">
+        <label for="optionA14">A) Binary classification requires less data than multi-class classification.</label><br>
+        <input type="radio" id="optionB14" name="answer14" value="B" onclick="checkAnswer(14)">
+        <label for="optionB14">B) Binary classification involves two classes, while multi-class classification involves more than two classes.</label><br>
+        <input type="radio" id="optionC14" name="answer14" value="C" onclick="checkAnswer(14)">
+        <label for="optionC14">C) Binary classification uses a linear model, while multi-class classification uses a non-linear model.</label><br>
+        <input type="radio" id="optionD14" name="answer14" value="D" onclick="checkAnswer(14)">
+        <label for="optionD14">D) Binary classification uses a decision tree model, while multi-class classification uses Naive Bayes.</label><br>
+    </div>
+    <div id="result14" class="result"></div>
+</div>
+<!-- Question 16 -->
+<div class="qee">
+    <div class="que">
+        <p>16. What is the primary task of Named Entity Recognition (NER)?</p>
+        <button id="hintButton15" class="hint-button" type="button" onclick="showHint('hint16')">Show Hint</button>
+    </div>
+    <div id="hint16" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To identify and classify named entities (such as names of people, organizations, and locations) in text.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Named Entity Recognition (NER) is the process of locating and classifying named entities in unstructured text into predefined categories such as person names, organizations, and locations.<br><br>
+        **Common Named Entities in NER:**<br>
+        1. Person names<br>
+        2. Locations<br>
+        3. Organizations<br>
+        4. Dates and times<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA15" name="answer15" value="A" onclick="checkAnswer(15)">
+        <label for="optionA15">A) To identify the topic of the text.</label><br>
+        <input type="radio" id="optionB15" name="answer15" value="B" onclick="checkAnswer(15)">
+        <label for="optionB15">B) To identify and classify named entities (such as names of people, organizations, and locations) in text.</label><br>
+        <input type="radio" id="optionC15" name="answer15" value="C" onclick="checkAnswer(15)">
+        <label for="optionC15">C) To predict the sentiment of the text.</label><br>
+        <input type="radio" id="optionD15" name="answer15" value="D" onclick="checkAnswer(15)">
+        <label for="optionD15">D) To group similar words together based on context.</label><br>
+    </div>
+    <div id="result15" class="result"></div>
+</div>
+
+<!-- Question 17 -->
+<div class="qee">
+    <div class="que">
+        <p>17. Which of the following is NOT typically a named entity recognized in NER?</p>
+        <button id="hintButton16" class="hint-button" type="button" onclick="showHint('hint17')">Show Hint</button>
+    </div>
+    <div id="hint17" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: D) Emotion</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        NER focuses on extracting named entities such as persons, organizations, locations, and dates. Emotions are not typically recognized as entities in NER.<br><br>
+        **Common Named Entities Recognized in NER:**<br>
+        1. Person names<br>
+        2. Locations<br>
+        3. Organizations<br>
+        4. Dates<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA16" name="answer16" value="A" onclick="checkAnswer(16)">
+        <label for="optionA16">A) Person names</label><br>
+        <input type="radio" id="optionB16" name="answer16" value="B" onclick="checkAnswer(16)">
+        <label for="optionB16">B) Organizations</label><br>
+        <input type="radio" id="optionC16" name="answer16" value="C" onclick="checkAnswer(16)">
+        <label for="optionC16">C) Locations</label><br>
+        <input type="radio" id="optionD16" name="answer16" value="D" onclick="checkAnswer(16)">
+        <label for="optionD16">D) Emotion</label><br>
+    </div>
+    <div id="result16" class="result"></div>
+</div>
+
+<!-- Question 18 -->
+<div class="qee">
+    <div class="que">
+        <p>18. Which machine learning algorithm is commonly used for Named Entity Recognition (NER)?</p>
+        <button id="hintButton17" class="hint-button" type="button" onclick="showHint('hint18')">Show Hint</button>
+    </div>
+    <div id="hint18" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Conditional Random Fields (CRF)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Conditional Random Fields (CRF) are often used for sequence prediction tasks, such as Named Entity Recognition. CRF takes into account the context of the text, which is crucial for identifying entities.<br><br>
+        **Other Algorithms for NER:**<br>
+        1. Hidden Markov Models (HMM)<br>
+        2. Support Vector Machines (SVM)<br>
+        3. Deep Learning models (e.g., LSTM, BERT)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA17" name="answer17" value="A" onclick="checkAnswer(17)">
+        <label for="optionA17">A) K-means clustering</label><br>
+        <input type="radio" id="optionB17" name="answer17" value="B" onclick="checkAnswer(17)">
+        <label for="optionB17">B) Conditional Random Fields (CRF)</label><br>
+        <input type="radio" id="optionC17" name="answer17" value="C" onclick="checkAnswer(17)">
+        <label for="optionC17">C) K-Nearest Neighbors (KNN)</label><br>
+        <input type="radio" id="optionD17" name="answer17" value="D" onclick="checkAnswer(17)">
+        <label for="optionD17">D) Naive Bayes</label><br>
+    </div>
+    <div id="result17" class="result"></div>
+</div>
+
+<!-- Question 19 -->
+<div class="qee">
+    <div class="que">
+        <p>19. What is the main challenge in Named Entity Recognition (NER)?</p>
+        <button id="hintButton18" class="hint-button" type="button" onclick="showHint('hint19')">Show Hint</button>
+    </div>
+    <div id="hint19" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Ambiguity in entity recognition due to context-dependent meanings.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        NER faces challenges such as ambiguity, where the same word may refer to different entities in different contexts (e.g., "Apple" could be a fruit or a company). This makes it difficult for models to correctly identify and classify entities.<br><br>
+        **Challenges in NER:**<br>
+        1. Ambiguity<br>
+        2. Complex sentence structures<br>
+        3. Named entities that are not in standard lexicons<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA18" name="answer18" value="A" onclick="checkAnswer(18)">
+        <label for="optionA18">A) Lack of data for training the models.</label><br>
+        <input type="radio" id="optionB18" name="answer18" value="B" onclick="checkAnswer(18)">
+        <label for="optionB18">B) Ambiguity in entity recognition due to context-dependent meanings.</label><br>
+        <input type="radio" id="optionC18" name="answer18" value="C" onclick="checkAnswer(18)">
+        <label for="optionC18">C) Limited computational resources.</label><br>
+        <input type="radio" id="optionD18" name="answer18" value="D" onclick="checkAnswer(18)">
+        <label for="optionD18">D) The inability to detect all entities in a sentence.</label><br>
+    </div>
+    <div id="result18" class="result"></div>
+</div>
+
+<!-- Question 20 -->
+<div class="qee">
+    <div class="que">
+        <p>20. Which of the following is an example of a named entity in NER?</p>
+        <button id="hintButton19" class="hint-button" type="button" onclick="showHint('hint20')">Show Hint</button>
+    </div>
+    <div id="hint20" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Barack Obama</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A named entity refers to specific objects or entities in text, such as the name of a person (Barack Obama), organization (Google), or location (New York). These are identified in the NER process.<br><br>
+        **Examples of Named Entities:**<br>
+        1. Barack Obama (Person)<br>
+        2. Google (Organization)<br>
+        3. New York (Location)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA19" name="answer19" value="A" onclick="checkAnswer(19)">
+        <label for="optionA19">A) dog</label><br>
+        <input type="radio" id="optionB19" name="answer19" value="B" onclick="checkAnswer(19)">
+        <label for="optionB19">B) Barack Obama</label><br>
+        <input type="radio" id="optionC19" name="answer19" value="C" onclick="checkAnswer(19)">
+        <label for="optionC19">C) happy</label><br>
+        <input type="radio" id="optionD19" name="answer19" value="D" onclick="checkAnswer(19)">
+        <label for="optionD19">D) quickly</label><br>
+    </div>
+    <div id="result19" class="result"></div>
+</div>
+<!-- Question 21 -->
+<div class="qee">
+    <div class="que">
+        <p>21. What is the main goal of text generation in NLP?</p>
+        <button id="hintButton20" class="hint-button" type="button" onclick="showHint('hint21')">Show Hint</button>
+    </div>
+    <div id="hint21" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To generate coherent and contextually relevant text based on input data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The goal of text generation is to produce text that is not only syntactically correct but also contextually relevant, often based on some input, like a prompt or sequence of words.<br><br>
+        **Common Use Cases of Text Generation:**<br>
+        1. Autocomplete in search engines<br>
+        2. Chatbots<br>
+        3. Creative writing and storytelling<br>
+        4. Code generation<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA20" name="answer20" value="A" onclick="checkAnswer(20)">
+        <label for="optionA20">A) To classify the sentiment of a text.</label><br>
+        <input type="radio" id="optionB20" name="answer20" value="B" onclick="checkAnswer(20)">
+        <label for="optionB20">B) To generate coherent and contextually relevant text based on input data.</label><br>
+        <input type="radio" id="optionC20" name="answer20" value="C" onclick="checkAnswer(20)">
+        <label for="optionC20">C) To extract key information from a text.</label><br>
+        <input type="radio" id="optionD20" name="answer20" value="D" onclick="checkAnswer(20)">
+        <label for="optionD20">D) To detect named entities in a text.</label><br>
+    </div>
+    <div id="result20" class="result"></div>
+</div>
+
+<!-- Question 22 -->
+<div class="qee">
+    <div class="que">
+        <p>22. Which of the following algorithms is commonly used for text generation?</p>
+        <button id="hintButton21" class="hint-button" type="button" onclick="showHint('hint22')">Show Hint</button>
+    </div>
+    <div id="hint22" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Generative Pre-trained Transformer (GPT)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GPT (Generative Pre-trained Transformer) is one of the most popular algorithms for text generation. It uses a transformer architecture and is pre-trained on a large corpus of text to generate contextually relevant text.<br><br>
+        **Other Text Generation Models:**<br>
+        1. RNN (Recurrent Neural Networks)<br>
+        2. LSTM (Long Short-Term Memory)<br>
+        3. BERT (Bidirectional Encoder Representations from Transformers)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA21" name="answer21" value="A" onclick="checkAnswer(21)">
+        <label for="optionA21">A) K-Means Clustering</label><br>
+        <input type="radio" id="optionB21" name="answer21" value="B" onclick="checkAnswer(21)">
+        <label for="optionB21">B) Generative Pre-trained Transformer (GPT)</label><br>
+        <input type="radio" id="optionC21" name="answer21" value="C" onclick="checkAnswer(21)">
+        <label for="optionC21">C) Decision Trees</label><br>
+        <input type="radio" id="optionD21" name="answer21" value="D" onclick="checkAnswer(21)">
+        <label for="optionD21">D) Support Vector Machines (SVM)</label><br>
+    </div>
+    <div id="result21" class="result"></div>
+</div>
+
+<!-- Question 23 -->
+<div class="qee">
+    <div class="que">
+        <p>23. What is the primary advantage of using transformers for text generation?</p>
+        <button id="hintButton22" class="hint-button" type="button" onclick="showHint('hint23')">Show Hint</button>
+    </div>
+    <div id="hint23" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Ability to capture long-range dependencies in text.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Transformers are highly effective for text generation because they use self-attention mechanisms, which allow them to capture long-range dependencies in text. This is crucial for generating coherent and contextually appropriate text.<br><br>
+        **Benefits of Transformers:**<br>
+        1. Captures long-range dependencies<br>
+        2. Parallel processing<br>
+        3. Scalable and efficient<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA22" name="answer22" value="A" onclick="checkAnswer(22)">
+        <label for="optionA22">A) Faster training times</label><br>
+        <input type="radio" id="optionB22" name="answer22" value="B" onclick="checkAnswer(22)">
+        <label for="optionB22">B) Ability to capture long-range dependencies in text.</label><br>
+        <input type="radio" id="optionC22" name="answer22" value="C" onclick="checkAnswer(22)">
+        <label for="optionC22">C) Better accuracy in classification tasks</label><br>
+        <input type="radio" id="optionD22" name="answer22" value="D" onclick="checkAnswer(22)">
+        <label for="optionD22">D) Lower computational costs</label><br>
+    </div>
+    <div id="result22" class="result"></div>
+</div>
+
+<!-- Question 24 -->
+<div class="qee">
+    <div class="que">
+        <p>24. What type of text generation model is GPT (Generative Pre-trained Transformer)?</p>
+        <button id="hintButton23" class="hint-button" type="button" onclick="showHint('hint24')">Show Hint</button>
+    </div>
+    <div id="hint24" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Autoregressive language model</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GPT is an autoregressive language model. It generates text by predicting the next word in a sequence based on the words that have come before it.<br><br>
+        **Autoregressive Models:**<br>
+        1. GPT (Generative Pre-trained Transformer)<br>
+        2. RNN-based models<br>
+        3. LSTM-based models<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA23" name="answer23" value="A" onclick="checkAnswer(23)">
+        <label for="optionA23">A) Encoder-decoder model</label><br>
+        <input type="radio" id="optionB23" name="answer23" value="B" onclick="checkAnswer(23)">
+        <label for="optionB23">B) Autoregressive language model</label><br>
+        <input type="radio" id="optionC23" name="answer23" value="C" onclick="checkAnswer(23)">
+        <label for="optionC23">C) Generative adversarial network</label><br>
+        <input type="radio" id="optionD23" name="answer23" value="D" onclick="checkAnswer(23)">
+        <label for="optionD23">D) Discriminative model</label><br>
+    </div>
+    <div id="result23" class="result"></div>
+</div>
+
+<!-- Question 25 -->
+<div class="qee">
+    <div class="que">
+        <p>25. Which of the following is an application of text generation?</p>
+        <button id="hintButton24" class="hint-button" type="button" onclick="showHint('hint25')">Show Hint</button>
+    </div>
+    <div id="hint25" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Chatbots generating responses in natural conversations.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Text generation models, like GPT, can be used to create responses in chatbots, helping them engage in natural, human-like conversations.<br><br>
+        **Other Text Generation Applications:**<br>
+        1. Content creation<br>
+        2. Language translation<br>
+        3. Code generation<br>
+        4. Storytelling<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA24" name="answer24" value="A" onclick="checkAnswer(24)">
+        <label for="optionA24">A) Detecting sentiment in reviews</label><br>
+        <input type="radio" id="optionB24" name="answer24" value="B" onclick="checkAnswer(24)">
+        <label for="optionB24">B) Chatbots generating responses in natural conversations.</label><br>
+        <input type="radio" id="optionC24" name="answer24" value="C" onclick="checkAnswer(24)">
+        <label for="optionC24">C) Summarizing long documents</label><br>
+        <input type="radio" id="optionD24" name="answer24" value="D" onclick="checkAnswer(24)">
+        <label for="optionD24">D) Identifying named entities in a text</label><br>
+    </div>
+    <div id="result24" class="result"></div>
+</div>
+<!-- Question 26 -->
+<div class="qee">
+    <div class="que">
+        <p>26. What is the primary goal of language modeling in NLP?</p>
+        <button id="hintButton25" class="hint-button" type="button" onclick="showHint('hint26')">Show Hint</button>
+    </div>
+    <div id="hint26" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To predict the likelihood of a sequence of words in a language.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Language modeling aims to model the statistical properties of word sequences. It predicts the probability of a word given the preceding words, helping in tasks like text generation and machine translation.<br><br>
+        **Common Uses of Language Models:**<br>
+        1. Text generation<br>
+        2. Speech recognition<br>
+        3. Machine translation<br>
+        4. Text completion<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA25" name="answer25" value="A" onclick="checkAnswer(25)">
+        <label for="optionA25">A) To classify text into categories.</label><br>
+        <input type="radio" id="optionB25" name="answer25" value="B" onclick="checkAnswer(25)">
+        <label for="optionB25">B) To predict the likelihood of a sequence of words in a language.</label><br>
+        <input type="radio" id="optionC25" name="answer25" value="C" onclick="checkAnswer(25)">
+        <label for="optionC25">C) To extract entities from text.</label><br>
+        <input type="radio" id="optionD25" name="answer25" value="D" onclick="checkAnswer(25)">
+        <label for="optionD25">D) To translate text between languages.</label><br>
+    </div>
+    <div id="result25" class="result"></div>
+</div>
+
+<!-- Question 27 -->
+<div class="qee">
+    <div class="que">
+        <p>27. Which of the following models is commonly used for machine translation tasks?</p>
+        <button id="hintButton26" class="hint-button" type="button" onclick="showHint('hint27')">Show Hint</button>
+    </div>
+    <div id="hint27" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Transformer</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The Transformer model is widely used for machine translation tasks due to its ability to capture long-range dependencies in text and process sequences in parallel.<br><br>
+        **Other Models for Machine Translation:**<br>
+        1. RNN-based models<br>
+        2. LSTM-based models<br>
+        3. Encoder-decoder architecture<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA26" name="answer26" value="A" onclick="checkAnswer(26)">
+        <label for="optionA26">A) Decision Trees</label><br>
+        <input type="radio" id="optionB26" name="answer26" value="B" onclick="checkAnswer(26)">
+        <label for="optionB26">B) Transformer</label><br>
+        <input type="radio" id="optionC26" name="answer26" value="C" onclick="checkAnswer(26)">
+        <label for="optionC26">C) Naive Bayes</label><br>
+        <input type="radio" id="optionD26" name="answer26" value="D" onclick="checkAnswer(26)">
+        <label for="optionD26">D) K-Nearest Neighbors</label><br>
+    </div>
+    <div id="result26" class="result"></div>
+</div>
+
+<!-- Question 28 -->
+<div class="qee">
+    <div class="que">
+        <p>28. In machine translation, what does "encoder-decoder" architecture refer to?</p>
+        <button id="hintButton27" class="hint-button" type="button" onclick="showHint('hint28')">Show Hint</button>
+    </div>
+    <div id="hint28" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A model that encodes the input sequence and decodes it into a target sequence.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The encoder-decoder architecture is commonly used in tasks like machine translation, where the encoder processes the input sequence, and the decoder generates the translated output sequence.<br><br>
+        **Components of Encoder-Decoder:**<br>
+        1. Encoder: Processes the input sequence.<br>
+        2. Decoder: Generates the target sequence.<br>
+        3. Attention mechanisms help focus on important parts of the input while decoding.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA27" name="answer27" value="A" onclick="checkAnswer(27)">
+        <label for="optionA27">A) A model that classifies input into discrete categories.</label><br>
+        <input type="radio" id="optionB27" name="answer27" value="B" onclick="checkAnswer(27)">
+        <label for="optionB27">B) A model that encodes the input sequence and decodes it into a target sequence.</label><br>
+        <input type="radio" id="optionC27" name="answer27" value="C" onclick="checkAnswer(27)">
+        <label for="optionC27">C) A model that performs sentence segmentation.</label><br>
+        <input type="radio" id="optionD27" name="answer27" value="D" onclick="checkAnswer(27)">
+        <label for="optionD27">D) A model that detects named entities in a text.</label><br>
+    </div>
+    <div id="result27" class="result"></div>
+</div>
+
+<!-- Question 29 -->
+<div class="qee">
+    <div class="que">
+        <p>29. Which of the following techniques is commonly used to improve machine translation accuracy?</p>
+        <button id="hintButton28" class="hint-button" type="button" onclick="showHint('hint29')">Show Hint</button>
+    </div>
+    <div id="hint29" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Attention Mechanism</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The attention mechanism allows the model to focus on specific parts of the input sequence while generating the output sequence, improving translation quality.<br><br>
+        **Other Techniques for Improving Translation:**<br>
+        1. Pretraining on large datasets<br>
+        2. Fine-tuning on domain-specific data<br>
+        3. Data augmentation<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA28" name="answer28" value="A" onclick="checkAnswer(28)">
+        <label for="optionA28">A) Feature Engineering</label><br>
+        <input type="radio" id="optionB28" name="answer28" value="B" onclick="checkAnswer(28)">
+        <label for="optionB28">B) Attention Mechanism</label><br>
+        <input type="radio" id="optionC28" name="answer28" value="C" onclick="checkAnswer(28)">
+        <label for="optionC28">C) Dropout Regularization</label><br>
+        <input type="radio" id="optionD28" name="answer28" value="D" onclick="checkAnswer(28)">
+        <label for="optionD28">D) Principal Component Analysis (PCA)</label><br>
+    </div>
+    <div id="result28" class="result"></div>
+</div>
+
+<!-- Question 30 -->
+<div class="qee">
+    <div class="que">
+        <p>30. What does the "language model" in machine translation help with?</p>
+        <button id="hintButton29" class="hint-button" type="button" onclick="showHint('hint30')">Show Hint</button>
+    </div>
+    <div id="hint30" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It helps predict the next word in a translation sequence based on previous context.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A language model helps by predicting the next word in a sequence, ensuring that the translation is fluent and coherent. It captures contextual information for better accuracy.<br><br>
+        **Language Models in Machine Translation:**<br>
+        1. They improve fluency and coherence.<br>
+        2. They help handle ambiguous words.<br>
+        3. They enhance overall translation quality.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA29" name="answer29" value="A" onclick="checkAnswer(29)">
+        <label for="optionA29">A) It detects named entities in text.</label><br>
+        <input type="radio" id="optionB29" name="answer29" value="B" onclick="checkAnswer(29)">
+        <label for="optionB29">B) It helps predict the next word in a translation sequence based on previous context.</label><br>
+        <input type="radio" id="optionC29" name="answer29" value="C" onclick="checkAnswer(29)">
+        <label for="optionC29">C) It classifies sentences into categories.</label><br>
+        <input type="radio" id="optionD29" name="answer29" value="D" onclick="checkAnswer(29)">
+        <label for="optionD29">D) It analyzes the syntax of sentences in translation.</label><br>
+    </div>
+    <div id="result29" class="result"></div>
+</div>
+<!-- Question 31 -->
+<div class="qee">
+    <div class="que">
+        <p>31. What is the primary goal of text similarity tasks in NLP?</p>
+        <button id="hintButton30" class="hint-button" type="button" onclick="showHint('hint31')">Show Hint</button>
+    </div>
+    <div id="hint31" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To measure how similar two text fragments are to each other.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Text similarity tasks focus on determining the degree of similarity between two pieces of text, which can be useful in tasks like duplicate detection, paraphrase identification, and information retrieval.<br><br>
+        **Applications of Text Similarity:**<br>
+        1. Plagiarism detection<br>
+        2. Information retrieval<br>
+        3. Paraphrase detection<br>
+        4. Question answering<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA30" name="answer30" value="A" onclick="checkAnswer(30)">
+        <label for="optionA30">A) To classify text into predefined categories.</label><br>
+        <input type="radio" id="optionB30" name="answer30" value="B" onclick="checkAnswer(30)">
+        <label for="optionB30">B) To measure how similar two text fragments are to each other.</label><br>
+        <input type="radio" id="optionC30" name="answer30" value="C" onclick="checkAnswer(30)">
+        <label for="optionC30">C) To generate new text based on input.</label><br>
+        <input type="radio" id="optionD30" name="answer30" value="D" onclick="checkAnswer(30)">
+        <label for="optionD30">D) To extract named entities from a text.</label><br>
+    </div>
+    <div id="result30" class="result"></div>
+</div>
+
+<!-- Question 32 -->
+<div class="qee">
+    <div class="que">
+        <p>32. Which of the following methods is commonly used to compute text similarity?</p>
+        <button id="hintButton31" class="hint-button" type="button" onclick="showHint('hint32')">Show Hint</button>
+    </div>
+    <div id="hint32" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Cosine Similarity</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Cosine similarity is a widely used method to compute the similarity between two vectors (representing text). It calculates the cosine of the angle between two vectors, giving a measure of their similarity.<br><br>
+        **Other Methods for Text Similarity:**<br>
+        1. Jaccard Similarity<br>
+        2. Euclidean Distance<br>
+        3. Manhattan Distance<br>
+        4. Pearson Correlation<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA31" name="answer31" value="A" onclick="checkAnswer(31)">
+        <label for="optionA31">A) Jaccard Similarity</label><br>
+        <input type="radio" id="optionB31" name="answer31" value="B" onclick="checkAnswer(31)">
+        <label for="optionB31">B) Cosine Similarity</label><br>
+        <input type="radio" id="optionC31" name="answer31" value="C" onclick="checkAnswer(31)">
+        <label for="optionC31">C) Manhattan Distance</label><br>
+        <input type="radio" id="optionD31" name="answer31" value="D" onclick="checkAnswer(31)">
+        <label for="optionD31">D) Euclidean Distance</label><br>
+    </div>
+    <div id="result31" class="result"></div>
+</div>
+
+<!-- Question 33 -->
+<div class="qee">
+    <div class="que">
+        <p>33. In text matching tasks, what is the purpose of a similarity threshold?</p>
+        <button id="hintButton32" class="hint-button" type="button" onclick="showHint('hint33')">Show Hint</button>
+    </div>
+    <div id="hint33" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To decide if two text fragments are similar enough to be considered a match.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A similarity threshold helps in determining whether two pieces of text are sufficiently similar to be considered a match. If their similarity score is above the threshold, they are considered a match; otherwise, they are not.<br><br>
+        **Applications of Similarity Thresholds:**<br>
+        1. Plagiarism detection<br>
+        2. Duplicate content detection<br>
+        3. Text summarization<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA32" name="answer32" value="A" onclick="checkAnswer(32)">
+        <label for="optionA32">A) To determine the category of a text.</label><br>
+        <input type="radio" id="optionB32" name="answer32" value="B" onclick="checkAnswer(32)">
+        <label for="optionB32">B) To decide if two text fragments are similar enough to be considered a match.</label><br>
+        <input type="radio" id="optionC32" name="answer32" value="C" onclick="checkAnswer(32)">
+        <label for="optionC32">C) To rank documents based on relevance.</label><br>
+        <input type="radio" id="optionD32" name="answer32" value="D" onclick="checkAnswer(32)">
+        <label for="optionD32">D) To translate text into another language.</label><br>
+    </div>
+    <div id="result32" class="result"></div>
+</div>
+
+<!-- Question 34 -->
+<div class="qee">
+    <div class="que">
+        <p>34. Which of the following is an application of text matching in NLP?</p>
+        <button id="hintButton33" class="hint-button" type="button" onclick="showHint('hint34')">Show Hint</button>
+    </div>
+    <div id="hint34" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Paraphrase detection</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Text matching techniques, such as cosine similarity or Jaccard similarity, are commonly used for paraphrase detection. The goal is to determine whether two pieces of text convey the same meaning but in different ways.<br><br>
+        **Other Applications of Text Matching:**<br>
+        1. Duplicate content detection<br>
+        2. Information retrieval<br>
+        3. Question answering<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA33" name="answer33" value="A" onclick="checkAnswer(33)">
+        <label for="optionA33">A) Named Entity Recognition (NER)</label><br>
+        <input type="radio" id="optionB33" name="answer33" value="B" onclick="checkAnswer(33)">
+        <label for="optionB33">B) Paraphrase detection</label><br>
+        <input type="radio" id="optionC33" name="answer33" value="C" onclick="checkAnswer(33)">
+        <label for="optionC33">C) Sentiment analysis</label><br>
+        <input type="radio" id="optionD33" name="answer33" value="D" onclick="checkAnswer(33)">
+        <label for="optionD33">D) Text summarization</label><br>
+    </div>
+    <div id="result33" class="result"></div>
+</div>
+
+<!-- Question 35 -->
+<div class="qee">
+    <div class="que">
+        <p>35. What is a common challenge in text similarity tasks?</p>
+        <button id="hintButton34" class="hint-button" type="button" onclick="showHint('hint35')">Show Hint</button>
+    </div>
+    <div id="hint35" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Handling synonyms and different word orders</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A major challenge in text similarity is understanding that two phrases with synonyms or different word orders can still express the same meaning. Techniques like word embeddings can help with this challenge.<br><br>
+        **Challenges in Text Similarity:**<br>
+        1. Handling synonyms<br>
+        2. Different word orders<br>
+        3. Detecting subtle differences in meaning<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA34" name="answer34" value="A" onclick="checkAnswer(34)">
+        <label for="optionA34">A) Finding the topic of a document.</label><br>
+        <input type="radio" id="optionB34" name="answer34" value="B" onclick="checkAnswer(34)">
+        <label for="optionB34">B) Handling synonyms and different word orders</label><br>
+        <input type="radio" id="optionC34" name="answer34" value="C" onclick="checkAnswer(34)">
+        <label for="optionC34">C) Generating text based on input.</label><br>
+        <input type="radio" id="optionD34" name="answer34" value="D" onclick="checkAnswer(34)">
+        <label for="optionD34">D) Detecting named entities.</label><br>
+    </div>
+    <div id="result34" class="result"></div>
+</div>
+<!-- Question 36 -->
+<div class="qee">
+    <div class="que">
+        <p>36. What is the primary goal of a question answering system in NLP?</p>
+        <button id="hintButton35" class="hint-button" type="button" onclick="showHint('hint36')">Show Hint</button>
+    </div>
+    <div id="hint36" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To provide a relevant and accurate answer to a user's query.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A question answering (QA) system aims to provide the most relevant and accurate answer to a given question based on a dataset or a context, often using techniques like information retrieval and natural language understanding.<br><br>
+        **Types of Question Answering Systems:**<br>
+        1. Extractive QA<br>
+        2. Abstractive QA<br>
+        3. Open-domain QA<br>
+        4. Closed-domain QA<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA35" name="answer35" value="A" onclick="checkAnswer(35)">
+        <label for="optionA35">A) To categorize a given question.</label><br>
+        <input type="radio" id="optionB35" name="answer35" value="B" onclick="checkAnswer(35)">
+        <label for="optionB35">B) To provide a relevant and accurate answer to a user's query.</label><br>
+        <input type="radio" id="optionC35" name="answer35" value="C" onclick="checkAnswer(35)">
+        <label for="optionC35">C) To translate a question into another language.</label><br>
+        <input type="radio" id="optionD35" name="answer35" value="D" onclick="checkAnswer(35)">
+        <label for="optionD35">D) To extract named entities from a question.</label><br>
+    </div>
+    <div id="result35" class="result"></div>
+</div>
+
+<!-- Question 37 -->
+<div class="qee">
+    <div class="que">
+        <p>37. Which of the following techniques is commonly used in extractive question answering?</p>
+        <button id="hintButton36" class="hint-button" type="button" onclick="showHint('hint37')">Show Hint</button>
+    </div>
+    <div id="hint37" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Information retrieval</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In extractive question answering, the system retrieves relevant pieces of text from a given document or corpus that answer the question. This often involves techniques like information retrieval, where documents are ranked by their relevance.<br><br>
+        **Common Extractive QA Techniques:**<br>
+        1. TF-IDF<br>
+        2. BM25<br>
+        3. Dense Retriever<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA36" name="answer36" value="A" onclick="checkAnswer(36)">
+        <label for="optionA36">A) Named Entity Recognition (NER)</label><br>
+        <input type="radio" id="optionB36" name="answer36" value="B" onclick="checkAnswer(36)">
+        <label for="optionB36">B) Information retrieval</label><br>
+        <input type="radio" id="optionC36" name="answer36" value="C" onclick="checkAnswer(36)">
+        <label for="optionC36">C) Sentiment analysis</label><br>
+        <input type="radio" id="optionD36" name="answer36" value="D" onclick="checkAnswer(36)">
+        <label for="optionD36">D) Text summarization</label><br>
+    </div>
+    <div id="result36" class="result"></div>
+</div>
+
+<!-- Question 38 -->
+<div class="qee">
+    <div class="que">
+        <p>38. What is the difference between extractive and abstractive question answering?</p>
+        <button id="hintButton37" class="hint-button" type="button" onclick="showHint('hint38')">Show Hint</button>
+    </div>
+    <div id="hint38" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Extractive QA selects answers from existing text, while abstractive QA generates new answers.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Extractive question answering selects an answer directly from the text, while abstractive question answering generates new text to provide a more human-like answer to the question.<br><br>
+        **Key Differences:**<br>
+        1. Extractive QA: Retrieves and selects text from the document.<br>
+        2. Abstractive QA: Generates new text based on the context and question.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA37" name="answer37" value="A" onclick="checkAnswer(37)">
+        <label for="optionA37">A) Extractive QA generates new answers, while abstractive QA selects answers from text.</label><br>
+        <input type="radio" id="optionB37" name="answer37" value="B" onclick="checkAnswer(37)">
+        <label for="optionB37">B) Extractive QA selects answers from existing text, while abstractive QA generates new answers.</label><br>
+        <input type="radio" id="optionC37" name="answer37" value="C" onclick="checkAnswer(37)">
+        <label for="optionC37">C) Both methods generate new answers.</label><br>
+        <input type="radio" id="optionD37" name="answer37" value="D" onclick="checkAnswer(37)">
+        <label for="optionD37">D) Both methods select answers from existing text.</label><br>
+    </div>
+    <div id="result37" class="result"></div>
+</div>
+
+<!-- Question 39 -->
+<div class="qee">
+    <div class="que">
+        <p>39. Which of the following is an example of a closed-domain question answering system?</p>
+        <button id="hintButton38" class="hint-button" type="button" onclick="showHint('hint39')">Show Hint</button>
+    </div>
+    <div id="hint39" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A medical QA system that answers questions about diseases.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A closed-domain question answering system is designed to answer questions within a specific domain, such as medical, legal, or technical fields. It has a limited scope.<br><br>
+        **Closed-Domain QA Examples:**<br>
+        1. Medical question answering<br>
+        2. Legal document interpretation<br>
+        3. Customer service bots<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA38" name="answer38" value="A" onclick="checkAnswer(38)">
+        <label for="optionA38">A) A system that answers any general question.</label><br>
+        <input type="radio" id="optionB38" name="answer38" value="B" onclick="checkAnswer(38)">
+        <label for="optionB38">B) A medical QA system that answers questions about diseases.</label><br>
+        <input type="radio" id="optionC38" name="answer38" value="C" onclick="checkAnswer(38)">
+        <label for="optionC38">C) A chatbot that answers a wide range of queries.</label><br>
+        <input type="radio" id="optionD38" name="answer38" value="D" onclick="checkAnswer(38)">
+        <label for="optionD38">D) A search engine that answers factual questions.</label><br>
+    </div>
+    <div id="result38" class="result"></div>
+</div>
+
+<!-- Question 40 -->
+<div class="qee">
+    <div class="que">
+        <p>40. Which of the following is a common evaluation metric for question answering systems?</p>
+        <button id="hintButton39" class="hint-button" type="button" onclick="showHint('hint40')">Show Hint</button>
+    </div>
+    <div id="hint40" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) F1 Score</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        F1 score is a commonly used evaluation metric in question answering systems, especially when the dataset contains imbalanced classes. It combines precision and recall into a single metric.<br><br>
+        **Other QA Evaluation Metrics:**<br>
+        1. Exact Match (EM)<br>
+        2. Precision<br>
+        3. Recall<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA39" name="answer39" value="A" onclick="checkAnswer(39)">
+        <label for="optionA39">A) Accuracy</label><br>
+        <input type="radio" id="optionB39" name="answer39" value="B" onclick="checkAnswer(39)">
+        <label for="optionB39">B) F1 Score</label><br>
+        <input type="radio" id="optionC39" name="answer39" value="C" onclick="checkAnswer(39)">
+        <label for="optionC39">C) Root Mean Squared Error (RMSE)</label><br>
+        <input type="radio" id="optionD39" name="answer39" value="D" onclick="checkAnswer(39)">
+        <label for="optionD39">D) Mean Squared Error (MSE)</label><br>
+    </div>
+    <div id="result39" class="result"></div>
+</div>
+<!-- Question 41 -->
+<div class="qee">
+    <div class="que">
+        <p>41. What is the primary goal of speech recognition in NLP?</p>
+        <button id="hintButton40" class="hint-button" type="button" onclick="showHint('hint41')">Show Hint</button>
+    </div>
+    <div id="hint41" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To convert spoken language into written text.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Speech recognition involves processing and converting spoken language into text, enabling machines to understand and respond to human speech.<br><br>
+        **Common Applications of Speech Recognition:**<br>
+        1. Virtual assistants (e.g., Siri, Alexa)<br>
+        2. Transcription services<br>
+        3. Voice search<br>
+        4. Voice commands<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA40" name="answer40" value="A" onclick="checkAnswer(40)">
+        <label for="optionA40">A) To identify and classify sounds in speech.</label><br>
+        <input type="radio" id="optionB40" name="answer40" value="B" onclick="checkAnswer(40)">
+        <label for="optionB40">B) To convert spoken language into written text.</label><br>
+        <input type="radio" id="optionC40" name="answer40" value="C" onclick="checkAnswer(40)">
+        <label for="optionC40">C) To enhance the quality of spoken language.</label><br>
+        <input type="radio" id="optionD40" name="answer40" value="D" onclick="checkAnswer(40)">
+        <label for="optionD40">D) To recognize the speaker’s emotions.</label><br>
+    </div>
+    <div id="result40" class="result"></div>
+</div>
+
+<!-- Question 42 -->
+<div class="qee">
+    <div class="que">
+        <p>42. Which of the following is a challenge in speech recognition?</p>
+        <button id="hintButton41" class="hint-button" type="button" onclick="showHint('hint42')">Show Hint</button>
+    </div>
+    <div id="hint42" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Accents and speech variations</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Accents, speech variations, and background noise are major challenges in speech recognition systems. These factors can reduce the accuracy of speech-to-text conversion.<br><br>
+        **Other Common Challenges in Speech Recognition:**<br>
+        1. Homophones (words that sound the same but have different meanings)<br>
+        2. Noise and distortions<br>
+        3. Multiple speakers<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA41" name="answer41" value="A" onclick="checkAnswer(41)">
+        <label for="optionA41">A) Limited vocabulary</label><br>
+        <input type="radio" id="optionB41" name="answer41" value="B" onclick="checkAnswer(41)">
+        <label for="optionB41">B) Accents and speech variations</label><br>
+        <input type="radio" id="optionC41" name="answer41" value="C" onclick="checkAnswer(41)">
+        <label for="optionC41">C) Slow processing speed</label><br>
+        <input type="radio" id="optionD41" name="answer41" value="D" onclick="checkAnswer(41)">
+        <label for="optionD41">D) Lack of user input</label><br>
+    </div>
+    <div id="result41" class="result"></div>
+</div>
+
+<!-- Question 43 -->
+<div class="qee">
+    <div class="que">
+        <p>43. What is the role of acoustic models in speech recognition?</p>
+        <button id="hintButton42" class="hint-button" type="button" onclick="showHint('hint43')">Show Hint</button>
+    </div>
+    <div id="hint43" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To model the relationship between phonetic units and audio signals.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Acoustic models are responsible for mapping audio signals to phonetic units or features. They help the system identify the sounds that make up words and sentences.<br><br>
+        **Components of a Speech Recognition System:**<br>
+        1. Acoustic Model<br>
+        2. Language Model<br>
+        3. Decoder<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA42" name="answer42" value="A" onclick="checkAnswer(42)">
+        <label for="optionA42">A) To convert written text into audio signals.</label><br>
+        <input type="radio" id="optionB42" name="answer42" value="B" onclick="checkAnswer(42)">
+        <label for="optionB42">B) To model the relationship between phonetic units and audio signals.</label><br>
+        <input type="radio" id="optionC42" name="answer42" value="C" onclick="checkAnswer(42)">
+        <label for="optionC42">C) To improve the clarity of speech.</label><br>
+        <input type="radio" id="optionD42" name="answer42" value="D" onclick="checkAnswer(42)">
+        <label for="optionD42">D) To recognize individual words in speech.</label><br>
+    </div>
+    <div id="result42" class="result"></div>
+</div>
+
+<!-- Question 44 -->
+<div class="qee">
+    <div class="que">
+        <p>44. Which of the following is an important application of speech recognition?</p>
+        <button id="hintButton43" class="hint-button" type="button" onclick="showHint('hint44')">Show Hint</button>
+    </div>
+    <div id="hint44" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Voice assistants</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Voice assistants like Siri, Alexa, and Google Assistant are some of the most popular applications of speech recognition technology. They allow users to interact with devices through voice commands.<br><br>
+        **Other Applications of Speech Recognition:**<br>
+        1. Dictation software<br>
+        2. Speech-to-text transcription<br>
+        3. Voice commands for smart devices<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA43" name="answer43" value="A" onclick="checkAnswer(43)">
+        <label for="optionA43">A) Optical character recognition</label><br>
+        <input type="radio" id="optionB43" name="answer43" value="B" onclick="checkAnswer(43)">
+        <label for="optionB43">B) Voice assistants</label><br>
+        <input type="radio" id="optionC43" name="answer43" value="C" onclick="checkAnswer(43)">
+        <label for="optionC43">C) Image recognition</label><br>
+        <input type="radio" id="optionD43" name="answer43" value="D" onclick="checkAnswer(43)">
+        <label for="optionD43">D) Text summarization</label><br>
+    </div>
+    <div id="result43" class="result"></div>
+</div>
+
+<!-- Question 45 -->
+<div class="qee">
+    <div class="que">
+        <p>45. Which of the following techniques is commonly used for feature extraction in speech recognition?</p>
+        <button id="hintButton44" class="hint-button" type="button" onclick="showHint('hint45')">Show Hint</button>
+    </div>
+    <div id="hint45" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Mel-Frequency Cepstral Coefficients (MFCC)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Mel-Frequency Cepstral Coefficients (MFCC) are widely used features in speech recognition systems to capture the spectral properties of speech.<br><br>
+        **Other Feature Extraction Techniques:**<br>
+        1. Linear Predictive Coding (LPC)<br>
+        2. Spectrogram<br>
+        3. Filter banks<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA44" name="answer44" value="A" onclick="checkAnswer(44)">
+        <label for="optionA44">A) Principal Component Analysis (PCA)</label><br>
+        <input type="radio" id="optionB44" name="answer44" value="B" onclick="checkAnswer(44)">
+        <label for="optionB44">B) Mel-Frequency Cepstral Coefficients (MFCC)</label><br>
+        <input type="radio" id="optionC44" name="answer44" value="C" onclick="checkAnswer(44)">
+        <label for="optionC44">C) Convolutional Neural Networks (CNN)</label><br>
+        <input type="radio" id="optionD44" name="answer44" value="D" onclick="checkAnswer(44)">
+        <label for="optionD44">D) Recurrent Neural Networks (RNN)</label><br>
+    </div>
+    <div id="result44" class="result"></div>
+</div>
+<!-- Question 46 -->
+<div class="qee">
+    <div class="que">
+        <p>46. What is the primary goal of Text-to-Speech (TTS) systems?</p>
+        <button id="hintButton45" class="hint-button" type="button" onclick="showHint('hint46')">Show Hint</button>
+    </div>
+    <div id="hint46" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To convert written text into spoken words.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The goal of a Text-to-Speech (TTS) system is to take text input and convert it into natural-sounding speech. This is particularly useful in applications such as virtual assistants, reading software, and navigation systems.<br><br>
+        **Common Applications of TTS:**<br>
+        1. Virtual assistants (e.g., Google Assistant, Siri)<br>
+        2. Screen readers for visually impaired individuals<br>
+        3. Navigation systems in cars<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA45" name="answer45" value="A" onclick="checkAnswer(45)">
+        <label for="optionA45">A) To convert audio into text.</label><br>
+        <input type="radio" id="optionB45" name="answer45" value="B" onclick="checkAnswer(45)">
+        <label for="optionB45">B) To convert written text into spoken words.</label><br>
+        <input type="radio" id="optionC45" name="answer45" value="C" onclick="checkAnswer(45)">
+        <label for="optionC45">C) To analyze spoken language.</label><br>
+        <input type="radio" id="optionD45" name="answer45" value="D" onclick="checkAnswer(45)">
+        <label for="optionD45">D) To enhance text readability.</label><br>
+    </div>
+    <div id="result45" class="result"></div>
+</div>
+
+<!-- Question 47 -->
+<div class="qee">
+    <div class="que">
+        <p>47. Which of the following is a key component in a Text-to-Speech (TTS) system?</p>
+        <button id="hintButton46" class="hint-button" type="button" onclick="showHint('hint47')">Show Hint</button>
+    </div>
+    <div id="hint47" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Voice synthesis</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Voice synthesis is a key component in TTS systems. It involves the generation of speech from text, converting written content into natural-sounding spoken words.<br><br>
+        **Other Components of TTS Systems:**<br>
+        1. Text processing<br>
+        2. Phoneme generation<br>
+        3. Prosody modeling<br>
+        4. Signal processing<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA46" name="answer46" value="A" onclick="checkAnswer(46)">
+        <label for="optionA46">A) Data augmentation</label><br>
+        <input type="radio" id="optionB46" name="answer46" value="B" onclick="checkAnswer(46)">
+        <label for="optionB46">B) Voice synthesis</label><br>
+        <input type="radio" id="optionC46" name="answer46" value="C" onclick="checkAnswer(46)">
+        <label for="optionC46">C) Text normalization</label><br>
+        <input type="radio" id="optionD46" name="answer46" value="D" onclick="checkAnswer(46)">
+        <label for="optionD46">D) Speech-to-text conversion</label><br>
+    </div>
+    <div id="result46" class="result"></div>
+</div>
+
+<!-- Question 48 -->
+<div class="qee">
+    <div class="que">
+        <p>48. Which technique is commonly used in modern Text-to-Speech (TTS) systems to produce more natural speech?</p>
+        <button id="hintButton47" class="hint-button" type="button" onclick="showHint('hint48')">Show Hint</button>
+    </div>
+    <div id="hint48" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Deep Learning-based neural networks</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Deep learning techniques, particularly neural networks, are widely used in modern TTS systems. They help produce more natural and expressive speech by learning from large datasets of human speech.<br><br>
+        **Common TTS Techniques:**<br>
+        1. Concatenative synthesis<br>
+        2. Parametric synthesis<br>
+        3. Neural network-based synthesis<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA47" name="answer47" value="A" onclick="checkAnswer(47)">
+        <label for="optionA47">A) Rule-based synthesis</label><br>
+        <input type="radio" id="optionB47" name="answer47" value="B" onclick="checkAnswer(47)">
+        <label for="optionB47">B) Deep Learning-based neural networks</label><br>
+        <input type="radio" id="optionC47" name="answer47" value="C" onclick="checkAnswer(47)">
+        <label for="optionC47">C) Signal processing algorithms</label><br>
+        <input type="radio" id="optionD47" name="answer47" value="D" onclick="checkAnswer(47)">
+        <label for="optionD47">D) Hidden Markov Models (HMM)</label><br>
+    </div>
+    <div id="result47" class="result"></div>
+</div>
+
+<!-- Question 49 -->
+<div class="qee">
+    <div class="que">
+        <p>49. Which of the following is an application of Text-to-Speech (TTS) technology?</p>
+        <button id="hintButton48" class="hint-button" type="button" onclick="showHint('hint49')">Show Hint</button>
+    </div>
+    <div id="hint49" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Screen readers for the visually impaired</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Screen readers are one of the most important applications of TTS technology. They help visually impaired individuals by reading out text displayed on a screen.<br><br>
+        **Other TTS Applications:**<br>
+        1. Voice assistants<br>
+        2. Automated customer support systems<br>
+        3. GPS navigation systems<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA48" name="answer48" value="A" onclick="checkAnswer(48)">
+        <label for="optionA48">A) Handwriting recognition</label><br>
+        <input type="radio" id="optionB48" name="answer48" value="B" onclick="checkAnswer(48)">
+        <label for="optionB48">B) Screen readers for the visually impaired</label><br>
+        <input type="radio" id="optionC48" name="answer48" value="C" onclick="checkAnswer(48)">
+        <label for="optionC48">C) Image captioning systems</label><br>
+        <input type="radio" id="optionD48" name="answer48" value="D" onclick="checkAnswer(48)">
+        <label for="optionD48">D) Data encryption tools</label><br>
+    </div>
+    <div id="result48" class="result"></div>
+</div>
+
+<!-- Question 50 -->
+<div class="qee">
+    <div class="que">
+        <p>50. What is one of the main challenges of Text-to-Speech (TTS) systems?</p>
+        <button id="hintButton49" class="hint-button" type="button" onclick="showHint('hint50')">Show Hint</button>
+    </div>
+    <div id="hint50" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Generating natural-sounding prosody and intonation.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One of the biggest challenges in TTS systems is generating natural-sounding speech, especially when it comes to prosody (intonation, stress, rhythm) and expressing emotions.<br><br>
+        **Other Challenges in TTS:**<br>
+        1. Handling homophones<br>
+        2. Improving speech fluency<br>
+        3. Ensuring context-appropriate speech generation<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA49" name="answer49" value="A" onclick="checkAnswer(49)">
+        <label for="optionA49">A) Speed of speech generation</label><br>
+        <input type="radio" id="optionB49" name="answer49" value="B" onclick="checkAnswer(49)">
+        <label for="optionB49">B) Generating natural-sounding prosody and intonation</label><br>
+        <input type="radio" id="optionC49" name="answer49" value="C" onclick="checkAnswer(49)">
+        <label for="optionC49">C) Reducing the size of voice models</label><br>
+        <input type="radio" id="optionD49" name="answer49" value="D" onclick="checkAnswer(49)">
+        <label for="optionD49">D) Synchronizing speech with gestures</label><br>
+    </div>
+    <div id="result49" class="result"></div>
+</div>
+<!-- Question 51 -->
+<div class="qee">
+    <div class="que">
+        <p>51. What is the primary goal of a dialog system?</p>
+        <button id="hintButton50" class="hint-button" type="button" onclick="showHint('hint51')">Show Hint</button>
+    </div>
+    <div id="hint51" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To enable natural and meaningful interactions between humans and machines.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The primary goal of a dialog system is to facilitate communication between users and machines through natural language, enabling meaningful and contextually relevant exchanges.<br><br>
+        **Applications of Dialog Systems:**<br>
+        1. Virtual assistants (e.g., Siri, Alexa)<br>
+        2. Customer service chatbots<br>
+        3. Interactive voice response (IVR) systems<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA50" name="answer50" value="A" onclick="checkAnswer(50)">
+        <label for="optionA50">A) To process large amounts of data.</label><br>
+        <input type="radio" id="optionB50" name="answer50" value="B" onclick="checkAnswer(50)">
+        <label for="optionB50">B) To enable natural and meaningful interactions between humans and machines.</label><br>
+        <input type="radio" id="optionC50" name="answer50" value="C" onclick="checkAnswer(50)">
+        <label for="optionC50">C) To perform complex computations.</label><br>
+        <input type="radio" id="optionD50" name="answer50" value="D" onclick="checkAnswer(50)">
+        <label for="optionD50">D) To analyze sentiment in text.</label><br>
+    </div>
+    <div id="result50" class="result"></div>
+</div>
+
+<!-- Question 52 -->
+<div class="qee">
+    <div class="que">
+        <p>52. Which of the following is a key component of a dialog system?</p>
+        <button id="hintButton51" class="hint-button" type="button" onclick="showHint('hint52')">Show Hint</button>
+    </div>
+    <div id="hint52" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Natural Language Understanding (NLU)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Natural Language Understanding (NLU) is a key component in dialog systems, as it enables the system to understand user inputs, including identifying intent, extracting entities, and processing natural language.<br><br>
+        **Other Components of Dialog Systems:**<br>
+        1. Natural Language Generation (NLG)<br>
+        2. Dialogue Management<br>
+        3. Speech Recognition<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA51" name="answer51" value="A" onclick="checkAnswer(51)">
+        <label for="optionA51">A) Text Summarization</label><br>
+        <input type="radio" id="optionB51" name="answer51" value="B" onclick="checkAnswer(51)">
+        <label for="optionB51">B) Natural Language Understanding (NLU)</label><br>
+        <input type="radio" id="optionC51" name="answer51" value="C" onclick="checkAnswer(51)">
+        <label for="optionC51">C) Image Recognition</label><br>
+        <input type="radio" id="optionD51" name="answer51" value="D" onclick="checkAnswer(51)">
+        <label for="optionD51">D) Text Classification</label><br>
+    </div>
+    <div id="result51" class="result"></div>
+</div>
+
+<!-- Question 53 -->
+<div class="qee">
+    <div class="que">
+        <p>53. What is the main difference between task-oriented and conversational dialog systems?</p>
+        <button id="hintButton52" class="hint-button" type="button" onclick="showHint('hint53')">Show Hint</button>
+    </div>
+    <div id="hint53" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Task-oriented dialog systems focus on specific tasks, while conversational systems aim for general, open-ended conversation.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Task-oriented dialog systems are designed to help users complete specific tasks (e.g., booking a flight), while conversational dialog systems aim to hold more general and free-flowing conversations (e.g., chatting with a virtual assistant).<br><br>
+        **Examples:**<br>
+        1. Task-oriented: Booking a ticket, ordering food.<br>
+        2. Conversational: Chatbots for general conversation, virtual assistants.<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA52" name="answer52" value="A" onclick="checkAnswer(52)">
+        <label for="optionA52">A) Task-oriented systems are less complex than conversational systems.</label><br>
+        <input type="radio" id="optionB52" name="answer52" value="B" onclick="checkAnswer(52)">
+        <label for="optionB52">B) Task-oriented dialog systems focus on specific tasks, while conversational systems aim for general, open-ended conversation.</label><br>
+        <input type="radio" id="optionC52" name="answer52" value="C" onclick="checkAnswer(52)">
+        <label for="optionC52">C) Task-oriented systems are only for customer support.</label><br>
+        <input type="radio" id="optionD52" name="answer52" value="D" onclick="checkAnswer(52)">
+        <label for="optionD52">D) Task-oriented systems do not use Natural Language Processing.</label><br>
+    </div>
+    <div id="result52" class="result"></div>
+</div>
+
+<!-- Question 54 -->
+<div class="qee">
+    <div class="que">
+        <p>54. Which of the following technologies is most commonly used in dialog systems for recognizing spoken language?</p>
+        <button id="hintButton53" class="hint-button" type="button" onclick="showHint('hint54')">Show Hint</button>
+    </div>
+    <div id="hint54" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Automatic Speech Recognition (ASR)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Automatic Speech Recognition (ASR) is a technology used in dialog systems to convert spoken language into text, enabling the system to process and respond to voice commands.<br><br>
+        **Other Technologies in Dialog Systems:**<br>
+        1. Natural Language Understanding (NLU)<br>
+        2. Text-to-Speech (TTS)<br>
+        3. Dialogue Management<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA53" name="answer53" value="A" onclick="checkAnswer(53)">
+        <label for="optionA53">A) Image Recognition</label><br>
+        <input type="radio" id="optionB53" name="answer53" value="B" onclick="checkAnswer(53)">
+        <label for="optionB53">B) Automatic Speech Recognition (ASR)</label><br>
+        <input type="radio" id="optionC53" name="answer53" value="C" onclick="checkAnswer(53)">
+        <label for="optionC53">C) Sentiment Analysis</label><br>
+        <input type="radio" id="optionD53" name="answer53" value="D" onclick="checkAnswer(53)">
+        <label for="optionD53">D) Image Captioning</label><br>
+    </div>
+    <div id="result53" class="result"></div>
+</div>
+
+<!-- Question 55 -->
+<div class="qee">
+    <div class="que">
+        <p>55. Which of the following is an example of a dialog system application?</p>
+        <button id="hintButton54" class="hint-button" type="button" onclick="showHint('hint55')">Show Hint</button>
+    </div>
+    <div id="hint55" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Virtual assistants like Siri and Alexa</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Virtual assistants such as Siri and Alexa are examples of dialog systems that use natural language processing to interact with users in a conversational manner.<br><br>
+        **Other Examples:**<br>
+        1. Chatbots for customer service<br>
+        2. IVR systems<br>
+        3. AI-based help desks<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA54" name="answer54" value="A" onclick="checkAnswer(54)">
+        <label for="optionA54">A) Recommender systems</label><br>
+        <input type="radio" id="optionB54" name="answer54" value="B" onclick="checkAnswer(54)">
+        <label for="optionB54">B) Virtual assistants like Siri and Alexa</label><br>
+        <input type="radio" id="optionC54" name="answer54" value="C" onclick="checkAnswer(54)">
+        <label for="optionC54">C) Email filtering systems</label><br>
+        <input type="radio" id="optionD54" name="answer54" value="D" onclick="checkAnswer(54)">
+        <label for="optionD54">D) Image recognition systems</label><br>
+    </div>
+    <div id="result54" class="result"></div>
+</div>
+<!-- Question 56 -->
+<div class="qee">
+    <div class="que">
+        <p>56. What is the primary objective of Information Extraction (IE)?</p>
+        <button id="hintButton55" class="hint-button" type="button" onclick="showHint('hint56')">Show Hint</button>
+    </div>
+    <div id="hint56" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To extract structured information from unstructured text.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Information Extraction (IE) aims to automatically extract structured information (e.g., entities, relationships) from unstructured data sources like text. This process is key in various applications such as document summarization and question answering.<br><br>
+        **Key Steps in Information Extraction:**<br>
+        1. Named Entity Recognition (NER)<br>
+        2. Relationship extraction<br>
+        3. Event extraction<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA55" name="answer55" value="A" onclick="checkAnswer(55)">
+        <label for="optionA55">A) To classify text into predefined categories.</label><br>
+        <input type="radio" id="optionB55" name="answer55" value="B" onclick="checkAnswer(55)">
+        <label for="optionB55">B) To extract structured information from unstructured text.</label><br>
+        <input type="radio" id="optionC55" name="answer55" value="C" onclick="checkAnswer(55)">
+        <label for="optionC55">C) To generate text based on input data.</label><br>
+        <input type="radio" id="optionD55" name="answer55" value="D" onclick="checkAnswer(55)">
+        <label for="optionD55">D) To translate text from one language to another.</label><br>
+    </div>
+    <div id="result55" class="result"></div>
+</div>
+
+<!-- Question 57 -->
+<div class="qee">
+    <div class="que">
+        <p>57. Which of the following is a typical task in Information Extraction?</p>
+        <button id="hintButton56" class="hint-button" type="button" onclick="showHint('hint57')">Show Hint</button>
+    </div>
+    <div id="hint57" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Named Entity Recognition (NER)</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Named Entity Recognition (NER) is a key task in Information Extraction, where the goal is to identify and classify entities (such as names of people, organizations, or locations) within a text.<br><br>
+        **Other Tasks in Information Extraction:**<br>
+        1. Event extraction<br>
+        2. Relationship extraction<br>
+        3. Coreference resolution<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA56" name="answer56" value="A" onclick="checkAnswer(56)">
+        <label for="optionA56">A) Speech recognition</label><br>
+        <input type="radio" id="optionB56" name="answer56" value="B" onclick="checkAnswer(56)">
+        <label for="optionB56">B) Named Entity Recognition (NER)</label><br>
+        <input type="radio" id="optionC56" name="answer56" value="C" onclick="checkAnswer(56)">
+        <label for="optionC56">C) Text summarization</label><br>
+        <input type="radio" id="optionD56" name="answer56" value="D" onclick="checkAnswer(56)">
+        <label for="optionD56">D) Sentiment analysis</label><br>
+    </div>
+    <div id="result56" class="result"></div>
+</div>
+
+<!-- Question 58 -->
+<div class="qee">
+    <div class="que">
+        <p>58. In the context of Information Extraction, what does "relation extraction" refer to?</p>
+        <button id="hintButton57" class="hint-button" type="button" onclick="showHint('hint58')">Show Hint</button>
+    </div>
+    <div id="hint58" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Extracting relationships between named entities in a text.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Relation extraction involves identifying and extracting relationships between entities in a text. For example, identifying that "Steve Jobs" is the "CEO of" "Apple Inc." based on context.<br><br>
+        **Example of Relation Extraction:**<br>
+        1. Entity 1: Steve Jobs<br>
+        2. Entity 2: Apple Inc.<br>
+        3. Relationship: CEO of<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA57" name="answer57" value="A" onclick="checkAnswer(57)">
+        <label for="optionA57">A) Identifying the sentiment of the text.</label><br>
+        <input type="radio" id="optionB57" name="answer57" value="B" onclick="checkAnswer(57)">
+        <label for="optionB57">B) Extracting relationships between named entities in a text.</label><br>
+        <input type="radio" id="optionC57" name="answer57" value="C" onclick="checkAnswer(57)">
+        <label for="optionC57">C) Classifying text into predefined categories.</label><br>
+        <input type="radio" id="optionD57" name="answer57" value="D" onclick="checkAnswer(57)">
+        <label for="optionD57">D) Generating summaries of a document.</label><br>
+    </div>
+    <div id="result57" class="result"></div>
+</div>
+
+<!-- Question 59 -->
+<div class="qee">
+    <div class="que">
+        <p>59. Which of the following is an example of an application of Information Extraction?</p>
+        <button id="hintButton58" class="hint-button" type="button" onclick="showHint('hint59')">Show Hint</button>
+    </div>
+    <div id="hint59" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Extracting key details from news articles.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Information Extraction is used to pull key details, such as names, dates, and events, from large bodies of unstructured text, like news articles or scientific papers.<br><br>
+        **Other Applications:**<br>
+        1. Summarizing medical reports<br>
+        2. Extracting financial information from documents<br>
+        3. Building knowledge graphs<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA58" name="answer58" value="A" onclick="checkAnswer(58)">
+        <label for="optionA58">A) Generating captions for images.</label><br>
+        <input type="radio" id="optionB58" name="answer58" value="B" onclick="checkAnswer(58)">
+        <label for="optionB58">B) Extracting key details from news articles.</label><br>
+        <input type="radio" id="optionC58" name="answer58" value="C" onclick="checkAnswer(58)">
+        <label for="optionC58">C) Translating text from one language to another.</label><br>
+        <input type="radio" id="optionD58" name="answer58" value="D" onclick="checkAnswer(58)">
+        <label for="optionD58">D) Recognizing speech from audio recordings.</label><br>
+    </div>
+    <div id="result58" class="result"></div>
+</div>
+
+<!-- Question 60 -->
+<div class="qee">
+    <div class="que">
+        <p>60. Which of the following techniques is commonly used in the preprocessing step of Information Extraction?</p>
+        <button id="hintButton59" class="hint-button" type="button" onclick="showHint('hint60')">Show Hint</button>
+    </div>
+    <div id="hint60" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Tokenization</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Tokenization is a crucial step in Information Extraction, where text is broken down into smaller units like words, sentences, or phrases. This helps in identifying key information such as entities or relationships.<br><br>
+        **Other Preprocessing Steps:**<br>
+        1. Part-of-speech tagging<br>
+        2. Named Entity Recognition (NER)<br>
+        3. Stop-word removal<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA59" name="answer59" value="A" onclick="checkAnswer(59)">
+        <label for="optionA59">A) Sentiment analysis</label><br>
+        <input type="radio" id="optionB59" name="answer59" value="B" onclick="checkAnswer(59)">
+        <label for="optionB59">B) Tokenization</label><br>
+        <input type="radio" id="optionC59" name="answer59" value="C" onclick="checkAnswer(59)">
+        <label for="optionC59">C) Text classification</label><br>
+        <input type="radio" id="optionD59" name="answer59" value="D" onclick="checkAnswer(59)">
+        <label for="optionD59">D) Named Entity Recognition (NER)</label><br>
+    </div>
+    <div id="result59" class="result"></div>
+</div>
+<!-- Question 61 -->
+<div class="qee">
+    <div class="que">
+        <p>61. What is the main task of coreference resolution in NLP?</p>
+        <button id="hintButton60" class="hint-button" type="button" onclick="showHint('hint61')">Show Hint</button>
+    </div>
+    <div id="hint61" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To identify which words in a text refer to the same entity.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Coreference resolution is the process of identifying words or phrases in a text that refer to the same entity, such as resolving pronouns like "he," "she," "it," to their antecedents (e.g., "John," "the cat").<br><br>
+        **Example:**<br>
+        "John went to the store. He bought some milk." Here, "He" refers to "John."
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA60" name="answer60" value="A" onclick="checkAnswer(60)">
+        <label for="optionA60">A) To classify text into different topics.</label><br>
+        <input type="radio" id="optionB60" name="answer60" value="B" onclick="checkAnswer(60)">
+        <label for="optionB60">B) To identify which words in a text refer to the same entity.</label><br>
+        <input type="radio" id="optionC60" name="answer60" value="C" onclick="checkAnswer(60)">
+        <label for="optionC60">C) To generate paraphrases of sentences.</label><br>
+        <input type="radio" id="optionD60" name="answer60" value="D" onclick="checkAnswer(60)">
+        <label for="optionD60">D) To translate sentences from one language to another.</label><br>
+    </div>
+    <div id="result60" class="result"></div>
+</div>
+
+<!-- Question 62 -->
+<div class="qee">
+    <div class="que">
+        <p>62. Which of the following is a common challenge in coreference resolution?</p>
+        <button id="hintButton61" class="hint-button" type="button" onclick="showHint('hint62')">Show Hint</button>
+    </div>
+    <div id="hint62" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Ambiguity in pronoun references.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Ambiguity arises when a pronoun or noun phrase could refer to multiple entities in the text. For example, in the sentence "Sarah told Jane that she would be late," it's unclear whether "she" refers to Sarah or Jane.<br><br>
+        **Other challenges include:**<br>
+        1. Handling long-distance coreference.<br>
+        2. Identifying non-pronoun references (e.g., "the president").
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA61" name="answer61" value="A" onclick="checkAnswer(61)">
+        <label for="optionA61">A) Lack of relevant training data.</label><br>
+        <input type="radio" id="optionB61" name="answer61" value="B" onclick="checkAnswer(61)">
+        <label for="optionB61">B) Ambiguity in pronoun references.</label><br>
+        <input type="radio" id="optionC61" name="answer61" value="C" onclick="checkAnswer(61)">
+        <label for="optionC61">C) Lack of entity extraction techniques.</label><br>
+        <input type="radio" id="optionD61" name="answer61" value="D" onclick="checkAnswer(61)">
+        <label for="optionD61">D) Lack of syntax parsing.</label><br>
+    </div>
+    <div id="result61" class="result"></div>
+</div>
+
+<!-- Question 63 -->
+<div class="qee">
+    <div class="que">
+        <p>63. Which of the following is an example of a coreference resolution task?</p>
+        <button id="hintButton62" class="hint-button" type="button" onclick="showHint('hint63')">Show Hint</button>
+    </div>
+    <div id="hint63" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Resolving the pronoun "it" to "the book".</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Coreference resolution involves identifying which noun or phrase a pronoun refers to. For example, in the sentence "I finished the book. It was great," "it" refers to "the book".<br><br>
+        **Other examples include:**<br>
+        1. "John saw Mary. He waved to her." (John → He, Mary → her)<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA62" name="answer62" value="A" onclick="checkAnswer(62)">
+        <label for="optionA62">A) Predicting the sentiment of a sentence.</label><br>
+        <input type="radio" id="optionB62" name="answer62" value="B" onclick="checkAnswer(62)">
+        <label for="optionB62">B) Resolving the pronoun "it" to "the book".</label><br>
+        <input type="radio" id="optionC62" name="answer62" value="C" onclick="checkAnswer(62)">
+        <label for="optionC62">C) Classifying text into predefined categories.</label><br>
+        <input type="radio" id="optionD62" name="answer62" value="D" onclick="checkAnswer(62)">
+        <label for="optionD62">D) Translating sentences from one language to another.</label><br>
+    </div>
+    <div id="result62" class="result"></div>
+</div>
+
+<!-- Question 64 -->
+<div class="qee">
+    <div class="que">
+        <p>64. Which of the following techniques is commonly used in coreference resolution?</p>
+        <button id="hintButton63" class="hint-button" type="button" onclick="showHint('hint64')">Show Hint</button>
+    </div>
+    <div id="hint64" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Machine learning-based approaches.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Coreference resolution is often tackled using machine learning techniques such as supervised learning, where models are trained on labeled datasets to predict coreference links. Other techniques include rule-based methods and deep learning approaches.<br><br>
+        **Common algorithms:**<br>
+        1. Support Vector Machines (SVMs)<br>
+        2. Recurrent Neural Networks (RNNs)<br>
+        3. Conditional Random Fields (CRFs)
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA63" name="answer63" value="A" onclick="checkAnswer(63)">
+        <label for="optionA63">A) Rule-based heuristics.</label><br>
+        <input type="radio" id="optionB63" name="answer63" value="B" onclick="checkAnswer(63)">
+        <label for="optionB63">B) Machine learning-based approaches.</label><br>
+        <input type="radio" id="optionC63" name="answer63" value="C" onclick="checkAnswer(63)">
+        <label for="optionC63">C) Sentiment analysis.</label><br>
+        <input type="radio" id="optionD63" name="answer63" value="D" onclick="checkAnswer(63)">
+        <label for="optionD63">D) Text classification.</label><br>
+    </div>
+    <div id="result63" class="result"></div>
+</div>
+
+<!-- Question 65 -->
+<div class="qee">
+    <div class="que">
+        <p>65. What is a common evaluation metric for coreference resolution systems?</p>
+        <button id="hintButton64" class="hint-button" type="button" onclick="showHint('hint65')">Show Hint</button>
+    </div>
+    <div id="hint65" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) F1 score.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        The F1 score is commonly used to evaluate the performance of coreference resolution systems. It is the harmonic mean of precision and recall and provides a balance between them.<br><br>
+        **Other evaluation metrics:**<br>
+        1. Precision<br>
+        2. Recall<br>
+        3. Accuracy<br>
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA64" name="answer64" value="A" onclick="checkAnswer(64)">
+        <label for="optionA64">A) Precision.</label><br>
+        <input type="radio" id="optionB64" name="answer64" value="B" onclick="checkAnswer(64)">
+        <label for="optionB64">B) F1 score.</label><br>
+        <input type="radio" id="optionC64" name="answer64" value="C" onclick="checkAnswer(64)">
+        <label for="optionC64">C) BLEU score.</label><br>
+        <input type="radio" id="optionD64" name="answer64" value="D" onclick="checkAnswer(64)">
+        <label for="optionD64">D) ROUGE score.</label><br>
+    </div>
+    <div id="result64" class="result"></div>
+</div>
+<!-- Question 66 -->
+<div class="qee">
+    <div class="que">
+        <p>66. What is the primary goal of a text-based recommender system?</p>
+        <button id="hintButton65" class="hint-button" type="button" onclick="showHint('hint66')">Show Hint</button>
+    </div>
+    <div id="hint66" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) To recommend items based on the text content of the items and user preferences.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Text-based recommender systems analyze the content of text (such as product descriptions, movie plots, or user reviews) and recommend items that are similar to the user’s interests based on the text content.<br><br>
+        **Examples of Text-based Recommender Systems:**<br>
+        1. Movie recommendation based on genre, plot summary, or reviews.<br>
+        2. Product recommendation based on product descriptions.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA65" name="answer65" value="A" onclick="checkAnswer(65)">
+        <label for="optionA65">A) To recommend items based on user demographic information.</label><br>
+        <input type="radio" id="optionB65" name="answer65" value="B" onclick="checkAnswer(65)">
+        <label for="optionB65">B) To recommend items based on the text content of the items and user preferences.</label><br>
+        <input type="radio" id="optionC65" name="answer65" value="C" onclick="checkAnswer(65)">
+        <label for="optionC65">C) To recommend items based on user ratings and feedback.</label><br>
+        <input type="radio" id="optionD65" name="answer65" value="D" onclick="checkAnswer(65)">
+        <label for="optionD65">D) To recommend items based on collaborative filtering.</label><br>
+    </div>
+    <div id="result65" class="result"></div>
+</div>
+
+<!-- Question 67 -->
+<div class="qee">
+    <div class="que">
+        <p>67. Which technique is commonly used in text-based recommender systems?</p>
+        <button id="hintButton66" class="hint-button" type="button" onclick="showHint('hint67')">Show Hint</button>
+    </div>
+    <div id="hint67" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Content-based filtering.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Content-based filtering is commonly used in text-based recommender systems. It recommends items based on the similarity between the content of the items and the user's past preferences. For example, recommending books based on the genre or keywords in the descriptions.<br><br>
+        **Other recommendation techniques include:**<br>
+        1. Collaborative filtering<br>
+        2. Hybrid filtering<br>
+        3. Matrix factorization
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA66" name="answer66" value="A" onclick="checkAnswer(66)">
+        <label for="optionA66">A) Collaborative filtering.</label><br>
+        <input type="radio" id="optionB66" name="answer66" value="B" onclick="checkAnswer(66)">
+        <label for="optionB66">B) Content-based filtering.</label><br>
+        <input type="radio" id="optionC66" name="answer66" value="C" onclick="checkAnswer(66)">
+        <label for="optionC66">C) Matrix factorization.</label><br>
+        <input type="radio" id="optionD66" name="answer66" value="D" onclick="checkAnswer(66)">
+        <label for="optionD66">D) Collaborative filtering with matrix factorization.</label><br>
+    </div>
+    <div id="result66" class="result"></div>
+</div>
+
+<!-- Question 68 -->
+<div class="qee">
+    <div class="que">
+        <p>68. What is a key limitation of content-based recommender systems?</p>
+        <button id="hintButton67" class="hint-button" type="button" onclick="showHint('hint68')">Show Hint</button>
+    </div>
+    <div id="hint68" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Limited ability to recommend new or diverse items.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A major limitation of content-based recommender systems is that they primarily recommend items similar to those the user has interacted with in the past, which can lead to a lack of diversity or novelty in recommendations.<br><br>
+        **Other limitations include:**<br>
+        1. Dependence on item descriptions.<br>
+        2. Difficulty in recommending items outside a user’s established preferences.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA67" name="answer67" value="A" onclick="checkAnswer(67)">
+        <label for="optionA67">A) Lack of personalization.</label><br>
+        <input type="radio" id="optionB67" name="answer67" value="B" onclick="checkAnswer(67)">
+        <label for="optionB67">B) Limited ability to recommend new or diverse items.</label><br>
+        <input type="radio" id="optionC67" name="answer67" value="C" onclick="checkAnswer(67)">
+        <label for="optionC67">C) Overemphasis on user ratings.</label><br>
+        <input type="radio" id="optionD67" name="answer67" value="D" onclick="checkAnswer(67)">
+        <label for="optionD67">D) High computational cost.</label><br>
+    </div>
+    <div id="result67" class="result"></div>
+</div>
+
+<!-- Question 69 -->
+<div class="qee">
+    <div class="que">
+        <p>69. In a text-based recommender system, what does item similarity typically depend on?</p>
+        <button id="hintButton68" class="hint-button" type="button" onclick="showHint('hint69')">Show Hint</button>
+    </div>
+    <div id="hint69" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Text features such as keywords, descriptions, and tags.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        In text-based recommender systems, item similarity is generally determined by analyzing text features such as keywords, descriptions, and tags. Items with similar content will be considered similar by the system.<br><br>
+        **Example:**<br>
+        Recommending books with similar genres, authors, or themes based on the description text.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA68" name="answer68" value="A" onclick="checkAnswer(68)">
+        <label for="optionA68">A) User preferences and ratings.</label><br>
+        <input type="radio" id="optionB68" name="answer68" value="B" onclick="checkAnswer(68)">
+        <label for="optionB68">B) Text features such as keywords, descriptions, and tags.</label><br>
+        <input type="radio" id="optionC68" name="answer68" value="C" onclick="checkAnswer(68)">
+        <label for="optionC68">C) Collaborative filtering techniques.</label><br>
+        <input type="radio" id="optionD68" name="answer68" value="D" onclick="checkAnswer(68)">
+        <label for="optionD68">D) User demographic data.</label><br>
+    </div>
+    <div id="result68" class="result"></div>
+</div>
+
+<!-- Question 70 -->
+<div class="qee">
+    <div class="que">
+        <p>70. Which of the following methods is typically used to compute similarity between items in text-based recommender systems?</p>
+        <button id="hintButton69" class="hint-button" type="button" onclick="showHint('hint70')">Show Hint</button>
+    </div>
+    <div id="hint70" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Cosine similarity.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Cosine similarity is one of the most common methods used to compute the similarity between two items based on their text content. It measures the cosine of the angle between two vectors representing the items' text features.<br><br>
+        **Other methods include:**<br>
+        1. Euclidean distance.<br>
+        2. Jaccard similarity.<br>
+        3. Pearson correlation.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA69" name="answer69" value="A" onclick="checkAnswer(69)">
+        <label for="optionA69">A) Jaccard similarity.</label><br>
+        <input type="radio" id="optionB69" name="answer69" value="B" onclick="checkAnswer(69)">
+        <label for="optionB69">B) Cosine similarity.</label><br>
+        <input type="radio" id="optionC69" name="answer69" value="C" onclick="checkAnswer(69)">
+        <label for="optionC69">C) Euclidean distance.</label><br>
+        <input type="radio" id="optionD69" name="answer69" value="D" onclick="checkAnswer(69)">
+        <label for="optionD69">D) Pearson correlation.</label><br>
+    </div>
+    <div id="result69" class="result"></div>
+</div>
+<!-- Question 71 -->
+<div class="qee">
+    <div class="que">
+        <p>71. What is the primary concern regarding bias in NLP models?</p>
+        <button id="hintButton70" class="hint-button" type="button" onclick="showHint('hint71')">Show Hint</button>
+    </div>
+    <div id="hint71" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) NLP models can perpetuate or amplify societal biases present in training data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Bias in NLP models arises because these models learn from data that may contain human biases. If the training data reflects societal biases, the models can inadvertently perpetuate or amplify these biases in their predictions and outputs.<br><br>
+        **Examples of biases include:**<br>
+        1. Gender bias.<br>
+        2. Racial bias.<br>
+        3. Age bias.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA70" name="answer70" value="A" onclick="checkAnswer(70)">
+        <label for="optionA70">A) Bias is not a concern in NLP models.</label><br>
+        <input type="radio" id="optionB70" name="answer70" value="B" onclick="checkAnswer(70)">
+        <label for="optionB70">B) NLP models can perpetuate or amplify societal biases present in training data.</label><br>
+        <input type="radio" id="optionC70" name="answer70" value="C" onclick="checkAnswer(70)">
+        <label for="optionC70">C) Bias in NLP models improves their accuracy.</label><br>
+        <input type="radio" id="optionD70" name="answer70" value="D" onclick="checkAnswer(70)">
+        <label for="optionD70">D) NLP models always reflect objective and unbiased outputs.</label><br>
+    </div>
+    <div id="result70" class="result"></div>
+</div>
+
+<!-- Question 72 -->
+<div class="qee">
+    <div class="que">
+        <p>72. What is one of the main causes of bias in NLP models?</p>
+        <button id="hintButton71" class="hint-button" type="button" onclick="showHint('hint72')">Show Hint</button>
+    </div>
+    <div id="hint72" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Biased training data reflecting societal stereotypes.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A primary cause of bias in NLP models is the biased data used to train them. If the training data reflects existing societal stereotypes or imbalances, the model will likely learn these biases and replicate them in its outputs.<br><br>
+        **Examples of biased data include:**<br>
+        1. Texts that associate certain genders with specific professions.<br>
+        2. Language that reflects racial or ethnic biases.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA71" name="answer71" value="A" onclick="checkAnswer(71)">
+        <label for="optionA71">A) The algorithm’s inability to process large datasets.</label><br>
+        <input type="radio" id="optionB71" name="answer71" value="B" onclick="checkAnswer(71)">
+        <label for="optionB71">B) Biased training data reflecting societal stereotypes.</label><br>
+        <input type="radio" id="optionC71" name="answer71" value="C" onclick="checkAnswer(71)">
+        <label for="optionC71">C) Inadequate processing of numerical data.</label><br>
+        <input type="radio" id="optionD71" name="answer71" value="D" onclick="checkAnswer(71)">
+        <label for="optionD71">D) Lack of training on linguistic diversity.</label><br>
+    </div>
+    <div id="result71" class="result"></div>
+</div>
+
+<!-- Question 73 -->
+<div class="qee">
+    <div class="que">
+        <p>73. How can bias in NLP models be mitigated?</p>
+        <button id="hintButton72" class="hint-button" type="button" onclick="showHint('hint73')">Show Hint</button>
+    </div>
+    <div id="hint73" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) By using diverse and representative training data.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        One of the most effective ways to mitigate bias in NLP models is to ensure that the training data is diverse and representative of different demographics and viewpoints. This can help prevent models from learning biased patterns and producing unfair outputs.<br><br>
+        **Other strategies include:**<br>
+        1. Bias detection and correction techniques.<br>
+        2. Post-processing adjustments to correct biased outputs.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA72" name="answer72" value="A" onclick="checkAnswer(72)">
+        <label for="optionA72">A) By limiting the use of external data.</label><br>
+        <input type="radio" id="optionB72" name="answer72" value="B" onclick="checkAnswer(72)">
+        <label for="optionB72">B) By using diverse and representative training data.</label><br>
+        <input type="radio" id="optionC72" name="answer72" value="C" onclick="checkAnswer(72)">
+        <label for="optionC72">C) By using smaller datasets to reduce noise.</label><br>
+        <input type="radio" id="optionD72" name="answer72" value="D" onclick="checkAnswer(72)">
+        <label for="optionD72">D) By focusing only on numerical data for training.</label><br>
+    </div>
+    <div id="result72" class="result"></div>
+</div>
+
+<!-- Question 74 -->
+<div class="qee">
+    <div class="que">
+        <p>74. What is fairness in the context of NLP models?</p>
+        <button id="hintButton73" class="hint-button" type="button" onclick="showHint('hint74')">Show Hint</button>
+    </div>
+    <div id="hint74" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Ensuring that NLP models make decisions that are free from unjust bias and discrimination.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Fairness in NLP refers to the ability of a model to make decisions and predictions that are free from unjust biases or discrimination against certain groups. This includes ensuring that the model’s behavior is equitable across different demographic groups.<br><br>
+        **Fairness considerations include:**<br>
+        1. Ensuring equal treatment of all demographic groups.<br>
+        2. Avoiding adverse impacts on certain groups, such as gender, race, or age.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA73" name="answer73" value="A" onclick="checkAnswer(73)">
+        <label for="optionA73">A) Ensuring that models make decisions based solely on user preferences.</label><br>
+        <input type="radio" id="optionB73" name="answer73" value="B" onclick="checkAnswer(73)">
+        <label for="optionB73">B) Ensuring that NLP models make decisions that are free from unjust bias and discrimination.</label><br>
+        <input type="radio" id="optionC73" name="answer73" value="C" onclick="checkAnswer(73)">
+        <label for="optionC73">C) Ensuring that models operate at optimal efficiency.</label><br>
+        <input type="radio" id="optionD73" name="answer73" value="D" onclick="checkAnswer(73)">
+        <label for="optionD73">D) Ensuring that all predictions are made using exact numerical data.</label><br>
+    </div>
+    <div id="result73" class="result"></div>
+</div>
+
+<!-- Question 75 -->
+<div class="qee">
+    <div class="que">
+        <p>75. Which of the following is an example of a fairness issue in NLP?</p>
+        <button id="hintButton74" class="hint-button" type="button" onclick="showHint('hint75')">Show Hint</button>
+    </div>
+    <div id="hint75" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) A sentiment analysis model that shows negative bias against certain ethnic groups.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        A fairness issue occurs when a model’s predictions disproportionately harm or benefit a specific group. For instance, if a sentiment analysis model consistently assigns negative sentiment to text written by individuals from certain ethnic groups, this represents an unfair and biased outcome.<br><br>
+        **Other examples of fairness issues:**<br>
+        1. Gender bias in job recommendation systems.<br>
+        2. Racial bias in facial recognition software.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA74" name="answer74" value="A" onclick="checkAnswer(74)">
+        <label for="optionA74">A) A machine translation model that handles multiple languages equally well.</label><br>
+        <input type="radio" id="optionB74" name="answer74" value="B" onclick="checkAnswer(74)">
+        <label for="optionB74">B) A sentiment analysis model that shows negative bias against certain ethnic groups.</label><br>
+        <input type="radio" id="optionC74" name="answer74" value="C" onclick="checkAnswer(74)">
+        <label for="optionC74">C) A model that works equally well for all users.</label><br>
+        <input type="radio" id="optionD74" name="answer74" value="D" onclick="checkAnswer(74)">
+        <label for="optionD74">D) A recommendation system that learns from user preferences.</label><br>
+    </div>
+    <div id="result74" class="result"></div>
+</div>
+<!-- Question 76 -->
+<div class="qee">
+    <div class="que">
+        <p>76. What is a key characteristic of transformer models in NLP?</p>
+        <button id="hintButton75" class="hint-button" type="button" onclick="showHint('hint76')">Show Hint</button>
+    </div>
+    <div id="hint76" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Use of attention mechanisms to process sequences in parallel.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Transformer models revolutionized NLP by introducing the attention mechanism, which allows them to process sequences in parallel rather than sequentially. This leads to improved performance and efficiency in handling long-range dependencies in text.<br><br>
+        **Key features of transformer models:**<br>
+        1. Parallel processing of sequences.<br>
+        2. Self-attention mechanism.<br>
+        3. Better scalability for long sequences.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA75" name="answer75" value="A" onclick="checkAnswer(75)">
+        <label for="optionA75">A) RNN-based architecture.</label><br>
+        <input type="radio" id="optionB75" name="answer75" value="B" onclick="checkAnswer(75)">
+        <label for="optionB75">B) Use of attention mechanisms to process sequences in parallel.</label><br>
+        <input type="radio" id="optionC75" name="answer75" value="C" onclick="checkAnswer(75)">
+        <label for="optionC75">C) Strict sequential processing of data.</label><br>
+        <input type="radio" id="optionD75" name="answer75" value="D" onclick="checkAnswer(75)">
+        <label for="optionD75">D) Requires fixed-length input sequences.</label><br>
+    </div>
+    <div id="result75" class="result"></div>
+</div>
+
+<!-- Question 77 -->
+<div class="qee">
+    <div class="que">
+        <p>77. What is BERT primarily used for in NLP tasks?</p>
+        <button id="hintButton76" class="hint-button" type="button" onclick="showHint('hint77')">Show Hint</button>
+    </div>
+    <div id="hint77" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) Pre-trained model for fine-tuning on specific NLP tasks.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        BERT (Bidirectional Encoder Representations from Transformers) is a pre-trained transformer model that is fine-tuned for specific NLP tasks such as text classification, question answering, and named entity recognition. Its bidirectional nature helps it understand context better.<br><br>
+        **Common NLP tasks with BERT:**<br>
+        1. Sentiment analysis.<br>
+        2. Question answering.<br>
+        3. Named entity recognition (NER).
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA76" name="answer76" value="A" onclick="checkAnswer(76)">
+        <label for="optionA76">A) A model for translating text into different languages.</label><br>
+        <input type="radio" id="optionB76" name="answer76" value="B" onclick="checkAnswer(76)">
+        <label for="optionB76">B) Pre-trained model for fine-tuning on specific NLP tasks.</label><br>
+        <input type="radio" id="optionC76" name="answer76" value="C" onclick="checkAnswer(76)">
+        <label for="optionC76">C) A generative model for text creation.</label><br>
+        <input type="radio" id="optionD76" name="answer76" value="D" onclick="checkAnswer(76)">
+        <label for="optionD76">D) A model for analyzing large-scale datasets.</label><br>
+    </div>
+    <div id="result76" class="result"></div>
+</div>
+
+<!-- Question 78 -->
+<div class="qee">
+    <div class="que">
+        <p>78. What makes GPT-3 unique compared to other NLP models?</p>
+        <button id="hintButton77" class="hint-button" type="button" onclick="showHint('hint78')">Show Hint</button>
+    </div>
+    <div id="hint78" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) It is a generative model with a massive number of parameters and few-shot learning capability.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GPT-3 (Generative Pre-trained Transformer 3) is known for its impressive scale, with 175 billion parameters. Its unique strength lies in its few-shot learning ability, meaning it can perform tasks with minimal task-specific training.<br><br>
+        **Key features of GPT-3:**<br>
+        1. Few-shot learning.<br>
+        2. High number of parameters.<br>
+        3. Text generation capabilities.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA77" name="answer77" value="A" onclick="checkAnswer(77)">
+        <label for="optionA77">A) It is primarily used for machine translation tasks.</label><br>
+        <input type="radio" id="optionB77" name="answer77" value="B" onclick="checkAnswer(77)">
+        <label for="optionB77">B) It is a generative model with a massive number of parameters and few-shot learning capability.</label><br>
+        <input type="radio" id="optionC77" name="answer77" value="C" onclick="checkAnswer(77)">
+        <label for="optionC77">C) It is designed for small-scale tasks with minimal computation.</label><br>
+        <input type="radio" id="optionD77" name="answer77" value="D" onclick="checkAnswer(77)">
+        <label for="optionD77">D) It is a model designed specifically for speech recognition.</label><br>
+    </div>
+    <div id="result77" class="result"></div>
+</div>
+
+<!-- Question 79 -->
+<div class="qee">
+    <div class="que">
+        <p>79. What is the key difference between GPT and BERT?</p>
+        <button id="hintButton78" class="hint-button" type="button" onclick="showHint('hint79')">Show Hint</button>
+    </div>
+    <div id="hint79" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: C) GPT is a generative model, whereas BERT is designed for bidirectional context understanding.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        GPT (Generative Pre-trained Transformer) is designed as a generative model, focusing on text generation, while BERT (Bidirectional Encoder Representations from Transformers) focuses on understanding the context of words in a sentence bidirectionally, making it ideal for tasks like text classification and question answering.<br><br>
+        **Differences between GPT and BERT:**<br>
+        1. GPT is generative, BERT is discriminative.<br>
+        2. GPT processes text unidirectionally, BERT bidirectionally.<br>
+        3. GPT is used for generation tasks, BERT for understanding tasks.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA78" name="answer78" value="A" onclick="checkAnswer(78)">
+        <label for="optionA78">A) GPT is a pre-trained model for fine-tuning on text classification tasks.</label><br>
+        <input type="radio" id="optionB78" name="answer78" value="B" onclick="checkAnswer(78)">
+        <label for="optionB78">B) BERT is a generative model for text generation tasks.</label><br>
+        <input type="radio" id="optionC78" name="answer78" value="C" onclick="checkAnswer(78)">
+        <label for="optionC78">C) GPT is a generative model, whereas BERT is designed for bidirectional context understanding.</label><br>
+        <input type="radio" id="optionD78" name="answer78" value="D" onclick="checkAnswer(78)">
+        <label for="optionD78">D) GPT is designed for text summarization, while BERT is for machine translation.</label><br>
+    </div>
+    <div id="result78" class="result"></div>
+</div>
+
+<!-- Question 80 -->
+<div class="qee">
+    <div class="que">
+        <p>80. What is the advantage of using pre-trained models like GPT-3 or BERT in NLP tasks?</p>
+        <button id="hintButton79" class="hint-button" type="button" onclick="showHint('hint80')">Show Hint</button>
+    </div>
+    <div id="hint80" style="display: none; margin-top: 10px; color: #555;">
+        <strong>Correct Option: B) They can be fine-tuned on specific tasks with less data and computational cost.</strong><br><br>
+        <strong>Solution and Explanation:</strong><br>
+        Pre-trained models like GPT-3 and BERT can be fine-tuned on specific tasks, which allows them to leverage vast amounts of general language knowledge. This reduces the need for large task-specific datasets and computational resources, making it more efficient to apply them to real-world problems.<br><br>
+        **Advantages of pre-trained models:**<br>
+        1. Reduce the amount of labeled data needed for specific tasks.<br>
+        2. Provide better generalization across tasks.<br>
+        3. Save computational resources and time.
+    </div>
+    <div class="options">
+        <input type="radio" id="optionA79" name="answer79" value="A" onclick="checkAnswer(79)">
+        <label for="optionA79">A) They are only useful for large datasets.</label><br>
+        <input type="radio" id="optionB79" name="answer79" value="B" onclick="checkAnswer(79)">
+        <label for="optionB79">B) They can be fine-tuned on specific tasks with less data and computational cost.</label><br>
+        <input type="radio" id="optionC79" name="answer79" value="C" onclick="checkAnswer(79)">
+        <label for="optionC79">C) They always outperform task-specific models.</label><br>
+        <input type="radio" id="optionD79" name="answer79" value="D" onclick="checkAnswer(79)">
+        <label for="optionD79">D) They are only useful for tasks requiring large-scale text generation.</label><br>
+    </div>
+    <div id="result79" class="result"></div>
+</div>
+
+            
+            
+                        <!-- Repeat similar code for more questions... -->
+
+            <div class="navigation-buttons">
+                <button id="prevButton" onclick="previousQuestion()">Previous</button>
+                <button id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>
