@@ -18,8 +18,9 @@ app.use(cors()); // Enable CORS for frontend requests
 app.use(express.static(path.join(__dirname, '../Frontend')));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../Frontend'));
-  });
+    res.sendFile(path.join(__dirname, '../Frontend', 'index.html'));
+});
+
   
 
 // -------------Contact Form Submit Code-------------------------
@@ -37,7 +38,7 @@ app.post("/send-email", (req, res) => {
     const { name, email, message } = req.body;
 
     const mailOptions = {
-        from: email,  
+        from: process.env.EMAIL_USER,  
         to: process.env.EMAIL_USER, 
         subject: `${name}`,
         text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
@@ -57,7 +58,7 @@ app.post("/hsend-email", (req, res) => {
     const { name, email, subject, message } = req.body;
 
     const mailOptions = {
-        from:email,
+        from:process.env.EMAIL_USER,
         to: process.env.EMAIL_USER,
         replyTo: email,
         subject: `${name} - ${subject}`,
@@ -82,7 +83,6 @@ app.post("/hsend-email", (req, res) => {
 
 // Registration for react
 app.post("/register", async (req, res) => {
-    console.log(req.body);
     const { user_name, email, password } = req.body;
     if (!user_name || !password || !email) {
         return res.status(400).send('Please fill in all fields.');
